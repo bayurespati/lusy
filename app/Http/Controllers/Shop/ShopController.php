@@ -10,6 +10,8 @@ use App\SubCategory;
 use App\ShopInquiry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 class ShopController extends Controller
 {
@@ -149,21 +151,22 @@ class ShopController extends Controller
 
     public function overseasInquiry(Request $request, ShopItem $shopItem){
 
-    	$shopInquiry = new ShopInquiry;
+        $tempData = new \stdClass();
+        $tempData->type = 'book';
+        $tempData->subject = 'Shop';
+        $tempData->item_name = $shopItem->title;
+        $tempData->buyer_name = $request->buyer_name;
+        $tempData->email = $request->email;
+        $tempData->phone = $request->phone;
+        $tempData->address = $request->address;
+        $tempData->city = $request->city;
+        $tempData->state_province = $request->state_province;
+        $tempData->postal_code = $request->postal_code;
+        $member->gender = (int) $request->gender === 1 ? 'Male' : 'Female';
+        $tempData->notes = $request->notes;
+        $tempData->quantity = $request->quantity;
 
-        $shopInquiry->shop_item_id = $shopItem->id;
-        $shopInquiry->buyer_name = $request->buyer_name;
-        $shopInquiry->gender = $request->gender;
-        $shopInquiry->email = $request->email;
-        $shopInquiry->address = $request->address;
-        $shopInquiry->city = $request->city;
-        $shopInquiry->state_province = $request->state_province;
-        $shopInquiry->postal_code = $request->postal_code;
-        $shopInquiry->notes = $request->notes;
-        $shopInquiry->quantity = $request->quantity;
-        $shopInquiry->is_confirmed = 0;
-
-        $shopInquiry->save();
+        Mail::to('respatibayu48@gmail.com')->send(new SendMail($tempData));
 
         return back();
     }

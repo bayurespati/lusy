@@ -381,6 +381,8 @@
 
 @push('additional_js')
 <script>
+    localStorage.clear();
+
     function setIdClass($param, $title){
         document.getElementById('about_contents_id').value = $param;
         document.getElementById('modal-opening').innerHTML = 'Please fill in the form below in order to register to <strong>' + $title + '</strong> class and we will be back to you as soon as possible.';

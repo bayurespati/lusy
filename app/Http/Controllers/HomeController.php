@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -76,56 +78,80 @@ class HomeController extends Controller
 
     public function addMember(Request $request){
 
-    	$validator = Validator::make($request->all(),
-    		array('email'  => 'required|email|unique:members',)
-        );
+    	$date = explode('/', str_replace(' ', '', $request->date_of_birth) );
+		$date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
+		$date_of_birth = Carbon::parse($date_of_birth);
 
-		if(!$validator->fails()){
+    	$tempClass = AboutContent::find($request->class_id);
+    	$tempData = new \stdClass();
+    	$tempData->type = 'class';
+        $tempData->subject = 'Class Register';
+        $tempData->class_name = $tempClass->title;
+    	$tempData->name = $request->name;
+	    $tempData->gender = (int) $request->gender === 1 ? 'Male' : 'Female';
+	    $tempData->place_of_birth = $request->place_of_birth;
+	    $tempData->date_of_birth = $date_of_birth->format('d F Y');
+	    $tempData->address = $request->address;
+	    $tempData->email = $request->email;
+	    $tempData->telephone = $request->telephone;
+	    $tempData->mobile = $request->mobile;
+	    $tempData->fax = $request->fax;
 
-			DB::transaction(function () use ($request) {
+	    Mail::to('respatibayu48@gmail.com')->send(new SendMail($tempData));
 
-				$date = explode('/', str_replace(' ', '', $request->date_of_birth) );
-			    $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
-
-			    $member = new Member;
-			    $member->name = $request->name;
-			    $member->gender = $request->gender;
-			    $member->place_of_birth = $request->place_of_birth;
-			    $member->date_of_birth = $date_of_birth;
-			    $member->address = $request->address;
-
-			    $member->email = $request->email;
-			    $member->telephone = $request->telephone;
-			    $member->mobile = $request->mobile;
-			    $member->fax = $request->fax;
-
-			    $member->is_teacher = false;
-			    $member->is_active = false;
-			    $member->save();
-
-			    $member->class()->attach($request->class_id, ['is_approve' => false]);
-
-		    });
-
-		}else{
-
-			$alradyHasClass = false;
-
-			$member = Member::where('email', $request->email)->with('class')->first();
-
-			foreach ($member->class as $class) {
-				if($class['pivot']->class_id == (int) $request->class_id){
-					$alradyHasClass = true;
-				}
-			}
-
-			if(!$alradyHasClass){
-				$member->class()->attach($request->class_id, ['is_approve' => false]);
-			}else{
-				return back();
-			}
-		}
-    	
 	    return back();
+	    
+
+    	// $validator = Validator::make($request->all(),
+    		// array('email'  => 'required|email|unique:members',)
+        // );
+
+		// if(!$validator->fails()){
+
+		// 	DB::transaction(function () use ($request) {
+
+				// $date = explode('/', str_replace(' ', '', $request->date_of_birth) );
+			    // $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
+
+		// 	    $member = new Member;
+		// 	    $member->name = $request->name;
+		// 	    $member->gender = $request->gender;
+		// 	    $member->place_of_birth = $request->place_of_birth;
+		// 	    $member->date_of_birth = $date_of_birth;
+		// 	    $member->address = $request->address;
+
+		// 	    $member->email = $request->email;
+		// 	    $member->telephone = $request->telephone;
+		// 	    $member->mobile = $request->mobile;
+		// 	    $member->fax = $request->fax;
+
+		// 	    $member->is_teacher = false;
+		// 	    $member->is_active = false;
+		// 	    $member->save();
+
+		// 	    $member->class()->attach($request->class_id, ['is_approve' => false]);
+
+		//     });
+
+		// }else{
+
+		// 	$alradyHasClass = false;
+
+		// 	$member = Member::where('email', $request->email)->with('class')->first();
+
+		// 	foreach ($member->class as $class) {
+		// 		if($class['pivot']->class_id == (int) $request->class_id){
+		// 			$alradyHasClass = true;
+		// 		}
+		// 	}
+
+		// 	if(!$alradyHasClass){
+		// 		$member->class()->attach($request->class_id, ['is_approve' => false]);
+		// 	}else{
+		// 		return back();
+		// 	}
+		// }
+    	
+	    // return back();
     }
 }

@@ -10,6 +10,8 @@ use App\ApplicantList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -39,7 +41,7 @@ class EventController extends Controller
                 $event->day = $startDate->format('l');
             }
             else {
-                $event->day = $startDate->format('l') + ' - ' + $endDate->format('l');
+                // $event->day = $startDate->format('l') + ' - ' + $endDate->format('l');
             }
 
             $event->dayDate = $startDate->format('d');
@@ -249,16 +251,33 @@ class EventController extends Controller
 
 
     public function registration(Request $request, Event $event){
-    	$applicantList = new ApplicantList;
 
-        $applicantList->event_id = $event->id;
-        $applicantList->name = $request->name;
-        $applicantList->email = $request->email;
-        $applicantList->phone = $request->phone;
-        $applicantList->is_approve = false;
+        $tempData = new \stdClass();
+        $tempData->type = 'event';
+        $tempData->subject = 'Event registration';
+        $tempData->event_name = $event->title;
+        $tempData->name = $request->name;
+        $tempData->phone = $request->phone;
+        $tempData->email = $request->email;
+        $tempData->gender = (int) $request->gender === 1 ? 'Male' : 'Female';
+        $tempData->address = $request->address;
+        $tempData->message = $request->message;
 
-        $applicantList->save();
+        Mail::to('respatibayu48@gmail.com')->send(new SendMail($tempData));
 
         return back();
+
+
+    	// $applicantList = new ApplicantList;
+
+        // $applicantList->event_id = $event->id;
+        // $applicantList->name = $request->name;
+        // $applicantList->email = $request->email;
+        // $applicantList->phone = $request->phone;
+        // $applicantList->is_approve = false;
+
+        // $applicantList->save();
+
+        // return back();
     }
 }

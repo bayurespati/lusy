@@ -137,7 +137,10 @@
 
                 }else if(this.type === 'gender'){
 
-                    return { name: 'Gender', value: this.member.gender === 1 ? 'Male' : 'Female' }
+                    return { 
+                        name: 'Gender', 
+                        value: (this.member.gender === 1 || this.member.gender === '1') ? 'Male' : 'Female' 
+                    }
 
                 }else if(this.type === 'rank'){
 

@@ -28,7 +28,7 @@
                             </div>
                         
                             <div class="col-sm-8">
-                                {{ member.gender == 1 ? 'Men' : 'Women' }}
+                                {{ member.gender == 1 ? 'Male' : 'Female' }}
                             </div>
                         </div>
 

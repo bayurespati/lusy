@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>Overseas Inquiry</h3>
+    <h3>Class Region</h3>
     <p class="mb-3">
       Here is where you can see list of Class Region
     </p>
