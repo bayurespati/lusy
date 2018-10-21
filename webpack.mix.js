@@ -11,5 +11,33 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/assets/js/app.js', 'public/js');
+
+mix.styles([	
+	'resources/assets/lib/revolution/css/settings.css',
+	'resources/assets/lib/revolution/css/layers.css',
+	'resources/assets/lib/revolution/css/navigation.css',
+	'resources/assets/lib/lib.css',	
+	'resources/assets/css/style.css',
+	'resources/assets/css/plugins.css',
+	'resources/assets/css/navigation-menu.css',
+	'resources/assets/css/shortcode.css',
+], 'public/css/base.css');
+
+mix.scripts([
+	'resources/assets/js/jquery-1.12.4.min.js',
+	'resources/assets/lib/lib.js',
+	'resources/assets/lib/revolution/js/jquery.themepunch.tools.min.js',
+	'resources/assets/lib/revolution/js/jquery.themepunch.revolution.min.js',
+	'resources/assets/lib/revolution/js/extensions/revolution.extension.video.min.js',
+	'resources/assets/lib/revolution/js/extensions/revolution.extension.slideanims.min.js',
+	'resources/assets/lib/revolution/js/extensions/revolution.extension.layeranimation.min.js',
+	'resources/assets/lib/revolution/js/extensions/revolution.extension.navigation.min.js',
+	'resources/assets/js/functions.js',
+], 'public/js/base.js');
+
+mix.scripts([
+	'resources/assets/js/html5/respond.min.js'
+], 'public/js/html5.js');
+
+
