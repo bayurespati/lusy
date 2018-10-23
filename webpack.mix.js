@@ -22,6 +22,7 @@ mix.styles([
 	'resources/assets/css/plugins.css',
 	'resources/assets/css/navigation-menu.css',
 	'resources/assets/css/shortcode.css',
+	'resources/assets/css/custom.css',
 ], 'public/css/base.css');
 
 mix.scripts([
