@@ -1,0 +1,46 @@
+/*
+	[Table of contents]
+
+	+ Custom class for content-block
+	
+*/
+
+/* + Custom class for content-block */
+.welcome-section .content-block-custom p {
+	color: #777777 !important;
+	line-height: 26px !important;
+	letter-spacing: 0.28px !important;
+	margin-bottom: 30px !important;
+	white-space: pre-line !important;
+}
+.welcome-section .content-block-custom > a {
+	font-family: 'Poppins', sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	position: relative;
+	padding-left: 80px;
+	color: #222222;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+.welcome-section .content-block-custom > a::before {
+	background-color: #e2b13c;
+	border-right: 4px solid #222222;
+	-webkit-box-shadow: -3px 0 0 0 #fff inset;
+	-moz-box-shadow: -3px 0 0 0 #fff inset;
+	box-shadow: -3px 0 0 0 #fff inset;
+	content: "";
+	width: 60px;
+	height: 2px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
+	-moz-transform: translate(0%, -50%);
+	-ms-transform: translate(0%, -50%);	
+}
+.welcome-section .content-block-custom > a:hover {
+	color: #e2b13c;
+}
