@@ -41,3 +41,9 @@ mix.scripts([
 ], 'public/js/html5.js');
 
 
+mix.js([
+    'resources/assets/js/admin/main.js',
+], 'public/js/admin/dashboard.js');
+
+
+
