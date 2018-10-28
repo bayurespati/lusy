@@ -55,6 +55,18 @@ Route::group([
 	})->name('shop.index');
 });
 
-Route::get('/admin', function () {
-    return view('dashboard');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group([
+        'prefix' => 'admin',
+        'namespace' => 'admin',
+        'middleware' => ['auth'],
+    ], function () {
+
+    Route::get('home', function () { 
+    	return view('admin.home');
+    });
+
 });
