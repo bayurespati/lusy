@@ -18,6 +18,11 @@ mix.styles([
 	'resources/assets/css/additional.css',
 ], 'public/css/admin.css');
 
+mix.styles([
+    'resources/assets/css/animation.css',
+    'resources/assets/css/loading.css',
+], 'public/css/animation.css');
+
 mix.styles([	
 	'resources/assets/lib/revolution/css/settings.css',
 	'resources/assets/lib/revolution/css/layers.css',
@@ -49,7 +54,7 @@ mix.scripts([
 
 
 mix.js([
-    'resources/assets/js/admin/main.js',
+    'resources/assets/js/admin/home/main.js',
 ], 'public/js/admin/home.js');
 
 

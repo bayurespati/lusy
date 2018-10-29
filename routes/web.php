@@ -65,8 +65,8 @@ Route::group([
         'middleware' => ['auth'],
     ], function () {
 
-    Route::get('home', function () { 
-    	return view('admin.home');
-    });
+    Route::get('home', 'HomeController@index');
+    Route::get('data/sosmed', 'HomeController@loadSosmed');
+    Route::patch('/sosmed/{sosmed}', 'HomeController@editSosmed');
 
 });
