@@ -69,3 +69,19 @@ Route::group([
 		return view('contact.index');
 	})->name('contact.index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group([
+        'prefix' => 'admin',
+        'namespace' => 'admin',
+        'middleware' => ['auth'],
+    ], function () {
+
+    Route::get('home', 'HomeController@index');
+    Route::get('data/sosmed', 'HomeController@loadSosmed');
+    Route::patch('/sosmed/{sosmed}', 'HomeController@editSosmed');
+
+});

@@ -13,12 +13,23 @@ const mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js');
 
+
+mix.styles([	
+	'resources/assets/css/additional.css',
+], 'public/css/admin.css');
+
+mix.styles([
+    'resources/assets/css/animation.css',
+    'resources/assets/css/loading.css',
+], 'public/css/animation.css');
+
 mix.styles([	
 	'resources/assets/lib/revolution/css/settings.css',
 	'resources/assets/lib/revolution/css/layers.css',
 	'resources/assets/lib/revolution/css/navigation.css',
 	'resources/assets/lib/lib.css',	
 	'resources/assets/css/style.css',
+	'resources/assets/css/additional.css',
 	'resources/assets/css/plugins.css',
 	'resources/assets/css/navigation-menu.css',
 	'resources/assets/css/shortcode.css',
@@ -40,5 +51,11 @@ mix.scripts([
 mix.scripts([
 	'resources/assets/js/html5/respond.min.js'
 ], 'public/js/html5.js');
+
+
+mix.js([
+    'resources/assets/js/admin/home/main.js',
+], 'public/js/admin/home.js');
+
 
 

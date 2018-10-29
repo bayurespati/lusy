@@ -1,0 +1,110 @@
+/*=========================================================================================
+    F A D E   E F F E C T
+=========================================================================================*/
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -10%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fade-in-down {
+    animation: fadeInDown 0.2s ease-in forwards;
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(0, -10%, 0);
+    }
+}
+
+.fade-out-up {
+    animation: fadeOutUp 0.3s ease-out forwards;
+}
+
+
+/*=========================================================================================
+    F L I P   V E R T I C A L   E F F E C T
+=========================================================================================*/
+
+/*
+    This has to be set in the parent container:
+    perspectives
+    transform-style: preserve-3d
+
+    also if, the properties of things that being transitioned are different (eg: height, width, etc.)
+    set transition in the parent container to make a smoother effect
+*/
+
+@keyframes flipIn {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+}
+
+.flip-in {
+    animation: flipIn 0.3s ease-out forwards;
+}
+
+@keyframes flipOut {
+    0% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotateX(90deg);
+    }
+}
+
+.flip-out {
+    animation: flipOut 0.2s ease-out forwards;
+}
