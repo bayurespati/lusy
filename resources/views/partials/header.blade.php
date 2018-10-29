@@ -34,6 +34,7 @@
                             <li class="{{ request()->is('gallery') || request()->is('gallery/*') ? 'active' : '' }}"><a href="{{ route('gallery.index') }}" title="Gallery">Gallery</a></li>
                             <li class="{{ request()->is('event') || request()->is('event/*') ? 'active' : '' }}"><a href="{{ route('event.index') }}" title="Events & Activities">Events & Activities</a></li>
                             <li class="{{ request()->is('shop') || request()->is('shop/*') ? 'active' : '' }}"><a href="{{route('shop.index')}}" title="Shop">Shop</a></li>
+                            <li class="{{ request()->is('contact') || request()->is('contact/*') ? 'active' : '' }}"><a href="{{route('contact.index')}}" title="Contact">Contact</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </nav><!-- nav /- -->

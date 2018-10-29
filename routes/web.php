@@ -59,3 +59,13 @@ Route::group([
 	})->name('shop.item');
 
 });
+
+Route::group([
+	'prefix' => 'contact',
+	'namespace' => 'Contact',
+], function () {
+
+	Route::get('/', function () { 
+		return view('contact.index');
+	})->name('contact.index');
+});
