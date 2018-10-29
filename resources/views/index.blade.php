@@ -144,9 +144,12 @@
                                         </div>
                                     </div>
                                     <!-- Section Header /- -->
-                                    <div class="col-md-6 col-sm-6 content-block">
-                                        <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.</p>
-                                        <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.</p>
+                                    <div class="col-md-6 col-sm-6 content-block-custom">
+                                        <p>
+                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.
+
+                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.
+                                        </p>
                                         <a href="#" title="Read More">Read More</a>
                                     </div>
                                     <div class="col-md-6 col-sm-6 img-block">

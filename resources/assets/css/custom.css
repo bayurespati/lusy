@@ -5,15 +5,19 @@
 	
 */
 
-/* + Custom class for content-block */
-.welcome-section .content-block-custom p {
+/*
+    ==================================================
+    C U S T O M   C L A S S   F O R   C O N T E N T   B L O C K
+    ==================================================
+*/
+.content-block-custom p {
 	color: #777777 !important;
 	line-height: 26px !important;
 	letter-spacing: 0.28px !important;
 	margin-bottom: 30px !important;
 	white-space: pre-line !important;
 }
-.welcome-section .content-block-custom > a {
+.content-block-custom > a {
 	font-family: 'Poppins', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
@@ -23,7 +27,8 @@
 	text-transform: uppercase;
 	text-decoration: none;
 }
-.welcome-section .content-block-custom > a::before {
+
+.content-block-custom > a::before {
 	background-color: #e2b13c;
 	border-right: 4px solid #222222;
 	-webkit-box-shadow: -3px 0 0 0 #fff inset;
@@ -41,6 +46,106 @@
 	-moz-transform: translate(0%, -50%);
 	-ms-transform: translate(0%, -50%);	
 }
-.welcome-section .content-block-custom > a:hover {
+
+.content-block-custom > a:hover {
 	color: #e2b13c;
+}
+
+/*
+    ==================================================
+    S H O P   G A L L E R Y   C O N T E N T
+    ==================================================
+*/
+
+.shop-items-section {
+    padding: 100px 0 40px 0;
+}
+
+.shop-item-wrapper {
+    text-align: center;
+}
+
+.shop-item {
+    width: 250px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.item-pic-frame {
+    width: 100%;
+    margin:0;
+    overflow: hidden;
+    background: #000;
+}
+
+.item-pic {
+    opacity:0.95;
+    width: 100%;
+    height: 200px;
+    transform: scale(1.20);
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.shop-item:hover .item-pic {
+    opacity:1;
+    transform: scale(1.08);
+}
+
+.item-details {
+    border:1px solid #dfdfdf;
+    text-align: center;
+}
+
+.item-description {
+    color:#4d4d4d;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+.item-price{
+    color: #e2b13c;
+    display: inline-block;
+}
+
+.item-description,
+.item-price{
+	padding: 0 8px: 
+    font-size: 14px;
+}
+
+/*
+    ==================================================
+    S H O P   I T E M   C O N T E N T
+    ==================================================
+*/
+
+.content-block-custom .item-price-detail {
+	font-family: 'Poppins', sans-serif;
+	font-size: 28px;
+	font-weight: 600;
+	position: relative;
+	padding-left: 90px;
+	color: #222222;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.content-block-custom .item-price-detail::before {
+	background-color: #e2b13c;
+	border-right: 4px solid #222222;
+	-webkit-box-shadow: -3px 0 0 0 #fff inset;
+	-moz-box-shadow: -3px 0 0 0 #fff inset;
+	box-shadow: -3px 0 0 0 #fff inset;
+	content: "";
+	width: 80px;
+	height: 2px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
+	-moz-transform: translate(0%, -50%);
+	-ms-transform: translate(0%, -50%);	
 }

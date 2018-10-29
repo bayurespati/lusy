@@ -53,4 +53,9 @@ Route::group([
 	Route::get('/', function () { 
 		return view('shop.index');
 	})->name('shop.index');
+
+	Route::get('/item', function () { 
+		return view('shop.item');
+	})->name('shop.item');
+
 });

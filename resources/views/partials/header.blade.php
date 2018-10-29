@@ -1,8 +1,7 @@
 <header id="header" class="header-section container-fluid no-padding">
             <!-- Top Header -->
             <div class="top-header container-fluid no-padding">
-                <div class="col-md-7 col-sm-12 col-xs-12 top-content" style="padding-left: 40px; padding-right: 340px !important">
-                    <!-- <a href="tel:1800234567890"><i class="fa fa-phone"></i><b>1-800-23-456-7890</b></a> -->
+                <div class="col-md-7 col-sm-12 col-xs-12 top-content">
                     <div class="top-icons">
                         <ul>
                             <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
