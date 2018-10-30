@@ -54,7 +54,7 @@ mix.scripts([
 
 
 mix.js([
-    'resources/assets/js/admin/home/main.js',
+    'resources/assets/js/vue-components/admin/home/main.js',
 ], 'public/js/admin/home.js');
 
 

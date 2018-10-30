@@ -1,4 +1,5 @@
 import Home from './components/Home.vue';
+import Flash from './../global/flash.vue';
 import {store} from './store';
 
 const admin = new Vue({

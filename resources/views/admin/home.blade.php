@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin_master')
 
 @push('title')
 	<title>Home</title>
@@ -11,6 +11,7 @@
 @section('content')
 	<div id="home">
 		<home> </home>
+		<flash> </flash>
 	</div>		
 @endsection
 

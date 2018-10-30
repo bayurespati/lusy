@@ -13903,6 +13903,10 @@ window.Vue = __webpack_require__(41);
 
 window.events = new Vue();
 
+window.flash = function (message, type, duration) {
+  window.events.$emit('flash', message, type, duration);
+};
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
