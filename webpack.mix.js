@@ -58,4 +58,15 @@ mix.js([
 ], 'public/js/admin/home.js');
 
 
+mix.js([
+    'resources/assets/js/vue-components/admin/about/profile/main.js',
+], 'public/js/admin/about/profile.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/about/classes/main.js',
+], 'public/js/admin/about/classes.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/about/gallery-showcase/main.js',
+], 'public/js/admin/about/gallery_showcase.js');
+
+
 

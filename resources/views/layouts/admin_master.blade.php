@@ -40,13 +40,13 @@
                     <a href="#aboutSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">About</a>
                     <ul class="collapse list-unstyled" id="aboutSubmenu">
                         <li>
-                            <a href="#">Profile</a>
+                            <a href="{{ route('admin.about.profile') }}">Profile</a>
                         </li>
                         <li>
-                            <a href="#">Gallery</a>
+                            <a href="{{ route('admin.about.gallery') }}">Gallery</a>
                         </li>
                         <li>
-                            <a href="#">Classes</a>
+                            <a href="{{ route('admin.about.classes') }}">Classes</a>
                         </li>
                     </ul>
                 </li>
