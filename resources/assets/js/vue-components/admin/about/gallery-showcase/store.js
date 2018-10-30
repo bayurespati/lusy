@@ -28,16 +28,12 @@ export const store = new Vuex.Store({
             state.gallery = gallery;
         },
 
-        edit_gallery: (state, updatedGallery) =>{
-
-        },
-
         edit_gallery(state, updatedGallery) {
 
             const galleryIndex = helpers.getIndexOfGallery(updatedGallery.id);
 
 
-            state.gallery[galleryIndex].whatever = updatedGallery.whatever;
+            state.gallery[galleryIndex].is_showcase = updatedGallery.is_showcase;
         },
     },
 
@@ -58,8 +54,7 @@ export const store = new Vuex.Store({
 
                 axios.patch('/admin/gallery/' + updatedGallery.id, {
                     id: updatedGallery.id,
-                    is_active: updatedGallery.is_active,
-                    link: updatedGallery.link                
+                    is_showcase: updatedGallery.is_showcase,  
                 })
                     .then(response => {
                         commit('edit_gallery', updatedGallery);

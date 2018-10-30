@@ -180,7 +180,7 @@ Route::group([
 
     	/*
     	|--------------------------------------------------------------------------
-    	| A D M I N   G A L L E R Y   P R O F I L E   R O U T E S
+    	| A D M I N   A B O U T   G A L L E R Y   P R O F I L E   R O U T E S
     	|--------------------------------------------------------------------------
     	|
     	*/
@@ -190,12 +190,153 @@ Route::group([
 
     	/*
     	|--------------------------------------------------------------------------
-    	| A D M I N   C L A S S E S   P R O F I L E   R O U T E S
+    	| A D M I N   A B O U T   C L A S S E S   P R O F I L E   R O U T E S
     	|--------------------------------------------------------------------------
     	|
     	*/
-    	Route::get('/classes', 'ClassesController@index')->name('admin.about.classes');
-    	Route::get('/data/classes', 'ClassesController@loadClasses');
-    	Route::patch('/classes', 'ClassesController@patch');
+    	Route::get('/class', 'ClassesController@index')->name('admin.about.classes');
+    	Route::get('/data/class', 'ClassesController@loadClasses');
+    	Route::patch('/class', 'ClassesController@patch');
+    });
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | A D M I N   G A L L E R Y   R O U T E S
+    |--------------------------------------------------------------------------
+    |
+    |  
+    |
+    */
+    Route::group([
+        'prefix' => 'gallery',
+        'namespace' => 'Gallery',
+        'middleware' => ['auth'],
+    ], function() {
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   G A L L E R Y   C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/category', 'CategoryController@index')->name('admin.gallery.category');
+        Route::get('/data/category', 'CategoryController@loadCategory');
+        Route::patch('/category', 'CategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   G A L L E R Y   S U B C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/subcategory', 'SubcategoryController@index')->name('admin.gallery.subcategory');
+        Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
+        Route::patch('/subcategory', 'SubcategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   G A L L E R Y   P H O T O   L I S T   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/list', 'ListController@index')->name('admin.gallery.list');
+        Route::get('/data/list', 'ListController@loadList');
+        Route::patch('/list', 'ListController@patch');
+    });
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | A D M I N   E V E N T   R O U T E S
+    |--------------------------------------------------------------------------
+    |
+    |  
+    |
+    */
+    Route::group([
+        'prefix' => 'event',
+        'namespace' => 'Event',
+        'middleware' => ['auth'],
+    ], function() {
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   E V E N T   C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/category', 'CategoryController@index')->name('admin.event.category');
+        Route::get('/data/category', 'CategoryController@loadCategory');
+        Route::patch('/category', 'CategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   E V E N T   S U B C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/subcategory', 'SubcategoryController@index')->name('admin.event.subcategory');
+        Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
+        Route::patch('/subcategory', 'SubcategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   E V E N T   L I S T   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/list', 'ListController@index')->name('admin.event.list');
+        Route::get('/data/list', 'ListController@loadList');
+        Route::patch('/list', 'ListController@patch');
+    });
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | A D M I N   S H O P   R O U T E S
+    |--------------------------------------------------------------------------
+    |
+    |  
+    |
+    */
+    Route::group([
+        'prefix' => 'shop',
+        'namespace' => 'Shop',
+        'middleware' => ['auth'],
+    ], function() {
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   S H O P   C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/category', 'CategoryController@index')->name('admin.shop.category');
+        Route::get('/data/category', 'CategoryController@loadCategory');
+        Route::patch('/category', 'CategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   S H O P   S U B C A T E G O R Y   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/subcategory', 'SubcategoryController@index')->name('admin.shop.subcategory');
+        Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
+        Route::patch('/subcategory', 'SubcategoryController@patch');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   S H O P   I T E M   L I S T   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/list', 'ListController@index')->name('admin.shop.list');
+        Route::get('/data/list', 'ListController@loadList');
+        Route::patch('/list', 'ListController@patch');
     });
 });

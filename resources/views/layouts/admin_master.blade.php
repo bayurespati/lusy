@@ -33,79 +33,110 @@
             </div>
 
             <ul class="list-unstyled components">
-                <li  class="active">
+                <li>
                     <a href="#">Home</a>
                 </li>
                 <li>
-                    <a href="#aboutSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">About</a>
-                    <ul class="collapse list-unstyled" id="aboutSubmenu">
+                    <a href="#aboutSubmenu" 
+                    class="{{ request()->is('admin/about/*') ? 'active-forced' : '' }}"
+                    data-toggle="collapse" 
+                    aria-expanded="false" class="dropdown-toggle">About</a>
+                    <ul class="{{ request()->is('admin/about/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
+                    id="aboutSubmenu">
                         <li>
-                            <a href="{{ route('admin.about.profile') }}">Profile</a>
+                            <a class="{{ request()->is('admin/about/profile') || request()->is('admin/about/profile/*') ? 'active-forced' : '' }}"
+                                href="{{ route('admin.about.profile') }}">Profile</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.about.gallery') }}">Gallery</a>
+                            <a class="{{ request()->is('admin/about/gallery') || request()->is('admin/about/gallery/*') ? 'active-forced' : '' }}"
+                                href="{{ route('admin.about.gallery') }}">Gallery</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.about.classes') }}">Classes</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#galerySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gallery</a>
-                    <ul class="collapse list-unstyled" id="galerySubmenu">
-                        <li>
-                            <a href="#">Category</a>
-                        </li>
-                        <li>
-                            <a href="#">Sub-category</a>
-                        </li>
-                        <li>
-                            <a href="#">Photo</a>
+                            <a class="{{ request()->is('admin/about/class') || request()->is('admin/about/class/*') ? 'active-forced' : '' }}"
+                                href="{{ route('admin.about.classes') }}">Classes</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#eventSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Event & Activity</a>
-                    <ul class="collapse list-unstyled" id="eventSubmenu">
+                    <a 
+                    href="#galerySubmenu" 
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    class="{{ request()->is('admin/gallery/*') ? 'active-forced' : '' }}"
+                    class="dropdown-toggle">Gallery</a>
+                    <ul class="{{ request()->is('admin/gallery/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
+                     id="galerySubmenu">
                         <li>
-                            <a href="#">Category</a>
+                            <a class="{{ request()->is('admin/gallery/category') || request()->is('admin/gallery/category/*') ? 'active-forced' : '' }}"
+                            href="{{ route('admin.gallery.category') }}">Category</a>
                         </li>
                         <li>
-                            <a href="#">Sub-category</a>
+                            <a class="{{ request()->is('admin/gallery/subcategory') || request()->is('admin/gallery/subcategory/*') ? 'active-forced' : '' }}"
+                            href="{{ route('admin.gallery.subcategory') }}">Subcategory</a>
                         </li>
                         <li>
-                            <a href="#">List</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#shopSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Shop</a>
-                    <ul class="collapse list-unstyled" id="shopSubmenu">
-                        <li>
-                            <a href="#">Category</a>
-                        </li>
-                        <li>
-                            <a href="#">Sub-category</a>
-                        </li>
-                        <li>
-                            <a href="#">List</a>
+                            <a class="{{ request()->is('admin/gallery/list') || request()->is('admin/gallery/list/*') ? 'active-forced' : '' }}"" href="{{ route('admin.gallery.list') }}">Photo List</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bokkeping</a>
+                    <a
+                    class="{{ request()->is('admin/event/*') ? 'active-forced' : '' }}" 
+                    href="#eventSubmenu" 
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    class="dropdown-toggle">Event & Activities</a>
+                    <ul class="{{ request()->is('admin/event/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
+                     id="eventSubmenu">
+                        <li>
+                            <a class="{{ request()->is('admin/event/category') || request()->is('admin/event/category/*') ? 'active-forced' : '' }}" 
+                            href="{{ route('admin.event.category') }}">Category</a>
+                        </li>
+                        <li>
+                            <a class="{{ request()->is('admin/event/subcategory') || request()->is('admin/event/subcategory/*') ? 'active-forced' : '' }}"
+                            href="{{ route('admin.event.subcategory') }}">Subcategory</a>
+                        </li>
+                        <li>
+                            <a class="{{ request()->is('admin/event/list') || request()->is('admin/event/list/*') ? 'active-forced' : '' }}" href="{{ route('admin.event.list') }}">Event & Activity List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a
+                    class="{{ request()->is('admin/shop/*') ? 'active-forced' : '' }}" 
+                    href="#shopSubmenu" 
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    class="dropdown-toggle">Shop</a>
+                    <ul class="{{ request()->is('admin/shop/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
+                     id="shopSubmenu">
+                        <li>
+                            <a class="{{ request()->is('admin/shop/category') || request()->is('admin/shop/category/*') ? 'active-forced' : '' }}" 
+                            href="{{ route('admin.shop.category') }}">Category</a>
+                        </li>
+                        <li>
+                            <a class="{{ request()->is('admin/shop/subcategory') || request()->is('admin/shop/subcategory/*') ? 'active-forced' : '' }}"
+                            href="{{ route('admin.shop.subcategory') }}">Subcategory</a>
+                        </li>
+                        <li>
+                            <a class="{{ request()->is('admin/shop/list') || request()->is('admin/shop/list/*') ? 'active-forced' : '' }}" href="{{ route('admin.shop.list') }}">Item List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bookeeping</a>
                     <ul class="collapse list-unstyled" id="bookSubmenu">
                         <li>
                             <a href="#">Member</a>
                         </li>
                         <li>
-                            <a href="#">Shop Overseas Inquiry</a>
+                            <a href="#">Overseas Inquiry List</a>
                         </li>
                         <li>
                             <a href="#">Applicant List</a>
                         </li>
                         <li>
-                            <a href="#">Potential Shop Overseas Inquery List</a>
+                            <a href="#">Potential Overseas Inquiry List</a>
                         </li>
                     </ul>
                 </li>

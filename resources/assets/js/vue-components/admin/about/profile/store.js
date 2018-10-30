@@ -28,10 +28,6 @@ export const store = new Vuex.Store({
             state.profile = profile;
         },
 
-        edit_profile: (state,updatedProfile) =>{
-
-        },
-
         edit_profile(state, updatedProfile) {
 
             const profileIndex = helpers.getIndexOfProfile(updatedProfile.id);
@@ -60,8 +56,9 @@ export const store = new Vuex.Store({
 
                 axios.patch('/admin/profile/' + updatedProfile.id, {
                     id: updatedProfile.id,
-                    is_active: updatedProfile.is_active,
-                    link: updatedProfile.link                
+                    image_path: updatedProfile.image_path,
+                    title: updatedProfile.title,
+                    content: updatedProfile.content,
                 })
                     .then(response => {
                         commit('edit_profile', updatedProfile);

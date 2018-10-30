@@ -28,10 +28,6 @@ export const store = new Vuex.Store({
             state.classes = classes;
         },
 
-        edit_class: (state,updatedClass) =>{
-
-        },
-
         edit_class(state, updatedClass) {
 
             const classIndex = helpers.getIndexOfClass(updatedClass.id);
@@ -48,7 +44,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_classes: ({commit}) => {
-            axios.get('/admin/data/classes')
+            axios.get('/admin/data/class')
                 .then(response =>{
                     commit('set_classes',response.data);
                 });
@@ -60,8 +56,9 @@ export const store = new Vuex.Store({
 
                 axios.patch('/admin/class/' + updatedClass.id, {
                     id: updatedClass.id,
-                    is_active: updatedClass.is_active,
-                    link: updatedClass.link                
+                    image_path: updatedClass.image_path,
+                    title: updatedClass.title,
+                    content: updatedClass.content,
                 })
                     .then(response => {
                         commit('edit_class', updatedClass);

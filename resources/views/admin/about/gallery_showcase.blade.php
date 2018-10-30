@@ -9,8 +9,8 @@
 @endpush
 
 @section('content')
-	<div id="gallery-showcase">
-		<gallery-showcase> </gallery-showcase>
+	<div id="gallery">
+		<gallery> </gallery>
 		<flash> </flash>
 	</div>		
 @endsection

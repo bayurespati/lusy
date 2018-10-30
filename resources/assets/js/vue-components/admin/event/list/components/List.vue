@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <h1>GALLERY</h1>
+    <h1>EVENTS</h1>
     <div class="row">
     <div class="col-md-12">
       <transition-group name="slide">
-              <gallery
-                      v-for="gallery in galleries"
-                      :gallery="gallery"
-                      :key="gallery.id">
-              </gallery>
+              <event
+                      v-for="event in events"
+                      :event="events"
+                      :key="event.id">
+              </event>
           </transition-group>
       </div>
     </div>
@@ -16,17 +16,17 @@
 </template>
 
 <script>
-  import Gallery from './Gallery.vue';
+  import Event from './Event.vue';
   import {mapGetters} from 'vuex';
 
   export default {
     components:{
-      Gallery
+      Event
     },
 
     computed:{
             ...mapGetters({
-                galleries: 'getGalleries',
+                events: 'getEvents',
             })
         }
   };
