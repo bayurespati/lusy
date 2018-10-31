@@ -228,7 +228,9 @@ Route::group([
         */
         Route::get('/category', 'CategoryController@index')->name('admin.gallery.category');
         Route::get('/data/category', 'CategoryController@loadCategory');
-        Route::patch('/category', 'CategoryController@patch');
+        Route::patch('/update/category/{category}', 'CategoryController@update');
+        Route::post('/add/category', 'CategoryController@addCategory');
+        Route::delete('/delete/category/{category}', 'CategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------
