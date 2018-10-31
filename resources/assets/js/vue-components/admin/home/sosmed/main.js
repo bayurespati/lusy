@@ -1,12 +1,12 @@
-import Home from './components/Home.vue';
-import Flash from './../global/flash.vue';
+import Sosmed from './components/Sosmed.vue';
+import Flash from './../../../global/flash.vue';
 import {store} from './store';
 
 const admin = new Vue({
-    el: '#home',
+    el: '#sosmed',
 
     components: {
-        Home,
+        Sosmed,
         Flash
     },
 

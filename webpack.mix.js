@@ -54,8 +54,13 @@ mix.scripts([
 
 
 mix.js([
-    'resources/assets/js/vue-components/admin/home/main.js',
-], 'public/js/admin/home.js');
+    'resources/assets/js/vue-components/admin/home/sosmed/main.js',
+], 'public/js/admin/sosmed.js');
+
+mix.js([
+    'resources/assets/js/vue-components/admin/home/image-slider/main.js',
+], 'public/js/admin/slider.js');
+
 
 
 

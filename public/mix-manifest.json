@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/js/admin/home.js": "/js/admin/home.js",
+    "/js/admin/slider.js": "/js/admin/slider.js",
+    "/js/admin/sosmed.js": "/js/admin/sosmed.js",
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
     "/css/base.css": "/css/base.css",

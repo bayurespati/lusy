@@ -3,11 +3,11 @@
   	<div class="row">
 		<div class="col-md-12">
 			<transition-group name="slide">
-	            <sosmed
+	            <sosmed-list
 	                    v-for="sosmed in sosmeds"
 	                    :sosmed="sosmed"
 	                    :key="sosmed.id">
-	            </sosmed>
+	            </sosmed-list>
 	        </transition-group>
 	  	</div>
   	</div>
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-	import Sosmed from './Sosmed.vue';
+	import SosmedList from './SosmedList.vue';
 	import {mapGetters} from 'vuex';
 
 	export default {
 		components:{
-			Sosmed
+			SosmedList,
 		},
 
 		computed:{

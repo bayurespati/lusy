@@ -33,8 +33,16 @@
             </div>
 
             <ul class="list-unstyled components">
-                <li  class="active">
-                    <a href="#">Home</a>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{{ route('admin.home.sosmed') }}">sosial media</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.home.imageSider') }}">Image slider</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#aboutSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">About</a>

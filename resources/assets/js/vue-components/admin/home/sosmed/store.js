@@ -57,7 +57,7 @@ export const store = new Vuex.Store({
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/sosmed/' + updatedSosmed.id, {
+                axios.patch('/admin/home/edit/sosmed/' + updatedSosmed.id, {
                     id: updatedSosmed.id,
                     is_active: updatedSosmed.is_active,
                     link: updatedSosmed.link                

@@ -80,8 +80,13 @@ Route::group([
         'middleware' => ['auth'],
     ], function () {
 
-    Route::get('home', 'HomeController@index');
+    Route::get('home/sosmed', 'HomeController@sosmed')->name('admin.home.sosmed');
     Route::get('data/sosmed', 'HomeController@loadSosmed');
-    Route::patch('/sosmed/{sosmed}', 'HomeController@editSosmed');
+    Route::patch('home/edit/sosmed/{sosmed}', 'HomeController@editSosmed');
+
+    Route::get('home/image-slider', 'HomeController@imageSlider')->name('admin.home.imageSider');
+    Route::get('data/image-slider', 'HomeController@loadImageSlider');
+    Route::post('home/add/image-slider', 'HomeController@addImageSlider');
+    Route::delete('home/delete/image-slider/{imageSlider}', 'HomeController@deleteImageSlider');
 
 });

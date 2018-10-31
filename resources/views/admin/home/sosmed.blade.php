@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Home</title>
+	<title>Sosmed</title>
 @endpush
 
 @push('additional_css')
@@ -9,12 +9,12 @@
 @endpush
 
 @section('content')
-	<div id="home">
-		<home> </home>
+	<div id="sosmed">
+		<sosmed> </sosmed>
 		<flash> </flash>
 	</div>		
 @endsection
 
 @push('additional_js')
-	<script src="{{ asset('js/admin/home.js') }}"></script>
+	<script src="{{ asset('js/admin/sosmed.js') }}"></script>
 @endpush
