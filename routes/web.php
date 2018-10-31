@@ -229,7 +229,7 @@ Route::group([
         Route::get('/category', 'CategoryController@index')->name('admin.gallery.category');
         Route::get('/data/category', 'CategoryController@loadCategory');
         Route::patch('/update/category/{category}', 'CategoryController@update');
-        Route::post('/add/category', 'CategoryController@addCategory');
+        Route::post('/add/category', 'CategoryController@store');
         Route::delete('/delete/category/{category}', 'CategoryController@destroy');
 
         /*
@@ -240,7 +240,9 @@ Route::group([
         */
         Route::get('/subcategory', 'SubcategoryController@index')->name('admin.gallery.subcategory');
         Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
-        Route::patch('/subcategory', 'SubcategoryController@patch');
+        Route::patch('/update/subcategory/{subcategory}', 'SubcategoryController@update');
+        Route::post('/add/subcategory', 'SubcategoryController@store');
+        Route::delete('/delete/subcategory/{subcategory}', 'SubcategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------

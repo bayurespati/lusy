@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import EditCategory from './EditCAtegory';
+    import EditCategory from './EditCategory.vue';
     export default{
         props: {category: {}},
 

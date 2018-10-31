@@ -1,6 +1,18 @@
 <template>
   <div class="container">
     <h1>GALLERY SUBCATEGORIES</h1>
+    <transition enterActiveClass="fade-in"
+                    leaveActiveClass="fade-out"
+                    mode="out-in">
+
+      <template class="row" v-if="!isAddSubCategory">
+        <button @click="isAddSubCategory = !isAddSubCategory" class="btn btn-primary">TAMBAH SUBCATEGORY</button>
+      </template>
+      <template class="row" v-else>
+        <add @closeAddSubCategory="isAddSubCategory = $event"></add>
+      </template>
+    </transition>
+
     <div class="row">
     <div class="col-md-12">
       <transition-group name="slide">
@@ -16,18 +28,27 @@
 </template>
 
 <script>
+  import Add from './AddSubcategory.vue';
   import Subcategory from './Subcategory.vue';
   import {mapGetters} from 'vuex';
 
   export default {
+
+    data(){
+      return{
+        isAddSubCategory: false,
+      }
+    },
+
     components:{
-      Subcategory
+      Subcategory,
+      Add
     },
 
     computed:{
-            ...mapGetters({
-                subcategories: 'getSubcategories',
-            })
-        }
+        ...mapGetters({
+            subcategories: 'getSubcategories',
+        })
+    }
   };
 </script>

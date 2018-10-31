@@ -18,7 +18,7 @@ class CategoryController extends Controller
     	return Category::where('type','1')->get();
     }
 
-    public function addCategory(Request $request)
+    public function store(Request $request)
     {
 
         $category = new Category();
