@@ -38,9 +38,9 @@
                 </li>
                 <li>
                     <a href="#aboutSubmenu" 
-                    class="{{ request()->is('admin/about/*') ? 'active-forced' : '' }}"
+                    class="{{ request()->is('admin/about/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}"
                     data-toggle="collapse" 
-                    aria-expanded="false" class="dropdown-toggle">About</a>
+                    aria-expanded="false">About</a>
                     <ul class="{{ request()->is('admin/about/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                     id="aboutSubmenu">
                         <li>
@@ -62,8 +62,7 @@
                     href="#galerySubmenu" 
                     data-toggle="collapse" 
                     aria-expanded="false" 
-                    class="{{ request()->is('admin/gallery/*') ? 'active-forced' : '' }}"
-                    class="dropdown-toggle">Gallery</a>
+                    class="{{ request()->is('admin/gallery/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}">Gallery</a>
                     <ul class="{{ request()->is('admin/gallery/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="galerySubmenu">
                         <li>
@@ -81,11 +80,10 @@
                 </li>
                 <li>
                     <a
-                    class="{{ request()->is('admin/event/*') ? 'active-forced' : '' }}" 
+                    class="{{ request()->is('admin/event/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}" 
                     href="#eventSubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false" 
-                    class="dropdown-toggle">Event & Activities</a>
+                    aria-expanded="false">Event & Activities</a>
                     <ul class="{{ request()->is('admin/event/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="eventSubmenu">
                         <li>
@@ -103,11 +101,10 @@
                 </li>
                 <li>
                     <a
-                    class="{{ request()->is('admin/shop/*') ? 'active-forced' : '' }}" 
+                    class="{{ request()->is('admin/shop/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}" 
                     href="#shopSubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false" 
-                    class="dropdown-toggle">Shop</a>
+                    aria-expanded="false">Shop</a>
                     <ul class="{{ request()->is('admin/shop/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="shopSubmenu">
                         <li>
