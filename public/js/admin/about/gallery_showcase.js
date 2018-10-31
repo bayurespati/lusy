@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 93);
+/******/ 	return __webpack_require__(__webpack_require__.s = 116);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1121,7 +1121,220 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 100:
+/***/ 116:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(117);
+
+
+/***/ }),
+
+/***/ 117:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(32);
+
+
+
+
+var admin = new Vue({
+    el: '#gallery',
+
+    components: {
+        Gallery: __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_gallery');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 118:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(119)
+/* template */
+var __vue_template__ = __webpack_require__(123)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/about/gallery-showcase/components/Gallery.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6c559afe", Component.options)
+  } else {
+    hotAPI.reload("data-v-6c559afe", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 119:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ShowcasedImage: __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue___default.a
+  },
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    gallery: 'getGallery'
+  }))
+});
+
+/***/ }),
+
+/***/ 120:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(121)
+/* template */
+var __vue_template__ = __webpack_require__(122)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/about/gallery-showcase/components/showcasedImage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-eacb85b0", Component.options)
+  } else {
+    hotAPI.reload("data-v-eacb85b0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 121:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ 122:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-eacb85b0", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 123:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1164,11 +1377,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 101:
+/***/ 124:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(32);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -1262,85 +1475,6 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
-
-/***/ }),
-
-/***/ 24:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(101);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        gallery: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getGallery: function getGallery(state) {
-            return state.gallery;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_gallery: function set_gallery(state, gallery) {
-            state.gallery = gallery;
-        },
-
-        edit_gallery: function edit_gallery(state, updatedGallery) {
-
-            var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.id);
-
-            state.gallery[galleryIndex].is_showcase = updatedGallery.is_showcase;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_gallery: function load_gallery(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/gallery').then(function (response) {
-                commit('set_gallery', response.data);
-            });
-        },
-
-        update_gallery: function update_gallery(_ref2, updatedGallery) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/gallery/' + updatedGallery.id, {
-                    id: updatedGallery.id,
-                    is_showcase: updatedGallery.is_showcase
-                }).then(function (response) {
-                    commit('edit_gallery', updatedGallery);
-
-                    resolve(updatedGallery);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
-    }
-});
 
 /***/ }),
 
@@ -1570,6 +1704,85 @@ function applyToTag (styleElement, obj) {
   }
 }
 
+
+/***/ }),
+
+/***/ 32:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(124);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        gallery: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getGallery: function getGallery(state) {
+            return state.gallery;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_gallery: function set_gallery(state, gallery) {
+            state.gallery = gallery;
+        },
+
+        edit_gallery: function edit_gallery(state, updatedGallery) {
+
+            var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.id);
+
+            state.gallery[galleryIndex].is_showcase = updatedGallery.is_showcase;
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_gallery: function load_gallery(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/data/gallery').then(function (response) {
+                commit('set_gallery', response.data);
+            });
+        },
+
+        update_gallery: function update_gallery(_ref2, updatedGallery) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/gallery/' + updatedGallery.id, {
+                    id: updatedGallery.id,
+                    is_showcase: updatedGallery.is_showcase
+                }).then(function (response) {
+                    commit('edit_gallery', updatedGallery);
+
+                    resolve(updatedGallery);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 
@@ -1925,219 +2138,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 93:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(94);
-
-
-/***/ }),
-
-/***/ 94:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(24);
-
-
-
-
-var admin = new Vue({
-    el: '#gallery',
-
-    components: {
-        Gallery: __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_gallery');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */]
-});
-
-/***/ }),
-
-/***/ 95:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(96)
-/* template */
-var __vue_template__ = __webpack_require__(100)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/about/gallery-showcase/components/Gallery.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6c559afe", Component.options)
-  } else {
-    hotAPI.reload("data-v-6c559afe", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 96:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    ShowcasedImage: __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue___default.a
-  },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-    gallery: 'getGallery'
-  }))
-});
-
-/***/ }),
-
-/***/ 97:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(98)
-/* template */
-var __vue_template__ = __webpack_require__(99)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/about/gallery-showcase/components/showcasedImage.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-eacb85b0", Component.options)
-  } else {
-    hotAPI.reload("data-v-eacb85b0", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div")
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-eacb85b0", module.exports)
   }
 }
 

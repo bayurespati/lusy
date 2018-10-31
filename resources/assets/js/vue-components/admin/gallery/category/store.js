@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_categories: ({commit}) => {
-            axios.get('/admin/data/category')
+            axios.get('/admin/gallery/data/category')
                 .then(response =>{
                     commit('set_categories',response.data);
                 });

@@ -1,10 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-<<<<<<< HEAD
     "/js/admin/slider.js": "/js/admin/slider.js",
     "/js/admin/sosmed.js": "/js/admin/sosmed.js",
-=======
-    "/js/admin/home.js": "/js/admin/home.js",
     "/js/admin/shop/subcategories.js": "/js/admin/shop/subcategories.js",
     "/js/admin/shop/list.js": "/js/admin/shop/list.js",
     "/js/admin/shop/categories.js": "/js/admin/shop/categories.js",
@@ -17,7 +14,6 @@
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
     "/js/admin/about/classes.js": "/js/admin/about/classes.js",
     "/js/admin/about/profile.js": "/js/admin/about/profile.js",
->>>>>>> master
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
     "/css/base.css": "/css/base.css",

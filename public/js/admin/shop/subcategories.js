@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 165);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1121,24 +1121,24 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 165:
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(166);
+module.exports = __webpack_require__(189);
 
 
 /***/ }),
 
-/***/ 166:
+/***/ 189:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Subcategories_vue__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Subcategories_vue__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Subcategories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Subcategories_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(40);
 
 
 
@@ -1161,15 +1161,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 167:
+/***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(168)
+var __vue_script__ = __webpack_require__(191)
 /* template */
-var __vue_template__ = __webpack_require__(172)
+var __vue_template__ = __webpack_require__(195)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1209,12 +1209,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 168:
+/***/ 191:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subcategory_vue__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subcategory_vue__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Subcategory_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1252,15 +1252,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 169:
+/***/ 192:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(170)
+var __vue_script__ = __webpack_require__(193)
 /* template */
-var __vue_template__ = __webpack_require__(171)
+var __vue_template__ = __webpack_require__(194)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1300,7 +1300,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 170:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1313,7 +1313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 171:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1334,7 +1334,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 172:
+/***/ 195:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1377,11 +1377,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 173:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(40);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -1707,13 +1707,47 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 4:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(196);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -1786,40 +1820,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         }
     }
 });
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
 
 /***/ }),
 

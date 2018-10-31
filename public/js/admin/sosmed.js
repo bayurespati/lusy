@@ -60,20 +60,11 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 62);
+/******/ 	return __webpack_require__(__webpack_require__.s = 68);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
->>>>>>> master:public/js/admin/home.js
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -182,14 +173,8 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 2 */,
-/* 3 */
-/***/ (function(module, exports) {
-=======
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
->>>>>>> master:public/js/admin/home.js
 
 "use strict";
 /* unused harmony export Store */
@@ -255,16 +240,10 @@ function devtoolPlugin (store) {
     store.replaceState(targetState);
   });
 
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-=======
   store.subscribe(function (mutation, state) {
     devtoolHook.emit('vuex:mutation', mutation, state);
   });
 }
->>>>>>> master:public/js/admin/home.js
 
 /**
  * Get the first item that pass the test
@@ -292,13 +271,9 @@ function forEachValue (obj, fn) {
   Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
 }
 
-<<<<<<< HEAD:public/js/admin/sosmed.js
-var listToStyles = __webpack_require__(10)
-=======
 function isObject (obj) {
   return obj !== null && typeof obj === 'object'
 }
->>>>>>> master:public/js/admin/home.js
 
 function isPromise (val) {
   return val && typeof val.then === 'function'
@@ -410,11 +385,6 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
     parent.addChild(path[path.length - 1], newModule);
   }
 
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
   // register nested modules
   if (rawModule.modules) {
     forEachValue(rawModule.modules, function (rawChildModule, key) {
@@ -422,7 +392,6 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
     });
   }
 };
->>>>>>> master:public/js/admin/home.js
 
 ModuleCollection.prototype.unregister = function unregister (path) {
   var parent = this.get(path.slice(0, -1));
@@ -1149,40 +1118,6 @@ var index_esm = {
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-=======
 /* 2 */
 /***/ (function(module, exports) {
 
@@ -1521,49 +1456,41 @@ module.exports = function listToStyles (parentId, list) {
       newStyles[id].parts.push(part)
     }
   }
->>>>>>> master:public/js/admin/home.js
   return styles
 }
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 11 */
-=======
-/* 5 */
->>>>>>> master:public/js/admin/home.js
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-<<<<<<< HEAD:public/js/admin/sosmed.js
-  __webpack_require__(12)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(14)
-/* template */
-var __vue_template__ = __webpack_require__(15)
-=======
-  __webpack_require__(6)
+  __webpack_require__(17)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(8)
+var __vue_script__ = __webpack_require__(19)
 /* template */
-var __vue_template__ = __webpack_require__(9)
->>>>>>> master:public/js/admin/home.js
+var __vue_template__ = __webpack_require__(20)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-<<<<<<< HEAD:public/js/admin/sosmed.js
 var __vue_scopeId__ = "data-v-6b2b6958"
-=======
-var __vue_scopeId__ = "data-v-41dc6b34"
->>>>>>> master:public/js/admin/home.js
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1574,11 +1501,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-<<<<<<< HEAD:public/js/admin/sosmed.js
 Component.options.__file = "resources/assets/js/vue-components/global/flash.vue"
-=======
-Component.options.__file = "resources/assets/js/vue-components/global/Flash.vue"
->>>>>>> master:public/js/admin/home.js
 
 /* hot reload */
 if (false) {(function () {
@@ -1587,15 +1510,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     hotAPI.createRecord("data-v-6b2b6958", Component.options)
   } else {
     hotAPI.reload("data-v-6b2b6958", Component.options)
-=======
-    hotAPI.createRecord("data-v-41dc6b34", Component.options)
-  } else {
-    hotAPI.reload("data-v-41dc6b34", Component.options)
->>>>>>> master:public/js/admin/home.js
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -1606,40 +1523,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 12 */
-=======
-/* 6 */
->>>>>>> master:public/js/admin/home.js
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-<<<<<<< HEAD:public/js/admin/sosmed.js
-var content = __webpack_require__(13);
+var content = __webpack_require__(18);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("18c808ac", content, false, {});
-=======
-var content = __webpack_require__(7);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("681a31c3", content, false, {});
->>>>>>> master:public/js/admin/home.js
+var update = __webpack_require__(3)("18c808ac", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b2b6958\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./flash.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6b2b6958\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./flash.vue");
-=======
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
->>>>>>> master:public/js/admin/home.js
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -1649,36 +1549,21 @@ if(false) {
 }
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-=======
-/* 7 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
->>>>>>> master:public/js/admin/home.js
 // imports
 
 
 // module
-<<<<<<< HEAD:public/js/admin/sosmed.js
 exports.push([module.i, "\n.notification-wrapper[data-v-6b2b6958] {\n    position: fixed;\n    right: 0;\n    z-index: 1100 !important;\n    bottom: 160px;\n}\n.alert-position[data-v-6b2b6958] {\n    position: fixed;\n    right: 25px;\n}\n.alert-contrast[data-v-6b2b6958] {\n    padding-right: 30px;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    position: fixed;\n    right: 0;\n    z-index: 1100 !important;\n    bottom: 160px;\n}\n.alert-position[data-v-41dc6b34] {\n    position: fixed;\n    right: 25px;\n}\n.alert-contrast[data-v-41dc6b34] {\n    padding-right: 30px;\n}\n", ""]);
->>>>>>> master:public/js/admin/home.js
 
 // exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 14 */
-=======
-/* 8 */
->>>>>>> master:public/js/admin/home.js
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1750,7 +1635,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.flash(message, type, 3500);
         });
     },
-<<<<<<< HEAD:public/js/admin/sosmed.js
 
 
     computed: {
@@ -1815,7 +1699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 15 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1906,25 +1790,22 @@ if (false) {
 }
 
 /***/ }),
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
 /* 21 */,
 /* 22 */,
-/* 23 */
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
->>>>>>> master:public/js/admin/home.js
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(83);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-<<<<<<< HEAD:public/js/admin/sosmed.js
 
 
 
@@ -1994,337 +1875,11 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     reject(errors.response.data);
                 });
             });
-=======
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
->>>>>>> master:public/js/admin/home.js
         }
     }
 });
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(52);
-
-
-/***/ }),
-/* 52 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_flash_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(23);
-=======
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    {
-      attrs: {
-        enterActiveClass: "fade-in",
-        leaveActiveClass: "fade-out",
-        mode: "out-in"
-      }
-    },
-    [
-      _vm.notificationExists
-        ? _c(
-            "div",
-            { staticClass: "notification-wrapper" },
-            [
-              _c(
-                "transition-group",
-                {
-                  attrs: {
-                    enterActiveClass: "fade-in-down",
-                    leaveActiveClass: "fade-out",
-                    mode: "out-in"
-                  }
-                },
-                _vm._l(_vm.notifications, function(notification, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: "notification.id",
-                      staticClass: "alert alert-contrast alert-position",
-                      class: notification.alertClass,
-                      style: _vm.getBottomPosition(index)
-                    },
-                    [
-                      _c("div", { staticClass: "icon" }, [
-                        _c("span", { class: notification.alertIcon })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "message" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "close",
-                            on: {
-                              click: function($event) {
-                                _vm.hide(0, index)
-                              }
-                            }
-                          },
-                          [
-                            _c("span", {
-                              staticClass: "s7-close",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(notification.body) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                })
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
-  }
-}
-
-/***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(77);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
->>>>>>> master:public/js/admin/home.js
-
-
-
-
-<<<<<<< HEAD:public/js/admin/sosmed.js
-var admin = new Vue({
-    el: '#sosmed',
-
-    components: {
-        Sosmed: __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_sosmed');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */]
-});
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(54)
-/* template */
-var __vue_template__ = __webpack_require__(65)
-=======
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        sosmeds: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getSosmed: function getSosmed(state) {
-            return state.sosmeds;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: _defineProperty({
-        set_sosmed: function set_sosmed(state, sosmeds) {
-            state.sosmeds = sosmeds;
-        },
-
-        edit_sosmed: function edit_sosmed(state, updatedSosmed) {}
-
-    }, 'edit_sosmed', function edit_sosmed(state, updatedSosmed) {
-
-        var sosmedIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSosmed(updatedSosmed.id);
-
-        state.sosmeds[sosmedIndex].is_active = updatedSosmed.is_active;
-        state.sosmeds[sosmedIndex].link = updatedSosmed.link;
-    }),
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_sosmed: function load_sosmed(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/sosmed').then(function (response) {
-                commit('set_sosmed', response.data);
-            });
-        },
-
-        update_sosmed: function update_sosmed(_ref2, updatedSosmed) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/sosmed/' + updatedSosmed.id, {
-                    id: updatedSosmed.id,
-                    is_active: updatedSosmed.is_active,
-                    link: updatedSosmed.link
-                }).then(function (response) {
-                    commit('edit_sosmed', updatedSosmed);
-
-                    resolve(updatedSosmed);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
 /* 29 */,
 /* 30 */,
 /* 31 */,
@@ -2358,33 +1913,39 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 /* 59 */,
 /* 60 */,
 /* 61 */,
-/* 62 */
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(63);
+module.exports = __webpack_require__(69);
 
 
 /***/ }),
-/* 63 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Home_vue__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_flash_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(28);
 
 
 
 
 var admin = new Vue({
-    el: '#home',
+    el: '#sosmed',
 
     components: {
-        Home: __WEBPACK_IMPORTED_MODULE_0__components_Home_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+        Sosmed: __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_flash_vue___default.a
     },
 
     mounted: function mounted() {
@@ -2396,16 +1957,15 @@ var admin = new Vue({
 });
 
 /***/ }),
-/* 64 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(65)
+var __vue_script__ = __webpack_require__(71)
 /* template */
-var __vue_template__ = __webpack_require__(76)
->>>>>>> master:public/js/admin/home.js
+var __vue_template__ = __webpack_require__(82)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2422,11 +1982,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-<<<<<<< HEAD:public/js/admin/sosmed.js
 Component.options.__file = "resources/assets/js/vue-components/admin/home/sosmed/components/Sosmed.vue"
-=======
-Component.options.__file = "resources/assets/js/vue-components/admin/home/components/Home.vue"
->>>>>>> master:public/js/admin/home.js
 
 /* hot reload */
 if (false) {(function () {
@@ -2435,15 +1991,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     hotAPI.createRecord("data-v-1129c924", Component.options)
   } else {
     hotAPI.reload("data-v-1129c924", Component.options)
-=======
-    hotAPI.createRecord("data-v-39335a90", Component.options)
-  } else {
-    hotAPI.reload("data-v-39335a90", Component.options)
->>>>>>> master:public/js/admin/home.js
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2454,24 +2004,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 54 */
-=======
-/* 65 */
->>>>>>> master:public/js/admin/home.js
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SosmedList_vue__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SosmedList_vue__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SosmedList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SosmedList_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(5);
-=======
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sosmed_vue__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sosmed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Sosmed_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
->>>>>>> master:public/js/admin/home.js
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -2496,11 +2036,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	components: {
-<<<<<<< HEAD:public/js/admin/sosmed.js
 		SosmedList: __WEBPACK_IMPORTED_MODULE_0__SosmedList_vue___default.a
-=======
-		Sosmed: __WEBPACK_IMPORTED_MODULE_0__Sosmed_vue___default.a
->>>>>>> master:public/js/admin/home.js
 	},
 
 	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
@@ -2509,43 +2045,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 55 */
-=======
-/* 66 */
->>>>>>> master:public/js/admin/home.js
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-<<<<<<< HEAD:public/js/admin/sosmed.js
-  __webpack_require__(56)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(58)
-/* template */
-var __vue_template__ = __webpack_require__(64)
-=======
-  __webpack_require__(67)
+  __webpack_require__(73)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(69)
+var __vue_script__ = __webpack_require__(75)
 /* template */
-var __vue_template__ = __webpack_require__(75)
->>>>>>> master:public/js/admin/home.js
+var __vue_template__ = __webpack_require__(81)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-<<<<<<< HEAD:public/js/admin/sosmed.js
 var __vue_scopeId__ = "data-v-3d698e3c"
-=======
-var __vue_scopeId__ = "data-v-d50b9924"
->>>>>>> master:public/js/admin/home.js
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -2556,11 +2074,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-<<<<<<< HEAD:public/js/admin/sosmed.js
 Component.options.__file = "resources/assets/js/vue-components/admin/home/sosmed/components/SosmedList.vue"
-=======
-Component.options.__file = "resources/assets/js/vue-components/admin/home/components/Sosmed.vue"
->>>>>>> master:public/js/admin/home.js
 
 /* hot reload */
 if (false) {(function () {
@@ -2569,15 +2083,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     hotAPI.createRecord("data-v-3d698e3c", Component.options)
   } else {
     hotAPI.reload("data-v-3d698e3c", Component.options)
-=======
-    hotAPI.createRecord("data-v-d50b9924", Component.options)
-  } else {
-    hotAPI.reload("data-v-d50b9924", Component.options)
->>>>>>> master:public/js/admin/home.js
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2588,40 +2096,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 56 */
-=======
-/* 67 */
->>>>>>> master:public/js/admin/home.js
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-<<<<<<< HEAD:public/js/admin/sosmed.js
-var content = __webpack_require__(57);
+var content = __webpack_require__(74);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("23b6e80b", content, false, {});
-=======
-var content = __webpack_require__(68);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("08bb74d8", content, false, {});
->>>>>>> master:public/js/admin/home.js
+var update = __webpack_require__(3)("23b6e80b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
    module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3d698e3c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SosmedList.vue", function() {
      var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3d698e3c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SosmedList.vue");
-=======
-   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d50b9924\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Sosmed.vue", function() {
-     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d50b9924\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Sosmed.vue");
->>>>>>> master:public/js/admin/home.js
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -2631,45 +2122,26 @@ if(false) {
 }
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-=======
-/* 68 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
->>>>>>> master:public/js/admin/home.js
 // imports
 
 
 // module
-<<<<<<< HEAD:public/js/admin/sosmed.js
 exports.push([module.i, "\n.card[data-v-3d698e3c] {\n    border: 1px solid transparent !important;\n}\n.card-block[data-v-3d698e3c]{\n    padding: 1em !important;\n}\n.detail[data-v-3d698e3c] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n.f-24[data-v-3d698e3c] {\n    font-size: 24px !important;\n}\n.bgSalmon[data-v-3d698e3c] {\n    background: salmon;\n}\n.max-lines[data-v-3d698e3c]{\n  text-overflow: ellipsis;\n  max-width: 80ch;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.card[data-v-d50b9924] {\n    border: 1px solid transparent !important;\n}\n.card-block[data-v-d50b9924]{\n    padding: 1em !important;\n}\n.detail[data-v-d50b9924] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n.f-24[data-v-d50b9924] {\n    font-size: 24px !important;\n}\n.bgSalmon[data-v-d50b9924] {\n    background: salmon;\n}\n.max-lines[data-v-d50b9924]{\n  text-overflow: ellipsis;\n  max-width: 80ch;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", ""]);
->>>>>>> master:public/js/admin/home.js
 
 // exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 58 */
-=======
-/* 69 */
->>>>>>> master:public/js/admin/home.js
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSosmed_vue__ = __webpack_require__(59);
-=======
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSosmed_vue__ = __webpack_require__(70);
->>>>>>> master:public/js/admin/home.js
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSosmed_vue__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSosmed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditSosmed_vue__);
 //
 //
@@ -2755,43 +2227,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 59 */
-=======
-/* 70 */
->>>>>>> master:public/js/admin/home.js
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-<<<<<<< HEAD:public/js/admin/sosmed.js
-  __webpack_require__(60)
-}
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(62)
-/* template */
-var __vue_template__ = __webpack_require__(63)
-=======
-  __webpack_require__(71)
+  __webpack_require__(77)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(73)
+var __vue_script__ = __webpack_require__(79)
 /* template */
-var __vue_template__ = __webpack_require__(74)
->>>>>>> master:public/js/admin/home.js
+var __vue_template__ = __webpack_require__(80)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-<<<<<<< HEAD:public/js/admin/sosmed.js
 var __vue_scopeId__ = "data-v-667cc964"
-=======
-var __vue_scopeId__ = "data-v-fa405ed0"
->>>>>>> master:public/js/admin/home.js
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -2802,11 +2256,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-<<<<<<< HEAD:public/js/admin/sosmed.js
 Component.options.__file = "resources/assets/js/vue-components/admin/home/sosmed/components/EditSosmed.vue"
-=======
-Component.options.__file = "resources/assets/js/vue-components/admin/home/components/EditSosmed.vue"
->>>>>>> master:public/js/admin/home.js
 
 /* hot reload */
 if (false) {(function () {
@@ -2815,15 +2265,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     hotAPI.createRecord("data-v-667cc964", Component.options)
   } else {
     hotAPI.reload("data-v-667cc964", Component.options)
-=======
-    hotAPI.createRecord("data-v-fa405ed0", Component.options)
-  } else {
-    hotAPI.reload("data-v-fa405ed0", Component.options)
->>>>>>> master:public/js/admin/home.js
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -2834,40 +2278,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 60 */
-=======
-/* 71 */
->>>>>>> master:public/js/admin/home.js
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-<<<<<<< HEAD:public/js/admin/sosmed.js
-var content = __webpack_require__(61);
+var content = __webpack_require__(78);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("68209bfa", content, false, {});
-=======
-var content = __webpack_require__(72);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("345d9ccc", content, false, {});
->>>>>>> master:public/js/admin/home.js
+var update = __webpack_require__(3)("68209bfa", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
    module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-667cc964\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditSosmed.vue", function() {
      var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-667cc964\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditSosmed.vue");
-=======
-   module.hot.accept("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fa405ed0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditSosmed.vue", function() {
-     var newContent = require("!!../../../../../../../node_modules/css-loader/index.js!../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fa405ed0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditSosmed.vue");
->>>>>>> master:public/js/admin/home.js
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -2877,36 +2304,21 @@ if(false) {
 }
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-=======
-/* 72 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
->>>>>>> master:public/js/admin/home.js
 // imports
 
 
 // module
-<<<<<<< HEAD:public/js/admin/sosmed.js
 exports.push([module.i, "\n.pl-15-px[data-v-667cc964] {\n    padding-left: 15px !important;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.pl-15-px[data-v-fa405ed0] {\n    padding-left: 15px !important;\n}\n", ""]);
->>>>>>> master:public/js/admin/home.js
 
 // exports
 
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 62 */
-=======
-/* 73 */
->>>>>>> master:public/js/admin/home.js
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3057,11 +2469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 63 */
-=======
-/* 74 */
->>>>>>> master:public/js/admin/home.js
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3268,20 +2676,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     require("vue-hot-reload-api")      .rerender("data-v-667cc964", module.exports)
-=======
-    require("vue-hot-reload-api")      .rerender("data-v-fa405ed0", module.exports)
->>>>>>> master:public/js/admin/home.js
   }
 }
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 64 */
-=======
-/* 75 */
->>>>>>> master:public/js/admin/home.js
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3397,8 +2797,6 @@ var render = function() {
       1
     )
   ])
-<<<<<<< HEAD:public/js/admin/sosmed.js
-=======
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3406,55 +2804,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-d50b9924", module.exports)
-  }
-}
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-12" },
-        [
-          _c(
-            "transition-group",
-            { attrs: { name: "slide" } },
-            _vm._l(_vm.sosmeds, function(sosmed) {
-              return _c("sosmed", { key: sosmed.id, attrs: { sosmed: sosmed } })
-            })
-          )
-        ],
-        1
-      )
-    ])
-  ])
->>>>>>> master:public/js/admin/home.js
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-<<<<<<< HEAD:public/js/admin/sosmed.js
     require("vue-hot-reload-api")      .rerender("data-v-3d698e3c", module.exports)
-=======
-    require("vue-hot-reload-api")      .rerender("data-v-39335a90", module.exports)
->>>>>>> master:public/js/admin/home.js
   }
 }
 
 /***/ }),
-<<<<<<< HEAD:public/js/admin/sosmed.js
-/* 65 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3494,18 +2849,11 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(23);
-=======
-/* 77 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(21);
->>>>>>> master:public/js/admin/home.js
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(28);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({

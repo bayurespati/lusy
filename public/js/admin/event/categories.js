@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 129);
+/******/ 	return __webpack_require__(__webpack_require__.s = 152);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1121,24 +1121,24 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 129:
+/***/ 152:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(130);
+module.exports = __webpack_require__(153);
 
 
 /***/ }),
 
-/***/ 130:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Categories_vue__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Categories_vue__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Categories_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(36);
 
 
 
@@ -1161,15 +1161,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 131:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(132)
+var __vue_script__ = __webpack_require__(155)
 /* template */
-var __vue_template__ = __webpack_require__(136)
+var __vue_template__ = __webpack_require__(159)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1209,12 +1209,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 132:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Category_vue__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Category_vue__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Category_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Category_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1252,15 +1252,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 133:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(134)
+var __vue_script__ = __webpack_require__(157)
 /* template */
-var __vue_template__ = __webpack_require__(135)
+var __vue_template__ = __webpack_require__(158)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1300,7 +1300,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 134:
+/***/ 157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1313,7 +1313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 135:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1334,7 +1334,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 136:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1377,11 +1377,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 137:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(36);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -1475,85 +1475,6 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
-
-/***/ }),
-
-/***/ 28:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(137);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        categories: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getCategories: function getCategories(state) {
-            return state.categories;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_categories: function set_categories(state, categories) {
-            state.categories = categories;
-        },
-
-        edit_category: function edit_category(state, updatedCategory) {
-
-            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedCategory.id);
-
-            state.category[categoryIndex].title = updatedClass.title;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_categories: function load_categories(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/category').then(function (response) {
-                commit('set_categories', response.data);
-            });
-        },
-
-        update_category: function update_category(_ref2, updatedCategory) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/category/' + updatedCategory.id, {
-                    id: updatedCategory.id,
-                    title: updatedCategory.title
-                }).then(function (response) {
-                    commit('edit_category', updatedCategory);
-
-                    resolve(updatedCategory);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
-    }
-});
 
 /***/ }),
 
@@ -1783,6 +1704,85 @@ function applyToTag (styleElement, obj) {
   }
 }
 
+
+/***/ }),
+
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(160);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        categories: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getCategories: function getCategories(state) {
+            return state.categories;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_categories: function set_categories(state, categories) {
+            state.categories = categories;
+        },
+
+        edit_category: function edit_category(state, updatedCategory) {
+
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedCategory.id);
+
+            state.category[categoryIndex].title = updatedClass.title;
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_categories: function load_categories(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/data/category').then(function (response) {
+                commit('set_categories', response.data);
+            });
+        },
+
+        update_category: function update_category(_ref2, updatedCategory) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/category/' + updatedCategory.id, {
+                    id: updatedCategory.id,
+                    title: updatedCategory.title
+                }).then(function (response) {
+                    commit('edit_category', updatedCategory);
+
+                    resolve(updatedCategory);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 

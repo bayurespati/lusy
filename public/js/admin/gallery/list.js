@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 120);
+/******/ 	return __webpack_require__(__webpack_require__.s = 143);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1121,24 +1121,24 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 120:
+/***/ 143:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(121);
+module.exports = __webpack_require__(144);
 
 
 /***/ }),
 
-/***/ 121:
+/***/ 144:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(35);
 
 
 
@@ -1161,15 +1161,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 122:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(123)
+var __vue_script__ = __webpack_require__(146)
 /* template */
-var __vue_template__ = __webpack_require__(127)
+var __vue_template__ = __webpack_require__(150)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1209,12 +1209,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 123:
+/***/ 146:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GalleryImage_vue__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GalleryImage_vue__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GalleryImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__GalleryImage_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1252,15 +1252,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 124:
+/***/ 147:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(125)
+var __vue_script__ = __webpack_require__(148)
 /* template */
-var __vue_template__ = __webpack_require__(126)
+var __vue_template__ = __webpack_require__(149)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1300,7 +1300,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 125:
+/***/ 148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1313,7 +1313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 126:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1334,7 +1334,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 127:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1377,11 +1377,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 128:
+/***/ 151:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(35);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -1475,93 +1475,6 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
-
-/***/ }),
-
-/***/ 27:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(128);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        gallery: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getGallery: function getGallery(state) {
-            return state.gallery;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_gallery: function set_gallery(state, gallery) {
-            state.gallery = gallery;
-        },
-
-        edit_image: function edit_image(state, updatedImage) {
-
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImage(updatedImage.id);
-
-            state.gallery[imageIndex].title = updatedImage.title;
-            state.gallery[imageIndex].date = updatedImage.date;
-            state.gallery[imageIndex].location = updatedImage.location;
-            state.gallery[imageIndex].creator = updatedImage.creator;
-            state.gallery[imageIndex].image_path = updatedImage.image_path;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_gallery: function load_gallery(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/list').then(function (response) {
-                commit('set_gallery', response.data);
-            });
-        },
-
-        update_image: function update_image(_ref2, updatedImage) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/list/' + updatedImage.id, {
-                    id: updatedImage.id,
-                    title: updatedImage.title,
-                    date: updatedImage.date,
-                    location: updatedImage.location,
-                    creator: updatedImage.creator,
-                    image_path: updatedImage.image_path
-                }).then(function (response) {
-                    commit('edit_image', updatedImage);
-
-                    resolve(updatedImage);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
-    }
-});
 
 /***/ }),
 
@@ -1791,6 +1704,93 @@ function applyToTag (styleElement, obj) {
   }
 }
 
+
+/***/ }),
+
+/***/ 35:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(151);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        gallery: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getGallery: function getGallery(state) {
+            return state.gallery;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_gallery: function set_gallery(state, gallery) {
+            state.gallery = gallery;
+        },
+
+        edit_image: function edit_image(state, updatedImage) {
+
+            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImage(updatedImage.id);
+
+            state.gallery[imageIndex].title = updatedImage.title;
+            state.gallery[imageIndex].date = updatedImage.date;
+            state.gallery[imageIndex].location = updatedImage.location;
+            state.gallery[imageIndex].creator = updatedImage.creator;
+            state.gallery[imageIndex].image_path = updatedImage.image_path;
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_gallery: function load_gallery(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/data/list').then(function (response) {
+                commit('set_gallery', response.data);
+            });
+        },
+
+        update_image: function update_image(_ref2, updatedImage) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/list/' + updatedImage.id, {
+                    id: updatedImage.id,
+                    title: updatedImage.title,
+                    date: updatedImage.date,
+                    location: updatedImage.location,
+                    creator: updatedImage.creator,
+                    image_path: updatedImage.image_path
+                }).then(function (response) {
+                    commit('edit_image', updatedImage);
+
+                    resolve(updatedImage);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 

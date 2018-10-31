@@ -34,7 +34,6 @@
 
             <ul class="list-unstyled components">
                 <li>
-<<<<<<< HEAD
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
@@ -44,9 +43,6 @@
                             <a href="{{ route('admin.home.imageSider') }}">Image slider</a>
                         </li>
                     </ul>
-=======
-                    <a href="#">Home</a>
->>>>>>> master
                 </li>
                 <li>
                     <a href="#aboutSubmenu" 
