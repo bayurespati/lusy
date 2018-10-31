@@ -40,7 +40,7 @@ class HomeController extends Controller
     public function deleteImageSlider(ImageSlider $imageSlider){
 
         $this->removeImageOnServer($imageSlider->image_ori);
-        $this->removeImageOnServer($imageSlider->image_slider);
+        $this->removeImageOnServer($imageSlider->image_show);
         $this->removeImageOnServer($imageSlider->thumbnail);
         
         $imageSlider->delete();
@@ -53,7 +53,7 @@ class HomeController extends Controller
         $imageName = $imageName[count($imageName)-1];
 
         if(file_exists($path.$imageName)) {
-            unlink($path . $imageName);
+            unlink($path.$imageName);
         }
     }
 
@@ -66,7 +66,7 @@ class HomeController extends Controller
             file::makedirectory($path);
         }
 
-        $imageOriName = time().'image_oir.jpg';
+        $imageOriName = time().'image_ori.jpg';
         $imageOri = $this->setImage($request->image_ori);
         file_put_contents($path.$imageOriName,$imageOri);
 
@@ -82,7 +82,7 @@ class HomeController extends Controller
         $imageSlider = new ImageSlider();
 
         $imageSlider->image_points = $request->image_points;
-        $imageSlider->image_slider = url('img/home/'.$imageShowName);
+        $imageSlider->image_show = url('img/home/'.$imageShowName);
         $imageSlider->image_ori = url('img/home/'.$imageOriName);
         $imageSlider->thumbnail = url('img/home/'.$thumbnailName);
         $imageSlider->save();

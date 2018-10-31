@@ -11,21 +11,21 @@
         <!--=========================================================================================
             I N P U T   I M A G E
             =========================================================================================-->
-        <div class="panel panel-transparent" >
+        <div class="panel panel-transparent p-1 pb-4" style="text-align: center;">
             <input type="file"
                    accept="image/*"
                    id="file-2"
                    class="inputfile"
                    @change="setUpFileUploader">
 
-            <label for="file-2" class="btn btn-outline-primary">
+            <label for="file-2" class="btn btn-outline-primary m-0">
                 <span>Browse image</span>
             </label>
 
             <!--=========================================================================================
                 B U T T O N   S A V E                =========================================================================================-->
             <button type="button" role="button"
-                    class="btn btn-success"
+                    class="btn btn-success ml-3"
                     @click="uploadImage">
                     Save
             </button>
@@ -185,6 +185,10 @@
 </script>
 
 <style scoped>
+    #croppie.croppie-container {
+        padding-top: 26px !important;
+    }
+
     input[type='file']::-webkit-file-upload-button
     {
         color: #fff;

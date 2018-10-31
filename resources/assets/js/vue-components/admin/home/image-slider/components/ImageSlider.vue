@@ -1,25 +1,29 @@
 <template>
 	<div class="container">
-		<h1>IMAGE SLIDER</h1>
-		<transition enterActiveClass="fade-in"
-		                leaveActiveClass="fade-out"
-		                mode="out-in">
+		<h3>Image Slider Setting</h3>
 
+		<p>You can insert maximum to four (4) images here to be displayed at the Home page.</p>
+		<transition enterActiveClass="fade-in"
+		            leaveActiveClass="fade-out"
+		            mode="out-in">
 			<template class="row" v-if="!isAddImage">
-				<button v-if="totalImage < 4" @click="isAddImage = !isAddImage" class="btn btn-primary">TAMBAH IMAGE</button>
+				<button v-if="totalImage < 4" @click="isAddImage = !isAddImage" class="btn btn-primary mt-1">
+					Tambah Image
+				</button>
 			</template>
 			<template class="row" v-else>
 				<image-box @closeAddImage="isAddImage = $event"></image-box>
 			</template>
 		</transition>
 
-		 <div class="row">
-		 	<image-list
-		                v-for="imageSlider in imageSliders"
-		                :imageSlider="imageSlider"
-		                :key="imageSlider.id">
-		    </image-list>
-	    </div>	
+		<div class="row pt-4">
+			<image-list
+				v-for="(value, key, index) in imageSliders"
+				:imageSlider="value"
+				:imageNumber="key"
+				:key="index">
+			</image-list>
+		</div>	
 	</div>  
 </template>
 

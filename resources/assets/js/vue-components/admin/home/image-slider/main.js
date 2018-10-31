@@ -1,5 +1,5 @@
 import ImageSlider from './components/ImageSlider.vue';
-import Flash from './../../../global/flash.vue';
+import Flash from './../../../global/Flash.vue';
 import {store} from './store';
 
 const admin = new Vue({

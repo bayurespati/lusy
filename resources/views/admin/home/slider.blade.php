@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Image Slider</title>
+	<title>Admin-Home-Image Slider</title>
 @endpush
 
 @push('additional_css')

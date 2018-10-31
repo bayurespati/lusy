@@ -34,13 +34,19 @@
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <a class="{{ request()->is('admin/home/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}"
+                    href="#homeSubmenu" 
+                    data-toggle="collapse" 
+                    aria-expanded="false">Home</a>
+                    <ul class="{{ request()->is('admin/home/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
+                    id="homeSubmenu">
                         <li>
-                            <a href="{{ route('admin.home.sosmed') }}">sosial media</a>
+                            <a class="{{ request()->is('admin/home/sosmed') || request()->is('admin/home/sosmed/*') ? 'active-forced' : '' }}"
+                                href="{{ route('admin.home.sosmed') }}">Social Media</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.home.imageSider') }}">Image slider</a>
+                            <a class="{{ request()->is('admin/home/image-slider') || request()->is('admin/home/image-slider/*') ? 'active-forced' : '' }}"
+                                href="{{ route('admin.home.imageSider') }}">Image Slider</a>
                         </li>
                     </ul>
                 </li>

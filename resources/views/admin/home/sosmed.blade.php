@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Sosmed</title>
+	<title>Admin-Home-Sosial Media</title>
 @endpush
 
 @push('additional_css')
