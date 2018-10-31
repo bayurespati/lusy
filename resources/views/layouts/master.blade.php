@@ -53,7 +53,7 @@
         <!-- //initialize the javascript -->
         <!-- App.init(); -->
     <!-- }); -->
-<!-- </script> -->
+</script>
 @stack('additional_js')
 </body>
 </html>

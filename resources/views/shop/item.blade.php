@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Lusy Wahyudi</title>
+<title>Lusy Wahyudi - Shop</title>
 @endpush
 
 @section('content')

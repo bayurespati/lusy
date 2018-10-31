@@ -1,5 +1,7 @@
 <?php
-
+use App\Sosmed;
+use App\imageSlider;
+use App\AboutContent;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,14 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 |
 */
 Route::get('/', function () {
-    return view('index');
+    $sosmed = Sosmed::all();
+    $imageSlider = imageSlider::all();
+    $introduction = AboutContent::where('is_class', '=', false)->get();
+
+    $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
+    $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
+
+    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction'));
 })->name('home');
 
 
@@ -43,7 +52,19 @@ Route::group([
 ], function () {
 
 	Route::get('/', function () { 
-		return view('about.index');
+        $sosmed = Sosmed::all();
+        $about = AboutContent::where('is_class', '=', false)->get();
+        $classes = AboutContent::where('is_class', '=', true)->get();
+
+        $about[0]->content = str_replace('\n', '<br>', $about[0]->content);
+        $about[0]->content = str_replace('\"', '"', $about[0]->content);
+
+        for ($i=0; $i < count($classes); $i++) { 
+            $classes[$i]->content = str_replace('\n', '<br>', $classes[$i]->content);
+            $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
+        }
+
+		return view('about.index', compact('sosmed', 'about', 'classes'));
 	})->name('about.index');
 });
 
@@ -63,7 +84,9 @@ Route::group([
 ], function () {
 
 	Route::get('/', function () { 
-		return view('gallery.index');
+        $sosmed = Sosmed::all();
+
+		return view('gallery.index', compact('sosmed'));
 	})->name('gallery.index');
 });
 
@@ -83,7 +106,9 @@ Route::group([
 ], function () {
 
 	Route::get('/', function () { 
-		return view('event.index');
+        $sosmed = Sosmed::all();
+
+		return view('event.index', compact('sosmed'));
 	})->name('event.index');
 });
 
@@ -103,11 +128,15 @@ Route::group([
 ], function () {
 
 	Route::get('/', function () { 
-		return view('shop.index');
+        $sosmed = Sosmed::all();
+
+		return view('shop.index', compact('sosmed'));
 	})->name('shop.index');
 
 	Route::get('/item', function () { 
-		return view('shop.item');
+        $sosmed = Sosmed::all();
+
+		return view('shop.item', compact('sosmed'));
 	})->name('shop.item');
 
 });
@@ -128,7 +157,9 @@ Route::group([
 ], function () {
 
 	Route::get('/', function () { 
-		return view('contact.index');
+        $sosmed = Sosmed::all();
+
+		return view('contact.index', compact('sosmed'));
 	})->name('contact.index');
 });
 

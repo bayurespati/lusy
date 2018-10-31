@@ -13,7 +13,7 @@ class AboutContentsTableSeeder extends Seeder
     {
          DB::table('about_contents')->insert([
             [
-                'image_path' => '/img/section-header2-1.png',
+                'image_path' => '/img/welcome-2.png',
                 'title' => 'Tentang Pemilik',
                 'content' => 
                 json_encode(

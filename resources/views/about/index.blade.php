@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Lusy Wahyudi</title>
+<title>Lusy Wahyudi - About</title>
 @endpush
 
 @section('content')
@@ -40,18 +40,18 @@
                     <!-- Row -->
                     <div class="row">           
                         <div class="col-md-6 col-sm-6 img-block">
-                            <i><img src="{{ asset('img/welcome-2.png') }}" alt="Welcome" /></i>
+                            <i><img src="{{ $about[0]->image_path }}" alt="{{ $about[0]->title }}" /></i>
                         </div>
                         <div class="col-md-6 col-sm-6 content-block">
                             <!-- Section Header -->
                             <div class="section-header2">
                                 <i><img src="{{ asset('img/section-header2-1.png') }}" alt="Section Header" /></i>
-                                <span>Welcome to</span>
-                                <h2>Museum History</h2>
+                                <h2>{{ $about[0]->title }}</h2>
                             </div>
                             <!-- Section Header /- -->
-                            <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.</p>
-                            <a href="#" title="Read More">Read More</a>
+                            <p>
+                                {!! $about[0]->content !!}
+                            </p>
                         </div>
                     </div>
                     <!-- Row /- -->
@@ -169,50 +169,35 @@
                         <div id="welcome-carousel" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
+                                @for ($i = 0; $i < count($classes); $i++)
+                                <div class="item {{ $i === 0 ? 'active' : '' }}">
 
                                      <!-- Section Header -->
                                     <div class="section-header">
                                         <div class="section-title-border">
-                                            <span>Welcome to</span>
-                                            <h2>Ikebana Ikenobo</h2> 
-                                        </div>
-                                    </div>
-                                    <!-- Section Header /- -->
-                                    <div class="col-md-6 col-sm-6 content-block">
-                                        <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.</p>
-                                        <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 img-block">
-                                        <i><img src="{{ asset('img/welcome-1.jpg') }}" alt="Welcome" /></i>
-                                    </div>
-                                </div>
-                                <div class="item">
-
-                                     <!-- Section Header -->
-                                    <div class="section-header">
-                                        <div class="section-title-border">
-                                            <span>Welcome to</span>
-                                            <h2>Handcraft</h2> 
+                                            <span>Introducing</span>
+                                            <h2>{{ $classes[$i]->title }}</h2> 
                                         </div>
                                     </div>
                                     <!-- Section Header /- -->
                                     <div class="col-md-6 col-sm-6 content-block-custom">
                                         <p>
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.
-
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.
+                                            {!! $classes[$i]->content !!}
                                         </p>
-                                        <a href="#" title="Read More">Read More</a>
+                                        
+                                        <button class="general-btn transitioned-btn">
+                                            Register
+                                        </button>
                                     </div>
                                     <div class="col-md-6 col-sm-6 img-block">
-                                        <i><img src="{{ asset('img/welcome-1.jpg') }}" alt="Welcome" /></i>
+                                        <i><img src="{{ $classes[$i]->image_path }}" alt="{{ $classes[$i]->title }}" /></i>
                                     </div>
                                 </div>
+                                @endfor
+                                
                             </div>
                             <!-- Controls -->
-                            <div class="wc-controls">
+                            <div class="wc-controls wc-controls-custom">
                                 <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
                                     <span></span>
                                 </a>

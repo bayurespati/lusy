@@ -28,20 +28,26 @@
                 <!-- START REVOLUTION SLIDER 5.0 -->
                 <div class="rev_slider_wrapper">
                     <div id="home-slider1" class="rev_slider" data-version="5.0">
-                        <ul> 
+                        <ul>
+                            @if (count($imageSlider) > 0)
+                                @for ($i = 0; $i < count($imageSlider); $i++)                        
+                                <li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
+                                    <!-- MAIN IMAGE -->
+                                    <img src="{{ $imageSlider[$i]->image_show }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+                                </li>
+                                @endfor
+                            @else
                             <li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
                                 <!-- MAIN IMAGE -->
                                 <img src="{{ asset('img/slider-1.jpg') }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
                             </li>
-                            <li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
-                                <!-- MAIN IMAGE -->
-                                <img src="{{ asset('img/slider-1.jpg') }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
-                            </li>
+                            @endif
                         </ul>
-                    </div><!-- END REVOLUTION SLIDER -->
-                </div><!-- END OF SLIDER WRAPPER -->
-                <span class="goto-next"><a href="#welcome-section"><i class="icon icon-Mouse bounce" aria-hidden="true"></i></a></span>
-            </div>
+                    </div>
+                    <!-- END REVOLUTION SLIDER -->
+                </div>
+                <!-- END OF SLIDER WRAPPER -->
+
             <!-- Slider Section /- -->
 
             <!-- About Us Section -->
@@ -51,17 +57,20 @@
                     <!-- Row -->
                     <div class="row">           
                         <div class="col-md-6 col-sm-6 img-block">
-                            <i><img src="{{ asset('img/welcome-2.png') }}" alt="Welcome" /></i>
+                            <i><img src="{{ $introduction[0]->image_path }}" alt="{{ $introduction[0]->title }}" /></i>
                         </div>
                         <div class="col-md-6 col-sm-6 content-block">
                             <!-- Section Header -->
                             <div class="section-header2">
                                 <i><img src="{{ asset('img/section-header2-1.png') }}" alt="Section Header" /></i>
-                                <span>Welcome to</span>
-                                <h2>Museum History</h2>
+                                <h2>{{ $introduction[0]->title }}</h2>
                             </div><!-- Section Header /- -->
-                            <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.</p>
-                            <a href="#" title="Read More">Read More</a>
+
+                            <p>
+                                {!! $introduction[0]->content !!}
+                            </p>
+
+                            <a href="{{ route('about.index') }}" title="Read More">Read More</a>
                         </div>
                     </div><!-- Row /- -->
                 </div><!-- Container /- -->

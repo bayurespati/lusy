@@ -29,7 +29,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Lusy Wahyudi</h3>
+                <a href="{{ route('home') }}"><h3>Lusy Wahyudi</h3></a>
             </div>
 
             <ul class="list-unstyled components">
