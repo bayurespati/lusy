@@ -10472,6 +10472,17 @@ a.article:hover {
         display: none;
     }
 }
+
+
+
+
+/* ---------------------------------------------------
+    C U S T O M   S T Y L I N G
+----------------------------------------------------- */
+.active-forced {
+    background: #fff !important;
+    color: #6d7fcc !important;
+}
 /*
 	[Table of contents]
 
