@@ -2,6 +2,10 @@
 use App\Sosmed;
 use App\imageSlider;
 use App\AboutContent;
+use App\Category;
+use App\SubCategory;
+
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,9 +89,14 @@ Route::group([
 
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
+        $categories = Category::whereType(1)->get();
 
-		return view('gallery.index', compact('sosmed'));
+		return view('gallery.index', compact('sosmed', 'categories'));
 	})->name('gallery.index');
+
+    Route::get('category/{category}', function(Request $request, Category $category){
+        return $category->subcategories()->get();
+    });
 });
 
 
