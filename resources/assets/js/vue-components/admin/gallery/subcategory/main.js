@@ -11,7 +11,7 @@ const admin = new Vue({
     },
 
     mounted(){
-        this.$store.dispatch('load_subcategories');
+        this.$store.dispatch('load_subCategories');
     },
 
     store

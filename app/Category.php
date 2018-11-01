@@ -6,8 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-	public function subcategories()
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'categories';
+
+    /**
+     * Settings
+     */
+    protected $guarded = [];
+
+    protected $hidden = [
+        'created_at', 'updated_at',
+    ];
+
+    public function subcategories()
     {
-        return $this->hasMany(SubCategory::class, 'category_id');
+        return $this->hasMany('App\SubCategory', 'category_id');
     }
 }

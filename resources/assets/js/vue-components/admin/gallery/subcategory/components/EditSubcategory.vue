@@ -4,47 +4,48 @@
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
 
-        <div class="panel-default panel mt-5" id="edit_sosmed">
+        <div class="panel-default panel mt-5" id="edit_subcategory">
             <div class="panel-body">
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
 
+
+                    <!--=========================================================================================
+                        C A T E G O R Y
+                        =========================================================================================-->
+                    <div class="col-sm-12 row form-group">
+                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                            <label for="title"
+                                   class="form-control-label panel-font-small m-0">
+                                Category
+                            </label>
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" 
+                                    id="category" 
+                                    v-model="input.category_id">
+                                <option v-for="category in categories" :value=category.id>{{ category.title }}</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <!--=========================================================================================
                         N A M A
                         =========================================================================================-->
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="nama"
+                            <label for="title"
                                    class="form-control-label panel-font-small m-0">
-                                Link
+                                Nama
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input id="link"
+                            <input id="title"
                                    type="text"
                                    class="form-control form-control-sm"
-                                   @keyup.enter="editSosmed"
-                                   v-model="input.link">
+                                   @keyup.enter="editSubcategory"
+                                   v-model="input.title">
                         </div>
                     </div>
-
-
-                    <!--=========================================================================================
-                        K O D E
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 d-flex align-items-center justify-content-end">
-                            <label for="kode"
-                                   class="form-control-label panel-font-small m-0">
-                                Status
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="radio" :name=sosmed.id  value=1 v-model="input.is_active"> Aktif
-                            <input type="radio" :name=sosmed.id  value=0 v-model="input.is_active" class="ml-2"> Tidak Aktif
-                        </div>
-                    </div>
-
 
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
@@ -66,8 +67,7 @@
                             S A V E   B U T T O N
                             =========================================================================================-->
                         <div class="col-sm-6">
-                            <button @click="editSosmed"
-                                    :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
+                            <button @click="editSubcategory"
                                     class="full-width btn btn-success btn-block btn-sm">
                                     Simpan
                             </button>
@@ -83,9 +83,10 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default{
         props: {
-            sosmed: {
+            subcategory: {
                 type: [Object],
                 default() {
                     return {}
@@ -97,42 +98,45 @@
             return {
                 isRequesting: false,
                 input: {
-                    link: this.sosmed.link === '' ? '' : this.sosmed.link,
-                    is_active: this.sosmed.is_active,
+                    title: this.subcategory.title === '' ? '' : this.subcategory.title,
+                    category_id: this.subcategory.category_id
                 }
             }
         },
 
         computed: {
-            sosmedIsEdited(){
-                return this.sosmed.link !== this.input.link
-                    || this.sosmed.is_active != this.input.is_active;
+
+            ...mapGetters({
+                categories: 'getCategories',
+            }),
+
+            subcategoryIsEdited(){
+                return this.subcategory.title !== this.input.title 
+                    || this.subcategory.category_id !== this.input.category_id ;
             }
         },
 
         methods: {
 
-            editSosmed(){
+            editSubcategory(){
 
                 const self = this;
 
-                if (this.sosmedIsEdited) {
+                if (this.subcategoryIsEdited && this.input.title.length > 3) {
 
                     this.isRequesting = true;
 
-                    const updatedSosmed = {
-                        id: this.sosmed.id,
-                        link: this.input.link,
-                        is_active: this.input.is_active,
+                    const updatedSubcategory = {
+                        id: this.subcategory.id,
+                        title: this.input.title,
+                        category_id: this.input.category_id
                     };
 
-                    this.$store.dispatch('update_sosmed', updatedSosmed)                        
+                    this.$store.dispatch('update_subcategory', updatedSubcategory)
 
-                        .then((updatedSosmed) => {
+                        .then((updatedSubcategory) => {
 
-                            flash('Sosial media Berhasil diperbaharui', 'success');
-
-                            self.isRequesting = false;
+                            flash('Sub Category Berhasil diperbaharui', 'success');
 
                             self.closeEditForm();
                         })

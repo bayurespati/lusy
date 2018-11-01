@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     state: {
         gallery:{},
+        categories:{},
     },
 
 
@@ -18,26 +19,49 @@ export const store = new Vuex.Store({
         getGallery: state => {
             return state.gallery;
         },
+
+        getCategories: state => {
+            return state.categories;
+        }
     },
 
     //=========================================================================================
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_gallery: (state, gallery) =>{
-            state.gallery = gallery;
+        set_gallery: (state, data) =>{
+            state.gallery = data[0];
+            state.categories = data[1];
         },
 
-        edit_image(state, updatedImage) {
+        add_new_image(state, imageData){
 
-            const imageIndex = helpers.getIndexOfImage(updatedImage.id);
+            state.gallery.push({
+                id: imageData.id,
+                image_path: imageData.image_path,
+                title: imageData.detail.title,
+                sub_category_id: imageData.detail.sub_category_id,
+                date: imageData.detail.date,
+                location: imageData.detail.date,
+                creator: imageData.detail.creator,
+            });
+        },
 
+        edit_image(state, updatedGallery) {
 
-            state.gallery[imageIndex].title = updatedImage.title;
-            state.gallery[imageIndex].date = updatedImage.date;
-            state.gallery[imageIndex].location = updatedImage.location;
-            state.gallery[imageIndex].creator = updatedImage.creator;
-            state.gallery[imageIndex].image_path = updatedImage.image_path;
+            const imageIndex = helpers.getIndexOfGallery(updatedGallery.id);
+
+            state.gallery[imageIndex].title = updatedGallery.title;
+            state.gallery[imageIndex].date = updatedGallery.date;
+            state.gallery[imageIndex].location = updatedGallery.location;
+            state.gallery[imageIndex].creator = updatedGallery.creator;
+            state.gallery[imageIndex].sub_category_id = updatedGallery.sub_category_id;
+        },
+
+        delete_gallery(state, ids){
+            const galleryIndex = helpers.getIndexOfGallery(ids.galleryId);
+
+            state.gallery.splice(galleryIndex, 1);
         },
     },
 
@@ -46,32 +70,68 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_gallery: ({commit}) => {
-            axios.get('/admin/data/list')
+            axios.get('/admin/gallery/data/list')
                 .then(response =>{
                     commit('set_gallery',response.data);
                 });
         },
 
-        update_image({commit}, updatedImage) {
+        store_new_image({commit}, galleryData) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/list/' + updatedImage.id, {
-                    id: updatedImage.id,
-                    title: updatedImage.title,
-                    date: updatedImage.date,
-                    location: updatedImage.location,
-                    creator: updatedImage.creator,
-                    image_path: updatedImage.image_path,
-                })
+                axios.post('add/list', galleryData)
                     .then(response => {
-                        commit('edit_image', updatedImage);
 
-                        resolve(updatedImage);
+                        const imageData = {
+                            id: response.data[0],
+                            image_path: response.data[1],
+                            detail: galleryData
+                        };
+
+                        commit('add_new_image', imageData);
+
+                        resolve(imageData);
                     })
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+        update_galllery({commit}, updatedGallery) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('update/list/' + updatedGallery.id, {
+                    id: updatedGallery.id,
+                    title: updatedGallery.title,
+                    date: updatedGallery.date,
+                    location: updatedGallery.location,
+                    creator: updatedGallery.creator,
+                    sub_category_id: updatedGallery.sub_category_id,
+                })
+                    .then(response => {
+                        commit('edit_image', updatedGallery);
+
+                        resolve(updatedGallery);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+
+        destroy_gallery({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/list/'+ids.galleryId)
+                    .then((response) => {
+                        commit('delete_gallery', ids);
+                        resolve();
+                    });
             })
         },
     }
