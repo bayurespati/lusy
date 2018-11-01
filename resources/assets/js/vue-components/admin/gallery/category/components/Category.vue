@@ -18,20 +18,15 @@
                         </div>
                     </div>
 
+
                     <!--=========================================================================================
-                        B U T T O N   E D I T
+                        B U T T O N   A C T I O N
                         =========================================================================================-->
                     <div class="col align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
                                 @click="isEditingCategory = !isEditingCategory">EDIT</button>
-                    </div>
 
-
-                    <!--=========================================================================================
-                        B U T T O N   D E L E T E
-                        =========================================================================================-->
-                    <div class="col align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-danger"
                                 @click="deleteTheCategory">DELETE</button>

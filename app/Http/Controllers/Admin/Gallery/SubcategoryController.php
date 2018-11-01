@@ -16,7 +16,7 @@ class SubcategoryController extends Controller
 
     public function loadSubcategory()
     {
-        $data = Category::where('type','1')->with('subCategories')->get();
+        $data = Category::where('type','1')->with('subcategories')->get();
         $categories = Category::where('type','1')->get();
 
 

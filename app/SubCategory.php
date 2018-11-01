@@ -30,5 +30,8 @@ class SubCategory extends Model
         return $this->belongsTo('App\Category', 'category_id');
     }
 
-
+    public function galleries()
+    {
+        return $this->hasMany('App\Gallery', 'sub_category_id');
+    }
 }

@@ -91,7 +91,6 @@ export const store = new Vuex.Store({
             })
         },
 
-
         update_subcategory({commit}, updatedSubcategory) {
 
             return new Promise((resolve, reject) => {
