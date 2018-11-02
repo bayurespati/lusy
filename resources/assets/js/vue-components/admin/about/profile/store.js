@@ -30,11 +30,9 @@ export const store = new Vuex.Store({
 
         edit_profile(state, updatedProfile) {
 
-            console.log(updatedProfile.image_path);
-
             state.profile.title = updatedProfile.title;
             state.profile.content = updatedProfile.content;
-            // state.profile.image_path = updatedProfile.image_path;
+            state.profile.image_path = updatedProfile.image_path;
         },
     },
 
@@ -62,8 +60,6 @@ export const store = new Vuex.Store({
                     .then(response => {
 
                         updatedProfile.image_path = response.data.image_path;
-
-                        console.log(response.data);
 
                         commit('edit_profile', updatedProfile);
 

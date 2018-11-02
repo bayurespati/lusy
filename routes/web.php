@@ -243,7 +243,9 @@ Route::group([
     	*/
     	Route::get('/class', 'ClassesController@index')->name('admin.about.classes');
     	Route::get('/data/class', 'ClassesController@loadClasses');
-    	Route::patch('/class', 'ClassesController@patch');
+        Route::post('/add/class', 'ClassesController@store');
+    	Route::patch('/update/class/{class}', 'ClassesController@update');
+        Route::delete('/delete/class/{class}', 'ClassesController@destroy');
     });
 
 

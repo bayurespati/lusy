@@ -28,15 +28,30 @@ export const store = new Vuex.Store({
             state.classes = classes;
         },
 
+        add_new_class(state, classData){
+
+            state.classes.push({
+                id: classData.id,
+                image_path: classData.image_path,
+                title: classData.title,
+                content: classData.content
+            });
+        },
+
         edit_class(state, updatedClass) {
 
             const classIndex = helpers.getIndexOfClass(updatedClass.id);
 
-
             state.classes[classIndex].image_path = updatedClass.image_path;
             state.classes[classIndex].title = updatedClass.title;
-            state.classes[classIndex].content = updatedClasses.content;
+            state.classes[classIndex].content = updatedClass.content;
         },
+
+        delete_class(state, ids){
+            const classIndex = helpers.getIndexOfClass(ids.classId);
+            state.classes.splice(classIndex, 1);
+        },
+
     },
 
     //=========================================================================================
@@ -44,30 +59,60 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_classes: ({commit}) => {
-            axios.get('/admin/data/class')
+            axios.get('/admin/about/data/class')
                 .then(response =>{
                     commit('set_classes',response.data);
                 });
         },
 
-        update_sosmed({commit}, updatedClass) {
+        store_new_class({commit}, addClass) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/class/' + updatedClass.id, {
-                    id: updatedClass.id,
-                    image_path: updatedClass.image_path,
-                    title: updatedClass.title,
-                    content: updatedClass.content,
-                })
+                axios.post('add/class', addClass)
                     .then(response => {
-                        commit('edit_class', updatedClass);
 
-                        resolve(updatedClass);
+                        commit('add_new_class', response.data);
+
+                        resolve(response.data);
                     })
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+        update_class({commit}, updatedClass) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('update/class/' + updatedClass.id, {
+                    id: updatedClass.id,
+                    image: updatedClass.image,
+                    title: updatedClass.title,
+                    content: updatedClass.content,
+                })
+                    .then(response => {
+
+                        commit('edit_class', response.data);
+
+                        resolve(response.data);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+        destroy_class({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/class/'+ids.classId)
+                    .then((response) => {
+                        commit('delete_class', ids);
+                        resolve();
+                    });
             })
         },
     }
