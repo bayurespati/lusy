@@ -36,10 +36,13 @@ export const store = new Vuex.Store({
         },
 
         add_new_subcategory(state, subCategory){
+            const categoryIndex = helpers.getIndexOfCategory(subCategory.detail.category_id);
+
             state.subcategories.push({
                 id: subCategory.id,
                 title: subCategory.detail.title,
-                category_id: subCategory.detail.category_id
+                category_id: subCategory.detail.category_id,
+                kategori: state.categories[categoryIndex].title
             });
         },
 

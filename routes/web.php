@@ -323,7 +323,9 @@ Route::group([
         */
         Route::get('/category', 'CategoryController@index')->name('admin.event.category');
         Route::get('/data/category', 'CategoryController@loadCategory');
-        Route::patch('/category', 'CategoryController@patch');
+        Route::post('/add/category', 'CategoryController@store');
+        Route::patch('/update/category/{category}', 'CategoryController@update');
+        Route::delete('/delete/category/{category}', 'CategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------
@@ -333,7 +335,9 @@ Route::group([
         */
         Route::get('/subcategory', 'SubcategoryController@index')->name('admin.event.subcategory');
         Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
-        Route::patch('/subcategory', 'SubcategoryController@patch');
+        Route::post('/add/subcategory', 'SubcategoryController@store');
+        Route::patch('/update/subcategory/{subcategory}', 'SubcategoryController@update');
+        Route::delete('/delete/subcategory/{subcategory}', 'SubcategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------
@@ -370,7 +374,9 @@ Route::group([
         */
         Route::get('/category', 'CategoryController@index')->name('admin.shop.category');
         Route::get('/data/category', 'CategoryController@loadCategory');
-        Route::patch('/category', 'CategoryController@patch');
+        Route::post('/add/category', 'CategoryController@store');
+        Route::patch('/update/category/{category}', 'CategoryController@update');
+        Route::delete('/delete/category/{category}', 'CategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------
@@ -380,7 +386,9 @@ Route::group([
         */
         Route::get('/subcategory', 'SubcategoryController@index')->name('admin.shop.subcategory');
         Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
-        Route::patch('/subcategory', 'SubcategoryController@patch');
+        Route::post('/add/subcategory', 'SubcategoryController@store');
+        Route::patch('/update/subcategory/{subcategory}', 'SubcategoryController@update');
+        Route::delete('/delete/subcategory/{subcategory}', 'SubcategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------

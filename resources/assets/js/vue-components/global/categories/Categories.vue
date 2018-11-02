@@ -1,13 +1,5 @@
 <template>
-  <div class="container">
-    <h3>Gallery's Categories Master</h3>
-    <p class="m-0">
-      This is where you can customise categories used in Gallery page.
-    </p>
-    <p>
-      (caution: deleting a category will also deletes subcategories and items that belong to that category).
-    </p>
-
+  <div>
     <transition enterActiveClass="fade-in"
     leaveActiveClass="fade-out"
     mode="out-in">

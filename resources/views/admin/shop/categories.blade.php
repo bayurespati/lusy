@@ -10,6 +10,15 @@
 
 @section('content')
 	<div id="categories">
+		<h3>Shop's Categories Master</h3>
+
+		<p class="m-0">
+			This is where you can customise categories used in Shop page.
+		</p>
+		<p>
+			(caution: deleting a category will also deletes subcategories and items that belong to that category).
+		</p>
+
 		<categories> </categories>
 		<flash> </flash>
 	</div>		

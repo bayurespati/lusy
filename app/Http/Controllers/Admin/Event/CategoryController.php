@@ -13,12 +13,31 @@ class CategoryController extends Controller
         return view('admin.event.categories');
     }
 
-    public function loadCategory()
+   public function loadCategory()
     {
-    	return Category::all();
+        return Category::where('type','2')->get();
     }
 
-    public function patch(Request $request, Category $category){
+    public function store(Request $request)
+    {
 
+        $category = new Category();
+
+        $category->title = $request->title;
+        $category->type = 2;
+
+        $category->save();
+
+        return $category->id;
+    }
+
+    public function update(Request $request, Category $category){
+        $category->title = $request->title;
+        $category->update();
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
     }
 }

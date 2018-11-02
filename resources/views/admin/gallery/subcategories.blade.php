@@ -9,7 +9,16 @@
 @endpush
 
 @section('content')
-	<div id="subcategories">
+	<div id="subcategories" class="container">
+		<h3>Gallery's Subcategories Master</h3>
+
+		<p class="m-0">
+			This is where you can customise subcategories of categories used in Gallery page.
+		</p>
+		<p>
+			(caution: deleting a subcategory will also deletes items that belong to that subcategory).
+		</p>
+		
 		<subcategories> </subcategories>
 		<flash> </flash>
 	</div>		
