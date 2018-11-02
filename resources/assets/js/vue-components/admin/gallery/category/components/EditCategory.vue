@@ -4,19 +4,21 @@
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
 
-        <div class="panel-default panel mt-5" id="edit_category">
+        <div class="panel-default panel mt-3 pt-4" id="edit_category">
             <div class="panel-body">
+                <h3 class="text-center font-weight-bold">Edit Kategori</h3>
+
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
 
 
                     <!--=========================================================================================
                         N A M A
                         =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
+                    <div class="col-sm-12 row">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="title"
-                                   class="form-control-label panel-font-small m-0">
-                                Title
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Nama Kategori
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -24,6 +26,7 @@
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editCategory"
+                                   placeholder="Nama Kategori" 
                                    v-model="input.title">
                         </div>
                     </div>
@@ -31,28 +34,26 @@
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
                         =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
+                    <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
 
 
                         <!--=========================================================================================
                             C A N C E L   B U T T O N
                             =========================================================================================-->
-                        <div class="col-sm-6">
-                            <button type="button" 
-                                class="full-width btn btn-secondary btn-block btn-sm"
-                                @click="closeEditForm">Batal</button>
-                        </div>
+                        <button type="button" 
+                                class="btn btn-success btn-sm"
+                                @click="editCategory">
+                            Simpan
+                        </button>
 
 
                         <!--=========================================================================================
                             S A V E   B U T T O N
                             =========================================================================================-->
-                        <div class="col-sm-6">
-                            <button @click="editCategory"
-                                    class="full-width btn btn-success btn-block btn-sm">
-                                    Simpan
-                            </button>
-                        </div>
+                        <button @click="closeEditForm"
+                                class="btn btn-secondary btn-sm ml-2">
+                                Batal
+                        </button>
                     </div>
 
                 </div>
@@ -126,7 +127,11 @@
 </script>
 
 <style scoped>
-    .pl-15-px {
-        padding-left: 15px !important;
+    .panel-default {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
     }
 </style>

@@ -30,6 +30,7 @@ mix.js('resources/assets/js/app.js', 'public/js');
  |
  */
 mix.styles([	
+	'resources/assets/css/bootstrap.min.css',
 	'resources/assets/css/additional.css',
 ], 'public/css/admin.css');
 

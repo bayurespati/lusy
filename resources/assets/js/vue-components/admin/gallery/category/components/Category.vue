@@ -5,13 +5,13 @@
             <transition enterActiveClass="fade-in"
                         leaveActiveClass="fade-out"
                         mode="out-in">
-                <div class="row">
+                <div class="row col d-flex justify-content-between m-0">
 
 
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col">
+                    <div>
                         <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ category.title }}</p>
@@ -22,14 +22,14 @@
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col align-items-center justify-content-around">
+                    <div class="d-flex align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingCategory = !isEditingCategory">EDIT</button>
+                                @click="isEditingCategory = !isEditingCategory">Edit</button>
 
                         <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="deleteTheCategory">DELETE</button>
+                                class="btn btn-sm btn-danger ml-2"
+                                @click="deleteTheCategory">Delete</button>
                     </div>
 
 

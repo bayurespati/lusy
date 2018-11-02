@@ -1,15 +1,15 @@
 <template> 
-	<div class="row">
-		<div class="card">
-			<form>
-			  <div class="form-group">
-			    <label for="exampleInputEmail1">Title</label>
-			    <input type="text" v-model="input.title" class="form-control" id="titile">
-			  </div>
-			  <button type="button" @click="addCategory" class="btn btn-success">TAMBAH</button>
-			  <button type="button" @click="closeAddCatergory" class="btn btn-warning">CANCEL</button>
-			</form>	
-		</div>	
+	<div class="row pt-5">
+		<div class="col-md-12">
+			<div class="card text-center">
+				<h4 class="title font-weight-bold mb-4">Tambah Kategori</h4>
+				<div class="form-group text-left mb-3">
+					<input type="text" v-model="input.title" class="form-control" id="title" placeholder="Nama Kategori">
+				</div>
+				<button type="button" @click="addCategory" class="btn btn-sm btn-success">Tambah</button>
+				<button type="button" @click="closeAddCatergory" class="btn btn-sm btn-warning ml-1">Cancel</button>
+			</div>	
+		</div>
 	</div>
 </template>
 <script>
@@ -52,3 +52,31 @@
 		},
 	};
 </script>
+
+<style scoped type="text/css">
+	.card {
+		display: inline-block;
+		width: 100%;
+		padding: 36px 20px 26px 20px;
+	}
+
+	::-webkit-input-placeholder {
+   		text-align: center;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+   		text-align: center;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+   		text-align: center;  
+	}
+
+	:-ms-input-placeholder {  
+   		text-align: center; 
+	}
+
+	input {
+		text-align: center;
+	}
+</style>
