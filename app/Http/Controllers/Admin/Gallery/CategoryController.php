@@ -15,10 +15,29 @@ class CategoryController extends Controller
 
     public function loadCategory()
     {
-    	return Category::all();
+    	return Category::where('type','1')->get();
     }
 
-    public function patch(Request $request, Category $category){
+    public function store(Request $request)
+    {
 
+        $category = new Category();
+
+        $category->title = $request->title;
+        $category->type = 1;
+
+        $category->save();
+
+        return $category->id;
+    }
+
+    public function update(Request $request, Category $category){
+        $category->title = $request->title;
+        $category->update();
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
     }
 }

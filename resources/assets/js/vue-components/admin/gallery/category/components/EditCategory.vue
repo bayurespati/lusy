@@ -4,7 +4,7 @@
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
 
-        <div class="panel-default panel mt-5" id="edit_sosmed">
+        <div class="panel-default panel mt-5" id="edit_category">
             <div class="panel-body">
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
 
@@ -14,37 +14,19 @@
                         =========================================================================================-->
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="nama"
+                            <label for="title"
                                    class="form-control-label panel-font-small m-0">
-                                Link
+                                Title
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input id="link"
+                            <input id="title"
                                    type="text"
                                    class="form-control form-control-sm"
-                                   @keyup.enter="editSosmed"
-                                   v-model="input.link">
+                                   @keyup.enter="editCategory"
+                                   v-model="input.title">
                         </div>
                     </div>
-
-
-                    <!--=========================================================================================
-                        K O D E
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 d-flex align-items-center justify-content-end">
-                            <label for="kode"
-                                   class="form-control-label panel-font-small m-0">
-                                Status
-                            </label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="radio" :name=sosmed.id  value=1 v-model="input.is_active"> Aktif
-                            <input type="radio" :name=sosmed.id  value=0 v-model="input.is_active" class="ml-2"> Tidak Aktif
-                        </div>
-                    </div>
-
 
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
@@ -66,8 +48,7 @@
                             S A V E   B U T T O N
                             =========================================================================================-->
                         <div class="col-sm-6">
-                            <button @click="editSosmed"
-                                    :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
+                            <button @click="editCategory"
                                     class="full-width btn btn-success btn-block btn-sm">
                                     Simpan
                             </button>
@@ -85,7 +66,7 @@
 <script>
     export default{
         props: {
-            sosmed: {
+            category: {
                 type: [Object],
                 default() {
                     return {}
@@ -97,42 +78,37 @@
             return {
                 isRequesting: false,
                 input: {
-                    link: this.sosmed.link === '' ? '' : this.sosmed.link,
-                    is_active: this.sosmed.is_active,
+                    title: this.category.title === '' ? '' : this.category.title,
                 }
             }
         },
 
         computed: {
-            sosmedIsEdited(){
-                return this.sosmed.link !== this.input.link
-                    || this.sosmed.is_active != this.input.is_active;
+            categoryIsEdited(){
+                return this.category.title !== this.input.title;
             }
         },
 
         methods: {
 
-            editSosmed(){
+            editCategory(){
 
                 const self = this;
 
-                if (this.sosmedIsEdited) {
+                if (this.categoryIsEdited && this.input.title.length > 3) {
 
                     this.isRequesting = true;
 
-                    const updatedSosmed = {
-                        id: this.sosmed.id,
-                        link: this.input.link,
-                        is_active: this.input.is_active,
+                    const updatedCategory = {
+                        id: this.category.id,
+                        title: this.input.title,
                     };
 
-                    this.$store.dispatch('update_sosmed', updatedSosmed)                        
+                    this.$store.dispatch('update_category', updatedCategory)
 
-                        .then((updatedSosmed) => {
+                        .then((updatedCategory) => {
 
-                            flash('Sosial media Berhasil diperbaharui', 'success');
-
-                            self.isRequesting = false;
+                            flash('Category Berhasil diperbaharui', 'success');
 
                             self.closeEditForm();
                         })
