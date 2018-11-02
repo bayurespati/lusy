@@ -41,18 +41,18 @@
                             C A N C E L   B U T T O N
                             =========================================================================================-->
                         <button type="button" 
-                                class="btn btn-success btn-sm"
-                                @click="editCategory">
-                            Simpan
+                                class="btn btn-secondary btn-sm"
+                                @click="closeEditForm">
+                            Batal
                         </button>
 
 
                         <!--=========================================================================================
                             S A V E   B U T T O N
                             =========================================================================================-->
-                        <button @click="closeEditForm"
-                                class="btn btn-secondary btn-sm ml-2">
-                                Batal
+                        <button @click="editCategory"
+                                class="btn btn-success btn-sm ml-2">
+                            Simpan
                         </button>
                     </div>
 

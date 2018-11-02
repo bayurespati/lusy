@@ -2027,13 +2027,13 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-success btn-sm",
+                      staticClass: "btn btn-secondary btn-sm",
                       attrs: { type: "button" },
-                      on: { click: _vm.editCategory }
+                      on: { click: _vm.closeEditForm }
                     },
                     [
                       _vm._v(
-                        "\n                        Simpan\n                    "
+                        "\n                        Batal\n                    "
                       )
                     ]
                   ),
@@ -2041,12 +2041,12 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-secondary btn-sm ml-2",
-                      on: { click: _vm.closeEditForm }
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      on: { click: _vm.editCategory }
                     },
                     [
                       _vm._v(
-                        "\n                            Batal\n                    "
+                        "\n                        Simpan\n                    "
                       )
                     ]
                   )
