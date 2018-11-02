@@ -1250,6 +1250,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1279,6 +1290,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(125)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(127)
@@ -1287,9 +1302,9 @@ var __vue_template__ = __webpack_require__(128)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-3e8c663a"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1323,6 +1338,51 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ 125:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(126);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("246ec426", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8c663a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddCategory.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8c663a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddCategory.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 126:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-3e8c663a] {\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tpadding: 36px 20px 26px 20px;\n}\n[data-v-3e8c663a]::-webkit-input-placeholder {\n   \t\ttext-align: center;\n}\n[data-v-3e8c663a]:-moz-placeholder { /* Firefox 18- */\n   \t\ttext-align: center;\n}\n[data-v-3e8c663a]::-moz-placeholder {  /* Firefox 19+ */\n   \t\ttext-align: center;\n}\n[data-v-3e8c663a]:-ms-input-placeholder {  \n   \t\ttext-align: center;\n}\ninput[data-v-3e8c663a] {\n\t\ttext-align: center;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+>>>>>>> master
 /***/ 127:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1389,14 +1449,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "card" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-            _vm._v("Title")
-          ]),
-          _vm._v(" "),
+  return _c("div", { staticClass: "row pt-5" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card text-center" }, [
+        _c("h4", { staticClass: "title font-weight-bold mb-4" }, [
+          _vm._v("Tambah Kategori")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group text-left mb-3" }, [
           _c("input", {
             directives: [
               {
@@ -1407,7 +1467,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", id: "titile" },
+            attrs: { type: "text", id: "title", placeholder: "Nama Kategori" },
             domProps: { value: _vm.input.title },
             on: {
               input: function($event) {
@@ -1423,21 +1483,21 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-success",
+            staticClass: "btn btn-sm btn-success",
             attrs: { type: "button" },
             on: { click: _vm.addCategory }
           },
-          [_vm._v("TAMBAH")]
+          [_vm._v("Tambah")]
         ),
         _vm._v(" "),
         _c(
           "button",
           {
-            staticClass: "btn btn-warning",
+            staticClass: "btn btn-sm btn-warning ml-1",
             attrs: { type: "button" },
             on: { click: _vm.closeAddCatergory }
           },
-          [_vm._v("CANCEL")]
+          [_vm._v("Cancel")]
         )
       ])
     ])
@@ -1725,7 +1785,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.pl-15-px[data-v-77fd4dbd] {\n    padding-left: 15px !important;\n}\n", ""]);
+exports.push([module.i, "\n.panel-default[data-v-77fd4dbd] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-77fd4dbd] {\n    font-size: 0.9rem;\n}\n", ""]);
 
 // exports
 
@@ -1737,6 +1797,7 @@ exports.push([module.i, "\n.pl-15-px[data-v-77fd4dbd] {\n    padding-left: 15px 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -1881,13 +1942,17 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "panel-default panel mt-5",
+          staticClass: "panel-default panel mt-3 pt-4",
           attrs: { id: "edit_category" }
         },
         [
           _c("div", { staticClass: "panel-body" }, [
+            _c("h3", { staticClass: "text-center font-weight-bold" }, [
+              _vm._v("Edit Kategori")
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey" }, [
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
+              _c("div", { staticClass: "col-sm-12 row" }, [
                 _c(
                   "div",
                   {
@@ -1898,12 +1963,13 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
+                        staticClass:
+                          "form-control-label panel-font-small m-0 font-weight-bold",
                         attrs: { for: "title" }
                       },
                       [
                         _vm._v(
-                          "\n                            Title\n                        "
+                          "\n                            Nama Kategori\n                        "
                         )
                       ]
                     )
@@ -1921,7 +1987,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control form-control-sm",
-                    attrs: { id: "title", type: "text" },
+                    attrs: {
+                      id: "title",
+                      type: "text",
+                      placeholder: "Nama Kategori"
+                    },
                     domProps: { value: _vm.input.title },
                     on: {
                       keyup: function($event) {
@@ -1954,37 +2024,35 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-around mt-3"
+                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
                 },
                 [
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-secondary btn-block btn-sm",
-                        attrs: { type: "button" },
-                        on: { click: _vm.closeEditForm }
-                      },
-                      [_vm._v("Batal")]
-                    )
-                  ]),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Batal\n                    "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-success btn-block btn-sm",
-                        on: { click: _vm.editCategory }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Simpan\n                        "
-                        )
-                      ]
-                    )
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      on: { click: _vm.editCategory }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Simpan\n                    "
+                      )
+                    ]
+                  )
                 ]
               )
             ])
@@ -2028,69 +2096,74 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Nama")])
+            _c(
+              "div",
+              { staticClass: "row col d-flex justify-content-between m-0" },
+              [
+                _c("div", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Nama")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.category.title))
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.category.title))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "col align-items-center justify-content-around"
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-sm btn-warning",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          _vm.isEditingCategory = !_vm.isEditingCategory
-                        }
-                      }
-                    },
-                    [_vm._v("EDIT")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-sm btn-danger",
-                      attrs: { type: "button" },
-                      on: { click: _vm.deleteTheCategory }
-                    },
-                    [_vm._v("DELETE")]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-12" },
-                [
-                  _vm.isEditingCategory
-                    ? _c("edit-category", {
-                        attrs: { category: _vm.category },
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex align-items-center justify-content-around"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-warning",
+                        attrs: { type: "button" },
                         on: {
-                          editionFormIsClosed: function($event) {
-                            _vm.isEditingCategory = $event
+                          click: function($event) {
+                            _vm.isEditingCategory = !_vm.isEditingCategory
                           }
                         }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
-            ])
+                      },
+                      [_vm._v("Edit")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-danger ml-2",
+                        attrs: { type: "button" },
+                        on: { click: _vm.deleteTheCategory }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  [
+                    _vm.isEditingCategory
+                      ? _c("edit-category", {
+                          attrs: { category: _vm.category },
+                          on: {
+                            editionFormIsClosed: function($event) {
+                              _vm.isEditingCategory = $event
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ]
+            )
           ]
         )
       ],
@@ -2121,7 +2194,19 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h1", [_vm._v("GALLERY CATEGORIES")]),
+      _c("h3", [_vm._v("Gallery's Master Categories")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "m-0" }, [
+        _vm._v(
+          "\n    This is where you can customise categories used in Gallery page.\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n    (caution: deleting a category will also deletes subcategories and items that belong to that categories).\n  "
+        )
+      ]),
       _vm._v(" "),
       _c(
         "transition",
@@ -2135,18 +2220,22 @@ var render = function() {
         [
           !_vm.isAddCategory
             ? [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        _vm.isAddCategory = !_vm.isAddCategory
-                      }
-                    }
-                  },
-                  [_vm._v("TAMBAH CATEGORY")]
-                )
+                _c("div", { staticClass: "row pt-5" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddCategory = !_vm.isAddCategory
+                          }
+                        }
+                      },
+                      [_vm._v("Tambah Kategori")]
+                    )
+                  ])
+                ])
               ]
             : [
                 _c("add", {

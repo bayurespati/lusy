@@ -34,16 +34,60 @@
             <!-- Page Banner /- -->
             
             <div class="section-padding"></div>
+
+            <div id="menu-container" class="container" style="padding-bottom: 7.5rem">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
+                    <ul>
+                        <li class="text-uppercase">
+                            <a id="past-events"  
+                            style="cursor: pointer;"
+                            onclick="changeStatus('past')">
+                                PAST EVENTS
+                            </a>
+                        </li>
+                        <li class="text-uppercase">
+                            <a class="active" 
+                            id="upcoming-events"  
+                            style="cursor: pointer;"
+                            onclick="changeStatus('upcoming')">
+                                UPCOMING EVENTS
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
+                    <ul>
+                        <li class="text-uppercase">
+                            <a class="active" 
+                            id="all-option" 
+                            onclick="getAll()" 
+                            style="cursor: pointer;">
+                                ALL
+                            </a>
+                        </li>
+                        @for ($i = 0; $i < count($categories); $i++)
+                        <li class="text-uppercase">
+                            <a id="category-{{ $i }}" 
+                            onclick="getSubcategories({{ $categories[$i]->id }}, {{ $i }})"
+                            class="text-uppercase"
+                            style="cursor: pointer;">
+                                {{ $categories[$i]->title }}
+                            </a>
+                        </li>
+                        @endfor
+                    </ul>
+                </div>
+            </div>
             
             <div class="container-fluid no-padding events-listing">
                 <!-- Container -->
                 <div class="container">
                     <div class="row">
                         <!-- Content Area -->
-                        <div class="col-md-9 col-sm-7 col-xs-7 content-area">
+                        <div class="col-md-12">
                             <!-- Event Block -->
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-cover">
+                                <div class="col-md-5 col-sm-12 col-xs-12">
                                     <a href="event-single.php"><img src="{{ asset('img/events1.jpg') }}" alt="Events" /></a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
@@ -61,7 +105,7 @@
                             
                             <!-- Event Block -->
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-cover">
+                                <div class="col-md-5 col-sm-12 col-xs-12">
                                     <a href="event-single.php"><img src="{{ asset('img/events2.jpg') }}" alt="Events" /></a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
@@ -79,7 +123,7 @@
                             
                             <!-- Event Block -->
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-cover">
+                                <div class="col-md-5 col-sm-12 col-xs-12">
                                     <a href="event-single.php"><img src="{{ asset('img/events3.jpg') }}" alt="Events" /></a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
@@ -97,7 +141,7 @@
                             
                             <!-- Event Block -->
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-cover">
+                                <div class="col-md-5 col-sm-12 col-xs-12">
                                     <a href="event-single.php"><img src="{{ asset('img/events4.jpg') }}" alt="Events" /></a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
@@ -124,71 +168,6 @@
                             </nav>
                         </div>
                         <!-- Content Area /- -->
-                        
-                        <!-- Widget Area -->
-                        <div class="col-md-3 col-sm-5 col-xs-5 widget-area">
-                            <!-- Widget : Search -->
-                            <aside class="widget widget_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search  . . .">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                                    </span>
-                                </div>
-                            </aside>
-                            <!-- Widget : Search /- -->
-                            <!-- Widget : Categories -->
-                            <aside class="widget widget_categories">
-                                <h3 class="widget-title">categories</h3>
-                                <ul>
-                                    <li><a href="#" title="Museum"><span>09</span>Museum</a></li>
-                                    <li><a href="#" title="Ancient Age Gallery"><span>10</span>Ancient Age Gallery</a></li>
-                                    <li><a href="#" title="Martial Arts Snaps"><span>07</span>Martial Arts Snaps</a></li>
-                                    <li><a href="#" title="Stone Age Stuffs"><span>11</span>Stone Age Stuffs</a></li>
-                                    <li><a href="#" title="Art Portfolio"><span>13</span>Art Portfolio</a></li>
-                                    <li><a href="#" title="History of Statues"><span>07</span>History of Statues</a></li>
-                                </ul>
-                            </aside>
-                            <!-- Widget : Categories /- -->
-                            <!-- Widget : Latest Post -->
-                            <aside class="widget widget_latestpost">
-                                <h3 class="widget-title">latest posts</h3>
-                                <div class="latestpost-content">
-                                    <a href="#" title="Post Cover"><img src="{{ asset('img/latest-post1.jpg') }}" alt="Post"></a>
-                                    <h3><a href="#" title="goodness lemur save much alas crud dear">goodness lemur save much alas crud dear</a></h3>
-                                    <span>09 jul 2015</span>
-                                </div>
-                                <div class="latestpost-content">
-                                    <a href="#" title="Post Cover"><img src="{{ asset('img/latest-post2.jpg') }}" alt="Post"></a>
-                                    <h3><a href="#" title="However much enormous merrily jeez">However much enormous merrily jeez</a></h3>
-                                    <span>09 jul 2015</span>
-                                </div>
-                                <div class="latestpost-content">
-                                    <a href="#" title="Post Cover"><img src="{{ asset('img/latest-post3.jpg') }}" alt="Post"></a>
-                                    <h3><a href="#" title="Flinched more mammoth this pompously">Flinched more mammoth this pompously</a></h3>
-                                    <span>09 jul 2015</span>
-                                </div>
-                            </aside>
-                            <!-- Widget : Latest Post /- -->
-                            <!-- Widget : Tags -->
-                            <aside class="widget widget_tag">
-                                <h3 class="widget-title">Populer tags</h3>
-                                <div class="tags">
-                                    <a href="#" title="Amazing">Amazing</a>
-                                    <a href="#" title="Statues">Statues</a>
-                                    <a href="#" title="Themes">Themes</a>
-                                    <a href="#" title="Clean">Clean</a>
-                                    <a href="#" title="Responsiveness">Responsiveness</a>
-                                    <a href="#" title="art">art</a>
-                                    <a href="#" title="modern">modern</a>
-                                    <a href="#" title="ios">ios</a>
-                                    <a href="#" title="flat">flat</a>
-                                    <a href="#" title="Design">Design</a>
-                                </div>
-                            </aside>
-                            <!-- Widget : Tags /- -->
-                        </div>
-                        <!-- Widget Area /- -->
                     </div>
                 </div>
                 <!-- Container /- -->
@@ -205,3 +184,151 @@
 </body>
 
 @endsection
+
+@push('additional_js')
+<script type="text/javascript">
+    let status = 'upcoming';
+    const categoriesAndSubcategories = {!! json_encode($categories) !!}
+    let categoryCount = {!! $categories !!}.length;
+    let subcategoryCount = 0;
+    let submenuExist = false;
+    let subCategoryChosen = false;
+
+    function changeStatus(newStatus) {
+        var oldStatus = document.getElementById(status + '-events');
+        oldStatus.removeAttribute('class', 'active');
+
+        status = newStatus;
+
+        getAll();
+
+        var newStatus = document.getElementById(newStatus + '-events');
+        newStatus.setAttribute('class', 'active');
+    }
+
+    function getAll(){
+        removeCategoriesActiveClass();
+
+        removeActiveClass('all-option');
+        
+        if(submenuExist) {
+            removeSubcategory();
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/event/' + status + '/all',
+            dataType: 'JSON',
+            success: function (data) {
+
+                prepareEvents(data);
+
+            }
+        });
+
+        var allOption = document.getElementById('all-option');
+        allOption.setAttribute('class', 'active');
+    }
+
+    function getSubcategories(categoryId, categoryListOrder){
+        removeCategoriesActiveClass();
+
+        var option = document.getElementById('category-' + categoryListOrder);
+        option.setAttribute('class', 'active');
+
+        if(submenuExist) {
+            removeSubcategory();
+        }
+
+        const categoryIndex = findWithinArrayWithAttributeOf(categoriesAndSubcategories, 'id', categoryId);
+
+        prepareSubcategory(categoriesAndSubcategories[categoryIndex].subcategories);
+    }
+
+    function findWithinArrayWithAttributeOf(array, attribute, value) {
+        for(var i = 0; i < array.length; i += 1) {
+            if(array[i][attribute] === value) {
+                return i;
+            }
+        }
+    return -1;
+    }
+
+    function removeActiveClass(className){
+        var option = document.getElementById(className);
+        option.removeAttribute('class', 'active');
+    };
+
+    function removeCategoriesActiveClass(){
+        removeActiveClass('all-option');
+
+        for (var i = 0; i < categoryCount; i++) {
+            removeActiveClass('category-' + i);
+        };
+    };
+
+    function removeSubcategory() {
+        // Removes an element from the document
+        var subcategoriesMenu = document.getElementById('subcategories-menu');
+        subcategoriesMenu.parentNode.removeChild(subcategoriesMenu);
+        submenuExist = false;
+        subcategoryCount = 0;
+    }
+
+    function prepareSubcategory(data){
+        // Adds an element to the document
+        var menuContainer = document.getElementById('menu-container');
+
+        var listWrapper = document.createElement('div');
+        listWrapper.setAttribute('id', 'subcategories-menu');
+        listWrapper.setAttribute('class', 'col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories fade-in');
+        menuContainer.appendChild(listWrapper);
+
+        var unorderedList = document.createElement('ul');
+
+        let lists = "";
+
+        $.each(data, function (i, prop) {
+            lists = lists + '<li class="text-uppercase"><a id="subcategory-' + i + '" onclick="getEvents(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a></li>';
+
+            subcategoryCount++;
+        });
+
+        unorderedList.innerHTML = lists;
+        listWrapper.appendChild(unorderedList);
+        submenuExist = true;
+
+    }
+
+    function getEvents(subcategoryId, subcategoryListOrder) {
+        if(subCategoryChosen){
+            removeSubcategoriesActiveClass();
+        }
+
+        var option = document.getElementById('subcategory-' + subcategoryListOrder);
+        option.setAttribute('class', 'active');
+        subCategoryChosen = true;
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/event/' + status + '/subcategory/' + parseInt(subcategoryId),
+            dataType: 'JSON',
+            success: function (data) {
+
+                prepareEvents(data);
+            }
+        });
+    }
+
+    function removeSubcategoriesActiveClass(){
+        for (var i = 0; i < subcategoryCount; i++) {
+            removeActiveClass('subcategory-' + i);
+        };
+        subCategoryChosen = false;
+    };
+
+    function prepareEvents(data){
+
+    }
+</script>
+@endpush
