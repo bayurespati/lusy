@@ -44,11 +44,12 @@ export const store = new Vuex.Store({
         },
 
         edit_subcategory(state, updatedSubcategory) {
-
             const subcategoryIndex = helpers.getIndexOfSubCategory(updatedSubcategory.id);
+            const categoryIndex = helpers.getIndexOfCategory(updatedSubcategory.category_id);
 
             state.subcategories[subcategoryIndex].title = updatedSubcategory.title;
             state.subcategories[subcategoryIndex].category_id = updatedSubcategory.category_id;
+            state.subcategories[subcategoryIndex].kategori = state.categories[categoryIndex].title;
         },
 
         delete_subcategory(state, ids){

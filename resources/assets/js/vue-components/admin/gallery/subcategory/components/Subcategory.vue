@@ -5,13 +5,13 @@
             <transition enterActiveClass="fade-in"
                         leaveActiveClass="fade-out"
                         mode="out-in">
-                <div class="row">
+                <div class="row m-0">
 
 
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col">
+                    <div class="col-md-4 col-sm-6">
                         <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ subcategory.title }}</p>
@@ -19,17 +19,30 @@
                     </div>
 
 
+
+                    <!--=========================================================================================
+                        S H O W    C A T E G O R Y
+                        =========================================================================================-->
+                    <div class="col-md-4 col-sm-6">
+                        <p class="small text-uppercase mb-0"><strong>Kategori</strong></p>
+                        <div class="detail">
+                            <p class="mb-0">{{ subcategory.kategori }}</p>
+                        </div>
+                    </div>
+
+
+
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col align-items-center justify-content-around">
+                    <div class="col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingSubCategory = !isEditingSubCategory">EDIT</button>
+                                @click="isEditingSubCategory = !isEditingSubCategory">Edit</button>
 
                         <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="deleteTheSubCategory">DELETE</button>
+                                class="btn btn-sm btn-danger ml-2"
+                                @click="deleteTheSubCategory">Delete</button>
                     </div>
 
 

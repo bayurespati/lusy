@@ -7,4 +7,10 @@ export default {
             return subcategory.id === subcategoryId;
         });
     },
+
+    getIndexOfCategory(categoryId) {
+        return _.findIndex(store.state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    },
 }

@@ -1,23 +1,22 @@
 <template> 
-	<div class="row">
-		<div class="card">
-			<form>
-				<div class="form-group">
-				    <label for="category">Category</label>
-				    <select class="form-control" 
+	<div class="row pt-5">
+		<div class="col-md-12">
+			<div class="card text-center">
+				<h4 class="title font-weight-bold mb-4">Tambah Subkategori</h4>
+				<div class="form-group text-left mb-3">
+				    <select class="form-control mb-2" 
 				    		id="category" 
 				    		v-model="input.category_id">
-				    	<option>Plilih Category</option>
+				    	<option>Pilih Kategori</option>
 					    <option v-for="category in categories" :value=category.id>{{ category.title}}</option>
 				    </select>
+
+					<input type="text" v-model="input.title" class="form-control" placeholder="Nama Subkategori" id="title">
 				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail1">Nama</label>
-					<input type="text" v-model="input.title" class="form-control" id="titile">
-				</div>
-			  <button type="button" @click="addSubCategory" class="btn btn-success">TAMBAH</button>
-			  <button type="button" @click="closeAddSubCatergory" class="btn btn-warning">CANCEL</button>
-			</form>	
+
+				<button type="button" @click="addSubCategory" class="btn btn-sm btn-success">Tambah</button>
+				<button type="button" @click="closeAddSubCatergory" class="btn btn-sm btn-warning">Cancel</button>
+			</div>
 		</div>	
 	</div>
 </template>
@@ -28,7 +27,7 @@
 			return{
 				input:{
 					title: '',
-					category_id:'Plilih Category',
+					category_id:'Pilih Kategori',
 				}
 			}
 		},
@@ -45,7 +44,7 @@
 				
 				if(this.input.title.length > 3 
 					&& this.input.category_id !== '' 
-					&&  this.input.category_id !== 'Plilih Category')
+					&&  this.input.category_id !== 'Pilih Kategori')
 				{
 
 					this.$store.dispatch('store_new_subcategory', this.input)
@@ -54,7 +53,7 @@
                             flash('Sub category gallery berhasil ditambahkan','success');
 
                             this.input.title = '';
-                            this.input.category_id = 'Plilih Category';
+                            this.input.category_id = 'Pilih Kategori';
                         })
                         .catch(errors => {
 
@@ -74,3 +73,31 @@
 		},
 	};
 </script>
+
+<style scoped type="text/css">
+	.card {
+		display: inline-block;
+		width: 100%;
+		padding: 36px 20px 26px 20px;
+	}
+
+	::-webkit-input-placeholder {
+   		text-align: center;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+   		text-align: center;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+   		text-align: center;  
+	}
+
+	:-ms-input-placeholder {  
+   		text-align: center; 
+	}
+
+	input {
+		text-align: center;
+	}
+</style>

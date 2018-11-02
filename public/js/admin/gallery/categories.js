@@ -1782,7 +1782,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.panel-default[data-v-77fd4dbd] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-77fd4dbd] {\n    font-size: 0.9rem;\n}\n", ""]);
+exports.push([module.i, "\n.bg-grey[data-v-77fd4dbd] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-77fd4dbd] {\n    font-size: 0.9rem;\n}\n", ""]);
 
 // exports
 
@@ -1939,7 +1939,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "panel-default panel mt-3 pt-4",
+          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
           attrs: { id: "edit_category" }
         },
         [
@@ -1948,7 +1948,7 @@ var render = function() {
               _vm._v("Edit Kategori")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey" }, [
+            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
               _c("div", { staticClass: "col-sm-12 row" }, [
                 _c(
                   "div",
@@ -2191,7 +2191,7 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h3", [_vm._v("Gallery's Master Categories")]),
+      _c("h3", [_vm._v("Gallery's Categories Master")]),
       _vm._v(" "),
       _c("p", { staticClass: "m-0" }, [
         _vm._v(
@@ -2201,7 +2201,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "\n    (caution: deleting a category will also deletes subcategories and items that belong to that categories).\n  "
+          "\n    (caution: deleting a category will also deletes subcategories and items that belong to that category).\n  "
         )
       ]),
       _vm._v(" "),

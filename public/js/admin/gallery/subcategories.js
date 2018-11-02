@@ -1169,7 +1169,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(144)
 /* template */
-var __vue_template__ = __webpack_require__(158)
+var __vue_template__ = __webpack_require__(160)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1216,11 +1216,21 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddSubcategory_vue__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddSubcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddSubcategory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subcategory_vue__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subcategory_vue__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Subcategory_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1279,17 +1289,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(146)
+}
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(146)
+var __vue_script__ = __webpack_require__(148)
 /* template */
-var __vue_template__ = __webpack_require__(147)
+var __vue_template__ = __webpack_require__(149)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-5f0c2fb0"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1324,6 +1338,48 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 146:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(147);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("1cf2c788", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f0c2fb0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddSubcategory.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5f0c2fb0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddSubcategory.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 147:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-5f0c2fb0] {\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tpadding: 36px 20px 26px 20px;\n}\n[data-v-5f0c2fb0]::-webkit-input-placeholder {\n   \t\ttext-align: center;\n}\n[data-v-5f0c2fb0]:-moz-placeholder { /* Firefox 18- */\n   \t\ttext-align: center;\n}\n[data-v-5f0c2fb0]::-moz-placeholder {  /* Firefox 19+ */\n   \t\ttext-align: center;\n}\n[data-v-5f0c2fb0]:-ms-input-placeholder {  \n   \t\ttext-align: center;\n}\ninput[data-v-5f0c2fb0] {\n\t\ttext-align: center;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1353,7 +1409,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1361,7 +1416,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		return {
 			input: {
 				title: '',
-				category_id: 'Plilih Category'
+				category_id: 'Pilih Kategori'
 			}
 		};
 	},
@@ -1375,14 +1430,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		addSubCategory: function addSubCategory() {
 			var _this = this;
 
-			if (this.input.title.length > 3 && this.input.category_id !== '' && this.input.category_id !== 'Plilih Category') {
+			if (this.input.title.length > 3 && this.input.category_id !== '' && this.input.category_id !== 'Pilih Kategori') {
 
 				this.$store.dispatch('store_new_subcategory', this.input).then(function () {
 
 					flash('Sub category gallery berhasil ditambahkan', 'success');
 
 					_this.input.title = '';
-					_this.input.category_id = 'Plilih Category';
+					_this.input.category_id = 'Pilih Kategori';
 				}).catch(function (errors) {
 
 					Object.keys(errors).forEach(function (field) {
@@ -1401,19 +1456,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 147:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "card" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "category" } }, [_vm._v("Category")]),
-          _vm._v(" "),
+  return _c("div", { staticClass: "row pt-5" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card text-center" }, [
+        _c("h4", { staticClass: "title font-weight-bold mb-4" }, [
+          _vm._v("Tambah Subkategori")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group text-left mb-3" }, [
           _c(
             "select",
             {
@@ -1425,7 +1482,7 @@ var render = function() {
                   expression: "input.category_id"
                 }
               ],
-              staticClass: "form-control",
+              staticClass: "form-control mb-2",
               attrs: { id: "category" },
               on: {
                 change: function($event) {
@@ -1446,7 +1503,7 @@ var render = function() {
               }
             },
             [
-              _c("option", [_vm._v("Plilih Category")]),
+              _c("option", [_vm._v("Pilih Kategori")]),
               _vm._v(" "),
               _vm._l(_vm.categories, function(category) {
                 return _c("option", { domProps: { value: category.id } }, [
@@ -1455,13 +1512,7 @@ var render = function() {
               })
             ],
             2
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-            _vm._v("Nama")
-          ]),
+          ),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -1473,7 +1524,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", id: "titile" },
+            attrs: {
+              type: "text",
+              placeholder: "Nama Subkategori",
+              id: "title"
+            },
             domProps: { value: _vm.input.title },
             on: {
               input: function($event) {
@@ -1489,21 +1544,21 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-success",
+            staticClass: "btn btn-sm btn-success",
             attrs: { type: "button" },
             on: { click: _vm.addSubCategory }
           },
-          [_vm._v("TAMBAH")]
+          [_vm._v("Tambah")]
         ),
         _vm._v(" "),
         _c(
           "button",
           {
-            staticClass: "btn btn-warning",
+            staticClass: "btn btn-sm btn-warning",
             attrs: { type: "button" },
             on: { click: _vm.closeAddSubCatergory }
           },
-          [_vm._v("CANCEL")]
+          [_vm._v("Cancel")]
         )
       ])
     ])
@@ -1521,19 +1576,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 148:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(149)
+  __webpack_require__(151)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(151)
+var __vue_script__ = __webpack_require__(153)
 /* template */
-var __vue_template__ = __webpack_require__(157)
+var __vue_template__ = __webpack_require__(159)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1573,13 +1628,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 149:
+/***/ 151:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(150);
+var content = __webpack_require__(152);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1600,7 +1655,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 150:
+/***/ 152:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1615,13 +1670,26 @@ exports.push([module.i, "\n.card[data-v-090978fa] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 151:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSubcategory_vue__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSubcategory_vue__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditSubcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditSubcategory_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1705,19 +1773,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 152:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(153)
+  __webpack_require__(155)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(155)
+var __vue_script__ = __webpack_require__(157)
 /* template */
-var __vue_template__ = __webpack_require__(156)
+var __vue_template__ = __webpack_require__(158)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1757,13 +1825,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 153:
+/***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(154);
+var content = __webpack_require__(156);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1784,7 +1852,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 154:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1792,14 +1860,14 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.pl-15-px[data-v-46db5999] {\n    padding-left: 15px !important;\n}\n", ""]);
+exports.push([module.i, "\n.bg-grey[data-v-46db5999] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-46db5999] {\n    font-size: 0.9rem;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 155:
+/***/ 157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1807,6 +1875,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -1955,7 +2024,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 156:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1975,13 +2044,17 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "panel-default panel mt-5",
+          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
           attrs: { id: "edit_subcategory" }
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey" }, [
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
+            _c("h3", { staticClass: "text-center font-weight-bold" }, [
+              _vm._v("Edit Subkategori")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
+              _c("div", { staticClass: "col-sm-12 row mb-2" }, [
                 _c(
                   "div",
                   {
@@ -1992,12 +2065,13 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
+                        staticClass:
+                          "form-control-label panel-font-small m-0 font-weight-bold",
                         attrs: { for: "title" }
                       },
                       [
                         _vm._v(
-                          "\n                            Category\n                        "
+                          "\n                            Nama Kategori\n                        "
                         )
                       ]
                     )
@@ -2049,7 +2123,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
+              _c("div", { staticClass: "col-sm-12 row" }, [
                 _c(
                   "div",
                   {
@@ -2060,12 +2134,13 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
+                        staticClass:
+                          "form-control-label panel-font-small m-0 font-weight-bold",
                         attrs: { for: "title" }
                       },
                       [
                         _vm._v(
-                          "\n                            Nama\n                        "
+                          "\n                            Nama Subkategori\n                        "
                         )
                       ]
                     )
@@ -2083,7 +2158,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control form-control-sm",
-                    attrs: { id: "title", type: "text" },
+                    attrs: {
+                      id: "title",
+                      type: "text",
+                      placeholder: "Nama Subkategori"
+                    },
                     domProps: { value: _vm.input.title },
                     on: {
                       keyup: function($event) {
@@ -2116,37 +2195,35 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-around mt-3"
+                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
                 },
                 [
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-secondary btn-block btn-sm",
-                        attrs: { type: "button" },
-                        on: { click: _vm.closeEditForm }
-                      },
-                      [_vm._v("Batal")]
-                    )
-                  ]),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Batal\n                    "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-success btn-block btn-sm",
-                        on: { click: _vm.editSubcategory }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Simpan\n                        "
-                        )
-                      ]
-                    )
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      on: { click: _vm.editSubcategory }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Simpan\n                    "
+                      )
+                    ]
+                  )
                 ]
               )
             ])
@@ -2168,7 +2245,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 157:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2190,8 +2267,8 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "row m-0" }, [
+              _c("div", { staticClass: "col-md-4 col-sm-6" }, [
                 _c("p", { staticClass: "small text-uppercase mb-0" }, [
                   _c("strong", [_vm._v("Nama")])
                 ]),
@@ -2203,10 +2280,23 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+                _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                  _c("strong", [_vm._v("Kategori")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "detail" }, [
+                  _c("p", { staticClass: "mb-0" }, [
+                    _vm._v(_vm._s(_vm.subcategory.kategori))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 {
-                  staticClass: "col align-items-center justify-content-around"
+                  staticClass:
+                    "col-md-4 col-sm-12 d-flex align-items-center justify-content-end"
                 },
                 [
                   _c(
@@ -2220,17 +2310,17 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("EDIT")]
+                    [_vm._v("Edit")]
                   ),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-sm btn-danger",
+                      staticClass: "btn btn-sm btn-danger ml-2",
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheSubCategory }
                     },
-                    [_vm._v("DELETE")]
+                    [_vm._v("Delete")]
                   )
                 ]
               ),
@@ -2272,7 +2362,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 158:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2283,7 +2373,19 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h1", [_vm._v("GALLERY SUBCATEGORIES")]),
+      _c("h3", [_vm._v("Gallery's Subcategories Master")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "m-0" }, [
+        _vm._v(
+          "\n    This is where you can customise subcategories of categories used in Gallery page.\n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "\n    (caution: deleting a subcategory will also deletes items that belong to that subcategory).\n  "
+        )
+      ]),
       _vm._v(" "),
       _c(
         "transition",
@@ -2297,18 +2399,22 @@ var render = function() {
         [
           !_vm.isAddSubCategory
             ? [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        _vm.isAddSubCategory = !_vm.isAddSubCategory
-                      }
-                    }
-                  },
-                  [_vm._v("TAMBAH SUBCATEGORY")]
-                )
+                _c("div", { staticClass: "row pt-5" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddSubCategory = !_vm.isAddSubCategory
+                          }
+                        }
+                      },
+                      [_vm._v("Tambah Subkategori")]
+                    )
+                  ])
+                ])
               ]
             : [
                 _c("add", {
@@ -2358,7 +2464,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 159:
+/***/ 161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2369,6 +2475,11 @@ if (false) {
     getIndexOfSubCategory: function getIndexOfSubCategory(subcategoryId) {
         return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.subcategories, function (subcategory) {
             return subcategory.id === subcategoryId;
+        });
+    },
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
         });
     }
 });
@@ -2693,7 +2804,7 @@ function applyToTag (styleElement, obj) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(161);
 
 
 
@@ -2738,11 +2849,12 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         edit_subcategory: function edit_subcategory(state, updatedSubcategory) {
-
             var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(updatedSubcategory.id);
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedSubcategory.category_id);
 
             state.subcategories[subcategoryIndex].title = updatedSubcategory.title;
             state.subcategories[subcategoryIndex].category_id = updatedSubcategory.category_id;
+            state.subcategories[subcategoryIndex].kategori = state.categories[categoryIndex].title;
         },
         delete_subcategory: function delete_subcategory(state, ids) {
             var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(ids.subcategoryId);
