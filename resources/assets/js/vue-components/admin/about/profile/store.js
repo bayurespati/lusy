@@ -30,12 +30,11 @@ export const store = new Vuex.Store({
 
         edit_profile(state, updatedProfile) {
 
-            const profileIndex = helpers.getIndexOfProfile(updatedProfile.id);
+            console.log(updatedProfile.image_path);
 
-
-            state.profile[profileIndex].image_path = updatedProfile.image_path;
-            state.profile[profileIndex].title = updatedProfile.title;
-            state.profile[profileIndex].content = updatedProfile.content;
+            state.profile.title = updatedProfile.title;
+            state.profile.content = updatedProfile.content;
+            // state.profile.image_path = updatedProfile.image_path;
         },
     },
 
@@ -44,7 +43,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_profile: ({commit}) => {
-            axios.get('/admin/data/profile')
+            axios.get('/admin/about/data/profile')
                 .then(response =>{
                     commit('set_profile',response.data);
                 });
@@ -54,13 +53,18 @@ export const store = new Vuex.Store({
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/profile/' + updatedProfile.id, {
+                axios.patch('update/profile/' + updatedProfile.id, {
                     id: updatedProfile.id,
-                    image_path: updatedProfile.image_path,
                     title: updatedProfile.title,
                     content: updatedProfile.content,
+                    image: updatedProfile.image
                 })
                     .then(response => {
+
+                        updatedProfile.image_path = response.data.image_path;
+
+                        console.log(response.data);
+
                         commit('edit_profile', updatedProfile);
 
                         resolve(updatedProfile);

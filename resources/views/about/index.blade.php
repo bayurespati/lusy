@@ -50,7 +50,7 @@
                             </div>
                             <!-- Section Header /- -->
                             <p>
-                                {!! $about[0]->content !!}
+                                {!! nl2br(e($about[0]->content)) !!}
                             </p>
                         </div>
                     </div>

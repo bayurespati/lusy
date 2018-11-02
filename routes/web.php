@@ -221,7 +221,7 @@ Route::group([
     	*/
     	Route::get('/profile', 'ProfileController@index')->name('admin.about.profile');
     	Route::get('/data/profile', 'ProfileController@loadProfile');
-    	Route::patch('/profile', 'ProfileController@patch');
+    	Route::patch('/update/profile/{profile}', 'ProfileController@update');
 
     	/*
     	|--------------------------------------------------------------------------

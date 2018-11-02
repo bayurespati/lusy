@@ -6,6 +6,7 @@
 
 @push('additional_css')
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.css"/>
 @endpush
 
 @section('content')
@@ -17,4 +18,5 @@
 
 @push('additional_js')
 	<script src="{{ asset('js/admin/about/profile.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.js"></script>
 @endpush
