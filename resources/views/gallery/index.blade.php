@@ -175,6 +175,7 @@
 
 @push('additional_js')
 <script type="text/javascript">
+    const categoriesAndSubcategories = {!! json_encode($categories) !!}
     let categoryCount = {!! $categories !!}.length;
     let subcategoryCount = 0;
     let submenuExist = false;
@@ -188,6 +189,19 @@
         if(submenuExist) {
             removeSubcategory();
         }
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/gallery/all',
+            dataType: 'JSON',
+            success: function (data) {
+
+                prepareImages(data);
+            }
+        });
+
+        var allOption = document.getElementById('all-option');
+        allOption.setAttribute('class', 'active');
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -196,19 +210,22 @@
         var option = document.getElementById('category-' + categoryListOrder);
         option.setAttribute('class', 'active');
 
-        $.ajax({
-            type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/category/' + parseInt(categoryId),
-            dataType: 'JSON',
-            success: function (data) {
-                
-                if(submenuExist) {
-                    removeSubcategory();
-                }
+        if(submenuExist) {
+            removeSubcategory();
+        }
 
-                prepareSubcategory(data);
+        const categoryIndex = findWithinArrayWithAttributeOf(categoriesAndSubcategories, 'id', categoryId);
+
+        prepareSubcategory(categoriesAndSubcategories[categoryIndex].subcategories);
+    }
+
+    function findWithinArrayWithAttributeOf(array, attribute, value) {
+        for(var i = 0; i < array.length; i += 1) {
+            if(array[i][attribute] === value) {
+                return i;
             }
-        });
+        }
+    return -1;
     }
 
     function removeActiveClass(className){

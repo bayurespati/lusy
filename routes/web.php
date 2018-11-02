@@ -89,7 +89,7 @@ Route::group([
 
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
-        $categories = Category::whereType(1)->get();
+        $categories = Category::with('subcategories')->whereType(1)->get();
 
 		return view('gallery.index', compact('sosmed', 'categories'));
 	})->name('gallery.index');
@@ -116,8 +116,9 @@ Route::group([
 
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
+        $categories = Category::with('subcategories')->whereType(2)->get();
 
-		return view('event.index', compact('sosmed'));
+		return view('event.index', compact('sosmed', 'categories'));
 	})->name('event.index');
 });
 
@@ -138,8 +139,9 @@ Route::group([
 
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
+        $categories = Category::with('subcategories')->whereType(3)->get();
 
-		return view('shop.index', compact('sosmed'));
+		return view('shop.index', compact('sosmed', 'categories'));
 	})->name('shop.index');
 
 	Route::get('/item', function () { 
