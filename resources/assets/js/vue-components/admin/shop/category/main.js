@@ -1,4 +1,4 @@
-import Categories from './components/Categories.vue';
+import Categories from './../../../global/categories/Categories.vue';
 import Flash from './../../../global/Flash.vue';
 import {store} from './store';
 

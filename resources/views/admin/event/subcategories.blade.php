@@ -10,6 +10,15 @@
 
 @section('content')
 	<div id="subcategories">
+		<h3>Events' Subcategories Master</h3>
+
+		<p class="m-0">
+			This is where you can customise subcategories of categories used in Event page.
+		</p>
+		<p>
+			(caution: deleting a subcategory will also deletes items that belong to that subcategory).
+		</p>
+
 		<subcategories> </subcategories>
 		<flash> </flash>
 	</div>		

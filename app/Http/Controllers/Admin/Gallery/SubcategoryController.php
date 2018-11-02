@@ -23,8 +23,9 @@ class SubcategoryController extends Controller
         $subCategories = [];
 
         foreach($data as $category){
-            foreach($category->subCategories as $subCateory){
-                array_push($subCategories, $subCateory);
+            foreach($category->subCategories as $subCategory){
+                $subCategory->kategori = $category->title;
+                array_push($subCategories, $subCategory);
             }
         }
 

@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     state: {
         subcategories:{},
+        categories:{}
     },
 
 
@@ -18,22 +19,46 @@ export const store = new Vuex.Store({
         getSubcategories: state => {
             return state.subcategories;
         },
+
+        getCategories: state => {
+            return state.categories;
+        },
+
     },
 
     //=========================================================================================
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_subcategories: (state, subcategories) =>{
-            state.subcategories = subcategories;
+        set_subCategories: (state, data) =>{
+            state.subcategories = data[0];
+            state.categories = data[1];
+        },
+
+        add_new_subcategory(state, subCategory){
+            const categoryIndex = helpers.getIndexOfCategory(subCategory.detail.category_id);
+
+            state.subcategories.push({
+                id: subCategory.id,
+                title: subCategory.detail.title,
+                category_id: subCategory.detail.category_id,
+                kategori: state.categories[categoryIndex].title
+            });
         },
 
         edit_subcategory(state, updatedSubcategory) {
+            const subcategoryIndex = helpers.getIndexOfSubCategory(updatedSubcategory.id);
+            const categoryIndex = helpers.getIndexOfCategory(updatedSubcategory.category_id);
 
-            const subcategoryIndex = helpers.getIndexOfSubcategory(updatedSubcategory.id);
+            state.subcategories[subcategoryIndex].title = updatedSubcategory.title;
+            state.subcategories[subcategoryIndex].category_id = updatedSubcategory.category_id;
+            state.subcategories[subcategoryIndex].kategori = state.categories[categoryIndex].title;
+        },
 
+        delete_subcategory(state, ids){
+            const subcategoryIndex = helpers.getIndexOfSubCategory(ids.subcategoryId);
 
-            state.subcategory[subcategoryIndex].title = updatedSubcategory.title;
+            state.subcategories.splice(subcategoryIndex, 1);
         },
     },
 
@@ -41,20 +66,43 @@ export const store = new Vuex.Store({
     //  A C T I O N S
     //=========================================================================================
     actions: {
-        load_subcategories: ({commit}) => {
-            axios.get('/admin/data/subcategory')
+        load_subCategories: ({commit}) => {
+            axios.get('/admin/event/data/subcategory')
                 .then(response =>{
-                    commit('set_subcategories',response.data);
+                    commit('set_subCategories',response.data);
                 });
         },
 
-        update_category({commit}, updatedSubcategory) {
+        store_new_subcategory({commit}, newSubCategory) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/subcategory/' + updatedSubcategory.id, {
+                axios.post('add/subcategory', newSubCategory)
+                    .then(response => {
+
+                        const subcategory = {
+                            id: response.data,
+                            detail: newSubCategory
+                        };
+
+                        commit('add_new_subcategory', subcategory);
+
+                        resolve(subcategory);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+        update_subcategory({commit}, updatedSubcategory) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('update/subcategory/' + updatedSubcategory.id, {
                     id: updatedSubcategory.id,
-                    title: updatedSubcategory.title,                
+                    title: updatedSubcategory.title,
+                    category_id: updatedSubcategory.category_id              
                 })
                     .then(response => {
                         commit('edit_subcategory', updatedSubcategory);
@@ -64,6 +112,19 @@ export const store = new Vuex.Store({
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+        destroy_subcategory({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/subcategory/'+ids.subcategoryId)
+                    .then((response) => {
+                        commit('delete_subcategory', ids);
+
+                        resolve();
+                    });
             })
         },
     }

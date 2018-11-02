@@ -28,12 +28,26 @@ export const store = new Vuex.Store({
             state.categories = categories;
         },
 
+        add_new_category(state, category){
+            state.categories.push({
+                id: category.id,
+                title: category.detail.title,
+                type: 1
+            });
+        },
+
         edit_category(state, updatedCategory) {
 
             const categoryIndex = helpers.getIndexOfCategory(updatedCategory.id);
 
 
-            state.category[categoryIndex].title = updatedClass.title;
+            state.categories[categoryIndex].title = updatedCategory.title;
+        },
+
+        delete_category(state, ids){
+            const categoryIndex = helpers.getIndexOfCategory(ids.categoryId);
+
+            state.categories.splice(categoryIndex, 1);
         },
     },
 
@@ -42,17 +56,39 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_categories: ({commit}) => {
-            axios.get('/admin/data/category')
+            axios.get('/admin/event/data/category')
                 .then(response =>{
                     commit('set_categories',response.data);
                 });
+        },
+
+        store_new_category({commit}, newCategory) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.post('add/category', newCategory)
+                    .then(response => {
+
+                        const category = {
+                            id: response.data,
+                            detail: newCategory
+                        };
+
+                        commit('add_new_category', category);
+
+                        resolve(category);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
         },
 
         update_category({commit}, updatedCategory) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/category/' + updatedCategory.id, {
+                axios.patch('update/category/' + updatedCategory.id, {
                     id: updatedCategory.id,
                     title: updatedCategory.title,                
                 })
@@ -64,6 +100,19 @@ export const store = new Vuex.Store({
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+
+        destroy_category({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/category/'+ids.categoryId)
+                    .then((response) => {
+                        commit('delete_category', ids);
+                        resolve();
+                    });
             })
         },
     }

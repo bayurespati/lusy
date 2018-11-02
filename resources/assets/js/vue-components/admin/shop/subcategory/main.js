@@ -1,4 +1,4 @@
-import Subcategories from './components/Subcategories.vue';
+import Subcategories from './../../../global/subcategories/Subcategories.vue';
 import Flash from './../../../global/Flash.vue';
 import {store} from './store';
 
@@ -11,7 +11,7 @@ const admin = new Vue({
     },
 
     mounted(){
-        this.$store.dispatch('load_subcategories');
+        this.$store.dispatch('load_subCategories');
     },
 
     store
