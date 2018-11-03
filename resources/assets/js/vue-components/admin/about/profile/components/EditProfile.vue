@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="col-md-12 text-center">
-          <h3 class="text-center font-weight-bold mb-5">Edit Info Profile</h3>
+          <h3 class="text-center font-weight-bold mb-5">Edit Profile Info</h3>
         </div>
 
         <div class="row">
@@ -40,7 +40,7 @@
               </div>
               
               <div class="col-md-10">
-                <textarea class="m-0 pl-1 form-control" id="content-about" rows="12" v-model="content"></textarea>
+                <textarea class="form-control" id="content-about" rows="12" v-model="content"></textarea>
               </div>
             </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h3>Profile</h3>
-    <p class="mb-5">Here you can manages info shown in Home and About pages.</p>
+    <h3>Profile Master</h3>
+    <p class="mb-5">Here you can managess info shown in Home and About pages.</p>
 
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
         <template v-if="!isEditProfile">
