@@ -10,7 +10,7 @@
                     <!--=========================================================================================
                         I M A G E
                         =========================================================================================-->
-                    <div class="boxImage">
+                    <div class="col-md-2">
                         <img :src=galleryImage.image_path alt="image">
                     </div>
 
@@ -18,57 +18,65 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ galleryImage.title }}</p>
-                        </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <div class="detail">
+                                <p class="mb-0">{{ galleryImage.title }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         D A T E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Date</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ galleryImage.date }}</p>
-                        </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Tanggal</strong></p>
+                            <div class="detail">
+                                <p class="mb-0">{{ galleryImage.date }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         L O C A T I O N
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Location</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ galleryImage.location }}</p>
-                        </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Lokasi</strong></p>
+                            <div class="detail">
+                                <p class="mb-0">{{ galleryImage.location }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         C R E A T O R
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Creator</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ galleryImage.creator }}</p>
-                        </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Dibuat Oleh</strong></p>
+                            <div class="detail">
+                                <p class="mb-0">{{ galleryImage.creator }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col-md-2 d-flex align-items-center justify-content-around">
+                    <div class="col-md-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingGallery = !isEditingGallery">EDIT</button>               
+                                @click="isEditingGallery = !isEditingGallery">Edit</button>               
                         <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="deleteTheGallery">DELETE</button>
+                                class="btn btn-sm btn-danger ml-2"
+                                @click="deleteTheGallery">Delete</button>
                     </div>
 
 
@@ -125,14 +133,10 @@
         border: 1px solid transparent !important;
     }
 
-    .boxImage{
-        width: 50px;
-        height: 50px;
-    }
-
     img{
         max-width: 100%;
-        height: auto;
+        max-height: 125px;
+        border: 1px solid lightgrey;
     }
 
     .card-block{
@@ -143,9 +147,5 @@
         line-height: 30px !important;
         vertical-align: middle !important;
         padding: 0 !important;
-    }
-
-    .f-24 {
-        font-size: 24px !important;
     }
 </style>

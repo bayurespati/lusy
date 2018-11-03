@@ -1,12 +1,12 @@
 <template>
-
     <transition enterActiveClass="fade-in-down"
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
-
-        <div class="panel-default panel mt-5" id="edit_gallery">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_gallery">
             <div class="panel-body">
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
+                <h3 class="text-center font-weight-bold">Edit Gambar</h3>
+
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 
 
                     <!--=========================================================================================
@@ -15,8 +15,8 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="title"
-                                   class="form-control-label panel-font-small m-0">
-                                Title
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Nama
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -24,6 +24,7 @@
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editGallery"
+                                   placeholder="Nama Gambar" 
                                    v-model="title">
                         </div>
                     </div>
@@ -35,8 +36,8 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="date"
-                                   class="form-control-label panel-font-small m-0">
-                                Date
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Tanggal
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -51,8 +52,8 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="location"
-                                   class="form-control-label panel-font-small m-0">
-                                Location
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Lokasi
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -60,6 +61,7 @@
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editGallery"
+                                   placeholder="Lokasi Gambar" 
                                    v-model="location">
                         </div>
                     </div>
@@ -71,8 +73,8 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="creator"
-                                   class="form-control-label panel-font-small m-0">
-                                Creator
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Dibuat Oleh
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -80,6 +82,7 @@
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editGallery"
+                                   placeholder="Dibuat Oleh" 
                                    v-model="creator">
                         </div>
                     </div>
@@ -88,11 +91,11 @@
                     <!--=========================================================================================
                         C R E A T O R
                         =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
+                    <div class="col-sm-12 row">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="subcategory"
-                                   class="form-control-label panel-font-small m-0">
-                                Sub category
+                                   class="form-control-label panel-font-small m-0 font-weight-bold">
+                                Subkategori
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -108,19 +111,17 @@
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
                         =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
-                        <div class="col-sm-6">
-                            <button type="button" 
-                                class="full-width btn btn-secondary btn-block btn-sm"
-                                @click="closeEditForm">Batal</button>
-                        </div>
+                    <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
+                        <button type="button" 
+                        class="btn btn-secondary btn-sm"
+                        @click="closeEditForm">
+                            Batal
+                        </button>
 
-                        <div class="col-sm-6">
-                            <button @click="editGallery"
-                                    class="full-width btn btn-success btn-block btn-sm">
-                                    Simpan
-                            </button>
-                        </div>
+                        <button @click="editGallery"
+                        class="btn btn-success btn-sm ml-2">
+                            Simpan
+                        </button>
                     </div>
                 </div>
             </div>
@@ -215,8 +216,32 @@
     };
 </script>
 
+<style type="text/css">
+    .croppie-container {
+        height: unset;
+    }
+
+    .croppie-container .cr-slider-wrap {
+        margin: 15px auto 5px auto;
+    }
+
+    .vdatetime-input {
+        width: 100%;
+        padding: .375rem .75rem;
+        line-height: 1.5;
+        font-size: 1rem;
+        color: #495057;
+        border-radius: .25rem;
+        border: 1px solid #ced4da;
+    }
+</style>
+
 <style scoped>
-    .pl-15-px {
-        padding-left: 15px !important;
+    .bg-grey {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
     }
 </style>
