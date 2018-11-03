@@ -45,25 +45,25 @@ class ListController extends Controller
         $event->organiser = $request->organiser;
 
         $event->save();
+
+        return $event->id;
     }
 
     public function update(Request $request, Event $event){
 
-        dd(
-            $event->id,
-            $request->title,
-            $request->start_date,
-            $request->end_date,
-            $request->location,
-            $request->address,
-            $request->content,
-            $request->sub_category_id,
-            $request->organiser
-        );
+        $event->title = $request->title;
+        $event->start_date = $request->start_date;
+        $event->end_date = $request->end_date;
+        $event->location = $request->location;
+        $event->address = $request->address;
+        $event->content = $request->content;
+        $event->sub_category_id = $request->sub_category_id;
+        $event->organiser = $request->organiser;
 
+        $event->update();
     }
 
-    public function destroy(){
-
+    public function destroy(Event $event){
+        $event->delete();    
     }
 }

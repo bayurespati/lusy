@@ -106,6 +106,8 @@
 
 		methods:{
 			addEvent(){
+
+				let vm = this;
 				
 				if(this.input.title.length > 3){
 
@@ -113,6 +115,8 @@
                         .then(() => {
                             flash('Event berhasil ditambahkan','success');
                             this.input.title = '';
+
+                            vm.setData();
 
                             vm.closeAddEvent();
                         })
@@ -124,6 +128,20 @@
                             })
                         });
 				}
+			},
+
+			setData(){
+
+				this.input.title = '';
+				this.input.start_date = '';
+				this.input.end_date = '';
+				this.input.location = '';
+				this.input.address = '';
+				this.input.content = '';
+				this.input.organiser = '';
+				this.subcategories = "";
+				this.input.organiser = '';
+
 			},
 
 			closeAddEvent(){

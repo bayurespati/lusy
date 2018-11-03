@@ -40,7 +40,7 @@
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <datetime v-model="start_date" value-zone="local"></datetime>
+                            <datetime type="datetime" value-zone="local" v-model="start_date"></datetime>
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <datetime v-model="end_date" value-zone="local"></datetime>
+                            <datetime type="datetime" v-model="end_date" value-zone="local"></datetime>
                         </div>
                     </div>
 
@@ -96,27 +96,23 @@
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editEvent"
-                                   v-model="addres">
+                                   v-model="address">
                         </div>
                     </div>
 
 
                     <!--=========================================================================================
-                        A D D R E S S
+                        C O N T E N T
                         =========================================================================================-->
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="creator"
+                            <label for="content"
                                    class="form-control-label panel-font-small m-0">
                                 Content
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input id="creator"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editEvent"
-                                   v-model="creator">
+                            <textarea class="form-control form-control-sm" id="content" v-model="content"></textarea>
                         </div>
                     </div>
 
@@ -200,8 +196,8 @@
             return {
                 isRequesting: false,
                 title: this.event.title,
-                start_date: this.event.start_date,
-                end_date: this.event.end_date,
+                start_date: this.event.start_date.replace(" ", "T")+".000+07:00",
+                end_date: this.event.end_date.replace(" ", "T")+".000+07:00",
                 location: this.event.location,
                 address: this.event.address,
                 content: this.event.content,
@@ -217,9 +213,12 @@
 
             eventIsEdited(){
                 return this.event.title !== this.title 
-                    || this.event.date !== this.date.substring(0,10)
+                    || this.event.start_date !== this.start_date.substring(0,19).replace("T", " ")
+                    || this.event.end_date !== this.end_date.substring(0,19).replace("T", " ")
                     || this.event.location !== this.location
-                    || this.event.creator !== this.creator
+                    || this.event.address !== this.address
+                    || this.event.content !== this.content
+                    || this.event.organiser !== this.organiser
                     || this.event.sub_category_id !== this.sub_category_id;
             },
 
@@ -238,6 +237,8 @@
 
             editEvent(){
 
+                console.log(this.start_date,this.location);
+
                 const self = this;
 
                 if (this.eventIsEdited) {
@@ -247,13 +248,16 @@
                     const updatedEvent = {
                         id: this.event.id,
                         title: this.title,
-                        date: this.date.substring(0,10),
+                        start_date: this.start_date.substring(0,19).replace("T", " "),
+                        end_date: this.end_date.substring(0,19).replace("T", " "),
                         location: this.location,
-                        creator: this.creator,
+                        address: this.address,
+                        content: this.content,
+                        organiser: this.organiser,
                         sub_category_id: this.sub_category_id,
                     };
 
-                    this.$store.dispatch('update_galllery', updatedEvent)
+                    this.$store.dispatch('update_event', updatedEvent)
 
                         .then((updatedEvent) => {
 

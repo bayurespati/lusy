@@ -350,8 +350,8 @@ Route::group([
         Route::get('/list', 'ListController@index')->name('admin.event.list');
         Route::get('/data/list', 'ListController@loadEvent');
         Route::post('/add/list', 'ListController@store');
-        Route::patch('/update/list', 'ListController@update');
-        Route::delete('/delete/list', 'ListController@destroy');
+        Route::patch('/update/list/{event}', 'ListController@update');
+        Route::delete('/delete/list/{event}', 'ListController@destroy');
     });
 
 

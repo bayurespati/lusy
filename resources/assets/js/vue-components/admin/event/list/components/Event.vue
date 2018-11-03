@@ -83,7 +83,7 @@
 </template>
 
 <script>
-
+    import EditEvent from './EditEvent.vue';
     export default{
         props: {event: {}},
 

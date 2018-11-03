@@ -41,12 +41,12 @@ export const store = new Vuex.Store({
         },
 
         add_new_event(state, event){
-            state.categories.push({
+            state.events.push({
                 id: event.id,
                 title: event.detail.title,
                 sub_category_id: event.detail.sub_category_id,
-                start_date: event.detail.start_date,
-                end_date: event.detail.end_date,
+                start_date: event.start_date,
+                end_date: event.end_date,
                 location: event.detail.location,
                 address: event.detail.address,
                 organiser: event.detail.organiser,
@@ -58,7 +58,6 @@ export const store = new Vuex.Store({
 
             const eventIndex = helpers.getIndexOfEvent(updatedEvent.id);
 
-
             state.events[eventIndex].title = updatedEvent.title;
             state.events[eventIndex].start_date = updatedEvent.start_date;
             state.events[eventIndex].end_date = updatedEvent.end_date;
@@ -66,7 +65,15 @@ export const store = new Vuex.Store({
             state.events[eventIndex].address = updatedEvent.address;
             state.events[eventIndex].organiser = updatedEvent.organiser;
             state.events[eventIndex].content = updatedEvent.content;
+            state.events[eventIndex].sub_category_id = updatedEvent.sub_category_id;
         },
+
+        delete_event(state, ids){
+            const eventIndex = helpers.getIndexOfEvent(ids.eventId);
+
+            state.events.splice(eventIndex, 1);
+        },
+
     },
 
     //=========================================================================================
@@ -99,6 +106,8 @@ export const store = new Vuex.Store({
 
                         const event = {
                             id: response.data,
+                            start_date : newEvent.start_date.substring(0,19).replace("T", " "),
+                            end_date : newEvent.end_date.substring(0,19).replace("T", " "),
                             detail: newEvent
                         };
 
@@ -116,7 +125,7 @@ export const store = new Vuex.Store({
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('add/list/' + updatedEvent.id, {
+                axios.patch('update/list/' + updatedEvent.id, {
                     id: updatedEvent.id,
                     title: updatedEvent.title,
                     start_date: updatedEvent.start_date,
