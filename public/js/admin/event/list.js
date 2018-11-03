@@ -60,11 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 228);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 199);
->>>>>>> master
+/******/ 	return __webpack_require__(__webpack_require__.s = 220);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -258,14 +254,6 @@ function toComment(sourceMap) {
 
 	return '/*# ' + data + ' */';
 }
-
-
-/***/ }),
-
-/***/ 199:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(200);
 
 
 /***/ }),
@@ -499,12 +487,20 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 200:
+/***/ 220:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(221);
+
+
+/***/ }),
+
+/***/ 221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
@@ -531,15 +527,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 201:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(202)
+var __vue_script__ = __webpack_require__(223)
 /* template */
-var __vue_template__ = __webpack_require__(206)
+var __vue_template__ = __webpack_require__(227)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -579,12 +575,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 202:
+/***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event_vue__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event_vue__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Event_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -622,15 +618,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 203:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(204)
+var __vue_script__ = __webpack_require__(225)
 /* template */
-var __vue_template__ = __webpack_require__(205)
+var __vue_template__ = __webpack_require__(226)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -670,7 +666,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 204:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -683,7 +679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 205:
+/***/ 226:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -704,7 +700,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 206:
+/***/ 227:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -747,7 +743,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 207:
+/***/ 228:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1045,12 +1041,6 @@ function assertRawModule (path, rawModule) {
 
     var assertOptions = assertTypes[key];
 
-<<<<<<< HEAD
-/***/ 228:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(229);
-=======
     forEachValue(rawModule[key], function (value, type) {
       assert(
         assertOptions.assert(value),
@@ -1068,7 +1058,6 @@ function makeAssertionMessage (path, key, type, value, expected) {
   buf += " is " + (JSON.stringify(value)) + ".";
   return buf
 }
->>>>>>> master
 
 var Vue; // bind on install
 
@@ -1076,18 +1065,6 @@ var Store = function Store (options) {
   var this$1 = this;
   if ( options === void 0 ) options = {};
 
-<<<<<<< HEAD
-/***/ 229:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(34);
-=======
   // Auto install if it is not done yet and `window` has `Vue`.
   // To allow users to avoid auto-installation in some cases,
   // this code should be placed here. See #731
@@ -1100,7 +1077,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
     assert(this instanceof Store, "Store must be called with the new operator.");
   }
->>>>>>> master
 
   var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
   var strict = options.strict; if ( strict === void 0 ) strict = false;
@@ -1153,40 +1129,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   }
 };
 
-<<<<<<< HEAD
-/***/ 230:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(231)
-/* template */
-var __vue_template__ = __webpack_require__(235)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/event/list/components/List.vue"
-=======
 var prototypeAccessors = { state: { configurable: true } };
 
 prototypeAccessors.state.get = function () {
   return this._vm._data.$$state
 };
->>>>>>> master
 
 prototypeAccessors.state.set = function (v) {
   if (true) {
@@ -1197,17 +1144,6 @@ prototypeAccessors.state.set = function (v) {
 Store.prototype.commit = function commit (_type, _payload, _options) {
     var this$1 = this;
 
-<<<<<<< HEAD
-/***/ 231:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event_vue__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Event_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Event_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-=======
   // check object-style commit
   var ref = unifyObjectStyle(_type, _payload, _options);
     var type = ref.type;
@@ -1228,7 +1164,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     });
   });
   this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
->>>>>>> master
 
   if (
     "development" !== 'production' &&
@@ -1269,41 +1204,12 @@ Store.prototype.subscribe = function subscribe (fn) {
   return genericSubscribe(fn, this._subscribers)
 };
 
-<<<<<<< HEAD
-/***/ 232:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(233)
-/* template */
-var __vue_template__ = __webpack_require__(234)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/event/list/components/Event.vue"
-=======
 Store.prototype.subscribeAction = function subscribeAction (fn) {
   return genericSubscribe(fn, this._actionSubscribers)
 };
 
 Store.prototype.watch = function watch (getter, cb, options) {
     var this$1 = this;
->>>>>>> master
 
   if (true) {
     assert(typeof getter === 'function', "store.watch only accepts a function.");
@@ -1322,12 +1228,7 @@ Store.prototype.replaceState = function replaceState (state) {
 Store.prototype.registerModule = function registerModule (path, rawModule, options) {
     if ( options === void 0 ) options = {};
 
-<<<<<<< HEAD
-/***/ 233:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
   if (typeof path === 'string') { path = [path]; }
->>>>>>> master
 
   if (true) {
     assert(Array.isArray(path), "module path must be a string or an Array.");
@@ -1343,12 +1244,7 @@ Store.prototype.registerModule = function registerModule (path, rawModule, optio
 Store.prototype.unregisterModule = function unregisterModule (path) {
     var this$1 = this;
 
-<<<<<<< HEAD
-/***/ 234:
-/***/ (function(module, exports, __webpack_require__) {
-=======
   if (typeof path === 'string') { path = [path]; }
->>>>>>> master
 
   if (true) {
     assert(Array.isArray(path), "module path must be a string or an Array.");
@@ -1367,17 +1263,12 @@ Store.prototype.hotUpdate = function hotUpdate (newOptions) {
   resetStore(this, true);
 };
 
-<<<<<<< HEAD
-/***/ 235:
-/***/ (function(module, exports, __webpack_require__) {
-=======
 Store.prototype._withCommit = function _withCommit (fn) {
   var committing = this._committing;
   this._committing = true;
   fn();
   this._committing = committing;
 };
->>>>>>> master
 
 Object.defineProperties( Store.prototype, prototypeAccessors );
 
@@ -1405,13 +1296,8 @@ function resetStore (store, hot) {
   resetStoreVM(store, state, hot);
 }
 
-<<<<<<< HEAD
-/***/ 236:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
 function resetStoreVM (store, state, hot) {
   var oldVm = store._vm;
->>>>>>> master
 
   // bind store public getters
   store.getters = {};
@@ -1675,19 +1561,6 @@ var mapState = normalizeNamespace(function (namespace, states) {
     var key = ref.key;
     var val = ref.val;
 
-<<<<<<< HEAD
-/***/ }),
-
-/***/ 34:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(236);
-
-
-=======
     res[key] = function mappedState () {
       var state = this.$store.state;
       var getters = this.$store.getters;
@@ -1708,7 +1581,6 @@ var mapState = normalizeNamespace(function (namespace, states) {
   });
   return res
 });
->>>>>>> master
 
 var mapMutations = normalizeNamespace(function (namespace, mutations) {
   var res = {};
@@ -1969,7 +1841,7 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(228);
 
 
 

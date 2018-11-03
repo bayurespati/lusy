@@ -2,9 +2,16 @@ import {store} from './store';
 
 export default {
 
-    // getIndexOfSosmed(sosmedId) {
-        // return _.findIndex(store.state.sosmeds, function (sosmed) {
-            // return sosmed.id === sosmedId;
-        // });
-    // },
+    getIndexOfGalleryShow(galleryId) {
+        return _.findIndex(store.state.galleryShow, function (gallery) {
+            return gallery.id === galleryId;
+        });
+    },
+
+
+    getIndexOfGalleryHide(galleryId) {
+        return _.findIndex(store.state.galleryHide, function (gallery) {
+            return gallery.id === galleryId;
+        });
+    },
 }

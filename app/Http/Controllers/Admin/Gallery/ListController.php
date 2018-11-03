@@ -50,6 +50,7 @@ class ListController extends Controller
         $gallery->date = $request->date;
         $gallery->location = $request->location;
         $gallery->creator = $request->creator;
+        $gallery->is_showcase = 0;
         $gallery->image_path = url('img/gallery/'.$imageName);
 
         $gallery->save();

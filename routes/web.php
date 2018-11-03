@@ -233,7 +233,7 @@ Route::group([
     	*/
     	Route::get('/gallery', 'GalleryController@index')->name('admin.about.gallery');
     	Route::get('/data/gallery', 'GalleryController@loadGallery');
-    	Route::patch('/gallery', 'GalleryController@patch');
+    	Route::patch('/update/gallery/{gallery}', 'GalleryController@update');
 
     	/*
     	|--------------------------------------------------------------------------

@@ -865,9 +865,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 /* 15 */,
-<<<<<<< HEAD
-/* 16 */
-=======
 /* 16 */,
 /* 17 */,
 /* 18 */,
@@ -903,20 +900,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 48 */,
 /* 49 */,
 /* 50 */,
-/* 51 */
->>>>>>> master
+/* 51 */,
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-<<<<<<< HEAD
 var utils = __webpack_require__(11);
-var normalizeHeaderName = __webpack_require__(48);
-=======
-var utils = __webpack_require__(10);
 var normalizeHeaderName = __webpack_require__(84);
->>>>>>> master
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1013,12 +1005,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ }),
-<<<<<<< HEAD
-/* 17 */
-=======
-/* 52 */,
 /* 53 */
->>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13954,23 +13941,13 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 
 
-<<<<<<< HEAD
 var utils = __webpack_require__(11);
-var settle = __webpack_require__(49);
-var buildURL = __webpack_require__(51);
-var parseHeaders = __webpack_require__(52);
-var isURLSameOrigin = __webpack_require__(53);
-var createError = __webpack_require__(21);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(54);
-=======
-var utils = __webpack_require__(10);
 var settle = __webpack_require__(85);
 var buildURL = __webpack_require__(87);
 var parseHeaders = __webpack_require__(88);
 var isURLSameOrigin = __webpack_require__(89);
 var createError = __webpack_require__(57);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(90);
->>>>>>> master
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -31431,11 +31408,7 @@ if (token) {
   }
 }.call(this));
 
-<<<<<<< HEAD
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(42)(module)))
-=======
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(78)(module)))
->>>>>>> master
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(78)(module)))
 
 /***/ }),
 /* 78 */
@@ -35428,17 +35401,10 @@ module.exports = __webpack_require__(81);
 "use strict";
 
 
-<<<<<<< HEAD
 var utils = __webpack_require__(11);
-var bind = __webpack_require__(19);
-var Axios = __webpack_require__(47);
-var defaults = __webpack_require__(16);
-=======
-var utils = __webpack_require__(10);
 var bind = __webpack_require__(55);
 var Axios = __webpack_require__(83);
-var defaults = __webpack_require__(51);
->>>>>>> master
+var defaults = __webpack_require__(52);
 
 /**
  * Create an instance of Axios
@@ -35521,17 +35487,10 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-<<<<<<< HEAD
-var defaults = __webpack_require__(16);
+var defaults = __webpack_require__(52);
 var utils = __webpack_require__(11);
-var InterceptorManager = __webpack_require__(56);
-var dispatchRequest = __webpack_require__(57);
-=======
-var defaults = __webpack_require__(51);
-var utils = __webpack_require__(10);
 var InterceptorManager = __webpack_require__(92);
 var dispatchRequest = __webpack_require__(93);
->>>>>>> master
 
 /**
  * Create a new instance of Axios
@@ -36064,21 +36023,12 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-<<<<<<< HEAD
 var utils = __webpack_require__(11);
-var transformData = __webpack_require__(58);
-var isCancel = __webpack_require__(22);
-var defaults = __webpack_require__(16);
-var isAbsoluteURL = __webpack_require__(59);
-var combineURLs = __webpack_require__(60);
-=======
-var utils = __webpack_require__(10);
 var transformData = __webpack_require__(94);
 var isCancel = __webpack_require__(58);
-var defaults = __webpack_require__(51);
+var defaults = __webpack_require__(52);
 var isAbsoluteURL = __webpack_require__(95);
 var combineURLs = __webpack_require__(96);
->>>>>>> master
 
 /**
  * Throws a `Cancel` if cancellation has been requested.

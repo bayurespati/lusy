@@ -60,11 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 255);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 214);
->>>>>>> master
+/******/ 	return __webpack_require__(__webpack_require__.s = 235);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -491,20 +487,20 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 214:
+/***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(215);
+module.exports = __webpack_require__(236);
 
 
 /***/ }),
 
-/***/ 215:
+/***/ 236:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
@@ -531,15 +527,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 216:
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(217)
+var __vue_script__ = __webpack_require__(238)
 /* template */
-var __vue_template__ = __webpack_require__(221)
+var __vue_template__ = __webpack_require__(242)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -579,12 +575,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 217:
+/***/ 238:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Item_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -622,15 +618,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 218:
+/***/ 239:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(219)
+var __vue_script__ = __webpack_require__(240)
 /* template */
-var __vue_template__ = __webpack_require__(220)
+var __vue_template__ = __webpack_require__(241)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -670,7 +666,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 219:
+/***/ 240:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -683,7 +679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 220:
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -704,7 +700,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 221:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -747,7 +743,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 222:
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -969,12 +965,6 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
     assertRawModule(path, rawModule);
   }
 
-<<<<<<< HEAD
-/***/ 255:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(256);
-=======
   var newModule = new Module(rawModule, runtime);
   if (path.length === 0) {
     this.root = newModule;
@@ -990,7 +980,6 @@ module.exports = __webpack_require__(256);
     });
   }
 };
->>>>>>> master
 
 ModuleCollection.prototype.unregister = function unregister (path) {
   var parent = this.get(path.slice(0, -1));
@@ -1000,18 +989,6 @@ ModuleCollection.prototype.unregister = function unregister (path) {
   parent.removeChild(key);
 };
 
-<<<<<<< HEAD
-/***/ 256:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(37);
-=======
 function update (path, targetModule, newModule) {
   if (true) {
     assertRawModule(path, newModule);
@@ -1019,7 +996,6 @@ function update (path, targetModule, newModule) {
 
   // update target module
   targetModule.update(newModule);
->>>>>>> master
 
   // update nested modules
   if (newModule.modules) {
@@ -1085,34 +1061,6 @@ function makeAssertionMessage (path, key, type, value, expected) {
 
 var Vue; // bind on install
 
-<<<<<<< HEAD
-/***/ 257:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(258)
-/* template */
-var __vue_template__ = __webpack_require__(262)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/shop/list/components/List.vue"
-=======
 var Store = function Store (options) {
   var this$1 = this;
   if ( options === void 0 ) options = {};
@@ -1123,7 +1071,6 @@ var Store = function Store (options) {
   if (!Vue && typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
   }
->>>>>>> master
 
   if (true) {
     assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
@@ -1150,17 +1097,6 @@ var Store = function Store (options) {
   this._subscribers = [];
   this._watcherVM = new Vue();
 
-<<<<<<< HEAD
-/***/ 258:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Item_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-=======
   // bind commit and dispatch to self
   var store = this;
   var ref = this;
@@ -1175,7 +1111,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   // strict mode
   this.strict = strict;
->>>>>>> master
 
   // init root module.
   // this also recursively registers all sub-modules
@@ -1206,34 +1141,6 @@ prototypeAccessors.state.set = function (v) {
   }
 };
 
-<<<<<<< HEAD
-/***/ 259:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(260)
-/* template */
-var __vue_template__ = __webpack_require__(261)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/admin/shop/list/components/Item.vue"
-=======
 Store.prototype.commit = function commit (_type, _payload, _options) {
     var this$1 = this;
 
@@ -1242,7 +1149,6 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
     var type = ref.type;
     var payload = ref.payload;
     var options = ref.options;
->>>>>>> master
 
   var mutation = { type: type, payload: payload };
   var entry = this._mutations[type];
@@ -1278,10 +1184,6 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
     var type = ref.type;
     var payload = ref.payload;
 
-<<<<<<< HEAD
-/***/ 260:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
   var action = { type: type, payload: payload };
   var entry = this._actions[type];
   if (!entry) {
@@ -1290,7 +1192,6 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
     }
     return
   }
->>>>>>> master
 
   this._actionSubscribers.forEach(function (sub) { return sub(action, this$1.state); });
 
@@ -1303,14 +1204,9 @@ Store.prototype.subscribe = function subscribe (fn) {
   return genericSubscribe(fn, this._subscribers)
 };
 
-<<<<<<< HEAD
-/***/ 261:
-/***/ (function(module, exports, __webpack_require__) {
-=======
 Store.prototype.subscribeAction = function subscribeAction (fn) {
   return genericSubscribe(fn, this._actionSubscribers)
 };
->>>>>>> master
 
 Store.prototype.watch = function watch (getter, cb, options) {
     var this$1 = this;
@@ -1321,13 +1217,8 @@ Store.prototype.watch = function watch (getter, cb, options) {
   return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
 };
 
-<<<<<<< HEAD
-/***/ 262:
-/***/ (function(module, exports, __webpack_require__) {
-=======
 Store.prototype.replaceState = function replaceState (state) {
     var this$1 = this;
->>>>>>> master
 
   this._withCommit(function () {
     this$1._vm._data.$$state = state;
@@ -1337,12 +1228,7 @@ Store.prototype.replaceState = function replaceState (state) {
 Store.prototype.registerModule = function registerModule (path, rawModule, options) {
     if ( options === void 0 ) options = {};
 
-<<<<<<< HEAD
-/***/ 263:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-=======
   if (typeof path === 'string') { path = [path]; }
->>>>>>> master
 
   if (true) {
     assert(Array.isArray(path), "module path must be a string or an Array.");
@@ -1675,19 +1561,6 @@ var mapState = normalizeNamespace(function (namespace, states) {
     var key = ref.key;
     var val = ref.val;
 
-<<<<<<< HEAD
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(263);
-
-
-=======
     res[key] = function mappedState () {
       var state = this.$store.state;
       var getters = this.$store.getters;
@@ -1708,7 +1581,6 @@ var mapState = normalizeNamespace(function (namespace, states) {
   });
   return res
 });
->>>>>>> master
 
 var mapMutations = normalizeNamespace(function (namespace, mutations) {
   var res = {};
@@ -1969,7 +1841,7 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(243);
 
 
 
