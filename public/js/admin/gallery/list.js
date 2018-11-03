@@ -3426,7 +3426,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Save\n                        "
+                      "\n                            Simpan\n                        "
                     )
                   ]
                 ),
@@ -3440,7 +3440,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      " \n                            Cancel\n                        "
+                      " \n                            Batal\n                        "
                     )
                   ]
                 )
@@ -4700,7 +4700,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Edit")]
+                    [_vm._v("Ubah")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -4710,7 +4710,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheGallery }
                     },
-                    [_vm._v("Delete")]
+                    [_vm._v("Hapus")]
                   )
                 ]
               ),

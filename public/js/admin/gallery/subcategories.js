@@ -1960,11 +1960,11 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-sm btn-warning",
+            staticClass: "btn btn-sm btn-danger",
             attrs: { type: "button" },
             on: { click: _vm.closeAddSubCatergory }
           },
-          [_vm._v("Cancel")]
+          [_vm._v("Batal")]
         )
       ])
     ])
@@ -2768,7 +2768,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Edit")]
+                    [_vm._v("Ubah")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -2778,7 +2778,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheSubCategory }
                     },
-                    [_vm._v("Delete")]
+                    [_vm._v("Hapus")]
                   )
                 ]
               ),

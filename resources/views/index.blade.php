@@ -67,7 +67,7 @@
                             </div><!-- Section Header /- -->
 
                             <p>
-                                {!! $introduction[0]->content !!}
+                                {!! nl2br(e($introduction[0]->content)) !!}
                             </p>
 
                             <a href="{{ route('about.index') }}" title="Read More">Read More</a>

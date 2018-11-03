@@ -88,13 +88,13 @@
                             <button type="button" role="button"
                             class="btn btn-success"
                             @click="uploadImage">
-                                Save
+                                Simpan
                             </button>
 
                             <button class="btn btn-danger ml-2"
                             type="button" role="button" 
                             @click="closeAdd"> 
-                                Cancel
+                                Batal
                             </button>
                         </div>
                     </div>

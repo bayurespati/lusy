@@ -2505,7 +2505,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.deleteThiImage }
                 },
-                [_vm._v("\n                    Delete\n                ")]
+                [_vm._v("\n                    Hapus\n                ")]
               )
             ])
           ])
@@ -2841,7 +2841,7 @@ var render = function() {
             attrs: { type: "button", role: "button" },
             on: { click: _vm.uploadImage }
           },
-          [_vm._v("\n                Save\n        ")]
+          [_vm._v("\n                Simpan\n        ")]
         ),
         _vm._v(" "),
         _c(
@@ -2851,7 +2851,7 @@ var render = function() {
             attrs: { type: "button", role: "button" },
             on: { click: _vm.closeAdd }
           },
-          [_vm._v(" \n                Cancel\n        ")]
+          [_vm._v(" \n                Batal\n        ")]
         )
       ]
     ),

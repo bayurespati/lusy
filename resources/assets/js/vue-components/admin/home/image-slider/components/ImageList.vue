@@ -19,7 +19,7 @@
                     <button type="button" 
                             class="btn btn-sm btn-danger"
                             @click="deleteThiImage">
-                        Delete
+                        Hapus
                     </button>
                 </div>
             </div>

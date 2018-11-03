@@ -25,11 +25,11 @@
                     <div class="d-flex align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingCategory = !isEditingCategory">Edit</button>
+                                @click="isEditingCategory = !isEditingCategory">Ubah</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheCategory">Delete</button>
+                                @click="deleteTheCategory">Hapus</button>
                     </div>
 
 

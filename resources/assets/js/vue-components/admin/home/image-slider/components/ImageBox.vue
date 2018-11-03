@@ -27,7 +27,7 @@
             <button type="button" role="button"
                     class="btn btn-success ml-3"
                     @click="uploadImage">
-                    Save
+                    Simpan
             </button>
 
             <!--=========================================================================================
@@ -36,7 +36,7 @@
             <button class="btn btn-danger"
                     type="button" role="button"
                     @click="closeAdd"> 
-                    Cancel
+                    Batal
             </button>
         </div>
 

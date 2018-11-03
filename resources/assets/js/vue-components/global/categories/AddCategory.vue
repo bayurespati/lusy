@@ -7,7 +7,7 @@
 					<input type="text" v-model="input.title" class="form-control" id="title" placeholder="Nama Kategori">
 				</div>
 				<button type="button" @click="addCategory" class="btn btn-sm btn-success">Tambah</button>
-				<button type="button" @click="closeAddCatergory" class="btn btn-sm btn-warning ml-1">Cancel</button>
+				<button type="button" @click="closeAddCatergory" class="btn btn-sm btn-danger ml-1">Batal</button>
 			</div>	
 		</div>
 	</div>

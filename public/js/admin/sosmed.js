@@ -1165,7 +1165,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("EDIT")]
+                    [_vm._v("Ubah")]
                   )
                 ]
               ),
