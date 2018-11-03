@@ -77,6 +77,19 @@ class ListController extends Controller
     }
 
     public function destroy(Gallery $gallery){
+
+        $path = public_path('img/gallery/');
+        $this->removeImageOnServer($path,$gallery->image_path);
+
         $gallery->delete();
+    }
+
+    private function removeImageOnServer($path, $url) {
+        $imageName = explode('/', $url);
+        $imageName = $imageName[count($imageName)-1];
+
+        if(file_exists($path.$imageName)) {
+            unlink($path . $imageName);
+        }
     }
 }
