@@ -49,13 +49,14 @@ export const store = new Vuex.Store({
 
         edit_image(state, updatedGallery) {
 
-            const imageIndex = helpers.getIndexOfGallery(updatedGallery.id);
+            const imageIndex = helpers.getIndexOfGallery(updatedGallery.detail.id);
 
-            state.gallery[imageIndex].title = updatedGallery.title;
-            state.gallery[imageIndex].date = updatedGallery.date;
-            state.gallery[imageIndex].location = updatedGallery.location;
-            state.gallery[imageIndex].creator = updatedGallery.creator;
-            state.gallery[imageIndex].sub_category_id = updatedGallery.sub_category_id;
+            state.gallery[imageIndex].title = updatedGallery.detail.title;
+            state.gallery[imageIndex].date = updatedGallery.detail.date;
+            state.gallery[imageIndex].location = updatedGallery.detail.location;
+            state.gallery[imageIndex].creator = updatedGallery.detail.creator;
+            state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
+            state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
 
         delete_gallery(state, ids){
@@ -110,9 +111,16 @@ export const store = new Vuex.Store({
                     location: updatedGallery.location,
                     creator: updatedGallery.creator,
                     sub_category_id: updatedGallery.sub_category_id,
+                    image: updatedGallery.image
                 })
                     .then(response => {
-                        commit('edit_image', updatedGallery);
+
+                        const updateData = {
+                            image_path : response.data,
+                            detail : updatedGallery
+                        }
+
+                        commit('edit_image', updateData);
 
                         resolve(updatedGallery);
                     })

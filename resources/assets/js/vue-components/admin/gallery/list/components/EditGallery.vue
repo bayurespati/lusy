@@ -14,7 +14,8 @@
                             <input type="file"
                             accept="image/*"
                             id="file-2"
-                            class="inputfile">
+                            class="inputfile"
+                            @change="setUpFileUploader">
 
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
@@ -145,7 +146,8 @@
                 creator: this.galleryImage.creator,
                 sub_category_id: this.galleryImage.sub_category_id,
                 croppie: null,
-                image: '',
+                image: this.galleryImage.image_path,
+                save_image: ''
             }
         },
 
@@ -163,7 +165,8 @@
                     || this.galleryImage.date !== this.date.substring(0,10)
                     || this.galleryImage.location !== this.location
                     || this.galleryImage.creator !== this.creator
-                    || this.galleryImage.sub_category_id !== this.sub_category_id;
+                    || this.galleryImage.sub_category_id !== this.sub_category_id
+                    || this.galleryImage.image_path !== this.image;
             },
 
             subcategories(){
@@ -178,6 +181,29 @@
         },
 
         methods: {
+
+            setUpFileUploader(event){
+                let files = event.target.files || event.dataTransfer.files;
+
+                if(!files.length){
+                    return
+                }
+
+                this.createImage(files[0]);
+            },
+
+            createImage(file){
+                const reader = new FileReader();
+                const vm  = this;
+
+                reader.onload = (event) => {
+                    vm.image = event.target.result;
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                };
+
+                reader.readAsDataURL(file);
+            },
 
             setUpCroppie(){
                 const vm = this;
@@ -230,6 +256,7 @@
                         location: this.location,
                         creator: this.creator,
                         sub_category_id: this.sub_category_id,
+                        image: this.image === this.galleryImage.image_path ? this.image : this.save_image
                     };
 
                     this.$store.dispatch('update_galllery', updatedGallery)

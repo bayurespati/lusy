@@ -4051,6 +4051,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -4074,7 +4075,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             creator: this.galleryImage.creator,
             sub_category_id: this.galleryImage.sub_category_id,
             croppie: null,
-            image: ''
+            image: this.galleryImage.image_path,
+            save_image: ''
         };
     },
     mounted: function mounted() {
@@ -4086,7 +4088,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         categories: 'getCategories'
     }), {
         galleryIsEdited: function galleryIsEdited() {
-            return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id;
+            return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
         },
         subcategories: function subcategories() {
             for (var a = 0; a < this.categories.length; a++) {
@@ -4100,6 +4102,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }),
 
     methods: {
+        setUpFileUploader: function setUpFileUploader(event) {
+            var files = event.target.files || event.dataTransfer.files;
+
+            if (!files.length) {
+                return;
+            }
+
+            this.createImage(files[0]);
+        },
+        createImage: function createImage(file) {
+            var _this = this;
+
+            var reader = new FileReader();
+            var vm = this;
+
+            reader.onload = function (event) {
+                vm.image = event.target.result;
+                _this.croppie.destroy();
+                _this.setUpCroppie();
+            };
+
+            reader.readAsDataURL(file);
+        },
         setUpCroppie: function setUpCroppie() {
             var vm = this;
             var file = document.getElementById('croppie-' + this.galleryImage.id);
@@ -4148,7 +4173,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     date: this.date.substring(0, 10),
                     location: this.location,
                     creator: this.creator,
-                    sub_category_id: this.sub_category_id
+                    sub_category_id: this.sub_category_id,
+                    image: this.image === this.galleryImage.image_path ? this.image : this.save_image
                 };
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
@@ -4208,7 +4234,8 @@ var render = function() {
                   [
                     _c("input", {
                       staticClass: "inputfile",
-                      attrs: { type: "file", accept: "image/*", id: "file-2" }
+                      attrs: { type: "file", accept: "image/*", id: "file-2" },
+                      on: { change: _vm.setUpFileUploader }
                     }),
                     _vm._v(" "),
                     _c(
@@ -15112,13 +15139,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         },
         edit_image: function edit_image(state, updatedGallery) {
 
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.id);
+            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.detail.id);
 
-            state.gallery[imageIndex].title = updatedGallery.title;
-            state.gallery[imageIndex].date = updatedGallery.date;
-            state.gallery[imageIndex].location = updatedGallery.location;
-            state.gallery[imageIndex].creator = updatedGallery.creator;
-            state.gallery[imageIndex].sub_category_id = updatedGallery.sub_category_id;
+            state.gallery[imageIndex].title = updatedGallery.detail.title;
+            state.gallery[imageIndex].date = updatedGallery.detail.date;
+            state.gallery[imageIndex].location = updatedGallery.detail.location;
+            state.gallery[imageIndex].creator = updatedGallery.detail.creator;
+            state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
+            state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
         delete_gallery: function delete_gallery(state, ids) {
             var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(ids.galleryId);
@@ -15173,9 +15201,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     date: updatedGallery.date,
                     location: updatedGallery.location,
                     creator: updatedGallery.creator,
-                    sub_category_id: updatedGallery.sub_category_id
+                    sub_category_id: updatedGallery.sub_category_id,
+                    image: updatedGallery.image
                 }).then(function (response) {
-                    commit('edit_image', updatedGallery);
+
+                    var updateData = {
+                        image_path: response.data,
+                        detail: updatedGallery
+                    };
+
+                    commit('edit_image', updateData);
 
                     resolve(updatedGallery);
                 }).catch(function (errors) {

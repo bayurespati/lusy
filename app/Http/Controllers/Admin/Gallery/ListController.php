@@ -58,14 +58,22 @@ class ListController extends Controller
         return [$gallery->id,$gallery->image_path];
     }
 
-    public function setImage($image){
-        list(,$image) = explode(';', $image);
-        list(,$image) = explode(',',$image);
-
-        return base64_decode($image);
-    }
-
     public function update(Request $request, Gallery $gallery){
+
+        //if admin change image
+        if($request->image !== $gallery->image_path){
+
+            // remove the old image
+            $path = public_path('img/gallery/');
+            $this->removeImageOnServer($path,$gallery->image_path);
+
+            // put new image
+            $imageName = time().'image.jpg';
+            $image = $this->setImage($request->image);
+            file_put_contents($path.$imageName,$image);
+
+            $gallery->image_path = url('img/gallery/'.$imageName);
+        }
 
         $gallery->title = $request->title;
         $gallery->location = $request->location;
@@ -74,6 +82,8 @@ class ListController extends Controller
         $gallery->sub_category_id = $request->sub_category_id;
 
         $gallery->update();
+
+        return $gallery->image_path;
     }
 
     public function destroy(Gallery $gallery){
@@ -82,6 +92,14 @@ class ListController extends Controller
         $this->removeImageOnServer($path,$gallery->image_path);
 
         $gallery->delete();
+    }
+
+
+    public function setImage($image){
+        list(,$image) = explode(';', $image);
+        list(,$image) = explode(',',$image);
+
+        return base64_decode($image);
     }
 
     private function removeImageOnServer($path, $url) {
