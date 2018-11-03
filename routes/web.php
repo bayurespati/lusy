@@ -223,7 +223,7 @@ Route::group([
     	*/
     	Route::get('/profile', 'ProfileController@index')->name('admin.about.profile');
     	Route::get('/data/profile', 'ProfileController@loadProfile');
-    	Route::patch('/profile', 'ProfileController@patch');
+    	Route::patch('/update/profile/{profile}', 'ProfileController@update');
 
     	/*
     	|--------------------------------------------------------------------------
@@ -233,7 +233,7 @@ Route::group([
     	*/
     	Route::get('/gallery', 'GalleryController@index')->name('admin.about.gallery');
     	Route::get('/data/gallery', 'GalleryController@loadGallery');
-    	Route::patch('/gallery', 'GalleryController@patch');
+    	Route::patch('/update/gallery/{gallery}', 'GalleryController@update');
 
     	/*
     	|--------------------------------------------------------------------------
@@ -243,7 +243,9 @@ Route::group([
     	*/
     	Route::get('/class', 'ClassesController@index')->name('admin.about.classes');
     	Route::get('/data/class', 'ClassesController@loadClasses');
-    	Route::patch('/class', 'ClassesController@patch');
+        Route::post('/add/class', 'ClassesController@store');
+    	Route::patch('/update/class/{class}', 'ClassesController@update');
+        Route::delete('/delete/class/{class}', 'ClassesController@destroy');
     });
 
 
@@ -346,8 +348,10 @@ Route::group([
         |
         */
         Route::get('/list', 'ListController@index')->name('admin.event.list');
-        Route::get('/data/list', 'ListController@loadList');
-        Route::patch('/list', 'ListController@patch');
+        Route::get('/data/list', 'ListController@loadEvent');
+        Route::post('/add/list', 'ListController@store');
+        Route::patch('/update/list', 'ListController@update');
+        Route::delete('/delete/list', 'ListController@destroy');
     });
 
 

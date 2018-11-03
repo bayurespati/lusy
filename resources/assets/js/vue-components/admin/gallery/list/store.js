@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
                 title: imageData.detail.title,
                 sub_category_id: imageData.detail.sub_category_id,
                 date: imageData.detail.date,
-                location: imageData.detail.date,
+                location: imageData.detail.location,
                 creator: imageData.detail.creator,
             });
         },

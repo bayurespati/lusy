@@ -8,6 +8,8 @@ export const store = new Vuex.Store({
     //=========================================================================================
     state: {
         events:{},
+        categories: {},
+        subcategories:{}
     },
 
 
@@ -18,6 +20,14 @@ export const store = new Vuex.Store({
         getEvents: state => {
             return state.events;
         },
+
+        getCategories: state => {
+            return state.categories;
+        },
+
+        getSubcategories: state =>{
+            return state.subcategories;
+        }
     },
 
     //=========================================================================================
@@ -25,7 +35,23 @@ export const store = new Vuex.Store({
     //=========================================================================================
     mutations: {
         set_events: (state, events) =>{
-            state.events = events;
+            state.events = events[0];
+            state.categories = events[1];
+            state.subcategories = events[2];
+        },
+
+        add_new_event(state, event){
+            state.categories.push({
+                id: event.id,
+                title: event.detail.title,
+                sub_category_id: event.detail.sub_category_id,
+                start_date: event.detail.start_date,
+                end_date: event.detail.end_date,
+                location: event.detail.location,
+                address: event.detail.address,
+                organiser: event.detail.organiser,
+                content: event.detail.content,
+            });
         },
 
         edit_event(state, updatedEvent) {
@@ -48,17 +74,49 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_events: ({commit}) => {
-            axios.get('/admin/data/list')
+            axios.get('/admin/event/data/list')
                 .then(response =>{
                     commit('set_events',response.data);
                 });
+        },
+
+        store_new_event({commit}, newEvent) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.post('add/list', {
+                    id: newEvent.id,
+                    title: newEvent.title,
+                    start_date: newEvent.start_date.substring(0,19).replace("T", " "),
+                    end_date: newEvent.end_date.substring(0,19).replace("T", " "),
+                    location: newEvent.location,
+                    address: newEvent.address,
+                    organiser: newEvent.organiser,
+                    sub_category_id: newEvent.sub_category_id,
+                    content: newEvent.content,
+                })
+                    .then(response => {
+
+                        const event = {
+                            id: response.data,
+                            detail: newEvent
+                        };
+
+                        commit('add_new_event', event);
+
+                        resolve(event);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
         },
 
         update_event({commit}, updatedEvent) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/list/' + updatedEvent.id, {
+                axios.patch('add/list/' + updatedEvent.id, {
                     id: updatedEvent.id,
                     title: updatedEvent.title,
                     start_date: updatedEvent.start_date,
@@ -66,6 +124,7 @@ export const store = new Vuex.Store({
                     location: updatedEvent.location,
                     address: updatedEvent.address,
                     organiser: updatedEvent.organiser,
+                    sub_category_id: updatedEvent.sub_category_id,
                     content: updatedEvent.content,
                 })
                     .then(response => {
@@ -76,6 +135,18 @@ export const store = new Vuex.Store({
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+        destroy_event({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/list/'+ids.eventId)
+                    .then((response) => {
+                        commit('delete_event', ids);
+                        resolve();
+                    });
             })
         },
     }
