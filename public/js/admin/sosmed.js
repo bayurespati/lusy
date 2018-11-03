@@ -665,7 +665,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.pl-15-px[data-v-667cc964] {\n    padding-left: 15px !important;\n}\n", ""]);
+exports.push([module.i, "\n.bg-grey[data-v-667cc964] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-667cc964] {\n    font-size: 0.9rem;\n}\n", ""]);
 
 // exports
 
@@ -677,15 +677,6 @@ exports.push([module.i, "\n.pl-15-px[data-v-667cc964] {\n    padding-left: 15px 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -844,12 +835,16 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "panel-default panel mt-5",
+          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
           attrs: { id: "edit_sosmed" }
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey" }, [
+            _c("h3", { staticClass: "text-center font-weight-bold" }, [
+              _vm._v("Edit " + _vm._s(_vm.sosmed.title))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
               _c("div", { staticClass: "col-sm-12 row form-group" }, [
                 _c(
                   "div",
@@ -861,7 +856,8 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
+                        staticClass:
+                          "form-control-label font-weight-bold panel-font-small m-0",
                         attrs: { for: "nama" }
                       },
                       [
@@ -924,7 +920,8 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
+                        staticClass:
+                          "form-control-label font-weight-bold panel-font-small m-0",
                         attrs: { for: "kode" }
                       },
                       [
@@ -981,41 +978,39 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-around mt-3"
+                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
                 },
                 [
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-secondary btn-block btn-sm",
-                        attrs: { type: "button" },
-                        on: { click: _vm.closeEditForm }
-                      },
-                      [_vm._v("Batal")]
-                    )
-                  ]),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Batal\n                    "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-6" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "full-width btn btn-success btn-block btn-sm",
-                        class: {
-                          disabled: !_vm.sosmedIsEdited,
-                          "ld-ext-right": _vm.isRequesting
-                        },
-                        on: { click: _vm.editSosmed }
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      class: {
+                        disabled: !_vm.sosmedIsEdited,
+                        "ld-ext-right": _vm.isRequesting
                       },
-                      [
-                        _vm._v(
-                          "\n                                Simpan\n                        "
-                        )
-                      ]
-                    )
-                  ])
+                      on: { click: _vm.editSosmed }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Simpan\n                    "
+                      )
+                    ]
+                  )
                 ]
               )
             ])
@@ -1110,7 +1105,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-xs-12 col-md-2 align-items-center justify-content-around"
+                    "col-xs-12 col-md-2 d-flex align-items-center justify-content-end"
                 },
                 [
                   _c(

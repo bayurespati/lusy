@@ -4,9 +4,11 @@
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
 
-        <div class="panel-default panel mt-5" id="edit_sosmed">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_sosmed">
             <div class="panel-body">
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
+                <h3 class="text-center font-weight-bold">Edit {{ sosmed.title }}</h3>
+
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 
 
                     <!--=========================================================================================
@@ -15,7 +17,7 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="nama"
-                                   class="form-control-label panel-font-small m-0">
+                                   class="form-control-label font-weight-bold panel-font-small m-0">
                                 Link
                             </label>
                         </div>
@@ -35,7 +37,7 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-sm-3 d-flex align-items-center justify-content-end">
                             <label for="kode"
-                                   class="form-control-label panel-font-small m-0">
+                                   class="form-control-label font-weight-bold panel-font-small m-0">
                                 Status
                             </label>
                         </div>
@@ -49,29 +51,18 @@
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
                         =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
+                    <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
+                        <button type="button" 
+                        class="btn btn-secondary btn-sm"
+                        @click="closeEditForm">
+                            Batal
+                        </button>
 
-
-                        <!--=========================================================================================
-                            C A N C E L   B U T T O N
-                            =========================================================================================-->
-                        <div class="col-sm-6">
-                            <button type="button" 
-                                class="full-width btn btn-secondary btn-block btn-sm"
-                                @click="closeEditForm">Batal</button>
-                        </div>
-
-
-                        <!--=========================================================================================
-                            S A V E   B U T T O N
-                            =========================================================================================-->
-                        <div class="col-sm-6">
-                            <button @click="editSosmed"
-                                    :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
-                                    class="full-width btn btn-success btn-block btn-sm">
-                                    Simpan
-                            </button>
-                        </div>
+                        <button @click="editSosmed"
+                        :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
+                        class="btn btn-success btn-sm ml-2">
+                            Simpan
+                        </button>
                     </div>
 
                 </div>
@@ -150,7 +141,11 @@
 </script>
 
 <style scoped>
-    .pl-15-px {
-        padding-left: 15px !important;
+    .bg-grey {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
     }
 </style>

@@ -5,7 +5,7 @@
 @endpush
 
 @push('additional_css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.css"/>
+<link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
 @endpush
 
@@ -17,6 +17,6 @@
 @endsection
 
 @push('additional_js')
+	<script src="{{ asset('js/croppie.js') }}"></script>
 	<script src="{{ asset('js/admin/slider.js') }}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.min.js"></script>
 @endpush

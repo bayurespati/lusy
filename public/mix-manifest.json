@@ -16,7 +16,9 @@
     "/js/admin/about/profile.js": "/js/admin/about/profile.js",
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
+    "/css/croppie.css": "/css/croppie.css",
     "/css/base.css": "/css/base.css",
+    "/js/croppie.js": "/js/croppie.js",
     "/js/base.js": "/js/base.js",
     "/js/html5.js": "/js/html5.js"
 }

@@ -52,6 +52,19 @@ mix.styles([
 
 /*
  |--------------------------------------------------------------------------
+ | C R O P P I E   C S S
+ |--------------------------------------------------------------------------
+ |
+ |
+ */
+mix.styles([	
+	'resources/assets/css/croppie.min.css.map',
+], 'public/css/croppie.css');
+
+
+
+/*
+ |--------------------------------------------------------------------------
  | B A S E   C S S
  |--------------------------------------------------------------------------
  |
@@ -69,6 +82,19 @@ mix.styles([
 	'resources/assets/css/shortcode.css',
 	'resources/assets/css/custom.css',
 ], 'public/css/base.css');
+
+
+
+/*
+ |--------------------------------------------------------------------------
+ | C R O P P I E   J S
+ |--------------------------------------------------------------------------
+ |
+ |
+ */
+mix.scripts([
+	'resources/assets/js/croppie.min.js',
+], 'public/js/croppie.js');
 
 
 
@@ -197,6 +223,3 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/shop/list/main.js',
 ], 'public/js/admin/shop/list.js');
-
-
-
