@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 193);
+/******/ 	return __webpack_require__(__webpack_require__.s = 197);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -469,15 +469,15 @@ exports.push([module.i, "\n.card[data-v-a1709310] {\n\t\tdisplay: inline-block;\
 
 /***/ }),
 
-/***/ 193:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(194);
+module.exports = __webpack_require__(198);
 
 
 /***/ }),
 
-/***/ 194:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -509,7 +509,7 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 195:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2261,7 +2261,7 @@ var render = function() {
         [
           _c("div", { staticClass: "panel-body" }, [
             _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Edit Kategori")
+              _vm._v("Edit " + _vm._s(_vm.category.title))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
@@ -2702,7 +2702,7 @@ if(false) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(199);
 
 
 

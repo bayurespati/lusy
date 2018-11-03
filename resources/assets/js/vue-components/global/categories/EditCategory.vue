@@ -4,7 +4,7 @@
                 mode="out-in">
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_category">
             <div class="panel-body">
-                <h3 class="text-center font-weight-bold">Edit Kategori</h3>
+                <h3 class="text-center font-weight-bold">Edit {{ category.title }}</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 

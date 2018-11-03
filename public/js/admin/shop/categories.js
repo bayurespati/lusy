@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 208);
+/******/ 	return __webpack_require__(__webpack_require__.s = 212);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -757,46 +757,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 208:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(209);
-
-
-/***/ }),
-
-/***/ 209:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(71);
-
-
-
-
-var admin = new Vue({
-    el: '#categories',
-
-    components: {
-        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_categories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */]
-});
-
-/***/ }),
-
 /***/ 21:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -870,7 +830,47 @@ if (false) {
 
 /***/ }),
 
-/***/ 210:
+/***/ 212:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(213);
+
+
+/***/ }),
+
+/***/ 213:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(71);
+
+
+
+
+var admin = new Vue({
+    el: '#categories',
+
+    components: {
+        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_categories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2261,7 +2261,7 @@ var render = function() {
         [
           _c("div", { staticClass: "panel-body" }, [
             _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Edit Kategori")
+              _vm._v("Edit " + _vm._s(_vm.category.title))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
@@ -2717,7 +2717,7 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(214);
 
 
 

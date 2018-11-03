@@ -2296,8 +2296,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 48 */,
 /* 49 */,
 /* 50 */,
-/* 51 */,
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -3889,6 +3888,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).setImmediate))
 
 /***/ }),
+/* 52 */,
 /* 53 */,
 /* 54 */,
 /* 55 */,
@@ -4533,7 +4533,7 @@ exports.push([module.i, "\n#croppie.croppie-container[data-v-92cf0786] {\n    pa
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_croppie__);
 //
 //

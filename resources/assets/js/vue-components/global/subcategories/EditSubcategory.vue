@@ -6,7 +6,7 @@
 
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_subcategory">
             <div class="panel-body">
-                <h3 class="text-center font-weight-bold">Edit Subkategori</h3>
+                <h3 class="text-center font-weight-bold">Edit {{ subcategory.title }}</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 

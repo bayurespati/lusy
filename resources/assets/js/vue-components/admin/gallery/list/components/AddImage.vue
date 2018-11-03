@@ -84,7 +84,7 @@
                             </div>
                         </div> 
 
-                        <div class="d-flex justify-content-end mt-3">
+                        <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
                             <button type="button" role="button"
                             class="btn btn-success"
                             @click="uploadImage">

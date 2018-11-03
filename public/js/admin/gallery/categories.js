@@ -2261,7 +2261,7 @@ var render = function() {
         [
           _c("div", { staticClass: "panel-body" }, [
             _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Edit Kategori")
+              _vm._v("Edit " + _vm._s(_vm.category.title))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [

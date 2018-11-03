@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 211);
+/******/ 	return __webpack_require__(__webpack_require__.s = 215);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -487,15 +487,15 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 211:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(212);
+module.exports = __webpack_require__(216);
 
 
 /***/ }),
 
-/***/ 212:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -527,7 +527,7 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 213:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2410,7 +2410,7 @@ var render = function() {
         [
           _c("div", { staticClass: "panel-body" }, [
             _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Edit Subkategori")
+              _vm._v("Edit " + _vm._s(_vm.subcategory.title))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
@@ -2909,7 +2909,7 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(217);
 
 
 
