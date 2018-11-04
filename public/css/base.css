@@ -14225,3 +14225,20 @@ a.article:hover {
 .wc-controls-custom::before {
   background: none !important;
 }
+
+
+.ow-pagination ul li.active a {
+  background-color: #e2b13c;
+  border-color: #e2b13c;
+  color: #fff;
+}
+
+.ow-pagination ul li.active a:hover {
+  background-color: #e2b13c;
+  border-color: #e2b13c;
+  color: #fff;
+}
+
+.ow-pagination ul li a {
+  cursor: pointer;
+}

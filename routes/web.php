@@ -4,6 +4,7 @@ use App\imageSlider;
 use App\AboutContent;
 use App\Category;
 use App\SubCategory;
+use App\Gallery;
 
 use Illuminate\Http\Request;
 
@@ -90,12 +91,27 @@ Route::group([
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(1)->get();
+        $gallery = Gallery::paginate(8);
 
-		return view('gallery.index', compact('sosmed', 'categories'));
+
+
+		return view('gallery.index', compact('sosmed', 'categories', 'gallery'));
 	})->name('gallery.index');
 
     Route::get('category/{category}', function(Request $request, Category $category){
         return $category->subcategories()->get();
+    });
+
+    Route::get('/all', function(){
+        return $gallery = Gallery::paginate(8);
+
+        return $gallery;
+    });
+
+    Route::get('/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
+        $gallery = Gallery::whereSubCategoryId($subcategory->id)->paginate(8);
+
+        return $gallery;
     });
 });
 
