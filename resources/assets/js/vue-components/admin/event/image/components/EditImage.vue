@@ -42,6 +42,21 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                                <label for="title"
+                                class="form-control-label panel-font-small m-0 font-weight-bold">
+                                    Nama
+                                </label>
+                            </div>
+
+                            <div class="col-sm-9 col-xs-12">
+                                <textarea  v-model="input.description" 
+                                           class="form-control form-control-sm" 
+                                           @keyup.enter="editImage" ></textarea>
+                            </div>
+                        </div>
+
                         <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
                             <button type="button" 
                             class="btn btn-secondary btn-sm"
@@ -95,7 +110,8 @@
 
             imageIsEdited(){
                 return this.imageItem.title !== this.input.title
-                    || this.imageItem.image_path !== this.input.image;
+                    || this.imageItem.image_path !== this.input.image
+                    || this.imageItem.description !== this.input.description;
             },
         },
 
@@ -129,8 +145,8 @@
                 let file = document.getElementById('croppie-' + this.imageItem.id);
 
                 this.croppie = new Croppie(file,{
-                    viewport: {width: 235, height: 300, type: 'square'},
-                    boundary: {width: 285, height: 350 },
+                    viewport: {width: 205, height: 200, type: 'square'},
+                    boundary: {width: 255, height: 250 },
                     enableOrientation: false
                 });
 
@@ -154,7 +170,7 @@
 
                 this.croppie.result({
                     type: 'canvas',
-                    size: {witdh: 470, height:600, type: 'square'},
+                    size: {witdh: 410, height:400, type: 'square'},
                 }).then(response => {
                     vm.save_image = response;
                 });
@@ -172,6 +188,7 @@
                     const updatedImage = {
                         id: this.imageItem.id,
                         title: this.input.title,
+                        description: this.input.description,
                         image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
                         is_poster: this.imageItem.is_poster
                     };
@@ -197,14 +214,7 @@
     };
 </script>
 
-<style>
-    .croppie-container {
-        height: unset !important;
-    }
-</style>
-
 <style scoped>
-
     .bg-grey {
         background: #fafafa;
     }

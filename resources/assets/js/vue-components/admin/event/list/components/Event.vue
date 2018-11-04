@@ -33,7 +33,7 @@
                         E N D  D A T E
                         =========================================================================================-->
                     <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Date</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>End Date</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ event.start_date }}</p>
                         </div>
@@ -62,8 +62,8 @@
                                 class="btn btn-sm btn-danger"
                                 @click="deleteTheEvent">DELETE</button>
                         <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="">Image List</button>
+                                class="btn btn-sm btn-primary"
+                                @click="goTo">Image List</button>
                     </div>
 
 
@@ -110,7 +110,11 @@
 
                     flash('Event berhasil dihapus', 'danger')
                 })
-            }
+            },
+
+            goTo(url){
+                window.location.href = 'image/' + this.event.id;
+            },
         }
     };
 </script>

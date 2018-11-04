@@ -94,7 +94,7 @@
 					store_link: '',
 					sub_category_id: '',
 					category_id: '',
-					is_displayed: ''
+					is_displayed: 1
 				}
 			}
 		},

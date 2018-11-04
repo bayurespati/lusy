@@ -51,7 +51,7 @@
                                 class="btn btn-sm btn-danger"
                                 @click="deleteTheShop">DELETE</button>
                         <button type="button" 
-                                class="btn btn-sm btn-danger"
+                                class="btn btn-sm btn-primary"
                                 @click="goTo">Image List</button>
                     </div>
 

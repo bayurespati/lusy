@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">Tambah Gambar Shop</h3>
+                    <h3 class="text-center font-weight-bold mb-5">Tambah Gambar Event</h3>
                 </div>
 
                 <div class="row">
@@ -30,6 +30,15 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="title" class="form-control full-width" id="name">
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-3 d-flex align-items-center">
+                                <label class="m-0 pl-1" for="description">Description</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea v-model="description" class="form-control full-width" id="description"></textarea>
                             </div>
                         </div>
 
@@ -82,12 +91,13 @@
 
         computed:{
             ...mapGetters({
-                shopId : 'getShopId'
+                eventId : 'getEventId'
             }),
 
             formIsFilled(){
                 return this.image != '' 
                     && this.title != '' && this.title.length > 3
+                    && this.description != '' && this.description.length > 3;
              }
         },
 
@@ -120,8 +130,8 @@
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
-                    viewport: {width: 235, height: 300, type: 'square'},
-                    boundary: {width: 285, height: 350 },
+                    viewport: {width: 205, height: 200, type: 'square'},
+                    boundary: {width: 255, height: 250 },
                     enableOrientation: false
                 });
 
@@ -145,7 +155,7 @@
 
                 this.croppie.result({
                     type: 'canvas',
-                    size: {witdh: 470, height: 600, type: 'square'},
+                    size: {witdh: 410, height: 400, type: 'square'},
                 }).then(response => {
                     vm.save_image = response;
                 });
@@ -161,7 +171,8 @@
                     const imageData = {
                         image : this.save_image,
                         title : this.title,
-                        shopId: this.shopId
+                        description : this.description,
+                        eventId: this.eventId
                     };
 
                     this.$store.dispatch('store_new_image', imageData)

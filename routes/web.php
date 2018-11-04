@@ -523,6 +523,19 @@ Route::group([
         Route::post('/add/list', 'ListController@store');
         Route::patch('/update/list/{event}', 'ListController@update');
         Route::delete('/delete/list/{event}', 'ListController@destroy');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   E V E N T   I T E M   I M A G E   L I S T   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/image/{param}', 'ImageController@index')->name('admin.event.image');
+        Route::get('/data/image/{param}', 'ImageController@loadImageList');
+        Route::post('/add/image', 'ImageController@store');
+        Route::patch('/update/image/{eventImage}', 'ImageController@update');
+        Route::delete('/delete/image/{eventImage}', 'ImageController@destroy');
     });
 
 

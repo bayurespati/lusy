@@ -204,6 +204,9 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/event/list/main.js',
 ], 'public/js/admin/event/list.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/event/image/main.js',
+], 'public/js/admin/event/image.js');
 
 
 

@@ -95,6 +95,4 @@ class ImageController extends Controller
             unlink($path . $imageName);
         }
     }
-
-
 }

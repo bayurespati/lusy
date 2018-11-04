@@ -126,6 +126,22 @@
                         </div>
                     </div>
 
+                    <!--=========================================================================================
+                        I S    A K T I F
+                        =========================================================================================-->
+                    <div class="col-sm-12 row form-group">
+                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                            <label for="price"
+                                   class="form-control-label panel-font-small m-0">
+                                Is Aktif
+                            </label>
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="radio" :name=shop.id  value=1 v-model="input.is_displayed"> Aktif
+                            <input type="radio" :name=shop.id  value=0 v-model="input.is_displayed" class="ml-2"> Tidak Aktif
+                        </div>
+                    </div>
+
 
                     <!--=========================================================================================
                         C A T E G O R Y

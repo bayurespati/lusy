@@ -60,11 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 234);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 239);
->>>>>>> master
+/******/ 	return __webpack_require__(__webpack_require__.s = 241);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -480,15 +476,6 @@ module.exports = function normalizeComponent (
       }
     }
   }
-<<<<<<< HEAD
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-=======
 
   return {
     esModule: esModule,
@@ -500,28 +487,15 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 239:
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(240);
->>>>>>> master
+module.exports = __webpack_require__(242);
 
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 234:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(235);
-
-
-/***/ }),
-
-/***/ 235:
-=======
-/***/ 240:
->>>>>>> master
+/***/ 242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -553,11 +527,7 @@ var admin = new Vue({
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 236:
-=======
-/***/ 241:
->>>>>>> master
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3122,11 +3092,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-<<<<<<< HEAD
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(236);
-=======
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(241);
->>>>>>> master
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(243);
 
 
 
