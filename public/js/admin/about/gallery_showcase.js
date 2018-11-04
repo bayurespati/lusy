@@ -1070,7 +1070,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("p", { staticClass: "mb-5" }, [
-      _vm._v("(Images shown are in the group of 3 or 6).")
+      _vm._v("(Images shown are in the group of 4 or 8).")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -1093,7 +1093,7 @@ var render = function() {
             "transition-group",
             { attrs: { name: "slide" } },
             _vm._l(_vm.galleryHide, function(galleryImage) {
-              return _vm.totalShow < 6
+              return _vm.totalShow < 8
                 ? _c("showcased-image", {
                     key: galleryImage.id,
                     attrs: { galleryImage: galleryImage }

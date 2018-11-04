@@ -34,11 +34,22 @@ Route::get('/', function () {
     $sosmed = Sosmed::all();
     $imageSlider = imageSlider::all();
     $introduction = AboutContent::where('is_class', '=', false)->get();
+    $showcasedImage = Gallery::whereIsShowcase(true)->get();
+
+    if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+        $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+    }
+    else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
+        $showedImage = $showcasedImage;
+    }
+    else {
+        $showedImage = [''];
+    }
 
     $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
     $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
 
-    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction'));
+    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'showedImage'));
 })->name('home');
 
 
@@ -69,7 +80,19 @@ Route::group([
             $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
         }
 
-		return view('about.index', compact('sosmed', 'about', 'classes'));
+        $showcasedImage = Gallery::whereIsShowcase(true)->get();
+
+        if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+            $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+        }
+        else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
+            $showedImage = $showcasedImage;
+        }
+        else {
+            $showedImage = [''];
+        }
+
+		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage'));
 	})->name('about.index');
 });
 

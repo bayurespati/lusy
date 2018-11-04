@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Showcased Images</h3>
     <p class="m-0">Here you can manages images shown in Home and About page.</p>
-    <p class="mb-5">(Images shown are in the group of 3 or 6).</p>
+    <p class="mb-5">(Images shown are in the group of 4 or 8).</p>
 
     <div class="row">
       <div class="col-md-12">
@@ -22,7 +22,7 @@
           I M A G E   H I D E
           =====================================================================================-->
           <transition-group name="slide" >
-            <showcased-image v-if="totalShow < 6"
+            <showcased-image v-if="totalShow < 8"
             v-for="galleryImage in galleryHide"
             :galleryImage="galleryImage"
             :key="galleryImage.id">

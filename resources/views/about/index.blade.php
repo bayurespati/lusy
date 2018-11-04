@@ -80,81 +80,24 @@
                                 </div>
                             </div><!-- Section Header /- -->
                         </div>
-                        <div class="col-md-7 portfolio-categories">
-                            <ul id="filters">
-                                <li><a data-filter="*" class="active" href="#">ALL</a></li>
-                                <li><a data-filter=".modern" href="#">MODERN ART</a></li>
-                                <li><a data-filter=".vintage" href="#">VINTAGE ART</a></li>
-                                <li><a data-filter=".statue" href="#">ANCIENT STATUE</a></li>
-                                <li><a data-filter=".others" href="#">OTHERS</a></li>
-                            </ul>
-                        </div>
                     </div>
                     
-                </div>
-
-                <!-- Container /- -->
+                </div><!-- Container /- -->
                 <div class="portfolio-list">
-                    <div class="portfolio-box col-md-6 col-sm-6 no-padding modern statue">
-                        <a href="{{ asset('img/portfolio-1.jpg') }}">
-                            <img src="{{ asset('img/portfolio-1.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                        <a href="{{ asset('img/portfolio-2.jpg') }}">
-                            <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding statue others">
-                        <a href="{{ asset('img/portfolio-3.jpg') }}">
-                            <img src="{{ asset('img/portfolio-3.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding others">
-                        <a href="{{ asset('img/portfolio-4.jpg') }}">
-                            <img src="{{ asset('img/portfolio-4.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding modern">
-                        <a href="{{ asset('img/portfolio-5.jpg') }}">
-                            <img src="{{ asset('img/portfolio-5.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage modern">
-                        <a href="{{ asset('img/portfolio-6.jpg') }}">
-                            <img src="{{ asset('img/portfolio-6.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach($showedImage as $image)
+                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                            <a href="{{ $image->image_path }}">
+
+                                <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />
+
+                                <div class="portfolio-content">
+                                    <i class="icon icon-Search"></i>
+                                    <h3>{{ $image->title }}</h3>
+                                    <span>{{ $image->creator }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Gallery Showcase Section /- -->
