@@ -555,6 +555,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -663,7 +668,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-eacb85b0] {\n    border: 1px solid transparent !important;\n}\n.boxImage[data-v-eacb85b0]{\n    width: 50px;\n    height: 50px;\n}\nimg[data-v-eacb85b0]{\n    max-width: 100%;\n    height: auto;\n}\n.card-block[data-v-eacb85b0]{\n    padding: 1em !important;\n}\n.detail[data-v-eacb85b0] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n.f-24[data-v-eacb85b0] {\n    font-size: 24px !important;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-eacb85b0] {\n    border: 1px solid transparent !important;\n}\nimg[data-v-eacb85b0]{\n    max-width: 100%;\n    max-height: 125px;\n    border: 1px solid lightgrey;\n}\n.card-block[data-v-eacb85b0]{\n    padding: 1em !important;\n}\n.detail[data-v-eacb85b0] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -675,6 +680,18 @@ exports.push([module.i, "\n.card[data-v-eacb85b0] {\n    border: 1px solid trans
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -928,56 +945,64 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "boxImage" }, [
+              _c("div", { staticClass: "col-md-2" }, [
                 _c("img", {
                   attrs: { src: _vm.galleryImage.image_path, alt: "image" }
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col col-xs-12" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Nama")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.galleryImage.title))
+              _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Nama")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.galleryImage.title))
+                    ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col col-xs-12" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Date")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.galleryImage.date))
+              _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Tanggal")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.galleryImage.date))
+                    ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col col-xs-12" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Location")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.galleryImage.location))
+              _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Lokasi")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.galleryImage.location))
+                    ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col col-xs-12" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Creator")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.galleryImage.creator))
+              _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Dibuat Oleh")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.galleryImage.creator))
+                    ])
                   ])
                 ])
               ]),
@@ -997,7 +1022,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editGallery }
                         },
-                        [_vm._v("Hide")]
+                        [_vm._v("Tampilkan")]
                       )
                     : _c(
                         "button",
@@ -1006,7 +1031,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editGallery }
                         },
-                        [_vm._v("Show")]
+                        [_vm._v("Sembunyikan")]
                       )
                 ]
               )
@@ -1038,7 +1063,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v("SHOWCASED GALLERY")]),
+    _c("h3", [_vm._v("Showcased Images")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "m-0" }, [
+      _vm._v("Here you can manages images shown in Home and About page.")
+    ]),
+    _vm._v(" "),
+    _c("p", { staticClass: "mb-5" }, [
+      _vm._v("(Images shown are in the group of 3 or 6).")
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -1065,7 +1098,11 @@ var render = function() {
                     key: galleryImage.id,
                     attrs: { galleryImage: galleryImage }
                   })
-                : _vm._e()
+                : [
+                    _c("p", [
+                      _vm._v("There are no images added in gallery yet.")
+                    ])
+                  ]
             })
           )
         ],
