@@ -38,11 +38,11 @@
                     <div class="col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingSubCategory = !isEditingSubCategory">Edit</button>
+                                @click="isEditingSubCategory = !isEditingSubCategory">Ubah</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheSubCategory">Delete</button>
+                                @click="deleteTheSubCategory">Hapus</button>
                     </div>
 
 

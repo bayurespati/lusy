@@ -33,7 +33,7 @@
     href="{{ asset('img/apple-touch-icon-57x57-precomposed.png') }}"> 
     
     <!-- Library - Google Font Familys -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i|PT+Serif:400,400i,700,700i|Poppins:300,400,500,600,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet"> 
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i|PT+Serif:400,400i,700,700i|Poppins:300,400,500,600,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">  -->
     
     <!--[if lt IE 9]>
         <script src="{{ asset('js/html5.js') }}"></script>

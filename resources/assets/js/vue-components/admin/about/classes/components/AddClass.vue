@@ -1,52 +1,60 @@
 <template>
   <div class="card">
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-          <input class="form-control" id="title"  v-model="title"></input>
-      </div>
+    <div class="col-md-12 text-center">
+      <h3 class="text-center font-weight-bold mb-5">Tambah Class</h3>
+    </div>
 
-      <div class="form-group">
-        <label for="content-about">Content</label>
-          <textarea class="form-control" id="content-about" rows="12" v-model="content">
-        </textarea>
-      </div>
-    </form>
+    <div class="row">
+      <div class="col-md-4">
+        <div id="croppie"></div>
 
-    <!--=========================================================================================
-        S H O W   C R O P P I E
-        =========================================================================================-->
-    <div id="croppie"></div>
-
-
-    <!--=========================================================================================
-        I N P U T   I M A G E
-        =========================================================================================-->
-    <div class="panel panel-transparent" >
-        <input type="file"
-               accept="image/*"
-               id="file-2"
-               class="inputfile"
-               @change="setUpFileUploader">
-
-        <label for="file-2" class="btn btn-outline-primary">
+        <div class="panel panel-transparent text-center" >
+          <input type="file"
+          accept="image/*"
+          id="file-2"
+          class="inputfile"
+          @change="setUpFileUploader">
+          <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
             <span>Browse image</span>
-        </label>
+          </label>
+        </div>
+      </div>
 
-        <!--=========================================================================================
-            B U T T O N   S A V E                =========================================================================================-->
-        <button type="button" role="button"
-                class="btn btn-success"
-                @click="addClass">
-                Save
-        </button>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-2 d-flex align-items-center">
+            <label class="m-0 pl-1" for="title">Title</label>
+          </div>
 
-        <button type="button" role="button"
-                class="btn btn-warning"
-                @click="closeAddForm">
-                Batal
-        </button>
+          <div class="col-md-10">
+            <input class="form-control full-width" id="title"  v-model="title"></input>
+          </div>
+        </div>
 
+        <div class="row mt-2">
+          <div class="col-md-2 d-flex align-items-center">
+            <label class="m-0 pl-1" for="content-about">Content</label>
+          </div>
+
+          <div class="col-md-10">
+            <textarea class="form-control" id="content-about" rows="12" v-model="content"></textarea>
+          </div>
+        </div>
+
+        <div class="col-sm-10 offset-2 d-flex justify-content-start mt-3 pl-1">
+          <button type="button" role="button"
+          class="btn btn-success"
+          @click="addClass">
+            Simpan
+          </button>
+
+          <button type="button" role="button"
+          class="btn btn-warning ml-2"
+          @click="closeAddForm">
+            Batal
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -56,9 +64,6 @@
 	import {mapGetters} from 'vuex';
 
 	export default {
-
-    props:{profile:{}},
-
     data(){
       return{
         croppie: null,
@@ -111,8 +116,8 @@
           let file = document.getElementById('croppie');
 
           this.croppie = new Croppie(file,{
-              viewport: {width: 470, height: 600, type: 'square'},
-              boundary: {width: 570, height: 700 },
+              viewport: {width: 235, height: 300, type: 'square'},
+              boundary: {width: 285, height: 350 },
               enableOrientation: false,
           });
 
@@ -136,7 +141,7 @@
 
           this.croppie.result({
               type: 'canvas',
-              size: 'viewport',
+              size: {width: 470, height: 600, type: 'square'},
           }).then(response => {
               vm.save_image = response;
           });
@@ -176,7 +181,23 @@
 	};
 </script>
 
+<style type="text/css">
+    .croppie-container {
+        height: unset;
+    }
+
+    .croppie-container .cr-slider-wrap {
+        margin: 15px auto 5px auto;
+    }
+</style>
+
 <style scoped>
+    .card {
+        display: inline-block;
+        width: 100%;
+        padding: 36px 20px 26px 20px;
+    }
+
     input[type='file']::-webkit-file-upload-button
     {
         color: #fff;
@@ -184,11 +205,6 @@
         border: none;
         padding: 5px;
         border-radius: 5px;
-    }
-    .frame{
-        border: 1px gainsboro solid;
-        padding: 10px;
-        margin-left: auto;
     }
 
     .inputfile {

@@ -5,12 +5,12 @@
             <transition enterActiveClass="fade-in"
                         leaveActiveClass="fade-out"
                         mode="out-in">
-                <div class="row col d-flex justify-content-between m-0">
+                <div class="row">
 
                     <!--=========================================================================================
                         I M A G E
                         =========================================================================================-->
-                    <div class="boxImage">
+                    <div class="col-md-2">
                         <img :src=singleClass.image_path alt="image">
                     </div>
 
@@ -18,25 +18,44 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col-md-3">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ singleClass.title }}</p>
-                        </div>
+                    <div class="col-md-3 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+
+                            <div class="detail">
+                                <p class="mb-0">{{ singleClass.title }}</p>
+                            </div>
+                        </span>
                     </div>
+
+
+
+                    <!--=========================================================================================
+                        S H O W   C O N T E N T
+                        =========================================================================================-->
+                    <div class="col-md-4 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Konten</strong></p>
+
+                            <div class="detail">
+                                <p class="mb-0 cut-content">{{ singleClass.content }}</p>
+                            </div>
+                        </span>
+                    </div>
+
 
 
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="d-flex align-items-center justify-content-around">
+                    <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingClass = !isEditingClass">Edit</button>
+                                @click="isEditingClass = !isEditingClass">Ubah</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheClass">Delete</button>
+                                @click="deleteTheClass">Hapus</button>
                     </div>
 
 
@@ -89,6 +108,12 @@
         border: 1px solid transparent !important;
     }
 
+    img{
+        max-width: 100%;
+        max-height: 125px;
+        border: 1px solid lightgrey;
+    }
+
     .card-block{
         padding: 1em !important;
     }
@@ -99,17 +124,10 @@
         padding: 0 !important;
     }
 
-    .f-24 {
-        font-size: 24px !important;
-    }
-
-    .boxImage{
-        width: 100px;
-        height: 100px;
-    }
-
-    img{
-        max-width: 100%;
-        height: auto;
+    .cut-content {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
     }
 </style>

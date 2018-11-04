@@ -60,7 +60,11 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 237);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 242);
+>>>>>>> master
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -476,6 +480,15 @@ module.exports = function normalizeComponent (
       }
     }
   }
+<<<<<<< HEAD
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+=======
 
   return {
     esModule: esModule,
@@ -487,6 +500,16 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ 242:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(243);
+>>>>>>> master
+
+
+/***/ }),
+
+<<<<<<< HEAD
 /***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -496,11 +519,18 @@ module.exports = __webpack_require__(238);
 /***/ }),
 
 /***/ 238:
+=======
+/***/ 243:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(239);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(244);
+>>>>>>> master
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
@@ -527,17 +557,29 @@ var admin = new Vue({
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 239:
+=======
+/***/ 244:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(240)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(242)
+=======
+  __webpack_require__(245)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(247)
+>>>>>>> master
 /* template */
 var __vue_template__ = __webpack_require__(258)
 /* template functional */
@@ -579,13 +621,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 240:
+=======
+/***/ 245:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(241);
+=======
+var content = __webpack_require__(246);
+>>>>>>> master
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -606,7 +656,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 241:
+=======
+/***/ 246:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -621,14 +675,24 @@ exports.push([module.i, "\n.slide-enter[data-v-6c3bd50b] {\n        opacity: 0;\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 242:
+=======
+/***/ 247:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddEvent_vue__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddEvent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddEvent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event_vue__ = __webpack_require__(248);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddEvent_vue__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddEvent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddEvent_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event_vue__ = __webpack_require__(253);
+>>>>>>> master
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Event_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -688,12 +752,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 243:
+=======
+/***/ 248:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(244)
 }
 var normalizeComponent = __webpack_require__(2)
@@ -701,6 +770,15 @@ var normalizeComponent = __webpack_require__(2)
 var __vue_script__ = __webpack_require__(246)
 /* template */
 var __vue_template__ = __webpack_require__(247)
+=======
+  __webpack_require__(249)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(251)
+/* template */
+var __vue_template__ = __webpack_require__(252)
+>>>>>>> master
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -740,13 +818,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 244:
+=======
+/***/ 249:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(245);
+=======
+var content = __webpack_require__(250);
+>>>>>>> master
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -767,7 +853,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 245:
+=======
+/***/ 250:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -782,7 +872,11 @@ exports.push([module.i, "\n.card[data-v-73ef92e6] {\n\t\tdisplay: inline-block;\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 246:
+=======
+/***/ 251:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -950,7 +1044,11 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_datetime__["Datetime"]);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 247:
+=======
+/***/ 252:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1261,17 +1359,29 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 248:
+=======
+/***/ 253:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(249)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(251)
+=======
+  __webpack_require__(254)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(256)
+>>>>>>> master
 /* template */
 var __vue_template__ = __webpack_require__(257)
 /* template functional */
@@ -1313,13 +1423,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 249:
+=======
+/***/ 254:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(250);
+=======
+var content = __webpack_require__(255);
+>>>>>>> master
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1340,7 +1458,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 250:
+=======
+/***/ 255:
+>>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1355,7 +1477,11 @@ exports.push([module.i, "\n.card[data-v-68b471fd] {\n    border: 1px solid trans
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 251:
+=======
+/***/ 256:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1848,6 +1974,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2384,6 +2511,8 @@ if (false) {
 
 /***/ }),
 
+=======
+>>>>>>> master
 /***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 

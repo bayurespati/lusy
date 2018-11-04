@@ -60,7 +60,11 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 234);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 239);
+>>>>>>> master
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -476,6 +480,15 @@ module.exports = function normalizeComponent (
       }
     }
   }
+<<<<<<< HEAD
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+=======
 
   return {
     esModule: esModule,
@@ -487,6 +500,16 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ 239:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(240);
+>>>>>>> master
+
+
+/***/ }),
+
+<<<<<<< HEAD
 /***/ 234:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -496,6 +519,9 @@ module.exports = __webpack_require__(235);
 /***/ }),
 
 /***/ 235:
+=======
+/***/ 240:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -527,7 +553,11 @@ var admin = new Vue({
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 236:
+=======
+/***/ 241:
+>>>>>>> master
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1960,11 +1990,11 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-sm btn-warning",
+            staticClass: "btn btn-sm btn-danger",
             attrs: { type: "button" },
             on: { click: _vm.closeAddSubCatergory }
           },
-          [_vm._v("Cancel")]
+          [_vm._v("Batal")]
         )
       ])
     ])
@@ -2768,7 +2798,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Edit")]
+                    [_vm._v("Ubah")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -2778,7 +2808,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheSubCategory }
                     },
-                    [_vm._v("Delete")]
+                    [_vm._v("Hapus")]
                   )
                 ]
               ),
@@ -3092,7 +3122,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(236);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(241);
+>>>>>>> master
 
 
 

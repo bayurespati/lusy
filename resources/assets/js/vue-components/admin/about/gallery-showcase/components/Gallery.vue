@@ -1,32 +1,37 @@
 <template>
   <div class="container">
-    <h1>SHOWCASED GALLERY</h1>
+    <h3>Showcased Images</h3>
+    <p class="m-0">Here you can manages images shown in Home and About page.</p>
+    <p class="mb-5">(Images shown are in the group of 4 or 8).</p>
+
     <div class="row">
-    <div class="col-md-12">
-
-
-      <!--=========================================================================================
+      <div class="col-md-12">
+      <!--=====================================================================================
           I M A G E   S H O W
-          =========================================================================================-->
-      <transition-group name="slide">
-              <showcased-image
-                      v-for="galleryImage in galleryShow"
-                      :galleryImage="galleryImage"
-                      :key="galleryImage.id">
-              </showcased-image>
-      </transition-group>
+          =====================================================================================-->
+          <transition-group name="slide">
+            <showcased-image
+            v-for="galleryImage in galleryShow"
+            :galleryImage="galleryImage"
+            :key="galleryImage.id">
+            </showcased-image>
+          </transition-group>
 
 
-      <!--=========================================================================================
+      <!--=====================================================================================
           I M A G E   H I D E
-          =========================================================================================-->
-      <transition-group name="slide" >
-              <showcased-image v-if="totalShow < 6"
-                      v-for="galleryImage in galleryHide"
-                      :galleryImage="galleryImage"
-                      :key="galleryImage.id">
-              </showcased-image>
-      </transition-group>
+          =====================================================================================-->
+          <transition-group name="slide" >
+            <showcased-image v-if="totalShow < 8"
+            v-for="galleryImage in galleryHide"
+            :galleryImage="galleryImage"
+            :key="galleryImage.id">
+            </showcased-image>
+
+            <template v-else>
+              <p>There are no images added in gallery yet.</p>
+            </template>
+          </transition-group>
       </div>
     </div>
   </div>

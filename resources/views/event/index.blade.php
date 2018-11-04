@@ -4,6 +4,28 @@
 <title>Lusy Wahyudi - Event</title>
 @endpush
 
+@push('additional_css')
+<style type="text/css">
+    .event-image {
+        position: relative;
+    }
+
+    .tag{
+        top: 20px;
+        text-transform: uppercase;
+        position: absolute;
+        padding: 10px 20px 10px 20px;
+        background: crimson;
+        color: white;
+        font-weight: bold;
+    }
+
+    .pb-160 {
+        padding-bottom: 80px
+    }
+</style>
+@endpush
+
 @section('content')
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
@@ -82,97 +104,71 @@
             <div class="container-fluid no-padding events-listing">
                 <!-- Container -->
                 <div class="container">
-                    <div class="row">
+                    <div id="event-content" class="row">
                         <!-- Content Area -->
-                        <div class="col-md-12">
-                            <!-- Event Block -->
+                        <div id="event-group" class="col-md-12">
+                            @foreach($events as $event)
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-5 col-sm-12 col-xs-12">
-                                    <a href="event-single.php"><img src="{{ asset('img/events1.jpg') }}" alt="Events" /></a>
+                                <div class="col-md-5 col-sm-12 col-xs-12 event-image">
+                                    <a href="/event/single/{{ $event->id }}">
+                                        <img src="{{ $event->poster }}" alt="Events" />
+                                        <div class="tag">{{ $event->kategori }}</div>
+                                    </a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
                                     <div class="post-date">
-                                        <span>26</span>
-                                        <span>may</span>
+                                        <span>{{ $event->dayDate }}</span>
+                                        <span>{{ $event->month }}</span>
                                     </div>
-                                    <h3><a href="event-single.php" title="British Museum">British Museum</a></h3>
-                                    <h4><a href="#" title="London"><i class="fa fa-map-marker"></i>London</a> <a href="#"><i class="fa fa-clock-o"></i>MON: 10AM - 6PM</a></h4>
-                                    <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground one day he was shooting at some food and up through the crude oil of this beautiful day.</p>
-                                    <a href="event-single.php" title="Book Now">Book Now</a>
+                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
+                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                    <p>{!! nl2br(e($event->content)) !!}</p>
+                                    <a href="/event/single/{{ $event->id }}" title="Read More">Read More</a>
                                 </div>
                             </div>
-                            <!-- Event Block /- -->
-                            
-                            <!-- Event Block -->
-                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-5 col-sm-12 col-xs-12">
-                                    <a href="event-single.php"><img src="{{ asset('img/events2.jpg') }}" alt="Events" /></a>
-                                </div>
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-content">
-                                    <div class="post-date">
-                                        <span>30</span>
-                                        <span>may</span>
-                                    </div>
-                                    <h3><a href="event-single.php" title="Guissum Museum">Guissum Museum</a></h3>
-                                    <h4><a href="#" title="London"><i class="fa fa-map-marker"></i>Spain</a> <a href="#"><i class="fa fa-clock-o"></i>SAT: 8AM - 6PM</a></h4>
-                                    <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground one day he was shooting at some food and up through the crude oil of this beautiful day.</p>
-                                    <a href="event-single.php" title="Book Now">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- Event Block /- -->
-                            
-                            <!-- Event Block -->
-                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-5 col-sm-12 col-xs-12">
-                                    <a href="event-single.php"><img src="{{ asset('img/events3.jpg') }}" alt="Events" /></a>
-                                </div>
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-content">
-                                    <div class="post-date">
-                                        <span>02</span>
-                                        <span>Jun</span>
-                                    </div>
-                                    <h3><a href="event-single.php" title="Universal Museum">Universal Museum</a></h3>
-                                    <h4><a href="event-single.php" title="London"><i class="fa fa-map-marker"></i>Italy</a> <a href="#"><i class="fa fa-clock-o"></i>SUN: 10AM - 6PM</a></h4>
-                                    <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground one day he was shooting at some food and up through the crude oil of this beautiful day.</p>
-                                    <a href="event-single.php" title="Book Now">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- Event Block /- -->
-                            
-                            <!-- Event Block -->
-                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                                <div class="col-md-5 col-sm-12 col-xs-12">
-                                    <a href="event-single.php"><img src="{{ asset('img/events4.jpg') }}" alt="Events" /></a>
-                                </div>
-                                <div class="col-md-6 col-sm-12 col-xs-12 event-content">
-                                    <div class="post-date">
-                                        <span>13</span>
-                                        <span>Jul</span>
-                                    </div>
-                                    <h3><a href="event-single.php" title="Heaven Museum">Heaven Museum</a></h3>
-                                    <h4><a href="#" title="Paris"><i class="fa fa-map-marker"></i>Paris</a> <a href="#"><i class="fa fa-clock-o"></i>MON: 10AM - 6PM</a></h4>
-                                    <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground one day he was shooting at some food and up through the crude oil of this beautiful day.</p>
-                                    <a href="event-single.php" title="Book Now">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- Event Block /- -->
-                            
-                            <nav class="ow-pagination text-center">
-                                <ul class="pagination">
-                                    <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                </ul>
-                            </nav>
+                            @endforeach
                         </div>
                         <!-- Content Area /- -->
                     </div>
+
+                    <nav id="event-pagination" class="ow-pagination text-center pb-160">
+                        @if ($events->lastPage() > 1)
+                        <ul class="pagination">
+                            <li class="{{ ($events->currentPage() == 1) ? ' disabled' : '' }}">
+                                <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                            </li>
+                    
+                            @for ($i = 1; $i <= $events->lastPage(); $i++)
+                                <?php
+                                $half_total_links = floor(4 / 2);
+                                $from = $events->currentPage() - $half_total_links;
+                                $to = $events->currentPage() + $half_total_links;
+
+                                if ($events->currentPage() < $half_total_links) {
+                                    $to += $half_total_links - $events->currentPage();
+                                }
+                                if ($events->lastPage() - $events->currentPage() < $half_total_links) {
+                                    $from -= $half_total_links - ($events->lastPage() - $events->currentPage() - 1);
+                                }
+                                ?>
+                            
+                                @if ($from < $i && $i < $to)
+                                <li class="{{ ($events->currentPage() == $i) ? ' active' : '' }}">
+                                    <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
+                                </li>
+                                @endif
+                            @endfor
+                            <li class="{{ $events->currentPage() == $events->lastPage() ? ' disabled' : '' }}">
+                                <a href="#menu-container" onClick="goToPage({{ $events->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                            </li>
+                        </ul>
+                        @endif
+                    </nav>
                 </div>
                 <!-- Container /- -->
             </div>
-            <div class="section-padding"></div>
+
+            <div id="section-padding"></div>
 
         </main>
 
@@ -187,26 +183,29 @@
 
 @push('additional_js')
 <script type="text/javascript">
-    let status = 'upcoming';
-    const categoriesAndSubcategories = {!! json_encode($categories) !!}
+    const categoriesAndSubcategories = {!! json_encode($categories) !!};
+    let showedEvents = {!! json_encode($events) !!};
     let categoryCount = {!! $categories !!}.length;
     let subcategoryCount = 0;
     let submenuExist = false;
     let subCategoryChosen = false;
+    let loadedEventType = 'all';
+    let eventStatus = 'upcoming';
 
-    function changeStatus(newStatus) {
-        var oldStatus = document.getElementById(status + '-events');
-        oldStatus.removeAttribute('class', 'active');
+    function changeStatus(newStatus){
+        removeActiveClass(eventStatus + '-events');
 
-        status = newStatus;
+        var option = document.getElementById(newStatus + '-events');
+        option.setAttribute('class', 'active');
+
+        eventStatus = newStatus;
 
         getAll();
-
-        var newStatus = document.getElementById(newStatus + '-events');
-        newStatus.setAttribute('class', 'active');
     }
 
     function getAll(){
+        loadedEventType = 'all';
+
         removeCategoriesActiveClass();
 
         removeActiveClass('all-option');
@@ -217,17 +216,34 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/event/' + status + '/all',
+            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanEvents();
                 prepareEvents(data);
 
+                cleanPagination();
+                preparePagination(data);
             }
         });
 
         var allOption = document.getElementById('all-option');
         allOption.setAttribute('class', 'active');
+    }
+
+    function goToPage(pageNumber){
+         $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber,
+            dataType: 'JSON',
+            success: function (data) {
+                cleanEvents();
+                prepareEvents(data);
+
+                cleanPagination();
+                preparePagination(data);
+            }
+        });
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -289,7 +305,10 @@
         let lists = "";
 
         $.each(data, function (i, prop) {
-            lists = lists + '<li class="text-uppercase"><a id="subcategory-' + i + '" onclick="getEvents(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a></li>';
+            lists = lists + 
+            '<li class="text-uppercase">' + 
+            '   <a id="subcategory-' + i + '" onclick="getEvents(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
+            '</li>';
 
             subcategoryCount++;
         });
@@ -301,6 +320,8 @@
     }
 
     function getEvents(subcategoryId, subcategoryListOrder) {
+        loadedEventType = 'subcategory';
+
         if(subCategoryChosen){
             removeSubcategoriesActiveClass();
         }
@@ -311,11 +332,14 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/event/' + status + '/subcategory/' + parseInt(subcategoryId),
+            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanEvents();
                 prepareEvents(data);
+
+                cleanPagination();
+                preparePagination(data);
             }
         });
     }
@@ -327,8 +351,157 @@
         subCategoryChosen = false;
     };
 
-    function prepareEvents(data){
+    function cleanEvents(){
+        var eventGroup = document.getElementById('event-group');
 
+        eventGroup.parentNode.removeChild(eventGroup);
+    }
+
+    function cleanPagination(){
+        var eventPagination = document.getElementById('event-pagination');
+
+        eventPagination.parentNode.removeChild(eventPagination);
+    }
+
+    function prepareEvents(array){
+        var parentOfEventGroup = document.getElementById('event-content');
+
+        let eventContent = 
+        '<div id="event-group" class="col-md-12">';
+
+        if(array.data.length > 0){
+            array.data.forEach(function(event){
+                eventContent = eventContent + 
+                '<div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">' +
+                '   <div class="col-md-5 col-sm-12 col-xs-12 event-image">' +
+                '       <a href="/event/single/' + event.id + '">' +
+                '           <img src="' + event.poster + '" alt="' + event.title + '" />' +
+                '           <div class="tag">' + event.kategori + '</div>' +
+                '       </a>' + 
+                '   </div>' + 
+                '   <div class="col-md-6 col-sm-12 col-xs-12 event-content">' +
+                '       <div class="post-date">' +
+                '           <span>' + event.dayDate + '</span>' + 
+                '           <span>' + event.month + '</span>' + 
+                '       </div>' +
+                '       <h3>' +
+                '           <a href="/event/single/' + event.id + '" title="' + event.title + '">' + 
+                '           ' + event.title +
+                '           </a>' +
+                '       </h3>' +
+                '       <h4>' +
+                '           <a href="/event/single/' + event.id + '" title="London">' +
+                '               <i class="fa fa-map-marker"></i>' + event.location + 
+                '           </a>' +
+                '           <a href="' + event.id + '">' +
+                '               <i class="fa fa-clock-o"></i>' + 
+                '               ' + event.day + ': ' + event.startHour + ' - ' + event.endHour +
+                '           </a>' +
+                '       </h4>' +
+                '       <p>' + nl2br(event.content) + '</p>' +
+                '       <a href="/event/single/' + event.id + '" title="Read More">Read More</a>' +
+                '   </div>' + 
+                '</div>'
+            }, eventContent);
+        }
+        else {
+            eventContent = eventContent + 
+            '<h3 class="text-center" style="color: lightgrey">There are no events on this classification yet.</h3>';
+        }
+
+        eventContent = eventContent + '</div';
+
+        setTimeout(function(){
+            parentOfEventGroup.innerHTML = eventContent;
+        }, 100);
+    }
+
+    function nl2br (str, is_xhtml) {
+        if (typeof str === 'undefined' || str === null) {
+            return '';
+        }
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+    }
+
+    function preparePagination(data){
+        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
+        var sectionPadding = document.getElementById('section-padding');
+        var paginationContainer = document.createElement('nav');
+        paginationContainer.setAttribute('id', 'event-pagination');
+        paginationContainer.setAttribute('class', 'ow-pagination text-center pb-160');
+
+        let paginationContent = '';
+
+        if(data.last_page !== 1){
+            paginationContent = paginationContent + 
+            '<ul class="pagination">';
+
+            if(data.current_page == 1) {
+                paginationContent = paginationContent + 
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
+            }
+
+            paginationContent = paginationContent + 
+            '       <a href="#menu-container" onClick="goToPage(1)">' +
+            '           <i class="fa fa-angle-double-left"></i>' +
+            '       </a>' + 
+            '   </li>';
+
+            for(let i = 1; i <= data.last_page; i++){
+                const halfTotalLinks = Math.floor(4/2);
+                let from = data.current_page - halfTotalLinks;
+                let to = data.current_page + halfTotalLinks;
+
+                if (data.current_page < halfTotalLinks) {
+                    to += halfTotalLinks - data.current_page;
+                };
+
+                if (data.last_page - data.current_page < halfTotalLinks) {
+                    from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+                };
+
+                if (from < i && i < to) {
+                    if (data.current_page == i) {
+                        paginationContent = paginationContent + 
+                        '<li class="active">';
+                    }
+                    else {
+                        paginationContent = paginationContent + 
+                        '<li>';
+                    }
+
+
+                    paginationContent = paginationContent + 
+                    '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                    '</li>';
+                }
+            }
+
+            if(data.current_page == data.last_page) {
+                paginationContent = paginationContent + 
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
+            }
+
+            paginationContent = paginationContent + 
+            '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
+            '           <i class="fa fa-angle-double-right"></i>' + 
+            '       </a>' + 
+            '   </li>' + 
+            '</ul>';
+        }
+
+        paginationContainer.innerHTML = paginationContent;
+            
+        setTimeout(function(){
+            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
+        }, 100);
     }
 </script>
 @endpush

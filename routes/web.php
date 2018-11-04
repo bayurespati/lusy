@@ -4,6 +4,9 @@ use App\imageSlider;
 use App\AboutContent;
 use App\Category;
 use App\SubCategory;
+use App\Gallery;
+use App\Event;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -33,11 +36,22 @@ Route::get('/', function () {
     $sosmed = Sosmed::all();
     $imageSlider = imageSlider::all();
     $introduction = AboutContent::where('is_class', '=', false)->get();
+    $showcasedImage = Gallery::whereIsShowcase(true)->get();
+
+    if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+        $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+    }
+    else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
+        $showedImage = $showcasedImage;
+    }
+    else {
+        $showedImage = [''];
+    }
 
     $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
     $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
 
-    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction'));
+    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'showedImage'));
 })->name('home');
 
 
@@ -68,7 +82,19 @@ Route::group([
             $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
         }
 
-		return view('about.index', compact('sosmed', 'about', 'classes'));
+        $showcasedImage = Gallery::whereIsShowcase(true)->get();
+
+        if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+            $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+        }
+        else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
+            $showedImage = $showcasedImage;
+        }
+        else {
+            $showedImage = [''];
+        }
+
+		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage'));
 	})->name('about.index');
 });
 
@@ -90,12 +116,27 @@ Route::group([
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(1)->get();
+        $gallery = Gallery::paginate(8);
 
-		return view('gallery.index', compact('sosmed', 'categories'));
+
+
+		return view('gallery.index', compact('sosmed', 'categories', 'gallery'));
 	})->name('gallery.index');
 
     Route::get('category/{category}', function(Request $request, Category $category){
         return $category->subcategories()->get();
+    });
+
+    Route::get('/all', function(){
+        return $gallery = Gallery::paginate(8);
+
+        return $gallery;
+    });
+
+    Route::get('/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
+        $gallery = Gallery::whereSubCategoryId($subcategory->id)->paginate(8);
+
+        return $gallery;
     });
 });
 
@@ -117,9 +158,139 @@ Route::group([
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(2)->get();
+        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
 
-		return view('event.index', compact('sosmed', 'categories'));
+        foreach ($events as $event) {
+            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
+            $event->poster = $event->poster()->get()->isEmpty()
+            ? '/img/events1.jpg'
+            : $event->poster()->get()[0]->image_path;
+
+            $startDate = Carbon::parse($event->start_date);
+            $endDate = Carbon::parse($event->end_date);
+
+            $event->day = $startDate->format('D');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+        }
+
+		return view('event.index', compact('sosmed', 'categories', 'events'));
 	})->name('event.index');
+
+    Route::get('/past/all', function(){
+        $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->paginate(6);
+
+        foreach ($events as $event) {
+            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
+            $event->poster = $event->poster()->get()->isEmpty()
+            ? '/img/events1.jpg'
+            : $event->poster()->get()[0]->image_path;
+
+            $startDate = Carbon::parse($event->start_date);
+            $endDate = Carbon::parse($event->end_date);
+
+            $event->day = $startDate->format('D');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+        }
+
+        return $events;
+    });
+
+    Route::get('/upcoming/all', function(){
+        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
+
+        foreach ($events as $event) {
+            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
+            $event->poster = $event->poster()->get()->isEmpty()
+            ? '/img/events1.jpg'
+            : $event->poster()->get()[0]->image_path;
+
+            $startDate = Carbon::parse($event->start_date);
+            $endDate = Carbon::parse($event->end_date);
+
+            $event->day = $startDate->format('D');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+        }
+
+        return $events;
+    });
+
+    Route::get('/past/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
+        $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
+
+        foreach ($events as $event) {
+            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
+            $event->poster = $event->poster()->get()->isEmpty()
+            ? '/img/events1.jpg'
+            : $event->poster()->get()[0]->image_path;
+
+            $startDate = Carbon::parse($event->start_date);
+            $endDate = Carbon::parse($event->end_date);
+
+            $event->day = $startDate->format('D');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+        }
+
+        return $events;
+    });
+
+    Route::get('/upcoming/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
+        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
+
+        foreach ($events as $event) {
+            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
+            $event->poster = $event->poster()->get()->isEmpty()
+            ? '/img/events1.jpg'
+            : $event->poster()->get()[0]->image_path;
+
+            $startDate = Carbon::parse($event->start_date);
+            $endDate = Carbon::parse($event->end_date);
+
+            $event->day = $startDate->format('D');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+        }
+
+        return $events;
+    });
+
+    Route::get('single/{event}', function(Request $request, Event $event){
+        $sosmed = Sosmed::all();
+
+        $event->kategori = SubCategory::find($event->sub_category_id)
+        ->category()
+        ->get()[0]->title;
+
+        $event->poster = $event->poster()->get()->isEmpty()
+        ? '/img/events1.jpg'
+        : $event->poster()->get()[0]->image_path;
+
+        $event->images = $event->images()->get();
+
+        $startDate = Carbon::parse($event->start_date);
+        $endDate = Carbon::parse($event->end_date);
+
+        $event->day = $startDate->format('D');
+        $event->dayDate = $startDate->format('d');
+        $event->month = $startDate->format('M');
+        $event->startHour = $startDate->format('h:i A');
+        $event->endHour = $endDate->format('h:i A');
+
+        return view('event.single', compact('sosmed', 'event'));
+    });
 });
 
 

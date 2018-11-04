@@ -1,52 +1,65 @@
 <template>
-  <div class="card">
-    <form>
-      <div class="form-group">
-        <label for="title">Title</label>
-          <input class="form-control" id="title"  v-model="title"></input>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="col-md-12 text-center">
+          <h3 class="text-center font-weight-bold mb-5">Edit Profile Info</h3>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div id="croppie"></div>
+
+            <div class="panel panel-transparent text-center">
+              <input type="file"
+              accept="image/*"
+              id="file-2"
+              class="inputfile"
+              @change="setUpFileUploader">
+
+              <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
+                <span>Browse image</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-2 d-flex align-items-center">
+                <label class="m-0 pl-1" for="title">Title</label>
+              </div>
+
+              <div class="col-md-10">
+                <input class="form-control full-width" id="title"  v-model="title"></input>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-2 d-flex align-items-center">
+                <label class="m-0 pl-1" for="content-about">Content</label>
+              </div>
+              
+              <div class="col-md-10">
+                <textarea class="form-control" id="content-about" rows="12" v-model="content"></textarea>
+              </div>
+            </div>
+
+            <div class="col-sm-10 offset-2 d-flex justify-content-start mt-3 pl-1">
+              <button type="button" role="button"
+              class="btn btn-success"
+              @click="editProfile">
+                Simpan
+              </button>
+
+              <button type="button" role="button"
+              class="btn btn-danger ml-2"
+              @click="closeEditForm">
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label for="content-about">Content</label>
-          <textarea class="form-control" id="content-about" rows="12" v-model="content">
-        </textarea>
-      </div>
-    </form>
-
-    <!--=========================================================================================
-        S H O W   C R O P P I E
-        =========================================================================================-->
-    <div id="croppie"></div>
-
-
-    <!--=========================================================================================
-        I N P U T   I M A G E
-        =========================================================================================-->
-    <div class="panel panel-transparent" >
-        <input type="file"
-               accept="image/*"
-               id="file-2"
-               class="inputfile"
-               @change="setUpFileUploader">
-
-        <label for="file-2" class="btn btn-outline-primary">
-            <span>Browse image</span>
-        </label>
-
-        <!--=========================================================================================
-            B U T T O N   S A V E                =========================================================================================-->
-        <button type="button" role="button"
-                class="btn btn-success"
-                @click="editProfile">
-                Save
-        </button>
-
-        <button type="button" role="button"
-                class="btn btn-warning"
-                @click="closeEditForm">
-                Tutup
-        </button>
-
     </div>
   </div>
 </template>
@@ -102,8 +115,8 @@
           let file = document.getElementById('croppie');
 
           this.croppie = new Croppie(file,{
-              viewport: {width: 323, height: 520, type: 'square'},
-              boundary: {width: 423, height: 620 },
+              viewport: {width: 161.5, height: 260, type: 'square'},
+              boundary: {width: 211.5, height: 310 },
               enableOrientation: false,
           });
 
@@ -127,7 +140,7 @@
 
           this.croppie.result({
               type: 'canvas',
-              size: 'viewport',
+              size: {width: 323, height: 520, type: 'square'},
           }).then(response => {
               vm.save_image = response;
           });
@@ -176,7 +189,23 @@
 	};
 </script>
 
+<style type="text/css">
+    .croppie-container {
+        height: unset;
+    }
+
+    .croppie-container .cr-slider-wrap {
+        margin: 15px auto 5px auto;
+    }
+</style>
+
 <style scoped>
+    .card {
+        display: inline-block;
+        width: 100%;
+        padding: 36px 20px 26px 20px;
+    }
+
     input[type='file']::-webkit-file-upload-button
     {
         color: #fff;

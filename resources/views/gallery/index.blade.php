@@ -65,102 +65,61 @@
                     </div>
                 </div>
                 <!-- Container /- -->
-                <div class="portfolio-list">
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                        <a href="{{ asset('img/portfolio-2.jpg') }}">
-                            <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding statue others">
-                        <a href="{{ asset('img/portfolio-3.jpg') }}">
-                            <img src="{{ asset('img/portfolio-3.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding others">
-                        <a href="{{ asset('img/portfolio-4.jpg') }}">
-                            <img src="{{ asset('img/portfolio-4.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding modern">
-                        <a href="{{ asset('img/portfolio-5.jpg') }}">
-                            <img src="{{ asset('img/portfolio-5.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                        <a href="{{ asset('img/portfolio-7.jpg') }}">
-                            <img src="{{ asset('img/portfolio-7.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding statue others">
-                        <a href="{{ asset('img/portfolio-8.jpg') }}">
-                            <img src="{{ asset('img/portfolio-8.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding others">
-                        <a href="{{ asset('img/portfolio-9.jpg') }}">
-                            <img src="{{ asset('img/portfolio-9.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="portfolio-box col-md-3 col-sm-3 no-padding modern">
-                        <a href="{{ asset('img/portfolio-10.jpg') }}">
-                            <img src="{{ asset('img/portfolio-10.jpg') }}" alt="Portfolio" />
-                            <div class="portfolio-content">
-                                <i class="icon icon-Search"></i>
-                                <h3>spral cloud</h3>
-                                <span>Photography</span>
-                            </div>
-                        </a>
-                    </div>
+                <div id="gallery-container" class="portfolio-list">
+                    @foreach($gallery as $photo)
+                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                            <a href="{{ $photo->image_path }}">
+                                <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
+
+                                <div class="portfolio-content">
+                                    <i class="icon icon-Search"></i>
+                                    <h3>{{ $photo->title }}</h3>
+                                    <span>{{ $photo->creator }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="padding-80"></div>
-                <nav class="ow-pagination text-center">
+
+                <div id="divider-80" class="padding-80"></div>
+
+                <nav id="gallery-pagination" class="ow-pagination text-center">
+                    @if ($gallery->lastPage() > 1)
                     <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                        <li class="{{ ($gallery->currentPage() == 1) ? ' disabled' : '' }}">
+                            <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                        </li>
+                    
+                        @for ($i = 1; $i <= $gallery->lastPage(); $i++)
+                            <?php
+                            $half_total_links = floor(4 / 2);
+                            $from = $gallery->currentPage() - $half_total_links;
+                            $to = $gallery->currentPage() + $half_total_links;
+
+                            if ($gallery->currentPage() < $half_total_links) {
+                                $to += $half_total_links - $gallery->currentPage();
+                            }
+                            if ($gallery->lastPage() - $gallery->currentPage() < $half_total_links) {
+                                $from -= $half_total_links - ($gallery->lastPage() - $gallery->currentPage() - 1);
+                            }
+                            ?>
+                            
+                            @if ($from < $i && $i < $to)
+                            <li class="{{ ($gallery->currentPage() == $i) ? ' active' : '' }}">
+                                <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
+                            </li>
+                            @endif
+                        @endfor
+                        <li class="{{ $gallery->currentPage() == $gallery->lastPage() ? ' disabled' : '' }}">
+                            <a href="#menu-container" onClick="goToPage({{ $gallery->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                        </li>
                     </ul>
+                    @endif
                 </nav>
             </div>
             <!-- Portfolio Section /- -->
             
-            <div class="section-padding"></div>
+            <div id="section-padding" class="section-padding"></div>
 
         </main>
 
@@ -175,13 +134,17 @@
 
 @push('additional_js')
 <script type="text/javascript">
-    const categoriesAndSubcategories = {!! json_encode($categories) !!}
+    const categoriesAndSubcategories = {!! json_encode($categories) !!};
+    let showedImages = {!! json_encode($gallery) !!};
     let categoryCount = {!! $categories !!}.length;
     let subcategoryCount = 0;
     let submenuExist = false;
     let subCategoryChosen = false;
+    let loadedImageType = 'all';
 
     function getAll(){
+        loadedImageType = 'all';
+
         removeCategoriesActiveClass();
 
         removeActiveClass('all-option');
@@ -192,16 +155,34 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/all',
+            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanImages();
                 prepareImages(data);
+
+                cleanPagination();
+                preparePagination(data);
             }
         });
 
         var allOption = document.getElementById('all-option');
         allOption.setAttribute('class', 'active');
+    }
+
+    function goToPage(pageNumber){
+         $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber,
+            dataType: 'JSON',
+            success: function (data) {
+                cleanImages();
+                prepareImages(data);
+
+                cleanPagination();
+                preparePagination(data);
+            }
+        });
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -263,7 +244,10 @@
         let lists = "";
 
         $.each(data, function (i, prop) {
-            lists = lists + '<li class="text-uppercase"><a id="subcategory-' + i + '" onclick="getImages(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a></li>';
+            lists = lists + 
+            '<li class="text-uppercase">' + 
+            '   <a id="subcategory-' + i + '" onclick="getImages(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
+            '</li>';
 
             subcategoryCount++;
         });
@@ -275,6 +259,8 @@
     }
 
     function getImages(subcategoryId, subcategoryListOrder) {
+        loadedImageType = 'subcategory';
+
         if(subCategoryChosen){
             removeSubcategoriesActiveClass();
         }
@@ -285,11 +271,14 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/subcategory/' + parseInt(subcategoryId),
+            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanImages();
                 prepareImages(data);
+
+                cleanPagination();
+                preparePagination(data);
             }
         });
     }
@@ -301,8 +290,161 @@
         subCategoryChosen = false;
     };
 
-    function prepareImages(data){
+    function cleanImages(){
+        var galleryContainer = document.getElementById('gallery-container');
 
+        galleryContainer.parentNode.removeChild(galleryContainer);
+    }
+
+    function cleanPagination(){
+        var galleryPagination = document.getElementById('gallery-pagination');
+
+        galleryPagination.parentNode.removeChild(galleryPagination);
+    }
+
+    function prepareImages(array){
+        var parentOfDivider80 = document.getElementById('divider-80').parentNode;
+        var divider80 = document.getElementById('divider-80');
+        var galleryContainer = document.createElement('div');
+        galleryContainer.setAttribute('id', 'gallery-container');
+        galleryContainer.setAttribute('class', 'portfolio-list');
+
+        let galleryContent = '';
+
+        array.data.forEach(function(photo){
+            galleryContent = galleryContent + 
+            '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
+            '   <a href="' + photo.image_path + '">' +
+            '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
+            '       <div class="portfolio-content">' +
+            '           <i class="icon icon-Search"></i>' +
+            '           <h3>' + photo.title + '</h3>' +
+            '           <span>' + photo.creator + '</span>' +
+            '       </div>' +
+            '   </a>' +
+            '</div>'
+        }, galleryContent);
+
+        galleryContainer.innerHTML = galleryContent;
+        setTimeout(function(){
+            parentOfDivider80.insertBefore(galleryContainer, divider80);
+
+            check();
+        }, 100);
+    }
+
+    function preparePagination(data){
+        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
+        var sectionPadding = document.getElementById('section-padding');
+        var paginationContainer = document.createElement('nav');
+        paginationContainer.setAttribute('id', 'gallery-pagination');
+        paginationContainer.setAttribute('class', 'ow-pagination text-center');
+
+        let paginationContent = '';
+
+        paginationContent = paginationContent + 
+        '<ul class="pagination">';
+
+        if(data.current_page == 1) {
+            paginationContent = paginationContent + 
+            '<li class="disabled">';
+        } else {
+            paginationContent = paginationContent + 
+            '<li>';
+        }
+
+        paginationContent = paginationContent + 
+        '       <a href="#menu-container" onClick="goToPage(1)">' +
+        '           <i class="fa fa-angle-double-left"></i>' +
+        '       </a>' + 
+        '   </li>';
+
+        for(let i = 1; i <= data.last_page; i++){
+            const halfTotalLinks = Math.floor(4/2);
+            let from = data.current_page - halfTotalLinks;
+            let to = data.current_page + halfTotalLinks;
+
+            if (data.current_page < halfTotalLinks) {
+                to += halfTotalLinks - data.current_page;
+            };
+
+            if (data.last_page - data.current_page < halfTotalLinks) {
+                from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+            };
+
+            if (from < i && i < to) {
+                if (data.current_page == i) {
+                    paginationContent = paginationContent + 
+                    '<li class="active">';
+                }
+                else {
+                    paginationContent = paginationContent + 
+                    '<li>';
+                }
+
+
+                paginationContent = paginationContent + 
+                '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                '</li>';
+            }
+        }
+
+        if(data.current_page == data.last_page) {
+            paginationContent = paginationContent + 
+            '<li class="disabled">';
+        } else {
+            paginationContent = paginationContent + 
+            '<li>';
+        }
+
+        paginationContent = paginationContent + 
+        '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
+        '           <i class="fa fa-angle-double-right"></i>' + 
+        '       </a>' + 
+        '   </li>' + 
+        '</ul>';
+
+        paginationContainer.innerHTML = paginationContent;
+        setTimeout(function(){
+            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
+        }, 100);
+    }
+
+    function check(){
+        if($(".portfolio-section").length){
+            var url;
+            $(".portfolio-section .portfolio-box").magnificPopup({
+                delegate: "a",
+                type: "image",
+                tLoading: "Loading image #%curr%...",
+                mainClass: "mfp-img-mobile",
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: false,
+                    preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                },
+                image: {
+                    tError: "<a href="%url%">The image #%curr%</a> could not be loaded.",               
+                }
+            });
+        }
+        
+        /* - Portfolio Section */
+        var $container = $(".portfolio-section .portfolio-list");
+        $container.isotope({
+            layoutMode: 'fitRows',
+            itemSelector: ".portfolio-box",
+            gutter: 0,
+            transitionDuration: "0.5s"
+        });
+        
+        $("#filters a").on("click",function(){
+            $('#filters a').removeClass("active");
+            $(this).addClass("active");
+            var selector = $(this).attr("data-filter");
+            $container.isotope({ filter: selector });       
+            return false;
+        });
     }
 </script>
 @endpush

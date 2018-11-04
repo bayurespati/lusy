@@ -15,7 +15,7 @@
 				</div>
 
 				<button type="button" @click="addSubCategory" class="btn btn-sm btn-success">Tambah</button>
-				<button type="button" @click="closeAddSubCatergory" class="btn btn-sm btn-warning">Cancel</button>
+				<button type="button" @click="closeAddSubCatergory" class="btn btn-sm btn-danger">Batal</button>
 			</div>
 		</div>	
 	</div>

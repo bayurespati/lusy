@@ -73,10 +73,10 @@
                     <div class="col-md-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingGallery = !isEditingGallery">Edit</button>               
+                                @click="isEditingGallery = !isEditingGallery">Ubah</button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheGallery">Delete</button>
+                                @click="deleteTheGallery">Hapus</button>
                     </div>
 
 

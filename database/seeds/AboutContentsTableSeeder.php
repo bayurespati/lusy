@@ -26,7 +26,7 @@ class AboutContentsTableSeeder extends Seeder
             ],
             [
             	'image_path' => '/img/welcome-1.jpg',
-            	'title' => 'handicraft',
+            	'title' => 'Handicraft',
             	'content' => json_encode('Class'),
             	'is_class' => true,
             ],
