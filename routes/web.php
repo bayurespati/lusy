@@ -402,6 +402,8 @@ Route::group([
         */
         Route::get('/list', 'ListController@index')->name('admin.shop.list');
         Route::get('/data/list', 'ListController@loadList');
-        Route::patch('/list', 'ListController@patch');
+        Route::post('/add/list', 'ListController@store');
+        Route::patch('/update/list/{item}', 'ListController@patch');
+        Route::delete('/delete/list/{item}', 'ListController@delete');
     });
 });

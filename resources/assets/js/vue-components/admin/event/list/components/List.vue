@@ -3,7 +3,7 @@
     <h1>EVENTS</h1>
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddEvent">
-        <div class="row pt-5">
+        <div class="row">
           <div class="col-12">
             <button @click="isAddEvent = !isAddEvent" class="btn btn-primary">Tambah Event</button>
           </div>
@@ -46,10 +46,10 @@
     },
 
     computed:{
-            ...mapGetters({
-                events: 'getEvents',
-            })
-        }
+        ...mapGetters({
+            events: 'getEvents',
+        })
+    }
   };
 </script>
 

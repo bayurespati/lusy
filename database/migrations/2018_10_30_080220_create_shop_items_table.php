@@ -19,10 +19,9 @@ class CreateShopItemsTable extends Migration
             $table->integer('sub_category_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('sub_title');
-            $table->date('date');
             $table->integer('stock');
             $table->text('description');
-            $table->decimal('price');
+            $table->double('price');
             $table->string('store_link');
             $table->boolean('is_displayed');
             $table->timestamps();

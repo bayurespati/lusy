@@ -13,40 +13,29 @@
                     <div class="col col-xs-12">
                         <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
                         <div class="detail">
-                            <p class="mb-0">{{ event.title }}</p>
+                            <p class="mb-0">{{ shop.title }}</p>
                         </div>
                     </div>
 
 
                     <!--=========================================================================================
-                         S T A R T   D A T E
+                         S T O C K
                         =========================================================================================-->
                     <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Start Date</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Stock</strong></p>
                         <div class="detail">
-                            <p class="mb-0">{{ event.start_date }}</p>
+                            <p class="mb-0">{{ shop.stock }}</p>
                         </div>
                     </div>
 
 
                     <!--=========================================================================================
-                        E N D  D A T E
+                        P R I C E
                         =========================================================================================-->
                     <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Date</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Price</strong></p>
                         <div class="detail">
-                            <p class="mb-0">{{ event.start_date }}</p>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        L O C A T I O N
-                        =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Location</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ event.location }}</p>
+                            <p class="mb-0">{{ shop.price }}</p>
                         </div>
                     </div>
 
@@ -57,10 +46,10 @@
                     <div class="col-md-4 d-flex align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingEvent = !isEditingEvent">EDIT</button>               
+                                @click="isEditingShop = !isEditingShop">EDIT</button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger"
-                                @click="deleteTheEvent">DELETE</button>
+                                @click="deleteTheShop">DELETE</button>
                         <button type="button" 
                                 class="btn btn-sm btn-danger"
                                 @click="">Image List</button>
@@ -71,9 +60,9 @@
                         E D I T
                         =========================================================================================-->
                     <div class="col-md-12">
-                        <edit-event v-if="isEditingEvent" :event="event"
-                            @editionFormIsClosed="isEditingEvent = $event">
-                        </edit-event>
+                        <edit-shop v-if="isEditingShop" :shop="shop"
+                            @editionFormIsClosed="isEditingShop = $event">
+                        </edit-shop>
                     </div>
 
                 </div>
@@ -83,32 +72,32 @@
 </template>
 
 <script>
-    import EditEvent from './EditEvent.vue';
+    import EditShop from './EditShop.vue';
     export default{
-        props: {event: {}},
+        props: {shop: {}},
 
         components:{
-            EditEvent
+            EditShop
         },
 
         data() {
             return {
-                isEditingEvent: false,
+                isEditingShop: false,
             }
         },
 
         methods:{
 
-            deleteTheEvent() {
+            deleteTheShop() {
                 const self = this;
 
-                this.$store.dispatch('destroy_event', {
-                    eventId: self.event.id
+                this.$store.dispatch('destroy_item', {
+                    itemId: self.shop.id
                 })
                 .then(() => {
                     self.isRequesting = false;
 
-                    flash('Event berhasil dihapus', 'danger')
+                    flash('Shop item berhasil dihapus', 'danger')
                 })
             }
         }

@@ -2,9 +2,9 @@ import {store} from './store';
 
 export default {
 
-    // getIndexOfSosmed(sosmedId) {
-        // return _.findIndex(store.state.sosmeds, function (sosmed) {
-            // return sosmed.id === sosmedId;
-        // });
-    // },
+    getIndexOfShop(shopId) {
+        return _.findIndex(store.state.items, function (shop) {
+            return shop.id === shopId;
+        });
+    },
 }

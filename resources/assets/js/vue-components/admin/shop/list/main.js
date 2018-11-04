@@ -11,7 +11,7 @@ const admin = new Vue({
     },
 
     mounted(){
-        this.$store.dispatch('load_list');
+        this.$store.dispatch('load_items');
     },
 
     store
