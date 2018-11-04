@@ -16,8 +16,8 @@ class CreateShopImagesTable extends Migration
         Schema::create('shop_images', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('shop_item_id')->unsigned()->nullable();
+            $table->string('image_path');
             $table->string('title');
-            $table->date('date');
             $table->boolean('is_poster');
             $table->timestamps();
 

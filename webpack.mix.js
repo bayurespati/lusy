@@ -223,3 +223,8 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/shop/list/main.js',
 ], 'public/js/admin/shop/list.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/shop/image/main.js',
+], 'public/js/admin/shop/image.js');
+
+

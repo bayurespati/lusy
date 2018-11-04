@@ -405,5 +405,19 @@ Route::group([
         Route::post('/add/list', 'ListController@store');
         Route::patch('/update/list/{item}', 'ListController@patch');
         Route::delete('/delete/list/{item}', 'ListController@delete');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   S H O P   I T E M   I M A G E   L I S T   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/image/{param}', 'ImageController@index')->name('admin.shop.image');
+        Route::get('/data/image/{param}', 'ImageController@loadImageList');
+        Route::post('/add/image', 'ImageController@store');
+        Route::patch('/update/image/{shopImage}', 'ImageController@update');
+        Route::delete('/delete/image/{shopImage}', 'ImageController@destroy');
+
     });
 });

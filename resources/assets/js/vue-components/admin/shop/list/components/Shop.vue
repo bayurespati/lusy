@@ -52,7 +52,7 @@
                                 @click="deleteTheShop">DELETE</button>
                         <button type="button" 
                                 class="btn btn-sm btn-danger"
-                                @click="">Image List</button>
+                                @click="goTo">Image List</button>
                     </div>
 
 
@@ -99,7 +99,11 @@
 
                     flash('Shop item berhasil dihapus', 'danger')
                 })
-            }
+            },
+
+            goTo(url){
+                window.location.href = 'image/' + this.shop.id;
+            },
         }
     };
 </script>
