@@ -95,6 +95,7 @@
             <!-- Portfolio Section /- -->
             
             <!-- Upcoming Events Section -->
+            @if(count($showcasedEvents) > 0)
             <div class="container-fluid no-padding upcoming-event">
                 <div class="section-padding"></div>
                 <!-- Container -->
@@ -130,9 +131,11 @@
                 
                 <div class="section-padding"></div>
             </div>
+            @endif
             <!-- Upcoming Events Section /- -->
 
             <!-- Gallery Showcase Section -->
+            @if(count($showedImage) > 0)
             <div class="container-fluid no-padding portfolio-section">
                 <!-- Container -->
                 <div class="container">
@@ -166,6 +169,7 @@
                     @endforeach
                 </div>
             </div>
+            @endif
             <!-- Gallery Showcase Section /- -->
 
             <!-- Shop Showcase Section -->

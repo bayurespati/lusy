@@ -40,14 +40,13 @@ Route::get('/', function () {
     $classes = AboutContent::where('is_class', '=', true)->get();
     $showcasedImage = Gallery::whereIsShowcase(true)->get();
 
-    if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+    if(
+        count($showcasedImage) > 0 && 
+        count($showcasedImage) >= 4 && count($showcasedImage) < 8){
         $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
     }
-    else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
-        $showedImage = $showcasedImage;
-    }
     else {
-        $showedImage = [''];
+        $showedImage = $showcasedImage;
     }
 
     $showcasedEvents = Event::orderBy('end_date', 'DESC')->paginate(2);
@@ -64,9 +63,6 @@ Route::get('/', function () {
         $event->startHour = $startDate->format('h:i A');
         $event->endHour = $endDate->format('h:i A');
     }
-
-    // $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
-    // $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
 
     return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'classes', 'showedImage', 'showcasedEvents'));
 })->name('home');
@@ -91,24 +87,15 @@ Route::group([
         $about = AboutContent::where('is_class', '=', false)->get();
         $classes = AboutContent::where('is_class', '=', true)->get();
 
-        // $about[0]->content = str_replace('\n', '<br>', $about[0]->content);
-        // $about[0]->content = str_replace('\"', '"', $about[0]->content);
-
-        // for ($i=0; $i < count($classes); $i++) { 
-            // $classes[$i]->content = str_replace('\n', '<br>', $classes[$i]->content);
-            // $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
-        // }
-
         $showcasedImage = Gallery::whereIsShowcase(true)->get();
 
-        if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
+        if(
+            count($showcasedImage) > 0 && 
+            count($showcasedImage) >= 4 && count($showcasedImage) < 8){
             $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
         }
-        else if(count($showcasedImage) > 0 && count($showcasedImage) == 8){
-            $showedImage = $showcasedImage;
-        }
         else {
-            $showedImage = [''];
+            $showedImage = $showcasedImage;
         }
 
 		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage'));

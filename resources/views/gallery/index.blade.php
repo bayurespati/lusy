@@ -40,6 +40,7 @@
             <!-- Portfolio Section -->
             <div class="container-fluid no-padding portfolio-section">
                 <!-- Container -->
+                @if(count($gallery) > 0)
                 <div id="menu-container" class="container">
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                         <ul>
@@ -116,6 +117,11 @@
                     </ul>
                     @endif
                 </nav>
+                @else
+                <h3 class="text-center" style="color: lightgrey">
+                    *this gallery isn't filled with images (yet!)*
+                </h3>
+                @endif
             </div>
             <!-- Portfolio Section /- -->
             
