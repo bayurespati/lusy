@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <h1>IMAGE LIST</h1>
+    <ul class="breadcrumb">
+      <li><a @click="goTo">Event</a></li>
+      <li><a href="#">Image List</a></li>
+    </ul>
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddImage">
         <div class="row">
@@ -54,12 +58,44 @@
         totalImageList(){
           return this.imageList.length;
         }
+    },
+
+    methods:{
+      goTo(){
+        window.location.href = '/admin/event/list';
+      }
     }
   };
 </script>
 
+<style>
+  ul.breadcrumb {
+      padding: 10px 16px;
+      list-style: none;
+      background-color: #eee;
+  }
+  ul.breadcrumb li {
+      display: inline;
+      font-size: 18px;
+  }
+  ul.breadcrumb li+li:before {
+      padding: 8px;
+      color: black;
+      content: "/\00a0";
+  }
+  ul.breadcrumb li a {
+      color: #0275d8;
+      text-decoration: none;
+  }
+  ul.breadcrumb li a:hover {
+      color: #01447e;
+      text-decoration: underline;
+  }
+  a { cursor: pointer !important; }
+</style>
+
 <style scoped>
-.slide-enter {
+    .slide-enter {
         opacity: 0;
     }
 
