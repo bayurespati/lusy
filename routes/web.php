@@ -6,6 +6,7 @@ use App\Category;
 use App\SubCategory;
 use App\Gallery;
 use App\Event;
+use App\ShopItem;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ Route::get('/', function () {
     $sosmed = Sosmed::all();
     $imageSlider = imageSlider::all();
     $introduction = AboutContent::where('is_class', '=', false)->get();
+    $classes = AboutContent::where('is_class', '=', true)->get();
     $showcasedImage = Gallery::whereIsShowcase(true)->get();
 
     if(count($showcasedImage) > 0 && count($showcasedImage) >= 4 && count($showcasedImage) < 8){
@@ -48,10 +50,25 @@ Route::get('/', function () {
         $showedImage = [''];
     }
 
-    $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
-    $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
+    $showcasedEvents = Event::orderBy('end_date', 'DESC')->paginate(2);
+    foreach ($showcasedEvents as $event) {
+        $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
 
-    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'showedImage'));
+        $startDate = Carbon::parse($event->start_date);
+        $endDate = Carbon::parse($event->end_date);
+
+        $event->day = $startDate->format('D');
+        $event->dayComplete = $startDate->format('l');
+        $event->dayDate = $startDate->format('d');
+        $event->month = $startDate->format('M');
+        $event->startHour = $startDate->format('h:i A');
+        $event->endHour = $endDate->format('h:i A');
+    }
+
+    // $introduction[0]->content = str_replace('\n', '<br>', $introduction[0]->content);
+    // $introduction[0]->content = str_replace('\"', '"', $introduction[0]->content);
+
+    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'classes', 'showedImage', 'showcasedEvents'));
 })->name('home');
 
 
@@ -74,13 +91,13 @@ Route::group([
         $about = AboutContent::where('is_class', '=', false)->get();
         $classes = AboutContent::where('is_class', '=', true)->get();
 
-        $about[0]->content = str_replace('\n', '<br>', $about[0]->content);
-        $about[0]->content = str_replace('\"', '"', $about[0]->content);
+        // $about[0]->content = str_replace('\n', '<br>', $about[0]->content);
+        // $about[0]->content = str_replace('\"', '"', $about[0]->content);
 
-        for ($i=0; $i < count($classes); $i++) { 
-            $classes[$i]->content = str_replace('\n', '<br>', $classes[$i]->content);
-            $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
-        }
+        // for ($i=0; $i < count($classes); $i++) { 
+            // $classes[$i]->content = str_replace('\n', '<br>', $classes[$i]->content);
+            // $classes[$i]->content = str_replace('\"', '"', $classes[$i]->content);
+        // }
 
         $showcasedImage = Gallery::whereIsShowcase(true)->get();
 
@@ -312,14 +329,73 @@ Route::group([
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(3)->get();
 
-		return view('shop.index', compact('sosmed', 'categories'));
+        $items = ShopItem::whereIsDisplayed(true)->paginate(8);
+
+        foreach ($items as $item) {
+            $item->poster = $item->poster()->get()->isEmpty()
+            ? '/img/shop-item.gif'
+            : $event->poster()->get()[0]->image_path;
+
+            $item->price = number_format($item->price, 2, ",", ".");
+        }
+
+		return view('shop.index', compact('sosmed', 'categories', 'items'));
 	})->name('shop.index');
 
-	Route::get('/item', function () { 
+	Route::get('/item/{shopItem}', function (Request $request, ShopItem $shopItem) { 
         $sosmed = Sosmed::all();
 
-		return view('shop.item', compact('sosmed'));
+        $shopItem->poster = $shopItem->poster()->get()->isEmpty()
+        ? '/img/welcome-1.jpg'
+        : $shopItem->poster()->get()[0]->image_path;
+
+        $shopItem->price = number_format($shopItem->price, 2, ",", ".");
+
+		return view('shop.item', compact('sosmed', 'shopItem'));
 	})->name('shop.item');
+
+    Route::get('/all', function () {
+        $items = ShopItem::whereIsDisplayed(true)->paginate(8);
+
+        foreach ($items as $item) {
+            $item->poster = $item->poster()->get()->isEmpty()
+            ? '/img/shop-item.gif'
+            : $event->poster()->get()[0]->image_path;
+
+            $item->price = number_format($item->price, 2, ",", ".");
+
+        }
+
+        return $items;
+    });
+
+    Route::get('/category/{category}', function (Request $request, Category $category) {
+        $items = ShopItem::whereIsDisplayed(true)->whereCategoryId($category->id)->paginate(8);
+
+        foreach ($items as $item) {
+            $item->poster = $item->poster()->get()->isEmpty()
+            ? '/img/shop-item.gif'
+            : $event->poster()->get()[0]->image_path;
+
+            $item->price = number_format($item->price, 2, ",", ".");
+        }
+
+        return $items;
+    });
+
+    Route::get('/subcategory/{subcategory}', function (Request $request, SubCategory $subcategory) {
+        $items = ShopItem::whereIsDisplayed(true)->whereSubCategoryId($subcategory->id)->paginate(8);
+
+        foreach ($items as $item) {
+            $item->poster = $item->poster()->get()->isEmpty()
+            ? '/img/shop-item.gif'
+            : $event->poster()->get()[0]->image_path;
+
+            $item->price = number_format($item->price, 2, ",", ".");
+        }
+
+        return $items;
+    });
 
 });
 

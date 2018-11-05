@@ -191,6 +191,7 @@
     let subCategoryChosen = false;
     let loadedEventType = 'all';
     let eventStatus = 'upcoming';
+    let subcategoryIdTemp = 0;
 
     function changeStatus(newStatus){
         removeActiveClass(eventStatus + '-events');
@@ -224,6 +225,7 @@
 
                 cleanPagination();
                 preparePagination(data);
+                subcategoryIdTemp = 0;
             }
         });
 
@@ -232,18 +234,34 @@
     }
 
     function goToPage(pageNumber){
-         $.ajax({
-            type: 'GET',
-            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber,
-            dataType: 'JSON',
-            success: function (data) {
-                cleanEvents();
-                prepareEvents(data);
+        if(loadedEventType === 'all'){
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanEvents();
+                    prepareEvents(data);
 
-                cleanPagination();
-                preparePagination(data);
-            }
-        });
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanEvents();
+                    prepareEvents(data);
+
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+        }
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -340,6 +358,7 @@
 
                 cleanPagination();
                 preparePagination(data);
+                subcategoryIdTemp = subcategoryId;
             }
         });
     }

@@ -141,6 +141,7 @@
     let submenuExist = false;
     let subCategoryChosen = false;
     let loadedImageType = 'all';
+    let subcategoryIdTemp = 0;
 
     function getAll(){
         loadedImageType = 'all';
@@ -163,6 +164,7 @@
 
                 cleanPagination();
                 preparePagination(data);
+                subcategoryIdTemp = 0;
             }
         });
 
@@ -171,18 +173,34 @@
     }
 
     function goToPage(pageNumber){
-         $.ajax({
-            type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber,
-            dataType: 'JSON',
-            success: function (data) {
-                cleanImages();
-                prepareImages(data);
+         if(loadedImageType === 'all'){
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanImages();
+                    prepareImages(data);
 
-                cleanPagination();
-                preparePagination(data);
-            }
-        });
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+         }
+         else {
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanImages();
+                    prepareImages(data);
+
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+         }
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -279,6 +297,7 @@
 
                 cleanPagination();
                 preparePagination(data);
+                subcategoryIdTemp = subcategoryId;
             }
         });
     }

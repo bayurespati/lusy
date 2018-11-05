@@ -4,6 +4,17 @@
 <title>Lusy Wahyudi</title>
 @endpush
 
+@push('additional_css')
+<style type="text/css">
+    .cut-content {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+</style>
+@endpush
+
 @section('content')
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
@@ -91,39 +102,27 @@
                     <!-- Section Header -->
                     <div class="section-header">
                         <div class="section-title-border">
-                            <span>Exhibitions</span>
-                            <h2>UPCOMING EVENTS</h2>
+                            <span>Proud to Presents</span>
+                            <h2>LATEST EVENTS</h2>
                         </div>
                     </div>
                     <!-- Section Header /- -->
                     <div class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                        <!-- Event Block -->
+
+                        @foreach($showcasedEvents as $event)
                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
                             <div class="col-md-12 col-sm-12 col-xs-12 event-content">
                                 <div class="post-date">
-                                    <span>26</span>
-                                    <span>may</span>
+                                    <span>{{ $event->dayDate }}</span>
+                                    <span>{{ $event->month }}</span>
                                 </div>
-                                <h3><a href="#" title="British Museum">HEAVEN MUSEUM</a></h3>
-                                <h4><a href="#" title="Melbourne, Australia"><i class="fa fa-map-marker"></i>Melbourne, Australia</a> <a href="#"><i class="fa fa-clock-o"></i>MON: 10AM - 6PM</a></h4>
-                                <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground.</p>
+                                <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
+                                <h4><a href="/event/single/{{ $event->id }}" title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="/event/single/{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->dayComplete }} {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                <p class="cut-content">{{ $event->content }}</p>
                             </div>
                         </div>
-                        <!-- Event Block /- -->
-                        <!-- Event Block -->
-                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
-                            <div class="event-cover"><a href="#"><img src="{{ asset('img/upcoming-event1.jpg') }}" alt="Events" /></a></div>
-                            <div class="col-md-12 col-sm-12 col-xs-12 event-content">
-                                <div class="post-date">
-                                    <span>05</span>
-                                    <span>jun</span>
-                                </div>
-                                <h3><a href="#" title="Forge Museum">Forge Museum</a></h3>
-                                <h4><a href="#" title="London, England"><i class="fa fa-map-marker"></i>London, England</a> <a href="#"><i class="fa fa-clock-o"></i>Sunday 10AM - 6PM</a></h4>
-                                <p>Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day the ground.</p>
-                            </div>
-                        </div>
-                        <!-- Event Block /- -->
+                        @endforeach
+
                         <a href="{{ route('event.index') }}" title="View all events">VIEW ALL EVENTS</a>
                     </div>
                 </div>
@@ -170,7 +169,7 @@
             <!-- Gallery Showcase Section /- -->
 
             <!-- Shop Showcase Section -->
-            <div class="container-fluid no-padding welcome-section" style="padding-bottom: 100px">
+            <div class="container-fluid no-padding welcome-section">
                 <!-- Container -->
                 <div class="container">
                    
@@ -179,53 +178,35 @@
                         <div id="welcome-carousel" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
+                                @for ($i = 0; $i < count($classes); $i++)
+                                <div class="item {{ $i === 0 ? 'active' : '' }}">
 
                                      <!-- Section Header -->
                                     <div class="section-header">
                                         <div class="section-title-border">
-                                            <span>Welcome to</span>
-                                            <h2>Museum History</h2> 
+                                            <span>Introducing</span>
+                                            <h2>{{ $classes[$i]->title }}</h2> 
                                         </div>
                                     </div>
                                     <!-- Section Header /- -->
                                     <div class="col-md-6 col-sm-6 content-block-custom">
                                         <p>
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.
-
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.
+                                            {!! $classes[$i]->content !!}
                                         </p>
-                                        <a href="#" title="Read More">Read More</a>
+                                        
+                                        <button class="general-btn transitioned-btn">
+                                            Register
+                                        </button>
                                     </div>
                                     <div class="col-md-6 col-sm-6 img-block">
-                                        <i><img src="{{ asset('img/welcome-1.jpg') }}" alt="Welcome" /></i>
+                                        <i><img src="{{ $classes[$i]->image_path }}" alt="{{ $classes[$i]->title }}" /></i>
                                     </div>
                                 </div>
-                                <div class="item">
-
-                                     <!-- Section Header -->
-                                    <div class="section-header">
-                                        <div class="section-title-border">
-                                            <span>Welcome to</span>
-                                            <h2>Museum History 2</h2> 
-                                        </div>
-                                    </div>
-                                    <!-- Section Header /- -->
-                                    <div class="col-md-6 col-sm-6 content-block-custom">
-                                        <p>
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful day since we are together space the final frontier these are the voyages of the Starship Enterprise today still wanted by the government they survive as soldiers of fortune would not you like to get away sometimes you want to go where everybody knows your name.
-
-                                            Then one day he was shooting at some food and up through the ground came a bubbling crude oil that is so lets make the most of this beautiful together space the final frontier.
-                                        </p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 img-block">
-                                        <i><img src="{{ asset('img/welcome-1.jpg') }}" alt="Welcome" /></i>
-                                    </div>
-                                </div>
+                                @endfor
+                                
                             </div>
                             <!-- Controls -->
-                            <div class="wc-controls">
+                            <div class="wc-controls wc-controls-custom">
                                 <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
                                     <span></span>
                                 </a>
@@ -246,7 +227,6 @@
         <!-- Footer Section -->
         @include('partials.footer')
         <!-- Footer Section /- -->
-        
     </div>
 </body>
 

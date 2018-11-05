@@ -60,142 +60,63 @@
 
             <!-- Shop Items /- -->
             <div class="container-fluid no-padding shop-items-section">
-                <div class="container">
-                    <div class="row">
+                <div id="items-container" class="container">
+                    <div id="item-group" class="row">
+                        @foreach($items as $item)
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
+                            <a href="/shop/item/{{ $item->id }}">
                                 <div class="shop-item">
                                     <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
+                                        <img class="item-pic" src="{{ $item->poster }}" alt="{{ $item->title }}" title="{{ $item->title }}">
                                     </div>
 
                                     <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
+                                        <p class="item-description" href="#">{{ $item->title }}</p>
+                                        <p class="item-price">IDR {{ $item->price }}</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
+                    <div id="divider-40" class="padding-40"></div>
 
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
-                            <a href="shop/item">
-                                <div class="shop-item">
-                                    <div class="item-pic-frame">
-                                        <img class="item-pic" src="{{ asset('img/shop-item.gif') }}" alt="Bows by Lusy Wahyudi" title="Bows by Lusy Wahyudi">
-                                    </div>
-
-                                    <div class="item-details">
-                                        <p class="item-description" href="#">Bows</p>
-                                        <p class="item-price">Rp 399.000</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="padding-40"></div>
-
-                    <nav class="ow-pagination text-center">
+                    <nav id="items-pagination" class="ow-pagination text-center">
+                        @if ($items->lastPage() > 1)
                         <ul class="pagination">
-                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            <li class="{{ ($items->currentPage() == 1) ? ' disabled' : '' }}">
+                                <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                            </li>
+
+                            @for ($i = 1; $i <= $items->lastPage(); $i++)
+                            <?php
+                            $half_total_links = floor(4 / 2);
+                            $from = $items->currentPage() - $half_total_links;
+                            $to = $items->currentPage() + $half_total_links;
+
+                            if ($items->currentPage() < $half_total_links) {
+                                $to += $half_total_links - $items->currentPage();
+                            }
+                            if ($items->lastPage() - $items->currentPage() < $half_total_links) {
+                                $from -= $half_total_links - ($items->lastPage() - $items->currentPage() - 1);
+                            }
+                            ?>
+
+                                @if ($from < $i && $i < $to)
+                                <li class="{{ ($items->currentPage() == $i) ? ' active' : '' }}">
+                                    <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
+                                </li>
+                            @endif
+                            @endfor
+                            <li class="{{ $items->currentPage() == $items->lastPage() ? ' disabled' : '' }}">
+                                <a href="#menu-container" onClick="goToPage({{ $items->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                            </li>
                         </ul>
+                        @endif
                     </nav>
+
+                    <div id="divider-20" class="padding-20"></div>
                 </div>
             </div>
             <!-- End of Shop Items - /-->
@@ -218,8 +139,43 @@
     let subcategoryCount = 0;
     let submenuExist = false;
     let subCategoryChosen = false;
+    let loadedImageType = 'all';
+    let idTemp = 0;
+
+    function goToPage(pageNumber){
+         if(loadedImageType === 'all'){
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanImages();
+                    prepareImages(data);
+
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+         }
+         else {
+            $.ajax({
+                type: 'GET',
+                url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '/' + idTemp + '?page=' + pageNumber,
+                dataType: 'JSON',
+                success: function (data) {
+                    cleanImages();
+                    prepareImages(data);
+
+                    cleanPagination();
+                    preparePagination(data);
+                }
+            });
+         }
+    }
 
     function getAll(){
+        loadedImageType = 'all';
+
         removeCategoriesActiveClass();
 
         removeActiveClass('all-option');
@@ -230,11 +186,15 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/all',
+            url: 'https://' + window.location.hostname + '/shop/all?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanItems();
                 prepareItems(data);
+
+                cleanPagination();
+                preparePagination(data);
+                idTemp = 0;
             }
         });
 
@@ -268,7 +228,7 @@
                 return i;
             }
         }
-    return -1;
+        return -1;
     }
 
     function removeActiveClass(className){
@@ -318,18 +278,26 @@
     }
 
     function getCategoryItems(categoryId){
+        loadedImageType = 'category';
+
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '/items',
+            url: 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanItems();
                 prepareItems(data);
+
+                cleanPagination();
+                preparePagination(data);
+                idTemp = categoryId;
             }
         });
     }
 
     function getSubcategoryItems(subcategoryId, subcategoryListOrder) {
+        loadedImageType = 'subcategory';
+
         if(subCategoryChosen){
             removeSubcategoriesActiveClass();
         }
@@ -340,11 +308,15 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '/items',
+            url: 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-
+                cleanItems();
                 prepareItems(data);
+
+                cleanPagination();
+                preparePagination(data);
+                idTemp = subcategoryId;
             }
         });
     }
@@ -356,8 +328,129 @@
         subCategoryChosen = false;
     };
 
-    function prepareItems(data){
+    function cleanItems(){
+        var itemGroup = document.getElementById('item-group');
 
+        itemGroup.parentNode.removeChild(itemGroup);
+    }
+
+    function cleanPagination(){
+        var itemsPagination = document.getElementById('items-pagination');
+
+        itemsPagination.parentNode.removeChild(itemsPagination);
+    }
+
+    function prepareItems(array){
+        var parentOfDivider40 = document.getElementById('items-container');
+        var divider40 = document.getElementById('divider-40');
+        var itemGroup = document.createElement('div');
+        itemGroup.setAttribute('id', 'item-group');
+        itemGroup.setAttribute('class', 'row');
+
+        let itemGroupContent = '';
+
+        array.data.forEach(function(item){
+            itemGroupContent = itemGroupContent + 
+            '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">' +
+            '   <a href="/shop/item/' + item.id + '">' +
+            '       <div class="shop-item">' + 
+            '          <div class="item-pic-frame">' + 
+            '               <img class="item-pic" src="' + item.poster + '" alt="' + item.title + '" title="' + item.title + '">' +
+            '          </div>' + 
+            '          <div class="item-details">' +
+            '              <p class="item-description" href="/shop/item/' + item.id + '">' + 
+            '                  ' + item.title + 
+            '              </p>' +
+            '              <p class="item-price">IDR ' + item.price + '</p>' +
+            '          </div>' +
+            '       </div>' +
+            '   </a>' +
+            '</div>'
+        }, itemGroupContent);
+
+        itemGroup.innerHTML = itemGroupContent;
+        setTimeout(function(){
+            parentOfDivider40.insertBefore(itemGroup, divider40);
+        }, 100);
+    }
+
+    function preparePagination(data){
+        var parentOfDivider20 = document.getElementById('items-container');
+        var divider20 = document.getElementById('divider-20');
+        var paginationContainer = document.createElement('nav');
+        paginationContainer.setAttribute('id', 'items-pagination');
+        paginationContainer.setAttribute('class', 'ow-pagination text-center');
+
+        let paginationContent = '';
+
+        if(data.last_page !== 1){
+            paginationContent = paginationContent + 
+            '<ul class="pagination">';
+
+            if(data.current_page == 1) {
+                paginationContent = paginationContent + 
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
+            }
+
+            paginationContent = paginationContent + 
+            '       <a href="#menu-container" onClick="goToPage(1)">' +
+            '           <i class="fa fa-angle-double-left"></i>' +
+            '       </a>' + 
+            '   </li>';
+
+            for(let i = 1; i <= data.last_page; i++){
+                const halfTotalLinks = Math.floor(4/2);
+                let from = data.current_page - halfTotalLinks;
+                let to = data.current_page + halfTotalLinks;
+
+                if (data.current_page < halfTotalLinks) {
+                    to += halfTotalLinks - data.current_page;
+                };
+
+                if (data.last_page - data.current_page < halfTotalLinks) {
+                    from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+                };
+
+                if (from < i && i < to) {
+                    if (data.current_page == i) {
+                        paginationContent = paginationContent + 
+                        '<li class="active">';
+                    }
+                    else {
+                        paginationContent = paginationContent + 
+                        '<li>';
+                    }
+
+
+                    paginationContent = paginationContent + 
+                    '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                    '</li>';
+                }
+            }
+
+            if(data.current_page == data.last_page) {
+                paginationContent = paginationContent + 
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
+            }
+
+            paginationContent = paginationContent + 
+            '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
+            '           <i class="fa fa-angle-double-right"></i>' + 
+            '       </a>' + 
+            '   </li>' + 
+            '</ul>';
+        }
+
+        paginationContainer.innerHTML = paginationContent;
+        setTimeout(function(){
+            parentOfDivider20.insertBefore(paginationContainer, divider20);
+        }, 100);
     }
 </script>
 @endpush
