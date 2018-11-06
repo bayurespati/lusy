@@ -4,6 +4,14 @@
 <title>Lusy Wahyudi - About</title>
 @endpush
 
+@push('additional_css')
+<style>
+    .onview-section::before {
+        background-color: unset;
+    }
+</style>
+@endpush
+
 @section('content')
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
@@ -61,12 +69,14 @@
             <!-- About Us Section /- -->
             
             <!-- Portfolio Section -->
-            <div class="container-fluid no-padding onview-section">
-                <h1>PORTFOLIO SECTION</h1>
-            </div><!-- Portfolio Section /- -->
+            <div class="container-fluid no-padding onview-section" style="background-color: unset;">
+                <img src="{{ asset('img/portofolio-temp.png') }}" alt="" style="width: 100%">
+            </div>
+            <!-- Portfolio Section /- -->
             
 
             <!-- Gallery Showcase Section -->
+            @if(count($showedImage) > 0) 
             <div class="container-fluid no-padding portfolio-section">
                 <!-- Container -->
                 <div class="container">
@@ -100,6 +110,7 @@
                     @endforeach
                 </div>
             </div>
+            @endif
             <!-- Gallery Showcase Section /- -->
 
               <!-- Shop Showcase Section -->

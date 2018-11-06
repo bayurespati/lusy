@@ -12,6 +12,10 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
+
+    .onview-section::before {
+        background-color: unset;
+    }
 </style>
 @endpush
 
@@ -44,7 +48,7 @@
                                 @for ($i = 0; $i < count($imageSlider); $i++)                        
                                 <li data-transition="zoomout" data-slotamount="default"  data-easein="easeInOut" data-easeout="easeInOut" data-masterspeed="2000" data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7">
                                     <!-- MAIN IMAGE -->
-                                    <img src="{{ $imageSlider[$i]->image_show }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+                                    <img src="{{ $imageSlider[$i]->image_ori }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
                                 </li>
                                 @endfor
                             @else
@@ -89,8 +93,8 @@
             <!-- About Us Section /- -->
             
             <!-- Portfolio Section -->
-            <div class="container-fluid no-padding onview-section">
-                <h1>PORTFOLIO SECTION</h1>
+            <div class="container-fluid no-padding onview-section" style="background-color: unset;">
+                <img src="{{ asset('img/portofolio-temp.png') }}" alt="" style="width: 100%">
             </div>
             <!-- Portfolio Section /- -->
             
@@ -133,6 +137,7 @@
             <!-- Upcoming Events Section /- -->
 
             <!-- Gallery Showcase Section -->
+            @if(count($showedImage) > 0)
             <div class="container-fluid no-padding portfolio-section">
                 <!-- Container -->
                 <div class="container">
@@ -150,6 +155,7 @@
                     
                 </div><!-- Container /- -->
                 <div class="portfolio-list">
+                     
                     @foreach($showedImage as $image)
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
                             <a href="{{ $image->image_path }}">
@@ -164,8 +170,10 @@
                             </a>
                         </div>
                     @endforeach
+                    
                 </div>
             </div>
+            @endif
             <!-- Gallery Showcase Section /- -->
 
             <!-- Shop Showcase Section -->

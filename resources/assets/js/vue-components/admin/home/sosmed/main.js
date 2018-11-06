@@ -1,5 +1,6 @@
 import Sosmed from './components/Sosmed.vue';
 import Flash from './../../../global/Flash.vue';
+import SideBar from './../../../global/Sidebar.vue';
 import {store} from './store';
 
 const admin = new Vue({
@@ -7,7 +8,8 @@ const admin = new Vue({
 
     components: {
         Sosmed,
-        Flash
+        Flash,
+        SideBar
     },
 
     mounted(){

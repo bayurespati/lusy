@@ -47,7 +47,7 @@ Route::get('/', function () {
         $showedImage = $showcasedImage;
     }
     else {
-        $showedImage = [''];
+        $showedImage = $showcasedImage;
     }
 
     $showcasedEvents = Event::orderBy('end_date', 'DESC')->paginate(2);
@@ -108,7 +108,7 @@ Route::group([
             $showedImage = $showcasedImage;
         }
         else {
-            $showedImage = [''];
+            $showedImage = $showcasedImage;
         }
 
 		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage'));
@@ -334,7 +334,7 @@ Route::group([
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
-            : $event->poster()->get()[0]->image_path;
+            : $item->poster()->get()[0]->image_path;
 
             $item->price = number_format($item->price, 2, ",", ".");
         }
@@ -360,7 +360,7 @@ Route::group([
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
-            : $event->poster()->get()[0]->image_path;
+            : $item->poster()->get()[0]->image_path;
 
             $item->price = number_format($item->price, 2, ",", ".");
 
@@ -375,7 +375,7 @@ Route::group([
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
-            : $event->poster()->get()[0]->image_path;
+            : $item->poster()->get()[0]->image_path;
 
             $item->price = number_format($item->price, 2, ",", ".");
         }
@@ -389,7 +389,7 @@ Route::group([
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
-            : $event->poster()->get()[0]->image_path;
+            : $item->poster()->get()[0]->image_path;
 
             $item->price = number_format($item->price, 2, ",", ".");
         }
