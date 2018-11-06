@@ -29,7 +29,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <a href="{{ route('home') }}"><h3>Lusy Wahyudi</h3></a>
+                <a href="{{ route('home') }}"><h3 class="text-center">Lusy Wahyudi</h3></a>
             </div>
 
             <ul class="list-unstyled components">
@@ -37,7 +37,7 @@
                     <a class="{{ request()->is('admin/home/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}"
                     href="#homeSubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false">Home</a>
+                    aria-expanded="{{ request()->is('admin/home/*') ? 'true' : 'false' }}">Home</a>
                     <ul class="{{ request()->is('admin/home/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                     id="homeSubmenu">
                         <li>
@@ -54,7 +54,7 @@
                     <a href="#aboutSubmenu" 
                     class="{{ request()->is('admin/about/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}"
                     data-toggle="collapse" 
-                    aria-expanded="false">About</a>
+                    aria-expanded="{{ request()->is('admin/about/*') ? 'true' : 'false' }}">About</a>
                     <ul class="{{ request()->is('admin/about/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                     id="aboutSubmenu">
                         <li>
@@ -75,7 +75,7 @@
                     <a 
                     href="#galerySubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false" 
+                    aria-expanded="{{ request()->is('admin/gallery/*') ? 'true' : 'false' }}" 
                     class="{{ request()->is('admin/gallery/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}">Gallery</a>
                     <ul class="{{ request()->is('admin/gallery/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="galerySubmenu">
@@ -97,7 +97,7 @@
                     class="{{ request()->is('admin/event/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}" 
                     href="#eventSubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false">Event & Activities</a>
+                    aria-expanded="{{ request()->is('admin/event/*') ? 'true' : 'false' }}">Event & Activities</a>
                     <ul class="{{ request()->is('admin/event/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="eventSubmenu">
                         <li>
@@ -118,7 +118,7 @@
                     class="{{ request()->is('admin/shop/*') ? 'active-forced dropdown-toggle' : 'dropdown-toggle' }}" 
                     href="#shopSubmenu" 
                     data-toggle="collapse" 
-                    aria-expanded="false">Shop</a>
+                    aria-expanded="{{ request()->is('admin/shop/*') ? 'true' : 'false' }}">Shop</a>
                     <ul class="{{ request()->is('admin/shop/*') ? 'collapse list-unstyled show' : 'collapse list-unstyled' }}"
                      id="shopSubmenu">
                         <li>
@@ -158,7 +158,7 @@
         <!-- Page Content  -->
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">

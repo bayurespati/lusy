@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-	<div id="categories">
+	<div id="categories" class="container">
 		<h3>Shop's Categories Master</h3>
 
 		<p class="m-0">

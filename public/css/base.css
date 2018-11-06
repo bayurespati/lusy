@@ -10483,6 +10483,50 @@ a.article:hover {
     background: #fff !important;
     color: #6d7fcc !important;
 }
+
+a.active-forced.dropdown-toggle {
+    color: #fff !important;
+    background:  #6d7fcc !important;
+}
+
+a.active-forced.dropdown-toggle[aria-expanded="false"] {
+    background: #fff !important;
+    color: #6d7fcc !important;
+}
+
+a.active-forced.dropdown-toggle a[aria-expanded="true"] {
+    background: inherit !important;
+}
+
+#sidebar ul li.active>a, a[aria-expanded="true"] {
+    background: inherit;
+}
+
+#sidebar .sidebar-header {
+    color: #6d7fcc;
+    background: white;
+}
+
+#content {
+    background: #f8f8ff;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+    color: #fff !important;
+}
+
+.btn-primary {
+    background: #4592e4 !important;
+    border-color: #4592e4 !important: 
+}
+
+.btn-primary:hover {
+    background: #327bc7 !important;
+    border-color: #327bc7 !important;
+}
 /*
 	[Table of contents]
 
