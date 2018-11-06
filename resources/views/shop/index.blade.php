@@ -33,6 +33,7 @@
             </div>
             <!-- Page Banner /- -->
 
+            @if(count($items) > 0)
             <div id="menu-container" class="container" style="padding-top: 150px">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
@@ -120,6 +121,13 @@
                 </div>
             </div>
             <!-- End of Shop Items - /-->
+            @else
+            <div class="section-padding"></div>
+            <h3 class="text-center" style="color: lightgrey">
+                *getting our items ready (wait for it!)*
+            </h3>
+            <div class="section-padding"></div>
+            @endif
 
         </main>
 

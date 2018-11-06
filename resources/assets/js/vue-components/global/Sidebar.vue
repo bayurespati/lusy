@@ -8,14 +8,14 @@
 	        <li v-for="menu in menus">
 	            <a 	:href="'#' + menu.id" 
 	            	data-toggle="collapse" 
-	            	aria-expanded="false" 
-	            	:class= "{ 'active-forced': menuName === menu.name }"
+	            	:aria-expanded="{ 'true' : menuName === menu.id } "
+	            	:class= "{ 'active-forced': menuName === menu.id }"
 	            	class="dropdown-toggle">
 	            	{{ menu.name }}
 	        	</a>
 	            <ul :id="menu.id" 
 	            	class="collapse list-unstyled" 
-	            	:class= "{ 'show': menuName === menu.name }">
+	            	:class= "{ 'show': menuName === menu.id }">
 	                <li v-for="submenu in menu.subMenu">
 	                    <a @click="goTo(submenu.link)"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
@@ -36,7 +36,7 @@
 				test: true,
 				menus:[
 					{	
-						id: 'Home',
+						id: 'home',
 						name: 'Home',
 						subMenu:[ 
 							{ name: 'Sosial Media', link: 'home/sosmed' },
@@ -44,7 +44,7 @@
 						]
 					},
 					{
-						id: 'About',
+						id: 'about',
 						name: 'About',
 						subMenu:[
 							{ name: 'Gallery', link: 'about/gallery' },
@@ -53,16 +53,16 @@
 						]
 					},
 					{
-						id: 'Gallery',
+						id: 'gallery',
 						name: 'Gallery',
 						subMenu:[
-							{ name:'Category', link: 'event/category' },
-							{ name:'Sub Category', link: 'event/subcategory' },
-							{ name:'Photo List', link: 'event/list' },
+							{ name:'Category', link: 'gallery/category' },
+							{ name:'Sub Category', link: 'gallery/subcategory' },
+							{ name:'Photo List', link: 'gallery/list' },
 						]
 					},
 					{
-						id: "Event",
+						id: "event",
 						name: 'Event & Activity List',
 						subMenu:[
 							{ name:'Category', link: 'event/category' },
@@ -71,7 +71,7 @@
 						]
 					},
 					{
-						id: 'Shop',
+						id: 'shop',
 						name: 'Shop',
 						subMenu:[
 							{ name:'Category', link: 'shop/category' },
@@ -80,7 +80,7 @@
 						]
 					},
 					{	
-						id: 'Bookeeping',
+						id: 'bookeeping',
 						name: 'Bookeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
@@ -101,7 +101,7 @@
 			setName(){
 				let link = window.location.pathname.split('/');
 
-				this.menuName = link[2].charAt(0).toUpperCase() + link[2].slice(1);
+				this.menuName = link[2];
 				this.subMenuName = link[2]+'/'+link[3];
 			},
 

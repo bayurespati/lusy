@@ -7,15 +7,16 @@
 @push('additional_css')
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
 @endpush
+
 @section('content')
 <div class="wrapper" id="sosmed">
 
 	<!-- SIDE BAR  -->
 	<side-bar></side-bar>
-	
+
 	<!-- Page Content  -->
     <div id="content">
-
+        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
 

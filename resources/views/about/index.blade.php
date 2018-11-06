@@ -76,7 +76,8 @@
             
 
             <!-- Gallery Showcase Section -->
-            @if(count($showedImage) > 0) 
+            @if(count($showedImage) > 0)
+
             <div class="container-fluid no-padding portfolio-section">
                 <!-- Container -->
                 <div class="container">
@@ -113,7 +114,8 @@
             @endif
             <!-- Gallery Showcase Section /- -->
 
-              <!-- Shop Showcase Section -->
+            <!-- Classes Showcase Section -->
+            @if(count($classes) > 0)
             <div class="container-fluid no-padding welcome-section">
                 <!-- Container -->
                 <div class="container">
@@ -165,7 +167,8 @@
                 </div>
                 <!-- Container /- -->
             </div>
-            <!-- Shop Showcase Section /- -->
+            @endif
+            <!-- Classes Showcase Section /- -->
 
         </main>
 

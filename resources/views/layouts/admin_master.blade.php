@@ -18,11 +18,8 @@
 </head>
 
 <body>
-    <!-- <div class="wrapper"> -->
-        <!-- Sidebar  -->
-        @yield('content')
-    <!-- </div> -->
-
+    
+    @yield('content')
 
     <script src="{{ asset('js/app.js') }}"></script>
 

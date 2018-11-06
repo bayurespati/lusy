@@ -1,4 +1,5 @@
 import Categories from './../../../global/categories/Categories.vue';
+import SideBar from './../../../global/Sidebar.vue';
 import Flash from './../../../global/Flash.vue';
 import {store} from './store';
 
@@ -7,6 +8,7 @@ const admin = new Vue({
 
     components: {
         Categories,
+        SideBar,
         Flash
     },
 

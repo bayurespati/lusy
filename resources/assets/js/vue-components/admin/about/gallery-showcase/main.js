@@ -1,5 +1,6 @@
 import Gallery from './components/Gallery.vue';
 import Flash from './../../../global/Flash.vue';
+import SideBar from './../../../global/Sidebar.vue';
 import {store} from './store';
 
 const admin = new Vue({
@@ -7,6 +8,7 @@ const admin = new Vue({
 
     components: {
         Gallery,
+        SideBar,
         Flash
     },
 
