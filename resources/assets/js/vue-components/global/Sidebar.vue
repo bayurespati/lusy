@@ -11,7 +11,7 @@
 	            	:aria-expanded="{ 'true' : menuName === menu.id } "
 	            	:class= "{ 'active-forced': menuName === menu.id }"
 	            	class="dropdown-toggle">
-	            	{{ menu.name }}
+		        	{{ menu.name }}
 	        	</a>
 	            <ul :id="menu.id" 
 	            	class="collapse list-unstyled" 
@@ -19,7 +19,13 @@
 	                <li v-for="submenu in menu.subMenu">
 	                    <a @click="goTo(submenu.link)"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
-	                   {{ submenu.name }}</a>
+	                   	   {{ submenu.name }} 
+	                   	   <span style="color: red" v-if="potentialTotal > 0">
+	                   	   	{{ 
+	                   	   		submenu.link === 'bookeeping/potential' ? potentialTotal : ''
+	                   	   	}}
+	                   	   </span>
+	               		</a>
 	                </li>
 	            </ul>
 	        </li>
@@ -27,10 +33,12 @@
 	</nav>
 </template>
 <script>
+	import {mapGetters} from 'vuex';
 	export default{
 
 		data(){
 			return{
+				potentials: '',
 				menuName: '',
 				subMenuName: '',
 				test: true,
@@ -84,9 +92,9 @@
 						name: 'Bookeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
-							{ name:'Overseas Inquiry List', link: '#' },
 							{ name:'Applicant List', link: '#' },
-							{ name:'Potential Overseas Inquiry List', link: '#' }
+							{ name:'Overseas Inquiry List', link: 'bookeeping/overseas' },
+							{ name:'Potential Overseas Inquiry List', link: 'bookeeping/potential' }
 						]
 					}
 				],
@@ -95,9 +103,27 @@
 
 		mounted(){
 			this.setName();
+			this.getPotential();
+		},
+
+		computed:{
+			potentialTotal(){
+				if(this.$store.getters.getPotentialItems === undefined){
+					return this.potentials.length
+				}else{
+					return this.$store.getters.getPotentialItems.length
+				}
+			},
 		},
 
 		methods:{
+ 			getPotential(){
+ 				axios.get('/admin/bookeeping/data/potential')
+                .then(response =>{
+                    this.potentials = response.data;
+                });
+			},
+
 			setName(){
 				let link = window.location.pathname.split('/');
 

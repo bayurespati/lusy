@@ -23,9 +23,8 @@ class CreateShopInquiriesTable extends Migration
             $table->string('city');
             $table->string('state_province');
             $table->string('postal_code');
-            $table->text('notes');
-            $table->integer('stock');
-            $table->date('date');
+            $table->text('notes')->nullable();
+            $table->integer('quantity');
             $table->boolean('is_confirmed');
             $table->timestamps();
 

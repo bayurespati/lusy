@@ -111,7 +111,11 @@
                                 </p>
 
                                 <div>
-                                    <button class="general-btn transitioned-btn">Overseas Inquiry</button>
+                                    <button 
+                                            class="general-btn transitioned-btn" 
+                                            type="button" 
+                                            data-toggle="modal"
+                                            data-target="#overseas">Overseas Inquiry</button>
                                     <button class="general-btn transitioned-btn ml-2">Buy Now</button>
                                 </div>
                             </div>
@@ -126,6 +130,78 @@
         <!-- Footer Section -->
         @include('partials.footer')
         <!-- Footer Section /- -->
+
+        <!-- Modal -->
+    <div class="modal fade" 
+         id="overseas" 
+         tabindex="-1" 
+         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Overseas Iquiry</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/event/update/overseas/{{$shopItem->id}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                  <div class="form-group form-control-sm">
+                    <!-- <label for="buyer_name">Name</label> -->
+                    <input type="text" class="form-control" 
+                           name="buyer_name" id="buyer_name" placeholder="Name" minlength="2" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                    <!-- <label for="gender">Gender</label> -->
+                    <select class="form-control" name="gender" id="gender" required>
+                        <option value="1">Man</option>
+                        <option value="0">Women</option>
+                    </select>
+                  </div>
+                  <div class="form-group form-control-sm">
+                    <!-- <label for="address">Address</label> -->
+                    <input type="text" class="form-control" 
+                           name="address" id="address" placeholder="Address" minlength="10" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="email">Email</label> -->
+                      <input type="email" class="form-control" 
+                             name="email" id="email" placeholder="Email" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="city">City</label> -->
+                      <input type="text" class="form-control" 
+                             name="city" id="city" placeholder="City" minlength="2" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="state_province">State province</label> -->
+                      <input type="text" class="form-control" 
+                             name="state_province" id="state_province" 
+                             placeholder="State Province" minlength="2" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="postal_code">Postal Code</label> -->
+                      <input type="number" class="form-control" 
+                             name="postal_code" id="postal_code" placeholder="Postal code" required>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="note">Notes</label> -->
+                      <textarea class="form-control" 
+                                name="notes" id="notes" placeholder="notes"></textarea>
+                  </div>
+                  <div class="form-group form-control-sm">
+                      <!-- <label for="stock">Quantity</label> -->
+                      <input type="number" class="form-control" 
+                             name="quantity" id="quantity" placeholder="quantity" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-warning" data-dismiss="modal">close</button>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
         
     </div>
 </body>

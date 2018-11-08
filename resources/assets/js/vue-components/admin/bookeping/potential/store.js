@@ -7,7 +7,7 @@ export const store = new Vuex.Store({
     //  S T A T E
     //=========================================================================================
     state: {
-        sosmeds:{},
+        potentials:{},
     },
 
 
@@ -15,8 +15,8 @@ export const store = new Vuex.Store({
     //  G E T T E R S
     //=========================================================================================
     getters: {
-        getSosmed: state => {
-            return state.sosmeds;
+        getPotentialItems: state => {
+            return state.potentials;
         },
     },
 
@@ -24,43 +24,42 @@ export const store = new Vuex.Store({
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_sosmed: (state,sosmeds) =>{
-            state.sosmeds = sosmeds;
+        set_items: (state, items) =>{
+            state.potentials = items;
         },
 
-        edit_sosmed(state, updatedSosmed) {
+        delete_potential(state, ids){
 
-            const sosmedIndex = helpers.getIndexOfSosmed(updatedSosmed.id);
+            const potentialIndex = helpers.getIndexOfPotensial(ids.id);
 
-            state.sosmeds[sosmedIndex].is_active = updatedSosmed.is_active;
-            state.sosmeds[sosmedIndex].link = updatedSosmed.link;
+            state.potentials.splice(potentialIndex, 1);
         },
+
     },
 
     //=========================================================================================
     //  A C T I O N S
     //=========================================================================================
     actions: {
-        load_sosmed: ({commit}) => {
-            axios.get('/admin/data/sosmed')
+        load_items: ({commit}) => {
+            axios.get('/admin/bookeeping/data/potential')
                 .then(response =>{
-                    commit('set_sosmed',response.data);
+                    commit('set_items',response.data);
                 });
         },
 
-        update_sosmed({commit}, updatedSosmed) {
+        update_potential({commit}, updatedItem) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('/admin/home/edit/sosmed/' + updatedSosmed.id, {
-                    id: updatedSosmed.id,
-                    is_active: updatedSosmed.is_active,
-                    link: updatedSosmed.link                
+                axios.patch('update/potensial/' + updatedItem.id, {
+                    id: updatedItem.id,
+                    is_confirmed: updatedItem.is_confirmed,
                 })
                     .then(response => {
-                        commit('edit_sosmed', updatedSosmed);
+                        commit('delete_potential', updatedItem);
 
-                        resolve(updatedSosmed);
+                        resolve(updatedItem);
                     })
                     .catch(errors => {
                         reject(errors.response.data);

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 301);
+/******/ 	return __webpack_require__(__webpack_require__.s = 307);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -476,6 +476,13 @@ exports.push([module.i, "\na[data-v-16f575a0]{\n\tcursor: pointer;\n}\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -505,9 +512,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			potentials: '',
 			menuName: '',
 			subMenuName: '',
 			test: true,
@@ -534,16 +543,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookeeping',
 				name: 'Bookeeping',
-				subMenu: [{ name: 'Member', link: '#' }, { name: 'Overseas Inquiry List', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Potential Overseas Inquiry List', link: '#' }]
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: 'bookeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: 'bookeeping/potential' }]
 			}]
 		};
 	},
 	mounted: function mounted() {
 		this.setName();
+		this.getPotential();
 	},
 
 
+	computed: {
+		potentialTotal: function potentialTotal() {
+			if (this.$store.getters.getPotentialItems === undefined) {
+				return this.potentials.length;
+			} else {
+				return this.$store.getters.getPotentialItems.length;
+			}
+		}
+	},
+
 	methods: {
+		getPotential: function getPotential() {
+			var _this = this;
+
+			axios.get('/admin/bookeeping/data/potential').then(function (response) {
+				_this.potentials = response.data;
+			});
+		},
 		setName: function setName() {
 			var link = window.location.pathname.split('/');
 
@@ -584,7 +611,7 @@ var render = function() {
                 "aria-expanded": { true: _vm.menuName === menu.id }
               }
             },
-            [_vm._v("\n            \t" + _vm._s(menu.name) + "\n        \t")]
+            [_vm._v("\n\t        \t" + _vm._s(menu.name) + "\n        \t")]
           ),
           _vm._v(" "),
           _c(
@@ -608,7 +635,26 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n                   " + _vm._s(submenu.name))]
+                  [
+                    _vm._v(
+                      "\n                   \t   " +
+                        _vm._s(submenu.name) +
+                        " \n                   \t   "
+                    ),
+                    _vm.potentialTotal > 0
+                      ? _c("span", { staticStyle: { color: "red" } }, [
+                          _vm._v(
+                            "\n                   \t   \t" +
+                              _vm._s(
+                                submenu.link === "bookeeping/potential"
+                                  ? _vm.potentialTotal
+                                  : ""
+                              ) +
+                              "\n                   \t   "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
                 )
               ])
             })
@@ -2136,15 +2182,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 301:
+/***/ 307:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(302);
+module.exports = __webpack_require__(308);
 
 
 /***/ }),
 
-/***/ 302:
+/***/ 308:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2155,7 +2201,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(96);
 
 
 
@@ -2180,11 +2226,11 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 303:
+/***/ 309:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(96);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -3252,13 +3298,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 91:
+/***/ 96:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(309);
 
 
 
