@@ -245,4 +245,8 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/bookeping/potential/main.js',
 ], 'public/js/admin/bookeping/potential.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookeping/message/main.js',
+], 'public/js/admin/bookeping/message.js');
+
 

@@ -145,7 +145,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form action="/event/update/overseas/{{$shopItem->id}}" method="post" enctype="multipart/form-data">
+                <form action="/shop/update/overseas/{{$shopItem->id}}" method="post" enctype="multipart/form-data">
                     @csrf
                   <div class="form-group form-control-sm">
                     <!-- <label for="buyer_name">Name</label> -->

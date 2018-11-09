@@ -16,6 +16,7 @@
     "/js/admin/about/profile.js": "/js/admin/about/profile.js",
     "/js/admin/sosmed.js": "/js/admin/sosmed.js",
     "/js/admin/bookeping/potential.js": "/js/admin/bookeping/potential.js",
+    "/js/admin/bookeping/message.js": "/js/admin/bookeping/message.js",
     "/js/admin/bookeping/overseas.js": "/js/admin/bookeping/overseas.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
     "/css/admin.css": "/css/admin.css",

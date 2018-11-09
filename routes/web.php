@@ -1,4 +1,5 @@
     <?php
+use App\ContactMessage;
 use App\ShopInquiry;
 use App\Sosmed;
 use App\imageSlider;
@@ -25,34 +26,17 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-Route::post('mail',function(Request $request){
+Route::post('contact_message',function(Request $request){
 
-    // dd(
-    //     $request->contact_fname,
-    //     $request->contact_lname,
-    //     $request->contact_phone,
-    //     $request->contact_email
-    // );
-    $mailTo = 'respatibayu48@gmail.com';
-    $email_subject = 'Message form';
+    $contact_message = new ContactMessage;
 
-    $msg = "First Name: ".$request->contact_fname."\r\n";   
-    $msg .= "Last Name: ".$request->contact_lname."\r\n";   
-    $msg .= "Email: ".$request->contact_mail."\r\n";
-    $msg .= "Phone: ".$request->contact_phone."\r\n";
-    $msg .= "Message: ".$request->contact_message."\r\n";
+    $contact_message->name = $request->contact_fname .' '. $request->contact_lname;
+    $contact_message->phone = $request->contact_phone;
+    $contact_message->email = $request->contact_email;
+    $contact_message->message = $request->contact_message;
+    $contact_message->is_replay = false;
 
-
-    // @mail($mailTo, $_POST['contact-email'], $msg, 'From: ' . $_POST['contact-name'] . '<' . $_POST['contact-email'] . '>');
-
-    $headers = 'From: '.$request->contact_mail."\r\n".
-               'Reply-To: '.$request->contact_mail."\r\n" .
-               'X-Mailer: PHP/' . phpversion();
-
-    $success = @mail($mailTo, $email_subject, $msg, $headers);
-
-
-    // $success = @mail($mailTo, $request->contact_email, $msg, 'From: ' . $request->contact_name . '<'.$request->contact_email.'>');
+    $contact_message->save();
 
     return back();
 });
@@ -326,27 +310,6 @@ Route::group([
 
         return view('event.single', compact('sosmed', 'event'));
     });
-
-    Route::post('/update/overseas/{shopitem}', function(Request $request, ShopItem $shopitem){
-
-        $shopInquiry = new ShopInquiry;
-
-        $shopInquiry->shop_item_id = $shopitem->id;
-        $shopInquiry->buyer_name = $request->buyer_name;
-        $shopInquiry->gender = $request->gender;
-        $shopInquiry->email = $request->email;
-        $shopInquiry->address = $request->address;
-        $shopInquiry->city = $request->city;
-        $shopInquiry->state_province = $request->state_province;
-        $shopInquiry->postal_code = $request->postal_code;
-        $shopInquiry->notes = $request->notes;
-        $shopInquiry->quantity = $request->quantity;
-        $shopInquiry->is_confirmed = 0;
-
-        $shopInquiry->save();
-
-        return back();
-    });
 });
 
 
@@ -434,6 +397,27 @@ Route::group([
         }
 
         return $items;
+    });
+
+    Route::post('/update/overseas/{shopitem}', function(Request $request, ShopItem $shopitem){
+
+        $shopInquiry = new ShopInquiry;
+
+        $shopInquiry->shop_item_id = $shopitem->id;
+        $shopInquiry->buyer_name = $request->buyer_name;
+        $shopInquiry->gender = $request->gender;
+        $shopInquiry->email = $request->email;
+        $shopInquiry->address = $request->address;
+        $shopInquiry->city = $request->city;
+        $shopInquiry->state_province = $request->state_province;
+        $shopInquiry->postal_code = $request->postal_code;
+        $shopInquiry->notes = $request->notes;
+        $shopInquiry->quantity = $request->quantity;
+        $shopInquiry->is_confirmed = 0;
+
+        $shopInquiry->save();
+
+        return back();
     });
 
 });
@@ -753,6 +737,17 @@ Route::group([
         Route::get('/potential', 'OverseasController@potential')->name('admin.bookeeping.potensial');
         Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
         Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G    M E S S A G E
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/message', 'MessageController@index')->name('admin.bookeeping.potensial');
+        Route::get('/data/message', 'MessageController@loadMessage');
+        Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
 
     });
 });

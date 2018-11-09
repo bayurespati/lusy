@@ -20,9 +20,14 @@
 	                    <a @click="goTo(submenu.link)"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
 	                   	   {{ submenu.name }} 
-	                   	   <span style="color: red" v-if="potentialTotal > 0">
+	                   	   <span style="color: red" v-if="potentialTotal > 0 && submenu.link === 'bookeeping/potential' ">
 	                   	   	{{ 
-	                   	   		submenu.link === 'bookeeping/potential' ? potentialTotal : ''
+	                   	   		potentialTotal 
+	                   	   	}}
+	                   	   </span>
+	                   	   <span style="color: red" v-if="messageTotal > 0 && submenu.link === 'bookeeping/message' ">
+	                   	   	{{
+	                   	   		messageTotal
 	                   	   	}}
 	                   	   </span>
 	               		</a>
@@ -39,9 +44,10 @@
 		data(){
 			return{
 				potentials: '',
+				message: '',
 				menuName: '',
 				subMenuName: '',
-				test: true,
+
 				menus:[
 					{	
 						id: 'home',
@@ -94,7 +100,8 @@
 							{ name:'Member', link: '#' },
 							{ name:'Applicant List', link: '#' },
 							{ name:'Overseas Inquiry List', link: 'bookeeping/overseas' },
-							{ name:'Potential Overseas Inquiry List', link: 'bookeeping/potential' }
+							{ name:'Potential Overseas Inquiry List', link: 'bookeeping/potential' },
+							{ name:'Message', link: 'bookeeping/message' }
 						]
 					}
 				],
@@ -104,6 +111,7 @@
 		mounted(){
 			this.setName();
 			this.getPotential();
+			this.getMessage();
 		},
 
 		computed:{
@@ -114,6 +122,14 @@
 					return this.$store.getters.getPotentialItems.length
 				}
 			},
+
+			messageTotal(){
+				if(this.$store.getters.getMessageItems === undefined){
+					return this.message.length
+				}else{
+					return this.$store.getters.getMessageItems.length;
+				}
+			}
 		},
 
 		methods:{
@@ -121,6 +137,13 @@
  				axios.get('/admin/bookeeping/data/potential')
                 .then(response =>{
                     this.potentials = response.data;
+                });
+			},
+
+			getMessage(){
+				axios.get('/admin/bookeeping/data/message')
+                .then(response =>{
+                    this.message = response.data;
                 });
 			},
 
