@@ -10,21 +10,27 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ shop.title }}</p>
-                        </div>
+                    <div class="col-md-4 col-xs-12 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            
+                            <div class="detail">
+                                <p class="mb-0">{{ shop.title }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                          S T O C K
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Stock</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ shop.stock }}</p>
+                    <div class="col-md-2 col-xs-12 d-flex align-items-center justify-content-center">
+                        <div class="col-12 text-center">
+                            <p class="small text-uppercase mb-0"><strong>Stock</strong></p>
+                            
+                            <div class="detail">
+                                <p class="mb-0">{{ shop.stock }}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -32,10 +38,13 @@
                     <!--=========================================================================================
                         P R I C E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Price</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ shop.price }}</p>
+                    <div class="col-md-3 col-xs-12 d-flex align-items-center justify-content-center">
+                        <div class="col-12 text-center">
+                            <p class="small text-uppercase mb-0"><strong>Price</strong></p>
+                            
+                            <div class="detail">
+                                <p class="mb-0">{{ shop.price }}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -43,16 +52,24 @@
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col-md-4 d-flex align-items-center justify-content-around">
-                        <button type="button" 
-                                class="btn btn-sm btn-warning"
-                                @click="isEditingShop = !isEditingShop">EDIT</button>               
-                        <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="deleteTheShop">DELETE</button>
+                    <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-primary"
-                                @click="goTo">Image List</button>
+                                @click="goTo">
+                            <i class="fa fa-image"></i>
+                        </button>
+
+                        <button type="button" 
+                                class="btn btn-sm btn-warning ml-1"
+                                @click="isEditingShop = !isEditingShop">
+                            Ubah
+                        </button>               
+                        
+                        <button type="button" 
+                                class="btn btn-sm btn-danger ml-1"
+                                @click="deleteTheShop">
+                            Hapus
+                        </button>
                     </div>
 
 

@@ -3,7 +3,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">Tambah Gambar Shop</h3>
+                    <h3 class="text-center font-weight-bold mb-5">
+                        Tambah Gambar {{ itemName }}
+                    </h3>
                 </div>
 
                 <div class="row">
@@ -58,6 +60,11 @@
     import {Croppie} from 'croppie';
 
     export default{
+        props: {
+            itemName: {
+                type: String
+            }
+        },
         
         data: function () {
             return{

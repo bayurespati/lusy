@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-    <h1>SHOP</h1>
+    <h3>Shop's Item Master</h3>
+    <p class="mb-5">
+      Here you can manage Items shown in Shop page.
+    </p>
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddShop">
         <div class="row">
           <div class="col-12">
-            <button @click="isAddShop = !isAddShop" class="btn btn-primary">Tambah Shop</button>
+            <button @click="isAddShop = !isAddShop" class="btn btn-primary">Tambah Item</button>
           </div>
         </div>
       </template>
@@ -15,14 +18,13 @@
     </transition>
 
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
-              <shop-item
-                      v-for="shop in list"
-                      :shop="shop"
-                      :key="shop.id">
-              </shop-item>
-          </transition-group>
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <shop-item v-for="shop in list"
+          :shop="shop"
+          :key="shop.id">
+          </shop-item>
+        </transition-group>
       </div>
     </div>
   </div>

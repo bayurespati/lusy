@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Event;
 
 use App\EventImage;
+use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
@@ -11,7 +12,8 @@ class ImageController extends Controller
 {
         public function index($param)
     {
-        return view('admin.event.image',compact('param'));
+        $event = Event::find($param);
+        return view('admin.event.image',compact('event'));
     }
 
     public function loadImageList($param)

@@ -10,60 +10,77 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ event.title }}</p>
-                        </div>
+                    <div class="col-md-3 col-xs-12 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Judul</strong></p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ event.title }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                          S T A R T   D A T E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Start Date</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ event.start_date }}</p>
-                        </div>
+                    <div class="col-md-2 col-xs-12 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Waktu Mulai</strong></p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ event.start_date }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         E N D  D A T E
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>End Date</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ event.start_date }}</p>
-                        </div>
+                    <div class="col-md-2 col-xs-12 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Waktu Selesai</strong></p>
+                            <div class="detail">
+                                <p class="mb-0">{{ event.start_date }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         L O C A T I O N
                         =========================================================================================-->
-                    <div class="col col-xs-12">
-                        <p class="small text-uppercase mb-0"><strong>Location</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ event.location }}</p>
-                        </div>
+                    <div class="col-md-3 col-xs-12 d-flex align-items-center">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Lokasi</strong></p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ event.location }}</p>
+                            </div>
+                        </span>
                     </div>
 
 
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col-md-4 d-flex align-items-center justify-content-around">
-                        <button type="button" 
-                                class="btn btn-sm btn-warning"
-                                @click="isEditingEvent = !isEditingEvent">EDIT</button>               
-                        <button type="button" 
-                                class="btn btn-sm btn-danger"
-                                @click="deleteTheEvent">DELETE</button>
+                    <div class="col-md-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-primary"
-                                @click="goTo">Image List</button>
+                                @click="goTo">
+                            <i class="fa fa-image"></i>
+                        </button>
+                        <button type="button" 
+                                class="btn btn-sm btn-warning ml-1"
+                                @click="isEditingEvent = !isEditingEvent">
+                            Ubah
+                        </button>               
+                        <button type="button" 
+                                class="btn btn-sm btn-danger ml-1"
+                                @click="deleteTheEvent">
+                            Hapus
+                        </button>
                     </div>
 
 
@@ -138,12 +155,12 @@
     }
     
     .detail {
-        line-height: 30px !important;
         vertical-align: middle !important;
         padding: 0 !important;
     }
 
-    .f-24 {
-        font-size: 24px !important;
+    .detail p {
+        line-height: 20px !important;
+        font-size: 14px;
     }
 </style>

@@ -57,7 +57,7 @@
             
             <div class="section-padding"></div>
 
-            @if(count($events) > 0)
+            @if($isEventsExist)
             <div id="menu-container" class="container" style="padding-bottom: 7.5rem">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
@@ -108,59 +108,63 @@
                     <div id="event-content" class="row">
                         <!-- Content Area -->
                         <div id="event-group" class="col-md-12">
-                            @foreach($events as $event)
+                            @if(count($upcomingEvents) > 0)
+                            @foreach($upcomingEvents as $event)
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
                                 <div class="col-md-5 col-sm-12 col-xs-12 event-image">
-                                    <a href="/event/single/{{ $event->id }}">
-                                        <img src="{{ $event->poster }}" alt="Events" />
-                                        <div class="tag">{{ $event->kategori }}</div>
+                                    <a href="/event/single/{{ $upcomingEvents->id }}">
+                                        <img src="{{ $upcomingEvents->poster }}" alt="Events" />
+                                        <div class="tag">{{ $upcomingEvents->kategori }}</div>
                                     </a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
                                     <div class="post-date">
-                                        <span>{{ $event->dayDate }}</span>
-                                        <span>{{ $event->month }}</span>
+                                        <span>{{ $upcomingEvents->dayDate }}</span>
+                                        <span>{{ $upcomingEvents->month }}</span>
                                     </div>
-                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
-                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
-                                    <p>{!! nl2br(e($event->content)) !!}</p>
-                                    <a href="/event/single/{{ $event->id }}" title="Read More">Read More</a>
+                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $upcomingEvents->title }}</a></h3>
+                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $upcomingEvents->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $upcomingEvents->day }}: {{ $upcomingEvents->startHour }} - {{ $upcomingEvents->endHour }}</a></h4>
+                                    <p>{!! nl2br(e($upcomingEvents->content)) !!}</p>
+                                    <a href="/event/single/{{ $upcomingEvents->id }}" title="Read More">Read More</a>
                                 </div>
                             </div>
                             @endforeach
+                            @else
+                            <h3 class="text-center" style="color: lightgrey">There are no events on this classification yet.</h3>
+                            @endif
                         </div>
                         <!-- Content Area /- -->
                     </div>
 
                     <nav id="event-pagination" class="ow-pagination text-center pb-160">
-                        @if ($events->lastPage() > 1)
+                        @if ($upcomingEvents->lastPage() > 1)
                         <ul class="pagination">
-                            <li class="{{ ($events->currentPage() == 1) ? ' disabled' : '' }}">
+                            <li class="{{ ($upcomingEvents->currentPage() == 1) ? ' disabled' : '' }}">
                                 <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
                             </li>
                     
-                            @for ($i = 1; $i <= $events->lastPage(); $i++)
+                            @for ($i = 1; $i <= $upcomingEvents->lastPage(); $i++)
                                 <?php
                                 $half_total_links = floor(4 / 2);
-                                $from = $events->currentPage() - $half_total_links;
-                                $to = $events->currentPage() + $half_total_links;
+                                $from = $upcomingEvents->currentPage() - $half_total_links;
+                                $to = $upcomingEvents->currentPage() + $half_total_links;
 
-                                if ($events->currentPage() < $half_total_links) {
-                                    $to += $half_total_links - $events->currentPage();
+                                if ($upcomingEvents->currentPage() < $half_total_links) {
+                                    $to += $half_total_links - $upcomingEvents->currentPage();
                                 }
-                                if ($events->lastPage() - $events->currentPage() < $half_total_links) {
-                                    $from -= $half_total_links - ($events->lastPage() - $events->currentPage() - 1);
+                                if ($upcomingEvents->lastPage() - $upcomingEvents->currentPage() < $half_total_links) {
+                                    $from -= $half_total_links - ($upcomingEvents->lastPage() - $upcomingEvents->currentPage() - 1);
                                 }
                                 ?>
                             
                                 @if ($from < $i && $i < $to)
-                                <li class="{{ ($events->currentPage() == $i) ? ' active' : '' }}">
+                                <li class="{{ ($upcomingEvents->currentPage() == $i) ? ' active' : '' }}">
                                     <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
                                 </li>
                                 @endif
                             @endfor
-                            <li class="{{ $events->currentPage() == $events->lastPage() ? ' disabled' : '' }}">
-                                <a href="#menu-container" onClick="goToPage({{ $events->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                            <li class="{{ $upcomingEvents->currentPage() == $upcomingEvents->lastPage() ? ' disabled' : '' }}">
+                                <a href="#menu-container" onClick="goToPage({{ $upcomingEvents->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
                             </li>
                         </ul>
                         @endif
@@ -190,7 +194,7 @@
 @push('additional_js')
 <script type="text/javascript">
     const categoriesAndSubcategories = {!! json_encode($categories) !!};
-    let showedEvents = {!! json_encode($events) !!};
+    let showedEvents = {!! json_encode($upcomingEvents) !!};
     let categoryCount = {!! $categories !!}.length;
     let subcategoryCount = 0;
     let submenuExist = false;

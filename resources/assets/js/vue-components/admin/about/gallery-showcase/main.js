@@ -4,7 +4,7 @@ import SideBar from './../../../global/Sidebar.vue';
 import {store} from './store';
 
 const admin = new Vue({
-    el: '#gallery',
+    el: '#showcase',
 
     components: {
         Gallery,

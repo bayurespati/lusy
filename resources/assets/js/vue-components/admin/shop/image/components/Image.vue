@@ -1,7 +1,6 @@
 <template>
     <div class="card mt-3">
         <div class="card-block">
-
             <transition enterActiveClass="fade-in"
                         leaveActiveClass="fade-out"
                         mode="out-in">
@@ -11,7 +10,7 @@
                     <!--=========================================================================================
                         I M A G E
                         =========================================================================================-->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <img :src=imageItem.image_path alt="image">
                     </div>
 
@@ -21,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-3 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase"><strong>Nama</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ imageItem.title }}</p>
                             </div>
@@ -32,31 +31,31 @@
                     <!--=========================================================================================
                         I S    P O S T E R
                         =========================================================================================-->
-                    <div class="col-md-3 d-flex align-items-center">
-                        <span>
-                            <p class="small text-uppercase mb-0"><strong>Satus</strong></p>
+                    <div class="col-md-3 d-flex align-items-center justify-content-center">
+                        <div class="col-12 text-center">
+                            <p class="small text-uppercase"><strong>Status Poster</strong></p>
                             <div class="detail">
                                 <button @click="editImage" 
                                         class="btn btn-sm btn btn-success" 
                                         v-if="imageItem.is_poster">Aktif</button>
                                 <button @click="show"
                                         class="btn btn-sm btn btn-danger" 
-                                        v-else=""> Tidak Aktif</button>
+                                        v-else="">Tidak Aktif</button>
                             </div>
-                        </span>
+                        </div>
                     </div>
 
 
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col-md-2 d-flex align-items-center justify-content-end">
+                    <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingImage = !isEditingImage">Edit</button>               
+                                @click="isEditingImage = !isEditingImage">Ubah</button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheImage">Delete</button>
+                                @click="deleteTheImage">Hapus</button>
                     </div>
 
 
