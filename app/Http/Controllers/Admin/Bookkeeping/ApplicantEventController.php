@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Bookeeping;
+namespace App\Http\Controllers\Admin\Bookkeeping;
 
-
-use App\Event;
-use App\ApplicantList;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

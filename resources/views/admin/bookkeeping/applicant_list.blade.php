@@ -62,5 +62,5 @@
 <script>
     const $event = {!! json_encode($event) !!};
 </script>
-	<script src="{{ asset('js/admin/bookeping/applicant_list.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/applicant_list.js') }}"></script>
 @endpush

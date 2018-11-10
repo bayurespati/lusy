@@ -248,14 +248,14 @@ mix.js([
     'resources/assets/js/vue-components/admin/bookkeeping/potential/main.js',
 ], 'public/js/admin/bookkeeping/potential.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookkeping/message/main.js',
-], 'public/js/admin/bookeping/message.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/message/main.js',
+], 'public/js/admin/bookkeeping/message.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookkeping/applicant-event/main.js',
-], 'public/js/admin/bookeping/applicant_event.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/applicant-event/main.js',
+], 'public/js/admin/bookkeeping/applicant_event.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookkeping/applicant-list/main.js',
-], 'public/js/admin/bookeping/applicant_list.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/applicant-list/main.js',
+], 'public/js/admin/bookkeeping/applicant_list.js');
 
 
 

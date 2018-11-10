@@ -15,18 +15,12 @@
     "/js/admin/slider.js": "/js/admin/slider.js",
     "/js/admin/about/profile.js": "/js/admin/about/profile.js",
     "/js/admin/sosmed.js": "/js/admin/sosmed.js",
-<<<<<<< HEAD
-    "/js/admin/bookeping/potential.js": "/js/admin/bookeping/potential.js",
-    "/js/admin/bookeping/message.js": "/js/admin/bookeping/message.js",
-    "/js/admin/bookeping/overseas.js": "/js/admin/bookeping/overseas.js",
-    "/js/admin/bookeping/applicant_list.js": "/js/admin/bookeping/applicant_list.js",
-=======
     "/js/admin/bookkeeping/potential.js": "/js/admin/bookkeeping/potential.js",
     "/js/admin/bookkeeping/message.js": "/js/admin/bookkeeping/message.js",
     "/js/admin/bookkeeping/overseas.js": "/js/admin/bookkeeping/overseas.js",
->>>>>>> ari
+    "/js/admin/bookkeeping/applicant_list.js": "/js/admin/bookkeeping/applicant_list.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
-    "/js/admin/bookeping/applicant_event.js": "/js/admin/bookeping/applicant_event.js",
+    "/js/admin/bookkeeping/applicant_event.js": "/js/admin/bookkeeping/applicant_event.js",
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
     "/css/croppie.css": "/css/croppie.css",

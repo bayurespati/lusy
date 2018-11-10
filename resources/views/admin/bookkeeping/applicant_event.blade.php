@@ -59,5 +59,5 @@
 @endsection
 
 @push('additional_js')
-	<script src="{{ asset('js/admin/bookeping/applicant_event.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/applicant_event.js') }}"></script>
 @endpush
