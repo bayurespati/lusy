@@ -124,7 +124,9 @@
                                     </div>
                                     <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
                                     <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
-                                    <p>{!! nl2br(e($event->content)) !!}</p>
+                                    <p>
+                                        {!! nl2br(e($event->content)) !!}
+                                    </p>
                                     <a href="/event/single/{{ $event->id }}" title="Read More">Read More</a>
                                 </div>
                             </div>

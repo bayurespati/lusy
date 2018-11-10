@@ -100,54 +100,54 @@
                                     <i><img src="{{ $shopItem->poster }}" alt="{{ $shopItem->title }}" /></i>
                                 </div>
 
-                                <!-- <div class="portfolio-section" style="padding-top: 8px"> -->
-                                    <!-- <div class="portfolio-list"> -->
-                                        <!-- <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage"> -->
-                                            <!-- <a href="{{ asset('img/portfolio-2.jpg') }}"> -->
-                                                <!-- <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" /> -->
-                                                <!-- <div class="portfolio-content"> -->
-                                                    <!-- <span>Title</span> -->
-                                                <!-- </div> -->
-                                            <!-- </a> -->
-                                        <!-- </div> -->
-                                        <!-- <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage"> -->
-                                            <!-- <a href="{{ asset('img/portfolio-2.jpg') }}"> -->
-                                                <!-- <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" /> -->
-                                                <!-- <div class="portfolio-content"> -->
-                                                    <!-- <span>Title</span> -->
-                                                <!-- </div> -->
-                                            <!-- </a> -->
-                                        <!-- </div> -->
-                                        <!-- <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage"> -->
-                                            <!-- <a href="{{ asset('img/portfolio-2.jpg') }}"> -->
-                                                <!-- <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" /> -->
-                                                <!-- <div class="portfolio-content"> -->
-                                                    <!-- <span>Title</span> -->
-                                                <!-- </div> -->
-                                            <!-- </a> -->
-                                        <!-- </div> -->
-                                        <!-- <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage"> -->
-                                            <!-- <a href="{{ asset('img/portfolio-2.jpg') }}"> -->
-                                                <!-- <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" /> -->
-                                                <!-- <div class="portfolio-content"> -->
-                                                    <!-- <span>Title</span> -->
-                                                <!-- </div> -->
-                                            <!-- </a> -->
-                                        <!-- </div> -->
-                                    <!-- </div> -->
+                                <div class="portfolio-section" style="padding-top: 8px">
+                                    <div class="portfolio-list">
+                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
+                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
+                                                <div class="portfolio-content">
+                                                    <span>Title</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
+                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
+                                                <div class="portfolio-content">
+                                                    <span>Title</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
+                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
+                                                <div class="portfolio-content">
+                                                    <span>Title</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
+                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
+                                                <div class="portfolio-content">
+                                                    <span>Title</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
 
-                                    <!-- <div class="padding-20"></div> -->
+                                    <div class="padding-20"></div>
 
-                                    <!-- <nav class="ow-pagination text-center"> -->
-                                        <!-- <ul class="pagination"> -->
-                                            <!-- <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li> -->
-                                            <!-- <li><a href="#">1</a></li> -->
-                                            <!-- <li><a href="#">2</a></li> -->
-                                            <!-- <li><a href="#">3</a></li> -->
-                                            <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li> -->
-                                        <!-- </ul> -->
-                                    <!-- </nav> -->
-                                <!-- </div> -->
+                                    <nav class="ow-pagination text-center">
+                                        <ul class="pagination">
+                                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
 
                             <div class="col-md-6 col-sm-6 content-block-custom">

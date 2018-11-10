@@ -11,7 +11,7 @@
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddImage">
         <div class="row">
-          <div class="col-12" v-if="totalImageList < 4">
+          <div class="col-12">
             <button @click="isAddImage = !isAddImage" class="btn btn-primary">Tambah Image</button>
           </div>
         </div>
