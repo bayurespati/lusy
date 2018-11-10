@@ -717,8 +717,8 @@ Route::group([
     |
     */
     Route::group([
-        'prefix' => 'bookeeping',
-        'namespace' => 'Bookeeping',
+        'prefix' => 'bookkeeping',
+        'namespace' => 'Bookkeeping',
         'middleware' => ['auth'],
     ], function() {
 

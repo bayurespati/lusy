@@ -630,7 +630,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: 'bookeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: 'bookeeping/potential' }, { name: 'Message', link: 'bookeeping/message' }]
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' }, { name: 'Message', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
@@ -662,14 +662,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getPotential: function getPotential() {
 			var _this = this;
 
-			axios.get('/admin/bookeeping/data/potential').then(function (response) {
+			axios.get('/admin/bookkeeping/data/potential').then(function (response) {
 				_this.potentials = response.data;
 			});
 		},
 		getMessage: function getMessage() {
 			var _this2 = this;
 
-			axios.get('/admin/bookeeping/data/message').then(function (response) {
+			axios.get('/admin/bookkeeping/data/message').then(function (response) {
 				_this2.message = response.data;
 			});
 		},
@@ -737,7 +737,7 @@ var render = function() {
                         " \n                   \t   "
                     ),
                     _vm.potentialTotal > 0 &&
-                    submenu.link === "bookeeping/potential"
+                    submenu.link === "bookkeeping/potential"
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +
@@ -748,7 +748,7 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.messageTotal > 0 &&
-                    submenu.link === "bookeeping/message"
+                    submenu.link === "bookkeeping/message"
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +

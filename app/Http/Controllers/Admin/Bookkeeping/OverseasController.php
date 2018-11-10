@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Bookeeping;
+namespace App\Http\Controllers\Admin\Bookkeeping;
 
 use App\ShopInquiry;
 use Illuminate\Http\Request;

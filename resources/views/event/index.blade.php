@@ -112,20 +112,20 @@
                             @foreach($upcomingEvents as $event)
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
                                 <div class="col-md-5 col-sm-12 col-xs-12 event-image">
-                                    <a href="/event/single/{{ $upcomingEvents->id }}">
-                                        <img src="{{ $upcomingEvents->poster }}" alt="Events" />
-                                        <div class="tag">{{ $upcomingEvents->kategori }}</div>
+                                    <a href="/event/single/{{ $event->id }}">
+                                        <img src="{{ $event->poster }}" alt="Events" />
+                                        <div class="tag">{{ $event->kategori }}</div>
                                     </a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
                                     <div class="post-date">
-                                        <span>{{ $upcomingEvents->dayDate }}</span>
-                                        <span>{{ $upcomingEvents->month }}</span>
+                                        <span>{{ $event->dayDate }}</span>
+                                        <span>{{ $event->month }}</span>
                                     </div>
-                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $upcomingEvents->title }}</a></h3>
-                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $upcomingEvents->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $upcomingEvents->day }}: {{ $upcomingEvents->startHour }} - {{ $upcomingEvents->endHour }}</a></h4>
-                                    <p>{!! nl2br(e($upcomingEvents->content)) !!}</p>
-                                    <a href="/event/single/{{ $upcomingEvents->id }}" title="Read More">Read More</a>
+                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
+                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                    <p>{!! nl2br(e($event->content)) !!}</p>
+                                    <a href="/event/single/{{ $event->id }}" title="Read More">Read More</a>
                                 </div>
                             </div>
                             @endforeach
