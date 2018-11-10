@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 379);
+/******/ 	return __webpack_require__(__webpack_require__.s = 387);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -435,7 +435,7 @@ module.exports = Component.exports
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(391);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(399);
 
 
 
@@ -595,6 +595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -608,26 +609,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: 'home/sosmed' }, { name: 'Image Slider', link: 'home/image-slider' }]
+				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }]
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Gallery', link: 'about/gallery' }, { name: 'Profile', link: 'about/profile' }, { name: 'Clasess', link: 'about/class' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: 'gallery/category' }, { name: 'Sub Category', link: 'gallery/subcategory' }, { name: 'Photo List', link: 'gallery/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photo List', link: '/admin/gallery/list' }]
 			}, {
-				id: "event",
+				id: 'Event',
 				name: 'Event & Activity List',
-				subMenu: [{ name: 'Category', link: 'event/category' }, { name: 'Sub Category', link: 'event/subcategory' }, { name: 'Event & Activity List', link: 'event/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Event & Activity List', link: '/admin/event/list' }]
 			}, {
 				id: 'shop',
 				name: 'Shop',
-				subMenu: [{ name: 'Category', link: 'shop/category' }, { name: 'Sub Category', link: 'shop/subcategory' }, { name: 'Item List', link: 'shop/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Item List', link: '/admin/shop/list' }]
 			}, {
-				id: 'bookeeping',
-				name: 'Bookeeping',
+				id: 'bookkeeping',
+				name: 'Bookkeeping',
 				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: 'bookeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: 'bookeeping/potential' }, { name: 'Message', link: 'bookeeping/message' }]
 			}]
 		};
@@ -675,10 +676,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var link = window.location.pathname.split('/');
 
 			this.menuName = link[2];
-			this.subMenuName = link[2] + '/' + link[3];
-		},
-		goTo: function goTo(url) {
-			window.location.href = '/admin/' + url;
+			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
 		}
 	}
 });
@@ -729,11 +727,7 @@ var render = function() {
                     class: {
                       "active-forced": _vm.subMenuName === submenu.link
                     },
-                    on: {
-                      click: function($event) {
-                        _vm.goTo(submenu.link)
-                      }
-                    }
+                    attrs: { href: submenu.link }
                   },
                   [
                     _vm._v(
@@ -778,7 +772,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sidebar-header" }, [
-      _c("a", { attrs: { href: "#" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
+      _c("a", { attrs: { href: "/" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
     ])
   }
 ]
@@ -1849,20 +1843,20 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 379:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(380);
+module.exports = __webpack_require__(388);
 
 
 /***/ }),
 
-/***/ 380:
+/***/ 388:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(389);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
@@ -1893,19 +1887,19 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 381:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(382)
+  __webpack_require__(390)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(384)
+var __vue_script__ = __webpack_require__(392)
 /* template */
-var __vue_template__ = __webpack_require__(390)
+var __vue_template__ = __webpack_require__(398)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1945,13 +1939,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 382:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(383);
+var content = __webpack_require__(391);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1972,7 +1966,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 383:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1987,12 +1981,12 @@ exports.push([module.i, "\n.slide-enter[data-v-6b6260f6] {\n        opacity: 0;\
 
 /***/ }),
 
-/***/ 384:
+/***/ 392:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Potential_vue__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Potential_vue__ = __webpack_require__(393);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Potential_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Potential_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2035,19 +2029,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 385:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(386)
+  __webpack_require__(394)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(388)
+var __vue_script__ = __webpack_require__(396)
 /* template */
-var __vue_template__ = __webpack_require__(389)
+var __vue_template__ = __webpack_require__(397)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2087,13 +2081,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 386:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(387);
+var content = __webpack_require__(395);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2114,7 +2108,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 387:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -2129,7 +2123,7 @@ exports.push([module.i, "\n.card[data-v-f1bffc72] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 388:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2267,7 +2261,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 389:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2418,7 +2412,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 390:
+/***/ 398:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2461,7 +2455,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 391:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

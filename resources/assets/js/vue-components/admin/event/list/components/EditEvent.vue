@@ -1,178 +1,142 @@
 <template>
-
     <transition enterActiveClass="fade-in-down"
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
-
-        <div class="panel-default panel mt-5" id="edit_event">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_event">
             <div class="panel-body">
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
+                <h3 class="text-center font-weight-bold mb-3">Edit {{ event.title }}</h3>
 
-
-                    <!--=========================================================================================
-                        N A M A
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
                             <label for="title"
-                                   class="form-control-label panel-font-small m-0">
-                                Title
+                            class="form-control-label panel-font-small m-0">
+                                Judul Acara
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
+
                             <input id="title"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editEvent"
-                                   v-model="title">
+                            type="text"
+                            class="form-control form-control-sm"
+                            @keyup.enter="editEvent"
+                            :placeholder="event.title" 
+                            v-model="title">
                         </div>
-                    </div>
 
-
-                    <!--=========================================================================================
-                        S T A R T    D A T E
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="start_date"
-                                   class="form-control-label panel-font-small m-0">
-                                Start Date
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <datetime type="datetime" value-zone="local" v-model="start_date"></datetime>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        S T A R T    D A T E
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="end_date"
-                                   class="form-control-label panel-font-small m-0">
-                                End Date
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <datetime type="datetime" v-model="end_date" value-zone="local"></datetime>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        L O C A T I O N
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="location"
-                                   class="form-control-label panel-font-small m-0">
-                                Location
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input id="location"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editEvent"
-                                   v-model="location">
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        A D D R E S S
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="addres"
-                                   class="form-control-label panel-font-small m-0">
-                                Address
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input id="addres"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editEvent"
-                                   v-model="address">
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        C O N T E N T
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="content"
-                                   class="form-control-label panel-font-small m-0">
-                                Content
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <textarea class="form-control form-control-sm" id="content" v-model="content"></textarea>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        O R G A N I S E R
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                        <div class="col-sm-6 col-xs-12 text-center">
                             <label for="creator"
-                                   class="form-control-label panel-font-small m-0">
+                            class="form-control-label panel-font-small m-0">
                                 Organiser
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
+                            
                             <input id="creator"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editEvent"
-                                   v-model="organiser">
+                            type="text"
+                            class="form-control form-control-sm"
+                            @keyup.enter="editEvent"
+                            :placeholder="event.organiser"
+                            v-model="organiser">
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S U B    C A T E G O R Y
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="subcategory"
-                                   class="form-control-label panel-font-small m-0">
-                                Sub category
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="start_date"
+                            class="form-control-label panel-font-small m-0">
+                                Waktu Mulai
                             </label>
+
+                            <datetime type="datetime" value-zone="local" v-model="start_date" :placeholder="event.start_date"></datetime>
                         </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <select class="form-control" id="subcategory" v-model="sub_category_id"> 
+
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="end_date"
+                            class="form-control-label panel-font-small m-0">
+                                Waktu Selesai
+                            </label>
+                            
+                            <datetime type="datetime" v-model="end_date" value-zone="local" :placeholder="event.end_date"></datetime>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="location"
+                            class="form-control-label panel-font-small m-0">
+                                Lokasi
+                            </label>
+
+                            <input id="location"
+                            type="text"
+                            class="form-control form-control-sm"
+                            @keyup.enter="editEvent"
+                            v-model="location" 
+                            :placeholder="event.location">
+                        </div>
+
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="addres"
+                            class="form-control-label panel-font-small m-0">
+                                Alamat
+                            </label>
+
+                            <input id="addres"
+                            type="text"
+                            class="form-control form-control-sm"
+                            @keyup.enter="editEvent"
+                            v-model="address" 
+                            :placeholder="event.address">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="category"
+                            class="form-control-label panel-font-small m-0">
+                                Kategori
+                            </label>
+                            
+                            <select class="form-control" id="category" v-model="sub_category_id"> 
                                 <option v-for="subcategory in subcategories" 
                                         :value=subcategory.id> {{ subcategory.title }}
                                 </option>
                             </select>
                         </div>
+
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="subcategory"
+                            class="form-control-label panel-font-small m-0">
+                                Subkategori
+                            </label>
+                            
+                            <select class="form-control" id="subcategory" v-model="sub_category_id"> 
+                                <option v-for="subcategory in subcategories" 
+                                :value=subcategory.id> {{ subcategory.title }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
 
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-12 text-center">
+                            <label for="event-content"
+                            class="form-control-label panel-font-small m-0">
+                                Konten Acara
+                            </label>
 
-                    <!--=========================================================================================
-                        A C T I O N   B U T T O N
-                        =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
-                        <div class="col-sm-6">
-                            <button type="button" 
-                                class="full-width btn btn-secondary btn-block btn-sm"
-                                @click="closeEditForm">Batal</button>
+                            <textarea class="form-control form-control-sm normal-placeholder" id="event-content" rows="10" v-model="content" :placeholder="event.content"></textarea>
                         </div>
+                    </div>
 
-                        <div class="col-sm-6">
-                            <button @click="editEvent"
-                                    class="full-width btn btn-success btn-block btn-sm">
-                                    Simpan
-                            </button>
-                        </div>
+                    <div class="col-sm-12 d-flex justify-content-center mt-2">
+                        <button type="button" 
+                        class="btn btn-secondary btn-sm"
+                        @click="closeEditForm">
+                            Batal
+                        </button>
+
+                        <button @click="editEvent"
+                        class="btn btn-success btn-sm ml-2">
+                            Simpan
+                        </button>
                     </div>
                 </div>
             </div>
@@ -276,8 +240,52 @@
     };
 </script>
 
+<style type="text/css">
+    .vdatetime-input {
+        width: 100%;
+        padding: .375rem .75rem;
+        line-height: 1.5;
+        font-size: 1rem;
+        color: #495057;
+        border-radius: .25rem;
+        border: 1px solid #ced4da;
+    }
+
+    ::-webkit-input-placeholder,
+    :-moz-placeholder, /* Firefox 18- */
+    ::-moz-placeholder, /* Firefox 19+ */
+    :-ms-input-placeholder {
+        text-align: center;
+    }
+
+    input {
+        text-align: center;
+    }
+
+    select {
+        text-align: center;
+        text-align-last: center;
+        /* webkit*/
+    }
+
+    option {
+        text-align: left;
+    }
+
+    .normal-placeholder::-webkit-input-placeholder,
+    .normal-placeholder:-moz-placeholder,
+    .normal-placeholder::-moz-placeholder,
+    .normal-placeholder:-ms-input-placeholder {
+        text-align: left !important;
+    }
+</style>
+
 <style scoped>
-    .pl-15-px {
-        padding-left: 15px !important;
+    .bg-grey {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
     }
 </style>

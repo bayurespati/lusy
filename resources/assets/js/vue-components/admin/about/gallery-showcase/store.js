@@ -72,7 +72,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_gallery: ({commit}) => {
-            axios.get('/admin/about/data/gallery')
+            axios.get('/admin/about/data/showcase')
                 .then(response =>{
                     commit('set_gallery',response.data);
                 });
@@ -84,7 +84,7 @@ export const store = new Vuex.Store({
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('update/gallery/' + updatedGallery.id, {
+                axios.patch('update/showcase/' + updatedGallery.id, {
                     is_showcase: updatedGallery.is_showcase,  
                 })
                     .then(response => {

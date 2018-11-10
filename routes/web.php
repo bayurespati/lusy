@@ -164,9 +164,13 @@ Route::group([
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(2)->get();
-        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
+        $upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
 
-        foreach ($events as $event) {
+        $isEventsExist = count(Event::all()) > 0 
+        ? true 
+        : false;
+
+        foreach ($upcomingEvents as $event) {
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -182,7 +186,7 @@ Route::group([
             $event->endHour = $endDate->format('h:i A');
         }
 
-		return view('event.index', compact('sosmed', 'categories', 'events'));
+		return view('event.index', compact('sosmed', 'categories', 'upcomingEvents', 'isEventsExist'));
 	})->name('event.index');
 
     Route::get('/past/all', function(){
@@ -520,9 +524,9 @@ Route::group([
     	|--------------------------------------------------------------------------
     	|
     	*/
-    	Route::get('/gallery', 'GalleryController@index')->name('admin.about.gallery');
-    	Route::get('/data/gallery', 'GalleryController@loadGallery');
-    	Route::patch('/update/gallery/{gallery}', 'GalleryController@update');
+    	Route::get('/showcase', 'GalleryController@index')->name('admin.about.gallery');
+    	Route::get('/data/showcase', 'GalleryController@loadGallery');
+    	Route::patch('/update/showcase/{gallery}', 'GalleryController@update');
 
     	/*
     	|--------------------------------------------------------------------------

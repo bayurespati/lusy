@@ -3,7 +3,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">Tambah Gambar Event</h3>
+                    <h3 class="text-center font-weight-bold mb-5">
+                        Tambah Gambar {{ eventName }}
+                    </h3>
                 </div>
 
                 <div class="row">
@@ -67,6 +69,12 @@
     import {Croppie} from 'croppie';
 
     export default{
+
+        props: {
+            eventName: {
+                type: String
+            }
+        },
         
         data: function () {
             return{

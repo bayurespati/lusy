@@ -13,7 +13,8 @@ const admin = new Vue({
     },
 
     mounted(){
-        this.$store.dispatch('load_images',$param);
+        this.$store.dispatch('load_images',$shopItem.id);
+        this.$store.commit('set_item', $shopItem);
     },
 
     store

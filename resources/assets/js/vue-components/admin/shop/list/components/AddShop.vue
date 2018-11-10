@@ -1,76 +1,119 @@
 <template> 
-	<div class="row pt-5">
+	<div class="row">
 		<div class="col-md-12">
 			<div class="card text-center">
-				<h4 class="title font-weight-bold mb-4">Tambah Shop</h4>
-
-				<div class="form-group text-left mb-3">
-					<input type="text" 
-						   v-model="input.title" 
-						   class="form-control" id="name" 
-						   placeholder="Nama Item">
+				<div class="col-md-12">
+					<h4 class="title font-weight-bold mb-5">Tambah Item</h4>
 				</div>
 
-				<div class="form-group text-left mb-3">
-					<input type="text" 
-						   v-model="input.sub_title" 
-						   class="form-control" id="sub_name" 
-						   placeholder="Sub Nama item">
+				<div class="col-md-12 d-flex">
+					<div class="col-md-6">
+						<div class="form-group text-left mb-3">
+							<input type="text" 
+							v-model="input.title" 
+							class="form-control" id="name" 
+							placeholder="Nama Item">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group text-left mb-3">
+							<input type="text" 
+							v-model="input.sub_title" 
+							class="form-control" id="sub_name" 
+							placeholder="Sub Nama item">
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group text-left mb-3">
-					<input type="number" 
-					       v-model="input.stock" 
-					       class="form-control" id="location" 
-					       placeholder="Stock">
+				<div class="col-md-12 d-flex">
+					<div class="col-md-6">
+						<div class="form-group text-left mb-3">
+							<input type="number" 
+							v-model="input.price" 
+							class="form-control" id="price"
+							placeholder="Harga">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group text-left mb-3">
+							<input type="number" 
+							v-model="input.stock" 
+					       	class="form-control" id="location" 
+					       	placeholder="Stok">
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group text-left mb-3">
-					<textarea rows="4"
-							  v-model="input.description"
-							  class="form-control" 
-							  placeholder="Description"></textarea>
+				<div class="col-md-12 d-flex">
+					<div class="col-md-6">
+						<div class="form-group">
+							<select class="form-control" id="category" v-model="category">
+								<option value="" disabled>Pilih Kategori</option>
+								<option v-for="category in categories" :value=category>{{ category.title }}</option>
+							</select>
+						</div>
+					</div>
+
+					<transition enterActiveClass="fade-in-down"
+					leaveActiveClass="fade-out-up"
+					mode="out-in">
+						<div class="col-md-6">
+							<div class="form-group" v-if="isMoreOne">
+								<select class="form-control" id="subcategory" v-model="input.sub_category_id">
+									<option value="" disabled>Pilih Subkategori </option>
+									<option v-for="subcategory in subcategories" :value=subcategory.id>{{ subcategory.title }}</option>
+								</select>
+							</div>
+						</div>
+					</transition>
 				</div>
 
-				<div class="form-group text-left mb-3">
-					<input type="number" 
-					       v-model="input.price" 
-					       class="form-control" id="price"
-					       placeholder="Price">
+				<div class="col-md-12 d-flex">
+					<div class="col-md-12">
+						<div class="form-group text-left mb-3">
+							<textarea rows="4"
+							v-model="input.description"
+							class="form-control form-control-sm normal-placeholder" 
+							placeholder="Deskripsi Item">
+							</textarea>
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group text-left mb-3">
-					<input type="text" 
-					       v-model="input.store_link" 
-					       class="form-control" id="organiser"
-					       placeholder="Store Link">
+				<div class="col-md-12 d-flex">
+					<div class="col-md-12">
+						<div class="form-group text-left mb-3">
+							<input type="text" 
+							v-model="input.store_link" 
+							class="form-control" id="organiser"
+							placeholder="Link Toko Online">
+						</div>
+					</div>
 				</div>
 
-				<div class="form-group text-center mb-3">
-                    <input type="radio" name="add_is_displayed"  value=1 v-model="input.is_displayed"> Aktif
-                    <input type="radio" name="add_is_displayed"  value=0 v-model="input.is_displayed" class="ml-2"> Tidak Aktif
-                </div>
+				<div class="col-md-12 d-flex">
+					<div class="col-md-12">
+						<div class="form-group text-center mb-3">
+							<input type="radio" name="add_is_displayed"  value=1 v-model="input.is_displayed"> Tampilkan
+							<input type="radio" name="add_is_displayed"  value=0 v-model="input.is_displayed" class="ml-2"> Sembunyikan
+						</div>
+					</div>
+				</div>
 
-				<div class="form-group">
-	                <select class="form-control" id="category" v-model="category">
-	                    <option value="" disabled>Pilih Category</option>
-	                    <option v-for="category in categories" :value=category>{{ category.title }}</option>
-	                </select>
-	            </div>
-
-	            <transition enterActiveClass="fade-in-down"
-                                leaveActiveClass="fade-out-up"
-                                mode="out-in">
-	            <div class="form-group" v-if="isMoreOne">
-	                <select class="form-control" id="subcategory" v-model="input.sub_category_id">
-	                    <option value="" disabled>Pilih Sub Category </option>
-	                    <option v-for="subcategory in subcategories" :value=subcategory.id>{{ subcategory.title }}</option>
-	                </select>
-	            </div>
-		        </transition>
-
-				<button type="button" @click="addShop" class="btn btn-sm btn-success">Tambah</button>
-				<button type="button" @click="closeAddShop" class="btn btn-sm btn-warning ml-1">Cancel</button>
+				<div class="col-md-12 d-flex justify-content-center">
+					<button type="button" 
+					@click="addShop"
+					class="btn btn-sm btn-success">
+						Tambah
+					</button>
+					<button type="button" 
+					@click="closeAddShop" 
+					class="btn btn-sm btn-warning ml-1">
+						Cancel
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -185,14 +228,8 @@
 	};
 </script>
 
-<style scoped type="text/css">
-	.card {
-		display: inline-block;
-		width: 100%;
-		padding: 36px 20px 26px 20px;
-	}
-
-	::-webkit-input-placeholder {
+<style type="text/css">
+    ::-webkit-input-placeholder {
    		text-align: center;
 	}
 
@@ -210,5 +247,30 @@
 
 	input {
 		text-align: center;
+	}
+
+	select {
+  		text-align: center;
+  		text-align-last: center;
+  		/* webkit*/
+	}
+
+	option {
+  		text-align: left;
+	}
+
+	.normal-placeholder::-webkit-input-placeholder,
+    .normal-placeholder:-moz-placeholder,
+    .normal-placeholder::-moz-placeholder,
+    .normal-placeholder:-ms-input-placeholder {
+        text-align: left !important;
+    }
+</style>
+
+<style scoped type="text/css">
+	.card {
+		display: inline-block;
+		width: 100%;
+		padding: 36px 20px 26px 20px;
 	}
 </style>
