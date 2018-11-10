@@ -233,3 +233,22 @@ mix.js([
 ], 'public/js/admin/shop/image.js');
 
 
+
+/*
+ |--------------------------------------------------------------------------
+ | A D M I N   B O O K E P I N G   J S
+ |--------------------------------------------------------------------------
+ |
+ |
+ */
+mix.js([
+    'resources/assets/js/vue-components/admin/bookeping/overseas/main.js',
+], 'public/js/admin/bookeping/overseas.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookeping/potential/main.js',
+], 'public/js/admin/bookeping/potential.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookeping/message/main.js',
+], 'public/js/admin/bookeping/message.js');
+
+

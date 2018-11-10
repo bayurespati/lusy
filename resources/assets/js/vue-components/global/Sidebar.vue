@@ -12,7 +12,7 @@
 	            	:aria-expanded="{ 'true' : menuName === menu.id } "
 	            	:class= "{ 'active-forced': menuName === menu.id }"
 	            	class="dropdown-toggle">
-	            	{{ menu.name }}
+		        	{{ menu.name }}
 	        	</a>
 	            <ul :id="menu.id" 
 	            	class="collapse list-unstyled" 
@@ -20,7 +20,18 @@
 	                <li v-for="submenu in menu.subMenu">
 	                    <a :href="submenu.link"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
-	                   {{ submenu.name }}</a>
+	                   	   {{ submenu.name }} 
+	                   	   <span style="color: red" v-if="potentialTotal > 0 && submenu.link === 'bookkeeping/potential' ">
+	                   	   	{{ 
+	                   	   		potentialTotal 
+	                   	   	}}
+	                   	   </span>
+	                   	   <span style="color: red" v-if="messageTotal > 0 && submenu.link === 'bookkeeping/message' ">
+	                   	   	{{
+	                   	   		messageTotal
+	                   	   	}}
+	                   	   </span>
+	               		</a>
 	                </li>
 	            </ul>
 	        </li>
@@ -28,13 +39,16 @@
 	</nav>
 </template>
 <script>
+	import {mapGetters} from 'vuex';
 	export default{
 
 		data(){
 			return{
+				potentials: '',
+				message: '',
 				menuName: '',
 				subMenuName: '',
-				test: true,
+
 				menus:[
 					{	
 						id: 'home',
@@ -85,9 +99,10 @@
 						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
-							{ name:'Overseas Inquiry List', link: '#' },
 							{ name:'Applicant List', link: '#' },
-							{ name:'Potential Overseas Inquiry List', link: '#' }
+							{ name:'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' },
+							{ name:'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' },
+							{ name:'Message', link: '/admin/bookkeeping/message' }
 						]
 					}
 				],
@@ -96,9 +111,43 @@
 
 		mounted(){
 			this.setName();
+			this.getPotential();
+			this.getMessage();
+		},
+
+		computed:{
+			potentialTotal(){
+				if(this.$store.getters.getPotentialItems === undefined){
+					return this.potentials.length
+				}else{
+					return this.$store.getters.getPotentialItems.length
+				}
+			},
+
+			messageTotal(){
+				if(this.$store.getters.getMessageItems === undefined){
+					return this.message.length
+				}else{
+					return this.$store.getters.getMessageItems.length;
+				}
+			}
 		},
 
 		methods:{
+ 			getPotential(){
+ 				axios.get('/admin/bookkeeping/data/potential')
+                .then(response =>{
+                    this.potentials = response.data;
+                });
+			},
+
+			getMessage(){
+				axios.get('/admin/bookkeeping/data/message')
+                .then(response =>{
+                    this.message = response.data;
+                });
+			},
+
 			setName(){
 				let link = window.location.pathname.split('/');
 

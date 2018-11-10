@@ -28,14 +28,9 @@ export const store = new Vuex.Store({
             state.sosmeds = sosmeds;
         },
 
-        edit_sosmed: (state,updatedSosmed) =>{
-
-        },
-
         edit_sosmed(state, updatedSosmed) {
 
             const sosmedIndex = helpers.getIndexOfSosmed(updatedSosmed.id);
-
 
             state.sosmeds[sosmedIndex].is_active = updatedSosmed.is_active;
             state.sosmeds[sosmedIndex].link = updatedSosmed.link;

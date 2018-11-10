@@ -1,4 +1,6 @@
-<?php
+    <?php
+use App\ContactMessage;
+use App\ShopInquiry;
 use App\Sosmed;
 use App\imageSlider;
 use App\AboutContent;
@@ -24,7 +26,20 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
+Route::post('contact_message',function(Request $request){
 
+    $contact_message = new ContactMessage;
+
+    $contact_message->name = $request->contact_fname .' '. $request->contact_lname;
+    $contact_message->phone = $request->contact_phone;
+    $contact_message->email = $request->contact_email;
+    $contact_message->message = $request->contact_message;
+    $contact_message->is_replay = false;
+
+    $contact_message->save();
+
+    return back();
+});
 /*
 |--------------------------------------------------------------------------
 | H O M E   R O U T E S
@@ -388,6 +403,27 @@ Route::group([
         return $items;
     });
 
+    Route::post('/update/overseas/{shopitem}', function(Request $request, ShopItem $shopitem){
+
+        $shopInquiry = new ShopInquiry;
+
+        $shopInquiry->shop_item_id = $shopitem->id;
+        $shopInquiry->buyer_name = $request->buyer_name;
+        $shopInquiry->gender = $request->gender;
+        $shopInquiry->email = $request->email;
+        $shopInquiry->address = $request->address;
+        $shopInquiry->city = $request->city;
+        $shopInquiry->state_province = $request->state_province;
+        $shopInquiry->postal_code = $request->postal_code;
+        $shopInquiry->notes = $request->notes;
+        $shopInquiry->quantity = $request->quantity;
+        $shopInquiry->is_confirmed = 0;
+
+        $shopInquiry->save();
+
+        return back();
+    });
+
 });
 
 
@@ -424,7 +460,7 @@ Route::group([
 */
 Route::group([
         'prefix' => 'admin',
-        'namespace' => 'admin',
+        'namespace' => 'Admin',
         'middleware' => ['auth'],
     ], function () {
 
@@ -669,6 +705,53 @@ Route::group([
         Route::post('/add/image', 'ImageController@store');
         Route::patch('/update/image/{shopImage}', 'ImageController@update');
         Route::delete('/delete/image/{shopImage}', 'ImageController@destroy');
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | A D M I N   B O O K K E P I N G   R O U T E S
+    |--------------------------------------------------------------------------
+    |
+    |  
+    |
+    */
+    Route::group([
+        'prefix' => 'bookkeeping',
+        'namespace' => 'Bookkeeping',
+        'middleware' => ['auth'],
+    ], function() {
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G   O V E R S E A S   I N Q U I R Y
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/overseas', 'OverseasController@index')->name('admin.bookeeping.overseas');
+        Route::get('/data/overseas', 'OverseasController@loadOverseas');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G  P O T E N T I A L  O V E R S E A S   I N Q U I R Y
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/potential', 'OverseasController@potential')->name('admin.bookeeping.potensial');
+        Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
+        Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G    M E S S A G E
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/message', 'MessageController@index')->name('admin.bookeeping.potensial');
+        Route::get('/data/message', 'MessageController@loadMessage');
+        Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
 
     });
 });

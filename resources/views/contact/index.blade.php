@@ -39,17 +39,34 @@
 						<h3>Leave A Message</h3>
 						<p>Feel free to contact us and find out more about what we do.</p>
 						<p>We would love to hear from you.</p>
-						<form>
+						<form action="contact_message" method="post" enctype="multipart/form-data">
+							{!! csrf_field() !!}
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
-									<input type="text" name="contact-fname" id="input_fname" required="" placeholder="First Name *" class="form-control">
-									<input type="text" name="contact-lname" id="input_lname" required="" placeholder="Last Name *" class="form-control">
-									<input type="text" name="contact-phone" id="input_subject" required="" placeholder="Phone Number" class="form-control">
-									<input type="email" name="contact-email" id="input_email" required="" placeholder="Email Address *" class="form-control">
+									<input type="text" name="contact_fname" 
+										   id="contact_fname" required="" 
+										   placeholder="First Name *" class="form-control">
+
+									<input type="text" name="contact_lname" 
+										   id="contact_lname" required="" 
+										   placeholder="Last Name *" class="form-control">
+
+									<input type="text" name="contact_phone" 
+										   id="contact-phone" required="" 
+										   placeholder="Phone Number *" class="form-control">
+
+									<input type="email" name="contact_email" 
+										   id="contact-email" required="" 
+										   placeholder="Email Address *" class="form-control">
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
-									<textarea name="contact-message" id="textarea_message" placeholder="Your message" rows="4" class="form-control"></textarea>
-									<button id="btn_submit" class="transitioned-btn" type="submit" title="Send Your Message">Send Your Message</button>
+									<textarea name="contact_message" id="textarea_message" required="" 
+											  placeholder="Your message *" rows="4" class="form-control"></textarea>
+
+									<button class="transitioned-btn" type="submit" 
+											title="Send Your Message">
+											Send Your Message
+									</button>
 								</div>
 							</div>
 							<div class="alert-msg" id="alert-msg"></div>
@@ -66,5 +83,4 @@
         
     </div>
 </body>
-
 @endsection

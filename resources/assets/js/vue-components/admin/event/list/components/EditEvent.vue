@@ -201,8 +201,6 @@
 
             editEvent(){
 
-                console.log(this.start_date,this.location);
-
                 const self = this;
 
                 if (this.eventIsEdited) {
