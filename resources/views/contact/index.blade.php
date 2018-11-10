@@ -39,7 +39,7 @@
 						<h3>Leave A Message</h3>
 						<p>Feel free to contact us and find out more about what we do.</p>
 						<p>We would love to hear from you.</p>
-						<form action="contact_message" method="post" enctype="multipart/form-data">
+						<form action="contact/contact_message" method="post" enctype="multipart/form-data">
 							{!! csrf_field() !!}
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">

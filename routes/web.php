@@ -1,4 +1,5 @@
     <?php
+use App\ApplicantList;
 use App\ContactMessage;
 use App\ShopInquiry;
 use App\Sosmed;
@@ -26,20 +27,6 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-Route::post('contact_message',function(Request $request){
-
-    $contact_message = new ContactMessage;
-
-    $contact_message->name = $request->contact_fname .' '. $request->contact_lname;
-    $contact_message->phone = $request->contact_phone;
-    $contact_message->email = $request->contact_email;
-    $contact_message->message = $request->contact_message;
-    $contact_message->is_replay = false;
-
-    $contact_message->save();
-
-    return back();
-});
 /*
 |--------------------------------------------------------------------------
 | H O M E   R O U T E S
@@ -310,6 +297,21 @@ Route::group([
 
         return view('event.single', compact('sosmed', 'event'));
     });
+
+    Route::post('/registration/{event}', function(Request $request,Event $event){
+
+        $applicantList = new ApplicantList;
+
+        $applicantList->event_id = $event->id;
+        $applicantList->name = $request->name;
+        $applicantList->email = $request->email;
+        $applicantList->phone = $request->phone;
+        $applicantList->is_approve = false;
+
+        $applicantList->save();
+
+        return back();
+    });
 });
 
 
@@ -442,6 +444,23 @@ Route::group([
 
 		return view('contact.index', compact('sosmed'));
 	})->name('contact.index');
+
+    Route::post('contact_message',function(Request $request){
+
+        $contact_message = new ContactMessage;
+
+        $contact_message->name = $request->contact_fname .' '. $request->contact_lname;
+        $contact_message->phone = $request->contact_phone;
+        $contact_message->email = $request->contact_email;
+        $contact_message->message = $request->contact_message;
+        $contact_message->is_replay = false;
+
+        $contact_message->save();
+
+        return back();
+    });
+
+
 });
 
 

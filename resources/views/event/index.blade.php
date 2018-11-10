@@ -57,7 +57,7 @@
             
             <div class="section-padding"></div>
 
-            @if(count($events) > 0)
+            <!-- @if(count($events) > 0) -->
             <div id="menu-container" class="container" style="padding-bottom: 7.5rem">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
@@ -168,11 +168,11 @@
                 </div>
                 <!-- Container /- -->
             </div>
-            @else
-            <h3 class="text-center" style="color: lightgrey">
-                *we're currently organizing events to be held here (please be patient)*
-            </h3>
-            @endif
+            <!-- @else -->
+            <!-- <h3 class="text-center" style="color: lightgrey"> -->
+                <!-- *we're currently organizing events to be held here (please be patient)* -->
+            <!-- </h3> -->
+            <!-- @endif -->
 
             <div id="section-padding" class="section-padding"></div>
 
