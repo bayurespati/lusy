@@ -542,7 +542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: 'Gallery',
 				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photo List', link: '/admin/gallery/list' }]
 			}, {
-				id: 'Event',
+				id: 'event',
 				name: 'Event & Activity List',
 				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Event & Activity List', link: '/admin/event/list' }]
 			}, {
@@ -3153,13 +3153,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     totalImageList: function totalImageList() {
       return this.imageList.length;
     }
-  }),
-
-  methods: {
-    goTo: function goTo() {
-      window.location.href = '/admin/event/list';
-    }
-  }
+  })
 });
 
 /***/ }),
@@ -5666,7 +5660,7 @@ var render = function() {
       _vm._v(" "),
       _c("ul", { staticClass: "breadcrumb" }, [
         _c("li", [
-          _c("a", { attrs: { href: "#" }, on: { click: _vm.goTo } }, [
+          _c("a", { attrs: { href: "/admin/event/list" } }, [
             _vm._v(_vm._s(_vm.event.title))
           ])
         ]),

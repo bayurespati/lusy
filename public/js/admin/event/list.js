@@ -542,7 +542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: 'Gallery',
 				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photo List', link: '/admin/gallery/list' }]
 			}, {
-				id: 'Event',
+				id: 'event',
 				name: 'Event & Activity List',
 				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Event & Activity List', link: '/admin/event/list' }]
 			}, {
@@ -1922,6 +1922,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1949,9 +1950,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 flash('Event berhasil dihapus', 'danger');
             });
-        },
-        goTo: function goTo(url) {
-            window.location.href = 'image/' + this.event.id;
         }
     }
 });
@@ -2979,15 +2977,16 @@ var render = function() {
                     "col-md-2 d-flex align-items-center justify-content-end"
                 },
                 [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-sm btn-primary",
-                      attrs: { type: "button" },
-                      on: { click: _vm.goTo }
-                    },
-                    [_c("i", { staticClass: "fa fa-image" })]
-                  ),
+                  _c("a", { attrs: { href: "list/image/" + _vm.event.id } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: { type: "button" }
+                      },
+                      [_c("i", { staticClass: "fa fa-image" })]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
                     "button",

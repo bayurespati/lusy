@@ -53,11 +53,12 @@
                         B U T T O N   A C T I O N
                         =========================================================================================-->
                     <div class="col-md-3 d-flex align-items-center justify-content-end">
-                        <button type="button" 
-                                class="btn btn-sm btn-primary"
-                                @click="goTo">
-                            <i class="fa fa-image"></i>
-                        </button>
+                        <a :href="'list/image/' + shop.id">
+                            <button type="button" 
+                            class="btn btn-sm btn-primary">
+                                <i class="fa fa-image"></i>
+                            </button>
+                        </a>
 
                         <button type="button" 
                                 class="btn btn-sm btn-warning ml-1"
@@ -116,10 +117,6 @@
 
                     flash('Shop item berhasil dihapus', 'danger')
                 })
-            },
-
-            goTo(url){
-                window.location.href = 'image/' + this.shop.id;
             },
         }
     };
