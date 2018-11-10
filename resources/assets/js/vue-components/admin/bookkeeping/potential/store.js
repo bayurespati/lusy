@@ -7,7 +7,7 @@ export const store = new Vuex.Store({
     //  S T A T E
     //=========================================================================================
     state: {
-        items:{},
+        potentials:{},
     },
 
 
@@ -15,54 +15,51 @@ export const store = new Vuex.Store({
     //  G E T T E R S
     //=========================================================================================
     getters: {
-        getMessageItems: state => {
-            return state.items;
-        }
+        getPotentialItems: state => {
+            return state.potentials;
+        },
     },
-
 
     //=========================================================================================
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
         set_items: (state, items) =>{
-            state.items = items;
+            state.potentials = items;
         },
 
-        delete_message(state, ids){
+        delete_potential(state, ids){
 
-            const messageIndex = helpers.getIndexOfMessage(ids.id);
+            const potentialIndex = helpers.getIndexOfPotensial(ids.id);
 
-            state.items.splice(messageIndex, 1);
+            state.potentials.splice(potentialIndex, 1);
         },
 
     },
-
 
     //=========================================================================================
     //  A C T I O N S
     //=========================================================================================
     actions: {
         load_items: ({commit}) => {
-            axios.get('/admin/bookeeping/data/message')
+            axios.get('/admin/bookkeeping/data/potential')
                 .then(response =>{
                     commit('set_items',response.data);
                 });
         },
 
-        send_message({commit}, message) {
+        update_potential({commit}, updatedItem) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('replay/message/' + message.id, {
-                    id: message.id,
-                    message: message.message,
-                    subject: message.subject
+                axios.patch('update/potensial/' + updatedItem.id, {
+                    id: updatedItem.id,
+                    is_confirmed: updatedItem.is_confirmed,
                 })
                     .then(response => {
-                        commit('delete_message', message);
+                        commit('delete_potential', updatedItem);
 
-                        resolve(response.data);
+                        resolve(updatedItem);
                     })
                     .catch(errors => {
                         reject(errors.response.data);

@@ -9,11 +9,11 @@ use App\Http\Controllers\Controller;
 class OverseasController extends Controller
 {
     public function index(){
-    	return view('admin.bookeeping.inquiry');
+    	return view('admin.bookkeeping.inquiry');
     }
 
     public function potential(){
-    	return view('admin.bookeeping.potential');
+    	return view('admin.bookkeeping.potential');
     }
 
     public function loadOverseas(){

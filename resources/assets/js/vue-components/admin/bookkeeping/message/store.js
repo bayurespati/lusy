@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import helpers from './helpers';
 
 export const store = new Vuex.Store({
 
@@ -14,7 +15,7 @@ export const store = new Vuex.Store({
     //  G E T T E R S
     //=========================================================================================
     getters: {
-        getOverseasItems: state => {
+        getMessageItems: state => {
             return state.items;
         }
     },
@@ -27,6 +28,14 @@ export const store = new Vuex.Store({
         set_items: (state, items) =>{
             state.items = items;
         },
+
+        delete_message(state, ids){
+
+            const messageIndex = helpers.getIndexOfMessage(ids.id);
+
+            state.items.splice(messageIndex, 1);
+        },
+
     },
 
 
@@ -35,10 +44,30 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_items: ({commit}) => {
-            axios.get('/admin/bookeeping/data/overseas')
+            axios.get('/admin/bookkeeping/data/message')
                 .then(response =>{
                     commit('set_items',response.data);
                 });
+        },
+
+        send_message({commit}, message) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('replay/message/' + message.id, {
+                    id: message.id,
+                    message: message.message,
+                    subject: message.subject
+                })
+                    .then(response => {
+                        commit('delete_message', message);
+
+                        resolve(response.data);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
         },
     }
 });

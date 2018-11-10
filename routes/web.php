@@ -728,7 +728,7 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/overseas', 'OverseasController@index')->name('admin.bookeeping.overseas');
+        Route::get('/overseas', 'OverseasController@index')->name('admin.bookkeeping.overseas');
         Route::get('/data/overseas', 'OverseasController@loadOverseas');
 
 
@@ -738,7 +738,7 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/potential', 'OverseasController@potential')->name('admin.bookeeping.potensial');
+        Route::get('/potential', 'OverseasController@potential')->name('admin.bookkeeping.potential');
         Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
         Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
 
@@ -749,7 +749,7 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/message', 'MessageController@index')->name('admin.bookeeping.potensial');
+        Route::get('/message', 'MessageController@index')->name('admin.bookkeeping.potential');
         Route::get('/data/message', 'MessageController@loadMessage');
         Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
 

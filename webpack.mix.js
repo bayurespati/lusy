@@ -242,13 +242,13 @@ mix.js([
  |
  */
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/overseas/main.js',
-], 'public/js/admin/bookeping/overseas.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/overseas/main.js',
+], 'public/js/admin/bookkeeping/overseas.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/potential/main.js',
-], 'public/js/admin/bookeping/potential.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/potential/main.js',
+], 'public/js/admin/bookkeeping/potential.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/message/main.js',
-], 'public/js/admin/bookeping/message.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/message/main.js',
+], 'public/js/admin/bookkeeping/message.js');
 
 
