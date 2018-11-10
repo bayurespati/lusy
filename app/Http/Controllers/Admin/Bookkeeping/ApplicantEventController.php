@@ -9,7 +9,7 @@ class ApplicantEventController extends Controller
 {
     public function index(){
 
-    	return view('admin.bookeeping.applicant_event');
+    	return view('admin.bookkeeping.applicant_event');
 
     }
 
@@ -24,7 +24,7 @@ class ApplicantEventController extends Controller
 
         $event = Event::find($param);
 
-        return view('admin.bookeeping.applicant_list',compact('event'));
+        return view('admin.bookkeeping.applicant_list',compact('event'));
 
     }
 
