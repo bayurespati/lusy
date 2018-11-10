@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_items: ({commit}) => {
-            axios.get('/admin/bookeeping/data/potential')
+            axios.get('/admin/bookkeeping/data/potential')
                 .then(response =>{
                     commit('set_items',response.data);
                 });

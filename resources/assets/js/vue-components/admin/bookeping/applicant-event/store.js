@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     //  G E T T E R S
     //=========================================================================================
     getters: {
-        getMessageItems: state => {
+        getApplicantEvent: state => {
             return state.items;
         }
     },
@@ -29,11 +29,11 @@ export const store = new Vuex.Store({
             state.items = items;
         },
 
-        delete_message(state, ids){
+        delete_applicant(state, ids){
 
-            const messageIndex = helpers.getIndexOfMessage(ids.id);
+            const applicantIndex = helpers.getIndexOfApplicant(ids.id);
 
-            state.items.splice(messageIndex, 1);
+            state.items.splice(applicantIndex, 1);
         },
 
     },
@@ -44,23 +44,22 @@ export const store = new Vuex.Store({
     //=========================================================================================
     actions: {
         load_items: ({commit}) => {
-            axios.get('/admin/bookkeeping/data/message')
+            axios.get('/admin/bookkeeping/data/applicant-event')
                 .then(response =>{
                     commit('set_items',response.data);
                 });
         },
 
-        send_message({commit}, message) {
+        update_applicant({commit}, applciant) {
 
             return new Promise((resolve, reject) => {
 
-                axios.patch('replay/message/' + message.id, {
-                    id: message.id,
-                    message: message.message,
-                    subject: message.subject
+                axios.patch('update/appplicant-event/' + applciant.id, {
+                    id: applciant.id,
+                    is_apprive: applciant.is_approve,
                 })
                     .then(response => {
-                        commit('delete_message', message);
+                        commit('delete_applicant', applciant);
 
                         resolve(response.data);
                     })

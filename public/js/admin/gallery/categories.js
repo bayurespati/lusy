@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 217);
+/******/ 	return __webpack_require__(__webpack_require__.s = 218);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -517,6 +517,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -550,7 +552,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: 'bookeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: 'bookeeping/potential' }, { name: 'Message', link: 'bookeeping/message' }]
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Event Applicant List', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' }, { name: 'Message', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
@@ -582,14 +584,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getPotential: function getPotential() {
 			var _this = this;
 
-			axios.get('/admin/bookeeping/data/potential').then(function (response) {
+			axios.get('/admin/bookkeeping/data/potential').then(function (response) {
 				_this.potentials = response.data;
 			});
 		},
 		getMessage: function getMessage() {
 			var _this2 = this;
 
-			axios.get('/admin/bookeeping/data/message').then(function (response) {
+			axios.get('/admin/bookkeeping/data/message').then(function (response) {
 				_this2.message = response.data;
 			});
 		},
@@ -657,7 +659,7 @@ var render = function() {
                         " \n                   \t   "
                     ),
                     _vm.potentialTotal > 0 &&
-                    submenu.link === "bookeeping/potential"
+                    submenu.link === "/admin/bookkeeping/potential"
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +
@@ -668,7 +670,7 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.messageTotal > 0 &&
-                    submenu.link === "bookeeping/message"
+                    submenu.link === "/admin/bookkeeping/message"
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +
@@ -870,15 +872,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 217:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(218);
+module.exports = __webpack_require__(219);
 
 
 /***/ }),
 
-/***/ 218:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -914,23 +916,6 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 219:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(89);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
-
-/***/ }),
-
 /***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -955,6 +940,23 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+
+/***/ 220:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(89);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    }
+});
 
 /***/ }),
 
@@ -3235,7 +3237,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(220);
 
 
 

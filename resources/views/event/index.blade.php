@@ -57,11 +57,7 @@
             
             <div class="section-padding"></div>
 
-<<<<<<< HEAD
-            <!-- @if(count($events) > 0) -->
-=======
             @if($isEventsExist)
->>>>>>> master
             <div id="menu-container" class="container" style="padding-bottom: 7.5rem">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>

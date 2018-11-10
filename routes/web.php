@@ -736,7 +736,7 @@ Route::group([
     |
     */
     Route::group([
-        'prefix' => 'bookeeping',
+        'prefix' => 'bookkeeping',
         'namespace' => 'Bookeeping',
         'middleware' => ['auth'],
     ], function() {
@@ -753,7 +753,7 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
-        | A D M I N   B O O K E P I N G  P O T E N T I A L  O V E R S E A S   I N Q U I R Y
+        | A D M I N   B O O K E P I N G   P O T E N T I A L   O V E R S E A S   I N Q U I R Y
         |--------------------------------------------------------------------------
         |
         */
@@ -768,9 +768,19 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/message', 'MessageController@index')->name('admin.bookeeping.potensial');
+        Route::get('/message', 'MessageController@index')->name('admin.bookeeping.message');
         Route::get('/data/message', 'MessageController@loadMessage');
         Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N    A P P L I C A N T   L I S T
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/applicant-event', 'ApplicantEventController@index')->name('admin.bookeeping.applicant');
+        Route::get('/data/applicant-event', 'ApplicantEventController@loadApplicantEvent');
 
     });
 });

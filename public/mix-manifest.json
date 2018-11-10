@@ -18,6 +18,7 @@
     "/js/admin/bookeping/potential.js": "/js/admin/bookeping/potential.js",
     "/js/admin/bookeping/message.js": "/js/admin/bookeping/message.js",
     "/js/admin/bookeping/overseas.js": "/js/admin/bookeping/overseas.js",
+    "/js/admin/bookeping/applicant_event.js": "/js/admin/bookeping/applicant_event.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",

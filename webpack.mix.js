@@ -250,5 +250,9 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/bookeping/message/main.js',
 ], 'public/js/admin/bookeping/message.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookeping/applicant-event/main.js',
+], 'public/js/admin/bookeping/applicant_event.js');
+
 
 

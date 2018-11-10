@@ -21,12 +21,14 @@
 	                    <a :href="submenu.link"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
 	                   	   {{ submenu.name }} 
-	                   	   <span style="color: red" v-if="potentialTotal > 0 && submenu.link === 'bookeeping/potential' ">
+	                   	   <span style="color: red" 
+	                   	   v-if="potentialTotal > 0 && submenu.link === '/admin/bookkeeping/potential' ">
 	                   	   	{{ 
 	                   	   		potentialTotal 
 	                   	   	}}
 	                   	   </span>
-	                   	   <span style="color: red" v-if="messageTotal > 0 && submenu.link === 'bookeeping/message' ">
+	                   	   <span style="color: red" 
+	                   	   v-if="messageTotal > 0 && submenu.link === '/admin/bookkeeping/message' ">
 	                   	   	{{
 	                   	   		messageTotal
 	                   	   	}}
@@ -99,10 +101,10 @@
 						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
-							{ name:'Applicant List', link: '#' },
-							{ name:'Overseas Inquiry List', link: 'bookeeping/overseas' },
-							{ name:'Potential Overseas Inquiry List', link: 'bookeeping/potential' },
-							{ name:'Message', link: 'bookeeping/message' }
+							{ name:'Event Applicant List', link: '/admin/bookkeeping/applicant-event' },
+							{ name:'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' },
+							{ name:'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' },
+							{ name:'Message', link: '/admin/bookkeeping/message' }
 						]
 					}
 				],
@@ -135,14 +137,14 @@
 
 		methods:{
  			getPotential(){
- 				axios.get('/admin/bookeeping/data/potential')
+ 				axios.get('/admin/bookkeeping/data/potential')
                 .then(response =>{
                     this.potentials = response.data;
                 });
 			},
 
 			getMessage(){
-				axios.get('/admin/bookeeping/data/message')
+				axios.get('/admin/bookkeeping/data/message')
                 .then(response =>{
                     this.message = response.data;
                 });
