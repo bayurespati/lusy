@@ -4,7 +4,7 @@
     <p class="mb-5">This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in {{ item.title }} single page</p>
     
     <ul class="breadcrumb">
-      <li><a href="#" @click="goTo">{{ item.title }}</a></li>
+      <li><a href="/admin/shop/list">{{ item.title }}</a></li>
       <li>Image List Master</li>
     </ul>
 
@@ -63,12 +63,6 @@
           return this.imageList.length;
         }
     },
-
-    methods:{
-      goTo(){
-        window.location.href = '/admin/shop/list';
-      }
-    }
   };
 </script>
 

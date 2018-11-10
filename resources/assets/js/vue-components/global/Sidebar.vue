@@ -77,7 +77,7 @@
 						]
 					},
 					{
-						id: 'Event',
+						id: 'event',
 						name: 'Event & Activity List',
 						subMenu:[
 							{ name:'Category', link: '/admin/event/category' },
