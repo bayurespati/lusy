@@ -46,10 +46,12 @@
                         B U T T O N   E D I T
                         =========================================================================================-->
                     <div class="col align-items-center justify-content-end">
-                        <button type="button" 
-                                class="btn btn-sm btn-warning">
-                                 <a :href="'/admin/bookkeping/applicant-event/list/' + event.id">Applicant List</a>
-                        </button>
+                        <a :href="'/admin/bookkeeping/applicant-event/list/' + event.id">
+                            <button type="button" 
+                            class="btn btn-sm btn-primary">
+                                <i class="fa fa-list"></i> Applicant List
+                            </button>
+                        </a>
                     </div>
                 </div>
             </transition>

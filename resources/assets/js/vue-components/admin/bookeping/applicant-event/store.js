@@ -1,5 +1,4 @@
 import Vuex from 'vuex';
-import helpers from './helpers';
 
 export const store = new Vuex.Store({
 
@@ -28,14 +27,6 @@ export const store = new Vuex.Store({
         set_items: (state, items) =>{
             state.items = items;
         },
-
-        delete_applicant(state, ids){
-
-            const applicantIndex = helpers.getIndexOfApplicant(ids.id);
-
-            state.items.splice(applicantIndex, 1);
-        },
-
     },
 
 
@@ -48,25 +39,6 @@ export const store = new Vuex.Store({
                 .then(response =>{
                     commit('set_items',response.data);
                 });
-        },
-
-        update_applicant({commit}, applciant) {
-
-            return new Promise((resolve, reject) => {
-
-                axios.patch('update/appplicant-event/' + applciant.id, {
-                    id: applciant.id,
-                    is_apprive: applciant.is_approve,
-                })
-                    .then(response => {
-                        commit('delete_applicant', applciant);
-
-                        resolve(response.data);
-                    })
-                    .catch(errors => {
-                        reject(errors.response.data);
-                    })
-            })
         },
     }
 });

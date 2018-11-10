@@ -775,12 +775,18 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
-        | A D M I N    A P P L I C A N T   L I S T
+        | A D M I N    A P P L I C A N T    E V E N T    L I S T
         |--------------------------------------------------------------------------
         |
         */
         Route::get('/applicant-event', 'ApplicantEventController@index')->name('admin.bookeeping.applicant');
         Route::get('/data/applicant-event', 'ApplicantEventController@loadApplicantEvent');
+
+
+        Route::get('/applicant-event/list/{param}', 'ApplicantEventController@list');
+        Route::get('/data/applicant-event/list/{event}', 'ApplicantEventController@loadApplicantList');
+        Route::patch('/update/applicant-event/list/{applicantList}', 'ApplicantEventController@update');
+        Route::delete('/delete/applicant-event/list/{applicantList}', 'ApplicantEventController@destroy');
 
     });
 });
