@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 class MessageController extends Controller
 {
     public function index(){
-    	return view('admin.bookeeping.message');
+    	return view('admin.bookkeeping.message');
     }
 
     public function loadMessage(){

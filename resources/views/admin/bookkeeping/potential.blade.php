@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Admin-Bookeeping-Overseas</title>
+	<title>Admin-Bookkeeping-Potential-Overseas</title>
 @endpush
 
 @push('additional_css')
@@ -52,12 +52,12 @@
             </div>
         </nav>
 		
-		<overseas-list> </overseas-list>
+		<potential-list> </potential-list>
 		<flash> </flash>	
     </div>
 </div>
 @endsection
 
 @push('additional_js')
-	<script src="{{ asset('js/admin/bookeping/overseas.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/potential.js') }}"></script>
 @endpush

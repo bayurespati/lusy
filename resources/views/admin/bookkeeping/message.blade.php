@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Admin-Bookeeping-Contact-message</title>
+	<title>Admin-Bookkeeping-Contact-message</title>
 @endpush
 
 @push('additional_css')
@@ -59,5 +59,5 @@
 @endsection
 
 @push('additional_js')
-	<script src="{{ asset('js/admin/bookeping/message.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/message.js') }}"></script>
 @endpush

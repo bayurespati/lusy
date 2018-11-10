@@ -242,19 +242,19 @@ mix.js([
  |
  */
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/overseas/main.js',
-], 'public/js/admin/bookeping/overseas.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/overseas/main.js',
+], 'public/js/admin/bookkeeping/overseas.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/potential/main.js',
-], 'public/js/admin/bookeping/potential.js');
+    'resources/assets/js/vue-components/admin/bookkeeping/potential/main.js',
+], 'public/js/admin/bookkeeping/potential.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/message/main.js',
+    'resources/assets/js/vue-components/admin/bookkeping/message/main.js',
 ], 'public/js/admin/bookeping/message.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/applicant-event/main.js',
+    'resources/assets/js/vue-components/admin/bookkeping/applicant-event/main.js',
 ], 'public/js/admin/bookeping/applicant_event.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookeping/applicant-list/main.js',
+    'resources/assets/js/vue-components/admin/bookkeping/applicant-list/main.js',
 ], 'public/js/admin/bookeping/applicant_list.js');
 
 
