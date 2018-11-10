@@ -21,12 +21,14 @@
 	                    <a :href="submenu.link"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
 	                   	   {{ submenu.name }} 
-	                   	   <span style="color: red" v-if="potentialTotal > 0 && submenu.link === 'bookkeeping/potential' ">
+	                   	   <span style="color: red" 
+	                   	   v-if="potentialTotal > 0 && submenu.link === '/admin/bookkeeping/potential' ">
 	                   	   	{{ 
 	                   	   		potentialTotal 
 	                   	   	}}
 	                   	   </span>
-	                   	   <span style="color: red" v-if="messageTotal > 0 && submenu.link === 'bookkeeping/message' ">
+	                   	   <span style="color: red" 
+	                   	   v-if="messageTotal > 0 && submenu.link === '/admin/bookkeeping/message' ">
 	                   	   	{{
 	                   	   		messageTotal
 	                   	   	}}
@@ -99,7 +101,7 @@
 						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
-							{ name:'Applicant List', link: '#' },
+							{ name:'Event Applicant List', link: '/admin/bookkeeping/applicant-event' },
 							{ name:'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' },
 							{ name:'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' },
 							{ name:'Message', link: '/admin/bookkeeping/message' }

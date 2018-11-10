@@ -72,6 +72,12 @@
                                         {!! nl2br(e($event->content)) !!}
                                     </p>
                                 </div>
+
+                                <div>
+                                    <button class="general-btn transitioned-btn" type="button" 
+                                            data-toggle="modal"
+                                            data-target="#event">Register Event</button>
+                                </div>
                             </div><!-- Event Block /- -->
                         </div><!-- Content Area /- -->
                         
@@ -81,6 +87,43 @@
             <div class="section-padding"></div>
 
         </main>
+
+        <!-- Modal -->
+        <div class="modal fade" id="event" tabindex="-1" 
+             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Event Reqistration</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/event/registration/{{$event->id}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                      <div class="form-group form-control-sm">
+                            <label for="buyer_name">Name</label>
+                            <input type="text" class="form-control" 
+                                    name="name" id="name" placeholder="Name" required>
+                      </div>
+                      <div class="form-group form-control-sm">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" 
+                                   name="email" id="email" placeholder="Email" required>
+                      </div>
+                      <div class="form-group form-control-sm">
+                            <label for="city">Phone number</label>
+                            <input type="text" class="form-control" 
+                                   name="phone" id="phone" placeholder="Phone" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-warning" data-dismiss="modal">close</button>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer Section -->
         @include('partials.footer')

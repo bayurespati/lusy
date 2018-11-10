@@ -172,11 +172,11 @@
                 </div>
                 <!-- Container /- -->
             </div>
-            @else
-            <h3 class="text-center" style="color: lightgrey">
-                *we're currently organizing events to be held here (please be patient)*
-            </h3>
-            @endif
+            <!-- @else -->
+            <!-- <h3 class="text-center" style="color: lightgrey"> -->
+                <!-- *we're currently organizing events to be held here (please be patient)* -->
+            <!-- </h3> -->
+            <!-- @endif -->
 
             <div id="section-padding" class="section-padding"></div>
 

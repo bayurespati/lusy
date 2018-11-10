@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 220);
+/******/ 	return __webpack_require__(__webpack_require__.s = 221);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -517,6 +517,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -550,7 +552,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
+<<<<<<< HEAD
 				subMenu: [{ name: 'Member', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' }, { name: 'Message', link: '/admin/bookkeeping/message' }]
+=======
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Event Applicant List', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' }, { name: 'Message', link: '/admin/bookkeeping/message' }]
+>>>>>>> bayu
 			}]
 		};
 	},
@@ -657,7 +663,11 @@ var render = function() {
                         " \n                   \t   "
                     ),
                     _vm.potentialTotal > 0 &&
+<<<<<<< HEAD
                     submenu.link === "bookkeeping/potential"
+=======
+                    submenu.link === "/admin/bookkeeping/potential"
+>>>>>>> bayu
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +
@@ -668,7 +678,11 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.messageTotal > 0 &&
+<<<<<<< HEAD
                     submenu.link === "bookkeeping/message"
+=======
+                    submenu.link === "/admin/bookkeeping/message"
+>>>>>>> bayu
                       ? _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v(
                             "\n                   \t   \t" +
@@ -818,15 +832,15 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 220:
+/***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(221);
+module.exports = __webpack_require__(222);
 
 
 /***/ }),
 
-/***/ 221:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -862,7 +876,7 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 222:
+/***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3519,7 +3533,7 @@ if (false) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(223);
 
 
 
