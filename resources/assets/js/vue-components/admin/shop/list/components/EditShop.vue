@@ -1,209 +1,157 @@
 <template>
-
     <transition enterActiveClass="fade-in-down"
                 leaveActiveClass="fade-out-up"
                 mode="out-in">
-
-        <div class="panel-default panel mt-5" id="edit_shop">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_shop">
             <div class="panel-body">
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4 bg-grey">
+                <h3 class="text-center font-weight-bold mb-3">Edit {{ shop.title }}</h3>
 
-
-                    <!--=========================================================================================
-                        N A M A
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
                             <label for="title"
                                    class="form-control-label panel-font-small m-0">
-                                Title
+                                Nama
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
                             <input id="title"
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   :placeholder="shop.title" 
                                    v-model="input.title">
                         </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        L O C A T I O N
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                        <div class="col-sm-6 col-xs-12 text-center">
                             <label for="sub_title"
                                    class="form-control-label panel-font-small m-0">
-                                Sub-title
+                                Sub Nama
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
+
                             <input id="sub_title"
                                    type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   :placeholder="shop.sub_title"
                                    v-model="input.sub_title">
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S T O C K
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="price"
+                                   class="form-control-label panel-font-small m-0">
+                                Harga
+                            </label>
+                            
+                            <input id="price"
+                                   type="number"
+                                   class="form-control form-control-sm"
+                                   @keyup.enter="editShop"
+                                   :placeholder="shop.price"
+                                   v-model="input.price">
+                        </div>
+                        <div class="col-sm-6 col-xs-12 text-center">
                             <label for="stock"
                                    class="form-control-label panel-font-small m-0">
-                                Stock
+                                Stok
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
+
                             <input id="stock"
                                    type="number"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   :placeholder="shop.stock"
                                    v-model="input.stock">
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        D E S C R I P T I O N
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="description"
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="category"
                                    class="form-control-label panel-font-small m-0">
-                                Description
+                                Kategori
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <textarea class="form-control form-control-sm" 
-                                      id="description" 
-                                      v-model="input.description"></textarea>
-                        </div>
-                    </div>
 
-
-                    <!--=========================================================================================
-                        P R I C E 
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="price"
-                                   class="form-control-label panel-font-small m-0">
-                                Price
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input id="price"
-                                   type="number"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editShop"
-                                   v-model="input.price">
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        S T O R E   L I N K
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="price"
-                                   class="form-control-label panel-font-small m-0">
-                                Store Link
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input id="price"
-                                   type="text"
-                                   class="form-control form-control-sm"
-                                   @keyup.enter="editShop"
-                                   v-model="input.store_link">
-                        </div>
-                    </div>
-
-                    <!--=========================================================================================
-                        I S    A K T I F
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="price"
-                                   class="form-control-label panel-font-small m-0">
-                                Is Aktif
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input type="radio" :name=shop.id  value=1 v-model="input.is_displayed"> Aktif
-                            <input type="radio" :name=shop.id  value=0 v-model="input.is_displayed" class="ml-2"> Tidak Aktif
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        C A T E G O R Y
-                        =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="subcategory"
-                                   class="form-control-label panel-font-small m-0">
-                                Category
-                            </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <select class="form-control" id="subcategory" v-model="category_id"> 
+                            <select class="form-control" id="category" v-model="category_id"> 
                                 <option v-for="category in categories" 
                                         :value=category.id> {{ category.title }}
                                 </option>
                             </select>
                         </div>
+
+                        <transition enterActiveClass="fade-in-down"
+                        leaveActiveClass="fade-out-up"
+                        mode="out-in">
+                            <div class="col-sm-6 col-xs-12 text-center" v-if="isMoreOne">
+                                <label for="subcategory"
+                                class="form-control-label panel-font-small m-0">
+                                    Subkategori
+                                </label>
+
+                                <select class="form-control" id="subcategory" v-model.lazy="input.sub_category_id">
+                                    <option value="">Pilih Subkategori</option>
+                                    <option v-for="subcategory in subcat" :value=subcategory.id> {{ subcategory.title }} </option>
+                                </select>
+                            </div>
+                        </transition>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S U B    C A T E G O R Y
-                        =========================================================================================-->
-                    <transition enterActiveClass="fade-in-down"
-                                leaveActiveClass="fade-out-up"
-                                mode="out-in">
-                    <div class="col-sm-12 row form-group" v-if="isMoreOne">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="subcategory"
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-12 text-center">
+                            <label for="description"
                                    class="form-control-label panel-font-small m-0">
-                                Sub Category
+                                Deskripsi Item
                             </label>
-                        </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <select class="form-control" id="subcategory" v-model.lazy="input.sub_category_id">
-                                <option value="">Pilih Sub Category</option>
-                                <option v-for="subcategory in subcat"
-                                        :value=subcategory.id> {{ subcategory.title }}
-                                </option>
-                            </select>
+
+                            <textarea class="form-control form-control-sm normal-placeholder" 
+                                      id="description"
+                                      rows="10"
+                                      :placeholder="shop.description"
+                                      v-model="input.description">
+                            </textarea>
                         </div>
                     </div>
-                    </transition>
 
-
-                    <!--=========================================================================================
-                        A C T I O N   B U T T O N
-                        =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
-                        <div class="col-sm-6">
-                            <button type="button" 
-                                class="full-width btn btn-secondary btn-block btn-sm"
-                                @click="closeEditForm">Batal</button>
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-12 text-center">
+                            <label for="link"
+                                   class="form-control-label panel-font-small m-0">
+                                Link Toko Online
+                            </label>
+                            
+                            <input id="link"
+                                   type="text"
+                                   class="form-control form-control-sm"
+                                   @keyup.enter="editShop"
+                                   :placeholder="shop.store_link"
+                                   v-model="input.store_link">
                         </div>
+                    </div>
 
-                        <div class="col-sm-6">
-                            <button @click="editShop"
-                                    class="full-width btn btn-success btn-block btn-sm">
-                                    Simpan
-                            </button>
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-12 text-center">
+                            <div class="full-width">
+                                <label for="status"
+                                class="form-control-label panel-font-small m-0">
+                                    Status Item
+                                </label>
+                            </div>
+
+                            <input type="radio" :name=shop.id  value=1 v-model="input.is_displayed"> Tampilkan
+                            <input type="radio" :name=shop.id  value=0 v-model="input.is_displayed" class="ml-2"> Sembunyikan
                         </div>
+                    </div>
+                    
+                    <div class="col-sm-12 d-flex justify-content-center mt-2">
+                        <button type="button" 
+                        class="btn btn-secondary btn-sm"
+                        @click="closeEditForm">
+                            Batal
+                        </button>
+
+                        <button @click="editShop"
+                        class="btn btn-success btn-sm ml-2">
+                            Simpan
+                        </button>
                     </div>
                 </div>
             </div>
@@ -337,8 +285,42 @@
     };
 </script>
 
+<style type="text/css">
+    ::-webkit-input-placeholder,
+    :-moz-placeholder, /* Firefox 18- */
+    ::-moz-placeholder, /* Firefox 19+ */
+    :-ms-input-placeholder {
+        text-align: center;
+    }
+
+    input {
+        text-align: center;
+    }
+
+    select {
+        text-align: center;
+        text-align-last: center;
+        /* webkit*/
+    }
+
+    option {
+        text-align: left;
+    }
+
+    .normal-placeholder::-webkit-input-placeholder,
+    .normal-placeholder:-moz-placeholder,
+    .normal-placeholder::-moz-placeholder,
+    .normal-placeholder:-ms-input-placeholder {
+        text-align: left !important;
+    }
+</style>
+
 <style scoped>
-    .pl-15-px {
-        padding-left: 15px !important;
+    .bg-grey {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
     }
 </style>

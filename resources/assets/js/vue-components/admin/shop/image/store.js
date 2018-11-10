@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
     //=========================================================================================
     state: {
         imageList:{},
-        shopId: {}
+        shopId: {},
+        item: {},
     },
 
 
@@ -22,7 +23,11 @@ export const store = new Vuex.Store({
 
         getShopId: state => {
             return state.shopId;
-        }
+        },
+
+        getItem: state => {
+            return state.item;
+        },
     },
 
     //=========================================================================================
@@ -30,13 +35,15 @@ export const store = new Vuex.Store({
     //=========================================================================================
     mutations: {
         set_images: (state, items) =>{
-            
             state.imageList = items.data;
             state.shopId = items.id; 
         },
 
-        add_new_image(state, imageItem){
+        set_item: (state, item) => {
+            state.item = item;
+        },
 
+        add_new_image(state, imageItem){
             state.imageList.push({
                 id: imageItem.id,
                 image_path: imageItem.image_path,

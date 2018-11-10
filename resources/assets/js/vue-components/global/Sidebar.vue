@@ -1,7 +1,8 @@
+<!-- S A M A I N   R O U T E N Y A ,   R O U T E N Y A   G A   R U N U T -->
 <template>
 	<nav id="sidebar">
 	    <div class="sidebar-header">
-	        <a href="#"><h3>Lusy Wahyudi</h3></a>
+	        <a href="/"><h3>Lusy Wahyudi</h3></a>
 	    </div>
 
 	    <ul class="list-unstyled components" >
@@ -17,7 +18,7 @@
 	            	class="collapse list-unstyled" 
 	            	:class= "{ 'show': menuName === menu.id }">
 	                <li v-for="submenu in menu.subMenu">
-	                    <a @click="goTo(submenu.link)"
+	                    <a :href="submenu.link"
 	                       :class= "{ 'active-forced': subMenuName === submenu.link }">
 	                   {{ submenu.name }}</a>
 	                </li>
@@ -39,49 +40,49 @@
 						id: 'home',
 						name: 'Home',
 						subMenu:[ 
-							{ name: 'Sosial Media', link: 'home/sosmed' },
-							{ name: 'Image Slider', link: 'home/image-slider' }
+							{ name: 'Sosial Media', link: '/admin/home/sosmed' },
+							{ name: 'Image Slider', link: '/admin/home/image-slider' }
 						]
 					},
 					{
 						id: 'about',
 						name: 'About',
 						subMenu:[
-							{ name: 'Gallery', link: 'about/gallery' },
-							{ name: 'Profile', link: 'about/profile' },
-							{ name: 'Clasess', link: 'about/class' }
+							{ name: 'Profile', link: '/admin/about/profile' },
+							{ name: 'Clasess', link: '/admin/about/class' },
+							{ name: 'Gallery Showcase', link: '/admin/about/showcase' },
 						]
 					},
 					{
 						id: 'gallery',
 						name: 'Gallery',
 						subMenu:[
-							{ name:'Category', link: 'gallery/category' },
-							{ name:'Sub Category', link: 'gallery/subcategory' },
-							{ name:'Photo List', link: 'gallery/list' },
+							{ name:'Category', link: '/admin/gallery/category' },
+							{ name:'Sub Category', link: '/admin/gallery/subcategory' },
+							{ name:'Photo List', link: '/admin/gallery/list' },
 						]
 					},
 					{
-						id: "event",
+						id: 'Event',
 						name: 'Event & Activity List',
 						subMenu:[
-							{ name:'Category', link: 'event/category' },
-							{ name:'Sub Category', link: 'event/subcategory' },
-							{ name:'Event & Activity List', link: 'event/list' }
+							{ name:'Category', link: '/admin/event/category' },
+							{ name:'Sub Category', link: '/admin/event/subcategory' },
+							{ name:'Event & Activity List', link: '/admin/event/list' }
 						]
 					},
 					{
 						id: 'shop',
 						name: 'Shop',
 						subMenu:[
-							{ name:'Category', link: 'shop/category' },
-							{ name:'Sub Category', link: 'shop/subcategory' },
-							{ name:'Item List', link: 'shop/list' }
+							{ name:'Category', link: '/admin/shop/category' },
+							{ name:'Sub Category', link: '/admin/shop/subcategory' },
+							{ name:'Item List', link: '/admin/shop/list' }
 						]
 					},
 					{	
-						id: 'bookeeping',
-						name: 'Bookeeping',
+						id: 'bookkeeping',
+						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
 							{ name:'Overseas Inquiry List', link: '#' },
@@ -102,13 +103,9 @@
 				let link = window.location.pathname.split('/');
 
 				this.menuName = link[2];
-				this.subMenuName = link[2]+'/'+link[3];
+				this.subMenuName = '/admin/' + link[2] + '/' + link[3];
 			},
-
-			goTo(url){
-				window.location.href = '/admin/'+url;
-            }
-		}
+		},
 	};
 </script>
 <style scoped>

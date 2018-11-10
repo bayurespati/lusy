@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 301);
+/******/ 	return __webpack_require__(__webpack_require__.s = 305);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -504,6 +504,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -514,26 +515,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: 'home/sosmed' }, { name: 'Image Slider', link: 'home/image-slider' }]
+				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }]
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Gallery', link: 'about/gallery' }, { name: 'Profile', link: 'about/profile' }, { name: 'Clasess', link: 'about/class' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: 'gallery/category' }, { name: 'Sub Category', link: 'gallery/subcategory' }, { name: 'Photo List', link: 'gallery/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photo List', link: '/admin/gallery/list' }]
 			}, {
-				id: "event",
+				id: 'Event',
 				name: 'Event & Activity List',
-				subMenu: [{ name: 'Category', link: 'event/category' }, { name: 'Sub Category', link: 'event/subcategory' }, { name: 'Event & Activity List', link: 'event/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Event & Activity List', link: '/admin/event/list' }]
 			}, {
 				id: 'shop',
 				name: 'Shop',
-				subMenu: [{ name: 'Category', link: 'shop/category' }, { name: 'Sub Category', link: 'shop/subcategory' }, { name: 'Item List', link: 'shop/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Item List', link: '/admin/shop/list' }]
 			}, {
-				id: 'bookeeping',
-				name: 'Bookeeping',
+				id: 'bookkeeping',
+				name: 'Bookkeeping',
 				subMenu: [{ name: 'Member', link: '#' }, { name: 'Overseas Inquiry List', link: '#' }, { name: 'Applicant List', link: '#' }, { name: 'Potential Overseas Inquiry List', link: '#' }]
 			}]
 		};
@@ -548,10 +549,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var link = window.location.pathname.split('/');
 
 			this.menuName = link[2];
-			this.subMenuName = link[2] + '/' + link[3];
-		},
-		goTo: function goTo(url) {
-			window.location.href = '/admin/' + url;
+			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
 		}
 	}
 });
@@ -602,11 +600,7 @@ var render = function() {
                     class: {
                       "active-forced": _vm.subMenuName === submenu.link
                     },
-                    on: {
-                      click: function($event) {
-                        _vm.goTo(submenu.link)
-                      }
-                    }
+                    attrs: { href: submenu.link }
                   },
                   [_vm._v("\n                   " + _vm._s(submenu.name))]
                 )
@@ -624,7 +618,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sidebar-header" }, [
-      _c("a", { attrs: { href: "#" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
+      _c("a", { attrs: { href: "/" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
     ])
   }
 ]
@@ -2136,15 +2130,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 301:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(302);
+module.exports = __webpack_require__(306);
 
 
 /***/ }),
 
-/***/ 302:
+/***/ 306:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2180,7 +2174,7 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 303:
+/***/ 307:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3258,7 +3252,7 @@ if (false) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(307);
 
 
 

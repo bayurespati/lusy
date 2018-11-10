@@ -1,10 +1,13 @@
 <template>
   <div class="container">
-    <h1>IMAGE LIST</h1>
+    <h3 class="text-uppercase">{{ item.title }} IMAGE LIST MASTER</h3>
+    <p class="mb-5">This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in {{ item.title }} single page</p>
+    
     <ul class="breadcrumb">
-      <li><a @click="goTo">Shop</a></li>
-      <li><a href="#">Image List</a></li>
+      <li><a href="#" @click="goTo">{{ item.title }}</a></li>
+      <li>Image List Master</li>
     </ul>
+
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddImage">
         <div class="row">
@@ -14,19 +17,19 @@
         </div>
       </template>
       <template v-else>
-        <add-image @closeAddImage="isAddImage = $event"></add-image>
+        <add-image @closeAddImage="isAddImage = $event" :itemName="item.title"></add-image>
       </template>
     </transition>
 
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
+      <div class="col-md-12">
+        <transition-group name="slide">
           <image-list
-                  v-for="imageItem in imageList"
-                  :imageItem="imageItem"
-                  :key="imageItem.id">
+          v-for="imageItem in imageList"
+          :imageItem="imageItem"
+          :key="imageItem.id">
           </image-list>
-      </transition-group>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -53,6 +56,7 @@
     computed:{
         ...mapGetters({
             imageList: 'getImageList',
+            item: 'getItem',
         }),
 
         totalImageList(){

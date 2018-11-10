@@ -22,7 +22,7 @@
             <div class="container-fluid">
 
                 <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
+                    <i class="fa fa-align-left"></i>
                     <span>Toggle Sidebar</span>
                 </button>
                 <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
 
 @push('additional_js')
 <script>
-    const $param = {!! json_encode($param) !!};
+    const $shopItem = {!! json_encode($shopItem) !!};
 </script>
 	<script src="{{ asset('js/croppie.js') }}"></script>
 	<script src="{{ asset('js/admin/shop/image.js') }}"></script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\shop;
 
 use App\ShopImage;
+use App\ShopItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
@@ -11,7 +12,8 @@ class ImageController extends Controller
 {
     public function index($param)
     {
-        return view('admin.shop.image',compact('param'));
+        $shopItem = ShopItem::find($param);
+        return view('admin.shop.image',compact('shopItem'));
     }
 
     public function loadImageList($param)

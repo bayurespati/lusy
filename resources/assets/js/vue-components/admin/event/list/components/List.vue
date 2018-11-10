@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1>EVENTS</h1>
+    <h3>Events' Master</h3>
+    <p class="mb-5">Here you can manages events shown in Events & Activities page.</p>
+
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddEvent">
         <div class="row">
@@ -17,10 +19,9 @@
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-            <event
-                  v-for="event in events"
-                  :event="event"
-                  :key="event.id">
+            <event v-for="event in events"
+            :event="event"
+            :key="event.id">
             </event>
         </transition-group>
       </div>

@@ -45,6 +45,7 @@ export const store = new Vuex.Store({
                 id: event.id,
                 title: event.detail.title,
                 sub_category_id: event.detail.sub_category_id,
+                end_date: event.end_date,
                 start_date: event.start_date,
                 location: event.detail.location,
                 address: event.detail.address,

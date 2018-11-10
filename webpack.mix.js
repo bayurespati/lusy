@@ -29,8 +29,9 @@ mix.js('resources/assets/js/app.js', 'public/js');
  |
  |
  */
-mix.styles([	
+mix.styles([
 	'resources/assets/css/bootstrap.min.css',
+	'resources/assets/lib/fa.css',
 	'resources/assets/css/additional.css',
 ], 'public/css/admin.css');
 
@@ -44,6 +45,7 @@ mix.styles([
  |
  */
 mix.styles([
+	'resources/assets/lib/fa.css',
     'resources/assets/css/animation.css',
     'resources/assets/css/loading.css',
 ], 'public/css/animation.css');
