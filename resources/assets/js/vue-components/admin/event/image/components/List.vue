@@ -4,7 +4,7 @@
     <p class="mb-5">This is where you can manage images shown in the event's poster shown in Events & Activities page and event's images shown in {{ event.title }} single page</p>
     
     <ul class="breadcrumb">
-      <li><a href="#" @click="goTo">{{ event.title }}</a></li>
+      <li><a href="/admin/event/list">{{ event.title }}</a></li>
       <li>Image List Master</li>
     </ul>
     
@@ -63,12 +63,6 @@
           return this.imageList.length;
         }
     },
-
-    methods:{
-      goTo(){
-        window.location.href = '/admin/event/list';
-      }
-    }
   };
 </script>
 

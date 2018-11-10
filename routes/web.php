@@ -598,7 +598,7 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/image/{param}', 'ImageController@index')->name('admin.event.image');
+        Route::get('/list/image/{param}', 'ImageController@index')->name('admin.event.image');
         Route::get('/data/image/{param}', 'ImageController@loadImageList');
         Route::post('/add/image', 'ImageController@store');
         Route::patch('/update/image/{eventImage}', 'ImageController@update');
@@ -664,7 +664,7 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/image/{param}', 'ImageController@index')->name('admin.shop.image');
+        Route::get('/list/image/{param}', 'ImageController@index')->name('admin.shop.image');
         Route::get('/data/image/{param}', 'ImageController@loadImageList');
         Route::post('/add/image', 'ImageController@store');
         Route::patch('/update/image/{shopImage}', 'ImageController@update');
