@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Lusy Wahyudi - Shop</title>
+<title>Lusy Wahyudi - {{ $shopItem->title }}</title>
 @endpush
 
 @push('additional_css')
@@ -100,54 +100,60 @@
                                     <i><img src="{{ $shopItem->poster }}" alt="{{ $shopItem->title }}" /></i>
                                 </div>
 
-                                <div class="portfolio-section" style="padding-top: 8px">
-                                    <div class="portfolio-list">
-                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
-                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                                                <div class="portfolio-content">
-                                                    <span>Title</span>
-                                                </div>
-                                            </a>
+                                @if(count($shopItem->images) > 0)
+                                <div id="gallery-section" class="portfolio-section" style="padding-top: 8px">
+                                  <div id="gallery-container" class="portfolio-list">
+                                    @foreach($shopItem->images as $photo)
+                                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                                      <a href="{{ $photo->image_path }}">
+                                        <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
+
+                                        <div class="portfolio-content">
+                                          <i class="icon icon-Search"></i>
+                                          <h3>{{ $photo->title }}</h3>
                                         </div>
-                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
-                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                                                <div class="portfolio-content">
-                                                    <span>Title</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
-                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                                                <div class="portfolio-content">
-                                                    <span>Title</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                                            <a href="{{ asset('img/portfolio-2.jpg') }}">
-                                                <img src="{{ asset('img/portfolio-2.jpg') }}" alt="Portfolio" />
-                                                <div class="portfolio-content">
-                                                    <span>Title</span>
-                                                </div>
-                                            </a>
-                                        </div>
+                                      </a>
                                     </div>
-
-                                    <div class="padding-20"></div>
-
-                                    <nav class="ow-pagination text-center">
-                                        <ul class="pagination">
-                                            <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                            <li><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                                        </ul>
-                                    </nav>
+                                    @endforeach
+                                  </div>
                                 </div>
+                                @endif
+
+                                @if ($shopItem->images->lastPage() > 1)
+                                <nav id="gallery-pagination" class="ow-pagination text-center mt-5">
+                                  <ul class="pagination">
+                                    <li class="{{ ($shopItem->images->currentPage() == 1) ? ' disabled' : '' }}">
+                                      <a href="#menu-container" onClick="goToPage(1, {{ $shopItem->id }})" style="padding-top: 10px"><i class="fa fa-angle-double-left"></i></a>
+                                    </li>
+
+                                    @for ($i = 1; $i <= $shopItem->images->lastPage(); $i++)
+                                    <?php
+                                    $half_total_links = floor(4 / 2);
+                                    $from = $shopItem->images->currentPage() - $half_total_links;
+                                    $to = $shopItem->images->currentPage() + $half_total_links;
+
+                                    if ($shopItem->images->currentPage() < $half_total_links) {
+                                      $to += $half_total_links - $shopItem->images->currentPage();
+                                    }
+                                    if ($shopItem->images->lastPage() - $shopItem->images->currentPage() < $half_total_links) {
+                                      $from -= $half_total_links - ($shopItem->images->lastPage() - $shopItem->images->currentPage() - 1);
+                                    }
+                                    ?>
+
+                                    @if ($from < $i && $i < $to)
+                                    <li class="{{ ($shopItem->images->currentPage() == $i) ? ' active' : '' }}">
+                                      <a href="#menu-container" onClick="goToPage({{ $i }}, {{ $shopItem->id }})">{{ $i }}</a>
+                                    </li>
+                                    @endif
+                                    @endfor
+                                    <li class="{{ $shopItem->images->currentPage() == $shopItem->images->lastPage() ? ' disabled' : '' }}">
+                                      <a href="#menu-container" onClick="goToPage({{ $shopItem->images->lastPage() }}, {{ $shopItem->id }})"><i class="fa fa-angle-double-right" style="padding-top: 10px"></i></a>
+                                    </li>
+                                  </ul>
+                                </nav>
+                                @endif
+
+                                <div id="section-padding" class="padding-20"></div>
                             </div>
 
                             <div class="col-md-6 col-sm-6 content-block-custom">
@@ -165,13 +171,22 @@
                                     {!! nl2br(e($shopItem->description)) !!}
                                 </p>
 
+                                <p class="m-0">
+                                  Stock: {{ $shopItem->stock }}
+                                </p>
+
                                 <div>
-                                    <button 
-                                            class="general-btn transitioned-btn" 
-                                            type="button" 
-                                            data-toggle="modal"
-                                            data-target="#overseas">Overseas Inquiry</button>
-                                    <button class="general-btn transitioned-btn ml-2">Buy Now</button>
+                                    <button class="general-btn transitioned-btn" 
+                                    type="button" 
+                                    data-toggle="modal"
+                                    data-target="#overseas">
+                                      Overseas Inquiry
+                                    </button>
+                                    <a href="{{ $shopItem->store_link }}">
+                                      <button class="general-btn transitioned-btn ml-2">
+                                        Buy Now
+                                      </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -287,3 +302,177 @@
 </body>
 
 @endsection
+
+@push('additional_js')
+<script type="text/javascript">
+  const item = {!! json_encode($shopItem) !!}
+  
+  function goToPage(pageNumber, itemId){
+    $.ajax({
+      type: 'GET',
+      url: 'https://' + window.location.hostname + '/shop/item/images/' + itemId + '?page=' + pageNumber,
+      dataType: 'JSON',
+      success: function (data) {
+        cleanImages();
+        prepareImages(data);
+
+        cleanPagination();
+        preparePagination(data);
+      }
+    });
+  }
+
+  function cleanImages(){
+    var galleryContainer = document.getElementById('gallery-container');
+
+    galleryContainer.parentNode.removeChild(galleryContainer);
+  }
+
+  function cleanPagination(){
+    var galleryPagination = document.getElementById('gallery-pagination');
+
+    galleryPagination.parentNode.removeChild(galleryPagination);
+  }
+
+  function prepareImages(array){
+        var gallerySection = document.getElementById('gallery-section');
+
+        let galleryContent = '<div id="gallery-container" class="portfolio-list">';
+
+        array.data.forEach(function(photo){
+            galleryContent = galleryContent + 
+            '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
+            '   <a href="' + photo.image_path + '">' +
+            '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
+            '       <div class="portfolio-content">' +
+            '           <i class="icon icon-Search"></i>' +
+            '           <h3>' + photo.title + '</h3>' +
+            '       </div>' +
+            '   </a>' +
+            '</div>'
+        }, galleryContent);
+
+        galleryContent = galleryContent + '</div>';
+
+        setTimeout(function(){
+          gallerySection.innerHTML = galleryContent;
+
+          check();
+        }, 500);
+    }
+
+    function preparePagination(data){
+        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
+        var sectionPadding = document.getElementById('section-padding');
+        var paginationContainer = document.createElement('nav');
+        paginationContainer.setAttribute('id', 'gallery-pagination');
+        paginationContainer.setAttribute('class', 'ow-pagination text-center mt-5');
+
+        let paginationContent = '';
+
+        paginationContent = paginationContent + 
+        '<ul class="pagination">';
+
+        if(data.current_page == 1) {
+            paginationContent = paginationContent + 
+            '<li class="disabled">';
+        } else {
+            paginationContent = paginationContent + 
+            '<li>';
+        }
+
+        paginationContent = paginationContent + 
+        '       <a href="#menu-container" onClick="goToPage(1, ' + item.id + ')" style="padding-top: 10px">' +
+        '           <i class="fa fa-angle-double-left"></i>' +
+        '       </a>' + 
+        '   </li>';
+
+        for(let i = 1; i <= data.last_page; i++){
+            const halfTotalLinks = Math.floor(4/2);
+            let from = data.current_page - halfTotalLinks;
+            let to = data.current_page + halfTotalLinks;
+
+            if (data.current_page < halfTotalLinks) {
+                to += halfTotalLinks - data.current_page;
+            };
+
+            if (data.last_page - data.current_page < halfTotalLinks) {
+                from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+            };
+
+            if (from < i && i < to) {
+                if (data.current_page == i) {
+                    paginationContent = paginationContent + 
+                    '<li class="active">';
+                }
+                else {
+                    paginationContent = paginationContent + 
+                    '<li>';
+                }
+
+
+                paginationContent = paginationContent + 
+                '   <a href="#menu-container" onClick="goToPage(' + i + ', ' + item.id + ')">' + i + '</a>' + 
+                '</li>';
+            }
+        }
+
+        if(data.current_page == data.last_page) {
+            paginationContent = paginationContent + 
+            '<li class="disabled">';
+        } else {
+            paginationContent = paginationContent + 
+            '<li>';
+        }
+
+        paginationContent = paginationContent + 
+        '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ', ' + item.id + ')" style="padding-top: 10px">' + 
+        '           <i class="fa fa-angle-double-right"></i>' + 
+        '       </a>' + 
+        '   </li>' + 
+        '</ul>';
+
+        paginationContainer.innerHTML = paginationContent;
+        setTimeout(function(){
+            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
+        }, 800);
+    }
+
+    function check(){
+        if($(".portfolio-section").length){
+            var url;
+            $(".portfolio-section .portfolio-box").magnificPopup({
+                delegate: "a",
+                type: "image",
+                tLoading: "Loading image #%curr%...",
+                mainClass: "mfp-img-mobile",
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: false,
+                    preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                },
+                image: {
+                    tError: "<a href="%url%">The image #%curr%</a> could not be loaded.",               
+                }
+            });
+        }
+        
+        /* - Portfolio Section */
+        var $container = $(".portfolio-section .portfolio-list");
+        $container.isotope({
+            layoutMode: 'fitRows',
+            itemSelector: ".portfolio-box",
+            gutter: 0,
+            transitionDuration: "0.5s"
+        });
+        
+        $("#filters a").on("click",function(){
+            $('#filters a').removeClass("active");
+            $(this).addClass("active");
+            var selector = $(this).attr("data-filter");
+            $container.isotope({ filter: selector });       
+            return false;
+        });
+    }
+</script>
+@endpush

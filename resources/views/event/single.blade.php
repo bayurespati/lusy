@@ -139,6 +139,7 @@
                     </div>
                 </div><!-- Container /- -->
 
+                @if(count($event->images) > 0)
                 <div id="gallery-section" class="portfolio-section" style="padding-top: 40px">
                   <div id="gallery-container" class="portfolio-list">
                     @foreach($event->images as $photo)
@@ -156,42 +157,43 @@
                     @endforeach
                   </div>
                 </div>
+                @endif
 
+                @if ($event->images->lastPage() > 1)
                 <nav id="gallery-pagination" class="ow-pagination text-center mt-5">
-                    @if ($event->images->lastPage() > 1)
                     <ul class="pagination">
                         <li class="{{ ($event->images->currentPage() == 1) ? ' disabled' : '' }}">
                             <a href="#menu-container" onClick="goToPage(1, {{ $event->id }})"><i class="fa fa-angle-double-left"></i></a>
                         </li>
                     
                         @for ($i = 1; $i <= $event->images->lastPage(); $i++)
-                            <?php
-                            $half_total_links = floor(4 / 2);
-                            $from = $event->images->currentPage() - $half_total_links;
-                            $to = $event->images->currentPage() + $half_total_links;
+                        <?php
+                        $half_total_links = floor(4 / 2);
+                        $from = $event->images->currentPage() - $half_total_links;
+                        $to = $event->images->currentPage() + $half_total_links;
 
-                            if ($event->images->currentPage() < $half_total_links) {
-                                $to += $half_total_links - $event->images->currentPage();
-                            }
-                            if ($event->images->lastPage() - $event->images->currentPage() < $half_total_links) {
-                                $from -= $half_total_links - ($event->images->lastPage() - $event->images->currentPage() - 1);
-                            }
-                            ?>
-                            
-                            @if ($from < $i && $i < $to)
-                            <li class="{{ ($event->images->currentPage() == $i) ? ' active' : '' }}">
-                                <a href="#menu-container" onClick="goToPage({{ $i }}, {{ $event->id }})">{{ $i }}</a>
-                            </li>
-                            @endif
+                        if ($event->images->currentPage() < $half_total_links) {
+                            $to += $half_total_links - $event->images->currentPage();
+                        }
+                        if ($event->images->lastPage() - $event->images->currentPage() < $half_total_links) {
+                            $from -= $half_total_links - ($event->images->lastPage() - $event->images->currentPage() - 1);
+                        }
+                        ?>
+
+                        @if ($from < $i && $i < $to)
+                        <li class="{{ ($event->images->currentPage() == $i) ? ' active' : '' }}">
+                            <a href="#menu-container" onClick="goToPage({{ $i }}, {{ $event->id }})">{{ $i }}</a>
+                        </li>
+                        @endif
                         @endfor
                         <li class="{{ $event->images->currentPage() == $event->images->lastPage() ? ' disabled' : '' }}">
                             <a href="#menu-container" onClick="goToPage({{ $event->images->lastPage() }}, {{ $event->id }})"><i class="fa fa-angle-double-right"></i></a>
                         </li>
                     </ul>
-                    @endif
                 </nav>
+                @endif
 
-                <div id="section-padding" class="section-padding"></div>
+                <div id="section-padding" class="padding-80"></div>
             </div>
 
         </main>
@@ -295,7 +297,7 @@
             '       <div class="portfolio-content">' +
             '           <i class="icon icon-Search"></i>' +
             '           <h3>' + photo.title + '</h3>' +
-            '           <span>' + photo.creator + '</span>' +
+            '           <span>' + photo.description + '</span>' +
             '       </div>' +
             '   </a>' +
             '</div>'
@@ -384,7 +386,7 @@
         paginationContainer.innerHTML = paginationContent;
         setTimeout(function(){
             parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
-        }, 500);
+        }, 800);
     }
 
     function check(){
