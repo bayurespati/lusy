@@ -492,6 +492,9 @@ Route::group([
     Route::post('home/add/image-slider', 'HomeController@addImageSlider');
     Route::delete('home/delete/image-slider/{imageSlider}', 'HomeController@deleteImageSlider');
 
+    Route::get('home/image-config','ImageConfigController@index');
+    Route::get('data/image-config','ImageConfigController@loadImageConfig');
+    Route::patch('home/update/image-config/{imageConfig}', 'ImageConfigController@update');
 
 
     /*

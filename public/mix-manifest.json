@@ -5,6 +5,7 @@
     "/js/admin/event/image.js": "/js/admin/event/image.js",
     "/js/admin/about/classes.js": "/js/admin/about/classes.js",
     "/js/admin/shop/list.js": "/js/admin/shop/list.js",
+    "/js/admin/image-config.js": "/js/admin/image-config.js",
     "/js/admin/shop/subcategories.js": "/js/admin/shop/subcategories.js",
     "/js/admin/shop/categories.js": "/js/admin/shop/categories.js",
     "/js/admin/gallery/subcategories.js": "/js/admin/gallery/subcategories.js",

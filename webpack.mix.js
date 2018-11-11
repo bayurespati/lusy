@@ -149,6 +149,9 @@ mix.js([
     'resources/assets/js/vue-components/admin/home/image-slider/main.js',
 ], 'public/js/admin/slider.js');
 
+mix.js([
+    'resources/assets/js/vue-components/admin/home/image-config/main.js',
+], 'public/js/admin/image-config.js');
 
 
 
