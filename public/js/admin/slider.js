@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 147);
+/******/ 	return __webpack_require__(__webpack_require__.s = 142);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -710,26 +710,26 @@ if (false) {
 
 /***/ }),
 
-/***/ 147:
+/***/ 142:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(148);
+module.exports = __webpack_require__(143);
 
 
 /***/ }),
 
-/***/ 148:
+/***/ 143:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(80);
 
 
 
@@ -754,15 +754,15 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 149:
+/***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(150)
+var __vue_script__ = __webpack_require__(145)
 /* template */
-var __vue_template__ = __webpack_require__(161)
+var __vue_template__ = __webpack_require__(156)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -802,42 +802,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 15:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 150:
+/***/ 145:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ImageList_vue__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ImageList_vue__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ImageList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ImageList_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ImageBox_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -899,19 +871,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 151:
+/***/ 146:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(152)
+  __webpack_require__(147)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(154)
+var __vue_script__ = __webpack_require__(149)
 /* template */
-var __vue_template__ = __webpack_require__(155)
+var __vue_template__ = __webpack_require__(150)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -951,13 +923,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 152:
+/***/ 147:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(153);
+var content = __webpack_require__(148);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -978,7 +950,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 153:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -993,7 +965,7 @@ exports.push([module.i, "\n.frame[data-v-2de233c8] {\n    border: 1px solid ligh
 
 /***/ }),
 
-/***/ 154:
+/***/ 149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1059,7 +1031,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 155:
+/***/ 15:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1127,19 +1127,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 156:
+/***/ 151:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(157)
+  __webpack_require__(152)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(159)
+var __vue_script__ = __webpack_require__(154)
 /* template */
-var __vue_template__ = __webpack_require__(160)
+var __vue_template__ = __webpack_require__(155)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1179,13 +1179,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 157:
+/***/ 152:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(158);
+var content = __webpack_require__(153);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1206,7 +1206,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 158:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1221,7 +1221,7 @@ exports.push([module.i, "\n#croppie.croppie-container[data-v-92cf0786] {\n    pa
 
 /***/ }),
 
-/***/ 159:
+/***/ 154:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1405,6 +1405,181 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeAdd: function closeAdd() {
             this.$emit('closeAddImage', false);
         }
+    }
+});
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { attrs: { id: "croppie" } }),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "panel panel-transparent p-1 pb-4",
+        staticStyle: { "text-align": "center" }
+      },
+      [
+        _c("input", {
+          staticClass: "inputfile",
+          attrs: { type: "file", accept: "image/*", id: "file-2" },
+          on: { change: _vm.setUpFileUploader }
+        }),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success ml-3",
+            attrs: { type: "button", role: "button" },
+            on: { click: _vm.uploadImage }
+          },
+          [_vm._v("\n                Simpan\n        ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            attrs: { type: "button", role: "button" },
+            on: { click: _vm.closeAdd }
+          },
+          [_vm._v(" \n                Batal\n        ")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "panel panel-transparent" })
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "btn btn-outline-primary m-0", attrs: { for: "file-2" } },
+      [_c("span", [_vm._v("Browse image")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-92cf0786", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 156:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Image Slider Setting")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "You can insert maximum to 4 (four) images here to be displayed at the Home page."
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "transition",
+        {
+          attrs: {
+            enterActiveClass: "fade-in",
+            leaveActiveClass: "fade-out",
+            mode: "out-in"
+          }
+        },
+        [
+          !_vm.isAddImage
+            ? [
+                _vm.totalImage < 4
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary mt-1",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddImage = !_vm.isAddImage
+                          }
+                        }
+                      },
+                      [_vm._v("\n\t\t\t\tTambah Image\n\t\t\t")]
+                    )
+                  : _vm._e()
+              ]
+            : [
+                _c("image-box", {
+                  on: {
+                    closeAddImage: function($event) {
+                      _vm.isAddImage = $event
+                    }
+                  }
+                })
+              ]
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row pt-4" },
+        _vm._l(_vm.imageSliders, function(value, key, index) {
+          return _c("image-list", {
+            key: index,
+            attrs: { imageSlider: value, imageNumber: key }
+          })
+        })
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4c0ff35f", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 157:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(80);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfImageSlider: function getIndexOfImageSlider(imageId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageSliders, function (imageSlider) {
+            return imageSlider.id === imageId;
+        });
     }
 });
 
@@ -3000,181 +3175,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 }));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18).setImmediate))
-
-/***/ }),
-
-/***/ 160:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("div", { attrs: { id: "croppie" } }),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "panel panel-transparent p-1 pb-4",
-        staticStyle: { "text-align": "center" }
-      },
-      [
-        _c("input", {
-          staticClass: "inputfile",
-          attrs: { type: "file", accept: "image/*", id: "file-2" },
-          on: { change: _vm.setUpFileUploader }
-        }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success ml-3",
-            attrs: { type: "button", role: "button" },
-            on: { click: _vm.uploadImage }
-          },
-          [_vm._v("\n                Simpan\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger",
-            attrs: { type: "button", role: "button" },
-            on: { click: _vm.closeAdd }
-          },
-          [_vm._v(" \n                Batal\n        ")]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel panel-transparent" })
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "btn btn-outline-primary m-0", attrs: { for: "file-2" } },
-      [_c("span", [_vm._v("Browse image")])]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-92cf0786", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 161:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("h3", [_vm._v("Image Slider Setting")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "You can insert maximum to 4 (four) images here to be displayed at the Home page."
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "transition",
-        {
-          attrs: {
-            enterActiveClass: "fade-in",
-            leaveActiveClass: "fade-out",
-            mode: "out-in"
-          }
-        },
-        [
-          !_vm.isAddImage
-            ? [
-                _vm.totalImage < 4
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary mt-1",
-                        on: {
-                          click: function($event) {
-                            _vm.isAddImage = !_vm.isAddImage
-                          }
-                        }
-                      },
-                      [_vm._v("\n\t\t\t\tTambah Image\n\t\t\t")]
-                    )
-                  : _vm._e()
-              ]
-            : [
-                _c("image-box", {
-                  on: {
-                    closeAddImage: function($event) {
-                      _vm.isAddImage = $event
-                    }
-                  }
-                })
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row pt-4" },
-        _vm._l(_vm.imageSliders, function(value, key, index) {
-          return _c("image-list", {
-            key: index,
-            attrs: { imageSlider: value, imageNumber: key }
-          })
-        })
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4c0ff35f", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 162:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(85);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfImageSlider: function getIndexOfImageSlider(imageId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageSliders, function (imageSlider) {
-            return imageSlider.id === imageId;
-        });
-    }
-});
 
 /***/ }),
 
@@ -4955,13 +4955,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 85:
+/***/ 80:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(157);
 
 
 

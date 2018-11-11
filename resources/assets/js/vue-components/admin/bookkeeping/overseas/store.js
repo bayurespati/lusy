@@ -27,6 +27,13 @@ export const store = new Vuex.Store({
         set_items: (state, items) =>{
             state.items = items;
         },
+
+        delete_item(state, ids){
+            
+            const itemIndex = _.findIndex(state.items, ['id', ids.itemId]);
+
+            state.items.splice(itemIndex, 1);
+        }
     },
 
 
@@ -39,6 +46,19 @@ export const store = new Vuex.Store({
                 .then(response =>{
                     commit('set_items',response.data);
                 });
+        },
+
+        destroy_item({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/potensial/'+ids.itemId)
+                    .then((response) => {
+                        commit('delete_item', ids);
+                        resolve();
+                    });
+            })
+
         },
     }
 });

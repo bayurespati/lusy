@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 251);
+/******/ 	return __webpack_require__(__webpack_require__.s = 246);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -983,6 +983,67 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ 246:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(247);
+
+
+/***/ }),
+
+/***/ 247:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(87);
+
+
+
+
+
+var admin = new Vue({
+    el: '#categories',
+
+    components: {
+        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_categories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 248:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(87);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    }
+});
+
+/***/ }),
+
 /***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1032,67 +1093,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-
-/***/ 251:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(252);
-
-
-/***/ }),
-
-/***/ 252:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(92);
-
-
-
-
-
-var admin = new Vue({
-    el: '#categories',
-
-    components: {
-        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_categories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
-});
-
-/***/ }),
-
-/***/ 253:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(92);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
 
 /***/ }),
 
@@ -3231,105 +3231,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    {
-      attrs: {
-        enterActiveClass: "fade-in",
-        leaveActiveClass: "fade-out",
-        mode: "out-in"
-      }
-    },
-    [
-      _vm.notificationExists
-        ? _c(
-            "div",
-            { staticClass: "notification-wrapper" },
-            [
-              _c(
-                "transition-group",
-                {
-                  attrs: {
-                    enterActiveClass: "fade-in-down",
-                    leaveActiveClass: "fade-out",
-                    mode: "out-in"
-                  }
-                },
-                _vm._l(_vm.notifications, function(notification, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: "notification.id",
-                      staticClass: "alert alert-contrast alert-position",
-                      class: notification.alertClass,
-                      style: _vm.getBottomPosition(index)
-                    },
-                    [
-                      _c("div", { staticClass: "icon" }, [
-                        _c("span", { class: notification.alertIcon })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "message" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "close",
-                            on: {
-                              click: function($event) {
-                                _vm.hide(0, index)
-                              }
-                            }
-                          },
-                          [
-                            _c("span", {
-                              staticClass: "s7-close",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(notification.body) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                })
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 92:
+/***/ 87:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(248);
 
 
 
@@ -3444,6 +3352,98 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         }
     }
 });
+
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    {
+      attrs: {
+        enterActiveClass: "fade-in",
+        leaveActiveClass: "fade-out",
+        mode: "out-in"
+      }
+    },
+    [
+      _vm.notificationExists
+        ? _c(
+            "div",
+            { staticClass: "notification-wrapper" },
+            [
+              _c(
+                "transition-group",
+                {
+                  attrs: {
+                    enterActiveClass: "fade-in-down",
+                    leaveActiveClass: "fade-out",
+                    mode: "out-in"
+                  }
+                },
+                _vm._l(_vm.notifications, function(notification, index) {
+                  return _c(
+                    "div",
+                    {
+                      key: "notification.id",
+                      staticClass: "alert alert-contrast alert-position",
+                      class: notification.alertClass,
+                      style: _vm.getBottomPosition(index)
+                    },
+                    [
+                      _c("div", { staticClass: "icon" }, [
+                        _c("span", { class: notification.alertIcon })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "message" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "close",
+                            on: {
+                              click: function($event) {
+                                _vm.hide(0, index)
+                              }
+                            }
+                          },
+                          [
+                            _c("span", {
+                              staticClass: "s7-close",
+                              attrs: { "aria-hidden": "true" }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(notification.body) +
+                            "\n                "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
+  }
+}
 
 /***/ })
 

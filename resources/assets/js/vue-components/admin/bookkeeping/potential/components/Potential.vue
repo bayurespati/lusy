@@ -51,19 +51,7 @@
                             <p class="mb-0">{{ potential.quantity }}</p>
                         </div>
                     </div>
-
-
-                    <!--=========================================================================================
-                        S H O W   S T A T U S
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Satus</strong></p>
-                        <div class="detail max-lines">
-                            <button class="btn btn-outline-primary btn-sm" v-if="potential.is_confirmed === 1"> Approve </button>
-                            <button @click="updated" class="btn btn-outline-warning btn-sm" v-else=""> Waiting </button>
-                        </div>
-                    </div>
-
+                    
 
                     <!--=========================================================================================
                         B U T T O N   E D I T
@@ -104,32 +92,6 @@
         components:{
             Detail
         },
-
-        methods:{
-            updated(){
-
-                const self = this;
-
-                if (true) {
-
-                    const updatedPotential = {
-                        id: this.potential.id,
-                        is_confirmed: !this.potential.is_confirmed,
-                    };
-
-                    this.$store.dispatch('update_potential', updatedPotential)                        
-
-                        .then((updatedPotential) => {
-
-                            flash('Potential Inquiry accepted', 'success');
-                        })
-                        .catch(errors => {
-
-                        });
-                }
-            },
-
-        }
     };
 </script>
 <style scoped>

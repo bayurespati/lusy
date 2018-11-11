@@ -30,4 +30,10 @@ class OverseasController extends Controller
         $shopInquiry->update();
 
     }
+
+    public function destroy(ShopInquiry $shopInquiry){
+        
+        $shopInquiry->delete();
+        
+    }
 }

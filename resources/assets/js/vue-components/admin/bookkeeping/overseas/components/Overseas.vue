@@ -54,24 +54,17 @@
 
 
                     <!--=========================================================================================
-                        S H O W   S T A T U S
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Satus</strong></p>
-                        <div class="detail max-lines">
-                            <button class="btn btn-outline-primary btn-sm" v-if="overseas.is_confirmed === 1"> Approve </button>
-                            <button class="btn btn-outline-warning btn-sm" v-else=""> Waiting </button>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        B U T T O N   E D I T
+                        B U T T O N
                         =========================================================================================-->
                     <div class="col align-items-center justify-content-end">
                         <button type="button" 
-                                class="btn btn-sm btn-warning"
+                                class="btn btn-danger btn-sm"
+                                @click="deleteItems">Delete</button>
+
+                        <button type="button" 
+                                class="btn btn-warning btn-sm"
                                 @click="isShowDetail = !isShowDetail">Detail</button>
+
                     </div>
 
 
@@ -90,7 +83,7 @@
 </template>
 
 <script>
-    import Detail from '../../potential/components/Detail.vue';
+    import Detail from './Detail.vue';
     export default{
         props:{overseas:{}},
 
@@ -101,6 +94,21 @@
         data(){
             return{
                 isShowDetail: false
+            }
+        },
+
+        methods:{
+
+            deleteItems(){
+
+                let self = this;
+
+                this.$store.dispatch('destroy_item',{
+                    itemId : self.overseas.id
+                })
+                .then(() => {
+                    flash('Inqury berhasil dihapus', 'danger')
+                })
             }
         }
     };

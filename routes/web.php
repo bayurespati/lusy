@@ -760,6 +760,7 @@ Route::group([
         Route::get('/potential', 'OverseasController@potential')->name('admin.bookkeeping.potential');
         Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
         Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
+        Route::delete('/delete/potensial/{shopInquiry}', 'OverseasController@destroy');
 
 
         /*

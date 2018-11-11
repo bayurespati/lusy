@@ -35,6 +35,11 @@ export const store = new Vuex.Store({
             state.potentials.splice(potentialIndex, 1);
         },
 
+        delete_item(state, ids){
+            const itemIndex = helpers.getIndexOfPotensial(ids.itemId);
+
+            state.potentials.splice(itemIndex, 1);
+        }
     },
 
     //=========================================================================================
@@ -66,5 +71,19 @@ export const store = new Vuex.Store({
                     })
             })
         },
+
+        destroy_item({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/potensial/'+ids.itemId)
+                    .then((response) => {
+                        commit('delete_item', ids);
+                        resolve();
+                    });
+            })
+
+        },
+
     }
 });

@@ -156,16 +156,6 @@
                         =========================================================================================-->
                     <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
                         <button type="button" 
-                        class="btn btn-success btn-sm"
-                        @click="updated">
-                            Approve
-                        </button>
-                        <button type="button" 
-                        class="btn btn-danger btn-sm"
-                        @click="deletePotential">
-                            Reject
-                        </button>
-                        <button type="button" 
                         class="btn btn-secondary btn-sm"
                         @click="closeDetail">
                             Close
@@ -183,44 +173,9 @@
         props:{detail:{}},
 
         methods:{
-            updated(){
-
-                const self = this;
-
-                if (true) {
-
-                    const updatedPotential = {
-                        id: this.detail.id,
-                        is_confirmed: !this.detail.is_confirmed,
-                    };
-
-                    this.$store.dispatch('update_potential', updatedPotential)                        
-
-                        .then((updatedPotential) => {
-
-                            flash('Potential Inquiry accepted', 'success');
-                        })
-                        .catch(errors => {
-
-                        });
-                }
-            },
-
-            deletePotential() {
-                const self = this;
-
-                this.$store.dispatch('destroy_item', {
-                    itemId: self.detail.id
-                })
-                .then(() => {
-                    flash('Inqury berhasil ditolak', 'danger')
-                })
-            },
-
-
             closeDetail() {
                 this.$emit('closeDetail', false);
-            }
+            },
         }
     };
 </script>
