@@ -171,6 +171,7 @@ Route::group([
         : false;
 
         foreach ($upcomingEvents as $event) {
+            $event->content = str_limit($event->content, 300);
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -193,6 +194,8 @@ Route::group([
         $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->paginate(6);
 
         foreach ($events as $event) {
+            $event->content = str_limit($event->content, 300);
+
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -215,6 +218,8 @@ Route::group([
         $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
 
         foreach ($events as $event) {
+            $event->content = str_limit($event->content, 300);
+
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -237,6 +242,8 @@ Route::group([
         $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
 
         foreach ($events as $event) {
+            $event->content = str_limit($event->content, 300);
+
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -259,6 +266,8 @@ Route::group([
         $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
 
         foreach ($events as $event) {
+            $event->content = str_limit($event->content, 300);
+
             $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
             $event->poster = $event->poster()->get()->isEmpty()
             ? '/img/events1.jpg'
@@ -288,7 +297,7 @@ Route::group([
         ? '/img/events1.jpg'
         : $event->poster()->get()[0]->image_path;
 
-        $event->images = $event->images()->get();
+        $event->images = $event->images()->whereIsPoster(false)->paginate(8);
 
         $startDate = Carbon::parse($event->start_date);
         $endDate = Carbon::parse($event->end_date);
@@ -300,6 +309,10 @@ Route::group([
         $event->endHour = $endDate->format('h:i A');
 
         return view('event.single', compact('sosmed', 'event'));
+    });
+
+    Route::get('single/images/{event}', function(Request $request, Event $event){
+        return $event->images()->whereIsPoster(false)->paginate(8);
     });
 
     Route::post('/registration/{event}', function(Request $request,Event $event){
@@ -357,10 +370,16 @@ Route::group([
         ? '/img/welcome-1.jpg'
         : $shopItem->poster()->get()[0]->image_path;
 
+        $shopItem->images = $shopItem->images()->whereIsPoster(false)->paginate(4);
+
         $shopItem->price = number_format($shopItem->price, 2, ",", ".");
 
 		return view('shop.item', compact('sosmed', 'shopItem'));
 	})->name('shop.item');
+
+    Route::get('item/images/{shopItem}', function(Request $request, ShopItem $shopItem){
+        return $shopItem->images()->whereIsPoster(false)->paginate(4);
+    });
 
     Route::get('/all', function () {
         $items = ShopItem::whereIsDisplayed(true)->paginate(8);
