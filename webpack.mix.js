@@ -171,6 +171,9 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/about/gallery-showcase/main.js',
 ], 'public/js/admin/about/gallery_showcase.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/about/shop-showcase/main.js',
+], 'public/js/admin/about/shop_showcase.js');
 
 
 

@@ -134,7 +134,7 @@
 
                 if(this.image === null || this.image === ''){
                     this.croppie.bind({
-                        url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                        url: '/img/welcome-1.jpg'
                     });
                 }else {
                     this.croppie.bind({

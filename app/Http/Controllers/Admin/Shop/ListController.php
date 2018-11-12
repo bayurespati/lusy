@@ -62,6 +62,7 @@ class ListController extends Controller
         $shop->is_displayed = $request->is_displayed;
         $shop->category_id = $request->category_id;
         $shop->sub_category_id = $request->sub_category_id;
+        $shop->is_showcase = false;
 
         $shop->save();
 

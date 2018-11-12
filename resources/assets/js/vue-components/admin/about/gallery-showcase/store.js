@@ -62,8 +62,6 @@ export const store = new Vuex.Store({
                 state.galleryShow.splice(galleryIndex, 1);
 
             }
-
-            
         },
     },
 
@@ -79,8 +77,6 @@ export const store = new Vuex.Store({
         },
 
         update_galllery({commit}, updatedGallery) {
-
-            console.log(updatedGallery);
 
             return new Promise((resolve, reject) => {
 

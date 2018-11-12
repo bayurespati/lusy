@@ -24,6 +24,7 @@ class CreateShopItemsTable extends Migration
             $table->double('price');
             $table->string('store_link');
             $table->boolean('is_displayed');
+            $table->boolean('is_showcase');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

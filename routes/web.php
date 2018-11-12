@@ -578,16 +578,7 @@ Route::group([
     	Route::get('/data/profile', 'ProfileController@loadProfile');
     	Route::patch('/update/profile/{profile}', 'ProfileController@update');
 
-    	/*
-    	|--------------------------------------------------------------------------
-    	| A D M I N   A B O U T   G A L L E R Y   P R O F I L E   R O U T E S
-    	|--------------------------------------------------------------------------
-    	|
-    	*/
-    	Route::get('/showcase', 'GalleryController@index')->name('admin.about.gallery');
-    	Route::get('/data/showcase', 'GalleryController@loadGallery');
-    	Route::patch('/update/showcase/{gallery}', 'GalleryController@update');
-
+    	
     	/*
     	|--------------------------------------------------------------------------
     	| A D M I N   A B O U T   C L A S S E S   P R O F I L E   R O U T E S
@@ -599,6 +590,28 @@ Route::group([
         Route::post('/add/class', 'ClassesController@store');
     	Route::patch('/update/class/{class}', 'ClassesController@update');
         Route::delete('/delete/class/{class}', 'ClassesController@destroy');
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   A B O U T   S H O W C A S E   G A L L E R Y
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/showcase', 'GalleryController@index')->name('admin.about.gallery_showcase');
+        Route::get('/data/showcase', 'GalleryController@loadGallery');
+        Route::patch('/update/showcase/{gallery}', 'GalleryController@update');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | A D M I N   A B O U T   G A L L E R Y   P R O F I L E   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/shop-showcase', 'ShopShowcaseController@index')->name('admin.about.shop_showcase');
+        Route::get('/data/shop-showcase', 'ShopShowcaseController@loadShop');
+        Route::patch('/update/shop-showcase/{shopItem}', 'ShopShowcaseController@update');
+
     });
 
 

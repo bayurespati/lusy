@@ -20,6 +20,7 @@
     "/js/admin/bookkeeping/message.js": "/js/admin/bookkeeping/message.js",
     "/js/admin/bookkeeping/overseas.js": "/js/admin/bookkeeping/overseas.js",
     "/js/admin/bookkeeping/applicant_list.js": "/js/admin/bookkeeping/applicant_list.js",
+    "/js/admin/about/shop_showcase.js": "/js/admin/about/shop_showcase.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
     "/js/admin/bookkeeping/applicant_event.js": "/js/admin/bookkeeping/applicant_event.js",
     "/css/admin.css": "/css/admin.css",
