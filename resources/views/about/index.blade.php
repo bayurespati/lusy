@@ -143,7 +143,7 @@
                                         
                                         <button class="general-btn transitioned-btn"
                                                 data-toggle="modal"
-                                                data-target="#event"
+                                                data-target="#member-register"
                                                 onclick="setIdClass('{{ $classes[$i]->id }}')" >
                                             Register
                                         </button>
@@ -174,36 +174,70 @@
             <!-- Classes Showcase Section /- -->
 
         </main>
-
+        
         <!-- Modal -->
-        <div class="modal fade" id="event" tabindex="-1" 
+        <div class="modal fade" id="member-register" tabindex="-1" 
              role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" text-center p-0" style="border: none">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Event Reqistration</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
+                    <div class="modal-body-header text-center pr-6 pl-6 mb-5">
+                      <p class="m-0" style="font-size: 20px">
+                        Please fill in the form below
+                      </p>
+                    </div>
+
                     <form action="member" method="post" enctype="multipart/form-data">
                         @csrf
+
+                      <div class="form-group form-control-sm text-center">
+                          <div class="radio">
+                            <label><input type="radio" name="gender" value="1" checked>Male</label>
+                          </div>
+                          <div class="radio ml-4">
+                            <label>
+                                <input type="radio" value="0" name="gender">Female
+                            </label>
+                        </div>
+                      </div>
                       <div class="form-group form-control-sm">
                             <label for="buyer_name">Name</label>
                             <input type="text" class="form-control" 
                                     name="name" id="name" placeholder="Name" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <label for="email">Email</label>
+                            <input type="text" class="form-control" 
+                                    name="place_of_birth" id="place_of_birth" placeholder="Place of birth" required>
+                      </div>
+                      <div class="form-group form-control-sm">
+                            <input type='text' name="date_of_birth" class="form-control" id="date-of-birth" placeholder="Date of birth : MM/DD/YYYY" />
+                      </div>
+                      <div class="form-group form-control-sm">
                             <input type="email" class="form-control" 
                                    name="email" id="email" placeholder="Email" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <label for="city">Phone number</label>
+                            <!-- <label for="city">Telephone number</label> -->
                             <input type="text" class="form-control" 
-                                   name="phone" id="phone" placeholder="Phone" required>
+                                   name="telephone" id="telephone" placeholder="Telephone Number" required>
                       </div>
+                      <div class="form-group form-control-sm">
+                            <!-- <label for="city">Mobile number</label> -->
+                            <input type="text" class="form-control" 
+                                   name="mobile" id="mobile" placeholder="Mobile Number" required>
+                      </div>
+
+                      <div class="form-group form-control-sm">
+                            <!-- <label for="city">Fax number</label> -->
+                            <input type="text" class="form-control" 
+                                   name="fax" id="fax" placeholder="Fax Number" required>
+                      </div>
+
 
                       <div hidden=""> <input  type="text" name="class_id" id="about_contents_id"> </div>
 
@@ -227,13 +261,35 @@
 @push('additional_js')
 <script>
     function setIdClass($param){
-        // alert($param);
-        // alert("Hello! I am an alert box!!");
         document.getElementById('about_contents_id').value = $param;
-
-        console.log($param);
     }
-
     
+    var date = document.getElementById('date-of-birth');
+
+        function checkValue(str, max) {
+          if (str.charAt(0) !== '0' || str == '00') {
+            var num = parseInt(str);
+            if (isNaN(num) || num <= 0 || num > max) num = 1;
+            str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+          };
+          return str;
+        };
+
+    date.addEventListener('input', function(e) {
+        this.type = 'text';
+        var input = this.value;
+
+        if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+          var values = input.split('/').map(function(v) {
+            return v.replace(/\D/g, '')
+          });
+          if (values[0]) values[0] = checkValue(values[0], 12);
+          if (values[1]) values[1] = checkValue(values[1], 31);
+          var output = values.map(function(v, i) {
+            return v.length == 2 && i < 2 ? v + ' / ' : v;
+          });
+          this.value = output.join('').substr(0, 14);
+    });
+
 </script>
 @endpush

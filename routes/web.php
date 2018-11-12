@@ -1,4 +1,5 @@
     <?php
+use App\Member;
 use App\ApplicantList;
 use App\ContactMessage;
 use App\ShopInquiry;
@@ -488,11 +489,39 @@ Route::group([
 
 Route::post('member', function(Request $request) {
 
-    dd(
-        $request->name,
-        $request->email
-    );
-    
+    $date = explode('/', str_replace(' ', '', $request->date_of_birth) );
+    $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
+
+    $member = new Member;
+    $member->name = $request->name;
+    $member->gender = $request->gender;
+    $member->place_of_birth = $request->place_of_birth;
+    $member->date_of_birth = $date_of_birth;
+
+    $member->email = $request->email;
+    $member->telephone = $request->telephone;
+    $member->mobile = $request->mobile;
+    $member->fax = $request->fax;
+
+    $member->is_approve = false;
+    $member->is_active = false;
+    $member->class_id = $request->class_id;
+    $member->save();
+
+    return back();
+
+    // dd(
+        // $request->name,
+        // $request->email,
+        // $request->fax,
+        // $request->telephone,
+        // $request->mobile,
+        // $request->place_of_birth,
+        // $request->date_of_birth,
+        // $request->gender,
+        // $request->class_id
+    // );
+
 });
 
 
