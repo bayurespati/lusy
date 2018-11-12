@@ -467,6 +467,15 @@ Route::group([
 
 });
 
+Route::post('member', function(Request $request) {
+
+    dd(
+        $request->name,
+        $request->email
+    );
+    
+});
+
 
 
 /*
