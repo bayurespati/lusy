@@ -5681,22 +5681,20 @@ var render = function() {
           !_vm.isAddImage
             ? [
                 _c("div", { staticClass: "row" }, [
-                  _vm.totalImageList < 4
-                    ? _c("div", { staticClass: "col-12" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            on: {
-                              click: function($event) {
-                                _vm.isAddImage = !_vm.isAddImage
-                              }
-                            }
-                          },
-                          [_vm._v("Tambah Image")]
-                        )
-                      ])
-                    : _vm._e()
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddImage = !_vm.isAddImage
+                          }
+                        }
+                      },
+                      [_vm._v("Tambah Image")]
+                    )
+                  ])
                 ])
               ]
             : [
