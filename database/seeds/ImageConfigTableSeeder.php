@@ -25,7 +25,7 @@ class ImageConfigTableSeeder extends Seeder
                 'image_path' => NULL,
             ],
             [
-                'page_name' => 'Event & Activities',
+                'page_name' => 'Event',
                 'image_path' => NULL,
             ],
             [

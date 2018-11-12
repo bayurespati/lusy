@@ -14263,8 +14263,7 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
 
 .wc-controls-custom {
   top: 600px !important;
-  right: 0 !important;
-  left: unset !important;
+  left: 78px !important;
 }
 
 .wc-controls-custom::before {
@@ -14431,4 +14430,19 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
     .modal-lg {
         width: 900px
     }
+}
+
+@media (min-width: 992px) {
+    .custom-welcome .section-header {
+        width: 50% !important;
+        position: absolute !important;
+        right: -15px !important;
+        top: 35px !important;
+        z-index: 1 !important;
+        left: unset !important;
+    }
+}
+
+.section-header-custom {
+    width: 0;
 }

@@ -28,7 +28,8 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="container-fluid no-padding page-banner">
+            <div class="container-fluid no-padding page-banner" 
+            style="background-image: url({{ $galleryBanner }});">
                 <!-- Container -->
                 <div class="container">
                     <h3>gallery</h3>

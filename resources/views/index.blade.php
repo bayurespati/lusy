@@ -16,6 +16,58 @@
     .onview-section::before {
         background-color: unset;
     }
+
+    .modal-body {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .radio {
+        display: inline-block !important;
+    }
+
+    .radio label {
+        color: #999;
+    }
+
+    .modal-content {
+        font-family: 'Poppins', sans-serif !important;
+        border-radius: 0 !important;
+    }
+
+    .modal-body form {
+        font-size: 18px;
+    }
+
+    .modal-body .form-control {
+        height: 42px;
+        font-size: 18px;
+        border-radius: 0;
+    }
+
+    .modal-body textarea {
+        height: auto !important;
+    }
+
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        text-align: center;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+        text-align: center;  
+    }
+
+    :-ms-input-placeholder {  
+        text-align: center; 
+    }
+
+    input {
+        text-align: center;
+    }
 </style>
 @endpush
 
@@ -100,7 +152,7 @@
             
             <!-- Upcoming Events Section -->
             @if(count($showcasedEvents) > 0)
-            <div class="container-fluid no-padding upcoming-event">
+            <div class="container-fluid no-padding upcoming-event" style="background-image: url({{ $eventBanner }})">
                 <div class="section-padding"></div>
                 <!-- Container -->
                 <div class="container">
@@ -179,7 +231,8 @@
             <!-- Gallery Showcase Section /- -->
 
             <!-- Shop Showcase Section -->
-            <div class="container-fluid no-padding welcome-section">
+            @if(count($shopItems) > 0)
+            <div class="container-fluid no-padding welcome-section custom-welcome">
                 <!-- Container -->
                 <div class="container">
                    
@@ -188,32 +241,49 @@
                         <div id="welcome-carousel" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                                @for ($i = 0; $i < count($classes); $i++)
+                                @for ($i = 0; $i < count($shopItems); $i++)
                                 <div class="item {{ $i === 0 ? 'active' : '' }}">
+                                    <div class="section-header section-header-custom">
+                                            <div class="section-title-border">
+                                                <span>{{ $shopItems[$i]->sub_title }}</span>
+                                                <h2>{{ $shopItems[$i]->title }}</h2> 
+                                            </div>
+                                        </div>
 
-                                     <!-- Section Header -->
-                                    <div class="section-header">
-                                        <div class="section-title-border">
-                                            <span>Introducing</span>
-                                            <h2>{{ $classes[$i]->title }}</h2> 
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="img-block">
+                                            <i><img src="{{ $shopItems[$i]->poster }}" alt="{{ $shopItems[$i]->title }}" /></i>
                                         </div>
                                     </div>
-                                    <!-- Section Header /- -->
+                                    
                                     <div class="col-md-6 col-sm-6 content-block-custom">
+                                        <span class="item-price-detail">
+                                            IDR {{ $shopItems[$i]->price }}
+                                        </span>
+
                                         <p>
-                                            {!! $classes[$i]->content !!}
+                                            {!! nl2br(e($shopItems[$i]->description)) !!}
                                         </p>
-                                        
-                                        <button class="general-btn transitioned-btn">
-                                            Register
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 img-block">
-                                        <i><img src="{{ $classes[$i]->image_path }}" alt="{{ $classes[$i]->title }}" /></i>
+
+                                        <p class="m-0">
+                                            Stock: {{ $shopItems[$i]->stock }}
+                                        </p>
+
+                                        <div>
+                                            <button class="general-btn transitioned-btn" 
+                                            type="button" data-toggle="modal"data-target="#overseas" onClick="setActionValue({{ $shopItems[$i]->id }})">
+                                                Overseas Inquiry
+                                            </button>
+
+                                            <a href="{{ $shopItems[$i]->store_link }}">
+                                                <button class="general-btn transitioned-btn ml-2">
+                                                    Buy Now
+                                                </button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 @endfor
-                                
                             </div>
                             <!-- Controls -->
                             <div class="wc-controls wc-controls-custom">
@@ -230,6 +300,7 @@
                 </div>
                 <!-- Container /- -->
             </div>
+            @endif
             <!-- Shop Showcase Section /- -->
             
         </main>
@@ -237,7 +308,116 @@
         <!-- Footer Section -->
         @include('partials.footer')
         <!-- Footer Section /- -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="overseas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center p-0" style="border: none">
+                        <button type="button" class="close transitioned-btn" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="modal-body-header text-center pr-6 pl-6 mb-5">
+                            <p class="m-0" style="font-size: 20px">
+                                Please fill in the form below and we will be back to you as soon as possible.
+                            </p>
+                        </div>
+
+                        <form id="action-modal" action="" method="post" enctype="multipart/form-data">
+
+                            @csrf
+                            <div class="form-group form-control-sm text-center">
+                                <!-- <label for="gender">Gender</label> -->
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="gender" value="1" checked>
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio ml-4">
+                                    <label>
+                                        <input type="radio" value="0" name="gender">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="buyer_name">Name</label> -->
+                                <input type="text" class="form-control" 
+                                name="buyer_name" id="buyer_name" placeholder="Full Name*" minlength="2" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="address">Address</label> -->
+                                <input type="text" class="form-control" 
+                                name="address" id="address" placeholder="Address*" minlength="10" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="email">Email</label> -->
+                                <input type="email" class="form-control" 
+                                name="email" id="email" placeholder="Email*" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="city">City</label> -->
+                                <input type="text" class="form-control" 
+                                name="city" id="city" placeholder="City*" minlength="2" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="state_province">State province</label> -->
+                                <input type="text" class="form-control" 
+                                name="state_province" id="state_province" 
+                                placeholder="State/Province*" minlength="2" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="postal_code">Postal Code</label> -->
+                                <input type="number" class="form-control" 
+                                name="postal_code" id="postal_code" placeholder="Postal Code*" required>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="note">Notes</label> -->
+                                <textarea class="form-control" rows="6"
+                                name="notes" id="notes" placeholder="Your Notes">
+                                </textarea>
+                            </div>
+
+                            <div class="form-group form-control-sm">
+                                <!-- <label for="stock">Quantity</label> -->
+                                <input type="number" class="form-control" 
+                                name="quantity" id="quantity" placeholder="Quantity*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="general-btn transitioned-btn mb-3" style="width: 100%">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
 @endsection
+
+@push('additional_js')
+<script type="text/javascript">
+    let itemId = 0;
+
+    function setActionValue(newItemId) {
+        itemId = newItemId;
+
+        document.getElementById('action-modal').action = '/shop/update/overseas/' + itemId;
+    }
+</script>
+@endpush

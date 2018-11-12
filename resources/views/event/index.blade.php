@@ -46,7 +46,8 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="page-banner">
+            <div class="page-banner" 
+            style="background-image: url({{ $eventBanner }});">
                 <!-- Container -->
                 <div class="container">
                     <h3>Events & Activities</h3>

@@ -79,7 +79,8 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="container-fluid no-padding page-banner">
+            <div class="container-fluid no-padding page-banner" 
+            style="background-image: url({{ $shopBanner }});">
                 <!-- Container -->
                 <div class="container">
                     <h3>Shop</h3>

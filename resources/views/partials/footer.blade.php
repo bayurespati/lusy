@@ -5,7 +5,7 @@
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <!-- Widget About -->
                 <aside class="ftr-widget widget_about">
-                    <a title="Logo" href="index.html" class="navbar-brand"><img src="{{ asset('img/logo-1.png') }}" alt="logo" /></a>
+                    <a title="Logo" href="index.html" class="navbar-brand"><img src="{{ asset('img/logo-1.png') }}" alt="logo" style="width: 90px" /></a>
                     <p>Not only beautiful flowers but also buds and withered flowers have life, and each has its own beauty. By arranging flowers with reverence, one refines oneself</p>
                     <ul>
                         @if ($sosmed[2]->is_active === 1)

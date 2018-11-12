@@ -24,7 +24,8 @@
         <main>
 
         	<!-- Page Banner -->
-			<div class="container-fluid no-padding page-banner">
+			<div class="container-fluid no-padding page-banner" 
+			style="background-image: url({{ $contactBanner }})">
 				<!-- Container -->
 				<div class="container">
 					<h3>contact</h3>

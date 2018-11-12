@@ -11,6 +11,7 @@ use App\SubCategory;
 use App\Gallery;
 use App\Event;
 use App\ShopItem;
+use App\imageConfig;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -40,8 +41,19 @@ Route::get('/', function () {
     $sosmed = Sosmed::all();
     $imageSlider = imageSlider::all();
     $introduction = AboutContent::where('is_class', '=', false)->get();
-    $classes = AboutContent::where('is_class', '=', true)->get();
+    $shopItems = ShopItem::whereIsShowcase(true)->get();
     $showcasedImage = Gallery::whereIsShowcase(true)->get();
+    $eventBanner = imageConfig::find(1)->image_path === null 
+    ? '/img/upcoming-event-bg.jpg'
+    : imageConfig::find(1)->image_path;
+
+    foreach ($shopItems as $item) {
+            $item->poster = $item->poster()->get()->isEmpty()
+            ? '/img/welcome-1.jpg'
+            : $item->poster()->get()[0]->image_path;
+
+            $item->price = number_format($item->price, 2, ",", ".");
+        }
 
     if(
         count($showcasedImage) > 0 && 
@@ -67,7 +79,7 @@ Route::get('/', function () {
         $event->endHour = $endDate->format('h:i A');
     }
 
-    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'classes', 'showedImage', 'showcasedEvents'));
+    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'shopItems', 'showedImage', 'showcasedEvents', 'eventBanner'));
 })->name('home');
 
 
@@ -89,6 +101,9 @@ Route::group([
         $sosmed = Sosmed::all();
         $about = AboutContent::where('is_class', '=', false)->get();
         $classes = AboutContent::where('is_class', '=', true)->get();
+        $aboutBanner = imageConfig::find(2)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(2)->image_path;
 
         $showcasedImage = Gallery::whereIsShowcase(true)->get();
 
@@ -101,7 +116,7 @@ Route::group([
             $showedImage = $showcasedImage;
         }
 
-		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage'));
+		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage', 'aboutBanner'));
 	})->name('about.index');
 });
 
@@ -124,10 +139,11 @@ Route::group([
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(1)->get();
         $gallery = Gallery::paginate(8);
+        $galleryBanner = imageConfig::find(3)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(3)->image_path;
 
-
-
-		return view('gallery.index', compact('sosmed', 'categories', 'gallery'));
+		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner'));
 	})->name('gallery.index');
 
     Route::get('category/{category}', function(Request $request, Category $category){
@@ -166,6 +182,9 @@ Route::group([
         $sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(2)->get();
         $upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
+        $eventBanner = imageConfig::find(4)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(4)->image_path;
 
         $isEventsExist = count(Event::all()) > 0 
         ? true 
@@ -188,7 +207,7 @@ Route::group([
             $event->endHour = $endDate->format('h:i A');
         }
 
-		return view('event.index', compact('sosmed', 'categories', 'upcomingEvents', 'isEventsExist'));
+		return view('event.index', compact('sosmed', 'categories', 'upcomingEvents', 'isEventsExist', 'eventBanner'));
 	})->name('event.index');
 
     Route::get('/past/all', function(){
@@ -290,6 +309,10 @@ Route::group([
     Route::get('single/{event}', function(Request $request, Event $event){
         $sosmed = Sosmed::all();
 
+        $eventBanner = imageConfig::find(4)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(4)->image_path;
+
         $event->kategori = SubCategory::find($event->sub_category_id)
         ->category()
         ->get()[0]->title;
@@ -309,7 +332,7 @@ Route::group([
         $event->startHour = $startDate->format('h:i A');
         $event->endHour = $endDate->format('h:i A');
 
-        return view('event.single', compact('sosmed', 'event'));
+        return view('event.single', compact('sosmed', 'event', 'eventBanner'));
     });
 
     Route::get('single/images/{event}', function(Request $request, Event $event){
@@ -353,6 +376,10 @@ Route::group([
 
         $items = ShopItem::whereIsDisplayed(true)->paginate(8);
 
+        $shopBanner = imageConfig::find(5)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(5)->image_path;
+
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
@@ -361,11 +388,15 @@ Route::group([
             $item->price = number_format($item->price, 2, ",", ".");
         }
 
-		return view('shop.index', compact('sosmed', 'categories', 'items'));
+		return view('shop.index', compact('sosmed', 'categories', 'items', 'shopBanner'));
 	})->name('shop.index');
 
 	Route::get('/item/{shopItem}', function (Request $request, ShopItem $shopItem) { 
         $sosmed = Sosmed::all();
+
+        $shopBanner = imageConfig::find(5)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(5)->image_path;
 
         $shopItem->poster = $shopItem->poster()->get()->isEmpty()
         ? '/img/welcome-1.jpg'
@@ -375,7 +406,7 @@ Route::group([
 
         $shopItem->price = number_format($shopItem->price, 2, ",", ".");
 
-		return view('shop.item', compact('sosmed', 'shopItem'));
+		return view('shop.item', compact('sosmed', 'shopItem', 'shopBanner'));
 	})->name('shop.item');
 
     Route::get('item/images/{shopItem}', function(Request $request, ShopItem $shopItem){
@@ -466,7 +497,11 @@ Route::group([
 	Route::get('/', function () { 
         $sosmed = Sosmed::all();
 
-		return view('contact.index', compact('sosmed'));
+        $contactBanner = imageConfig::find(6)->image_path === null 
+        ? '/img/page-banner-bg.jpg'
+        : imageConfig::find(6)->image_path;
+
+		return view('contact.index', compact('sosmed', 'contactBanner'));
 	})->name('contact.index');
 
     Route::post('contact_message',function(Request $request){
