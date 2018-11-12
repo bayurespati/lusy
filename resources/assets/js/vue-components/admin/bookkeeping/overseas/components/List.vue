@@ -1,15 +1,18 @@
 <template>
   <div class="container">
-    <h1>Overseas</h1>
+    <h3>Overseas Inquiry</h3>
+    <p class="mb-3">
+      Here is where you can see list of inquiries that are approved
+    </p>
+
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
-              <overseas-item
-                      v-for="overseas in list"
-                      :overseas="overseas"
-                      :key="overseas.id">
-              </overseas-item>
-          </transition-group>
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <overseas-item v-for="overseas in list"
+          :overseas="overseas"
+          :key="overseas.id">
+          </overseas-item>
+        </transition-group>
       </div>
     </div>
   </div>

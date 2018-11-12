@@ -1,15 +1,18 @@
 <template>
   <div class="container">
-    <h1>Potential Overseas Inquiry</h1>
+    <h3>Potential Overseas Inquiry</h3>
+    <p class="mb-5">
+      Here is where you can see list of overseas inquiry sent from Shop Item page
+    </p>
+
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
-              <potential-item
-                      v-for="potential in list"
-                      :potential="potential"
-                      :key="potential.id">
-              </potential-item>
-          </transition-group>
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <potential-item v-for="potential in list"
+          :potential="potential"
+          :key="potential.id">
+          </potential-item>
+        </transition-group>
       </div>
     </div>
   </div>

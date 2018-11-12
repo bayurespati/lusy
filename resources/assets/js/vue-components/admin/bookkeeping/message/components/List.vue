@@ -1,15 +1,21 @@
 <template>
   <div class="container">
-    <h1>Contact Message</h1>
+    <h3>Contact Messages</h3>
+    <p class="mb-0">
+      Here you can see messages submitted by guests from the Contacts page
+    </p>
+    <p class="mb-5">
+      You can also replied to their messages here and have it sent straight to their email
+    </p>
+
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
-              <message-item
-                      v-for="messageContact in list"
-                      :messageContact="messageContact"
-                      :key="messageContact.id">
-              </message-item>
-          </transition-group>
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <message-item v-for="messageContact in list"
+          :messageContact="messageContact"
+          :key="messageContact.id">
+          </message-item>
+        </transition-group>
       </div>
     </div>
   </div>

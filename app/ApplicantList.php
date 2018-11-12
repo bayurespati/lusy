@@ -24,7 +24,7 @@ class ApplicantList extends Model
 
     public function event()
     {
-        return $this->belongsTo('App\Event', 'event_id');
+        return $this->belongsTo(Event::class, 'event_id');
     }
 
 }

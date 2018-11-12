@@ -1,32 +1,33 @@
 <header id="header" class="header-section container-fluid no-padding">
             <!-- Top Header -->
-            <div class="top-header container-fluid no-padding">
-                <div class="col-md-7 col-sm-12 col-xs-12 top-content">
-                    <div class="top-icons">
-                        <ul>
-                            @if ($sosmed[2]->is_active === 1)
-                            <li><a href="{{ $sosmed[2]->link }}" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-                            @endif
+            <!-- <div class="top-header container-fluid no-padding"> -->
+                <!-- <div class="col-md-7 col-sm-12 col-xs-12 top-content"> -->
+                    <!-- <div class="top-icons"> -->
+                        <!-- <ul> -->
+                            <!-- @if ($sosmed[2]->is_active === 1) -->
+                            <!-- <li><a href="{{ $sosmed[2]->link }}" title="Instagram"><i class="fa fa-instagram"></i></a></li> -->
+                            <!-- @endif -->
                             
-                            @if ($sosmed[4]->is_active === 1)
-                            <li><a href="{{ $sosmed[4]->link }}" title="Flickr"><i class="fa fa-flickr"></i></a></li>
-                            @endif
+                            <!-- @if ($sosmed[4]->is_active === 1) -->
+                            <!-- <li><a href="{{ $sosmed[4]->link }}" title="Flickr"><i class="fa fa-flickr"></i></a></li> -->
+                            <!-- @endif -->
 
-                            @if ($sosmed[3]->is_active === 1)
-                            <li><a href="{{ $sosmed[3]->link }}" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                            @endif
+                            <!-- @if ($sosmed[3]->is_active === 1) -->
+                            <!-- <li><a href="{{ $sosmed[3]->link }}" title="Pinterest"><i class="fa fa-pinterest"></i></a></li> -->
+                            <!-- @endif -->
 
-                            @if ($sosmed[1]->is_active === 1)
-                            <li><a href="{{ $sosmed[1]->link }}" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                            @endif
+                            <!-- @if ($sosmed[1]->is_active === 1) -->
+                            <!-- <li><a href="{{ $sosmed[1]->link }}" title="Facebook"><i class="fa fa-facebook"></i></a></li> -->
+                            <!-- @endif -->
 
-                            @if ($sosmed[0]->is_active === 1)
-                            <li><a href="{{ $sosmed[0]->link }}" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- Top Header /- -->
+                            <!-- @if ($sosmed[0]->is_active === 1) -->
+                            <!-- <li><a href="{{ $sosmed[0]->link }}" title="Twitter"><i class="fa fa-twitter"></i></a></li> -->
+                            <!-- @endif -->
+                        <!-- </ul> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+            <!-- Top Header /- -->
             <!-- Container -->
             <div class="container">     
                 <!-- nav -->
@@ -38,7 +39,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="index.html" class="navbar-brand"><img src="{{ asset('img/logo.png') }}" alt="Logo" /></a>
+                        <a href="index.html" class="navbar-brand" style="margin: 0;"><img src="{{ asset('img/logo.png') }}" alt="Logo" /></a>
                     </div>
                     <div class="navbar-collapse collapse navbar-right" id="navbar">
                         <ul class="nav navbar-nav">

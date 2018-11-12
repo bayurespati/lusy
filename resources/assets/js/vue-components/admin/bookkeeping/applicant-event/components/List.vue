@@ -1,15 +1,18 @@
 <template>
   <div class="container">
-    <h1>Applicant event list</h1>
+    <h3>Event Applicants</h3>
+    <p class="mb-5">
+      Here is where you can see every upcoming events shown in Events & Activites page
+    </p>
+
     <div class="row">
-    <div class="col-md-12">
-      <transition-group name="slide">
-              <event-item
-                      v-for="event in list"
-                      :event="event"
-                      :key="event.id">
-              </event-item>
-          </transition-group>
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <event-item v-for="event in list"
+          :event="event"
+          :key="event.id">
+          </event-item>
+        </transition-group>
       </div>
     </div>
   </div>

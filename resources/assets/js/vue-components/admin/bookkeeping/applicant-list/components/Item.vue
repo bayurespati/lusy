@@ -8,59 +8,65 @@
                         mode="out-in">
                 <div class="row">
 
-
-                    <!--=========================================================================================
-                        S H O W    N A M E
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ item.name }}</p>
+                    <div class="col-3 d-flex align-items-center justify-content-star">
+                        <div>
+                            <p class="small text-uppercase mb-0">
+                                <strong>Nama</strong>
+                            </p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ item.name }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    E M A I L
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Email</strong></p>
-                        <div class="detail">
-                            <p class="mb-0 max-lines">{{ item.email }}</p>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Email</strong>
+                            </p>
+                        
+                            <div class="detail">
+                                <p class="mb-0 text-center">{{ item.email }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    P H O N E   N U M B E R
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Phone Number</strong></p>
-                        <div class="detail max-lines">
-                            <p class="mb-0">{{ item.phone }}</p>
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Kontak</strong>
+                            </p>
+                        
+                            <div class="detail">
+                                <p class="mb-0 text-center">{{ item.phone }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    E M A I L
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Status</strong></p>
-                        <div class="detail">
-                            <p class="mb-0 max-lines">{{ item.is_approve === 1 || item.is_approve === true ? 'Approve' : 'Waiting..' }}</p>
+                    <div class="d-flex justify-content-center align-items-center"
+                    :class="item.is_approve === 0 ? 'col-2' : 'col-4'">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Status</strong>
+                            </p>
+                            
+                            <div class="detail">
+                                <p class="mb-0 text-center">{{ item.is_approve === 1 || item.is_approve === true ? 'Disetujui' : 'Menunggu' }}</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!--=========================================================================================
-                        B U T T O N   E D I T
-                        =========================================================================================-->
-                    <div class="col align-items-center justify-content-end" v-if="item.is_approve === 0">
-                        <button type="button" class="btn btn-success btn-sm" @click="editItem">
-                                Approve
+                    <div class="col-2 d-flex align-items-center justify-content-end" v-if="item.is_approve === 0">
+                        <button type="button" 
+                        class="btn btn-success btn-sm" 
+                        @click="editItem">
+                            Setujui
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" @click="deleteItem">
-                                Reject
+                        <button type="button" 
+                        class="btn btn-danger btn-sm ml-2" 
+                        @click="deleteItem">
+                            Tolak
                         </button>
                     </div>
                 </div>

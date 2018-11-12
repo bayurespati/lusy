@@ -1,35 +1,39 @@
 <template>
   <div class="container">
-    <h1>Applicant list for {{ event.title }} Event </h1>
+    <h3>Applicants of {{ event.title }}</h3>
+    <p class="mb-0">
+      Here is where you can approve or reject applicants of {{ event.title }}
+    </p>
+    <p class="mb-5">
+      People you approved will have its status changed, but rejected people are automatically deleted from the list
+    </p>
 
     <ul class="breadcrumb">
-      <li><a href="/admin/bookkeeping/applicant-event">Event</a></li>
+      <li><a href="/admin/bookkeeping/applicant-event">{{ event.title }}</a></li>
       <li>List</li>
     </ul>
 
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-                <item   
-                        v-for="item in listApprove"
-                        :item="item"
-                        :key="item.id">
-                </item>
-            </transition-group>
-        </div>
+          <item v-for="item in listApprove"
+          :item="item"
+          :key="item.id">
+          </item>
+        </transition-group>
+      </div>
     </div>
 
 
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-                <item   
-                        v-for="item in list"
-                        :item="item"
-                        :key="item.id">
-                </item>
-            </transition-group>
-        </div>
+          <item v-for="item in list"
+          :item="item"
+          :key="item.id">
+          </item>
+        </transition-group>
+      </div>
     </div>
   </div>
 </template>

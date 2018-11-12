@@ -30,4 +30,8 @@ class Event extends Model
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
+
+    public function applicants() {
+        return $this->hasMany(ApplicantList::class, 'event_id');
+    }
 }

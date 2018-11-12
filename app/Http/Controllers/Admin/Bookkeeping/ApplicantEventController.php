@@ -18,7 +18,7 @@ class ApplicantEventController extends Controller
 
     public function loadApplicantEvent(){
 
-    	$upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->get();
+    	$upcomingEvents = Event::with('applicants')->whereDate('end_date', '>=', Carbon::today()->toDateString())->get();
 
     	return $upcomingEvents;
     }

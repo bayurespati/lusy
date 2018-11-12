@@ -464,7 +464,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\na[data-v-16f575a0]{\n\tcursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\na[data-v-16f575a0]{\n\t\tcursor: pointer;\n}\n.notification-dot[data-v-16f575a0], \n\t.notification-dot-left[data-v-16f575a0] {\n\t\tfont-size: 10px;\n\t\tcolor: palevioletred;\n}\n.notification-dot-left[data-v-16f575a0] {\n\t\tposition: absolute;\n\t\tright: 10px;\n\t\ttop: 5px;\n\t\twidth: 30px;\n\t\theight: 30px;\n\t\tborder-radius: 50%;\n\t\tbackground: palevioletred;\n\t\tpadding: 8px 7px 8px 7px;\n\t\tcolor: white;\n\t\twhite-space: nowrap;\n  \t\toverflow: hidden;\n  \t\ttext-overflow: ellipsis;\n  \t\ttext-align: center;\n  \t\tfont-weight: bold;\n}\n#sidebar ul li a[data-v-16f575a0] {\n\t\tpadding-right: 50px;\n}\n", ""]);
 
 // exports
 
@@ -519,11 +519,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			applicants: '',
 			potentials: '',
 			message: '',
 			menuName: '',
@@ -540,30 +555,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photo List', link: '/admin/gallery/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
 			}, {
 				id: 'event',
-				name: 'Event & Activity List',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Event & Activity List', link: '/admin/event/list' }]
+				name: 'Events & Activities',
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
 			}, {
 				id: 'shop',
 				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Item List', link: '/admin/shop/list' }]
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '#' }, { name: 'Event Applicant List', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiry List', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiry List', link: '/admin/bookkeeping/potential' }, { name: 'Message', link: '/admin/bookkeeping/message' }]
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
 	mounted: function mounted() {
 		this.setName();
+		this.getApplicant();
 		this.getPotential();
 		this.getMessage();
 	},
 
 
 	computed: {
+		applicantTotal: function applicantTotal() {
+			if (this.$store.getters.getApplicantItems === undefined) {
+				var totalApplicants = 0;
+
+				for (var i = 0; i < this.applicants.length; i++) {
+					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+						if (this.applicants[i].applicants[k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+
+				return totalApplicants;
+			} else {
+				this.$store.getters.getApplicantEvent;
+
+				var _totalApplicants = 0;
+
+				for (var _i = 0; _i < this.$store.getters.getApplicantEvent.length; _i++) {
+					for (var _k = 0; _k < this.$store.getters.getApplicantEvent[_i].applicants.length; _k++) {
+						if (this.$store.getters.getApplicantEvent[_i].applicants[_k].is_approve === 0) {
+							_totalApplicants++;
+						}
+					}
+				};
+
+				return _totalApplicants;
+			}
+		},
 		potentialTotal: function potentialTotal() {
 			if (this.$store.getters.getPotentialItems === undefined) {
 				return this.potentials.length;
@@ -581,18 +626,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		getPotential: function getPotential() {
+		getApplicant: function getApplicant() {
 			var _this = this;
 
+			axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+				_this.applicants = response.data;
+			});
+		},
+		getPotential: function getPotential() {
+			var _this2 = this;
+
 			axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-				_this.potentials = response.data;
+				_this2.potentials = response.data;
 			});
 		},
 		getMessage: function getMessage() {
-			var _this2 = this;
+			var _this3 = this;
 
 			axios.get('/admin/bookkeeping/data/message').then(function (response) {
-				_this2.message = response.data;
+				_this3.message = response.data;
 			});
 		},
 		setName: function setName() {
@@ -632,7 +684,17 @@ var render = function() {
                 "aria-expanded": { true: _vm.menuName === menu.id }
               }
             },
-            [_vm._v("\n\t        \t" + _vm._s(menu.name) + "\n        \t")]
+            [
+              _vm._v("\n\t        \t" + _vm._s(menu.name) + "\n\t        \t"),
+              (_vm.potentialTotal > 0 ||
+                _vm.messageTotal > 0 ||
+                _vm.applicantTotal > 0) &&
+              menu.id === "bookkeeping"
+                ? _c("span", {
+                    staticClass: "notification-dot fa fa-circle ml-2"
+                  })
+                : _vm._e()
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -650,35 +712,53 @@ var render = function() {
                     class: {
                       "active-forced": _vm.subMenuName === submenu.link
                     },
+                    staticStyle: { position: "relative" },
                     attrs: { href: submenu.link }
                   },
                   [
                     _vm._v(
-                      "\n                   \t   " +
+                      "\n                    \t" +
                         _vm._s(submenu.name) +
-                        " \n                   \t   "
+                        " \n\n                    \t"
                     ),
-                    _vm.potentialTotal > 0 &&
-                    submenu.link === "/admin/bookkeeping/potential"
-                      ? _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v(
-                            "\n                   \t   \t" +
-                              _vm._s(_vm.potentialTotal) +
-                              "\n                   \t   "
-                          )
+                    _vm.applicantTotal > 0 &&
+                    submenu.link === "/admin/bookkeeping/applicant-event"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.applicantTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
                         ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.messageTotal > 0 &&
-                    submenu.link === "/admin/bookkeeping/message"
-                      ? _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v(
-                            "\n                   \t   \t" +
-                              _vm._s(_vm.messageTotal) +
-                              "\n                   \t   "
-                          )
-                        ])
-                      : _vm._e()
+                      : _vm.potentialTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/potential"
+                        ? _c("div", { staticClass: "notification-dot-left" }, [
+                            _c("span", [
+                              _vm._v(
+                                "\n                    \t\t\t" +
+                                  _vm._s(_vm.potentialTotal) +
+                                  "\n                    \t\t"
+                              )
+                            ])
+                          ])
+                        : _vm.messageTotal > 0 &&
+                          submenu.link === "/admin/bookkeeping/message"
+                          ? _c(
+                              "div",
+                              { staticClass: "notification-dot-left" },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                    \t\t\t" +
+                                      _vm._s(_vm.messageTotal) +
+                                      "\n                    \t\t"
+                                  )
+                                ])
+                              ]
+                            )
+                          : _vm._e()
                   ]
                 )
               ])
@@ -1931,6 +2011,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2053,8 +2136,6 @@ exports.push([module.i, "\n.card[data-v-f92963b6] {\n    border: 1px solid trans
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Detail_vue__ = __webpack_require__(400);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Detail_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Detail_vue__);
-//
-//
 //
 //
 //
@@ -2455,23 +2536,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: { detail: {} },
@@ -2511,304 +2575,308 @@ var render = function() {
         [
           _c("div", { staticClass: "panel-body" }, [
             _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Detail")
+              _vm._v("Detail " + _vm._s(_vm.detail.buyer_name))
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 col-xs-12 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "nama" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Name\n                        "
-                        )
-                      ]
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 col-xs-12 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "nama" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Nama\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8 col-xs-12" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.buyer_name) +
+                        "\n                        "
                     )
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 col-xs-12" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.buyer_name) +
-                      "\n                    "
-                  )
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "gender" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Gender\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.gender === 1 ? "Men" : "Women") +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "address" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Alamat\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.address) +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "email" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Email\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.email) +
+                        "\n                        "
+                    )
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "gender" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Gender\n                        "
-                        )
-                      ]
+              _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "city" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Kota\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.city) +
+                        "\n                        "
                     )
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.gender === 1 ? "Men" : "Women") +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "address" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Address\n                        "
-                        )
-                      ]
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "state_province" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                State/Province\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.state_province) +
+                        "\n                        "
                     )
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.address) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "email" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Email\n                        "
-                        )
-                      ]
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "state_province" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Kode Pos\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.postal_code) +
+                        "\n                        "
                     )
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.email) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "city" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            CITY\n                        "
-                        )
-                      ]
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "quantity" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Jumlah\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.quantity) +
+                        "\n                        "
                     )
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.city) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "state_province" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            State Province\n                        "
-                        )
-                      ]
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "notes" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Catatan\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.notes) +
+                        "\n                        "
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.state_province) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "state_province" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Postal Code\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.postal_code) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "notes" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Notes\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.notes) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "quantity" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Quantity\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.detail.quantity) +
-                      "\n                    "
-                  )
+                  ])
                 ])
               ]),
               _vm._v(" "),
@@ -2816,7 +2884,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
+                    "col-sm-12 d-flex justify-content-center mt-3 pl-2"
                 },
                 [
                   _c(
@@ -2828,7 +2896,35 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Close\n                    "
+                        "\n                        Tutup\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      attrs: { type: "button" },
+                      on: { click: _vm.updated }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Setujui\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm ml-2",
+                      attrs: { type: "button" },
+                      on: { click: _vm.deletePotential }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Tolak\n                    "
                       )
                     ]
                   )
@@ -2876,57 +2972,102 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Name")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.overseas.buyer_name))
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-3 d-flex justify-content-start align-items-center"
+                },
+                [
+                  _c("div", [
+                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                      _c("strong", [_vm._v("Nama")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.overseas.buyer_name))
+                      ])
+                    ])
                   ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Email")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail" }, [
-                  _c("p", { staticClass: "mb-0 max-lines" }, [
-                    _vm._v(_vm._s(_vm.overseas.email))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("City")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail max-lines" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.overseas.city))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Quantity")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "detail max-lines" }, [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _vm._v(_vm._s(_vm.overseas.quantity))
-                  ])
-                ])
-              ]),
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col align-items-center justify-content-end" },
+                {
+                  staticClass:
+                    "col-3 d-flex justify-content-center align-items-center"
+                },
+                [
+                  _c("div", [
+                    _c(
+                      "p",
+                      { staticClass: "small text-uppercase mb-0 text-center" },
+                      [_c("strong", [_vm._v("Email")])]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail" }, [
+                      _c("p", { staticClass: "mb-0 text-center" }, [
+                        _vm._v(_vm._s(_vm.overseas.email))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-3 d-flex justify-content-center align-items-center"
+                },
+                [
+                  _c("div", [
+                    _c(
+                      "p",
+                      { staticClass: "small text-uppercase mb-0 text-center" },
+                      [_c("strong", [_vm._v("Kota")])]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail text-center" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.overseas.city))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-1 d-flex justify-content-center align-items-center"
+                },
+                [
+                  _c("div", [
+                    _c(
+                      "p",
+                      { staticClass: "small text-uppercase mb-0 text-center" },
+                      [_c("strong", [_vm._v("Qty")])]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail text-center" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.overseas.quantity))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-2 d-flex align-items-center justify-content-end"
+                },
                 [
                   _c(
                     "button",
@@ -2935,13 +3076,17 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteItems }
                     },
-                    [_vm._v("Delete")]
+                    [
+                      _vm._v(
+                        "\n                        Hapus\n                    "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-warning btn-sm",
+                      staticClass: "btn btn-warning btn-sm ml-2",
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
@@ -2949,7 +3094,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Detail")]
+                    [
+                      _vm._v(
+                        "\n                        Detail\n                    "
+                      )
+                    ]
                   )
                 ]
               ),
@@ -2999,7 +3148,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v("Overseas")]),
+    _c("h3", [_vm._v("Overseas Inquiry")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "mb-3" }, [
+      _vm._v(
+        "\n    Here is where you can see list of inquiries that are approved\n  "
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(

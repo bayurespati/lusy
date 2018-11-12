@@ -1,76 +1,74 @@
 <template>
     <div class="card mt-3">
-
         <div class="card-block">
-
             <transition enterActiveClass="fade-in"
                         leaveActiveClass="fade-out"
                         mode="out-in">
                 <div class="row">
 
-
-                    <!--=========================================================================================
-                        S H O W    T I T L E
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ overseas.buyer_name }}</p>
+                    <div class="col-3 d-flex justify-content-start align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0">
+                                <strong>Nama</strong>
+                            </p>
+                            
+                            <div class="detail">
+                                <p class="mb-0">{{ overseas.buyer_name }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    L I N K
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Email</strong></p>
-                        <div class="detail">
-                            <p class="mb-0 max-lines">{{ overseas.email }}</p>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Email</strong>
+                            </p>
+                            
+                            <div class="detail">
+                                <p class="mb-0 text-center">{{ overseas.email }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    C I T Y
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>City</strong></p>
-                        <div class="detail max-lines">
-                            <p class="mb-0">{{ overseas.city }}</p>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Kota</strong>
+                            </p>
+                            
+                            <div class="detail text-center">
+                                <p class="mb-0">{{ overseas.city }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W   Q U A N T I T Y
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Quantity</strong></p>
-                        <div class="detail max-lines">
-                            <p class="mb-0">{{ overseas.quantity }}</p>
+                    <div class="col-1 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Qty</strong>
+                            </p>
+                            
+                            <div class="detail text-center">
+                                <p class="mb-0">{{ overseas.quantity }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        B U T T O N
-                        =========================================================================================-->
-                    <div class="col align-items-center justify-content-end">
+                    <div class="col-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
-                                class="btn btn-danger btn-sm"
-                                @click="deleteItems">Delete</button>
+                        class="btn btn-danger btn-sm"
+                        @click="deleteItems">
+                            Hapus
+                        </button>
 
                         <button type="button" 
-                                class="btn btn-warning btn-sm"
-                                @click="isShowDetail = !isShowDetail">Detail</button>
+                        class="btn btn-warning btn-sm ml-2"
+                        @click="isShowDetail = !isShowDetail">
+                            Detail
+                        </button>
 
                     </div>
 
-
-                    <!--=========================================================================================
-                        D E T A I L
-                        =========================================================================================-->
                     <div class="col-md-12">
                         <detail v-if="isShowDetail" :detail="overseas"
                             @closeDetail="isShowDetail = $event">

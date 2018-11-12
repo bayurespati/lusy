@@ -1,60 +1,53 @@
 <template>
     <div class="card mt-3">
-
         <div class="card-block">
-
             <transition enterActiveClass="fade-in"
-                        leaveActiveClass="fade-out"
-                        mode="out-in">
+            leaveActiveClass="fade-out"
+            mode="out-in">
                 <div class="row">
 
-
-                    <!--=========================================================================================
-                        S H O W    T I T L E
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
-                        <div class="detail">
-                            <p class="mb-0">{{ messageContact.name }}</p>
+                    <div class="col-4 d-flex justify-content-start align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0">
+                                <strong>Nama</strong>
+                            </p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ messageContact.name }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    L I N K
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Email</strong></p>
-                        <div class="detail">
-                            <p class="mb-0 max-lines">{{ messageContact.email }}</p>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Email</strong>
+                            </p>
+                        
+                            <div class="detail text-center">
+                                <p class="mb-0 text-center">{{ messageContact.email }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        S H O W    C I T Y
-                        =========================================================================================-->
-                    <div class="col">
-                        <p class="small text-uppercase mb-0"><strong>Phone</strong></p>
-                        <div class="detail max-lines">
-                            <p class="mb-0">{{ messageContact.phone }}</p>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <div>
+                            <p class="small text-uppercase mb-0 text-center">
+                                <strong>Phone</strong>
+                            </p>
+                        
+                            <div class="detail text-center">
+                                <p class="mb-0">{{ messageContact.phone }}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <!--=========================================================================================
-                        B U T T O N   E D I T
-                        =========================================================================================-->
-                    <div class="col align-items-center justify-content-end">
+                    <div class="col-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
-                                class="btn btn-sm btn-warning"
-                                @click="isReplay = !isReplay">Replay</button>
+                        class="btn btn-sm btn-warning"
+                        @click="isReplay = !isReplay">Reply</button>
                     </div>
 
-
-                    <!--=========================================================================================
-                        D E T A I L
-                        =========================================================================================-->
                     <div class="col-md-12">
                         <replay v-if="isReplay" :messageContact="messageContact"
                                 @closeReplay="isReplay = $event"> 
