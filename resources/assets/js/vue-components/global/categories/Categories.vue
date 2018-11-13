@@ -6,7 +6,7 @@
       <template v-if="!isAddCategory">
         <div class="row pt-5">
           <div class="col-12">
-            <button @click="isAddCategory = !isAddCategory" class="btn btn-primary">Tambah Kategori</button>
+            <button @click="isAddCategory = !isAddCategory" class="btn btn-primary">Add Category</button>
           </div>
         </div>
       </template>

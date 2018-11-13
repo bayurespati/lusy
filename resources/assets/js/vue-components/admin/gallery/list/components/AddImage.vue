@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">Tambah Gambar Gallery</h3>
+                    <h3 class="text-center font-weight-bold mb-5">Add Image Gallery</h3>
                 </div>
 
                 <div class="row">
@@ -26,7 +26,7 @@
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="name">Nama</label>
+                                <label class="m-0 pl-1" for="name">Name</label>
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="title" class="form-control full-width" id="name">
@@ -35,7 +35,7 @@
 
                         <div class="row mt-2">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="date">Tanggal</label>
+                                <label class="m-0 pl-1" for="date">Date</label>
                             </div>
                             <div class="col-md-9">
                                 <datetime type="date" v-model="date" class="full-width"></datetime>
@@ -44,7 +44,7 @@
 
                         <div class="row mt-2">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="lokasi">Lokasi</label>
+                                <label class="m-0 pl-1" for="lokasi">Location</label>
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="location" class="form-control full-width" id="lokasi">
@@ -53,7 +53,7 @@
 
                         <div class="row mt-2">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="creator">Dibuat Oleh</label>
+                                <label class="m-0 pl-1" for="creator">Creator</label>
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="creator" class="form-control full-width" id="creator">
@@ -62,11 +62,11 @@
 
                         <div class="row mt-2">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="category">Kategori</label>
+                                <label class="m-0 pl-1" for="category">Category</label>
                             </div>      
                             <div class="col-md-9">
                                 <select class="form-control full-width" id="category" v-model="subcategories">
-                                    <option value="">Pilih Kategori</option>
+                                    <option value="">Choose Category</option>
                                     <option v-for="category in categories" :value=category.subcategories>{{ category.title }}</option>
                                 </select>
                             </div>
@@ -74,11 +74,11 @@
 
                         <div class="row mt-2">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="subcategory">Subkategori</label>
+                                <label class="m-0 pl-1" for="subcategory">subcategory</label>
                             </div>
                             <div class="col-md-9">
                                 <select class="form-control full-width" id="subcategory" v-model="sub_category_id">
-                                    <option value="">Pilih Subkategori</option>
+                                    <option value="">Choose Subcategory</option>
                                     <option v-for="subcategory in subcategories" :value=subcategory.id>{{ subcategory.title }}</option>
                                 </select>
                             </div>
@@ -88,13 +88,13 @@
                             <button type="button" role="button"
                             class="btn btn-success"
                             @click="uploadImage">
-                                Simpan
+                                Save
                             </button>
 
                             <button class="btn btn-danger ml-2"
                             type="button" role="button" 
                             @click="closeAdd"> 
-                                Batal
+                                Cancel
                             </button>
                         </div>
                     </div>
@@ -174,10 +174,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const self  = this;
 
                 reader.onload = (event) => {
-                    vm.image = event.target.result;
+                    self.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -186,7 +186,7 @@
             },
 
             setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
@@ -197,7 +197,7 @@
 
                 if(this.image === null || this.image === ''){
                     this.croppie.bind({
-                        url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                        url: '/img/portfolio-2.jpg'
                     });
                 }else {
                     this.croppie.bind({
@@ -206,27 +206,29 @@
                 }
 
                 this.croppie.options.update = function(){
-                    vm.setImage();
+                    self.setImage();
                 }
             },
 
             setImage(){
-                const vm = this;
+                const self = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {witdh: 480, height: 500, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             },
 
             uploadImage(){
 
-                const vm  = this;
+                const self  = this;
                 
-                if(this.formIsFilled){
+                if(this.formIsFilled && !self.isRequesting){
+
                     this.isRequesting = true;
+
                     const galleryData = {
                         image : this.save_image,
                         sub_category_id : this.sub_category_id,
@@ -240,12 +242,12 @@
                         .then((response) => {
                             flash('Foto berhasil di tambahkan','success');
 
-                            vm.isRequesting = false;
+                            self.isRequesting = false;
 
-                            vm.closeAdd();
+                            self.closeAdd();
                         })
                         .catch((errors) => {
-                            vm.isRequesting = false;
+                            vselfm.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {

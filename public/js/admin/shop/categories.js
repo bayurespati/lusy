@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 342);
+/******/ 	return __webpack_require__(__webpack_require__.s = 335);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1220,11 +1220,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			input: {
+				isRequesting: false,
 				title: ''
 			}
 		};
@@ -1235,14 +1239,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		addCategory: function addCategory() {
 			var _this = this;
 
-			if (this.input.title.length > 3) {
+			var self = this;
+
+			if (this.input.title.length > 3 && !self.isRequesting) {
+
+				self.isRequesting = true;
 
 				this.$store.dispatch('store_new_category', this.input).then(function () {
 
-					flash('Category gallery berhasil ditambahkan', 'success');
+					flash('Category added', 'success');
+
+					self.isRequesting = false;
 
 					_this.input.title = '';
 				}).catch(function (errors) {
+
+					self.isRequesting = false;
 
 					Object.keys(errors).forEach(function (field) {
 						errors[field].forEach(function (message) {
@@ -1271,7 +1283,7 @@ var render = function() {
     _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card text-center" }, [
         _c("h4", { staticClass: "title font-weight-bold mb-4" }, [
-          _vm._v("Tambah Kategori")
+          _vm._v("Add Category")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group text-left mb-3" }, [
@@ -1285,7 +1297,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", id: "title", placeholder: "Nama Kategori" },
+            attrs: { type: "text", id: "title", placeholder: "Category Name" },
             domProps: { value: _vm.input.title },
             on: {
               input: function($event) {
@@ -1305,7 +1317,7 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.addCategory }
           },
-          [_vm._v("Tambah")]
+          [_vm._v("Save")]
         ),
         _vm._v(" "),
         _c(
@@ -1315,7 +1327,7 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.closeAddCatergory }
           },
-          [_vm._v("Batal")]
+          [_vm._v("Cancel")]
         )
       ])
     ])
@@ -2441,6 +2453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequesting: false,
             isEditingCategory: false
         };
     },
@@ -2449,14 +2462,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         deleteTheCategory: function deleteTheCategory() {
             var self = this;
-            this.$store.dispatch('destroy_category', {
-                categoryId: this.category.id
-            }).then(function () {
-                self.isRequesting = false;
 
-                flash('Category berhasil dihapus', 'danger');
-            });
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_category', {
+                    categoryId: this.category.id
+                }).then(function () {
+                    self.isRequesting = false;
+
+                    flash('Category deleted', 'danger');
+                });
+            }
         }
+    }
+});
+
+/***/ }),
+
+/***/ 335:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(336);
+
+
+/***/ }),
+
+/***/ 336:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(92);
+
+
+
+
+
+var admin = new Vue({
+    el: '#categories',
+
+    components: {
+        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_categories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 337:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(92);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
     }
 });
 
@@ -2511,67 +2591,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-
-/***/ 342:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(343);
-
-
-/***/ }),
-
-/***/ 343:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(92);
-
-
-
-
-
-var admin = new Vue({
-    el: '#categories',
-
-    components: {
-        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_categories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
-});
-
-/***/ }),
-
-/***/ 344:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(92);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
 
 /***/ }),
 
@@ -2715,7 +2734,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var self = this;
 
-            if (this.categoryIsEdited && this.input.title.length > 3) {
+            if (this.categoryIsEdited && !self.isRequesting) {
 
                 this.isRequesting = true;
 
@@ -2726,7 +2745,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_category', updatedCategory).then(function (updatedCategory) {
 
-                    flash('Category Berhasil diperbaharui', 'success');
+                    flash('Category updated', 'success');
+
+                    self.isRequesting = false;
 
                     self.closeEditForm();
                 }).catch(function (errors) {
@@ -2789,7 +2810,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Nama Kategori\n                        "
+                          "\n                            Category Name\n                        "
                         )
                       ]
                     )
@@ -2856,7 +2877,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Batal\n                    "
+                        "\n                        Cancel\n                    "
                       )
                     ]
                   ),
@@ -2869,7 +2890,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Simpan\n                    "
+                        "\n                        Save\n                    "
                       )
                     ]
                   )
@@ -2922,7 +2943,7 @@ var render = function() {
               [
                 _c("div", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Nama")])
+                    _c("strong", [_vm._v("Name")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -2950,7 +2971,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Ubah")]
+                      [_vm._v("Edit")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -2960,7 +2981,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: { click: _vm.deleteTheCategory }
                       },
-                      [_vm._v("Hapus")]
+                      [_vm._v("Delete")]
                     )
                   ]
                 ),
@@ -3071,7 +3092,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Tambah Kategori")]
+                      [_vm._v("Add Category")]
                     )
                   ])
                 ])
@@ -3453,7 +3474,7 @@ if (false) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(337);
 
 
 

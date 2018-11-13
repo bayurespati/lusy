@@ -16,7 +16,7 @@
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="title"
                                    class="form-control-label panel-font-small m-0 font-weight-bold">
-                                Nama Kategori
+                                Category Name
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -41,7 +41,7 @@
                         <button type="button" 
                                 class="btn btn-secondary btn-sm"
                                 @click="closeEditForm">
-                            Batal
+                            Cancel
                         </button>
 
 
@@ -50,7 +50,7 @@
                             =========================================================================================-->
                         <button @click="editCategory"
                                 class="btn btn-success btn-sm ml-2">
-                            Simpan
+                            Save
                         </button>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
 
                 const self = this;
 
-                if (this.categoryIsEdited && this.input.title.length > 3) {
+                if (this.categoryIsEdited && !self.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -104,7 +104,9 @@
 
                         .then((updatedCategory) => {
 
-                            flash('Category Berhasil diperbaharui', 'success');
+                            flash('Category updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })

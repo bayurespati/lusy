@@ -89,7 +89,7 @@
             || this.content != this.profile.content 
             || this.title != this.profile.title;
       }
-    }
+    },
 
     methods:{
       setUpFileUploader(event){

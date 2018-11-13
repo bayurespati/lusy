@@ -1401,7 +1401,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Nama")])
+                    _c("strong", [_vm._v("Name")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1415,7 +1415,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Pirce")])
+                    _c("strong", [_vm._v("Price")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1455,7 +1455,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editShop }
                         },
-                        [_vm._v("Tampilkan")]
+                        [_vm._v("Show")]
                       )
                     : _c(
                         "button",
@@ -1464,7 +1464,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editShop }
                         },
-                        [_vm._v("Sembunyikan")]
+                        [_vm._v("Hide")]
                       )
                 ]
               )

@@ -2252,8 +2252,15 @@ exports.push([module.i, "\n.card[data-v-3618a65c] {\n\t\tdisplay: inline-block;\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+var _data$computed$comput;
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -2278,9 +2285,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_data$computed$comput = {
 	data: function data() {
 		return {
+			isRequesting: false,
 			input: {
 				title: '',
 				category_id: 'Pilih Kategori'
@@ -2291,35 +2299,47 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
 		categories: 'getCategories'
-	})),
+	}))
 
-	methods: {
-		addSubCategory: function addSubCategory() {
-			var _this = this;
+}, _defineProperty(_data$computed$comput, 'computed', {
+	isFormFilled: function isFormFilled() {
+		return this.input.title.length > 3 && this.input.category_id !== '' && this.input.category_id !== 'Pilih Kategori';
+	}
+}), _defineProperty(_data$computed$comput, 'methods', {
+	addSubCategory: function addSubCategory() {
+		var _this = this;
 
-			if (this.input.title.length > 3 && this.input.category_id !== '' && this.input.category_id !== 'Pilih Kategori') {
+		var self = this;
 
-				this.$store.dispatch('store_new_subcategory', this.input).then(function () {
+		if (self.isFormFilled && !self.isRequesting) {
 
-					flash('Sub category gallery berhasil ditambahkan', 'success');
+			self.isRequesting = true;
 
-					_this.input.title = '';
-					_this.input.category_id = 'Pilih Kategori';
-				}).catch(function (errors) {
+			this.$store.dispatch('store_new_subcategory', this.input).then(function () {
 
-					Object.keys(errors).forEach(function (field) {
-						errors[field].forEach(function (message) {
-							flash(message, 'danger', 5000);
-						});
+				flash('Sub category added', 'success');
+
+				self.isRequesting = false;
+
+				_this.input.title = '';
+
+				_this.input.category_id = 'Pilih Kategori';
+			}).catch(function (errors) {
+
+				self.isRequesting = false;
+
+				Object.keys(errors).forEach(function (field) {
+					errors[field].forEach(function (message) {
+						flash(message, 'danger', 5000);
 					});
 				});
-			}
-		},
-		closeAddSubCatergory: function closeAddSubCatergory() {
-			this.$emit('closeAddSubCategory', false);
+			});
 		}
+	},
+	closeAddSubCatergory: function closeAddSubCatergory() {
+		this.$emit('closeAddSubCategory', false);
 	}
-});
+}), _data$computed$comput);
 
 /***/ }),
 
@@ -2334,7 +2354,7 @@ var render = function() {
     _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card text-center" }, [
         _c("h4", { staticClass: "title font-weight-bold mb-4" }, [
-          _vm._v("Tambah Subkategori")
+          _vm._v("Add Subcategory")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group text-left mb-3" }, [
@@ -2370,7 +2390,7 @@ var render = function() {
               }
             },
             [
-              _c("option", [_vm._v("Pilih Kategori")]),
+              _c("option", [_vm._v("Choose Category")]),
               _vm._v(" "),
               _vm._l(_vm.categories, function(category) {
                 return _c("option", { domProps: { value: category.id } }, [
@@ -2393,7 +2413,7 @@ var render = function() {
             staticClass: "form-control",
             attrs: {
               type: "text",
-              placeholder: "Nama Subkategori",
+              placeholder: "Subcategory Name",
               id: "title"
             },
             domProps: { value: _vm.input.title },
@@ -2415,7 +2435,7 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.addSubCategory }
           },
-          [_vm._v("Tambah")]
+          [_vm._v("Add")]
         ),
         _vm._v(" "),
         _c(
@@ -2425,7 +2445,7 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.closeAddSubCatergory }
           },
-          [_vm._v("Batal")]
+          [_vm._v("Cancel")]
         )
       ])
     ])
@@ -2670,6 +2690,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequesting: false,
             isEditingSubCategory: false
         };
     },
@@ -2679,13 +2700,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteTheSubCategory: function deleteTheSubCategory() {
             var self = this;
 
-            this.$store.dispatch('destroy_subcategory', {
-                subcategoryId: self.subcategory.id
-            }).then(function () {
-                self.isRequesting = false;
+            if (!this.isRequesting) {
 
-                flash('Sub Category berhasil dihapus', 'danger');
-            });
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_subcategory', {
+                    subcategoryId: self.subcategory.id
+                }).then(function () {
+                    self.isRequesting = false;
+
+                    flash('Sub Category deleted', 'danger');
+                });
+            }
         }
     }
 });
@@ -2877,8 +2903,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2915,7 +2939,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             var self = this;
 
-            if (this.subcategoryIsEdited && this.input.title.length > 3) {
+            if (this.subcategoryIsEdited && !self.isRequesting) {
 
                 this.isRequesting = true;
 
@@ -2927,7 +2951,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 this.$store.dispatch('update_subcategory', updatedSubcategory).then(function (updatedSubcategory) {
 
-                    flash('Sub Category Berhasil diperbaharui', 'success');
+                    flash('Sub Category updated', 'success');
+
+                    self.isRequesting = false;
 
                     self.closeEditForm();
                 }).catch(function (errors) {
@@ -2990,7 +3016,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Nama Kategori\n                        "
+                          "\n                            Category Name\n                        "
                         )
                       ]
                     )
@@ -3059,7 +3085,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Nama Subkategori\n                        "
+                          "\n                            Subcategory Name\n                        "
                         )
                       ]
                     )
@@ -3126,7 +3152,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Batal\n                    "
+                        "\n                        Cancel\n                    "
                       )
                     ]
                   ),
@@ -3139,7 +3165,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Simpan\n                    "
+                        "\n                        Save\n                    "
                       )
                     ]
                   )
@@ -3189,7 +3215,7 @@ var render = function() {
             _c("div", { staticClass: "row m-0" }, [
               _c("div", { staticClass: "col-md-4 col-sm-6" }, [
                 _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Nama")])
+                  _c("strong", [_vm._v("Name")])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "detail" }, [
@@ -3201,7 +3227,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-4 col-sm-6" }, [
                 _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Kategori")])
+                  _c("strong", [_vm._v("Category")])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "detail" }, [
@@ -3229,7 +3255,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Ubah")]
+                    [_vm._v("Edit")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -3239,7 +3265,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheSubCategory }
                     },
-                    [_vm._v("Hapus")]
+                    [_vm._v("Delete")]
                   )
                 ]
               ),
@@ -3342,7 +3368,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Tambah Subkategori")]
+                      [_vm._v("Add Subcategory")]
                     )
                   ])
                 ])

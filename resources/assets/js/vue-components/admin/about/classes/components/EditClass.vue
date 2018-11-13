@@ -96,7 +96,7 @@
             || this.content != this.singleClass.content 
             || this.title != this.singleClass.title;
       }
-    }
+    },
 
     methods:{
       setUpFileUploader(event){

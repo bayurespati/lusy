@@ -1349,6 +1349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequesting: false,
             isEditingGallery: false
         };
     },
@@ -1359,9 +1360,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var self = this;
 
-            if (true) {
+            if (!self.isRequesting) {
 
-                this.isRequesting = true;
+                self.isRequesting = true;
 
                 var updatedGallery = {
                     id: this.galleryImage.id,
@@ -1370,7 +1371,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
 
-                    flash('Gallery Berhasil diperbaharui', 'success');
+                    flash('Gallery updated', 'success');
+
+                    self.isRequesting = false;
 
                     self.closeEditForm();
                 }).catch(function (errors) {
@@ -1415,7 +1418,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Nama")])
+                    _c("strong", [_vm._v("Name")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1429,7 +1432,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Tanggal")])
+                    _c("strong", [_vm._v("Date")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1443,7 +1446,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Lokasi")])
+                    _c("strong", [_vm._v("Location")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1457,7 +1460,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-2 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Dibuat Oleh")])
+                    _c("strong", [_vm._v("Creator")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -1483,7 +1486,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editGallery }
                         },
-                        [_vm._v("Tampilkan")]
+                        [_vm._v("Show")]
                       )
                     : _c(
                         "button",
@@ -1492,7 +1495,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.editGallery }
                         },
-                        [_vm._v("Sembunyikan")]
+                        [_vm._v("Hide")]
                       )
                 ]
               )

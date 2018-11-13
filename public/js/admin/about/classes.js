@@ -863,6 +863,197 @@ module.exports = g;
 /***/ }),
 
 /***/ 16:
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
@@ -2455,197 +2646,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-
 /***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2907,7 +2907,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(17)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(16)))
 
 /***/ }),
 
@@ -3371,7 +3371,7 @@ exports.push([module.i, "\n.card[data-v-d13358f6] {\n    display: inline-block;\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_croppie__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 //
@@ -3440,108 +3440,120 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            croppie: null,
-            content: '',
-            image: '',
-            title: '',
-            save_image: ''
-        };
-    },
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
+  data: function data() {
+    return {
+      isRequesting: '',
+      croppie: null,
+      content: '',
+      image: '',
+      title: '',
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
 
 
-    computed: {
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.content != '' && this.title != '';
-        }
-    },
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var vm = this;
-
-            reader.onload = function (event) {
-                vm.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var vm = this;
-            var file = document.getElementById('croppie');
-
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                viewport: { width: 235, height: 300, type: 'square' },
-                boundary: { width: 285, height: 350 },
-                enableOrientation: false
-            });
-
-            if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: '/img/welcome-1.jpg'
-                });
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                vm.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var vm = this;
-
-            this.croppie.result({
-                type: 'canvas',
-                size: { width: 470, height: 600, type: 'square' }
-            }).then(function (response) {
-                vm.save_image = response;
-            });
-        },
-        addClass: function addClass() {
-
-            var vm = this;
-
-            if (this.formIsFilled) {
-
-                var classProfile = {
-                    title: this.title,
-                    content: this.content,
-                    image: this.save_image
-                };
-
-                this.$store.dispatch('store_new_class', classProfile).then(function (updatedProfile) {
-
-                    flash('Class Berhasil ditambah', 'success');
-
-                    vm.closeAddForm();
-                }).catch(function (errors) {});
-            }
-        },
-        closeAddForm: function closeAddForm() {
-            this.$emit('closeAddClass', false);
-        }
+  computed: {
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.content != '' && this.title != '';
     }
+  },
+
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+        _this.croppie.destroy();
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+
+      var self = this;
+
+      var file = document.getElementById('croppie');
+
+      this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+        viewport: { width: 235, height: 300, type: 'square' },
+        boundary: { width: 285, height: 350 },
+        enableOrientation: false
+      });
+
+      if (this.image === null || this.image === '') {
+        this.croppie.bind({
+          url: '/img/welcome-1.jpg'
+        });
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+
+      var self = this;
+
+      this.croppie.result({
+        type: 'canvas',
+        size: { width: 470, height: 600, type: 'square' }
+      }).then(function (response) {
+        self.save_image = response;
+      });
+    },
+    addClass: function addClass() {
+
+      var self = this;
+
+      if (this.formIsFilled && !self.isRequesting) {
+
+        self.isRequesting = true;
+
+        var classProfile = {
+          title: this.title,
+          content: this.content,
+          image: this.save_image
+        };
+
+        this.$store.dispatch('store_new_class', classProfile).then(function (updatedProfile) {
+
+          flash('Class added', 'success');
+
+          self.closeAddForm();
+
+          self.isRequesting = false;
+        }).catch(function (errors) {
+
+          self.isRequesting = false;
+        });
+      }
+    },
+    closeAddForm: function closeAddForm() {
+      this.$emit('closeAddClass', false);
+    }
+  }
 });
 
 /***/ }),
@@ -3642,7 +3654,7 @@ var render = function() {
                 attrs: { type: "button", role: "button" },
                 on: { click: _vm.addClass }
               },
-              [_vm._v("\n          Simpan\n        ")]
+              [_vm._v("\n          Save\n        ")]
             ),
             _vm._v(" "),
             _c(
@@ -3652,7 +3664,7 @@ var render = function() {
                 attrs: { type: "button", role: "button" },
                 on: { click: _vm.closeAddForm }
               },
-              [_vm._v("\n          Batal\n        ")]
+              [_vm._v("\n          Cancel\n        ")]
             )
           ]
         )
@@ -3667,7 +3679,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12 text-center" }, [
       _c("h3", { staticClass: "text-center font-weight-bold mb-5" }, [
-        _vm._v("Tambah Class")
+        _vm._v("Add Class")
       ])
     ])
   },
@@ -3906,6 +3918,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequesting: false,
             isEditingClass: false
         };
     },
@@ -3914,11 +3927,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         deleteTheClass: function deleteTheClass() {
             var self = this;
-            this.$store.dispatch('destroy_class', {
-                classId: this.singleClass.id
-            }).then(function () {
-                flash('Class berhasil dihapus', 'danger');
-            });
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_class', {
+                    classId: this.singleClass.id
+                }).then(function () {
+                    flash('Class berhasil dihapus', 'danger');
+
+                    self.isRequesting = false;
+                });
+            }
         }
     }
 });
@@ -4067,11 +4088,9 @@ exports.push([module.i, "\n.bg-grey[data-v-85ae0e60] {\n    background: #fafafa;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_croppie__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
-//
-//
 //
 //
 //
@@ -4147,105 +4166,119 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: { singleClass: {} },
+  props: { singleClass: {} },
 
-    data: function data() {
-        return {
-            croppie: null,
-            content: this.singleClass.content,
-            image: this.singleClass.image_path,
-            title: this.singleClass.title,
-            save_image: ''
-        };
-    },
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
+  data: function data() {
+    return {
+      isRequesting: false,
+      croppie: null,
+      content: this.singleClass.content,
+      image: this.singleClass.image_path,
+      title: this.singleClass.title,
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
 
 
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var vm = this;
-
-            reader.onload = function (event) {
-                vm.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var vm = this;
-            var file = document.getElementById('croppie');
-
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                viewport: { width: 235, height: 300 },
-                boundary: { width: 285, height: 350 },
-                enableOrientation: false
-            });
-
-            if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: '/img/welcome-2.png'
-                });
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                vm.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var vm = this;
-
-            this.croppie.result({
-                type: 'canvas',
-                size: { width: 470, height: 600, type: 'square' }
-            }).then(function (response) {
-                vm.save_image = response;
-            });
-        },
-        editClass: function editClass() {
-
-            var vm = this;
-
-            if (this.image != this.singleClass.image_path || this.content != this.singleClass.content || this.title != this.singleClass.title) {
-
-                var updatedProflie = {
-                    id: this.singleClass.id,
-                    title: this.title,
-                    content: this.content,
-                    image: this.save_image
-                };
-
-                this.$store.dispatch('update_class', updatedProflie).then(function (updatedClass) {
-
-                    flash('Class Berhasil diperbaharui', 'success');
-
-                    vm.closeEditForm();
-                }).catch(function (errors) {});
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        }
+  computed: {
+    isEdited: function isEdited() {
+      return this.image != this.singleClass.image_path || this.content != this.singleClass.content || this.title != this.singleClass.title;
     }
+  },
+
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+        _this.croppie.destroy();
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie');
+
+      this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+        viewport: { width: 235, height: 300 },
+        boundary: { width: 285, height: 350 },
+        enableOrientation: false
+      });
+
+      if (this.image === null || this.image === '') {
+        this.croppie.bind({
+          url: '/img/welcome-2.png'
+        });
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      this.croppie.result({
+        type: 'canvas',
+        size: { width: 470, height: 600, type: 'square' }
+      }).then(function (response) {
+        self.save_image = response;
+      });
+    },
+    editClass: function editClass() {
+
+      var self = this;
+
+      if (self.isEdited && !self.isRequesting) {
+
+        self.isRequesting = true;
+
+        var updatedProflie = {
+          id: this.singleClass.id,
+          title: this.title,
+          content: this.content,
+          image: this.save_image
+        };
+
+        this.$store.dispatch('update_class', updatedProflie).then(function (updatedClass) {
+
+          flash('Class updated', 'success');
+
+          self.isRequesting = false;
+
+          self.closeEditForm();
+        }).catch(function (errors) {
+
+          self.isRequesting = false;
+        });
+      }
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
+    }
+  }
 });
 
 /***/ }),
@@ -4425,7 +4458,7 @@ var render = function() {
                           attrs: { type: "button", role: "button" },
                           on: { click: _vm.editClass }
                         },
-                        [_vm._v("\n                Save\n              ")]
+                        [_vm._v(" Save\n              ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -4435,7 +4468,7 @@ var render = function() {
                           attrs: { type: "button", role: "button" },
                           on: { click: _vm.closeEditForm }
                         },
-                        [_vm._v("\n                Tutup\n              ")]
+                        [_vm._v(" Close\n              ")]
                       )
                     ]
                   )
@@ -4492,7 +4525,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-3 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Nama")])
+                    _c("strong", [_vm._v("Name")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -4506,7 +4539,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-4 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Konten")])
+                    _c("strong", [_vm._v("Content")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -4535,7 +4568,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Ubah")]
+                    [_vm._v("Edit")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -4545,7 +4578,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.deleteTheClass }
                     },
-                    [_vm._v("Hapus")]
+                    [_vm._v("Delete")]
                   )
                 ]
               ),
@@ -4626,7 +4659,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Tambah Class")]
+                  [_vm._v("Add Class")]
                 )
               ]
             : [

@@ -18,7 +18,7 @@
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="title"
                                    class="form-control-label panel-font-small m-0 font-weight-bold">
-                                Nama Kategori
+                                Category Name
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -37,7 +37,7 @@
                         <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                             <label for="title"
                                    class="form-control-label panel-font-small m-0 font-weight-bold">
-                                Nama Subkategori
+                                Subcategory Name
                             </label>
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -55,23 +55,21 @@
                         =========================================================================================-->
                     <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
 
-
                         <!--=========================================================================================
                             C A N C E L   B U T T O N
                             =========================================================================================-->
                         <button type="button" 
                                 class="btn btn-secondary btn-sm"
                                 @click="closeEditForm">
-                            Batal
+                            Cancel
                         </button>
-
 
                         <!--=========================================================================================
                             S A V E   B U T T O N
                             =========================================================================================-->
                         <button @click="editSubcategory"
                                 class="btn btn-success btn-sm ml-2">
-                            Simpan
+                            Save
                         </button>
                     </div>
 
@@ -123,7 +121,7 @@
 
                 const self = this;
 
-                if (this.subcategoryIsEdited && this.input.title.length > 3) {
+                if (this.subcategoryIsEdited && !self.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -137,7 +135,9 @@
 
                         .then((updatedSubcategory) => {
 
-                            flash('Sub Category Berhasil diperbaharui', 'success');
+                            flash('Sub Category updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })
