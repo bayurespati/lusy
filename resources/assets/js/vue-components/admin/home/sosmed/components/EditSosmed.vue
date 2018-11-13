@@ -42,8 +42,8 @@
                             </label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="radio" :name=sosmed.id  value=1 v-model="input.is_active"> Aktif
-                            <input type="radio" :name=sosmed.id  value=0 v-model="input.is_active" class="ml-2"> Tidak Aktif
+                            <input type="radio" :name=sosmed.id  value=1 v-model="input.is_active"> Active
+                            <input type="radio" :name=sosmed.id  value=0 v-model="input.is_active" class="ml-2"> Not Active
                         </div>
                     </div>
 
@@ -52,15 +52,13 @@
                         A C T I O N   B U T T O N
                         =========================================================================================-->
                     <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
-                        <button type="button" 
-                        class="btn btn-secondary btn-sm"
-                        @click="closeEditForm">
+                        <button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
                             Batal
                         </button>
 
                         <button @click="editSosmed"
-                        :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
-                        class="btn btn-success btn-sm ml-2">
+                                :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
+                                class="btn btn-success btn-sm ml-2">
                             Simpan
                         </button>
                     </div>
@@ -107,9 +105,9 @@
 
                 const self = this;
 
-                if (this.sosmedIsEdited) {
+                if (self.sosmedIsEdited && !self.isRequesting) {
 
-                    this.isRequesting = true;
+                    self.isRequesting = true;
 
                     const updatedSosmed = {
                         id: this.sosmed.id,
@@ -121,7 +119,7 @@
 
                         .then((updatedSosmed) => {
 
-                            flash('Sosial media Berhasil diperbaharui', 'success');
+                            flash('Sosial media has been upgrade', 'success');
 
                             self.isRequesting = false;
 

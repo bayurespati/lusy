@@ -2,12 +2,15 @@
 	<div class="row pt-5">
 		<div class="col-md-12">
 			<div class="card text-center">
-				<h4 class="title font-weight-bold mb-4">Tambah Kategori</h4>
+				<h4 class="title font-weight-bold mb-4">Add Category</h4>
 				<div class="form-group text-left mb-3">
-					<input type="text" v-model="input.title" class="form-control" id="title" placeholder="Nama Kategori">
+					<input type="text" 
+						   v-model="input.title" 
+						   class="form-control" id="title" 
+						   placeholder="Category Name">
 				</div>
-				<button type="button" @click="addCategory" class="btn btn-sm btn-success">Tambah</button>
-				<button type="button" @click="closeAddCatergory" class="btn btn-sm btn-danger ml-1">Batal</button>
+				<button type="button" @click="addCategory" class="btn btn-sm btn-success">Save</button>
+				<button type="button" @click="closeAddCatergory" class="btn btn-sm btn-danger ml-1">Cancel</button>
 			</div>	
 		</div>
 	</div>
@@ -17,24 +20,33 @@
 		data(){
 			return{
 				input:{
-					title: ''
+					isRequesting: false,
+					title: '',
 				}
 			}
 		},
 
 		methods:{
 			addCategory(){
+
+				let self = this;
 				
-				if(this.input.title.length > 3){
+				if(this.input.title.length > 3 && !self.isRequesting){
+
+					self.isRequesting = true;
 
 					this.$store.dispatch('store_new_category', this.input)
                         .then(() => {
 
-                            flash('Category gallery berhasil ditambahkan','success');
+                            flash('Category added','success');
+
+                            self.isRequesting = false;
 
                             this.input.title = '';
                         })
                         .catch(errors => {
+
+                        	self.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {

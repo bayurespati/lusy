@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.title }}</p>
                             </div>
@@ -33,7 +33,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Tanggal</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Date</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.date }}</p>
                             </div>
@@ -46,7 +46,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Lokasi</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Location</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.location }}</p>
                             </div>
@@ -59,7 +59,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Dibuat Oleh</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Creator</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.creator }}</p>
                             </div>
@@ -73,10 +73,10 @@
                     <div class="col-md-2 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingGallery = !isEditingGallery">Ubah</button>               
+                                @click="isEditingGallery = !isEditingGallery">Edit</button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheGallery">Hapus</button>
+                                @click="deleteTheGallery">Delete</button>
                     </div>
 
 
@@ -107,6 +107,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingGallery: false,
             }
         },
@@ -116,14 +117,19 @@
             deleteTheGallery() {
                 const self = this;
 
-                this.$store.dispatch('destroy_gallery', {
-                    galleryId: self.galleryImage.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
+                if(!self.isRequesting){
 
-                    flash('Gallery berhasil dihapus', 'danger')
-                })
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_gallery', {
+                        galleryId: self.galleryImage.id
+                    })
+                    .then(() => {
+                        self.isRequesting = false;
+
+                        flash('Gallery deleted', 'danger')
+                    })
+                }
             }
         }
     };

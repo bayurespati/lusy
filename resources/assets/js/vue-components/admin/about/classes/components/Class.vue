@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-3 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
 
                             <div class="detail">
                                 <p class="mb-0">{{ singleClass.title }}</p>
@@ -35,7 +35,7 @@
                         =========================================================================================-->
                     <div class="col-md-4 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Konten</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Content</strong></p>
 
                             <div class="detail">
                                 <p class="mb-0 cut-content">{{ singleClass.content }}</p>
@@ -51,11 +51,11 @@
                     <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingClass = !isEditingClass">Ubah</button>
+                                @click="isEditingClass = !isEditingClass">Edit</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheClass">Hapus</button>
+                                @click="deleteTheClass">Delete</button>
                     </div>
 
 
@@ -85,6 +85,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingClass: false,
             }
         },
@@ -93,12 +94,20 @@
 
             deleteTheClass() {
                 const self = this;
-                this.$store.dispatch('destroy_class', {
-                    classId: this.singleClass.id
-                })
-                .then(() => {
-                    flash('Class berhasil dihapus', 'danger')
-                })
+
+                if(!self.isRequesting){
+
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_class', {
+                        classId: this.singleClass.id
+                    })
+                    .then(() => {
+                        flash('Class berhasil dihapus', 'danger');
+
+                        self.isRequesting = false;
+                    })
+                }
             }
         }
     };

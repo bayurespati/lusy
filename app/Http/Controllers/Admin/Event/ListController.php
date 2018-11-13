@@ -18,7 +18,7 @@ class ListController extends Controller
     public function loadEvent()
     {
         $categories = Category::where('type','2')->with('subcategories')->get();
-        $event = Event::all();
+        $event = Event::with('subcategory')->get();
 
         $subCategories = [];
 

@@ -8,7 +8,7 @@
     mode="out-in">
       <template v-if="!isAddImage">
         <div class="row col pt-5">
-          <button @click="isAddImage = !isAddImage" class="btn btn-primary">Tambah Image</button>
+          <button @click="isAddImage = !isAddImage" class="btn btn-primary">Add Image</button>
         </div>
       </template>
       <template v-else>

@@ -66,6 +66,7 @@ export const store = new Vuex.Store({
             state.events[eventIndex].organiser = updatedEvent.organiser;
             state.events[eventIndex].content = updatedEvent.content;
             state.events[eventIndex].sub_category_id = updatedEvent.sub_category_id;
+            state.events[eventIndex].subcategory.category_id = updatedEvent.category_id;
         },
 
         delete_event(state, ids){

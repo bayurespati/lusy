@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="col-md-12 text-center">
-      <h3 class="text-center font-weight-bold mb-5">Tambah Class</h3>
+      <h3 class="text-center font-weight-bold mb-5">Add Class</h3>
     </div>
 
     <div class="row">
@@ -45,13 +45,13 @@
           <button type="button" role="button"
           class="btn btn-success"
           @click="addClass">
-            Simpan
+            Save
           </button>
 
           <button type="button" role="button"
           class="btn btn-warning ml-2"
           @click="closeAddForm">
-            Batal
+            Cancel
           </button>
         </div>
       </div>
@@ -66,6 +66,7 @@
 	export default {
     data(){
       return{
+        isRequesting: '',
         croppie: null,
         content: '',
         image: '',
@@ -89,93 +90,106 @@
 
     methods:{
       setUpFileUploader(event){
-          let files = event.target.files || event.dataTransfer.files;
+        let files = event.target.files || event.dataTransfer.files;
 
-          if(!files.length){
-              return
-          }
+        if(!files.length){
+          return
+        }
 
-          this.createImage(files[0]);
+        this.createImage(files[0]);
       },
 
       createImage(file){
-          const reader = new FileReader();
-          const vm  = this;
 
-          reader.onload = (event) => {
-              vm.image = event.target.result;
-              this.croppie.destroy();
-              this.setUpCroppie();
-          };
+        const reader = new FileReader();
 
-          reader.readAsDataURL(file);
+        const self  = this;
+
+        reader.onload = (event) => {
+          self.image = event.target.result;
+          this.croppie.destroy();
+          this.setUpCroppie();
+        };
+
+        reader.readAsDataURL(file);
+
       },
 
       setUpCroppie(){
-          const vm = this;
-          let file = document.getElementById('croppie');
 
-          this.croppie = new Croppie(file,{
-              viewport: {width: 235, height: 300, type: 'square'},
-              boundary: {width: 285, height: 350 },
-              enableOrientation: false,
+        const self = this;
+
+        let file = document.getElementById('croppie');
+
+        this.croppie = new Croppie(file,{
+            viewport: {width: 235, height: 300, type: 'square'},
+            boundary: {width: 285, height: 350 },
+            enableOrientation: false,
+        });
+
+        if(this.image === null || this.image === ''){
+          this.croppie.bind({
+            url: '/img/welcome-1.jpg'
           });
+        }else {
+          this.croppie.bind({
+            url: this.image
+          });
+        }
 
-          if(this.image === null || this.image === ''){
-              this.croppie.bind({
-                  url: '/img/welcome-1.jpg'
-              });
-          }else {
-              this.croppie.bind({
-                  url: this.image
-              });
-          }
+        this.croppie.options.update = function() {
+          self.setImage();
+        };
 
-          this.croppie.options.update = function() {
-              vm.setImage();
-          };
       },
 
       setImage(){
-          const vm  = this;
 
-          this.croppie.result({
-              type: 'canvas',
-              size: {width: 470, height: 600, type: 'square'},
-          }).then(response => {
-              vm.save_image = response;
-          });
+        const self  = this;
+
+        this.croppie.result({
+          type: 'canvas',
+          size: {width: 470, height: 600, type: 'square'},
+        }).then(response => {
+          self.save_image = response;
+        });
+
       },
 
       addClass(){
 
-          const vm = this;
+        const self = this;
 
-          if (this.formIsFilled) {
+        if(this.formIsFilled && !self.isRequesting) {
 
-              const classProfile = {
-                  title: this.title,
-                  content: this.content,
-                  image: this.save_image
-              };
+          self.isRequesting = true;
 
-              this.$store.dispatch('store_new_class', classProfile)                        
+          const classProfile = {
+            title: this.title,
+            content: this.content,
+            image: this.save_image
+          };
 
-                  .then((updatedProfile) => {
+          this.$store.dispatch('store_new_class', classProfile)                        
+            .then((updatedProfile) => {
 
-                      flash('Class Berhasil ditambah', 'success');
+              flash('Class added', 'success');
 
-                      vm.closeAddForm()
+              self.closeAddForm();
 
-                  })
-                  .catch(errors => {
+              self.isRequesting = false  
 
-                  });
-          }
+            })
+            .catch(errors => {
+
+              self.isRequesting = false
+
+            });
+        }
       },
 
       closeAddForm() {
-          this.$emit('closeAddClass', false);
+        this.$emit('closeAddClass', false);
       }
     },
 	};

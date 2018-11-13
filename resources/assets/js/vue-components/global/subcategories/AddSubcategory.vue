@@ -2,20 +2,23 @@
 	<div class="row pt-5">
 		<div class="col-md-12">
 			<div class="card text-center">
-				<h4 class="title font-weight-bold mb-4">Tambah Subkategori</h4>
+				<h4 class="title font-weight-bold mb-4">Add Subcategory</h4>
 				<div class="form-group text-left mb-3">
 				    <select class="form-control mb-2" 
 				    		id="category" 
 				    		v-model="input.category_id">
-				    	<option>Pilih Kategori</option>
-					    <option v-for="category in categories" :value=category.id>{{ category.title}}</option>
+				    	<option>Choose Category</option>
+					    <option v-for="category in categories" :value=category.id>{{ category.title }}</option>
 				    </select>
 
-					<input type="text" v-model="input.title" class="form-control" placeholder="Nama Subkategori" id="title">
+					<input type="text" 
+						   v-model="input.title" class="form-control" 
+						   placeholder="Subcategory Name" 
+						   id="title">
 				</div>
 
-				<button type="button" @click="addSubCategory" class="btn btn-sm btn-success">Tambah</button>
-				<button type="button" @click="closeAddSubCatergory" class="btn btn-sm btn-danger">Batal</button>
+				<button type="button" @click="addSubCategory" class="btn btn-sm btn-success">Add</button>
+				<button type="button" @click="closeAddSubCatergory" class="btn btn-sm btn-danger">Cancel</button>
 			</div>
 		</div>	
 	</div>
@@ -25,6 +28,7 @@
 	export default{
 		data(){
 			return{
+				isRequesting: false,
 				input:{
 					title: '',
 					category_id:'Pilih Kategori',
@@ -38,24 +42,37 @@
 	        })
 	    },
 
+	    computed:{
+	    	isFormFilled(){
+	    		return this.input.title.length > 3 
+					&& this.input.category_id !== '' 
+					&& this.input.category_id !== 'Pilih Kategori';
+	    	}
+	    },
 
 		methods:{
 			addSubCategory(){
+
+				let self = this;
 				
-				if(this.input.title.length > 3 
-					&& this.input.category_id !== '' 
-					&&  this.input.category_id !== 'Pilih Kategori')
-				{
+				if(self.isFormFilled && !self.isRequesting){
+
+					self.isRequesting = true;
 
 					this.$store.dispatch('store_new_subcategory', this.input)
                         .then(() => {
 
-                            flash('Sub category gallery berhasil ditambahkan','success');
+                            flash('Sub category added','success');
+
+                            self.isRequesting = false;
 
                             this.input.title = '';
+
                             this.input.category_id = 'Pilih Kategori';
                         })
                         .catch(errors => {
+
+                        	self.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {

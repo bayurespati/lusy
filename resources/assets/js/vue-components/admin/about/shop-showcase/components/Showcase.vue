@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
 
                             <div class="detail">
                                 <p class="mb-0">{{ shopItem.title }}</p>
@@ -34,7 +34,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Pirce</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Price</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0">{{ shopItem.price }}</p>
@@ -64,11 +64,11 @@
                         <button type="button" 
                                 v-if="this.shopItem.is_showcase == 0"
                                 class="btn btn-sm btn-danger"
-                                @click="editShop">Tampilkan</button>
+                                @click="editShop">Show</button>
                         <button type="button" 
                                 v-else
                                 class="btn btn-sm btn-success"
-                                @click="editShop">Sembunyikan</button>               
+                                @click="editShop">Hide</button>               
                     </div>
                 </div>
             </transition>
