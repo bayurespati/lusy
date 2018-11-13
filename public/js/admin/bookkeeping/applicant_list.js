@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 464);
+/******/ 	return __webpack_require__(__webpack_require__.s = 499);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -426,6 +426,124 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
+
+/***/ }),
+
+/***/ 101:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(513);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        items: {},
+
+        itemsApprove: [],
+
+        event: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getApplicantList: function getApplicantList(state) {
+            return state.items;
+        },
+
+        getApplicantApprove: function getApplicantApprove(state) {
+            return state.itemsApprove;
+        },
+
+        getEvent: function getEvent(state) {
+            return state.event;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_items: function set_items(state, items) {
+
+            var data = _.groupBy(items, 'is_approve');
+            state.items = data[0];
+            if (data[1] !== undefined) {
+                state.itemsApprove = data[1];
+            }
+        },
+
+        set_event: function set_event(state, event) {
+            state.event = event;
+        },
+
+        update_item: function update_item(state, updatedItem) {
+
+            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfItems(updatedItem.id);
+            state.items[itemIndex].is_approve = updatedItem.is_approve;
+            state.itemsApprove.push(state.items[itemIndex]);
+            state.items.splice(itemIndex, 1);
+        },
+        delete_item: function delete_item(state, ids) {
+            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfItems(ids.itemId);
+
+            state.items.splice(itemIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_items: function load_items(_ref, id) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/bookkeeping/data/applicant-event/list/' + id).then(function (response) {
+                commit('set_items', response.data);
+            });
+        },
+
+        update_item: function update_item(_ref2, applicant) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/bookkeeping/update/applicant-event/list/' + applicant.id, {
+                    id: applicant.id,
+                    is_approve: applicant.is_approve
+                }).then(function (response) {
+                    commit('update_item', response.data);
+
+                    resolve(response.data);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_item: function destroy_item(_ref3, ids) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('/admin/bookkeeping/delete/applicant-event/list/' + ids.itemId).then(function (response) {
+                    commit('delete_item', ids);
+                    resolve();
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 
@@ -1924,26 +2042,78 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 464:
+/***/ 499:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(465);
+module.exports = __webpack_require__(500);
 
 
 /***/ }),
 
-/***/ 465:
+/***/ 5:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(6)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(8)
+/* template */
+var __vue_template__ = __webpack_require__(9)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-41dc6b34"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/global/Flash.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-41dc6b34", Component.options)
+  } else {
+    hotAPI.reload("data-v-41dc6b34", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 500:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(466);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(501);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(101);
 
 
 
@@ -1969,20 +2139,20 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 466:
+/***/ 501:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(467)
-  __webpack_require__(469)
+  __webpack_require__(502)
+  __webpack_require__(504)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(471)
+var __vue_script__ = __webpack_require__(506)
 /* template */
-var __vue_template__ = __webpack_require__(477)
+var __vue_template__ = __webpack_require__(512)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2022,13 +2192,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 467:
+/***/ 502:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(468);
+var content = __webpack_require__(503);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2049,7 +2219,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 468:
+/***/ 503:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -2064,13 +2234,13 @@ exports.push([module.i, "\nul.breadcrumb {\n    padding: 10px 16px;\n    list-st
 
 /***/ }),
 
-/***/ 469:
+/***/ 504:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(470);
+var content = __webpack_require__(505);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2091,7 +2261,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 470:
+/***/ 505:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -2106,12 +2276,12 @@ exports.push([module.i, "\n.slide-enter[data-v-3b1015af] {\n        opacity: 0;\
 
 /***/ }),
 
-/***/ 471:
+/***/ 506:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue__ = __webpack_require__(507);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Item_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2179,19 +2349,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 472:
+/***/ 507:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(473)
+  __webpack_require__(508)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(475)
+var __vue_script__ = __webpack_require__(510)
 /* template */
-var __vue_template__ = __webpack_require__(476)
+var __vue_template__ = __webpack_require__(511)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2231,13 +2401,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 473:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(474);
+var content = __webpack_require__(509);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2258,7 +2428,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 474:
+/***/ 509:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -2273,7 +2443,7 @@ exports.push([module.i, "\n.card[data-v-310a9da4] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 475:
+/***/ 510:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2405,7 +2575,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 476:
+/***/ 511:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2584,7 +2754,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 477:
+/***/ 512:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2665,11 +2835,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 478:
+/***/ 513:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(101);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -2679,58 +2849,6 @@ if (false) {
         });
     }
 });
-
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(6)
-}
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(8)
-/* template */
-var __vue_template__ = __webpack_require__(9)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-41dc6b34"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/global/Flash.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-41dc6b34", Component.options)
-  } else {
-    hotAPI.reload("data-v-41dc6b34", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 
@@ -3002,124 +3120,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(478);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        items: {},
-
-        itemsApprove: [],
-
-        event: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getApplicantList: function getApplicantList(state) {
-            return state.items;
-        },
-
-        getApplicantApprove: function getApplicantApprove(state) {
-            return state.itemsApprove;
-        },
-
-        getEvent: function getEvent(state) {
-            return state.event;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_items: function set_items(state, items) {
-
-            var data = _.groupBy(items, 'is_approve');
-            state.items = data[0];
-            if (data[1] !== undefined) {
-                state.itemsApprove = data[1];
-            }
-        },
-
-        set_event: function set_event(state, event) {
-            state.event = event;
-        },
-
-        update_item: function update_item(state, updatedItem) {
-
-            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfItems(updatedItem.id);
-            state.items[itemIndex].is_approve = updatedItem.is_approve;
-            state.itemsApprove.push(state.items[itemIndex]);
-            state.items.splice(itemIndex, 1);
-        },
-        delete_item: function delete_item(state, ids) {
-            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfItems(ids.itemId);
-
-            state.items.splice(itemIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_items: function load_items(_ref, id) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/bookkeeping/data/applicant-event/list/' + id).then(function (response) {
-                commit('set_items', response.data);
-            });
-        },
-
-        update_item: function update_item(_ref2, applicant) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/bookkeeping/update/applicant-event/list/' + applicant.id, {
-                    id: applicant.id,
-                    is_approve: applicant.is_approve
-                }).then(function (response) {
-                    commit('update_item', response.data);
-
-                    resolve(response.data);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_item: function destroy_item(_ref3, ids) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('/admin/bookkeeping/delete/applicant-event/list/' + ids.itemId).then(function (response) {
-                    commit('delete_item', ids);
-                    resolve();
-                });
-            });
-        }
-    }
-});
 
 /***/ })
 
