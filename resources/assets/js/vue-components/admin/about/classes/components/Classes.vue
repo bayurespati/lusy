@@ -5,7 +5,7 @@
 
     <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
       <template v-if="!isAddClass">
-        <button @click="isAddClass = !isAddClass" class="btn btn-primary">Tambah Class</button>
+        <button @click="isAddClass = !isAddClass" class="btn btn-primary">Add Class</button>
       </template>
 
       <template v-else>
@@ -50,10 +50,10 @@
     },
 
     computed:{
-            ...mapGetters({
-                classes: 'getClasses',
-            })
-        }
+      ...mapGetters({
+        classes: 'getClasses',
+      })
+    }
   };
 </script>
 

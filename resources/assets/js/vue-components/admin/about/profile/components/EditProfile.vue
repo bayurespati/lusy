@@ -45,16 +45,12 @@
             </div>
 
             <div class="col-sm-10 offset-2 d-flex justify-content-start mt-3 pl-1">
-              <button type="button" role="button"
-              class="btn btn-success"
-              @click="editProfile">
-                Simpan
+              <button type="button" role="button"class="btn btn-success"@click="editProfile">
+                Save
               </button>
 
-              <button type="button" role="button"
-              class="btn btn-danger ml-2"
-              @click="closeEditForm">
-                Batal
+              <button type="button" role="button"class="btn btn-danger ml-2"@click="closeEditForm">
+                Cancel
               </button>
             </div>
           </div>
@@ -74,6 +70,7 @@
 
     data(){
       return{
+        isRequsting: false,
         croppie: null,
         content: this.profile.content,
         image: this.profile.image_path,
@@ -85,6 +82,14 @@
     mounted(){
       this.setUpCroppie();
     },
+
+    compouted:{
+      isEdited(){
+        return this.image != this.profile.image_path
+            || this.content != this.profile.content 
+            || this.title != this.profile.title;
+      }
+    }
 
     methods:{
       setUpFileUploader(event){
@@ -99,10 +104,10 @@
 
       createImage(file){
           const reader = new FileReader();
-          const vm  = this;
+          const self  = this;
 
           reader.onload = (event) => {
-              vm.image = event.target.result;
+              self.image = event.target.result;
               this.croppie.destroy();
               this.setUpCroppie();
           };
@@ -111,7 +116,7 @@
       },
 
       setUpCroppie(){
-          const vm = this;
+          const self = this;
           let file = document.getElementById('croppie');
 
           this.croppie = new Croppie(file,{
@@ -131,28 +136,28 @@
           }
 
           this.croppie.options.update = function() {
-              vm.setImage();
+              self.setImage();
           };
       },
 
       setImage(){
-          const vm  = this;
+          const self  = this;
 
           this.croppie.result({
               type: 'canvas',
               size: {width: 323, height: 520, type: 'square'},
           }).then(response => {
-              vm.save_image = response;
+              self.save_image = response;
           });
       },
 
       editProfile(){
 
-          const vm = this;
+          const self = this;
 
-          if (this.image != null 
-            || this.content != this.profile.content 
-            || this.title != this.profile.title) {
+          if (self.isEdited && !self.isRequsting) {
+
+              self.isRequsting = true;
 
               const updatedProflie = {
                   id: this.profile.id,
@@ -162,15 +167,18 @@
               };
 
               this.$store.dispatch('update_profile', updatedProflie)                        
+              .then((updatedProfile) => {
 
-                  .then((updatedProfile) => {
+                  flash('Profile updated', 'success');
 
-                      flash('Profile Berhasil diperbaharui', 'success');
+                  self.isRequsting = false;
 
-                  })
-                  .catch(errors => {
+              })
+              .catch(errors => {
 
-                  });
+                self.isRequsting = false;
+
+              });
           }
       },
 

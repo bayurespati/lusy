@@ -1162,7 +1162,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            isDeleteImage: false
+            isDeleteImage: false,
+            isRequesting: false
         };
     },
 
@@ -1170,13 +1171,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         deleteThiImage: function deleteThiImage() {
             var self = this;
-            this.$store.dispatch('destroy_image', {
-                imageId: this.imageSlider.id
-            }).then(function () {
-                self.isRequesting = false;
 
-                flash('Foto berhasil dihapus', 'danger');
-            });
+            if (!this.isRequesting) {
+                this.$store.dispatch('destroy_image', {
+                    imageId: this.imageSlider.id
+                }).then(function () {
+
+                    flash('Foto berhasil dihapus', 'danger');
+
+                    self.isRequesting = false;
+                });
+            }
         }
     }
 });
@@ -1230,7 +1235,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.deleteThiImage }
                 },
-                [_vm._v("\n                    Hapus\n                ")]
+                [_vm._v("\n                    Delete\n                ")]
               )
             ])
           ])
@@ -1414,12 +1419,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             isRequesting: false,
             showPreview: false,
+            croppie: null,
             image_show: '',
             image_points: '',
             image_ori: '',
-            thumbnail: '',
-            croppie: null,
-            messageError: ''
+            thumbnail: ''
         };
     },
 
@@ -1442,10 +1446,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var reader = new FileReader();
-            var vm = this;
+            var self = this;
 
             reader.onload = function (event) {
-                vm.image_ori = event.target.result;
+                self.image_ori = event.target.result;
                 _this.croppie.destroy();
                 _this.setUpCroppie();
             };
@@ -1453,7 +1457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             reader.readAsDataURL(file);
         },
         setUpCroppie: function setUpCroppie() {
-            var vm = this;
+            var self = this;
             var file = document.getElementById('croppie');
 
             this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
@@ -1473,50 +1477,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             this.croppie.options.update = function () {
-                vm.setImage();
+                self.setImage();
             };
         },
         setImage: function setImage() {
-            var vm = this;
+            var self = this;
 
             this.croppie.result({
                 type: 'canvas',
                 size: { width: 1920, height: 880, type: 'square' }
             }).then(function (response) {
-                vm.image_show = response;
+                self.image_show = response;
             });
 
             this.croppie.result({
                 type: 'canvas',
                 size: { width: 100, height: 100, type: 'square' }
             }).then(function (response) {
-                vm.thumbnail = response;
+                self.thumbnail = response;
             });
 
             this.image_points = this.croppie.get().points;
         },
         uploadImage: function uploadImage() {
 
-            var vm = this;
+            var self = this;
 
-            if (this.image_ori !== null || this.image_ori !== '') {
+            if (this.image_ori !== '' && !this.isRequesting) {
 
                 this.isRequesting = true;
+
                 var imageFile = {
                     image_show: this.image_show,
                     image_ori: this.image_ori,
                     thumbnail: this.thumbnail,
-                    image_points: JSON.stringify(vm.image_points)
+                    image_points: JSON.stringify(self.image_points)
                 };
 
                 this.$store.dispatch('store_image_slider', imageFile).then(function (response) {
-                    flash('Foto berhasil di tambahkan', 'success');
 
-                    vm.isRequesting = false;
+                    flash('Photo added', 'success');
 
-                    vm.closeAdd();
+                    self.isRequesting = false;
+
+                    self.closeAdd();
                 }).catch(function (errors) {
-                    vm.isRequesting = false;
+
+                    self.isRequesting = false;
 
                     Object.keys(errors).forEach(function (field) {
                         errors[field].forEach(function (message) {
@@ -1566,7 +1573,7 @@ var render = function() {
             attrs: { type: "button", role: "button" },
             on: { click: _vm.uploadImage }
           },
-          [_vm._v("\n                Simpan\n        ")]
+          [_vm._v("\n                Save\n        ")]
         ),
         _vm._v(" "),
         _c(
@@ -1576,7 +1583,7 @@ var render = function() {
             attrs: { type: "button", role: "button" },
             on: { click: _vm.closeAdd }
           },
-          [_vm._v(" \n                Batal\n        ")]
+          [_vm._v(" \n                Cancel\n        ")]
         )
       ]
     ),
@@ -1649,7 +1656,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n\t\t\t\tTambah Image\n\t\t\t")]
+                      [_vm._v("\n\t\t\t\tAdd Image\n\t\t\t")]
                     )
                   : _vm._e()
               ]

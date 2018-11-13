@@ -50,15 +50,13 @@
 
               <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-3">
                  <button type="button" role="button"
-                 class="btn btn-success"
-                 @click="editClass">
-                  Save
+                         class="btn btn-success"
+                         @click="editClass"> Save
                 </button>
 
                 <button type="button" role="button"
-                class="btn btn-warning ml-2"
-                @click="closeEditForm">
-                  Tutup
+                        class="btn btn-warning ml-2"
+                        @click="closeEditForm"> Close
                 </button>
               </div>
             </div>
@@ -79,6 +77,7 @@
 
     data(){
       return{
+        isRequesting: false,
         croppie: null,
         content: this.singleClass.content,
         image: this.singleClass.image_path,
@@ -91,94 +90,105 @@
       this.setUpCroppie();
     },
 
+    computed:{
+      isEdited(){
+        return this.image != this.singleClass.image_path
+            || this.content != this.singleClass.content 
+            || this.title != this.singleClass.title;
+      }
+    }
+
     methods:{
       setUpFileUploader(event){
-          let files = event.target.files || event.dataTransfer.files;
+        let files = event.target.files || event.dataTransfer.files;
 
-          if(!files.length){
-              return
-          }
+        if(!files.length){
+            return
+        }
 
-          this.createImage(files[0]);
+        this.createImage(files[0]);
       },
 
       createImage(file){
-          const reader = new FileReader();
-          const vm  = this;
+        const reader = new FileReader();
+        const self  = this;
 
-          reader.onload = (event) => {
-              vm.image = event.target.result;
-              this.croppie.destroy();
-              this.setUpCroppie();
-          };
+        reader.onload = (event) => {
+            self.image = event.target.result;
+            this.croppie.destroy();
+            this.setUpCroppie();
+        };
 
-          reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
       },
 
       setUpCroppie(){
-          const vm = this;
-          let file = document.getElementById('croppie');
+        const self = this;
+        let file = document.getElementById('croppie');
 
-          this.croppie = new Croppie(file,{
-              viewport: {width: 235, height: 300 },
-              boundary: {width: 285, height: 350 },
-              enableOrientation: false,
-          });
+        this.croppie = new Croppie(file,{
+            viewport: {width: 235, height: 300 },
+            boundary: {width: 285, height: 350 },
+            enableOrientation: false,
+        });
 
-          if(this.image === null || this.image === ''){
-              this.croppie.bind({
-                  url: '/img/welcome-2.png'
-              });
-          }else {
-              this.croppie.bind({
-                  url: this.image
-              });
-          }
+        if(this.image === null || this.image === ''){
+            this.croppie.bind({
+                url: '/img/welcome-2.png'
+            });
+        }else {
+            this.croppie.bind({
+                url: this.image
+            });
+        }
 
-          this.croppie.options.update = function() {
-              vm.setImage();
-          };
+        this.croppie.options.update = function() {
+            self.setImage();
+        };
       },
 
       setImage(){
-          const vm  = this;
+        const self  = this;
 
-          this.croppie.result({
-              type: 'canvas',
-              size: {width: 470, height: 600, type: 'square'},
-          }).then(response => {
-              vm.save_image = response;
-          });
+        this.croppie.result({
+            type: 'canvas',
+            size: {width: 470, height: 600, type: 'square'},
+        }).then(response => {
+            self.save_image = response;
+        });
       },
 
       editClass(){
 
-          const vm = this;
+        const self = this;
 
-          if (this.image != this.singleClass.image_path
-            || this.content != this.singleClass.content 
-            || this.title != this.singleClass.title) {
+        if (self.isEdited && !self.isRequesting) {
 
-              const updatedProflie = {
-                  id: this.singleClass.id,
-                  title: this.title,
-                  content: this.content,
-                  image: this.save_image
-              };
+          self.isRequesting = true;
 
-              this.$store.dispatch('update_class', updatedProflie)                        
+          const updatedProflie = {
+              id: this.singleClass.id,
+              title: this.title,
+              content: this.content,
+              image: this.save_image
+          };
 
-                  .then((updatedClass) => {
+          this.$store.dispatch('update_class', updatedProflie)                        
+            .then((updatedClass) => {
 
-                      flash('Class Berhasil diperbaharui', 'success');
+              flash('Class updated', 'success');
 
-                      vm.closeEditForm();
+              self.isRequesting = false;
 
-                  })
-                  .catch(errors => {
+              self.closeEditForm();
 
-                  });
-          }
+            })
+            .catch(errors => {
+
+              self.isRequesting = false;
+
+            });
+        }
       },
 
       closeEditForm() {

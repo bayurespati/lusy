@@ -3210,6 +3210,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequesting: false,
             croppie: null,
             image: this.imageConfig.image_path,
             save_image: ''
@@ -3234,10 +3235,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var reader = new FileReader();
-            var vm = this;
+            var self = this;
 
             reader.onload = function (event) {
-                vm.image = event.target.result;
+                self.image = event.target.result;
                 _this.croppie.destroy();
                 _this.setUpCroppie();
             };
@@ -3245,7 +3246,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             reader.readAsDataURL(file);
         },
         setUpCroppie: function setUpCroppie() {
-            var vm = this;
+            var self = this;
             var file = document.getElementById('croppie-config-' + this.imageConfig.id);
 
             if (this.imageConfig.page_name === 'Home') {
@@ -3275,33 +3276,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             this.croppie.options.update = function () {
-                vm.setImage();
+                self.setImage();
             };
         },
         setImage: function setImage() {
-            var vm = this;
+            var self = this;
 
             if (this.imageConfig.page_name === 'Home') {
                 this.croppie.result({
                     type: 'canvas',
                     size: { width: 1920, height: 876, type: 'square' }
                 }).then(function (response) {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             } else {
                 this.croppie.result({
                     type: 'canvas',
                     size: { width: 1920, height: 270, type: 'square' }
                 }).then(function (response) {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             }
         },
         editImage: function editImage() {
 
-            var vm = this;
+            var self = this;
 
-            if (this.image != this.imageConfig.image_path) {
+            if (this.image != this.imageConfig.image_path && !self.isRequesting) {
+
+                self.isRequesting = true;
 
                 var updatedImage = {
                     id: this.imageConfig.id,
@@ -3310,8 +3313,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
                     flash('Image Berhasil diperbaharui', 'success');
-                    vm.closeEditForm();
-                }).catch(function (errors) {});
+
+                    self.isRequesting = false;
+
+                    self.closeEditForm();
+                }).catch(function (errors) {
+
+                    self.isRequesting = false;
+                });
             }
         },
         closeEditForm: function closeEditForm() {
@@ -3371,7 +3380,7 @@ var render = function() {
                 attrs: { type: "button", role: "button" },
                 on: { click: _vm.editImage }
               },
-              [_vm._v("\n                Simpan\n        ")]
+              [_vm._v("\n                Save\n        ")]
             ),
             _vm._v(" "),
             _c(
@@ -3381,7 +3390,7 @@ var render = function() {
                 attrs: { type: "button", role: "button" },
                 on: { click: _vm.closeEditForm }
               },
-              [_vm._v(" \n                Batal\n        ")]
+              [_vm._v(" \n                Cancel\n        ")]
             )
           ]
         ),
@@ -3435,7 +3444,7 @@ var render = function() {
               _c("div", { staticClass: "col-md-4 d-flex align-items-center" }, [
                 _c("span", [
                   _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Nama")])
+                    _c("strong", [_vm._v("Page Name")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "detail" }, [
@@ -3464,7 +3473,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Ubah")]
+                    [_vm._v("Edit")]
                   )
                 ]
               ),

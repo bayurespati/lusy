@@ -2763,6 +2763,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2949,8 +2951,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -2984,9 +2984,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var self = this;
 
-            if (this.sosmedIsEdited) {
+            if (self.sosmedIsEdited && !self.isRequesting) {
 
-                this.isRequesting = true;
+                self.isRequesting = true;
 
                 var updatedSosmed = {
                     id: this.sosmed.id,
@@ -2996,7 +2996,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_sosmed', updatedSosmed).then(function (updatedSosmed) {
 
-                    flash('Sosial media Berhasil diperbaharui', 'success');
+                    flash('Sosial media has been upgrade', 'success');
 
                     self.isRequesting = false;
 
@@ -3149,7 +3149,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Aktif\n                        "),
+                  _vm._v(" Active\n                        "),
                   _c("input", {
                     directives: [
                       {
@@ -3168,7 +3168,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Tidak Aktif\n                    ")
+                  _vm._v(" Not Active\n                    ")
                 ])
               ]),
               _vm._v(" "),
@@ -3254,7 +3254,7 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-xs-12 col-md-2" }, [
                 _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                  _c("strong", [_vm._v("Nama")])
+                  _c("strong", [_vm._v("Name")])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "detail" }, [
@@ -3272,11 +3272,13 @@ var render = function() {
                 _c("div", { staticClass: "detail" }, [
                   _c("p", { staticClass: "mb-0 max-lines" }, [
                     _vm._v(
-                      _vm._s(
-                        _vm.sosmed.link === "" || _vm.sosmed.link === null
-                          ? "Belum memiliki link"
-                          : _vm.sosmed.link
-                      )
+                      "\n                            " +
+                        _vm._s(
+                          _vm.sosmed.link === "" || _vm.sosmed.link === null
+                            ? "None"
+                            : _vm.sosmed.link
+                        ) +
+                        "\n                        "
                     )
                   ])
                 ])
@@ -3291,7 +3293,7 @@ var render = function() {
                   _c("p", { staticClass: "mb-0" }, [
                     _vm._v(
                       _vm._s(
-                        _vm.sosmed.is_active == false ? "Tidak Aktif" : "Aktif"
+                        _vm.sosmed.is_active == false ? "Not Active" : "Active"
                       )
                     )
                   ])
