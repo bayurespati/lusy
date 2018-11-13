@@ -533,6 +533,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -540,6 +548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			applicants: '',
 			potentials: '',
+			member: '',
 			message: '',
 			menuName: '',
 			subMenuName: '',
@@ -567,7 +576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '#' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+				subMenu: [{ name: 'Member', link: '#' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
@@ -576,13 +585,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.getApplicant();
 		this.getPotential();
 		this.getMessage();
+		this.getMember();
 	},
 
 
 	computed: {
 		applicantTotal: function applicantTotal() {
+			var totalApplicants = 0;
+
 			if (this.$store.getters.getApplicantItems === undefined) {
-				var totalApplicants = 0;
 
 				for (var i = 0; i < this.applicants.length; i++) {
 					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
@@ -591,23 +602,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						}
 					}
 				};
-
-				return totalApplicants;
 			} else {
-				this.$store.getters.getApplicantEvent;
+				var appEvent = this.$store.getters.getApplicantEvent;
 
-				var _totalApplicants = 0;
-
-				for (var _i = 0; _i < this.$store.getters.getApplicantEvent.length; _i++) {
-					for (var _k = 0; _k < this.$store.getters.getApplicantEvent[_i].applicants.length; _k++) {
-						if (this.$store.getters.getApplicantEvent[_i].applicants[_k].is_approve === 0) {
-							_totalApplicants++;
+				for (var _i = 0; _i < appEvent.length; _i++) {
+					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+						if (appEvent.applicants[_k].is_approve === 0) {
+							totalApplicants++;
 						}
 					}
 				};
-
-				return _totalApplicants;
 			}
+
+			return totalApplicants;
 		},
 		potentialTotal: function potentialTotal() {
 			if (this.$store.getters.getPotentialItems === undefined) {
@@ -622,6 +629,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			} else {
 				return this.$store.getters.getMessageItems.length;
 			}
+		},
+		memberTotal: function memberTotal() {
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				return this.member.length;
+			} else {
+				return this.$store.getters.getApplicantMemberItems.length;
+			}
 		}
 	},
 
@@ -629,28 +643,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getApplicant: function getApplicant() {
 			var _this = this;
 
-			axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-				_this.applicants = response.data;
-			});
+			if (this.$store.getters.getApplicantItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+					_this.applicants = response.data;
+				});
+			}
 		},
 		getPotential: function getPotential() {
 			var _this2 = this;
 
-			axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-				_this2.potentials = response.data;
-			});
+			if (this.$store.getters.getPotentialItems === undefined) {
+				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+					_this2.potentials = response.data;
+				});
+			}
 		},
 		getMessage: function getMessage() {
 			var _this3 = this;
 
-			axios.get('/admin/bookkeeping/data/message').then(function (response) {
-				_this3.message = response.data;
-			});
+			if (this.$store.getters.getMessageItems === undefined) {
+				axios.get('/admin/bookkeeping/data/message').then(function (response) {
+					_this3.message = response.data;
+				});
+			}
+		},
+		getMember: function getMember() {
+			var _this4 = this;
+
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+					_this4.member = response.data;
+				});
+			}
 		},
 		setName: function setName() {
 			var link = window.location.pathname.split('/');
 
 			this.menuName = link[2];
+
 			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
 		}
 	}
@@ -717,9 +747,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    \t" +
-                        _vm._s(submenu.name) +
-                        " \n\n                    \t"
+                      " " + _vm._s(submenu.name) + "\n\n                       "
                     ),
                     _vm.applicantTotal > 0 &&
                     submenu.link === "/admin/bookkeeping/applicant-event"
@@ -758,7 +786,23 @@ var render = function() {
                                 ])
                               ]
                             )
-                          : _vm._e()
+                          : _vm.memberTotal > 0 &&
+                            submenu.link ===
+                              "/admin/bookkeeping/applicant-member"
+                            ? _c(
+                                "div",
+                                { staticClass: "notification-dot-left" },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    \t\t\t" +
+                                        _vm._s(_vm.memberTotal) +
+                                        "\n                    \t\t"
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
                   ]
                 )
               ])
@@ -1413,14 +1457,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var file = document.getElementById('croppie');
 
             this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                viewport: { width: 800, height: 390, type: 'square' },
-                boundary: { width: 900, height: 450 },
+                viewport: { width: 768, height: 352, type: 'square' },
+                boundary: { width: 818, height: 402 },
                 enableOrientation: false
             });
 
             if (this.image_ori === null || this.image_ori === '') {
                 this.croppie.bind({
-                    url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                    url: '/img/slider-1.jpg'
                 });
             } else {
                 this.croppie.bind({
@@ -1437,7 +1481,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.croppie.result({
                 type: 'canvas',
-                size: { width: 1290, height: 880, type: 'square' }
+                size: { width: 1920, height: 880, type: 'square' }
             }).then(function (response) {
                 vm.image_show = response;
             });

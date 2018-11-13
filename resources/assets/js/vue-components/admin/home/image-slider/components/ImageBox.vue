@@ -102,14 +102,14 @@
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
-                    viewport: {width: 800, height: 390, type: 'square'},
-                    boundary: {width: 900, height: 450 },
+                    viewport: {width: 768, height: 352, type: 'square'},
+                    boundary: {width: 818, height: 402 },
                     enableOrientation: false
                 });
 
                 if(this.image_ori === null || this.image_ori === ''){
                     this.croppie.bind({
-                        url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                        url: '/img/slider-1.jpg',
                     });
                 }else {
                     this.croppie.bind({
@@ -127,7 +127,7 @@
 
                 this.croppie.result({
                     type: 'canvas',
-                    size: {width: 1290, height: 880, type: 'square'},
+                    size: {width: 1920, height: 880, type: 'square'},
                 }).then(response => {
                     vm.image_show = response;
                 });
