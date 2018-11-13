@@ -5,6 +5,8 @@
 @endpush
 
 @push('additional_css')
+<link href="{{ asset('css/animation.css') }}" rel="stylesheet">
+
 <style type="text/css">
     .event-image {
         position: relative;
@@ -25,56 +27,71 @@
     }
 
     .modal-body {
-    max-width: 500px;
-    margin: 0 auto;
-  }
+        max-width: 500px;
+        margin: 0 auto;
+    }
 
-  .radio {
-    display: inline-block !important;
-  }
+    .radio {
+        display: inline-block !important;
+    }
 
-  .radio label {
-    color: #999;
-  }
+    .radio label {
+        color: #999;
+    }
 
-  .modal-content {
-    font-family: 'Poppins', sans-serif !important;
-    border-radius: 0 !important;
-  }
+    .modal-content {
+        font-family: 'Poppins', sans-serif !important;
+        border-radius: 0 !important;
+    }
 
-  .modal-body form {
-    font-size: 18px;
-  }
+    .modal-body form {
+        font-size: 18px;
+    }
 
-  .modal-body .form-control {
-    height: 42px;
-    font-size: 18px;
-    border-radius: 0;
-  }
+    .modal-body .form-control {
+        height: 42px;
+        font-size: 18px;
+        border-radius: 0;
+    }
 
-  .modal-body textarea {
-    height: auto !important;
-  }
+    .modal-body textarea {
+        height: auto !important;
+    }
 
-  ::-webkit-input-placeholder {
-      text-align: center;
-  }
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
 
-  :-moz-placeholder { /* Firefox 18- */
-      text-align: center;  
-  }
+    :-moz-placeholder { /* Firefox 18- */
+        text-align: center;  
+    }
 
-  ::-moz-placeholder {  /* Firefox 19+ */
-      text-align: center;  
-  }
+    ::-moz-placeholder {  /* Firefox 19+ */
+        text-align: center;  
+    }
 
-  :-ms-input-placeholder {  
-      text-align: center; 
-  }
+    :-ms-input-placeholder {  
+        text-align: center; 
+    }
 
-  input {
-    text-align: center;
-  }
+    input {
+        text-align: center;
+    }
+
+    .fade-in-loader {
+        animation: fadeIn 0.1s ease-in forwards;
+    }
+
+    .fade-out-loader {
+        animation: fadeOut 1.5s ease-out forwards;
+    }
+
+    .loading-div {
+        display: block;
+        width: 100%;
+        height: 500px;
+        background: white;
+    }
 </style>
 @endpush
 
@@ -128,6 +145,7 @@
                                     </p>
                                 </div>
 
+                                @if($event->isUpcoming)
                                 <div class="col-12" style="padding-left: 100px">
                                     <button class="general-btn transitioned-btn" type="button" 
                                     data-toggle="modal"
@@ -135,6 +153,7 @@
                                     Register Event
                                 </button>
                                 </div>
+                                @endif
                             </div><!-- Event Block /- -->
                         </div><!-- Content Area /- -->
                     </div>
@@ -142,7 +161,7 @@
 
                 @if(count($event->images) > 0)
                 <div id="gallery-section" class="portfolio-section" style="padding-top: 40px">
-                  <div id="gallery-container" class="portfolio-list">
+                  <div id="gallery-container" class="portfolio-list zoom-in">
                     @foreach($event->images as $photo)
                     <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
                       <a href="{{ $photo->image_path }}">
@@ -161,10 +180,10 @@
                 @endif
 
                 @if ($event->images->lastPage() > 1)
-                <nav id="gallery-pagination" class="ow-pagination text-center mt-5">
-                    <ul class="pagination">
+                <nav id="gallery-pagination" class="ow-pagination text-center mt-5 fade-in">
+                    <ul id="pagination-list" class="pagination">
                         <li class="{{ ($event->images->currentPage() == 1) ? ' disabled' : '' }}">
-                            <a href="#menu-container" onClick="goToPage(1, {{ $event->id }})"><i class="fa fa-angle-double-left"></i></a>
+                            <a onClick="goToPage(1, {{ $event->id }})"><i class="fa fa-angle-double-left"></i></a>
                         </li>
                     
                         @for ($i = 1; $i <= $event->images->lastPage(); $i++)
@@ -183,25 +202,25 @@
 
                         @if ($from < $i && $i < $to)
                         <li class="{{ ($event->images->currentPage() == $i) ? ' active' : '' }}">
-                            <a href="#menu-container" onClick="goToPage({{ $i }}, {{ $event->id }})">{{ $i }}</a>
+                            <a onClick="goToPage({{ $i }}, {{ $event->id }})">{{ $i }}</a>
                         </li>
                         @endif
                         @endfor
                         <li class="{{ $event->images->currentPage() == $event->images->lastPage() ? ' disabled' : '' }}">
-                            <a href="#menu-container" onClick="goToPage({{ $event->images->lastPage() }}, {{ $event->id }})"><i class="fa fa-angle-double-right"></i></a>
+                            <a onClick="goToPage({{ $event->images->lastPage() }}, {{ $event->id }})"><i class="fa fa-angle-double-right"></i></a>
                         </li>
                     </ul>
                 </nav>
-                @endif
 
                 <div id="section-padding" class="padding-80"></div>
+                @endif
             </div>
 
         </main>
 
         <!-- Modal -->
         <div class="modal fade" id="event" tabindex="-1" 
-             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header text-center p-0" style="border: 0">
@@ -213,7 +232,7 @@
                   <div class="modal-body">
                     <div class="modal-body-header text-center pr-6 pl-6 mb-5">
                         <p class="m-0" style="font-size: 20px">
-                            Please fill in the form below in order to register to {{ $event->title }}
+                            Please fill in the form below in order to register to <strong>{{ $event->title }}</strong> and we will be back to you as soon as possible.
                         </p>
                     </div>
 
@@ -256,39 +275,69 @@
 
 @push('additional_js')
 <script type="text/javascript">
-  const event = {!! json_encode($event) !!}
-  
-  function goToPage(pageNumber, eventId){
-    $.ajax({
-      type: 'GET',
-      url: 'https://' + window.location.hostname + '/event/single/images/' + eventId + '?page=' + pageNumber,
-      dataType: 'JSON',
-      success: function (data) {
+    const event = {!! json_encode($event) !!}
+
+    function goToPage(pageNumber, eventId){
         cleanImages();
-        prepareImages(data);
-
         cleanPagination();
-        preparePagination(data);
-      }
-    });
-  }
 
-  function cleanImages(){
-    var galleryContainer = document.getElementById('gallery-container');
+        showLoader();
 
-    galleryContainer.parentNode.removeChild(galleryContainer);
-  }
+        $.ajax({
+            type: 'GET',
+            url: 'https://' + window.location.hostname + '/event/single/images/' + eventId + '?page=' + pageNumber,
+            dataType: 'JSON',
+            success: function (data) {
+                setTimeout(function(){
+                    prepareImages(data);
+                    preparePagination(data);
 
-  function cleanPagination(){
-    var galleryPagination = document.getElementById('gallery-pagination');
+                    hideLoader();
+                }, 1000);
+            }
+        });
+    }
 
-    galleryPagination.parentNode.removeChild(galleryPagination);
-  }
+    function showLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-in-loader');
+        loader.style.display = 'block';
+    };
 
-  function prepareImages(array){
+    function hideLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-out-loader');
+
+        setTimeout(function(){
+            loader.style.display = 'none';
+        }, 1500);
+    }
+
+    function cleanImages(){
+        var galleryContainer = document.getElementById('gallery-container');
+        galleryContainer.setAttribute('class', 'portfolio-list fade-out');
+
+        setTimeout(function(){
+            galleryContainer.parentNode.removeChild(galleryContainer);
+        }, 100);
+    }
+
+    function cleanPagination(){
+        var paginationList = document.getElementById('pagination-list');
+        paginationList.setAttribute('class', 'pagination fade-out');
+
+        setTimeout(function(){
+            paginationList.parentNode.removeChild(paginationList);
+        }, 100);
+    }
+
+    function prepareImages(array){
         var gallerySection = document.getElementById('gallery-section');
+        var galleryContainer = document.createElement('div');
+        galleryContainer.setAttribute('id', 'gallery-container');
+        galleryContainer.setAttribute('class', 'portfolio-list zoom-in');
 
-        let galleryContent = '<div id="gallery-container" class="portfolio-list">';
+        let galleryContent = '';
 
         array.data.forEach(function(photo){
             galleryContent = galleryContent + 
@@ -304,26 +353,22 @@
             '</div>'
         }, galleryContent);
 
-        galleryContent = galleryContent + '</div>';
+        galleryContainer.innerHTML = galleryContent;
 
         setTimeout(function(){
-          gallerySection.innerHTML = galleryContent;
+          gallerySection.appendChild(galleryContainer);
 
           check();
-        }, 500);
+        }, 100);
     }
 
     function preparePagination(data){
-        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
-        var sectionPadding = document.getElementById('section-padding');
-        var paginationContainer = document.createElement('nav');
-        paginationContainer.setAttribute('id', 'gallery-pagination');
-        paginationContainer.setAttribute('class', 'ow-pagination text-center mt-5');
+        var galleryPagination = document.getElementById('gallery-pagination');
+        var paginationList = document.createElement('ul');
+        paginationList.setAttribute('id', 'pagination-list');
+        paginationList.setAttribute('class', 'pagination');
 
         let paginationContent = '';
-
-        paginationContent = paginationContent + 
-        '<ul class="pagination">';
 
         if(data.current_page == 1) {
             paginationContent = paginationContent + 
@@ -334,7 +379,7 @@
         }
 
         paginationContent = paginationContent + 
-        '       <a href="#menu-container" onClick="goToPage(1, ' + event.id + ')">' +
+        '       <a onClick="goToPage(1, ' + event.id + ')">' +
         '           <i class="fa fa-angle-double-left"></i>' +
         '       </a>' + 
         '   </li>';
@@ -364,7 +409,7 @@
 
 
                 paginationContent = paginationContent + 
-                '   <a href="#menu-container" onClick="goToPage(' + i + ', ' + event.id + ')">' + i + '</a>' + 
+                '   <a onClick="goToPage(' + i + ', ' + event.id + ')">' + i + '</a>' + 
                 '</li>';
             }
         }
@@ -378,16 +423,15 @@
         }
 
         paginationContent = paginationContent + 
-        '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ', ' + event.id + ')">' + 
-        '           <i class="fa fa-angle-double-right"></i>' + 
-        '       </a>' + 
-        '   </li>' + 
-        '</ul>';
+        '   <a onClick="goToPage(' + data.last_page + ', ' + event.id + ')">' + 
+        '       <i class="fa fa-angle-double-right"></i>' + 
+        '   </a>' + 
+        '</li>';
 
-        paginationContainer.innerHTML = paginationContent;
+        paginationList.innerHTML = paginationContent;
         setTimeout(function(){
-            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
-        }, 800);
+            galleryPagination.appendChild(paginationList);
+        }, 120);
     }
 
     function check(){

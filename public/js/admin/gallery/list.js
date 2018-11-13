@@ -3006,7 +3006,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var admin = new Vue({
-    el: '#gallery',
+    el: '#photos',
 
     components: {
         Gallery: __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default.a,

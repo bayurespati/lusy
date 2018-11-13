@@ -9,6 +9,58 @@
     .onview-section::before {
         background-color: unset;
     }
+
+    .modal-body {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .radio {
+        display: inline-block !important;
+    }
+
+    .radio label {
+        color: #999;
+    }
+
+    .modal-content {
+        font-family: 'Poppins', sans-serif !important;
+        border-radius: 0 !important;
+    }
+
+    .modal-body form {
+        font-size: 18px;
+    }
+
+    .modal-body .form-control {
+        height: 42px;
+        font-size: 18px;
+        border-radius: 0;
+    }
+
+    .modal-body textarea {
+        height: auto !important;
+    }
+
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        text-align: center;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+        text-align: center;  
+    }
+
+    :-ms-input-placeholder {  
+        text-align: center; 
+    }
+
+    input {
+        text-align: center;
+    }
 </style>
 @endpush
 
@@ -145,10 +197,23 @@
                                         <button class="general-btn transitioned-btn"
                                                 data-toggle="modal"
                                                 data-target="#member-register"
-                                                onclick="setIdClass('{{ $classes[$i]->id }}')" >
+                                                onclick="setIdClass(
+                                                '{{ $classes[$i]->id }}', 
+                                                '{{ $classes[$i]->title }}')">
                                             Register
                                         </button>
+
+                                        <div class="wc-controls" style="right: 0; left: unset;">
+                                            <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
+                                                <span></span>
+                                            </a>
+
+                                            <a class="right carousel-control" href="#welcome-carousel" role="button" data-slide="next">
+                                                <span></span>
+                                            </a>
+                                        </div>
                                     </div>
+
                                     <div class="col-md-6 col-sm-6 img-block">
                                         <i><img src="{{ $classes[$i]->image_path }}" alt="{{ $classes[$i]->title }}" /></i>
                                     </div>
@@ -157,14 +222,6 @@
                                 
                             </div>
                             <!-- Controls -->
-                            <div class="wc-controls wc-controls-custom">
-                                <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
-                                    <span></span>
-                                </a>
-                                <a class="right carousel-control" href="#welcome-carousel" role="button" data-slide="next">
-                                    <span></span>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <!-- Row /- -->
@@ -180,16 +237,17 @@
         <div class="modal fade" id="member-register" tabindex="-1" 
              role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" text-center p-0" style="border: none">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-content">
+                  <div class="modal-header text-center p-0" style="border: 0">
+                    <button type="button" class="close transitioned-btn" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+
                   <div class="modal-body">
                     <div class="modal-body-header text-center pr-6 pl-6 mb-5">
-                      <p class="m-0" style="font-size: 20px">
-                        Please fill in the form below
+                      <p id="modal-opening" class="m-0" style="font-size: 20px">
+                         
                       </p>
                     </div>
 
@@ -198,7 +256,9 @@
 
                       <div class="form-group form-control-sm text-center">
                           <div class="radio">
-                            <label><input type="radio" name="gender" value="1" checked>Male</label>
+                            <label>
+                                <input type="radio" name="gender" value="1" checked>Male
+                            </label>
                           </div>
                           <div class="radio ml-4">
                             <label>
@@ -207,43 +267,40 @@
                         </div>
                       </div>
                       <div class="form-group form-control-sm">
-                            <label for="buyer_name">Name</label>
-                            <input type="text" class="form-control" 
-                                    name="name" id="name" placeholder="Name" required>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name*" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <input type="text" class="form-control" 
-                                    name="place_of_birth" id="place_of_birth" placeholder="Place of birth" required>
+                            <input type="text" class="form-control" name="place_of_birth" id="place_of_birth" placeholder="Place of Birth*" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <input type='text' name="date_of_birth" class="form-control" id="date-of-birth" placeholder="Date of birth : MM/DD/YYYY" />
+                            <input type='text' name="date_of_birth" class="form-control" id="date-of-birth" placeholder="Date of birth : MM/DD/YYYY"/>
                       </div>
                       <div class="form-group form-control-sm">
                             <input type="email" class="form-control" 
-                                   name="email" id="email" placeholder="Email" required>
+                            name="email" id="email" placeholder="Email*" required>
                       </div>
                       <div class="form-group form-control-sm">
                             <!-- <label for="city">Telephone number</label> -->
-                            <input type="text" class="form-control" 
-                                   name="telephone" id="telephone" placeholder="Telephone Number" required>
+                            <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telephone Number*" required>
                       </div>
                       <div class="form-group form-control-sm">
                             <!-- <label for="city">Mobile number</label> -->
-                            <input type="text" class="form-control" 
-                                   name="mobile" id="mobile" placeholder="Mobile Number" required>
+                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number">
                       </div>
 
                       <div class="form-group form-control-sm">
                             <!-- <label for="city">Fax number</label> -->
-                            <input type="text" class="form-control" 
-                                   name="fax" id="fax" placeholder="Fax Number" required>
+                            <input type="text" class="form-control" name="fax" id="fax" placeholder="Fax Number">
                       </div>
 
 
                       <div hidden=""> <input  type="text" name="class_id" id="about_contents_id"> </div>
 
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                      <button type="submit" class="btn btn-warning" data-dismiss="modal">close</button>
+                      <div class="form-group">
+                        <button type="submit" class="general-btn transitioned-btn mb-3" style="width: 100%">
+                            Submit
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -261,8 +318,9 @@
 
 @push('additional_js')
 <script>
-    function setIdClass($param){
+    function setIdClass($param, $title){
         document.getElementById('about_contents_id').value = $param;
+        document.getElementById('modal-opening').innerHTML = 'Please fill in the form below in order to register to <strong>' + $title + '</strong> class and we will be back to you as soon as possible.';
     }
     
     var date = document.getElementById('date-of-birth');

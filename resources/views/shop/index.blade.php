@@ -4,6 +4,27 @@
 <title>Lusy Wahyudi - Shop</title>
 @endpush
 
+@push('additional_css')
+<link href="{{ asset('css/animation.css') }}" rel="stylesheet">
+
+<style type="text/css">
+    .fade-in-loader {
+        animation: fadeIn 0.1s ease-in forwards;
+    }
+
+    .fade-out-loader {
+        animation: fadeOut 1.5s ease-out forwards;
+    }
+
+    .loading-div {
+        display: block;
+        width: 100%;
+        height: 500px;
+        background: white;
+    }
+</style>
+@endpush
+
 @section('content')
 
 <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
@@ -34,7 +55,7 @@
             </div>
             <!-- Page Banner /- -->
 
-            @if(count($items) > 0)
+            @if($isItemsExist)
             <div id="menu-container" class="container" style="padding-top: 150px">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
@@ -63,7 +84,8 @@
             <!-- Shop Items /- -->
             <div class="container-fluid no-padding shop-items-section">
                 <div id="items-container" class="container">
-                    <div id="item-group" class="row">
+                    <div id="item-group" class="row zoom-in">
+                        @if(count($items) > 0)
                         @foreach($items as $item)
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">
                             <a href="/shop/item/{{ $item->id }}">
@@ -80,46 +102,51 @@
                             </a>
                         </div>
                         @endforeach
-                    </div>
-
-                    <div id="divider-40" class="padding-40"></div>
-
-                    <nav id="items-pagination" class="ow-pagination text-center">
-                        @if ($items->lastPage() > 1)
-                        <ul class="pagination">
-                            <li class="{{ ($items->currentPage() == 1) ? ' disabled' : '' }}">
-                                <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
-                            </li>
-
-                            @for ($i = 1; $i <= $items->lastPage(); $i++)
-                            <?php
-                            $half_total_links = floor(4 / 2);
-                            $from = $items->currentPage() - $half_total_links;
-                            $to = $items->currentPage() + $half_total_links;
-
-                            if ($items->currentPage() < $half_total_links) {
-                                $to += $half_total_links - $items->currentPage();
-                            }
-                            if ($items->lastPage() - $items->currentPage() < $half_total_links) {
-                                $from -= $half_total_links - ($items->lastPage() - $items->currentPage() - 1);
-                            }
-                            ?>
-
-                                @if ($from < $i && $i < $to)
-                                <li class="{{ ($items->currentPage() == $i) ? ' active' : '' }}">
-                                    <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
-                                </li>
-                            @endif
-                            @endfor
-                            <li class="{{ $items->currentPage() == $items->lastPage() ? ' disabled' : '' }}">
-                                <a href="#menu-container" onClick="goToPage({{ $items->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
-                            </li>
-                        </ul>
+                        @else
+                        <h3 class="text-center" style="color: lightgrey">
+                            There are no items on this classification yet.
+                        </h3>
                         @endif
-                    </nav>
-
-                    <div id="divider-20" class="padding-20"></div>
+                    </div>
                 </div>
+
+                <div id="divider-40" class="padding-40"></div>
+
+                <nav id="items-pagination" class="ow-pagination text-center fade-in">
+                    @if (count($items) > 0)
+                    <ul id="pagination-list" class="pagination">
+                        <li class="{{ ($items->currentPage() == 1) ? ' disabled' : '' }}">
+                            <a onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                        </li>
+
+                        @for ($i = 1; $i <= $items->lastPage(); $i++)
+                        <?php
+                        $half_total_links = floor(4 / 2);
+                        $from = $items->currentPage() - $half_total_links;
+                        $to = $items->currentPage() + $half_total_links;
+
+                        if ($items->currentPage() < $half_total_links) {
+                            $to += $half_total_links - $items->currentPage();
+                        }
+                        if ($items->lastPage() - $items->currentPage() < $half_total_links) {
+                            $from -= $half_total_links - ($items->lastPage() - $items->currentPage() - 1);
+                        }
+                        ?>
+
+                        @if ($from < $i && $i < $to)
+                        <li class="{{ ($items->currentPage() == $i) ? ' active' : '' }}">
+                            <a onClick="goToPage({{ $i }})">{{ $i }}</a>
+                        </li>
+                        @endif
+                        @endfor
+                        <li class="{{ $items->currentPage() == $items->lastPage() ? ' disabled' : '' }}">
+                            <a onClick="goToPage({{ $items->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                    @endif
+                </nav>
+
+                <div id="divider-20" class="padding-20"></div>
             </div>
             <!-- End of Shop Items - /-->
             @else
@@ -152,17 +179,23 @@
     let idTemp = 0;
 
     function goToPage(pageNumber){
-         if(loadedImageType === 'all'){
+        cleanItems();
+        cleanPagination();
+
+        showLoader();
+
+        if(loadedImageType === 'all'){
             $.ajax({
                 type: 'GET',
                 url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanImages();
-                    prepareImages(data);
+                    setTimeout(function(){
+                        prepareItems(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
          }
@@ -172,11 +205,12 @@
                 url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '/' + idTemp + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanImages();
-                    prepareImages(data);
+                    setTimeout(function(){
+                        prepareItems(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
          }
@@ -193,17 +227,22 @@
             removeSubcategory();
         }
 
+        cleanItems();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/shop/all?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanItems();
-                prepareItems(data);
+                setTimeout(function(){
+                    prepareItems(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                idTemp = 0;
+                    hideLoader();
+                }, 1000);
             }
         });
 
@@ -289,17 +328,23 @@
     function getCategoryItems(categoryId){
         loadedImageType = 'category';
 
+        cleanItems();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanItems();
-                prepareItems(data);
+                setTimeout(function(){
+                    prepareItems(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                idTemp = categoryId;
+                    hideLoader();
+                    idTemp = categoryId;
+                }, 1000);
             }
         });
     }
@@ -315,17 +360,23 @@
         option.setAttribute('class', 'active');
         subCategoryChosen = true;
 
+        cleanItems();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanItems();
-                prepareItems(data);
+                setTimeout(function(){
+                    prepareItems(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                idTemp = subcategoryId;
+                    hideLoader();
+                    idTemp = subcategoryId;
+                }, 1000);
             }
         });
     }
@@ -337,64 +388,87 @@
         subCategoryChosen = false;
     };
 
+    function showLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-in-loader');
+        loader.style.display = 'block';
+    };
+
+    function hideLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-out-loader');
+
+        setTimeout(function(){
+            loader.style.display = 'none';
+        }, 1500);
+    }
+
     function cleanItems(){
         var itemGroup = document.getElementById('item-group');
+        itemGroup.setAttribute('class', 'row fade-out');
 
-        itemGroup.parentNode.removeChild(itemGroup);
+        setTimeout(function(){
+            itemGroup.parentNode.removeChild(itemGroup);
+        }, 100);
     }
 
     function cleanPagination(){
-        var itemsPagination = document.getElementById('items-pagination');
+        var paginationList = document.getElementById('pagination-list');
+        paginationList.setAttribute('class', 'pagination fade-out');
 
-        itemsPagination.parentNode.removeChild(itemsPagination);
+        setTimeout(function(){
+            paginationList.parentNode.removeChild(paginationList);
+        }, 100);
     }
 
     function prepareItems(array){
-        var parentOfDivider40 = document.getElementById('items-container');
-        var divider40 = document.getElementById('divider-40');
+        var itemsContainer = document.getElementById('items-container');
         var itemGroup = document.createElement('div');
         itemGroup.setAttribute('id', 'item-group');
-        itemGroup.setAttribute('class', 'row');
+        itemGroup.setAttribute('class', 'row zoom-in');
 
         let itemGroupContent = '';
 
-        array.data.forEach(function(item){
+        if(array.data.length > 0){
+            array.data.forEach(function(item){
+                itemGroupContent = itemGroupContent + 
+                '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">' +
+                '   <a href="/shop/item/' + item.id + '">' +
+                '       <div class="shop-item">' + 
+                '          <div class="item-pic-frame">' + 
+                '               <img class="item-pic" src="' +item.poster+ '" alt="' +item.title+ '" title="' +item.title+ '">' +
+                '          </div>' + 
+                '          <div class="item-details">' +
+                '              <p class="item-description" href="/shop/item/' + item.id + '">' + 
+                '                  ' + item.title + 
+                '              </p>' +
+                '              <p class="item-price">IDR ' + item.price + '</p>' +
+                '          </div>' +
+                '       </div>' +
+                '   </a>' +
+                '</div>'
+            }, itemGroupContent);
+        }
+        else{
             itemGroupContent = itemGroupContent + 
-            '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shop-item-wrapper">' +
-            '   <a href="/shop/item/' + item.id + '">' +
-            '       <div class="shop-item">' + 
-            '          <div class="item-pic-frame">' + 
-            '               <img class="item-pic" src="' + item.poster + '" alt="' + item.title + '" title="' + item.title + '">' +
-            '          </div>' + 
-            '          <div class="item-details">' +
-            '              <p class="item-description" href="/shop/item/' + item.id + '">' + 
-            '                  ' + item.title + 
-            '              </p>' +
-            '              <p class="item-price">IDR ' + item.price + '</p>' +
-            '          </div>' +
-            '       </div>' +
-            '   </a>' +
-            '</div>'
-        }, itemGroupContent);
+            '<h3 class="text-center" style="color: lightgrey">There are no items on this classification yet.</h3>';
+        }
 
         itemGroup.innerHTML = itemGroupContent;
         setTimeout(function(){
-            parentOfDivider40.insertBefore(itemGroup, divider40);
+            itemsContainer.appendChild(itemGroup);
         }, 100);
     }
 
     function preparePagination(data){
-        var parentOfDivider20 = document.getElementById('items-container');
-        var divider20 = document.getElementById('divider-20');
-        var paginationContainer = document.createElement('nav');
-        paginationContainer.setAttribute('id', 'items-pagination');
-        paginationContainer.setAttribute('class', 'ow-pagination text-center');
+        var itemsPagination = document.getElementById('items-pagination');
+        var paginationList = document.createElement('ul');
+        paginationList.setAttribute('id', 'pagination-list');
+        paginationList.setAttribute('class', 'pagination');
 
         let paginationContent = '';
 
-        if(data.last_page !== 1){
-            paginationContent = paginationContent + 
-            '<ul class="pagination">';
+        if(data.data.length > 0){
 
             if(data.current_page == 1) {
                 paginationContent = paginationContent + 
@@ -405,7 +479,7 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a href="#menu-container" onClick="goToPage(1)">' +
+            '       <a onClick="goToPage(1)">' +
             '           <i class="fa fa-angle-double-left"></i>' +
             '       </a>' + 
             '   </li>';
@@ -435,8 +509,8 @@
 
 
                     paginationContent = paginationContent + 
-                    '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
-                    '</li>';
+                    '       <a onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                    '   </li>';
                 }
             }
 
@@ -449,17 +523,17 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
+            '       <a onClick="goToPage(' + data.last_page + ')">' + 
             '           <i class="fa fa-angle-double-right"></i>' + 
             '       </a>' + 
-            '   </li>' + 
-            '</ul>';
+            '   </li>'
         }
 
-        paginationContainer.innerHTML = paginationContent;
+        paginationList.innerHTML = paginationContent;
+            
         setTimeout(function(){
-            parentOfDivider20.insertBefore(paginationContainer, divider20);
-        }, 100);
+            itemsPagination.appendChild(paginationList);
+        }, 120);
     }
 </script>
 @endpush

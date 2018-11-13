@@ -5,6 +5,8 @@
 @endpush
 
 @push('additional_css')
+<link href="{{ asset('css/animation.css') }}" rel="stylesheet">
+
 <style type="text/css">
     .event-image {
         position: relative;
@@ -22,6 +24,21 @@
 
     .pb-160 {
         padding-bottom: 80px
+    }
+    
+    .fade-in-loader {
+        animation: fadeIn 0.1s ease-in forwards;
+    }
+
+    .fade-out-loader {
+        animation: fadeOut 1.5s ease-out forwards;
+    }
+
+    .loading-div {
+        display: block;
+        width: 100%;
+        height: 500px;
+        background: white;
     }
 </style>
 @endpush
@@ -108,7 +125,7 @@
                 <div class="container">
                     <div id="event-content" class="row">
                         <!-- Content Area -->
-                        <div id="event-group" class="col-md-12">
+                        <div id="event-group" class="col-md-12 zoom-in">
                             @if(count($upcomingEvents) > 0)
                             @foreach($upcomingEvents as $event)
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding event-block">
@@ -133,17 +150,19 @@
                             </div>
                             @endforeach
                             @else
-                            <h3 class="text-center" style="color: lightgrey">There are no events on this classification yet.</h3>
+                            <h3 class="text-center" style="color: lightgrey">
+                                There are no events on this classification yet.
+                            </h3>
                             @endif
                         </div>
                         <!-- Content Area /- -->
                     </div>
 
-                    <nav id="event-pagination" class="ow-pagination text-center pb-160">
-                        @if ($upcomingEvents->lastPage() > 1)
-                        <ul class="pagination">
+                    <nav id="event-pagination" class="ow-pagination text-center pb-160 fade-in">
+                        @if (count($upcomingEvents) > 0)
+                        <ul id="pagination-list" class="pagination">
                             <li class="{{ ($upcomingEvents->currentPage() == 1) ? ' disabled' : '' }}">
-                                <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                                <a onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
                             </li>
                     
                             @for ($i = 1; $i <= $upcomingEvents->lastPage(); $i++)
@@ -162,12 +181,12 @@
                             
                                 @if ($from < $i && $i < $to)
                                 <li class="{{ ($upcomingEvents->currentPage() == $i) ? ' active' : '' }}">
-                                    <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
+                                    <a onClick="goToPage({{ $i }})">{{ $i }}</a>
                                 </li>
                                 @endif
                             @endfor
                             <li class="{{ $upcomingEvents->currentPage() == $upcomingEvents->lastPage() ? ' disabled' : '' }}">
-                                <a href="#menu-container" onClick="goToPage({{ $upcomingEvents->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                                <a onClick="goToPage({{ $upcomingEvents->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
                             </li>
                         </ul>
                         @endif
@@ -175,11 +194,11 @@
                 </div>
                 <!-- Container /- -->
             </div>
-            <!-- @else -->
-            <!-- <h3 class="text-center" style="color: lightgrey"> -->
-                <!-- *we're currently organizing events to be held here (please be patient)* -->
-            <!-- </h3> -->
-            <!-- @endif -->
+            @else
+            <h3 class="text-center" style="color: lightgrey">
+                *we're currently organizing events to be held here (please be patient)*
+            </h3>
+            @endif
 
             <div id="section-padding" class="section-padding"></div>
 
@@ -228,17 +247,23 @@
             removeSubcategory();
         }
 
+        cleanEvents();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanEvents();
-                prepareEvents(data);
+                setTimeout(function(){
+                    prepareEvents(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                subcategoryIdTemp = 0;
+                    hideLoader();
+                    subcategoryIdTemp = 0;
+                }, 1000);
             }
         });
 
@@ -247,17 +272,23 @@
     }
 
     function goToPage(pageNumber){
+        cleanEvents();
+        cleanPagination();
+
+        showLoader();
+
         if(loadedEventType === 'all'){
             $.ajax({
                 type: 'GET',
                 url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanEvents();
-                    prepareEvents(data);
+                    setTimeout(function(){
+                        prepareEvents(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
         }
@@ -267,11 +298,12 @@
                 url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanEvents();
-                    prepareEvents(data);
+                    setTimeout(function(){
+                        prepareEvents(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
         }
@@ -361,17 +393,23 @@
         option.setAttribute('class', 'active');
         subCategoryChosen = true;
 
+        cleanEvents();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanEvents();
-                prepareEvents(data);
+                setTimeout(function(){
+                    prepareEvents(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                subcategoryIdTemp = subcategoryId;
+                    hideLoader();
+                    subcategoryIdTemp = subcategoryId;
+                });
             }
         });
     }
@@ -383,23 +421,46 @@
         subCategoryChosen = false;
     };
 
+    function showLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-in-loader');
+        loader.style.display = 'block';
+    };
+
+    function hideLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-out-loader');
+
+        setTimeout(function(){
+            loader.style.display = 'none';
+        }, 1500);
+    }
+
     function cleanEvents(){
         var eventGroup = document.getElementById('event-group');
+        eventGroup.setAttribute('class', 'col-md-12 fade-out');
 
-        eventGroup.parentNode.removeChild(eventGroup);
+        setTimeout(function(){
+            eventGroup.parentNode.removeChild(eventGroup);
+        }, 100);
     }
 
     function cleanPagination(){
-        var eventPagination = document.getElementById('event-pagination');
+        var paginationList = document.getElementById('pagination-list');
+        paginationList.setAttribute('class', 'pagination fade-out');
 
-        eventPagination.parentNode.removeChild(eventPagination);
+        setTimeout(function(){
+            paginationList.parentNode.removeChild(paginationList);
+        }, 100);
     }
 
     function prepareEvents(array){
         var parentOfEventGroup = document.getElementById('event-content');
+        var eventGroup = document.createElement('div');
+        eventGroup.setAttribute('id', 'event-group');
+        eventGroup.setAttribute('class', 'col-md-12 zoom-in');
 
-        let eventContent = 
-        '<div id="event-group" class="col-md-12">';
+        let eventContent = '';
 
         if(array.data.length > 0){
             array.data.forEach(function(event){
@@ -417,7 +478,7 @@
                 '           <span>' + event.month + '</span>' + 
                 '       </div>' +
                 '       <h3>' +
-                '           <a href="/event/single/' + event.id + '" title="' + event.title + '">' + 
+                '           <a href="/event/single/' +event.id+ '" title="' +event.title+ '">' + 
                 '           ' + event.title +
                 '           </a>' +
                 '       </h3>' +
@@ -441,10 +502,10 @@
             '<h3 class="text-center" style="color: lightgrey">There are no events on this classification yet.</h3>';
         }
 
-        eventContent = eventContent + '</div';
+        eventGroup.innerHTML = eventContent;
 
         setTimeout(function(){
-            parentOfEventGroup.innerHTML = eventContent;
+            parentOfEventGroup.appendChild(eventGroup);
         }, 100);
     }
 
@@ -457,17 +518,14 @@
     }
 
     function preparePagination(data){
-        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
-        var sectionPadding = document.getElementById('section-padding');
-        var paginationContainer = document.createElement('nav');
-        paginationContainer.setAttribute('id', 'event-pagination');
-        paginationContainer.setAttribute('class', 'ow-pagination text-center pb-160');
+        var eventPagination = document.getElementById('event-pagination');
+        var paginationList = document.createElement('ul');
+        paginationList.setAttribute('id', 'pagination-list');
+        paginationList.setAttribute('class', 'pagination');
 
         let paginationContent = '';
 
-        if(data.last_page !== 1){
-            paginationContent = paginationContent + 
-            '<ul class="pagination">';
+        if(data.data.length > 0){
 
             if(data.current_page == 1) {
                 paginationContent = paginationContent + 
@@ -478,7 +536,7 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a href="#menu-container" onClick="goToPage(1)">' +
+            '       <a onClick="goToPage(1)">' +
             '           <i class="fa fa-angle-double-left"></i>' +
             '       </a>' + 
             '   </li>';
@@ -508,8 +566,8 @@
 
 
                     paginationContent = paginationContent + 
-                    '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
-                    '</li>';
+                    '       <a onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                    '   </li>';
                 }
             }
 
@@ -522,18 +580,17 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
+            '       <a onClick="goToPage(' + data.last_page + ')">' + 
             '           <i class="fa fa-angle-double-right"></i>' + 
             '       </a>' + 
-            '   </li>' + 
-            '</ul>';
+            '   </li>'
         }
 
-        paginationContainer.innerHTML = paginationContent;
+        paginationList.innerHTML = paginationContent;
             
         setTimeout(function(){
-            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
-        }, 100);
+            eventPagination.appendChild(paginationList);
+        }, 120);
     }
 </script>
 @endpush

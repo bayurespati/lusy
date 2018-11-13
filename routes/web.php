@@ -47,6 +47,8 @@ Route::get('/', function () {
     ? '/img/upcoming-event-bg.jpg'
     : imageConfig::find(1)->image_path;
 
+    $introduction[0]->content = str_limit($introduction[0]->content, 300);
+
     foreach ($shopItems as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/welcome-1.jpg'
@@ -332,6 +334,8 @@ Route::group([
         $event->startHour = $startDate->format('h:i A');
         $event->endHour = $endDate->format('h:i A');
 
+        $event->isUpcoming = $endDate >= Carbon::today()->toDateString();
+
         return view('event.single', compact('sosmed', 'event', 'eventBanner'));
     });
 
@@ -376,6 +380,10 @@ Route::group([
 
         $items = ShopItem::whereIsDisplayed(true)->paginate(8);
 
+        $isItemsExist = count(ShopItem::all()) > 0 
+        ? true 
+        : false;
+
         $shopBanner = imageConfig::find(5)->image_path === null 
         ? '/img/page-banner-bg.jpg'
         : imageConfig::find(5)->image_path;
@@ -388,7 +396,7 @@ Route::group([
             $item->price = number_format($item->price, 2, ",", ".");
         }
 
-		return view('shop.index', compact('sosmed', 'categories', 'items', 'shopBanner'));
+		return view('shop.index', compact('sosmed', 'categories', 'items', 'shopBanner', 'isItemsExist'));
 	})->name('shop.index');
 
 	Route::get('/item/{shopItem}', function (Request $request, ShopItem $shopItem) { 

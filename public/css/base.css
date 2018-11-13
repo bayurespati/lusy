@@ -14153,7 +14153,7 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
 */
 
 .shop-items-section {
-    padding: 100px 0 40px 0;
+    padding: 70px 0 40px 0;
 }
 
 .shop-item-wrapper {
@@ -14260,16 +14260,6 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
     C U S T O M   W C   C O N T R O L   I N   A B O U T   C O N T E N T
     ==================================================
 */
-
-.wc-controls-custom {
-  top: 600px !important;
-  left: 78px !important;
-}
-
-.wc-controls-custom::before {
-  background: none !important;
-}
-
 
 .ow-pagination ul li.active a {
   background-color: #e2b13c;

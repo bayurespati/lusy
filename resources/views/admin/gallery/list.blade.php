@@ -10,7 +10,7 @@
 @endpush
 
 @section('content')
-<div class="wrapper" id="gallery">
+<div class="wrapper" id="photos">
 
 	<!-- SIDE BAR  -->
 	<side-bar></side-bar>

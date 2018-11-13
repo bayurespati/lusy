@@ -5,7 +5,7 @@ import {store} from './store';
 import 'vue-datetime/dist/vue-datetime.css'
 
 const admin = new Vue({
-    el: '#gallery',
+    el: '#photos',
 
     components: {
         Gallery,

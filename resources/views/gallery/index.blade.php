@@ -6,6 +6,23 @@
 
 @push('additional_css')
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
+
+<style type="text/css">
+    .fade-in-loader {
+        animation: fadeIn 0.1s ease-in forwards;
+    }
+
+    .fade-out-loader {
+        animation: fadeOut 1.5s ease-out forwards;
+    }
+
+    .loading-div {
+        display: block;
+        width: 100%;
+        height: 500px;
+        background: white;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -32,7 +49,7 @@
             style="background-image: url({{ $galleryBanner }});">
                 <!-- Container -->
                 <div class="container">
-                    <h3>gallery</h3>
+                    <h3>Gallery</h3>
                 </div>
                 <!-- Container /- -->
             </div>
@@ -67,7 +84,7 @@
                     </div>
                 </div>
                 <!-- Container /- -->
-                <div id="gallery-container" class="portfolio-list">
+                <div id="gallery-container" class="portfolio-list zoom-in">
                     @foreach($gallery as $photo)
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
                             <a href="{{ $photo->image_path }}">
@@ -85,11 +102,10 @@
 
                 <div id="divider-80" class="padding-80"></div>
 
-                <nav id="gallery-pagination" class="ow-pagination text-center">
-                    @if ($gallery->lastPage() > 1)
+                <nav id="gallery-pagination" class="ow-pagination text-center fade-in">
                     <ul class="pagination">
                         <li class="{{ ($gallery->currentPage() == 1) ? ' disabled' : '' }}">
-                            <a href="#menu-container" onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
+                            <a onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
                         </li>
                     
                         @for ($i = 1; $i <= $gallery->lastPage(); $i++)
@@ -108,15 +124,14 @@
                             
                             @if ($from < $i && $i < $to)
                             <li class="{{ ($gallery->currentPage() == $i) ? ' active' : '' }}">
-                                <a href="#menu-container" onClick="goToPage({{ $i }})">{{ $i }}</a>
+                                <a onClick="goToPage({{ $i }})">{{ $i }}</a>
                             </li>
                             @endif
                         @endfor
                         <li class="{{ $gallery->currentPage() == $gallery->lastPage() ? ' disabled' : '' }}">
-                            <a href="#menu-container" onClick="goToPage({{ $gallery->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
+                            <a onClick="goToPage({{ $gallery->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
                         </li>
                     </ul>
-                    @endif
                 </nav>
                 @else
                 <h3 class="text-center" style="color: lightgrey">
@@ -161,17 +176,23 @@
             removeSubcategory();
         }
 
+        cleanImages();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanImages();
-                prepareImages(data);
+                setTimeout(function(){
+                    prepareImages(data);
+                    preparePagination(data);
 
-                cleanPagination();
-                preparePagination(data);
-                subcategoryIdTemp = 0;
+                    hideLoader();
+                    subcategoryIdTemp = 0;
+                }, 1000);
             }
         });
 
@@ -180,34 +201,41 @@
     }
 
     function goToPage(pageNumber){
-         if(loadedImageType === 'all'){
+        cleanImages();
+        cleanPagination();
+
+        showLoader();
+
+        if(loadedImageType === 'all'){
             $.ajax({
                 type: 'GET',
                 url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanImages();
-                    prepareImages(data);
+                    setTimeout(function(){
+                        prepareImages(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
-         }
-         else {
+        }
+        else {
             $.ajax({
                 type: 'GET',
                 url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
                 dataType: 'JSON',
                 success: function (data) {
-                    cleanImages();
-                    prepareImages(data);
+                    setTimeout(function(){
+                        prepareImages(data);
+                        preparePagination(data);
 
-                    cleanPagination();
-                    preparePagination(data);
+                        hideLoader();
+                    }, 1000);
                 }
             });
-         }
+        }
     }
 
     function getSubcategories(categoryId, categoryListOrder){
@@ -250,6 +278,8 @@
     function removeSubcategory() {
         // Removes an element from the document
         var subcategoriesMenu = document.getElementById('subcategories-menu');
+        subcategoriesMenu.setAttribute('class', 'col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories fade-out');
+        
         subcategoriesMenu.parentNode.removeChild(subcategoriesMenu);
         submenuExist = false;
         subcategoryCount = 0;
@@ -294,17 +324,24 @@
         option.setAttribute('class', 'active');
         subCategoryChosen = true;
 
+        cleanImages();
+        cleanPagination();
+
+        showLoader();
+
         $.ajax({
             type: 'GET',
             url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?page=1',
             dataType: 'JSON',
             success: function (data) {
-                cleanImages();
-                prepareImages(data);
+                setTimeout(function(){
+                    hideLoader();
 
-                cleanPagination();
-                preparePagination(data);
-                subcategoryIdTemp = subcategoryId;
+                    prepareImages(data);
+                    preparePagination(data);
+
+                    subcategoryIdTemp = subcategoryId;
+                }, 1000);
             }
         });
     }
@@ -316,16 +353,37 @@
         subCategoryChosen = false;
     };
 
+    function showLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-in-loader');
+        loader.style.display = 'block';
+    };
+
+    function hideLoader(){
+        var loader = document.getElementById('site-loader');
+        loader.setAttribute('class', 'load-complete fade-out-loader');
+
+        setTimeout(function(){
+            loader.style.display = 'none';
+        }, 1500);
+    }
+
     function cleanImages(){
         var galleryContainer = document.getElementById('gallery-container');
+        galleryContainer.setAttribute('class', 'portfolio-list fade-out');
 
-        galleryContainer.parentNode.removeChild(galleryContainer);
+        setTimeout(function(){
+            galleryContainer.parentNode.removeChild(galleryContainer);
+        }, 100);
     }
 
     function cleanPagination(){
         var galleryPagination = document.getElementById('gallery-pagination');
+        galleryPagination.setAttribute('class', 'ow-pagination text-center fade-out');
 
-        galleryPagination.parentNode.removeChild(galleryPagination);
+        setTimeout(function(){
+            galleryPagination.parentNode.removeChild(galleryPagination);
+        }, 100);
     }
 
     function prepareImages(array){
@@ -333,23 +391,31 @@
         var divider80 = document.getElementById('divider-80');
         var galleryContainer = document.createElement('div');
         galleryContainer.setAttribute('id', 'gallery-container');
-        galleryContainer.setAttribute('class', 'portfolio-list');
+        galleryContainer.setAttribute('class', 'portfolio-list zoom-in');
 
         let galleryContent = '';
 
-        array.data.forEach(function(photo){
-            galleryContent = galleryContent + 
-            '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
-            '   <a href="' + photo.image_path + '">' +
-            '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
-            '       <div class="portfolio-content">' +
-            '           <i class="icon icon-Search"></i>' +
-            '           <h3>' + photo.title + '</h3>' +
-            '           <span>' + photo.creator + '</span>' +
-            '       </div>' +
-            '   </a>' +
-            '</div>'
-        }, galleryContent);
+        if(array.data.length > 0){
+            array.data.forEach(function(photo){
+                galleryContent = galleryContent + 
+                '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
+                '   <a href="' + photo.image_path + '">' +
+                '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
+                '       <div class="portfolio-content">' +
+                '           <i class="icon icon-Search"></i>' +
+                '           <h3>' + photo.title + '</h3>' +
+                '           <span>' + photo.creator + '</span>' +
+                '       </div>' +
+                '   </a>' +
+                '</div>'
+            }, galleryContent);
+        }
+        else {
+            galleryContent = galleryContent +
+            '<h3 class="text-center" style="color: lightgrey">' +
+            "   *there are no images on this classification yet*" +
+            '</h3>'
+        }
 
         galleryContainer.innerHTML = galleryContent;
         setTimeout(function(){
@@ -364,76 +430,77 @@
         var sectionPadding = document.getElementById('section-padding');
         var paginationContainer = document.createElement('nav');
         paginationContainer.setAttribute('id', 'gallery-pagination');
-        paginationContainer.setAttribute('class', 'ow-pagination text-center');
+        paginationContainer.setAttribute('class', 'ow-pagination text-center fade-in');
 
         let paginationContent = '';
 
-        paginationContent = paginationContent + 
-        '<ul class="pagination">';
-
-        if(data.current_page == 1) {
+        if(data.data.length > 0){
             paginationContent = paginationContent + 
-            '<li class="disabled">';
-        } else {
-            paginationContent = paginationContent + 
-            '<li>';
-        }
+            '<ul class="pagination">';
 
-        paginationContent = paginationContent + 
-        '       <a href="#menu-container" onClick="goToPage(1)">' +
-        '           <i class="fa fa-angle-double-left"></i>' +
-        '       </a>' + 
-        '   </li>';
-
-        for(let i = 1; i <= data.last_page; i++){
-            const halfTotalLinks = Math.floor(4/2);
-            let from = data.current_page - halfTotalLinks;
-            let to = data.current_page + halfTotalLinks;
-
-            if (data.current_page < halfTotalLinks) {
-                to += halfTotalLinks - data.current_page;
-            };
-
-            if (data.last_page - data.current_page < halfTotalLinks) {
-                from -= halfTotalLinks - (data.last_page - data.current_page - 1);
-            };
-
-            if (from < i && i < to) {
-                if (data.current_page == i) {
-                    paginationContent = paginationContent + 
-                    '<li class="active">';
-                }
-                else {
-                    paginationContent = paginationContent + 
-                    '<li>';
-                }
-
-
+            if(data.current_page == 1) {
                 paginationContent = paginationContent + 
-                '   <a href="#menu-container" onClick="goToPage(' + i + ')">' + i + '</a>' + 
-                '</li>';
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
             }
-        }
 
-        if(data.current_page == data.last_page) {
             paginationContent = paginationContent + 
-            '<li class="disabled">';
-        } else {
-            paginationContent = paginationContent + 
-            '<li>';
-        }
+            '       <a onClick="goToPage(1)">' +
+            '           <i class="fa fa-angle-double-left"></i>' +
+            '       </a>' + 
+            '   </li>';
 
-        paginationContent = paginationContent + 
-        '       <a href="#menu-container" onClick="goToPage(' + data.last_page + ')">' + 
-        '           <i class="fa fa-angle-double-right"></i>' + 
-        '       </a>' + 
-        '   </li>' + 
-        '</ul>';
+            for(let i = 1; i <= data.last_page; i++){
+                const halfTotalLinks = Math.floor(4/2);
+                let from = data.current_page - halfTotalLinks;
+                let to = data.current_page + halfTotalLinks;
+
+                if (data.current_page < halfTotalLinks) {
+                    to += halfTotalLinks - data.current_page;
+                };
+
+                if (data.last_page - data.current_page < halfTotalLinks) {
+                    from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+                };
+
+                if (from < i && i < to) {
+                    if (data.current_page == i) {
+                        paginationContent = paginationContent + 
+                        '<li class="active">';
+                    }
+                    else {
+                        paginationContent = paginationContent + 
+                        '<li>';
+                    }
+
+                    paginationContent = paginationContent + 
+                    '       <a onClick="goToPage(' + i + ')">' + i + '</a>' + 
+                    '   </li>';
+                }
+            }
+
+            if(data.current_page == data.last_page) {
+                paginationContent = paginationContent + 
+                '<li class="disabled">';
+            } else {
+                paginationContent = paginationContent + 
+                '<li>';
+            }
+
+            paginationContent = paginationContent + 
+            '       <a onClick="goToPage(' + data.last_page + ')">' + 
+            '           <i class="fa fa-angle-double-right"></i>' + 
+            '       </a>' + 
+            '   </li>' + 
+            '</ul>';
+        }
 
         paginationContainer.innerHTML = paginationContent;
         setTimeout(function(){
             parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
-        }, 100);
+        }, 120);
     }
 
     function check(){

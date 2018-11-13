@@ -271,7 +271,7 @@
 
                                         <div>
                                             <button class="general-btn transitioned-btn" 
-                                            type="button" data-toggle="modal"data-target="#overseas" onClick="setActionValue({{ $shopItems[$i]->id }})">
+                                            type="button" data-toggle="modal"data-target="#overseas" onClick="setActionValue({{ $shopItems[$i]->id }}, '{{ $shopItems[$i]->title }}')">
                                                 Overseas Inquiry
                                             </button>
 
@@ -281,19 +281,21 @@
                                                 </button>
                                             </a>
                                         </div>
+
+                                        <div class="wc-controls" style="right: 0; left: unset;">
+                                            <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
+                                                <span></span>
+                                            </a>
+
+                                            <a class="right carousel-control" href="#welcome-carousel" role="button" data-slide="next">
+                                                <span></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 @endfor
                             </div>
                             <!-- Controls -->
-                            <div class="wc-controls wc-controls-custom">
-                                <a class="left carousel-control" href="#welcome-carousel" role="button" data-slide="prev">
-                                    <span></span>
-                                </a>
-                                <a class="right carousel-control" href="#welcome-carousel" role="button" data-slide="next">
-                                    <span></span>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <!-- Row /- -->
@@ -321,7 +323,7 @@
 
                     <div class="modal-body">
                         <div class="modal-body-header text-center pr-6 pl-6 mb-5">
-                            <p class="m-0" style="font-size: 20px">
+                            <p id="modal-opening" class="m-0" style="font-size: 20px">
                                 Please fill in the form below and we will be back to you as soon as possible.
                             </p>
                         </div>
@@ -414,10 +416,11 @@
 <script type="text/javascript">
     let itemId = 0;
 
-    function setActionValue(newItemId) {
+    function setActionValue(newItemId, title) {
         itemId = newItemId;
 
         document.getElementById('action-modal').action = '/shop/update/overseas/' + itemId;
+        document.getElementById('modal-opening').innerHTML = 'Please fill in the form below to make an inquiry for <strong>' + title + '</strong> and we will be back to you as soon as possible.'
     }
 </script>
 @endpush
