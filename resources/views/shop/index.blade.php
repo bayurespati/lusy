@@ -104,7 +104,7 @@
                         @endforeach
                         @else
                         <h3 class="text-center" style="color: lightgrey">
-                            There are no items on this classification yet.
+                            *there are no items on this classification yet*
                         </h3>
                         @endif
                     </div>
@@ -451,7 +451,7 @@
         }
         else{
             itemGroupContent = itemGroupContent + 
-            '<h3 class="text-center" style="color: lightgrey">There are no items on this classification yet.</h3>';
+            '<h3 class="text-center" style="color: lightgrey">*there are no items on this classification yet*</h3>';
         }
 
         itemGroup.innerHTML = itemGroupContent;

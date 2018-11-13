@@ -151,7 +151,7 @@
                             @endforeach
                             @else
                             <h3 class="text-center" style="color: lightgrey">
-                                There are no events on this classification yet.
+                                *there are no events on this classification yet*
                             </h3>
                             @endif
                         </div>
@@ -499,7 +499,7 @@
         }
         else {
             eventContent = eventContent + 
-            '<h3 class="text-center" style="color: lightgrey">There are no events on this classification yet.</h3>';
+            '<h3 class="text-center" style="color: lightgrey">*there are no events on this classification yet*</h3>';
         }
 
         eventGroup.innerHTML = eventContent;
