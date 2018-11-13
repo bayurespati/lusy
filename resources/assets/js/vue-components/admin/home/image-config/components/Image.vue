@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-4 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Page Name</strong></p>
 
                             <div class="detail">
                                 <p class="mb-0">{{ imageConfig.page_name }}</p>
@@ -35,7 +35,7 @@
                     <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingImage = !isEditingImage">Ubah</button>
+                                @click="isEditingImage = !isEditingImage">Edit</button>
                     </div>
 
 

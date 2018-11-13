@@ -19,7 +19,7 @@
                     <button type="button" 
                             class="btn btn-sm btn-danger"
                             @click="deleteThiImage">
-                        Hapus
+                        Delete
                     </button>
                 </div>
             </div>
@@ -39,20 +39,25 @@
         data() {
             return {
                 isDeleteImage: false,
+                isRequesting: false
             }
         },
 
         methods:{
             deleteThiImage() {
                 const self = this;
-                this.$store.dispatch('destroy_image', {
-                    imageId: this.imageSlider.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
 
-                    flash('Foto berhasil dihapus', 'danger')
-                })
+                if(!this.isRequesting){
+                    this.$store.dispatch('destroy_image', {
+                        imageId: this.imageSlider.id
+                    })
+                    .then(() => {
+
+                        flash('Foto berhasil dihapus', 'danger');
+
+                        self.isRequesting = false;
+                    })
+                }
             }
         }
     };

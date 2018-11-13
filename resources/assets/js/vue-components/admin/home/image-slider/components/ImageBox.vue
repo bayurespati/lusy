@@ -27,7 +27,7 @@
             <button type="button" role="button"
                     class="btn btn-success ml-3"
                     @click="uploadImage">
-                    Simpan
+                    Save
             </button>
 
             <!--=========================================================================================
@@ -36,7 +36,7 @@
             <button class="btn btn-danger"
                     type="button" role="button"
                     @click="closeAdd"> 
-                    Batal
+                    Cancel
             </button>
         </div>
 
@@ -60,12 +60,11 @@
             return{
                 isRequesting : false,
                 showPreview: false,
+                croppie: null,
                 image_show: '',
                 image_points: '',
                 image_ori: '',
                 thumbnail: '',
-                croppie: null,
-                messageError : ''
             }
         },
 
@@ -86,10 +85,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const self  = this;
 
                 reader.onload = (event) => {
-                    vm.image_ori = event.target.result;
+                    self.image_ori = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -98,7 +97,7 @@
             },
 
             setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
@@ -118,25 +117,25 @@
                 }
 
                 this.croppie.options.update = function() {
-                    vm.setImage();
+                    self.setImage();
                 };
             },
 
             setImage(){
-                const vm  = this;
+                const self  = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {width: 1920, height: 880, type: 'square'},
                 }).then(response => {
-                    vm.image_show = response;
+                    self.image_show = response;
                 });
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {width: 100, height: 100, type: 'square'},
                 }).then(response => {
-                    vm.thumbnail = response;
+                    self.thumbnail = response;
                 });
 
 
@@ -145,28 +144,31 @@
 
             uploadImage(){
 
-                const vm  = this;
+                const self = this;
                 
-                if(this.image_ori !== null || this.image_ori !== ''){
+                if(this.image_ori !== '' && !this.isRequesting){
 
                     this.isRequesting = true;
+                    
                     const imageFile = {
                         image_show : this.image_show,
                         image_ori : this.image_ori,
                         thumbnail : this.thumbnail,
-                        image_points : JSON.stringify(vm.image_points)
+                        image_points : JSON.stringify(self.image_points)
                     };
 
                     this.$store.dispatch('store_image_slider', imageFile)
                         .then((response) => {
-                            flash('Foto berhasil di tambahkan','success');
 
-                            vm.isRequesting = false;
+                            flash('Photo added','success');
 
-                            vm.closeAdd();
+                            self.isRequesting = false;
+
+                            self.closeAdd();
                         })
                         .catch((errors) => {
-                            vm.isRequesting = false;
+
+                            self.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {
