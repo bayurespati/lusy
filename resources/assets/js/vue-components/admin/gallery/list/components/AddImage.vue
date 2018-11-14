@@ -209,10 +209,6 @@
                 minLength: minLength(3),
                 maxLength: maxLength(30)
             },
-            location:{
-                minLength: minLength(3),
-                maxLength: maxLength(100)
-            },
             sub_category_id:{
                 required
             },

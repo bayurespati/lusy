@@ -266,6 +266,7 @@
 					content: '',
 					sub_category_id: '',
 					subcategories: '',
+					subcategory: ''
 				}
 			}
 		},
@@ -350,6 +351,10 @@
 					self.isRequesting = true;
 
 					const eventName = this.input.title;
+
+					let indexSub = _.findIndex(this.subcategories,['id', this.input.sub_category_id]);
+
+					this.input.subcategory = this.subcategories[indexSub],
 
 					this.$store.dispatch('store_new_event', this.input)
                         .then(() => {
