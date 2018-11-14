@@ -4,7 +4,7 @@
                 mode="out-in">
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_image">
             <div class="panel-body">
-                <h3 class="text-center font-weight-bold">Edit {{ imageItem.title }}</h3>
+                <h3 class="text-center">Edit <strong>{{ imageItem.title }}</strong> Image</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                     <div class="col-md-4">
@@ -37,21 +37,23 @@
                                 class="form-control form-control-sm"
                                 @input="$v.input.title.$touch()"
                                 @keyup.enter="editImage"
+                                :class="{'form-control-danger': $v.input.title.$error}"
                                 placeholder="Name"
                                 v-model="input.title">
 
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
-                                        * Name item must be filled
+                                <!--======================================================================================
+                                    V A L I D A T I O N     E R R O R   M E S S A G E S
+                                    ======================================================================================-->
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="name-required" class="text-danger" 
+                                    v-if="!$v.input.title.required && $v.input.title.$dirty">
+                                        Name is required
                                     </span>
-                                    <span class="text-danger" v-if="!$v.input.title.minLength">
-                                        * Minimum {{ $v.input.title.$params.minLength.min }} character
+                                    <span key="name-minimum" class="text-danger" v-else-if="!$v.input.title.minLength">
+                                        Name has a minimum of {{ $v.input.title.$params.minLength.min }} characters
                                     </span>
-                                    <span class="text-danger" v-if="!$v.input.title.maxLength">
-                                        * Maximum {{ $v.input.title.$params.maxLength.max }} character
+                                    <span key="name-maximum" class="text-danger" v-else-if="!$v.input.title.maxLength">
+                                        Name has a maximum {{ $v.input.title.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
                             </div>
@@ -67,20 +69,8 @@
 
                             <div class="col-sm-9 col-xs-12">
                                 <textarea  v-model="input.description" 
-                                           class="form-control form-control-sm" 
-                                           @keyup.enter="editImage" ></textarea>
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.input.description.minLength">
-                                        * Minimum {{ $v.input.description.$params.minLength.min }} character
-                                    </span>
-                                    <span class="text-danger" v-if="!$v.input.description.maxLength">
-                                        * Maximum {{ $v.input.description.$params.maxLength.max }} character
-                                    </span>
-                                </transition>
-
+                                class="form-control form-control-sm" 
+                                @keyup.enter="editImage"></textarea>
                             </div>
                         </div>
 
@@ -89,8 +79,13 @@
                                 Cancel
                             </button>
 
-                            <button @click="editImage"class="btn btn-success btn-sm ml-2">
-                                Save
+                            <button @click="editImage"class="btn btn-success btn-sm ml-2" :disabled="isRequesting">
+                                <template v-if="isRequesting">
+                                    Saving..
+                                </template>
+                                <template v-else>
+                                    Save
+                                </template>
                             </button>
                         </div>
                     </div>    
@@ -157,8 +152,7 @@
                 return this.input.image != '' 
                     && this.input.title != '' 
                     && this.input.title.length >= 3
-                    && this.input.title.length <= 30
-                    && (this.input.description == '' || (this.input.description.length >= 3 && this.input.description.length <= 100) )
+                    && this.input.title.length <= 50
              }
         },
 
@@ -244,7 +238,7 @@
 
                         .then((updatedImage) => {
 
-                            flash('Image item updated', 'success');
+                            flash('Image is successfully updated', 'success');
 
                             self.isRequesting = false;
 

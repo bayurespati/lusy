@@ -30,7 +30,7 @@
                             	</span>
                             	<span key="key-maximum" class="text-danger" 
                             	v-else-if="!$v.input.title.maxLength">
-                            		Title has a maximum of {{ $v.input.title.$params.maxLength.max }} character
+                            		Title has a maximum of {{ $v.input.title.$params.maxLength.max }} characters
                         		</span>
                     		</transition>	
 						</div>
@@ -379,7 +379,7 @@
                         });
 				}
 				else {
-					this.diryAllInputs();
+					this.dirtyAllInputs();
 				}
 			},
 
@@ -396,7 +396,7 @@
 
 			},
 
-			diryAllInputs(){
+			dirtyAllInputs(){
                 this.$v.input.title.$touch();
                 this.$v.input.organiser.$touch();
                 this.$v.input.start_date.$touch();

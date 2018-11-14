@@ -38,11 +38,19 @@
                             </p>
                             <div class="detail">
                                 <button @click="editImage" 
-                                        class="btn btn-sm btn btn-success" 
-                                        v-if="imageItem.is_poster">Active</button>
+                                class="btn btn-sm btn btn-success"
+                                :disabled="isRequesting"
+                                v-if="imageItem.is_poster">
+                                    <template v-if="isRequesting">Saving..</template>
+                                    <template v-else>Active</template>
+                                </button>
                                 <button @click="show"
-                                        class="btn btn-sm btn btn-danger" 
-                                        v-else="">Not Active</button>
+                                class="btn btn-sm btn btn-danger"
+                                :disabled="isRequesting"
+                                v-else>
+                                    <template v-if="isRequesting">Saving..</template>
+                                    <template v-else>Active</template>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -115,7 +123,7 @@
                     .then(() => {
                         self.isRequesting = false;
 
-                        flash('Image deleted', 'danger')
+                        flash('Image is successfully deleted', 'danger')
                     })
                 }
             },
@@ -151,7 +159,7 @@
 
                         .then((updatedImage) => {
 
-                            flash('Image item updated', 'success');
+                            flash('Image is successfully updated updated', 'success');
 
                             self.isRequesting = false;
 

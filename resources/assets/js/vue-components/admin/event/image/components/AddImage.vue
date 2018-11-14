@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">
-                        Add Image {{ eventName }}
+                    <h3 class="text-center mb-5">
+                        Add New Image for <strong>{{ eventName }}</strong>
                     </h3>
                 </div>
 
@@ -17,11 +17,23 @@
                             accept="image/*"
                             id="file-2"
                             class="inputfile"
+                            @input="$v.image.$touch()"
                             @change="setUpFileUploader">
 
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="image-required" class="text-danger" 
+                                    v-if="!$v.image.required && $v.image.$dirty"
+                                    style="display: block; width: 100%;">
+                                        Image is required
+                                    </span>
+                                </transition>
                         </div>
                     </div>
 
@@ -32,21 +44,25 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="title" 
-                                       @input="$v.title.$touch()"
-                                       class="form-control full-width" id="name">
+                                @input="$v.title.$touch()"
+                                :class="{'form-control-danger': $v.title.$error}"
+                                class="form-control full-width" id="name">
 
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
-                                        * Name item must be filled
+                                <!--======================================================================================
+                                    V A L I D A T I O N     E R R O R   M E S S A G E S
+                                    ======================================================================================-->
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="name-required" class="text-danger" 
+                                    v-if="!$v.title.required && $v.title.$dirty">
+                                        Name is required
                                     </span>
-                                    <span class="text-danger" v-if="!$v.title.minLength">
-                                        * Minimum {{ $v.title.$params.minLength.min }} character
+                                    <span key="name-minimum" class="text-danger" 
+                                    v-else-if="!$v.title.minLength">
+                                        Name has a minimum of {{ $v.title.$params.minLength.min }} characters
                                     </span>
-                                    <span class="text-danger" v-if="!$v.title.maxLength">
-                                        * Maximum {{ $v.title.$params.maxLength.max }} character
+                                    <span key="name-maximum" class="text-danger" 
+                                    v-else-if="!$v.title.maxLength">
+                                        Name has a maximum of {{ $v.title.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
 
@@ -58,31 +74,24 @@
                                 <label class="m-0 pl-1" for="description">Description</label>
                             </div>
                             <div class="col-md-9">
-                                <textarea v-model="description" 
-                                          class="form-control full-width" id="description">
+                                <textarea v-model="description" class="form-control full-width" id="description">
                                 </textarea>
-
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.description.minLength">
-                                        * Minimum {{ $v.description.$params.minLength.min }} character
-                                    </span>
-                                    <span class="text-danger" v-if="!$v.title.maxLength">
-                                        * Maximum {{ $v.description.$params.maxLength.max }} character
-                                    </span>
-                                </transition>
                             </div>
                         </div>
 
                         <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" role="button"class="btn btn-success"@click="uploadImage">
-                                Save
+                            <button class="btn btn-danger"type="button" role="button" @click="closeAdd"> 
+                                Cancel
                             </button>
 
-                            <button class="btn btn-danger ml-2"type="button" role="button" @click="closeAdd"> 
-                                Cancel
+                            <button type="button" role="button"class="btn btn-success ml-2"
+                            @click="uploadImage" :disabled="isRequesting">
+                                <template v-if="isRequesting">
+                                    Saving..
+                                </template>
+                                <template v-else>
+                                    Save
+                                </template>
                             </button>
                         </div>
                     </div>
@@ -123,15 +132,14 @@
         },
 
         validations: {
+            image: {
+                required
+            },
             title: {
                 required,
                 minLength: minLength(3),
                 maxLength: maxLength(30)
             },
-            description:{
-                minLength: minLength(3),
-                maxLength: maxLength(100)
-            }
         },
 
         computed:{
@@ -143,8 +151,7 @@
                 return this.image != '' 
                     && this.title != '' 
                     && this.title.length >= 3
-                    && this.title.length <= 30
-                    && ( this.description == '' || (this.description.length >= 3 && this.description.length <= 100) )
+                    && this.title.length <= 50
              }
         },
 
@@ -243,6 +250,14 @@
                             });
                         });
                 }
+                else {
+                    this.dirtyAllInputs();
+                }
+            },
+
+            dirtyAllInputs(){
+                this.$v.image.$touch();
+                this.$v.title.$touch();
             },
 
             closeAdd(){
