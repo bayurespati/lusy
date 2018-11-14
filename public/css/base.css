@@ -14445,3 +14445,50 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
 .section-header-custom {
     width: 0;
 }
+
+.senno {
+  position: relative;
+  font-family: 'Sanchez', serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  color: white;
+  padding: 30px 44px;
+  margin: 0;
+  border: none;
+}
+
+.senno::before {
+  content: '\201C';
+  position: absolute;
+  bottom: 0;
+  left: -12px;
+  font-size: 6em;
+  font-style: italic;
+  color: #e6e6e6;
+  z-index: 1;
+}
+
+.senno footer {
+  position: absolute;
+  right: 0px;
+  bottom: 6px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: #d1d1d1;
+}
+
+.senno footer:before {
+  content: '\2015';
+}
+
+.senno:after {
+  content: '\201D';
+  position: absolute;
+  top: 44px;
+  right: 2px;
+  font-size: 6em;
+  font-style: italic;
+  color: #e6e6e6;
+  z-index: 1;
+}

@@ -1,12 +1,22 @@
 <footer class="footer-main container-fluid no-padding">
     <!-- Container -->
     <div class="container">
+        <!-- <div class="row"> -->
+            <!-- <div class="col-xs-12"> -->
+                <!-- <a title="Logo" href="{{ route('home') }}" class="navbar-brand"> -->
+                    <!-- <img src="{{ asset('img/logo-1.png') }}" alt="Lusy Wahyudi" style="width: 90px" /> -->
+                <!-- </a> -->
+            <!-- </div> -->
+        <!-- </div> -->
+
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <!-- Widget About -->
-                <aside class="ftr-widget widget_about">
-                    <a title="Logo" href="index.html" class="navbar-brand"><img src="{{ asset('img/logo-1.png') }}" alt="logo" style="width: 90px" /></a>
-                    <p>Not only beautiful flowers but also buds and withered flowers have life, and each has its own beauty. By arranging flowers with reverence, one refines oneself</p>
+            <div class="col-xs-offset-3 col-md-6 text-center">
+                <blockquote class="senno">
+                    Not only beautiful flowers but also buds and withered flowers have life, and each has its own beauty. By arranging flowers with reverence, one refines oneself
+                    <footer>Senno Ikenobo</footer>
+                </blockquote>
+
+                <div class="ftr-widget widget_about mt-4 mb-6">
                     <ul>
                         @if ($sosmed[2]->is_active === 1)
                         <li><a href="{{ $sosmed[2]->link }}" title="Instagram"><i class="fa fa-instagram"></i></a></li>
@@ -28,8 +38,7 @@
                         <li><a href="{{ $sosmed[0]->link }}" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         @endif
                     </ul>
-                </aside>
-                <!-- Widget About /- -->    
+                </div>
             </div>
         </div>
         <!-- Container /- -->

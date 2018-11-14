@@ -21,10 +21,6 @@
         color: white;
         font-weight: bold;
     }
-
-    .pb-160 {
-        padding-bottom: 80px
-    }
     
     .fade-in-loader {
         animation: fadeIn 0.1s ease-in forwards;
@@ -158,7 +154,7 @@
                         <!-- Content Area /- -->
                     </div>
 
-                    <nav id="event-pagination" class="ow-pagination text-center pb-160 fade-in">
+                    <nav id="event-pagination" class="ow-pagination text-center fade-in">
                         @if (count($upcomingEvents) > 0)
                         <ul id="pagination-list" class="pagination">
                             <li class="{{ ($upcomingEvents->currentPage() == 1) ? ' disabled' : '' }}">
