@@ -2066,7 +2066,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -15618,6 +15618,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -18311,9 +18312,11 @@ var render = function() {
     [
       _c("h3", [_vm._v("Gallery's Images Master")]),
       _vm._v(" "),
-      _c("p", [
+      _c("p", { staticClass: "mb-0" }, [
         _vm._v("Here you can manages images that are shown in Gallery page.")
       ]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Dimension: 480 x 500")]),
       _vm._v(" "),
       _c(
         "transition",

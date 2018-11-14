@@ -685,7 +685,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -1338,6 +1338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -2496,8 +2497,7 @@ var render = function() {
                     _c(
                       "label",
                       {
-                        staticClass:
-                          "btn btn-outline-primary btn btn-primary pt-1 pb-1 pr-2 pl-2",
+                        staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
                         attrs: { for: "file-2" }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
@@ -2800,9 +2800,11 @@ var render = function() {
     [
       _c("h3", [_vm._v("Classes Master")]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
+      _c("p", { staticClass: "mb-0" }, [
         _vm._v("Here you can manages info shown in About page.")
       ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-5" }, [_vm._v("Dimension: 470 x 600")]),
       _vm._v(" "),
       _c(
         "transition",

@@ -90,7 +90,7 @@
 						name: 'About',
 						subMenu:[
 							{ name: 'Profile', link: '/admin/about/profile' },
-							{ name: 'Clasess', link: '/admin/about/class' },
+							{ name: 'Classes', link: '/admin/about/class' },
 							{ name: 'Gallery Showcase', link: '/admin/about/showcase' },
 							{ name: 'Shop Showcase', link: '/admin/about/shop-showcase' },
 						]

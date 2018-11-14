@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="card text-center">
 				<div class="col-md-12">
-					<h4 class="title font-weight-bold mb-5">Add Shopƒ Item</h4>
+					<h4 class="title mb-5">Add New <strong>Shop Item</strong></h4>
 				</div>
 
 				<div class="col-md-12 d-flex">
@@ -168,9 +168,6 @@
                             <span class="text-danger" v-if="!$v.input.store_link.minLength">
                             	Link has minimum of {{ $v.input.store_link.$params.minLength.min }} character
                             </span>
-                            <span class="text-danger" v-if="!$v.input.store_link.maxLength">
-                            	Link has maximum of {{ $v.input.store_link.$params.maxLength.max }} character
-                        	</span>
                     	</transition>
 
 						</div>
@@ -235,11 +232,10 @@
                 sub_title:{
                 	required,
                     minLength: minLength(3),
-                    maxLength: maxLength(30)
+                    maxLength: maxLength(50)
                 },
                 store_link: {
                 	minLength: minLength(5),
-                	maxLength: maxLength(30),
                 },
                 stock: {
                     required,
@@ -264,11 +260,11 @@
 					&& this.input.title.length <= 50
 					&& this.input.sub_title != ''
 					&& this.input.sub_title.length >= 3
-					&& this.input.sub_title.length <= 30
+					&& this.input.sub_title.length <= 50
 					&& this.input.stock != ''
 					&& this.input.price != ''
 					&& this.input.is_displayed != ''
-					&& (this.input.store_link == '' || (this.input.store_link.length >= 5 && this.input.store_link.length <= 30) )
+					&& (this.input.store_link == '' || (this.input.store_link.length >= 5 ))
 			},
 
 			is_subCat(){

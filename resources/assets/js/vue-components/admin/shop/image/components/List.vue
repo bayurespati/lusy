@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h3 class="text-uppercase">{{ item.title }} IMAGE LIST MASTER</h3>
-    <p class="mb-5">This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in {{ item.title }} single page</p>
+    <p class="mb-0">This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in {{ item.title }} single page</p>
+    <p class="mb-5">Dimension: 470 x 600</p>
     
     <ul class="breadcrumb">
       <li><a href="/admin/shop/list">{{ item.title }}</a></li>

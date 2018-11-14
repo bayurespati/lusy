@@ -83,7 +83,7 @@
       this.setUpCroppie();
     },
 
-    compouted:{
+    computed:{
       isEdited(){
         return this.image != this.profile.image_path
             || this.content != this.profile.content 

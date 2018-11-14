@@ -801,7 +801,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -2797,9 +2797,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2836,11 +2833,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 												sub_title: {
 																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
 												},
 												store_link: {
-																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5),
-																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
 												},
 												stock: {
 																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -2858,7 +2854,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 								categories: 'getCategories'
 				}), {
 								isFormFilled: function isFormFilled() {
-												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 30 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5 && this.input.store_link.length <= 30);
+												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 50 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
 								},
 								is_subCat: function is_subCat() {
 												if (this.category !== '' && this.subcategories.length >= 1) {
@@ -3461,18 +3457,6 @@ var render = function() {
                               " character\n                            "
                           )
                         ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.input.store_link.maxLength
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tLink has maximum of " +
-                              _vm._s(
-                                _vm.$v.input.store_link.$params.maxLength.max
-                              ) +
-                              " character\n                        \t"
-                          )
-                        ])
                       : _vm._e()
                   ]
                 )
@@ -3557,8 +3541,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c("h4", { staticClass: "title font-weight-bold mb-5" }, [
-        _vm._v("Add Shopƒ Item")
+      _c("h4", { staticClass: "title mb-5" }, [
+        _vm._v("Add New "),
+        _c("strong", [_vm._v("Shop Item")])
       ])
     ])
   }
@@ -4209,9 +4194,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
@@ -4262,8 +4244,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
             },
             store_link: {
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
             },
             stock: {
                 required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -4284,7 +4265,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
         },
         isFormFilled: function isFormFilled() {
-            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 30 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5 && this.input.store_link.length <= 30);
+            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 30 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
         },
         is_subCat: function is_subCat() {
             if (this.subcat.length >= 1) {
@@ -4390,8 +4371,9 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("h3", { staticClass: "text-center font-weight-bold mb-3" }, [
-              _vm._v("Edit " + _vm._s(_vm.shop.title))
+            _c("h3", { staticClass: "text-center mb-3" }, [
+              _vm._v("Edit "),
+              _c("strong", [_vm._v(_vm._s(_vm.shop.title))])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
@@ -5137,19 +5119,6 @@ var render = function() {
                                   _vm._s(
                                     _vm.$v.input.store_link.$params.minLength
                                       .min
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.input.store_link.maxLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Link has maximum of " +
-                                  _vm._s(
-                                    _vm.$v.input.store_link.$params.maxLength
-                                      .max
                                   ) +
                                   " character\n                            "
                               )

@@ -4,7 +4,7 @@
                 mode="out-in">
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_shop">
             <div class="panel-body">
-                <h3 class="text-center font-weight-bold mb-3">Edit {{ shop.title }}</h3>
+                <h3 class="text-center mb-3">Edit <strong>{{ shop.title }}</strong></h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                     <div class="col-sm-12 d-flex form-group">
@@ -196,9 +196,6 @@
                                 <span class="text-danger" v-if="!$v.input.store_link.minLength">
                                     Link has minimum of {{ $v.input.store_link.$params.minLength.min }} character
                                 </span>
-                                <span class="text-danger" v-if="!$v.input.store_link.maxLength">
-                                    Link has maximum of {{ $v.input.store_link.$params.maxLength.max }} character
-                                </span>
                             </transition>
                         </div>
                     </div>
@@ -283,7 +280,6 @@
                 },
                 store_link: {
                     minLength: minLength(5),
-                    maxLength: maxLength(30),
                 },
                 stock: {
                     required,
@@ -324,7 +320,7 @@
                     && this.input.stock != ''
                     && this.input.price != ''
                     && this.input.is_displayed != ''
-                    && (this.input.store_link == '' || (this.input.store_link.length >= 5 && this.input.store_link.length <= 30) )
+                    && (this.input.store_link == '' || (this.input.store_link.length >= 5) )
             },
 
             is_subCat(){

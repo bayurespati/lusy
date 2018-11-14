@@ -644,7 +644,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -1338,6 +1338,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -1593,7 +1594,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    compouted: {
+    computed: {
         isEdited: function isEdited() {
             return this.image != this.profile.image_path || this.content != this.profile.content || this.title != this.profile.title;
         }
@@ -1887,9 +1888,11 @@ var render = function() {
     [
       _c("h3", [_vm._v("Profile Master")]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
-        _vm._v("Here you can managess info shown in Home and About pages.")
+      _c("p", { staticClass: "mb-0" }, [
+        _vm._v("Here you can manages info shown in Home and About pages.")
       ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-5" }, [_vm._v("Dimension: 323 x 520")]),
       _vm._v(" "),
       _c(
         "transition",

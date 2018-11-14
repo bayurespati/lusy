@@ -782,7 +782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -3466,6 +3466,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -5998,13 +5999,15 @@ var render = function() {
         _vm._v(_vm._s(_vm.item.title) + " IMAGE LIST MASTER")
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
+      _c("p", { staticClass: "mb-0" }, [
         _vm._v(
           "This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in " +
             _vm._s(_vm.item.title) +
             " single page"
         )
       ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-5" }, [_vm._v("Dimension: 470 x 600")]),
       _vm._v(" "),
       _c("ul", { staticClass: "breadcrumb" }, [
         _c("li", [

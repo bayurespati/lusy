@@ -16,7 +16,7 @@
               id="file-2"
               class="inputfile"
               @change="setUpFileUploader">
-              <label for="file-2" class="btn btn-outline-primary btn btn-primary pt-1 pb-1 pr-2 pl-2">
+              <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                 <span>Browse Image</span>
               </label>              
             </div>

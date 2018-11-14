@@ -786,7 +786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Clasess', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -2298,6 +2298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
 //
 //
 //
@@ -4319,13 +4320,15 @@ var render = function() {
         _vm._v(_vm._s(_vm.event.title) + " IMAGE LIST MASTER")
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
+      _c("p", { staticClass: "mb-0" }, [
         _vm._v(
           "This is where you can manage images shown in the event's poster shown in Events & Activities page and event's images shown in " +
             _vm._s(_vm.event.title) +
             " single page"
         )
       ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-5" }, [_vm._v("Dimension: 480 x 500")]),
       _vm._v(" "),
       _c("ul", { staticClass: "breadcrumb" }, [
         _c("li", [

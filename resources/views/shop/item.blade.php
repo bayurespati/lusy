@@ -194,7 +194,7 @@
 
                     <span class="item-price-detail">IDR {{ $shopItem->price }}</span>
                     
-                    <p>{!! nl2br(e($shopItem->description)) !!}</p>
+                    <p class="mt-5">{!! $shopItem->description !!}</p>
 
                     <p class="m-0">Stock: {{ $shopItem->stock }}</p>
 

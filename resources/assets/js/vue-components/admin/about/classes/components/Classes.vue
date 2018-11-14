@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h3>Classes Master</h3>
-    <p class="mb-5">Here you can manages info shown in About page.</p>
+    <p class="mb-0">Here you can manages info shown in About page.</p>
+    <p class="mb-5">Dimension: 470 x 600</p>
 
     <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
       <template v-if="!isAddClass">
