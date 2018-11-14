@@ -11,7 +11,7 @@
                     <div class="col-3 d-flex align-items-center justify-content-star">
                         <div>
                             <p class="small text-uppercase mb-0">
-                                <strong>Nama</strong>
+                                <strong>Name</strong>
                             </p>
                         
                             <div class="detail">
@@ -35,7 +35,7 @@
                     <div class="col-2 d-flex justify-content-center align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0 text-center">
-                                <strong>Kontak</strong>
+                                <strong>Phone number</strong>
                             </p>
                         
                             <div class="detail">
@@ -52,7 +52,7 @@
                             </p>
                             
                             <div class="detail">
-                                <p class="mb-0 text-center">{{ item.is_approve === 1 || item.is_approve === true ? 'Disetujui' : 'Menunggu' }}</p>
+                                <p class="mb-0 text-center">{{ item.is_approve === 1 || item.is_approve === true ? 'Approve' : 'Waiting' }}</p>
                             </div>
                         </div>
                     </div>
@@ -61,12 +61,12 @@
                         <button type="button" 
                         class="btn btn-success btn-sm" 
                         @click="editItem">
-                            Setujui
+                            Approve
                         </button>
                         <button type="button" 
                         class="btn btn-danger btn-sm ml-2" 
                         @click="deleteItem">
-                            Tolak
+                            Reject
                         </button>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
 
                         .then((updatedItem) => {
 
-                            flash('Applicant Berhasil disetujui', 'success');
+                            flash('Applicant approved', 'success');
 
                             self.isRequesting = false;
 

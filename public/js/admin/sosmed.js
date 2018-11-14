@@ -149,6 +149,224 @@ function toComment(sourceMap) {
 /***/ }),
 
 /***/ 10:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            notifications: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('flash', function (message, type) {
+            _this.flash(message, type, 3500);
+        });
+    },
+
+
+    computed: {
+        notificationExists: function notificationExists() {
+            return this.notifications.length > 0;
+        }
+    },
+
+    methods: {
+        flash: function flash(message) {
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+            if (this.notifications.length === 8) {
+                this.hide(0);
+            }
+
+            this.display(message, type);
+
+            this.hide(duration);
+        },
+        display: function display(message, type) {
+            this.notifications.push({
+                body: message,
+                type: type,
+                alertClass: this.getAlertClass(type),
+                alertIcon: this.getAlertIcon(type)
+            });
+        },
+        hide: function hide(duration) {
+            var _this2 = this;
+
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            setTimeout(function () {
+                _this2.notifications.splice(index, 1);
+            }, duration);
+        },
+        getAlertClass: function getAlertClass(type) {
+            return 'alert-' + type;
+        },
+        getAlertIcon: function getAlertIcon(type) {
+            if (type === 'success') {
+                return 's7-check';
+            } else if (type === 'danger') {
+                return 's7-less';
+            } else if (type === 'info') {
+                return 's7-info';
+            } else if (type === 'warning') {
+                return 's7-attention';
+            } else {
+                return '';
+            }
+        },
+        getBottomPosition: function getBottomPosition(index) {
+            var margin = 10;
+            var notificationHeight = 60;
+
+            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 107:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(170);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        sosmeds: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getSosmed: function getSosmed(state) {
+            return state.sosmeds;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_sosmed: function set_sosmed(state, sosmeds) {
+            state.sosmeds = sosmeds;
+        },
+
+        edit_sosmed: function edit_sosmed(state, updatedSosmed) {
+
+            var sosmedIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSosmed(updatedSosmed.id);
+
+            state.sosmeds[sosmedIndex].is_active = updatedSosmed.is_active;
+            state.sosmeds[sosmedIndex].link = updatedSosmed.link;
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_sosmed: function load_sosmed(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/data/sosmed').then(function (response) {
+                commit('set_sosmed', response.data);
+            });
+        },
+
+        update_sosmed: function update_sosmed(_ref2, updatedSosmed) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/home/edit/sosmed/' + updatedSosmed.id, {
+                    id: updatedSosmed.id,
+                    is_active: updatedSosmed.is_active,
+                    link: updatedSosmed.link
+                }).then(function (response) {
+                    commit('edit_sosmed', updatedSosmed);
+
+                    resolve(updatedSosmed);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -240,100 +458,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 107:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(170);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        sosmeds: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getSosmed: function getSosmed(state) {
-            return state.sosmeds;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_sosmed: function set_sosmed(state, sosmeds) {
-            state.sosmeds = sosmeds;
-        },
-
-        edit_sosmed: function edit_sosmed(state, updatedSosmed) {
-
-            var sosmedIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSosmed(updatedSosmed.id);
-
-            state.sosmeds[sosmedIndex].is_active = updatedSosmed.is_active;
-            state.sosmeds[sosmedIndex].link = updatedSosmed.link;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_sosmed: function load_sosmed(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/sosmed').then(function (response) {
-                commit('set_sosmed', response.data);
-            });
-        },
-
-        update_sosmed: function update_sosmed(_ref2, updatedSosmed) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/home/edit/sosmed/' + updatedSosmed.id, {
-                    id: updatedSosmed.id,
-                    is_active: updatedSosmed.is_active,
-                    link: updatedSosmed.link
-                }).then(function (response) {
-                    commit('edit_sosmed', updatedSosmed);
-
-                    resolve(updatedSosmed);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 11:
+/***/ 12:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(12)
+  __webpack_require__(13)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(14)
+var __vue_script__ = __webpack_require__(15)
 /* template */
-var __vue_template__ = __webpack_require__(15)
+var __vue_template__ = __webpack_require__(16)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -373,13 +510,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 12:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(13);
+var content = __webpack_require__(14);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -400,7 +537,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 13:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -415,7 +552,7 @@ exports.push([module.i, "\na[data-v-16f575a0]{\n\t\tcursor: pointer;\n}\n.notifi
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -632,152 +769,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("nav", { attrs: { id: "sidebar" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "list-unstyled components" },
-      _vm._l(_vm.menus, function(menu) {
-        return _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-toggle",
-              class: { "active-forced": _vm.menuName === menu.id },
-              attrs: {
-                href: "#" + menu.id,
-                "data-toggle": "collapse",
-                "aria-expanded": { true: _vm.menuName === menu.id }
-              }
-            },
-            [
-              _vm._v("\n\t        \t" + _vm._s(menu.name) + "\n\t        \t"),
-              (_vm.potentialTotal > 0 ||
-                _vm.messageTotal > 0 ||
-                _vm.applicantTotal > 0) &&
-              menu.id === "bookkeeping"
-                ? _c("span", {
-                    staticClass: "notification-dot fa fa-circle ml-2"
-                  })
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "ul",
-            {
-              staticClass: "collapse list-unstyled",
-              class: { show: _vm.menuName === menu.id },
-              attrs: { id: menu.id }
-            },
-            _vm._l(menu.subMenu, function(submenu) {
-              return _c("li", [
-                _c(
-                  "a",
-                  {
-                    class: {
-                      "active-forced": _vm.subMenuName === submenu.link
-                    },
-                    staticStyle: { position: "relative" },
-                    attrs: { href: submenu.link }
-                  },
-                  [
-                    _vm._v(
-                      " " + _vm._s(submenu.name) + "\n\n                       "
-                    ),
-                    _vm.applicantTotal > 0 &&
-                    submenu.link === "/admin/bookkeeping/applicant-event"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.applicantTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm.potentialTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
-                            )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
-                  ]
-                )
-              ])
-            })
-          )
-        ])
-      })
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sidebar-header" }, [
-      _c("a", { attrs: { href: "/" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-16f575a0", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -793,9 +784,9 @@ module.exports = __webpack_require__(154);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Sosmed_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(107);
 
@@ -1010,6 +1001,152 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("nav", { attrs: { id: "sidebar" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "list-unstyled components" },
+      _vm._l(_vm.menus, function(menu) {
+        return _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-toggle",
+              class: { "active-forced": _vm.menuName === menu.id },
+              attrs: {
+                href: "#" + menu.id,
+                "data-toggle": "collapse",
+                "aria-expanded": { true: _vm.menuName === menu.id }
+              }
+            },
+            [
+              _vm._v("\n\t        \t" + _vm._s(menu.name) + "\n\t        \t"),
+              (_vm.potentialTotal > 0 ||
+                _vm.messageTotal > 0 ||
+                _vm.applicantTotal > 0) &&
+              menu.id === "bookkeeping"
+                ? _c("span", {
+                    staticClass: "notification-dot fa fa-circle ml-2"
+                  })
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            {
+              staticClass: "collapse list-unstyled",
+              class: { show: _vm.menuName === menu.id },
+              attrs: { id: menu.id }
+            },
+            _vm._l(menu.subMenu, function(submenu) {
+              return _c("li", [
+                _c(
+                  "a",
+                  {
+                    class: {
+                      "active-forced": _vm.subMenuName === submenu.link
+                    },
+                    staticStyle: { position: "relative" },
+                    attrs: { href: submenu.link }
+                  },
+                  [
+                    _vm._v(
+                      " " + _vm._s(submenu.name) + "\n\n                       "
+                    ),
+                    _vm.applicantTotal > 0 &&
+                    submenu.link === "/admin/bookkeeping/applicant-event"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.applicantTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.potentialTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/potential"
+                        ? _c("div", { staticClass: "notification-dot-left" }, [
+                            _c("span", [
+                              _vm._v(
+                                "\n                    \t\t\t" +
+                                  _vm._s(_vm.potentialTotal) +
+                                  "\n                    \t\t"
+                              )
+                            ])
+                          ])
+                        : _vm.messageTotal > 0 &&
+                          submenu.link === "/admin/bookkeeping/message"
+                          ? _c(
+                              "div",
+                              { staticClass: "notification-dot-left" },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                    \t\t\t" +
+                                      _vm._s(_vm.messageTotal) +
+                                      "\n                    \t\t"
+                                  )
+                                ])
+                              ]
+                            )
+                          : _vm.memberTotal > 0 &&
+                            submenu.link ===
+                              "/admin/bookkeeping/applicant-member"
+                            ? _c(
+                                "div",
+                                { staticClass: "notification-dot-left" },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    \t\t\t" +
+                                        _vm._s(_vm.memberTotal) +
+                                        "\n                    \t\t"
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                  ]
+                )
+              ])
+            })
+          )
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sidebar-header" }, [
+      _c("a", { attrs: { href: "/" } }, [_c("h3", [_vm._v("Lusy Wahyudi")])])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-16f575a0", module.exports)
+  }
+}
 
 /***/ }),
 
@@ -1818,7 +1955,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(5)
+var listToStyles = __webpack_require__(6)
 
 /*
 type StyleObject = {
@@ -3084,7 +3221,7 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /***/ (function(module, exports) {
 
 /**
@@ -3118,19 +3255,19 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(7)
+  __webpack_require__(8)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(9)
+var __vue_script__ = __webpack_require__(10)
 /* template */
-var __vue_template__ = __webpack_require__(10)
+var __vue_template__ = __webpack_require__(11)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3170,13 +3307,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(8);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3197,7 +3334,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -3209,143 +3346,6 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 
 // exports
 
-
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
-    }
-});
 
 /***/ })
 

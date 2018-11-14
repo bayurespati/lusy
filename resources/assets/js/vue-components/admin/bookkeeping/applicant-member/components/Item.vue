@@ -43,7 +43,7 @@
                     <div class="col-3 d-flex justify-content-center align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0">
-                                <strong>Mobile</strong>
+                                <strong>Phone Number</strong>
                             </p>
                         
                             <div class="detail text-center">

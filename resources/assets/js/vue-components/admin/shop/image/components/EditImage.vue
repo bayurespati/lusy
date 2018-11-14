@@ -20,6 +20,11 @@
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <p class="text-danger" v-if="!$v.input.image.required && $v.image.$dirty">
+                                    Image is required
+                                </p>
+                            </transition>
                         </div>
                     </div>
 
@@ -36,6 +41,7 @@
                                 class="form-control form-control-sm"
                                 @keyup.enter="editImage"
                                 @input="$v.input.title.$touch()"
+                                :class="{'form-control-danger': $v.input.title.$error}"
                                 placeholder="Image Name" 
                                 v-model="input.title">
 
@@ -44,13 +50,13 @@
                                 ======================================================================================-->
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
-                                        * Name item must be filled
+                                        Name is required
                                     </span>
                                     <span class="text-danger" v-if="!$v.input.title.minLength">
-                                        * Minimum {{ $v.input.title.$params.minLength.min }} character
+                                        Name has minimum of {{ $v.input.title.$params.minLength.min }} character
                                     </span>
                                     <span class="text-danger" v-if="!$v.input.title.maxLength">
-                                        * Maximum {{ $v.input.title.$params.maxLength.max }} character
+                                        Name has maximum of {{ $v.input.title.$params.maxLength.max }} character
                                     </span>
                                 </transition>
 
@@ -111,6 +117,9 @@
                     minLength: minLength(3),
                     maxLength: maxLength(30)
                 },
+                image:{
+                    required,
+                }
             },
         },
 
@@ -220,12 +229,20 @@
                         .catch(errors => {
                             self.isRequesting = false;
                         });
+                }else{
+                    this.diryAllInputs();
                 }
             },
 
             closeEditForm() {
                 this.$emit('editionFormIsClosed', false);
-            }
+            },
+
+            diryAllInputs(){
+                this.$v.input.title.$touch();
+                this.$v.input.image.$touch();
+            },
+
         },
     };
 </script>

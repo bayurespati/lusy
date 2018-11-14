@@ -20,7 +20,7 @@ class CreateShopItemsTable extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->integer('stock');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->double('price');
             $table->string('store_link')->nullable();
             $table->boolean('is_displayed');
