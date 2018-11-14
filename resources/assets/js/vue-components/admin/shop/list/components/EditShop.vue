@@ -9,29 +9,61 @@
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="title"
-                                   class="form-control-label panel-font-small m-0">
-                                Nama
+                            <label for="title"class="form-control-label panel-font-small m-0">
+                                Name
                             </label>
-                            <input id="title"
-                                   type="text"
+                            <input id="title" type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   @input="$v.input.title.$touch()"
                                    :placeholder="shop.title" 
                                    v-model="input.title">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
+                                    * Item name must be filled
+                                </span>
+                                <span class="text-danger" v-if="!$v.input.title.minLength">
+                                    * Minimum {{ $v.input.title.$params.minLength.min }} character
+                                </span>
+                                <span class="text-danger" v-if="!$v.input.title.maxLength">
+                                    * Maximum {{ $v.input.title.$params.maxLength.max }} character
+                                </span>
+                            </transition>
+
                         </div>
+
                         <div class="col-sm-6 col-xs-12 text-center">
                             <label for="sub_title"
                                    class="form-control-label panel-font-small m-0">
-                                Sub Nama
+                                Sub name
                             </label>
 
-                            <input id="sub_title"
-                                   type="text"
+                            <input id="sub_title" type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   @input="$v.input.sub_title.$touch()"
                                    :placeholder="shop.sub_title"
                                    v-model="input.sub_title">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <span class="text-danger" v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
+                                    * Sub name item must be filled
+                                </span>
+                                <span class="text-danger" v-if="!$v.input.sub_title.minLength">
+                                    * Minimum {{ $v.input.sub_title.$params.minLength.min }} character
+                                </span>
+                                <span class="text-danger" v-if="!$v.input.sub_title.maxLength">
+                                    * Maximum {{ $v.input.sub_title.$params.maxLength.max }} character
+                                </span>
+                            </transition>
+
                         </div>
                     </div>
 
@@ -39,57 +71,84 @@
                         <div class="col-sm-6 col-xs-12 text-center">
                             <label for="price"
                                    class="form-control-label panel-font-small m-0">
-                                Harga
+                                Price
                             </label>
                             
-                            <input id="price"
-                                   type="number"
+                            <input id="price" type="number"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   @input="$v.input.price.$touch()"
                                    :placeholder="shop.price"
                                    v-model="input.price">
+                        <!--======================================================================================
+                            V A L I D A T I O N     E R R O R   M E S S A G E S
+                            ======================================================================================-->
+                        <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                            <span class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
+                                * Price  must be filled
+                            </span>
+                        </transition>
                         </div>
+
                         <div class="col-sm-6 col-xs-12 text-center">
                             <label for="stock"
                                    class="form-control-label panel-font-small m-0">
-                                Stok
+                                Stock
                             </label>
 
-                            <input id="stock"
-                                   type="number"
+                            <input id="stock" type="number"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
+                                   @input="$v.input.stock.$touch()"
                                    :placeholder="shop.stock"
                                    v-model="input.stock">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <span class="text-danger" v-if="!$v.input.stock.required && $v.input.stock.$dirty">
+                                    * Stock must be filled
+                                </span>
+                            </transition>
+
                         </div>
                     </div>
 
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="category"
-                                   class="form-control-label panel-font-small m-0">
-                                Kategori
+                            <label for="category"class="form-control-label panel-font-small m-0">
+                                Category
                             </label>
 
-                            <select class="form-control" id="category" v-model="category_id"> 
+                            <select class="form-control" id="category" 
+                                    @input="$v.category_id.$touch()" v-model="category_id"> 
                                 <option v-for="category in categories" 
                                         :value=category.id> {{ category.title }}
                                 </option>
                             </select>
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R    M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.category_id.required && $v.category_id.$dirty">
+                                        * Category must be filled
+                                    </span>
+                                </transition>
                         </div>
 
-                        <transition enterActiveClass="fade-in-down"
-                        leaveActiveClass="fade-out-up"
-                        mode="out-in">
+                        <transition enterActiveClass="fade-in-down"leaveActiveClass="fade-out-up"mode="out-in">
                             <div class="col-sm-6 col-xs-12 text-center" v-if="isMoreOne">
-                                <label for="subcategory"
-                                class="form-control-label panel-font-small m-0">
-                                    Subkategori
+                                <label for="subcategory"class="form-control-label panel-font-small m-0">
+                                    Subcategory
                                 </label>
 
                                 <select class="form-control" id="subcategory" v-model.lazy="input.sub_category_id">
-                                    <option value="">Pilih Subkategori</option>
-                                    <option v-for="subcategory in subcat" :value=subcategory.id> {{ subcategory.title }} </option>
+                                    <option value="" disabled>Choose Subkategori</option>
+                                    <option v-for="subcategory in subcat" 
+                                            :value=subcategory.id> {{ subcategory.title }} 
+                                    </option>
                                 </select>
                             </div>
                         </transition>
@@ -99,15 +158,30 @@
                         <div class="col-sm-12 text-center">
                             <label for="description"
                                    class="form-control-label panel-font-small m-0">
-                                Deskripsi Item
+                                Desciption
                             </label>
 
                             <textarea class="form-control form-control-sm normal-placeholder" 
-                                      id="description"
-                                      rows="10"
+                                      id="description"rows="10"
+                                      @input="$v.input.description.$touch()"
                                       :placeholder="shop.description"
                                       v-model="input.description">
                             </textarea>
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.input.description.required && $v.input.description.$dirty">
+                                        * Description item must be filled
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.input.description.minLength">
+                                        * Minimum {{ $v.input.description.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.input.description.maxLength">
+                                        * Maximum {{ $v.input.description.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
                         </div>
                     </div>
 
@@ -115,15 +189,26 @@
                         <div class="col-sm-12 text-center">
                             <label for="link"
                                    class="form-control-label panel-font-small m-0">
-                                Link Toko Online
+                                Link online shop
                             </label>
                             
-                            <input id="link"
-                                   type="text"
+                            <input id="link"type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editShop"
                                    :placeholder="shop.store_link"
                                    v-model="input.store_link">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <span class="text-danger" v-if="!$v.input.store_link.minLength">
+                                    * Minimum {{ $v.input.store_link.$params.minLength.min }} character
+                                </span>
+                                <span class="text-danger" v-if="!$v.input.store_link.maxLength">
+                                    * Maximum {{ $v.input.store_link.$params.maxLength.max }} character
+                                </span>
+                            </transition>
                         </div>
                     </div>
 
@@ -136,21 +221,18 @@
                                 </label>
                             </div>
 
-                            <input type="radio" :name=shop.id  value=1 v-model="input.is_displayed"> Tampilkan
-                            <input type="radio" :name=shop.id  value=0 v-model="input.is_displayed" class="ml-2"> Sembunyikan
+                            <input type="radio" :name=shop.id  value=1 v-model="input.is_displayed"> Show
+                            <input type="radio" :name=shop.id  value=0 v-model="input.is_displayed" class="ml-2"> Hide
                         </div>
                     </div>
                     
                     <div class="col-sm-12 d-flex justify-content-center mt-2">
-                        <button type="button" 
-                        class="btn btn-secondary btn-sm"
-                        @click="closeEditForm">
-                            Batal
+                        <button type="button" class="btn btn-secondary btn-sm"@click="closeEditForm">
+                            Cancel
                         </button>
 
-                        <button @click="editShop"
-                        class="btn btn-success btn-sm ml-2">
-                            Simpan
+                        <button @click="editShop"class="btn btn-success btn-sm ml-2">
+                            Save
                         </button>
                     </div>
                 </div>
@@ -160,6 +242,7 @@
 </template>
 
 <script>
+    import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
     export default{
 
@@ -185,7 +268,7 @@
                     stock : this.shop.stock,
                     description : this.shop.description,
                     price : this.shop.price,
-                    store_link : this.shop.store_link,
+                    store_link : this.shop.store_link === null ? '' : this.shop.store_link,
                     is_displayed : this.shop.is_displayed
                 }
             }   
@@ -193,6 +276,39 @@
 
         mounted(){
             this.setSubcategory();
+        },
+
+        validations: {
+            input: {
+                title: {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(20)
+                },
+                sub_title:{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(20)
+                },
+                store_link: {
+                    minLength: minLength(5),
+                    maxLength: maxLength(20),
+                },
+                description: {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(100)
+                },
+                stock: {
+                    required,
+                },
+                price:{
+                    required,
+                },
+            },
+            category_id:{
+                    required
+            }
         },
 
         computed: {
@@ -212,11 +328,27 @@
                     || this.shop.is_displayed !== this.input.is_displayed;
             },
 
+            isFormFilled(){
+                return this.input.title != ''
+                    && this.input.title.length >= 3
+                    && this.input.title.length <= 20
+                    && this.input.sub_title != ''
+                    && this.input.sub_title.length >= 3
+                    && this.input.sub_title.length <= 20
+                    && this.input.description != ''
+                    && this.input.description.length >= 3
+                    && this.input.description.length <= 100
+                    && this.input.stock != ''
+                    && this.input.price != ''
+                    && this.input.is_displayed != ''
+                    && (this.input.store_link == '' || (this.input.store_link.length >= 5 && this.input.store_link.length <= 20) )
+            },
+
             is_subCat(){
                 if(this.subcat.length >= 1){
                     return this.input.sub_category_id != '';
                 }else{
-                    return this.input.sub_category_id == '';
+                    return this.input.sub_category_id == '' ||  this.input.sub_category_id == null;
                 }
             }
         },
@@ -235,9 +367,11 @@
 
             editShop(){
 
+                console.log(this.shopIsEdited, this.is_subCat, this.isFormFilled);
+
                 const self = this;
 
-                if (this.shopIsEdited && this.is_subCat) {
+                if (this.shopIsEdited && this.is_subCat && this.isFormFilled && !this.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -258,7 +392,9 @@
 
                         .then((updatedShop) => {
 
-                            flash('Shop item Berhasil diperbaharui', 'success');
+                            flash('Shop item updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })

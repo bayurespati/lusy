@@ -269,10 +269,6 @@
             }
         },
 
-		components:{
-			
-		},
-
 		computed:{
 			...mapGetters({
 				categories: 'getCategories',

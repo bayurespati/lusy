@@ -2392,107 +2392,6 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pushParams = pushParams;
-exports.popParams = popParams;
-exports.withParams = withParams;
-exports._setTarget = exports.target = void 0;
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var stack = [];
-var target = null;
-exports.target = target;
-
-var _setTarget = function _setTarget(x) {
-  exports.target = target = x;
-};
-
-exports._setTarget = _setTarget;
-
-function pushParams() {
-  if (target !== null) {
-    stack.push(target);
-  }
-
-  exports.target = target = {};
-}
-
-function popParams() {
-  var lastTarget = target;
-  var newTarget = exports.target = target = stack.pop() || null;
-
-  if (newTarget) {
-    if (!Array.isArray(newTarget.$sub)) {
-      newTarget.$sub = [];
-    }
-
-    newTarget.$sub.push(lastTarget);
-  }
-
-  return lastTarget;
-}
-
-function addParams(params) {
-  if (_typeof(params) === 'object' && !Array.isArray(params)) {
-    exports.target = target = _objectSpread({}, target, params);
-  } else {
-    throw new Error('params must be an object');
-  }
-}
-
-function withParamsDirect(params, validator) {
-  return withParamsClosure(function (add) {
-    return function () {
-      add(params);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return validator.apply(this, args);
-    };
-  });
-}
-
-function withParamsClosure(closure) {
-  var validator = closure(addParams);
-  return function () {
-    pushParams();
-
-    try {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      return validator.apply(this, args);
-    } finally {
-      popParams();
-    }
-  };
-}
-
-function withParams(paramsOrClosure, maybeValidator) {
-  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
-    return withParamsDirect(paramsOrClosure, maybeValidator);
-  }
-
-  return withParamsClosure(paramsOrClosure);
-}
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 Object.defineProperty(exports, "alpha", {
   enumerable: true,
   get: function get() {
@@ -2670,6 +2569,107 @@ exports.helpers = helpers;
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pushParams = pushParams;
+exports.popParams = popParams;
+exports.withParams = withParams;
+exports._setTarget = exports.target = void 0;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var stack = [];
+var target = null;
+exports.target = target;
+
+var _setTarget = function _setTarget(x) {
+  exports.target = target = x;
+};
+
+exports._setTarget = _setTarget;
+
+function pushParams() {
+  if (target !== null) {
+    stack.push(target);
+  }
+
+  exports.target = target = {};
+}
+
+function popParams() {
+  var lastTarget = target;
+  var newTarget = exports.target = target = stack.pop() || null;
+
+  if (newTarget) {
+    if (!Array.isArray(newTarget.$sub)) {
+      newTarget.$sub = [];
+    }
+
+    newTarget.$sub.push(lastTarget);
+  }
+
+  return lastTarget;
+}
+
+function addParams(params) {
+  if (_typeof(params) === 'object' && !Array.isArray(params)) {
+    exports.target = target = _objectSpread({}, target, params);
+  } else {
+    throw new Error('params must be an object');
+  }
+}
+
+function withParamsDirect(params, validator) {
+  return withParamsClosure(function (add) {
+    return function () {
+      add(params);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return validator.apply(this, args);
+    };
+  });
+}
+
+function withParamsClosure(closure) {
+  var validator = closure(addParams);
+  return function () {
+    pushParams();
+
+    try {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return validator.apply(this, args);
+    } finally {
+      popParams();
+    }
+  };
+}
+
+function withParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return withParamsDirect(paramsOrClosure, maybeValidator);
+  }
+
+  return withParamsClosure(paramsOrClosure);
+}
 
 /***/ }),
 /* 64 */,
@@ -11675,7 +11675,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var withParams = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(77).withParams : __webpack_require__(62).withParams;
+var withParams = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(77).withParams : __webpack_require__(63).withParams;
 var _default = withParams;
 exports.default = _default;
 
@@ -12243,7 +12243,7 @@ exports.default = exports.validationMixin = void 0;
 
 var _vval = __webpack_require__(99);
 
-var _params = __webpack_require__(62);
+var _params = __webpack_require__(63);
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -13785,7 +13785,7 @@ exports.push([module.i, "\n.card[data-v-73ef92e6] {\n\tflex-direction: unset;\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(71);
@@ -14182,7 +14182,7 @@ var render = function() {
                     !_vm.$v.input.title.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(_vm.$v.input.title.$params.minLength.min) +
                               " character\n                            "
                           )
@@ -14192,7 +14192,7 @@ var render = function() {
                     !_vm.$v.input.title.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(_vm.$v.input.title.$params.maxLength.max) +
                               " character\n                        \t"
                           )
@@ -14263,7 +14263,7 @@ var render = function() {
                     !_vm.$v.input.organiser.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.organiser.$params.minLength.min
                               ) +
@@ -14275,7 +14275,7 @@ var render = function() {
                     !_vm.$v.input.organiser.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.organiser.$params.maxLength.max
                               ) +
@@ -14401,7 +14401,7 @@ var render = function() {
                     !_vm.$v.input.location.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.location.$params.minLength.min
                               ) +
@@ -14413,7 +14413,7 @@ var render = function() {
                     !_vm.$v.input.location.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.location.$params.maxLength.max
                               ) +
@@ -14486,7 +14486,7 @@ var render = function() {
                     !_vm.$v.input.address.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.address.$params.minLength.min
                               ) +
@@ -14498,7 +14498,7 @@ var render = function() {
                     !_vm.$v.input.address.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.address.$params.maxLength.max
                               ) +
@@ -15102,7 +15102,7 @@ exports.push([module.i, "\n.bg-grey[data-v-28417193] {\n    background: #fafafa;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -15573,7 +15573,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Minimal " +
+                                  "\n                                * Minimum " +
                                     _vm._s(_vm.$v.title.$params.minLength.min) +
                                     " character\n                            "
                                 )
@@ -15587,7 +15587,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Maksimal " +
+                                  "\n                                * Maximum " +
                                     _vm._s(_vm.$v.title.$params.maxLength.max) +
                                     " character\n                            "
                                 )
@@ -15691,7 +15691,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Minimal " +
+                                  "\n                                * Minimum " +
                                     _vm._s(
                                       _vm.$v.organiser.$params.minLength.min
                                     ) +
@@ -15707,7 +15707,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Maksimal " +
+                                  "\n                                * Maximum " +
                                     _vm._s(
                                       _vm.$v.organiser.$params.maxLength.max
                                     ) +
@@ -15887,7 +15887,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Minimal " +
+                                  "\n                                * Minimum " +
                                     _vm._s(
                                       _vm.$v.location.$params.minLength.min
                                     ) +
@@ -15903,7 +15903,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Maksimal " +
+                                  "\n                                * Maximum " +
                                     _vm._s(
                                       _vm.$v.location.$params.maxLength.max
                                     ) +
@@ -16009,7 +16009,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Minimal " +
+                                  "\n                                * Minimum " +
                                     _vm._s(
                                       _vm.$v.address.$params.minLength.min
                                     ) +
@@ -16025,7 +16025,7 @@ var render = function() {
                               { staticClass: "text-danger text-left" },
                               [
                                 _vm._v(
-                                  "\n                                * Maksimal " +
+                                  "\n                                * Maximum " +
                                     _vm._s(
                                       _vm.$v.address.$params.maxLength.max
                                     ) +
