@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="col-md-12 text-center">
                     <h3 class="text-center font-weight-bold mb-5">
-                        Tambah Gambar {{ itemName }}
+                        Add Image {{ itemName }}
                     </h3>
                 </div>
 
@@ -28,23 +28,38 @@
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="name">Nama</label>
+                                <label class="m-0 pl-1" for="name">Name</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" v-model="title" class="form-control full-width" id="name">
+                                <input type="text" v-model="title"
+                                       @input="$v.title.$touch()"
+                                       class="form-control full-width" id="name">
+
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
+                                        * Name item must be filled
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.minLength">
+                                        * Minimum {{ $v.title.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.maxLength">
+                                        * Maximum {{ $v.title.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
+
                             </div>
                         </div>
 
                         <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" role="button"
-                            class="btn btn-success"
-                            @click="uploadImage">
+                            <button type="button" role="button"class="btn btn-success"@click="uploadImage">
                                 Save
                             </button>
 
-                            <button class="btn btn-danger ml-2"
-                            type="button" role="button" 
-                            @click="closeAdd"> 
+                            <button class="btn btn-danger ml-2"type="button" role="button" @click="closeAdd"> 
                                 Cancel
                             </button>
                         </div>
@@ -56,6 +71,7 @@
 </template>
 
 <script>
+    import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
     import {Croppie} from 'croppie';
 
@@ -83,8 +99,12 @@
             this.setUpCroppie();
         },
 
-        components:{
-          
+        validations: {
+            title: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(30)
+            },
         },
 
         computed:{
@@ -94,7 +114,9 @@
 
             formIsFilled(){
                 return this.image != '' 
-                    && this.title != '' && this.title.length > 3
+                    && this.title != '' 
+                    && this.title.length >= 3
+                    && this.title.length <= 30
              }
         },
 
@@ -111,10 +133,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const self = this;
 
                 reader.onload = (event) => {
-                    vm.image = event.target.result;
+                    self.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -123,7 +145,7 @@
             },
 
             setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
@@ -143,26 +165,27 @@
                 }
 
                 this.croppie.options.update = function(){
-                    vm.setImage();
+                    self.setImage();
                 }
             },
 
             setImage(){
-                const vm = this;
+                const self = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {witdh: 470, height: 600, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             },
 
             uploadImage(){
 
-                const vm  = this;
+                const self = this;
                 
-                if(this.formIsFilled){
+                if(this.formIsFilled && !this.isRequesting){
+
                     this.isRequesting = true;
 
                     const imageData = {
@@ -173,14 +196,15 @@
 
                     this.$store.dispatch('store_new_image', imageData)
                         .then((response) => {
-                            flash('Foto berhasil di tambahkan','success');
+                            flash('Image added','success');
 
-                            vm.isRequesting = false;
+                            self.isRequesting = false;
 
-                            vm.closeAdd();
+                            self.closeAdd();
                         })
                         .catch((errors) => {
-                            vm.isRequesting = false;
+
+                            self.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {

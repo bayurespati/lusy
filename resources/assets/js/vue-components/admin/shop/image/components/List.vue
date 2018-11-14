@@ -12,7 +12,7 @@
       <template v-if="!isAddImage">
         <div class="row">
           <div class="col-12">
-            <button @click="isAddImage = !isAddImage" class="btn btn-primary">Tambah Image</button>
+            <button @click="isAddImage = !isAddImage" class="btn btn-primary">Add Image</button>
           </div>
         </div>
       </template>

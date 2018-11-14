@@ -367,8 +367,6 @@
 
             editShop(){
 
-                console.log(this.shopIsEdited, this.is_subCat, this.isFormFilled);
-
                 const self = this;
 
                 if (this.shopIsEdited && this.is_subCat && this.isFormFilled && !this.isRequesting) {

@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-3 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase"><strong>Nama</strong></p>
+                            <p class="small text-uppercase"><strong>Name</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ imageItem.title }}</p>
                             </div>
@@ -37,10 +37,10 @@
                             <div class="detail">
                                 <button @click="editImage" 
                                         class="btn btn-sm btn btn-success" 
-                                        v-if="imageItem.is_poster">Aktif</button>
+                                        v-if="imageItem.is_poster">Active</button>
                                 <button @click="show"
                                         class="btn btn-sm btn btn-danger" 
-                                        v-else="">Tidak Aktif</button>
+                                        v-else="">Not Active</button>
                             </div>
                         </div>
                     </div>
@@ -52,10 +52,10 @@
                     <div class="col-md-3 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingImage = !isEditingImage">Ubah</button>               
+                                @click="isEditingImage = !isEditingImage">Edit</button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheImage">Hapus</button>
+                                @click="deleteTheImage">Delete</button>
                     </div>
 
 
@@ -87,6 +87,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingImage: false,
             }
         },
@@ -102,14 +103,19 @@
             deleteTheImage() {
                 const self = this;
 
-                this.$store.dispatch('destroy_image', {
-                    imageId: self.imageItem.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
+                if(!self.isRequesting){
 
-                    flash('Image berhasil dihapus', 'danger')
-                })
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_image', {
+                        imageId: self.imageItem.id
+                    })
+                    .then(() => {
+                        self.isRequesting = false;
+
+                        flash('Image item deleted', 'danger')
+                    })
+                }
             },
 
 
@@ -127,7 +133,7 @@
 
                 const self = this;
 
-                if (true) {
+                if (!self.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -142,7 +148,9 @@
 
                         .then((updatedImage) => {
 
-                            flash('Image item Berhasil diperbaharui', 'success');
+                            flash('Image item updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })
