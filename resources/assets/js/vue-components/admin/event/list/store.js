@@ -51,6 +51,7 @@ export const store = new Vuex.Store({
                 address: event.detail.address,
                 organiser: event.detail.organiser,
                 content: event.detail.content,
+                subcategory: event.detail.subcategory,
             });
         },
 

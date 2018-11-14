@@ -13139,7 +13139,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 location: event.detail.location,
                 address: event.detail.address,
                 organiser: event.detail.organiser,
-                content: event.detail.content
+                content: event.detail.content,
+                subcategory: event.detail.subcategory
             });
         },
         edit_event: function edit_event(state, updatedEvent) {
@@ -14061,7 +14062,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				address: '',
 				content: '',
 				sub_category_id: '',
-				subcategories: ''
+				subcategories: '',
+				subcategory: ''
 			}
 		};
 	},
@@ -14131,8 +14133,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 				var eventName = this.input.title;
 
+				var indexSub = _.findIndex(this.subcategories, ['id', this.input.sub_category_id]);
+
+				this.input.subcategory = this.subcategories[indexSub];
+
 				this.$store.dispatch('store_new_event', this.input).then(function () {
-					flash(eventName + 'is successfully added', 'success');
+					flash(eventName + ' is successfully added', 'success');
 					_this.input.title = '';
 
 					self.isRequesting = false;
@@ -15310,7 +15316,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n::-webkit-input-placeholder,\n:-moz-placeholder, /* Firefox 18- */\n::-moz-placeholder, /* Firefox 19+ */\n:-ms-input-placeholder {\n    text-align: center;\n}\ninput {\n    text-align: center;\n}\nselect {\n    text-align: center;\n    text-align-last: center;\n    /* webkit*/\n}\noption {\n    text-align: left;\n}\n.normal-placeholder::-webkit-input-placeholder,\n.normal-placeholder:-moz-placeholder,\n.normal-placeholder::-moz-placeholder,\n.normal-placeholder:-ms-input-placeholder {\n    text-align: left !important;\n}\n", ""]);
+exports.push([module.i, "\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n::-webkit-input-placeholder,\n:-moz-placeholder, /* Firefox 18- */\n::-moz-placeholder, /* Firefox 19+ */\n:-ms-input-placeholder {\n    text-align: center;\n}\ninput {\n    text-align: center;\n}\nselect {\n    text-align: center;\n    text-align-last: center;\n    /* webkit*/\n}\noption {\n    text-align: left;\n}\n.normal-placeholder::-webkit-input-placeholder,\n.normal-placeholder:-moz-placeholder,\n.normal-placeholder::-moz-placeholder,\n.normal-placeholder:-ms-input-placeholder {\n    text-align: left !important;\n}\n.form-control-danger input {\n    border-color: #dc3545 !important;\n}\n.form-control-danger input:focus {\n    border-color: #dc3545 !important;\n    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;\n}\n", ""]);
 
 // exports
 
@@ -15366,6 +15372,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15634,6 +15695,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
         },
+        category_id: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
         sub_category_id: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         }
@@ -15643,10 +15707,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         categories: 'getCategories'
     }), {
         eventIsEdited: function eventIsEdited() {
-            return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.sub_category_id !== this.sub_category_id;
+            return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.subcategory.category_id !== this.category_id || this.event.sub_category_id !== this.sub_category_id;
         },
         formAddFilled: function formAddFilled() {
-            return this.title != '' && this.title.length >= 3 && this.title.length <= 20 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 20 && this.location != '' && this.location.length >= 3 && this.location.length <= 20 && this.address != '' && this.address.length >= 3 && this.address.length <= 50 && this.start_date != '' && this.end_date != '' && this.sub_category_id != '';
+            return this.title != '' && this.title.length >= 3 && this.title.length <= 50 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 50 && this.location != '' && this.location.length >= 3 && this.location.length <= 30 && this.address != '' && this.address.length >= 3 && this.address.length <= 50 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.sub_category_id != '';
         }
     }),
 
@@ -15683,7 +15747,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 this.$store.dispatch('update_event', updatedEvent).then(function (updatedEvent) {
 
-                    flash('Event updated', 'success');
+                    flash(updatedEvent.title + ' event is succesfully updated', 'success');
 
                     self.isRequesting = false;
 
@@ -15735,8 +15799,10 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("h3", { staticClass: "text-center font-weight-bold mb-3" }, [
-              _vm._v("Edit " + _vm._s(_vm.event.title))
+            _c("h3", { staticClass: "text-center mb-3" }, [
+              _vm._v("Edit "),
+              _c("strong", [_vm._v(_vm._s(_vm.event.title))]),
+              _vm._v(" Event")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
@@ -15768,6 +15834,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.title.$error },
                       attrs: {
                         id: "title",
                         type: "text",
@@ -15808,51 +15875,60 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.title.required && _vm.$v.title.$dirty
                           ? _c(
                               "span",
-                              { staticClass: "text-danger text-left" },
+                              {
+                                key: "title-required",
+                                staticClass: "text-danger text-center"
+                              },
                               [
                                 _vm._v(
-                                  "\n                                * Title must be filled\n                            "
+                                  "\n                                Title is required\n                            "
                                 )
                               ]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.title.minLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Minimum " +
-                                    _vm._s(_vm.$v.title.$params.minLength.min) +
-                                    " character\n                            "
+                          : !_vm.$v.title.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "title-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Title has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.title.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.title.maxLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Maximum " +
-                                    _vm._s(_vm.$v.title.$params.maxLength.max) +
-                                    " character\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -15886,6 +15962,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.organiser.$error },
                       attrs: {
                         id: "creator",
                         type: "text",
@@ -15926,55 +16003,60 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.organiser.required && _vm.$v.organiser.$dirty
                           ? _c(
                               "span",
-                              { staticClass: "text-danger text-left" },
+                              {
+                                key: "organiser-required",
+                                staticClass: "text-danger text-center"
+                              },
                               [
                                 _vm._v(
-                                  "\n                                * Organiser must be filled\n                            "
+                                  "\n                                Organiser is required\n                            "
                                 )
                               ]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.organiser.minLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Minimum " +
-                                    _vm._s(
-                                      _vm.$v.organiser.$params.minLength.min
-                                    ) +
-                                    " character\n                            "
+                          : !_vm.$v.organiser.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "organiser-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Organiser has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.organiser.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.organiser.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "organiser-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Organiser has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.organiser.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.organiser.maxLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Maximum " +
-                                    _vm._s(
-                                      _vm.$v.organiser.$params.maxLength.max
-                                    ) +
-                                    " character\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -16001,10 +16083,18 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("datetime", {
+                      class: {
+                        "form-control-danger": _vm.$v.start_date.$error
+                      },
                       attrs: {
                         type: "datetime",
                         "value-zone": "local",
                         placeholder: _vm.event.start_date
+                      },
+                      on: {
+                        input: function($event) {
+                          _vm.$v.start_date.$touch()
+                        }
                       },
                       model: {
                         value: _vm.start_date,
@@ -16013,7 +16103,34 @@ var render = function() {
                         },
                         expression: "start_date"
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.start_date.required && _vm.$v.start_date.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "start-required",
+                                staticClass: "text-danger text-center"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Start Date is required\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
                   ],
                   1
                 ),
@@ -16036,10 +16153,16 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("datetime", {
+                      class: { "form-control-danger": _vm.$v.end_date.$error },
                       attrs: {
                         type: "datetime",
                         "value-zone": "local",
                         placeholder: _vm.event.end_date
+                      },
+                      on: {
+                        input: function($event) {
+                          _vm.$v.start_date.$touch()
+                        }
                       },
                       model: {
                         value: _vm.end_date,
@@ -16048,7 +16171,34 @@ var render = function() {
                         },
                         expression: "end_date"
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.end_date.required && _vm.$v.end_date.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "start-required",
+                                staticClass: "text-danger text-center"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                End Date is required\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
                   ],
                   1
                 )
@@ -16082,6 +16232,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.location.$error },
                       attrs: {
                         id: "location",
                         type: "text",
@@ -16122,55 +16273,60 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.location.required && _vm.$v.location.$dirty
                           ? _c(
                               "span",
-                              { staticClass: "text-danger text-left" },
+                              {
+                                key: "location-required",
+                                staticClass: "text-danger text-center"
+                              },
                               [
                                 _vm._v(
-                                  "\n                                * Location must be filled\n                            "
+                                  "\n                                Location is required\n                            "
                                 )
                               ]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.location.minLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Minimum " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.minLength.min
-                                    ) +
-                                    " character\n                            "
+                          : !_vm.$v.location.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "location-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Location has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.location.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.location.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "location-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Location has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.location.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.location.maxLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Maximum " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.maxLength.max
-                                    ) +
-                                    " character\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -16204,6 +16360,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.address.$error },
                       attrs: {
                         id: "addres",
                         type: "text",
@@ -16244,55 +16401,60 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.address.required && _vm.$v.address.$dirty
                           ? _c(
                               "span",
-                              { staticClass: "text-danger text-left" },
+                              {
+                                key: "address-required",
+                                staticClass: "text-danger text-center"
+                              },
                               [
                                 _vm._v(
-                                  "\n                                * Address must be filled\n                            "
+                                  "\n                                Address is required\n                            "
                                 )
                               ]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.address.minLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Minimum " +
-                                    _vm._s(
-                                      _vm.$v.address.$params.minLength.min
-                                    ) +
-                                    " character\n                            "
+                          : !_vm.$v.address.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "address-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Address has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.address.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.address.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "address-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Address has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.address.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.address.maxLength
-                          ? _c(
-                              "span",
-                              { staticClass: "text-danger text-left" },
-                              [
-                                _vm._v(
-                                  "\n                                * Maximum " +
-                                    _vm._s(
-                                      _vm.$v.address.$params.maxLength.max
-                                    ) +
-                                    " character\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -16301,64 +16463,102 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label panel-font-small m-0",
-                      attrs: { for: "category" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            Category\n                        "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.category_id,
-                          expression: "category_id"
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "category" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Category\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category_id,
+                            expression: "category_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "form-control-danger": _vm.$v.category_id.$error
+                        },
+                        attrs: { id: "category" },
+                        on: {
+                          input: function($event) {
+                            _vm.$v.category_id.$touch()
+                          },
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.category_id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "category" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.category_id = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
+                      },
+                      _vm._l(_vm.categories, function(category) {
+                        return _c(
+                          "option",
+                          { domProps: { value: category.id } },
+                          [
+                            _vm._v(
+                              " " +
+                                _vm._s(category.title) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
-                      }
-                    },
-                    _vm._l(_vm.categories, function(category) {
-                      return _c(
-                        "option",
-                        { domProps: { value: category.id } },
-                        [
-                          _vm._v(
-                            " " +
-                              _vm._s(category.title) +
-                              "\n                            "
-                          )
-                        ]
-                      )
-                    })
-                  )
-                ]),
+                      },
+                      [
+                        !_vm.$v.category_id.required
+                          ? _c(
+                              "span",
+                              {
+                                key: "category",
+                                staticClass: "text-danger text-center"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Category is required\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -16389,6 +16589,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
+                        class: {
+                          "form-control-danger": _vm.$v.sub_category_id.$error
+                        },
                         attrs: { id: "subcategory" },
                         on: {
                           input: function($event) {
@@ -16435,19 +16638,22 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.sub_category_id.required
                           ? _c(
                               "span",
-                              { staticClass: "text-danger text-left" },
+                              {
+                                key: "subcategory",
+                                staticClass: "text-danger text-center"
+                              },
                               [
                                 _vm._v(
-                                  "\n                                * Subcategory must be filled\n                            "
+                                  "\n                                Subcategory is required\n                            "
                                 )
                               ]
                             )
@@ -16525,13 +16731,13 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-success btn-sm ml-2",
+                      attrs: { disabled: _vm.isRequesting },
                       on: { click: _vm.editEvent }
                     },
                     [
-                      _vm._v(
-                        "\n                        Save\n                    "
-                      )
-                    ]
+                      _vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]
+                    ],
+                    2
                   )
                 ]
               )

@@ -266,6 +266,7 @@
 					content: '',
 					sub_category_id: '',
 					subcategories: '',
+					subcategory: '',
 				}
 			}
 		},
@@ -351,9 +352,13 @@
 
 					const eventName = this.input.title;
 
+					let indexSub = _.findIndex(this.subcategories, ['id', this.input.sub_category_id]);
+
+					this.input.subcategory = this.subcategories[indexSub];
+
 					this.$store.dispatch('store_new_event', this.input)
                         .then(() => {
-                            flash(eventName + 'is successfully added','success');
+                            flash(eventName + ' is successfully added','success');
                             this.input.title = '';
 
                             self.isRequesting = false;
