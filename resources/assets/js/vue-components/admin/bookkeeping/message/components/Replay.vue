@@ -53,7 +53,7 @@
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 
                     <div class="col-sm-12 d-flex form-group">
-                        <div class="col-sm-2 col-xs-12 d-flex align-items-center justify-content-end">
+                        <div class="col-sm-2 col-xs-12 d-flex justify-content-end">
                             <label for="gender"class="form-control-label font-weight-bold panel-font-small m-0">
                                 Subject
                             </label>
@@ -61,6 +61,7 @@
                         <div class="col-sm-10 col-xs-12">
                             <input  class="form-control form-control-sm" 
                                     @input="$v.subject.$touch()"
+                                    :class="{'form-control-danger': $v.subject.$error}"
                                     @keyup.enter="sendMessage" type="text"
                                     v-model="subject">
 
@@ -69,13 +70,13 @@
                             ======================================================================================-->
                             <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                 <span class="text-danger" v-if="!$v.subject.required && $v.subject.$dirty">
-                                    * Subject item must be filled
+                                    Subject is required
                                 </span>
                                 <span class="text-danger" v-if="!$v.subject.minLength">
-                                    * Minimum {{ $v.subject.$params.minLength.min }} character
+                                    Subject has minimum of {{ $v.subject.$params.minLength.min }} character
                                 </span>
                                 <span class="text-danger" v-if="!$v.subject.maxLength">
-                                    * Maximum {{ $v.subject.$params.maxLength.max }} character
+                                    Subject has maximum of {{ $v.subject.$params.maxLength.max }} character
                                 </span>
                             </transition>
                         </div>
@@ -85,6 +86,7 @@
                         <div class="col-sm-12">
                             <textarea class="form-control form-control-sm" rows="10"
                             @input="$v.message.$touch()"
+                            :class="{'form-control-danger': $v.message.$error}"
                             @keyup.enter="sendMessage"
                             v-model="message">
                             </textarea>
@@ -94,7 +96,7 @@
                             ======================================================================================-->
                             <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                 <span class="text-danger" v-if="!$v.message.required && $v.message.$dirty">
-                                    * Message item must be filled
+                                    Message is required
                                 </span>
                             </transition>
                         </div>
@@ -192,7 +194,14 @@
                             self.isRequesting = false;
 
                         });
+                }else{
+                    this.diryAllInputs();
                 }
+            },
+
+            diryAllInputs(){
+                this.$v.subject.$touch();
+                this.$v.message.$touch();
             },
 
             closeReplay() {

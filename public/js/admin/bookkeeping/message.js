@@ -4510,6 +4510,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4567,7 +4569,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     self.isRequesting = false;
                 });
+            } else {
+                this.diryAllInputs();
             }
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.subject.$touch();
+            this.$v.message.$touch();
         },
         closeReplay: function closeReplay() {
             this.$emit('closeReplay', false);
@@ -4692,8 +4700,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass:
-                      "col-sm-2 col-xs-12 d-flex align-items-center justify-content-end"
+                    staticClass: "col-sm-2 col-xs-12 d-flex justify-content-end"
                   },
                   [
                     _c(
@@ -4726,6 +4733,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.subject.$error },
                       attrs: { type: "text" },
                       domProps: { value: _vm.subject },
                       on: {
@@ -4771,7 +4779,7 @@ var render = function() {
                         !_vm.$v.subject.required && _vm.$v.subject.$dirty
                           ? _c("span", { staticClass: "text-danger" }, [
                               _vm._v(
-                                "\n                                * Subject item must be filled\n                            "
+                                "\n                                Subject is required\n                            "
                               )
                             ])
                           : _vm._e(),
@@ -4779,7 +4787,7 @@ var render = function() {
                         !_vm.$v.subject.minLength
                           ? _c("span", { staticClass: "text-danger" }, [
                               _vm._v(
-                                "\n                                * Minimum " +
+                                "\n                                Subject has minimum of " +
                                   _vm._s(_vm.$v.subject.$params.minLength.min) +
                                   " character\n                            "
                               )
@@ -4789,7 +4797,7 @@ var render = function() {
                         !_vm.$v.subject.maxLength
                           ? _c("span", { staticClass: "text-danger" }, [
                               _vm._v(
-                                "\n                                * Maximum " +
+                                "\n                                Subject has maximum of " +
                                   _vm._s(_vm.$v.subject.$params.maxLength.max) +
                                   " character\n                            "
                               )
@@ -4817,6 +4825,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control form-control-sm",
+                      class: { "form-control-danger": _vm.$v.message.$error },
                       attrs: { rows: "10" },
                       domProps: { value: _vm.message },
                       on: {
@@ -4862,7 +4871,7 @@ var render = function() {
                         !_vm.$v.message.required && _vm.$v.message.$dirty
                           ? _c("span", { staticClass: "text-danger" }, [
                               _vm._v(
-                                "\n                                * Message item must be filled\n                            "
+                                "\n                                Message is required\n                            "
                               )
                             ])
                           : _vm._e()
