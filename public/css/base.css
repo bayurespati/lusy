@@ -14162,7 +14162,7 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
 */
 
 .shop-items-section {
-    padding: 70px 0 40px 0;
+    padding: 70px 0 0 0;
 }
 
 .shop-item-wrapper {
@@ -14491,4 +14491,8 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
   font-style: italic;
   color: #e6e6e6;
   z-index: 1;
+}
+
+.navbar-brand {
+  height: 118px;
 }

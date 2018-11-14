@@ -196,7 +196,7 @@
             </h3>
             @endif
 
-            <div id="section-padding" class="padding-40"></div>
+            <div id="section-padding" class="section-padding"></div>
 
         </main>
 

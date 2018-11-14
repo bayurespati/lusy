@@ -146,7 +146,7 @@
                     @endif
                 </nav>
 
-                <div id="divider-20" class="padding-20"></div>
+                <div id="divider-20" class="section-padding"></div>
             </div>
             <!-- End of Shop Items - /-->
             @else
