@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 286);
+/******/ 	return __webpack_require__(__webpack_require__.s = 311);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -453,6 +453,144 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+
+/***/ 117:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(313);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        subcategories: {},
+        categories: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getSubcategories: function getSubcategories(state) {
+            return state.subcategories;
+        },
+
+        getCategories: function getCategories(state) {
+            return state.categories;
+        }
+
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_subCategories: function set_subCategories(state, data) {
+            state.subcategories = data[0];
+            state.categories = data[1];
+        },
+
+        add_new_subcategory: function add_new_subcategory(state, subCategory) {
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(subCategory.detail.category_id);
+
+            state.subcategories.push({
+                id: subCategory.id,
+                title: subCategory.detail.title,
+                category_id: subCategory.detail.category_id,
+                kategori: state.categories[categoryIndex].title
+            });
+        },
+        edit_subcategory: function edit_subcategory(state, updatedSubcategory) {
+            var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(updatedSubcategory.id);
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedSubcategory.category_id);
+
+            state.subcategories[subcategoryIndex].title = updatedSubcategory.title;
+            state.subcategories[subcategoryIndex].category_id = updatedSubcategory.category_id;
+            state.subcategories[subcategoryIndex].kategori = state.categories[categoryIndex].title;
+        },
+        delete_subcategory: function delete_subcategory(state, ids) {
+            var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(ids.subcategoryId);
+
+            state.subcategories.splice(subcategoryIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_subCategories: function load_subCategories(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/event/data/subcategory').then(function (response) {
+                commit('set_subCategories', response.data);
+            });
+        },
+
+        store_new_subcategory: function store_new_subcategory(_ref2, newSubCategory) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/subcategory', newSubCategory).then(function (response) {
+
+                    var subcategory = {
+                        id: response.data,
+                        detail: newSubCategory
+                    };
+
+                    commit('add_new_subcategory', subcategory);
+
+                    resolve(subcategory);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_subcategory: function update_subcategory(_ref3, updatedSubcategory) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/subcategory/' + updatedSubcategory.id, {
+                    id: updatedSubcategory.id,
+                    title: updatedSubcategory.title,
+                    category_id: updatedSubcategory.category_id
+                }).then(function (response) {
+                    commit('edit_subcategory', updatedSubcategory);
+
+                    resolve(updatedSubcategory);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_subcategory: function destroy_subcategory(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/subcategory/' + ids.subcategoryId).then(function (response) {
+                    commit('delete_subcategory', ids);
+
+                    resolve();
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 
@@ -941,72 +1079,6 @@ module.exports = function normalizeComponent (
   }
 }
 
-
-/***/ }),
-
-/***/ 286:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(287);
-
-
-/***/ }),
-
-/***/ 287:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(90);
-
-
-
-
-
-var admin = new Vue({
-    el: '#subcategories',
-
-    components: {
-        Subcategories: __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_subCategories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
-});
-
-/***/ }),
-
-/***/ 288:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(90);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfSubCategory: function getIndexOfSubCategory(subcategoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.subcategories, function (subcategory) {
-            return subcategory.id === subcategoryId;
-        });
-    },
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
 
 /***/ }),
 
@@ -1953,6 +2025,72 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["a"] = (index_esm);
 
+
+/***/ }),
+
+/***/ 311:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(312);
+
+
+/***/ }),
+
+/***/ 312:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(117);
+
+
+
+
+
+var admin = new Vue({
+    el: '#subcategories',
+
+    components: {
+        Subcategories: __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_subCategories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 313:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(117);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfSubCategory: function getIndexOfSubCategory(subcategoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.subcategories, function (subcategory) {
+            return subcategory.id === subcategoryId;
+        });
+    },
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    }
+});
 
 /***/ }),
 
@@ -3662,144 +3800,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 90:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(288);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        subcategories: {},
-        categories: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getSubcategories: function getSubcategories(state) {
-            return state.subcategories;
-        },
-
-        getCategories: function getCategories(state) {
-            return state.categories;
-        }
-
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_subCategories: function set_subCategories(state, data) {
-            state.subcategories = data[0];
-            state.categories = data[1];
-        },
-
-        add_new_subcategory: function add_new_subcategory(state, subCategory) {
-            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(subCategory.detail.category_id);
-
-            state.subcategories.push({
-                id: subCategory.id,
-                title: subCategory.detail.title,
-                category_id: subCategory.detail.category_id,
-                kategori: state.categories[categoryIndex].title
-            });
-        },
-        edit_subcategory: function edit_subcategory(state, updatedSubcategory) {
-            var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(updatedSubcategory.id);
-            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedSubcategory.category_id);
-
-            state.subcategories[subcategoryIndex].title = updatedSubcategory.title;
-            state.subcategories[subcategoryIndex].category_id = updatedSubcategory.category_id;
-            state.subcategories[subcategoryIndex].kategori = state.categories[categoryIndex].title;
-        },
-        delete_subcategory: function delete_subcategory(state, ids) {
-            var subcategoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfSubCategory(ids.subcategoryId);
-
-            state.subcategories.splice(subcategoryIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_subCategories: function load_subCategories(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/event/data/subcategory').then(function (response) {
-                commit('set_subCategories', response.data);
-            });
-        },
-
-        store_new_subcategory: function store_new_subcategory(_ref2, newSubCategory) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/subcategory', newSubCategory).then(function (response) {
-
-                    var subcategory = {
-                        id: response.data,
-                        detail: newSubCategory
-                    };
-
-                    commit('add_new_subcategory', subcategory);
-
-                    resolve(subcategory);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_subcategory: function update_subcategory(_ref3, updatedSubcategory) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/subcategory/' + updatedSubcategory.id, {
-                    id: updatedSubcategory.id,
-                    title: updatedSubcategory.title,
-                    category_id: updatedSubcategory.category_id
-                }).then(function (response) {
-                    commit('edit_subcategory', updatedSubcategory);
-
-                    resolve(updatedSubcategory);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_subcategory: function destroy_subcategory(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/subcategory/' + ids.subcategoryId).then(function (response) {
-                    commit('delete_subcategory', ids);
-
-                    resolve();
-                });
-            });
-        }
-    }
-});
 
 /***/ })
 

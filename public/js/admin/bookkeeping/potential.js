@@ -471,6 +471,102 @@ exports.push([module.i, "\na[data-v-16f575a0]{\n\t\tcursor: pointer;\n}\n.notifi
 
 /***/ }),
 
+/***/ 124:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(467);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        potentials: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getPotentialItems: function getPotentialItems(state) {
+            return state.potentials;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_items: function set_items(state, items) {
+            state.potentials = items;
+        },
+
+        delete_potential: function delete_potential(state, ids) {
+
+            var potentialIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfPotensial(ids.id);
+
+            state.potentials.splice(potentialIndex, 1);
+        },
+        delete_item: function delete_item(state, ids) {
+            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfPotensial(ids.itemId);
+
+            state.potentials.splice(itemIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_items: function load_items(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+                commit('set_items', response.data);
+            });
+        },
+
+        update_potential: function update_potential(_ref2, updatedItem) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/potensial/' + updatedItem.id, {
+                    id: updatedItem.id,
+                    is_confirmed: updatedItem.is_confirmed
+                }).then(function (response) {
+                    commit('delete_potential', updatedItem);
+
+                    resolve(updatedItem);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_item: function destroy_item(_ref3, ids) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/potensial/' + ids.itemId).then(function (response) {
+                    commit('delete_item', ids);
+                    resolve();
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ 13:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1943,7 +2039,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(124);
 
 
 
@@ -3223,7 +3319,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(124);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -3556,102 +3652,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(467);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        potentials: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getPotentialItems: function getPotentialItems(state) {
-            return state.potentials;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_items: function set_items(state, items) {
-            state.potentials = items;
-        },
-
-        delete_potential: function delete_potential(state, ids) {
-
-            var potentialIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfPotensial(ids.id);
-
-            state.potentials.splice(potentialIndex, 1);
-        },
-        delete_item: function delete_item(state, ids) {
-            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfPotensial(ids.itemId);
-
-            state.potentials.splice(itemIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_items: function load_items(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-                commit('set_items', response.data);
-            });
-        },
-
-        update_potential: function update_potential(_ref2, updatedItem) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/potensial/' + updatedItem.id, {
-                    id: updatedItem.id,
-                    is_confirmed: updatedItem.is_confirmed
-                }).then(function (response) {
-                    commit('delete_potential', updatedItem);
-
-                    resolve(updatedItem);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_item: function destroy_item(_ref3, ids) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/potensial/' + ids.itemId).then(function (response) {
-                    commit('delete_item', ids);
-                    resolve();
-                });
-            });
-        }
-    }
-});
 
 /***/ })
 

@@ -8,7 +8,7 @@
       <template v-if="!isAddShop">
         <div class="row">
           <div class="col-12">
-            <button @click="isAddShop = !isAddShop" class="btn btn-primary">Tambah Item</button>
+            <button @click="isAddShop = !isAddShop" class="btn btn-primary">Add Item</button>
           </div>
         </div>
       </template>

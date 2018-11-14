@@ -12,7 +12,7 @@
                         =========================================================================================-->
                     <div class="col-md-4 col-xs-12 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0">{{ shop.title }}</p>
@@ -63,13 +63,13 @@
                         <button type="button" 
                                 class="btn btn-sm btn-warning ml-1"
                                 @click="isEditingShop = !isEditingShop">
-                            Ubah
+                            Edit
                         </button>               
                         
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-1"
                                 @click="deleteTheShop">
-                            Hapus
+                            Delete
                         </button>
                     </div>
 
@@ -100,6 +100,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingShop: false,
             }
         },
@@ -109,14 +110,19 @@
             deleteTheShop() {
                 const self = this;
 
-                this.$store.dispatch('destroy_item', {
-                    itemId: self.shop.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
+                if(!self.isRequesting){
 
-                    flash('Shop item berhasil dihapus', 'danger')
-                })
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_item', {
+                        itemId: self.shop.id
+                    })
+                    .then(() => {
+                        self.isRequesting = false;
+
+                        flash('Shop delete', 'danger')
+                    })
+                }
             },
         }
     };

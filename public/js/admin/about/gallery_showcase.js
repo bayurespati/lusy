@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 224);
+/******/ 	return __webpack_require__(__webpack_require__.s = 249);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -453,6 +453,110 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+
+/***/ 111:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(261);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        galleryShow: {},
+        galleryHide: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getGalleryShow: function getGalleryShow(state) {
+            return state.galleryShow;
+        },
+
+        getGalleryHide: function getGalleryHide(state) {
+            return state.galleryHide;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_gallery: function set_gallery(state, gallery) {
+            state.galleryHide = gallery[0];
+            state.galleryShow = gallery[1];
+        },
+
+        edit_gallery: function edit_gallery(state, updatedGallery) {
+
+            if (updatedGallery.is_showcase) {
+
+                //Find index object on array gallery hide
+                var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGalleryHide(updatedGallery.id);
+                state.galleryHide[galleryIndex].is_showcase = updatedGallery.is_showcase;
+
+                //Push object to array gallery show
+                state.galleryShow.push(state.galleryHide[galleryIndex]);
+
+                //Delete the same object on gallery hide
+                state.galleryHide.splice(galleryIndex, 1);
+            } else {
+
+                //Find index object on array gallery show
+                var _galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGalleryShow(updatedGallery.id);
+                state.galleryShow[_galleryIndex].is_showcase = updatedGallery.is_showcase;
+
+                //Push object to array gallery Hide
+                state.galleryHide.push(state.galleryShow[_galleryIndex]);
+
+                //Delete the same object on gallery Show
+                state.galleryShow.splice(_galleryIndex, 1);
+            }
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_gallery: function load_gallery(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/about/data/showcase').then(function (response) {
+                commit('set_gallery', response.data);
+            });
+        },
+
+        update_galllery: function update_galllery(_ref2, updatedGallery) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/showcase/' + updatedGallery.id, {
+                    is_showcase: updatedGallery.is_showcase
+                }).then(function (response) {
+                    commit('edit_gallery', updatedGallery);
+
+                    resolve(updatedGallery);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 
@@ -944,26 +1048,26 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 224:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(225);
+module.exports = __webpack_require__(250);
 
 
 /***/ }),
 
-/***/ 225:
+/***/ 250:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(111);
 
 
 
@@ -988,19 +1092,19 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 226:
+/***/ 251:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(227)
+  __webpack_require__(252)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(229)
+var __vue_script__ = __webpack_require__(254)
 /* template */
-var __vue_template__ = __webpack_require__(235)
+var __vue_template__ = __webpack_require__(260)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1040,13 +1144,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 227:
+/***/ 252:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(228);
+var content = __webpack_require__(253);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1067,7 +1171,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 228:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1082,12 +1186,12 @@ exports.push([module.i, "\n.slide-enter[data-v-6c559afe] {\n        opacity: 0;\
 
 /***/ }),
 
-/***/ 229:
+/***/ 254:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__showcasedImage_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1152,19 +1256,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 230:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(231)
+  __webpack_require__(256)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(233)
+var __vue_script__ = __webpack_require__(258)
 /* template */
-var __vue_template__ = __webpack_require__(234)
+var __vue_template__ = __webpack_require__(259)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1204,13 +1308,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 231:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(232);
+var content = __webpack_require__(257);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1231,7 +1335,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 232:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1246,7 +1350,7 @@ exports.push([module.i, "\n.card[data-v-eacb85b0] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 233:
+/***/ 258:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1386,7 +1490,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 234:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1519,7 +1623,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 235:
+/***/ 260:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1587,11 +1691,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 236:
+/***/ 261:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(111);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -2814,110 +2918,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var notificationHeight = 60;
 
             return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 84:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(236);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        galleryShow: {},
-        galleryHide: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getGalleryShow: function getGalleryShow(state) {
-            return state.galleryShow;
-        },
-
-        getGalleryHide: function getGalleryHide(state) {
-            return state.galleryHide;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_gallery: function set_gallery(state, gallery) {
-            state.galleryHide = gallery[0];
-            state.galleryShow = gallery[1];
-        },
-
-        edit_gallery: function edit_gallery(state, updatedGallery) {
-
-            if (updatedGallery.is_showcase) {
-
-                //Find index object on array gallery hide
-                var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGalleryHide(updatedGallery.id);
-                state.galleryHide[galleryIndex].is_showcase = updatedGallery.is_showcase;
-
-                //Push object to array gallery show
-                state.galleryShow.push(state.galleryHide[galleryIndex]);
-
-                //Delete the same object on gallery hide
-                state.galleryHide.splice(galleryIndex, 1);
-            } else {
-
-                //Find index object on array gallery show
-                var _galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGalleryShow(updatedGallery.id);
-                state.galleryShow[_galleryIndex].is_showcase = updatedGallery.is_showcase;
-
-                //Push object to array gallery Hide
-                state.galleryHide.push(state.galleryShow[_galleryIndex]);
-
-                //Delete the same object on gallery Show
-                state.galleryShow.splice(_galleryIndex, 1);
-            }
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_gallery: function load_gallery(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/about/data/showcase').then(function (response) {
-                commit('set_gallery', response.data);
-            });
-        },
-
-        update_galllery: function update_galllery(_ref2, updatedGallery) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/showcase/' + updatedGallery.id, {
-                    is_showcase: updatedGallery.is_showcase
-                }).then(function (response) {
-                    commit('edit_gallery', updatedGallery);
-
-                    resolve(updatedGallery);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
         }
     }
 });

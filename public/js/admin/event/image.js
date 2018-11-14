@@ -456,6 +456,151 @@ if(false) {
 
 /***/ }),
 
+/***/ 119:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(369);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        imageList: {},
+        eventId: {},
+        event: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getImageList: function getImageList(state) {
+            return state.imageList;
+        },
+
+        getEventId: function getEventId(state) {
+            return state.eventId;
+        },
+
+        getEvent: function getEvent(state) {
+            return state.event;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_images: function set_images(state, items) {
+            state.imageList = items.data;
+            state.eventId = items.id;
+        },
+
+        set_event: function set_event(state, event) {
+            state.event = event;
+        },
+
+        add_new_image: function add_new_image(state, imageItem) {
+
+            state.imageList.push({
+                id: imageItem.id,
+                image_path: imageItem.image_path,
+                is_poster: imageItem.is_poster,
+                title: imageItem.title,
+                description: imageItem.description,
+                event_id: imageItem.event_id
+            });
+        },
+        edit_item: function edit_item(state, updatedItem) {
+
+            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(updatedItem.id);
+
+            state.imageList[imageIndex].event_id = updatedItem.event_id;
+            state.imageList[imageIndex].image_path = updatedItem.image_path;
+            state.imageList[imageIndex].title = updatedItem.title;
+            state.imageList[imageIndex].description = updatedItem.description;
+            state.imageList[imageIndex].is_poster = updatedItem.is_poster;
+        },
+        delete_image: function delete_image(state, ids) {
+            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(ids.imageId);
+
+            state.imageList.splice(imageIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_images: function load_images(_ref, id) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/event/data/image/' + id).then(function (response) {
+                commit('set_images', { data: response.data, id: id });
+            });
+        },
+
+        store_new_image: function store_new_image(_ref2, imageItem) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('/admin/event/add/image', imageItem).then(function (response) {
+
+                    commit('add_new_image', response.data);
+
+                    resolve(imageItem);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_image: function update_image(_ref3, updatedItem) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('/admin/event/update/image/' + updatedItem.id, {
+                    id: updatedItem.id,
+                    title: updatedItem.title,
+                    image: updatedItem.image,
+                    description: updatedItem.description,
+                    is_poster: updatedItem.is_poster
+                }).then(function (response) {
+                    commit('edit_item', response.data);
+
+                    resolve(updatedItem);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_image: function destroy_image(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('/admin/event/delete/image/' + ids.imageId).then(function (response) {
+                    commit('delete_image', ids);
+                    resolve();
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ 12:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -834,7 +979,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 15:
+/***/ 16:
 /***/ (function(module, exports) {
 
 var g;
@@ -2713,7 +2858,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 
@@ -3017,7 +3162,7 @@ module.exports = function normalizeComponent (
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(18)))
 
 /***/ }),
 
@@ -3986,7 +4131,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(119);
 
 
 
@@ -5874,7 +6019,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(119);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -6241,151 +6386,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 94:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(369);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        imageList: {},
-        eventId: {},
-        event: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getImageList: function getImageList(state) {
-            return state.imageList;
-        },
-
-        getEventId: function getEventId(state) {
-            return state.eventId;
-        },
-
-        getEvent: function getEvent(state) {
-            return state.event;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_images: function set_images(state, items) {
-            state.imageList = items.data;
-            state.eventId = items.id;
-        },
-
-        set_event: function set_event(state, event) {
-            state.event = event;
-        },
-
-        add_new_image: function add_new_image(state, imageItem) {
-
-            state.imageList.push({
-                id: imageItem.id,
-                image_path: imageItem.image_path,
-                is_poster: imageItem.is_poster,
-                title: imageItem.title,
-                description: imageItem.description,
-                event_id: imageItem.event_id
-            });
-        },
-        edit_item: function edit_item(state, updatedItem) {
-
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(updatedItem.id);
-
-            state.imageList[imageIndex].event_id = updatedItem.event_id;
-            state.imageList[imageIndex].image_path = updatedItem.image_path;
-            state.imageList[imageIndex].title = updatedItem.title;
-            state.imageList[imageIndex].description = updatedItem.description;
-            state.imageList[imageIndex].is_poster = updatedItem.is_poster;
-        },
-        delete_image: function delete_image(state, ids) {
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(ids.imageId);
-
-            state.imageList.splice(imageIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_images: function load_images(_ref, id) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/event/data/image/' + id).then(function (response) {
-                commit('set_images', { data: response.data, id: id });
-            });
-        },
-
-        store_new_image: function store_new_image(_ref2, imageItem) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('/admin/event/add/image', imageItem).then(function (response) {
-
-                    commit('add_new_image', response.data);
-
-                    resolve(imageItem);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_image: function update_image(_ref3, updatedItem) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/event/update/image/' + updatedItem.id, {
-                    id: updatedItem.id,
-                    title: updatedItem.title,
-                    image: updatedItem.image,
-                    description: updatedItem.description,
-                    is_poster: updatedItem.is_poster
-                }).then(function (response) {
-                    commit('edit_item', response.data);
-
-                    resolve(updatedItem);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_image: function destroy_image(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('/admin/event/delete/image/' + ids.imageId).then(function (response) {
-                    commit('delete_image', ids);
-                    resolve();
-                });
-            });
-        }
-    }
-});
 
 /***/ })
 

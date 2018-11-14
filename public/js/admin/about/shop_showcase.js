@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 237);
+/******/ 	return __webpack_require__(__webpack_require__.s = 262);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -453,6 +453,111 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+
+/***/ 112:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(274);
+
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        shopShow: {},
+        shopHide: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getShopShow: function getShopShow(state) {
+            return state.shopShow;
+        },
+
+        getShopHide: function getShopHide(state) {
+            return state.shopHide;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_shop: function set_shop(state, shop) {
+            state.shopHide = shop[0];
+
+            state.shopShow = shop[1];
+        },
+
+        edit_shop: function edit_shop(state, updatedShop) {
+
+            if (updatedShop.is_showcase) {
+
+                //Find index object on array shop hide
+                var shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopHide(updatedShop.id);
+                state.shopHide[shopIndex].is_showcase = updatedShop.is_showcase;
+
+                //Push object to array shop show
+                state.shopShow.push(state.shopHide[shopIndex]);
+
+                //Delete the same object on show hide
+                state.shopHide.splice(shopIndex, 1);
+            } else {
+
+                //Find index object on array show show
+                var _shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopShow(updatedShop.id);
+                state.shopShow[_shopIndex].is_showcase = updatedShop.is_showcase;
+
+                //Push object to array show Hide
+                state.shopHide.push(state.shopShow[_shopIndex]);
+
+                //Delete the same object on show Show
+                state.shopShow.splice(_shopIndex, 1);
+            }
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_shop: function load_shop(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/about/data/shop-showcase').then(function (response) {
+                commit('set_shop', response.data);
+            });
+        },
+
+        update_shop: function update_shop(_ref2, updatedShop) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/shop-showcase/' + updatedShop.id, {
+                    is_showcase: updatedShop.is_showcase
+                }).then(function (response) {
+                    commit('edit_shop', updatedShop);
+
+                    resolve(updatedShop);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        }
+    }
+});
 
 /***/ }),
 
@@ -944,26 +1049,26 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 237:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(238);
+module.exports = __webpack_require__(263);
 
 
 /***/ }),
 
-/***/ 238:
+/***/ 263:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Shop_vue__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Shop_vue__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Shop_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Shop_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(112);
 
 
 
@@ -988,19 +1093,19 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 239:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(240)
+  __webpack_require__(265)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(242)
+var __vue_script__ = __webpack_require__(267)
 /* template */
-var __vue_template__ = __webpack_require__(248)
+var __vue_template__ = __webpack_require__(273)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1040,13 +1145,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 240:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(241);
+var content = __webpack_require__(266);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1067,7 +1172,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 241:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1082,12 +1187,12 @@ exports.push([module.i, "\n.slide-enter[data-v-4f2611a2] {\n        opacity: 0;\
 
 /***/ }),
 
-/***/ 242:
+/***/ 267:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Showcase_vue__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Showcase_vue__ = __webpack_require__(268);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Showcase_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Showcase_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1147,19 +1252,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 243:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(244)
+  __webpack_require__(269)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(246)
+var __vue_script__ = __webpack_require__(271)
 /* template */
-var __vue_template__ = __webpack_require__(247)
+var __vue_template__ = __webpack_require__(272)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1199,13 +1304,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 244:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(245);
+var content = __webpack_require__(270);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1226,7 +1331,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 245:
+/***/ 270:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(false);
@@ -1241,7 +1346,7 @@ exports.push([module.i, "\n.card[data-v-79e7e8d9] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 246:
+/***/ 271:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1369,7 +1474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 247:
+/***/ 272:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1488,7 +1593,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 248:
+/***/ 273:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1548,11 +1653,11 @@ if (false) {
 
 /***/ }),
 
-/***/ 249:
+/***/ 274:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(112);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -2775,111 +2880,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var notificationHeight = 60;
 
             return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 85:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(249);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        shopShow: {},
-        shopHide: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getShopShow: function getShopShow(state) {
-            return state.shopShow;
-        },
-
-        getShopHide: function getShopHide(state) {
-            return state.shopHide;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_shop: function set_shop(state, shop) {
-            state.shopHide = shop[0];
-
-            state.shopShow = shop[1];
-        },
-
-        edit_shop: function edit_shop(state, updatedShop) {
-
-            if (updatedShop.is_showcase) {
-
-                //Find index object on array shop hide
-                var shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopHide(updatedShop.id);
-                state.shopHide[shopIndex].is_showcase = updatedShop.is_showcase;
-
-                //Push object to array shop show
-                state.shopShow.push(state.shopHide[shopIndex]);
-
-                //Delete the same object on show hide
-                state.shopHide.splice(shopIndex, 1);
-            } else {
-
-                //Find index object on array show show
-                var _shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopShow(updatedShop.id);
-                state.shopShow[_shopIndex].is_showcase = updatedShop.is_showcase;
-
-                //Push object to array show Hide
-                state.shopHide.push(state.shopShow[_shopIndex]);
-
-                //Delete the same object on show Show
-                state.shopShow.splice(_shopIndex, 1);
-            }
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_shop: function load_shop(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/about/data/shop-showcase').then(function (response) {
-                commit('set_shop', response.data);
-            });
-        },
-
-        update_shop: function update_shop(_ref2, updatedShop) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/shop-showcase/' + updatedShop.id, {
-                    is_showcase: updatedShop.is_showcase
-                }).then(function (response) {
-                    commit('edit_shop', updatedShop);
-
-                    resolve(updatedShop);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
         }
     }
 });

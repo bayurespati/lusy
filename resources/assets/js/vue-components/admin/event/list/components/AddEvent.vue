@@ -23,10 +23,10 @@
                             	* Title must be filled
                         	</span>
                             <span class="text-danger" v-if="!$v.input.title.minLength">
-                            	* Minimal {{ $v.input.title.$params.minLength.min }} character
+                            	* Minimum {{ $v.input.title.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.title.maxLength">
-                            	* Maksimal {{ $v.input.title.$params.maxLength.max }} character
+                            	* Maximum {{ $v.input.title.$params.maxLength.max }} character
                         	</span>
                     	</transition>	
 						</div>
@@ -48,10 +48,10 @@
                             	* Organiser must be filled
                         	</span>
                             <span class="text-danger" v-if="!$v.input.organiser.minLength">
-                            	* Minimal {{ $v.input.organiser.$params.minLength.min }} character
+                            	* Minimum {{ $v.input.organiser.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.organiser.maxLength">
-                            	* Maksimal {{ $v.input.organiser.$params.maxLength.max }} character
+                            	* Maximum {{ $v.input.organiser.$params.maxLength.max }} character
                         	</span>
                     	</transition>
 						</div>
@@ -93,10 +93,10 @@
                             	* Location must be filled
                         	</span>
                             <span class="text-danger" v-if="!$v.input.location.minLength">
-                            	* Minimal {{ $v.input.location.$params.minLength.min }} character
+                            	* Minimum {{ $v.input.location.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.location.maxLength">
-                            	* Maksimal {{ $v.input.location.$params.maxLength.max }} character
+                            	* Maximum {{ $v.input.location.$params.maxLength.max }} character
                         	</span>
                     	</transition>
 						</div>
@@ -118,10 +118,10 @@
                             	* Address must be filled
                         	</span>
                             <span class="text-danger" v-if="!$v.input.address.minLength">
-                            	* Minimal {{ $v.input.address.$params.minLength.min }} character
+                            	* Minimum {{ $v.input.address.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.address.maxLength">
-                            	* Maksimal {{ $v.input.address.$params.maxLength.max }} character
+                            	* Maximum {{ $v.input.address.$params.maxLength.max }} character
                         	</span>
                     	</transition>	
 						</div>
