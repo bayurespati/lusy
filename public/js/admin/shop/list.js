@@ -2933,7 +2933,7 @@ var render = function() {
                     !_vm.$v.input.title.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(_vm.$v.input.title.$params.minLength.min) +
                               " character\n                            "
                           )
@@ -2943,7 +2943,7 @@ var render = function() {
                     !_vm.$v.input.title.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(_vm.$v.input.title.$params.maxLength.max) +
                               " character\n                        \t"
                           )
@@ -3010,7 +3010,7 @@ var render = function() {
                     !_vm.$v.input.sub_title.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.sub_title.$params.minLength.min
                               ) +
@@ -3022,7 +3022,7 @@ var render = function() {
                     !_vm.$v.input.sub_title.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.sub_title.$params.maxLength.max
                               ) +
@@ -3365,7 +3365,7 @@ var render = function() {
                     !_vm.$v.input.description.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.description.$params.minLength.min
                               ) +
@@ -3377,7 +3377,7 @@ var render = function() {
                     !_vm.$v.input.description.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.description.$params.maxLength.max
                               ) +
@@ -3443,7 +3443,7 @@ var render = function() {
                     !_vm.$v.input.store_link.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Minimal " +
+                            "\n                            \t* Minimum " +
                               _vm._s(
                                 _vm.$v.input.store_link.$params.minLength.min
                               ) +
@@ -3455,7 +3455,7 @@ var render = function() {
                     !_vm.$v.input.store_link.maxLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \t* Maksimal " +
+                            "\n                            \t* Maximum " +
                               _vm._s(
                                 _vm.$v.input.store_link.$params.maxLength.max
                               ) +
