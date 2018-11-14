@@ -75,7 +75,7 @@
 					</div>
 				</div>
 
-            	<div class="section-padding"></div>
+            	<div class="padding-80"></div>
 			</div>
             
         </main>

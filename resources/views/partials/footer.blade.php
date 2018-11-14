@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-xs-offset-3 col-md-6 text-center">
                 <blockquote class="senno">
-                    Not only beautiful flowers but also buds and withered flowers have life, and each has its own beauty. By arranging flowers with reverence, one refines oneself
+                    Not only beautiful flowers but also buds and withered flowers have life, and each has its own beauty. By arranging flowers with reverence, one refines oneself.
                     <footer>Senno Ikenobo</footer>
                 </blockquote>
 
