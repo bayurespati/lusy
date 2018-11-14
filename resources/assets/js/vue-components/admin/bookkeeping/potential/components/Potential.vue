@@ -9,7 +9,7 @@
                     <div class="col-3 d-flex justify-content-start align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0">
-                                <strong>Nama</strong>
+                                <strong>Name</strong>
                             </p>
                         
                             <div class="detail">

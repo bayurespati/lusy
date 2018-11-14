@@ -2592,7 +2592,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_item', updatedItem).then(function (updatedItem) {
 
-                    flash('Applicant Berhasil disetujui', 'success');
+                    flash('Applicant approved', 'success');
 
                     self.isRequesting = false;
                 }).catch(function (errors) {
@@ -2647,7 +2647,7 @@ var render = function() {
                 [
                   _c("div", [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Nama")])
+                      _c("strong", [_vm._v("Name")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -2693,7 +2693,7 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "small text-uppercase mb-0 text-center" },
-                      [_c("strong", [_vm._v("Kontak")])]
+                      [_c("strong", [_vm._v("Phone number")])]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -2726,8 +2726,8 @@ var render = function() {
                           _vm._s(
                             _vm.item.is_approve === 1 ||
                             _vm.item.is_approve === true
-                              ? "Disetujui"
-                              : "Menunggu"
+                              ? "Approve"
+                              : "Waiting"
                           )
                         )
                       ])
@@ -2753,7 +2753,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                        Setujui\n                    "
+                            "\n                        Approve\n                    "
                           )
                         ]
                       ),
@@ -2767,7 +2767,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                        Tolak\n                    "
+                            "\n                        Reject\n                    "
                           )
                         ]
                       )

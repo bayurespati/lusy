@@ -2716,12 +2716,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: { detail: {} },
 
+    data: function data() {
+        return {
+            isRequsting: false
+        };
+    },
+
+
     methods: {
         updated: function updated() {
 
             var self = this;
 
-            if (true) {
+            if (!self.isRequsting) {
 
                 var updatedPotential = {
                     id: this.detail.id,
@@ -2730,18 +2737,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_potential', updatedPotential).then(function (updatedPotential) {
 
+                    self.isRequsting = false;
+
                     flash('Potential Inquiry accepted', 'success');
-                }).catch(function (errors) {});
+                }).catch(function (errors) {
+
+                    self.isRequsting = false;
+                });
             }
         },
         deletePotential: function deletePotential() {
             var self = this;
 
-            this.$store.dispatch('destroy_item', {
-                itemId: self.detail.id
-            }).then(function () {
-                flash('Inqury berhasil ditolak', 'danger');
-            });
+            if (!self.isRequsting) {
+
+                self.isRequsting = true;
+
+                this.$store.dispatch('destroy_item', {
+                    itemId: self.detail.id
+                }).then(function () {
+
+                    self.isRequsting = false;
+
+                    flash('Potential Inquiry rejected', 'danger');
+                });
+            }
         },
         closeDetail: function closeDetail() {
             this.$emit('closeDetail', false);
@@ -2799,7 +2819,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Nama\n                            "
+                            "\n                                Name\n                            "
                           )
                         ]
                       )
@@ -2865,7 +2885,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Alamat\n                            "
+                            "\n                                Address\n                            "
                           )
                         ]
                       )
@@ -2933,7 +2953,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Kota\n                            "
+                            "\n                                City\n                            "
                           )
                         ]
                       )
@@ -2999,7 +3019,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Kode Pos\n                            "
+                            "\n                                Postal Code\n                            "
                           )
                         ]
                       )
@@ -3032,7 +3052,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Jumlah\n                            "
+                            "\n                                Quantity\n                            "
                           )
                         ]
                       )
@@ -3065,7 +3085,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Catatan\n                            "
+                            "\n                                Notes\n                            "
                           )
                         ]
                       )
@@ -3098,7 +3118,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Tutup\n                    "
+                        "\n                        Close\n                    "
                       )
                     ]
                   ),
@@ -3112,7 +3132,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Setujui\n                    "
+                        "\n                        Approve\n                    "
                       )
                     ]
                   ),
@@ -3126,7 +3146,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Tolak\n                    "
+                        "\n                        Reject\n                    "
                       )
                     ]
                   )
@@ -3183,7 +3203,7 @@ var render = function() {
                 [
                   _c("div", [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Nama")])
+                      _c("strong", [_vm._v("Name")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [

@@ -3212,7 +3212,7 @@ var render = function() {
                 [
                   _c("div", [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Mobile")])
+                      _c("strong", [_vm._v("Phone Number")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail text-center" }, [

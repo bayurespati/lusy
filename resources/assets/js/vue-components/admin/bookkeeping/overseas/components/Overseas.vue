@@ -9,7 +9,7 @@
                     <div class="col-3 d-flex justify-content-start align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0">
-                                <strong>Nama</strong>
+                                <strong>Name</strong>
                             </p>
                             
                             <div class="detail">
@@ -33,7 +33,7 @@
                     <div class="col-3 d-flex justify-content-center align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0 text-center">
-                                <strong>Kota</strong>
+                                <strong>City</strong>
                             </p>
                             
                             <div class="detail text-center">
@@ -58,7 +58,7 @@
                         <button type="button" 
                         class="btn btn-danger btn-sm"
                         @click="deleteItems">
-                            Hapus
+                            Delete
                         </button>
 
                         <button type="button" 
@@ -91,6 +91,7 @@
 
         data(){
             return{
+                isRequsting: false,
                 isShowDetail: false
             }
         },
@@ -101,12 +102,17 @@
 
                 let self = this;
 
-                this.$store.dispatch('destroy_item',{
-                    itemId : self.overseas.id
-                })
-                .then(() => {
-                    flash('Inqury berhasil dihapus', 'danger')
-                })
+                if(!self.isRequsting){
+
+                    this.$store.dispatch('destroy_item',{
+                        itemId : self.overseas.id
+                    })
+                    .then(() => {
+                        flash('Overseas Inqury deleted', 'danger');
+
+                        self.isRequsting = false;
+                    })
+                }
             }
         }
     };

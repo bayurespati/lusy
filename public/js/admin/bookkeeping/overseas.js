@@ -2365,6 +2365,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            isRequsting: false,
             isShowDetail: false
         };
     },
@@ -2375,11 +2376,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var self = this;
 
-            this.$store.dispatch('destroy_item', {
-                itemId: self.overseas.id
-            }).then(function () {
-                flash('Inqury berhasil dihapus', 'danger');
-            });
+            if (!self.isRequsting) {
+
+                this.$store.dispatch('destroy_item', {
+                    itemId: self.overseas.id
+                }).then(function () {
+                    flash('Overseas Inqury deleted', 'danger');
+
+                    self.isRequsting = false;
+                });
+            }
         }
     }
 });
@@ -2699,7 +2705,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Nama\n                            "
+                            "\n                                Name\n                            "
                           )
                         ]
                       )
@@ -2765,7 +2771,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Alamat\n                            "
+                            "\n                                Address\n                            "
                           )
                         ]
                       )
@@ -2833,7 +2839,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Kota\n                            "
+                            "\n                                City\n                            "
                           )
                         ]
                       )
@@ -2899,7 +2905,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Kode Pos\n                            "
+                            "\n                                Postal Code\n                            "
                           )
                         ]
                       )
@@ -2932,7 +2938,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Jumlah\n                            "
+                            "\n                                Quantity\n                            "
                           )
                         ]
                       )
@@ -2965,7 +2971,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Catatan\n                            "
+                            "\n                                Notes\n                            "
                           )
                         ]
                       )
@@ -2998,7 +3004,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Tutup\n                    "
+                        "\n                        Close\n                    "
                       )
                     ]
                   ),
@@ -3012,7 +3018,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Setujui\n                    "
+                        "\n                        Approve\n                    "
                       )
                     ]
                   ),
@@ -3026,7 +3032,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Tolak\n                    "
+                        "\n                        Reject\n                    "
                       )
                     ]
                   )
@@ -3083,7 +3089,7 @@ var render = function() {
                 [
                   _c("div", [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Nama")])
+                      _c("strong", [_vm._v("Name")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -3129,7 +3135,7 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "small text-uppercase mb-0 text-center" },
-                      [_c("strong", [_vm._v("Kota")])]
+                      [_c("strong", [_vm._v("City")])]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail text-center" }, [
@@ -3180,7 +3186,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Hapus\n                    "
+                        "\n                        Delete\n                    "
                       )
                     ]
                   ),

@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-3 d-flex align-items-center justify-content-start">
                         <div class="col-12">
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                         
                             <div class="detail">
                                 <p class="mb-0">{{ event.title }}</p>
@@ -19,7 +19,7 @@
 
                     <div class="col-3 d-flex align-items-center justify-content-center">
                         <div class="col-12">
-                            <p class="small text-uppercase mb-0 text-center"><strong>Lokasi</strong></p>
+                            <p class="small text-uppercase mb-0 text-center"><strong>Location</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0 text-center">{{ event.location }}</p>
@@ -29,7 +29,7 @@
 
                     <div class="col-2 d-flex align-items-center justify-content-center">
                         <div class="col-12">
-                            <p class="small text-uppercase mb-0 text-center"><strong>Waktu Mulai</strong></p>
+                            <p class="small text-uppercase mb-0 text-center"><strong>Start Date</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0 text-center">{{ event.start_date }}</p>
@@ -40,7 +40,7 @@
                     <div class="d-flex align-items-center justify-content-center" 
                     :class="event.applicants.length > 0 ? 'col-2' : 'col-4'">
                         <div class="col-12">
-                            <p class="small text-uppercase mb-0 text-center"><strong>Pendaftar</strong></p>
+                            <p class="small text-uppercase mb-0 text-center"><strong>Registrant</strong></p>
                         
                             <div class="detail">
                                 <p class="mb-0 text-center">{{ event.applicants.length }}</p>

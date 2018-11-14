@@ -2382,7 +2382,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "col-12" }, [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Nama")])
+                      _c("strong", [_vm._v("Name")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -2405,7 +2405,7 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "small text-uppercase mb-0 text-center" },
-                      [_c("strong", [_vm._v("Lokasi")])]
+                      [_c("strong", [_vm._v("Location")])]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -2428,7 +2428,7 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "small text-uppercase mb-0 text-center" },
-                      [_c("strong", [_vm._v("Waktu Mulai")])]
+                      [_c("strong", [_vm._v("Start Date")])]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
@@ -2452,7 +2452,7 @@ var render = function() {
                     _c(
                       "p",
                       { staticClass: "small text-uppercase mb-0 text-center" },
-                      [_c("strong", [_vm._v("Pendaftar")])]
+                      [_c("strong", [_vm._v("Registrant")])]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
