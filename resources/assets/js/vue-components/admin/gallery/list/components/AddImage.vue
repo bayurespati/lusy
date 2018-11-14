@@ -29,7 +29,24 @@
                                 <label class="m-0 pl-1" for="name">Name</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" v-model="title" class="form-control full-width" id="name">
+                                <input type="text" v-model="title" 
+                                       @input="$v.title.$touch()"
+                                       class="form-control full-width" id="name">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
+                                        * Name item must be filled
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.minLength">
+                                        * Minimum {{ $v.title.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.maxLength">
+                                        * Maximum {{ $v.title.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
@@ -38,7 +55,17 @@
                                 <label class="m-0 pl-1" for="date">Date</label>
                             </div>
                             <div class="col-md-9">
-                                <datetime type="date" v-model="date" class="full-width"></datetime>
+                                <datetime type="date" v-model="date"> class="full-width"></datetime>
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->                                
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
+                                        * Date must be filled
+                                    </span>
+                                </transition>
+
                             </div>
                         </div>
 
@@ -48,6 +75,18 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="location" class="form-control full-width" id="lokasi">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.location.minLength">
+                                        * Minimum {{ $v.location.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.location.maxLength">
+                                        * Maximum {{ $v.location.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
@@ -57,6 +96,19 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="text" v-model="creator" class="form-control full-width" id="creator">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.creator.minLength">
+                                        * Minimum {{ $v.creator.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.creator.maxLength">
+                                        * Maximum {{ $v.creator.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
+
                             </div>
                         </div>
 
@@ -66,8 +118,10 @@
                             </div>      
                             <div class="col-md-9">
                                 <select class="form-control full-width" id="category" v-model="subcategories">
-                                    <option value="">Choose Category</option>
-                                    <option v-for="category in categories" :value=category.subcategories>{{ category.title }}</option>
+                                    <option value="" disabled>Choose Category</option>
+                                    <option v-for="category in categories" 
+                                            :value=category.subcategories>{{ category.title }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -77,23 +131,31 @@
                                 <label class="m-0 pl-1" for="subcategory">subcategory</label>
                             </div>
                             <div class="col-md-9">
-                                <select class="form-control full-width" id="subcategory" v-model="sub_category_id">
-                                    <option value="">Choose Subcategory</option>
-                                    <option v-for="subcategory in subcategories" :value=subcategory.id>{{ subcategory.title }}</option>
+                                <select class="form-control full-width" id="subcategory" 
+                                        v-model="sub_category_id" @input="$v.sub_category_id.$touch()">
+                                    <option value="" disabled>Choose Subcategory</option>
+                                    <option v-for="subcategory in subcategories" 
+                                            :value=subcategory.id>{{ subcategory.title }}
+                                    </option>
                                 </select>
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->                                
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.sub_category_id.required && $v.sub_category_id.$dirty">
+                                        * Sub category must be filled
+                                    </span>
+                                </transition>
                             </div>
                         </div> 
 
                         <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" role="button"
-                            class="btn btn-success"
-                            @click="uploadImage">
+                            <button type="button" role="button" class="btn btn-success" @click="uploadImage">
                                 Save
                             </button>
 
-                            <button class="btn btn-danger ml-2"
-                            type="button" role="button" 
-                            @click="closeAdd"> 
+                            <button class="btn btn-danger ml-2" type="button" role="button" @click="closeAdd"> 
                                 Cancel
                             </button>
                         </div>
@@ -105,6 +167,7 @@
 </template>
 
 <script>
+    import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {Datetime} from 'vue-datetime';
     Vue.use(Datetime)
 
@@ -140,6 +203,32 @@
             Datetime
         },
 
+        validations: {
+            title: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(30)
+            },
+            location:{
+                minLength: minLength(3),
+                maxLength: maxLength(100)
+            },
+            sub_category_id:{
+                required
+            },
+            date:{
+                required
+            },
+            location:{
+                minLength: minLength(3),
+                maxLength: maxLength(30)
+            },
+            creator:{
+                minLength: minLength(3),
+                maxLength: maxLength(30)
+            }
+        },
+
         computed:{
             ...mapGetters({
                 categories : 'getCategories'
@@ -149,9 +238,9 @@
                 return this.image != '' 
                     && this.sub_category_id != '' 
                     && this.date != ''
-                    && this.title != '' && this.title.length > 3
-                    && this.location != '' && this.location.length > 3
-                    && this.creator != '' && this.creator.length > 3
+                    && this.title != '' && this.title.length >= 3 && this.title.length <= 30
+                    && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 30) )
+                    && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
              }
         },
 

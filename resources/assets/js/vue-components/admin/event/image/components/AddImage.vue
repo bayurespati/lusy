@@ -58,8 +58,10 @@
                                 <label class="m-0 pl-1" for="description">Description</label>
                             </div>
                             <div class="col-md-9">
-                                <textarea v-model="description" class="form-control full-width" 
-                                          id="description"></textarea>
+                                <textarea v-model="description" 
+                                          class="form-control full-width" id="description">
+                                </textarea>
+
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
@@ -142,7 +144,7 @@
                     && this.title != '' 
                     && this.title.length >= 3
                     && this.title.length <= 30
-                    && (this.description == '' || (this.description.length >= 3 && this.description.length <= 100) )
+                    && ( this.description == '' || (this.description.length >= 3 && this.description.length <= 100) )
              }
         },
 
