@@ -553,7 +553,7 @@ if(false) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(375);
 
 
@@ -706,7 +706,7 @@ exports.push([module.i, "\na[data-v-16f575a0]{\n\t\tcursor: pointer;\n}\n.notifi
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 //
 //
 //
@@ -1174,7 +1174,73 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 3:
+/***/ 373:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(374);
+
+
+/***/ }),
+
+/***/ 374:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(121);
+
+
+
+
+
+var admin = new Vue({
+    el: '#subcategories',
+
+    components: {
+        Subcategories: __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_subCategories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 375:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(121);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getIndexOfSubCategory: function getIndexOfSubCategory(subcategoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.subcategories, function (subcategory) {
+            return subcategory.id === subcategoryId;
+        });
+    },
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    }
+});
+
+/***/ }),
+
+/***/ 4:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2120,72 +2186,6 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 373:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(374);
-
-
-/***/ }),
-
-/***/ 374:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(121);
-
-
-
-
-
-var admin = new Vue({
-    el: '#subcategories',
-
-    components: {
-        Subcategories: __WEBPACK_IMPORTED_MODULE_0__global_subcategories_Subcategories_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_subCategories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
-});
-
-/***/ }),
-
-/***/ 375:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(121);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfSubCategory: function getIndexOfSubCategory(subcategoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.subcategories, function (subcategory) {
-            return subcategory.id === subcategoryId;
-        });
-    },
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports) {
 
@@ -2402,7 +2402,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddSubcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddSubcategory_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subcategory_vue__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subcategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Subcategory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -2560,7 +2560,7 @@ exports.push([module.i, "\n.card[data-v-3618a65c] {\n\t\tdisplay: inline-block;\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 var _data$computed$comput;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3089,7 +3089,7 @@ exports.push([module.i, "\n.bg-grey[data-v-d5d73c36] {\n    background: #fafafa;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
