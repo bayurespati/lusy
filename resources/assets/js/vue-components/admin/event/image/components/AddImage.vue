@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="col-md-12 text-center">
                     <h3 class="text-center font-weight-bold mb-5">
-                        Tambah Gambar {{ eventName }}
+                        Add Image {{ eventName }}
                     </h3>
                 </div>
 
@@ -28,10 +28,28 @@
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center">
-                                <label class="m-0 pl-1" for="name">Nama</label>
+                                <label class="m-0 pl-1" for="name">Name</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" v-model="title" class="form-control full-width" id="name">
+                                <input type="text" v-model="title" 
+                                       @input="$v.title.$touch()"
+                                       class="form-control full-width" id="name">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
+                                        * Name item must be filled
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.minLength">
+                                        * Minimum {{ $v.title.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.maxLength">
+                                        * Maximum {{ $v.title.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
+
                             </div>
                         </div>
 
@@ -40,20 +58,28 @@
                                 <label class="m-0 pl-1" for="description">Description</label>
                             </div>
                             <div class="col-md-9">
-                                <textarea v-model="description" class="form-control full-width" id="description"></textarea>
+                                <textarea v-model="description" class="form-control full-width" 
+                                          id="description"></textarea>
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.description.minLength">
+                                        * Minimum {{ $v.description.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.title.maxLength">
+                                        * Maximum {{ $v.description.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
                         <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" role="button"
-                            class="btn btn-success"
-                            @click="uploadImage">
+                            <button type="button" role="button"class="btn btn-success"@click="uploadImage">
                                 Save
                             </button>
 
-                            <button class="btn btn-danger ml-2"
-                            type="button" role="button" 
-                            @click="closeAdd"> 
+                            <button class="btn btn-danger ml-2"type="button" role="button" @click="closeAdd"> 
                                 Cancel
                             </button>
                         </div>
@@ -65,6 +91,7 @@
 </template>
 
 <script>
+    import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
     import {Croppie} from 'croppie';
 
@@ -93,8 +120,16 @@
             this.setUpCroppie();
         },
 
-        components:{
-          
+        validations: {
+            title: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(30)
+            },
+            description:{
+                minLength: minLength(3),
+                maxLength: maxLength(100)
+            }
         },
 
         computed:{
@@ -104,8 +139,10 @@
 
             formIsFilled(){
                 return this.image != '' 
-                    && this.title != '' && this.title.length > 3
-                    && this.description != '' && this.description.length > 3;
+                    && this.title != '' 
+                    && this.title.length >= 3
+                    && this.title.length <= 30
+                    && (this.description == '' || (this.description.length >= 3 && this.description.length <= 100) )
              }
         },
 
@@ -122,10 +159,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const self  = this;
 
                 reader.onload = (event) => {
-                    vm.image = event.target.result;
+                    self.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -134,7 +171,7 @@
             },
 
             setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie');
 
                 this.croppie = new Croppie(file,{
@@ -145,7 +182,7 @@
 
                 if(this.image === null || this.image === ''){
                     this.croppie.bind({
-                        url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                        url: '/img/events1.jpg'
                     });
                 }else {
                     this.croppie.bind({
@@ -154,26 +191,29 @@
                 }
 
                 this.croppie.options.update = function(){
-                    vm.setImage();
+                    self.setImage();
                 }
             },
 
             setImage(){
-                const vm = this;
+                const self = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {witdh: 410, height: 400, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             },
 
             uploadImage(){
 
-                const vm  = this;
+                const self  = this;
+
+                console.log(this.formIsFilled);
                 
-                if(this.formIsFilled){
+                if(this.formIsFilled && !self.isRequesting){
+
                     this.isRequesting = true;
 
                     const imageData = {
@@ -185,14 +225,14 @@
 
                     this.$store.dispatch('store_new_image', imageData)
                         .then((response) => {
-                            flash('Foto berhasil di tambahkan','success');
+                            flash('Image added','success');
 
-                            vm.isRequesting = false;
+                            self.isRequesting = false;
 
-                            vm.closeAdd();
+                            self.closeAdd();
                         })
                         .catch((errors) => {
-                            vm.isRequesting = false;
+                            self.isRequesting = false;
 
                             Object.keys(errors).forEach(field=> {
                                 errors[field].forEach(message=> {

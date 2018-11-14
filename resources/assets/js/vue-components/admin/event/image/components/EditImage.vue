@@ -28,17 +28,32 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Nama
+                                    Name
                                 </label>
                             </div>
 
                             <div class="col-sm-9 col-xs-12">
-                                <input id="title"
-                                type="text"
+                                <input id="title" type="text"
                                 class="form-control form-control-sm"
+                                @input="$v.input.title.$touch()"
                                 @keyup.enter="editImage"
-                                placeholder="Nama Gambar" 
+                                placeholder="Name"
                                 v-model="input.title">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
+                                        * Name item must be filled
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.input.title.minLength">
+                                        * Minimum {{ $v.input.title.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.input.title.maxLength">
+                                        * Maximum {{ $v.input.title.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
@@ -46,7 +61,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Nama
+                                    Description
                                 </label>
                             </div>
 
@@ -54,19 +69,28 @@
                                 <textarea  v-model="input.description" 
                                            class="form-control form-control-sm" 
                                            @keyup.enter="editImage" ></textarea>
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                    <span class="text-danger" v-if="!$v.input.description.minLength">
+                                        * Minimum {{ $v.input.description.$params.minLength.min }} character
+                                    </span>
+                                    <span class="text-danger" v-if="!$v.input.description.maxLength">
+                                        * Maximum {{ $v.input.description.$params.maxLength.max }} character
+                                    </span>
+                                </transition>
+
                             </div>
                         </div>
 
                         <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" 
-                            class="btn btn-secondary btn-sm"
-                            @click="closeEditForm">
-                                Batal
+                            <button type="button" class="btn btn-secondary btn-sm"@click="closeEditForm">
+                                Cancel
                             </button>
 
-                            <button @click="editImage"
-                            class="btn btn-success btn-sm ml-2">
-                                Simpan
+                            <button @click="editImage"class="btn btn-success btn-sm ml-2">
+                                Save
                             </button>
                         </div>
                     </div>    
@@ -77,6 +101,7 @@
 </template>
 
 <script>
+    import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
     import {Croppie} from 'croppie';
     export default{
@@ -97,13 +122,27 @@
                 input:{
                     title : this.imageItem.title,
                     image : this.imageItem.image_path,
-                    description : this.imageItem.description,
+                    description : this.imageItem.description === null ? '' : this.imageItem.description,
                 }
             }   
         },
 
         mounted(){
             this.setUpCroppie();
+        },
+
+        validations: {
+            input:{
+                title: {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(30)
+                },
+                description:{
+                    minLength: minLength(3),
+                    maxLength: maxLength(100)
+                }                
+            }
         },
 
         computed: {
@@ -113,6 +152,14 @@
                     || this.imageItem.image_path !== this.input.image
                     || this.imageItem.description !== this.input.description;
             },
+
+            formIsFilled(){
+                return this.input.image != '' 
+                    && this.input.title != '' 
+                    && this.input.title.length >= 3
+                    && this.input.title.length <= 30
+                    && (this.input.description == '' || (this.input.description.length >= 3 && this.input.description.length <= 100) )
+             }
         },
 
         methods: {
@@ -129,10 +176,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const setUpFileUploaderself = this;
 
                 reader.onload = (event) => {
-                    vm.input.image = event.target.result;
+                    self.input.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -141,7 +188,7 @@
             },
 
              setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie-' + this.imageItem.id);
 
                 this.croppie = new Croppie(file,{
@@ -152,7 +199,7 @@
 
                 if(this.input.image === null || this.input.image === ''){
                     this.croppie.bind({
-                        url: 'https://static.wixstatic.com/media/b77fe464cfc445da9003a5383a3e1acf.jpg'
+                        url: '/img/events1.jpg'
                     });
                 }else {
                     this.croppie.bind({
@@ -161,18 +208,18 @@
                 }
 
                 this.croppie.options.update = function(){
-                    vm.setImage();
+                    self.setImage();
                 }
             },
 
             setImage(){
-                const vm = this;
+                const self = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {witdh: 410, height:400, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             },
 
@@ -181,7 +228,7 @@
 
                 const self = this;
 
-                if (this.imageIsEdited) {
+                if (this.imageIsEdited && this.formIsFilled && !this.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -197,7 +244,9 @@
 
                         .then((updatedImage) => {
 
-                            flash('Image item Berhasil diperbaharui', 'success');
+                            flash('Image item updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })
