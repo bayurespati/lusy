@@ -20,6 +20,11 @@
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                                <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
+                                    Image is required
+                                </p>
+                            </transition>
                         </div>
                     </div>
 
@@ -35,6 +40,7 @@
                                 <input id="title" type="text"
                                 class="form-control form-control-sm"
                                 @input="$v.title.$touch()"
+                                :class="{'form-control-danger': $v.title.$error}"
                                 @keyup.enter="editGallery"
                                 placeholder="Nama Gambar" 
                                 v-model="title">
@@ -43,13 +49,13 @@
                                 ======================================================================================-->
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
-                                        * Name item must be filled
+                                        Title is required
                                     </span>
                                     <span class="text-danger" v-if="!$v.title.minLength">
-                                        * Minimum {{ $v.title.$params.minLength.min }} character
+                                        Title has minimum of {{ $v.title.$params.minLength.min }} character
                                     </span>
                                     <span class="text-danger" v-if="!$v.title.maxLength">
-                                        * Maximum {{ $v.title.$params.maxLength.max }} character
+                                        Title has Maximum of {{ $v.title.$params.maxLength.max }} character
                                     </span>
                                 </transition>
                             </div>
@@ -62,13 +68,13 @@
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
-                                <datetime v-model="date" value-zone="local"></datetime>
+                                <datetime v-model="date" :class="{'form-control-danger': $v.date.$error}" value-zone="local"></datetime>
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->                                
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
-                                        * Date must be filled
+                                        Date is required
                                     </span>
                                 </transition>
                             </div>
@@ -85,7 +91,9 @@
                                 <input id="location" type="text"
                                 class="form-control form-control-sm"
                                 @keyup.enter="editGallery"
-                                placeholder="Lokasi Gambar" 
+                                @input="$v.location.$touch()"
+                                :class="{'form-control-danger': $v.location.$error}"
+                                placeholder="Lokasi Gambar"
                                 v-model="location">
 
                             <!--======================================================================================
@@ -93,10 +101,10 @@
                                 ======================================================================================-->
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.location.minLength">
-                                        * Minimum {{ $v.location.$params.minLength.min }} character
+                                        Location has minimum of {{ $v.location.$params.minLength.min }} character
                                     </span>
                                     <span class="text-danger" v-if="!$v.location.maxLength">
-                                        * Maximum {{ $v.location.$params.maxLength.max }} character
+                                        Location has Maximum of {{ $v.location.$params.maxLength.max }} character
                                     </span>
                                 </transition>
                             </div>
@@ -112,6 +120,8 @@
                             <div class="col-sm-9 col-xs-12">
                                 <input id="creator" type="text"
                                 class="form-control form-control-sm"
+                                @input="$v.creator.$touch()"
+                                :class="{'form-control-danger': $v.creator.$error}"
                                 @keyup.enter="editGallery"
                                 placeholder="Dibuat Oleh" 
                                 v-model="creator">
@@ -121,10 +131,10 @@
                                 ======================================================================================-->
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.creator.minLength">
-                                        * Minimum {{ $v.creator.$params.minLength.min }} character
+                                        Creator has minimum of {{ $v.creator.$params.minLength.min }} character
                                     </span>
                                     <span class="text-danger" v-if="!$v.creator.maxLength">
-                                        * Maximum {{ $v.creator.$params.maxLength.max }} character
+                                        Creator has maximum of {{ $v.creator.$params.maxLength.max }} character
                                     </span>
                                 </transition>
                             </div>
@@ -138,7 +148,9 @@
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
-                                <select class="form-control" id="subcategory" v-model="sub_category_id">
+                                <select class="form-control" id="subcategory"
+                                        :class="{'form-control-danger': $v.sub_category_id.$error}"
+                                        v-model="sub_category_id">
                                     <option v-for="subcategory in subcategories" 
                                             :value=subcategory.id> {{ subcategory.title }}
                                     </option>
@@ -149,7 +161,7 @@
                                 ======================================================================================-->                                
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.sub_category_id.required && $v.sub_category_id.$dirty">
-                                        * Sub category must be filled
+                                        sub category is required
                                     </span>
                                 </transition>
                             </div>
@@ -208,7 +220,7 @@
             title: {
                 required,
                 minLength: minLength(3),
-                maxLength: maxLength(30)
+                maxLength: maxLength(50)
             },
             location:{
                 minLength: minLength(3),
@@ -223,6 +235,9 @@
             creator:{
                 minLength: minLength(3),
                 maxLength: maxLength(30)
+            },
+            image:{
+                required
             }
         },
 
@@ -244,7 +259,7 @@
                 return this.image != '' 
                     && this.sub_category_id != '' 
                     && this.date != ''
-                    && this.title != '' && this.title.length >= 3 && this.title.length <= 30
+                    && this.title != '' && this.title.length >= 3 && this.title.length <= 50
                     && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 30) )
                     && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
              },
@@ -343,7 +358,7 @@
 
                         .then((updatedGallery) => {
 
-                            flash('Gallery Berhasil diperbaharui', 'success');
+                            flash('Image updated', 'success');
 
                             self.isRequesting = false;
 
@@ -352,12 +367,21 @@
                         .catch(errors => {
                             self.isRequesting = false;
                         });
+                }else{
+                    this.diryAllInputs();
                 }
             },
 
             closeEditForm() {
                 this.$emit('editionFormIsClosed', false);
-            }
+            },
+
+            diryAllInputs(){
+                this.$v.title.$touch();
+                this.$v.date.$touch();
+                this.$v.sub_category_id.$touch();
+                this.$v.image.$touch();
+            },
         }
     };
 </script>
@@ -380,6 +404,16 @@
         border-radius: .25rem;
         border: 1px solid #ced4da;
     }
+
+    .form-control-danger input {
+        border-color: #dc3545 !important;
+    }
+
+    .form-control-danger input:focus {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;
+    }
+
 </style>
 
 <style scoped>

@@ -15728,7 +15728,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.croppie-container {\n    height: unset;\n}\n.croppie-container .cr-slider-wrap {\n    margin: 15px auto 5px auto;\n}\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n", ""]);
+exports.push([module.i, "\n.croppie-container {\n    height: unset;\n}\n.croppie-container .cr-slider-wrap {\n    margin: 15px auto 5px auto;\n}\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n.form-control-danger input {\n    border-color: #dc3545 !important;\n}\n.form-control-danger input:focus {\n    border-color: #dc3545 !important;\n    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;\n}\n\n", ""]);
 
 // exports
 
@@ -15956,6 +15956,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15998,7 +16013,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         title: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
         },
         sub_category_id: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -16013,6 +16028,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         creator: {
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+        },
+        image: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         }
     },
 
@@ -16020,7 +16038,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         categories: 'getCategories'
     }), {
         formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 30 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
         }
     }),
 
@@ -16106,7 +16124,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                 };
 
                 this.$store.dispatch('store_new_image', galleryData).then(function (response) {
-                    flash('Foto berhasil di tambahkan', 'success');
+                    flash('Image Added', 'success');
 
                     self.isRequesting = false;
 
@@ -16120,10 +16138,18 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                         });
                     });
                 });
+            } else {
+                this.diryAllInputs();
             }
         },
         closeAdd: function closeAdd() {
             this.$emit('closeAddImage', false);
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.title.$touch();
+            this.$v.date.$touch();
+            this.$v.sub_category_id.$touch();
+            this.$v.image.$touch();
         }
     }
 });
@@ -16145,15 +16171,40 @@ var render = function() {
           _c("div", { staticClass: "col-md-4" }, [
             _c("div", { attrs: { id: "croppie" } }),
             _vm._v(" "),
-            _c("div", { staticClass: "panel panel-transparent text-center" }, [
-              _c("input", {
-                staticClass: "inputfile",
-                attrs: { type: "file", accept: "image/*", id: "file-2" },
-                on: { change: _vm.setUpFileUploader }
-              }),
-              _vm._v(" "),
-              _vm._m(1)
-            ])
+            _c(
+              "div",
+              { staticClass: "panel panel-transparent text-center" },
+              [
+                _c("input", {
+                  staticClass: "inputfile",
+                  attrs: { type: "file", accept: "image/*", id: "file-2" },
+                  on: { change: _vm.setUpFileUploader }
+                }),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "transition",
+                  {
+                    attrs: {
+                      appear: "",
+                      enterActiveClass: "fade-in-down",
+                      leaveActiveClass: "fade-out-up"
+                    }
+                  },
+                  [
+                    !_vm.$v.image.required && _vm.$v.image.$dirty
+                      ? _c("p", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            "\n                                Image is required\n                            "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8" }, [
@@ -16174,6 +16225,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control full-width",
+                    class: { "form-control-danger": _vm.$v.title.$error },
                     attrs: { type: "text", id: "name" },
                     domProps: { value: _vm.title },
                     on: {
@@ -16204,7 +16256,7 @@ var render = function() {
                       !_vm.$v.title.required && _vm.$v.title.$dirty
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Name item must be filled\n                                "
+                              "\n                                    Title is required\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -16212,7 +16264,7 @@ var render = function() {
                       !_vm.$v.title.minLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Minimum " +
+                              "\n                                    Title has minimum of " +
                                 _vm._s(_vm.$v.title.$params.minLength.min) +
                                 " character\n                                "
                             )
@@ -16222,7 +16274,7 @@ var render = function() {
                       !_vm.$v.title.maxLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Maximum " +
+                              "\n                                    Title has maximum of " +
                                 _vm._s(_vm.$v.title.$params.maxLength.max) +
                                 " character\n                                "
                             )
@@ -16242,20 +16294,18 @@ var render = function() {
                 "div",
                 { staticClass: "col-md-9" },
                 [
-                  _c(
-                    "datetime",
-                    {
-                      attrs: { type: "date" },
-                      model: {
-                        value: _vm.date,
-                        callback: function($$v) {
-                          _vm.date = $$v
-                        },
-                        expression: "date"
-                      }
-                    },
-                    [_vm._v(' class="full-width">')]
-                  ),
+                  _c("datetime", {
+                    staticClass: "full-width",
+                    class: { "form-control-danger": _vm.$v.date.$error },
+                    attrs: { type: "date" },
+                    model: {
+                      value: _vm.date,
+                      callback: function($$v) {
+                        _vm.date = $$v
+                      },
+                      expression: "date"
+                    }
+                  }),
                   _vm._v(" "),
                   _c(
                     "transition",
@@ -16270,7 +16320,7 @@ var render = function() {
                       !_vm.$v.date.required && _vm.$v.date.$dirty
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Date must be filled\n                                "
+                              "\n                                    Date is required\n                                "
                             )
                           ])
                         : _vm._e()
@@ -16298,15 +16348,21 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control full-width",
+                    class: { "form-control-danger": _vm.$v.location.$error },
                     attrs: { type: "text", id: "lokasi" },
                     domProps: { value: _vm.location },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.location = $event.target.value
+                        },
+                        function($event) {
+                          _vm.$v.location.$touch()
                         }
-                        _vm.location = $event.target.value
-                      }
+                      ]
                     }
                   }),
                   _vm._v(" "),
@@ -16323,7 +16379,7 @@ var render = function() {
                       !_vm.$v.location.minLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Minimum " +
+                              "\n                                    Location has minimum of " +
                                 _vm._s(_vm.$v.location.$params.minLength.min) +
                                 " character\n                                "
                             )
@@ -16333,7 +16389,7 @@ var render = function() {
                       !_vm.$v.location.maxLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Maximum " +
+                              "\n                                    Location has maximum of " +
                                 _vm._s(_vm.$v.location.$params.maxLength.max) +
                                 " character\n                                "
                             )
@@ -16363,15 +16419,21 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control full-width",
+                    class: { "form-control-danger": _vm.$v.creator.$error },
                     attrs: { type: "text", id: "creator" },
                     domProps: { value: _vm.creator },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.creator = $event.target.value
+                        },
+                        function($event) {
+                          _vm.$v.creator.$touch()
                         }
-                        _vm.creator = $event.target.value
-                      }
+                      ]
                     }
                   }),
                   _vm._v(" "),
@@ -16388,7 +16450,7 @@ var render = function() {
                       !_vm.$v.creator.minLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Minimum " +
+                              "\n                                    Creator has minimum of " +
                                 _vm._s(_vm.$v.creator.$params.minLength.min) +
                                 " character\n                                "
                             )
@@ -16398,7 +16460,7 @@ var render = function() {
                       !_vm.$v.creator.maxLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Maximum " +
+                              "\n                                    Creator has Maximum of " +
                                 _vm._s(_vm.$v.creator.$params.maxLength.max) +
                                 " character\n                                "
                             )
@@ -16486,6 +16548,9 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control full-width",
+                      class: {
+                        "form-control-danger": _vm.$v.sub_category_id.$error
+                      },
                       attrs: { id: "subcategory" },
                       on: {
                         input: function($event) {
@@ -16541,7 +16606,7 @@ var render = function() {
                       _vm.$v.sub_category_id.$dirty
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Sub category must be filled\n                                "
+                              "\n                                    Sub category is required\n                                "
                             )
                           ])
                         : _vm._e()
@@ -17009,7 +17074,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.croppie-container {\n    height: unset;\n}\n.croppie-container .cr-slider-wrap {\n    margin: 15px auto 5px auto;\n}\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n", ""]);
+exports.push([module.i, "\n.croppie-container {\n    height: unset;\n}\n.croppie-container .cr-slider-wrap {\n    margin: 15px auto 5px auto;\n}\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n.form-control-danger input {\n    border-color: #dc3545 !important;\n}\n.form-control-danger input:focus {\n    border-color: #dc3545 !important;\n    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;\n}\n\n", ""]);
 
 // exports
 
@@ -17240,6 +17305,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17277,7 +17354,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         title: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
         },
         location: {
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
@@ -17292,6 +17369,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         creator: {
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+        },
+        image: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         }
     },
 
@@ -17302,7 +17382,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
         },
         formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 30 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
         },
         subcategories: function subcategories() {
             for (var a = 0; a < this.categories.length; a++) {
@@ -17393,7 +17473,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
 
-                    flash('Gallery Berhasil diperbaharui', 'success');
+                    flash('Image updated', 'success');
 
                     self.isRequesting = false;
 
@@ -17401,10 +17481,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 }).catch(function (errors) {
                     self.isRequesting = false;
                 });
+            } else {
+                this.diryAllInputs();
             }
         },
         closeEditForm: function closeEditForm() {
             this.$emit('editionFormIsClosed', false);
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.title.$touch();
+            this.$v.date.$touch();
+            this.$v.sub_category_id.$touch();
+            this.$v.image.$touch();
         }
     }
 });
@@ -17460,8 +17548,29 @@ var render = function() {
                         attrs: { for: "file-2" }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          appear: "",
+                          enterActiveClass: "fade-in-down",
+                          leaveActiveClass: "fade-out-up"
+                        }
+                      },
+                      [
+                        !_vm.$v.image.required && _vm.$v.image.$dirty
+                          ? _c("p", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                "\n                                Image is required\n                            "
+                              )
+                            ])
+                          : _vm._e()
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
@@ -17504,6 +17613,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control form-control-sm",
+                        class: { "form-control-danger": _vm.$v.title.$error },
                         attrs: {
                           id: "title",
                           type: "text",
@@ -17553,7 +17663,7 @@ var render = function() {
                           !_vm.$v.title.required && _vm.$v.title.$dirty
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Name item must be filled\n                                "
+                                  "\n                                    Title is required\n                                "
                                 )
                               ])
                             : _vm._e(),
@@ -17561,7 +17671,7 @@ var render = function() {
                           !_vm.$v.title.minLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Minimum " +
+                                  "\n                                    Title has minimum of " +
                                     _vm._s(_vm.$v.title.$params.minLength.min) +
                                     " character\n                                "
                                 )
@@ -17571,7 +17681,7 @@ var render = function() {
                           !_vm.$v.title.maxLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Maximum " +
+                                  "\n                                    Title has Maximum of " +
                                     _vm._s(_vm.$v.title.$params.maxLength.max) +
                                     " character\n                                "
                                 )
@@ -17613,6 +17723,7 @@ var render = function() {
                     { staticClass: "col-sm-9 col-xs-12" },
                     [
                       _c("datetime", {
+                        class: { "form-control-danger": _vm.$v.date.$error },
                         attrs: { "value-zone": "local" },
                         model: {
                           value: _vm.date,
@@ -17636,7 +17747,7 @@ var render = function() {
                           !_vm.$v.date.required && _vm.$v.date.$dirty
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Date must be filled\n                                "
+                                  "\n                                    Date is required\n                                "
                                 )
                               ])
                             : _vm._e()
@@ -17685,6 +17796,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control form-control-sm",
+                        class: {
+                          "form-control-danger": _vm.$v.location.$error
+                        },
                         attrs: {
                           id: "location",
                           type: "text",
@@ -17707,12 +17821,17 @@ var render = function() {
                             }
                             return _vm.editGallery($event)
                           },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.location = $event.target.value
+                            },
+                            function($event) {
+                              _vm.$v.location.$touch()
                             }
-                            _vm.location = $event.target.value
-                          }
+                          ]
                         }
                       }),
                       _vm._v(" "),
@@ -17729,7 +17848,7 @@ var render = function() {
                           !_vm.$v.location.minLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Minimum " +
+                                  "\n                                    Location has minimum of " +
                                     _vm._s(
                                       _vm.$v.location.$params.minLength.min
                                     ) +
@@ -17741,7 +17860,7 @@ var render = function() {
                           !_vm.$v.location.maxLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Maximum " +
+                                  "\n                                    Location has Maximum of " +
                                     _vm._s(
                                       _vm.$v.location.$params.maxLength.max
                                     ) +
@@ -17794,6 +17913,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control form-control-sm",
+                        class: { "form-control-danger": _vm.$v.creator.$error },
                         attrs: {
                           id: "creator",
                           type: "text",
@@ -17801,6 +17921,17 @@ var render = function() {
                         },
                         domProps: { value: _vm.creator },
                         on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.creator = $event.target.value
+                            },
+                            function($event) {
+                              _vm.$v.creator.$touch()
+                            }
+                          ],
                           keyup: function($event) {
                             if (
                               !("button" in $event) &&
@@ -17815,12 +17946,6 @@ var render = function() {
                               return null
                             }
                             return _vm.editGallery($event)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.creator = $event.target.value
                           }
                         }
                       }),
@@ -17838,7 +17963,7 @@ var render = function() {
                           !_vm.$v.creator.minLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Minimum " +
+                                  "\n                                    Creator has minimum of " +
                                     _vm._s(
                                       _vm.$v.creator.$params.minLength.min
                                     ) +
@@ -17850,7 +17975,7 @@ var render = function() {
                           !_vm.$v.creator.maxLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Maximum " +
+                                  "\n                                    Creator has maximum of " +
                                     _vm._s(
                                       _vm.$v.creator.$params.maxLength.max
                                     ) +
@@ -17905,6 +18030,9 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          class: {
+                            "form-control-danger": _vm.$v.sub_category_id.$error
+                          },
                           attrs: { id: "subcategory" },
                           on: {
                             change: function($event) {
@@ -17951,7 +18079,7 @@ var render = function() {
                           _vm.$v.sub_category_id.$dirty
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Sub category must be filled\n                                "
+                                  "\n                                    sub category is required\n                                "
                                 )
                               ])
                             : _vm._e()
