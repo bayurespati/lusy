@@ -28,7 +28,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Nama
+                                    Name
                                 </label>
                             </div>
 
@@ -46,7 +46,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="date"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Tanggal
+                                    Date
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
@@ -58,7 +58,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="location"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Lokasi
+                                    Location
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
@@ -75,7 +75,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="creator"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Dibuat Oleh
+                                    Creator
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
@@ -92,7 +92,7 @@
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="subcategory"
                                 class="form-control-label panel-font-small m-0 font-weight-bold">
-                                    Subkategori
+                                    Subcategory
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
@@ -108,12 +108,12 @@
                             <button type="button" 
                             class="btn btn-secondary btn-sm"
                             @click="closeEditForm">
-                                Batal
+                                Cancel
                             </button>
 
                             <button @click="editGallery"
                             class="btn btn-success btn-sm ml-2">
-                                Simpan
+                                Save
                             </button>
                         </div>
                     </div>    
@@ -194,10 +194,10 @@
 
             createImage(file){
                 const reader = new FileReader();
-                const vm  = this;
+                const self  = this;
 
                 reader.onload = (event) => {
-                    vm.image = event.target.result;
+                    self.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -206,7 +206,7 @@
             },
 
             setUpCroppie(){
-                const vm = this;
+                const self = this;
                 let file = document.getElementById('croppie-' + this.galleryImage.id);
 
                 this.croppie = new Croppie(file,{
@@ -226,18 +226,18 @@
                 }
 
                 this.croppie.options.update = function(){
-                    vm.setImage();
+                    self.setImage();
                 }
             },
 
             setImage(){
-                const vm = this;
+                const self = this;
 
                 this.croppie.result({
                     type: 'canvas',
                     size: {witdh: 480, height: 500, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             },
 
@@ -245,7 +245,7 @@
 
                 const self = this;
 
-                if (this.galleryIsEdited) {
+                if (this.galleryIsEdited && !self.isRequesting) {
 
                     this.isRequesting = true;
 
@@ -264,6 +264,8 @@
                         .then((updatedGallery) => {
 
                             flash('Gallery Berhasil diperbaharui', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })

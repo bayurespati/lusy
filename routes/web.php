@@ -859,6 +859,18 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G   A P P L I C A N T   M E M B E R
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.member');
+        Route::get('/data/applicant-member', 'MemberController@loadApplicantMember');
+        Route::patch('/update/applicant-member/{member}', 'MemberController@update');
+        Route::delete('/delete/applicant-member/{member}', 'MemberController@destroy');
+
+
+        /*
+        |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   O V E R S E A S   I N Q U I R Y
         |--------------------------------------------------------------------------
         |

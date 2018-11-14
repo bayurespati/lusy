@@ -1,30 +1,17 @@
 <template>
   <div class="container">
-    <h3>Classes Master</h3>
-    <p class="mb-5">Here you can manages info shown in About page.</p>
-
-    <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-      <template v-if="!isAddClass">
-        <button @click="isAddClass = !isAddClass" class="btn btn-primary">Add Class</button>
-      </template>
-
-      <template v-else>
-        <div class="row">
-          <div class="col-md-12 mb-3">
-            <add-class @closeAddClass="isAddClass = $event"></add-class>
-          </div>
-        </div>
-      </template>
-    </transition>
-
+    <h3>Applicant member list</h3>
+    <p class="mb-5">
+      Here is where you can see list of applicant members
+    </p>
+    
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-          <single-class
-          v-for="singleClass in classes"
-          :singleClass="singleClass"
-          :key="singleClass.id">
-          </single-class>
+          <item v-for="member in list"
+          :member="member"
+          :key="member.id">
+          </item>
         </transition-group>
       </div>
     </div>
@@ -32,27 +19,19 @@
 </template>
 
 <script>
-  import AddClass from './AddClass.vue'
-  import SingleClass from './Class.vue';
+  import Item from './Item.vue';
   import {mapGetters} from 'vuex';
 
   export default {
 
-    data(){
-      return{
-        isAddClass: false
-      }
-    },
-
     components:{
-      SingleClass,
-      AddClass
+      Item
     },
 
     computed:{
-      ...mapGetters({
-        classes: 'getClasses',
-      })
+        ...mapGetters({
+            list: 'getApplicantMemberItems',
+        })
     }
   };
 </script>

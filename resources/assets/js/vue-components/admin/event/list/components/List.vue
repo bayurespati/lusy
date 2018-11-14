@@ -7,7 +7,7 @@
       <template v-if="!isAddEvent">
         <div class="row">
           <div class="col-12">
-            <button @click="isAddEvent = !isAddEvent" class="btn btn-primary">Tambah Event</button>
+            <button @click="isAddEvent = !isAddEvent" class="btn btn-primary">Add Event</button>
           </div>
         </div>
       </template>

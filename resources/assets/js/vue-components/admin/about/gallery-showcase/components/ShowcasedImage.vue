@@ -20,7 +20,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Name</strong></p>
 
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.title }}</p>
@@ -34,7 +34,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Tanggal</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Date</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.date }}</p>
@@ -48,7 +48,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Lokasi</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Location</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.location }}</p>
@@ -62,7 +62,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Dibuat Oleh</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Creator</strong></p>
                             
                             <div class="detail">
                                 <p class="mb-0">{{ galleryImage.creator }}</p>
@@ -78,11 +78,11 @@
                         <button type="button" 
                                 v-if="this.galleryImage.is_showcase == 0"
                                 class="btn btn-sm btn-danger"
-                                @click="editGallery">Tampilkan</button>
+                                @click="editGallery">Show</button>
                         <button type="button" 
                                 v-else
                                 class="btn btn-sm btn-success"
-                                @click="editGallery">Sembunyikan</button>               
+                                @click="editGallery">Hide</button>               
                     </div>
                 </div>
             </transition>
@@ -96,6 +96,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingGallery: false,
             }
         },
@@ -106,9 +107,9 @@
 
                 const self = this;
 
-                if (true) {
+                if (!self.isRequesting) {
 
-                    this.isRequesting = true;
+                    self.isRequesting = true;
 
                     const updatedGallery = {
                         id: this.galleryImage.id,
@@ -119,7 +120,9 @@
 
                         .then((updatedGallery) => {
 
-                            flash('Gallery Berhasil diperbaharui', 'success');
+                            flash('Gallery updated', 'success');
+
+                            self.isRequesting = false;
 
                             self.closeEditForm();
                         })

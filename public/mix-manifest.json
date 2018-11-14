@@ -1,6 +1,6 @@
 {
-    "/js/admin/gallery/list.js": "/js/admin/gallery/list.js",
     "/js/admin/event/list.js": "/js/admin/event/list.js",
+    "/js/admin/gallery/list.js": "/js/admin/gallery/list.js",
     "/js/admin/shop/image.js": "/js/admin/shop/image.js",
     "/js/admin/event/image.js": "/js/admin/event/image.js",
     "/js/admin/about/classes.js": "/js/admin/about/classes.js",
@@ -19,6 +19,7 @@
     "/js/admin/bookkeeping/potential.js": "/js/admin/bookkeeping/potential.js",
     "/js/admin/bookkeeping/message.js": "/js/admin/bookkeeping/message.js",
     "/js/admin/bookkeeping/overseas.js": "/js/admin/bookkeeping/overseas.js",
+    "/js/admin/bookkeeping/applicant_member.js": "/js/admin/bookkeeping/applicant_member.js",
     "/js/admin/bookkeeping/applicant_list.js": "/js/admin/bookkeeping/applicant_list.js",
     "/js/admin/about/shop_showcase.js": "/js/admin/about/shop_showcase.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",

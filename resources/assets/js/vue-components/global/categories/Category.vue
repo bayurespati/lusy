@@ -12,7 +12,7 @@
                         S H O W    T I T L E
                         =========================================================================================-->
                     <div>
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ category.title }}</p>
                         </div>
@@ -25,11 +25,11 @@
                     <div class="d-flex align-items-center justify-content-around">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingCategory = !isEditingCategory">Ubah</button>
+                                @click="isEditingCategory = !isEditingCategory">Edit</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheCategory">Hapus</button>
+                                @click="deleteTheCategory">Delete</button>
                     </div>
 
 
@@ -59,6 +59,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingCategory: false,
             }
         },
@@ -67,14 +68,20 @@
 
             deleteTheCategory() {
                 const self = this;
-                this.$store.dispatch('destroy_category', {
-                    categoryId: this.category.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
 
-                    flash('Category berhasil dihapus', 'danger')
-                })
+                if(!self.isRequesting){
+
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_category', {
+                        categoryId: this.category.id
+                    })
+                    .then(() => {
+                        self.isRequesting = false;
+
+                        flash('Category deleted', 'danger')
+                    })
+                }
             }
         }
     };

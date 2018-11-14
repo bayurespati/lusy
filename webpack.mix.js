@@ -260,8 +260,12 @@ mix.js([
     'resources/assets/js/vue-components/admin/bookkeeping/applicant-event/main.js',
 ], 'public/js/admin/bookkeeping/applicant_event.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/bookkeeping/applicant-list/main.js',
+    'resources/assets/js/vue-components/admin/bookkeeping/applicant-event-list/main.js',
 ], 'public/js/admin/bookkeeping/applicant_list.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookkeeping/applicant-member/main.js',
+], 'public/js/admin/bookkeeping/applicant_member.js');
+
 
 
 

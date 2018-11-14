@@ -23,10 +23,10 @@
 	            	:class= "{ 'show': menuName === menu.id }">
 	                <li v-for="submenu in menu.subMenu">
 	                    <a :href="submenu.link"
-	                    :class= "{ 'active-forced': subMenuName === submenu.link }" style="position: relative;">
-	                    	{{ submenu.name }} 
+	                       :class= "{ 'active-forced': subMenuName === submenu.link }" 
+	                       style="position: relative;"> {{ submenu.name }}
 
-	                    	<div class="notification-dot-left" 
+	                       <div class="notification-dot-left" 
 	                    	v-if="applicantTotal > 0 && submenu.link === '/admin/bookkeeping/applicant-event'">
 	                    		<span>
 	                    			{{ applicantTotal }}
@@ -47,7 +47,15 @@
 	                    			{{ messageTotal }}
 	                    		</span>
 	                    	</div>
-	               		</a>
+
+	                    	<div class="notification-dot-left" 
+	                    	v-else-if="memberTotal > 0 && 
+	                    	submenu.link === '/admin/bookkeeping/applicant-member'">
+	                    		<span>
+	                    			{{ memberTotal }}
+	                    		</span>
+	                    	</div>
+	                    </a>
 	                </li>
 	            </ul>
 	        </li>
@@ -62,6 +70,7 @@
 			return{
 				applicants: '',
 				potentials: '',
+				member: '',
 				message: '',
 				menuName: '',
 				subMenuName: '',
@@ -118,6 +127,7 @@
 						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '#' },
+							{ name:'Member Applicants', link: '/admin/bookkeeping/applicant-member' },
 							{ name:'Event Applicants', link: '/admin/bookkeeping/applicant-event' },
 							{ name:'Overseas Inquiries', link: '/admin/bookkeeping/overseas' },
 							{ name:'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' },
@@ -133,12 +143,14 @@
 			this.getApplicant();
 			this.getPotential();
 			this.getMessage();
+			this.getMember();
 		},
 
 		computed:{
 			applicantTotal(){
+				let totalApplicants = 0;
+
 				if(this.$store.getters.getApplicantItems === undefined){
-					let totalApplicants = 0;
 
 					for(let i = 0; i < this.applicants.length; i++){
 						for(let k = 0; k < this.applicants[i].applicants.length; k++){
@@ -147,28 +159,20 @@
 							}
 						}
 					};
-
-					return totalApplicants;
 				}
 				else{
-					this.$store.getters.getApplicantEvent;
+					let appEvent = this.$store.getters.getApplicantEvent;
 
-					let totalApplicants = 0;
-
-					for(let i = 0; i < this.$store.getters.getApplicantEvent.length; i++){
-						for(let k = 0; 
-						k < this.$store.getters.getApplicantEvent[i].applicants.length; 
-						k++){
-							if(
-							this.$store.getters.getApplicantEvent[i].applicants[k].is_approve===0
-							){
+					for(let i = 0; i < appEvent.length; i++){
+						for(let k = 0; k < appEvent.applicants.length; k++){
+							if(appEvent.applicants[k].is_approve === 0){
 								totalApplicants++;
 							}
 						}
 					};
-
-					return totalApplicants;
 				}
+
+				return totalApplicants;
 			},
 
 			potentialTotal(){
@@ -185,35 +189,60 @@
 				}else{
 					return this.$store.getters.getMessageItems.length;
 				}
+			},
+
+			memberTotal(){
+				if(this.$store.getters.getApplicantMemberItems === undefined){
+					return this.member.length;
+				}else{
+					return this.$store.getters.getApplicantMemberItems.length;
+				}
 			}
 		},
 
 		methods:{
+
 			getApplicant(){
-				axios.get('/admin/bookkeeping/data/applicant-event')
-                .then(response =>{
-                    this.applicants = response.data;
-                });
+				if(this.$store.getters.getApplicantItems === undefined){
+					axios.get('/admin/bookkeeping/data/applicant-event')
+	                .then(response =>{
+	                    this.applicants = response.data;
+	                });
+	            }
 			},
 
  			getPotential(){
- 				axios.get('/admin/bookkeeping/data/potential')
-                .then(response =>{
-                    this.potentials = response.data;
-                });
+ 				if(this.$store.getters.getPotentialItems === undefined){
+ 					axios.get('/admin/bookkeeping/data/potential')
+                	.then(response =>{
+                    	this.potentials = response.data;
+                	});
+            	}
 			},
 
 			getMessage(){
-				axios.get('/admin/bookkeeping/data/message')
-                .then(response =>{
-                    this.message = response.data;
-                });
+				if(this.$store.getters.getMessageItems === undefined){
+					axios.get('/admin/bookkeeping/data/message')
+	                .then(response =>{
+	                    this.message = response.data;
+	                });					
+				}
+			},
+
+			getMember(){
+				if(this.$store.getters.getApplicantMemberItems === undefined){
+					axios.get('/admin/bookkeeping/data/applicant-member')
+	                .then(response =>{
+	                    this.member = response.data;
+	                });
+				}
 			},
 
 			setName(){
 				let link = window.location.pathname.split('/');
 
 				this.menuName = link[2];
+
 				this.subMenuName = '/admin/' + link[2] + '/' + link[3];
 			},
 		},

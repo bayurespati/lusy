@@ -13,7 +13,7 @@
                         S H O W    T I T L E
                         =========================================================================================-->
                     <div class="col-xs-12 col-md-2">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ sosmed.title }}</p>
                         </div>
@@ -26,7 +26,9 @@
                     <div class="col-xs-12 col-md-6">
                         <p class="small text-uppercase mb-0"><strong>Link</strong></p>
                         <div class="detail">
-                            <p class="mb-0 max-lines">{{ sosmed.link === "" || sosmed.link === null ? 'Belum memiliki link' : sosmed.link }}</p>
+                            <p class="mb-0 max-lines">
+                                {{ sosmed.link === "" || sosmed.link === null ? 'None' : sosmed.link }}
+                            </p>
                         </div>
                     </div>
 
@@ -37,7 +39,7 @@
                     <div class="col-xs-12 col-md-2">
                         <p class="small text-uppercase mb-0"><strong>Status</strong></p>
                         <div class="detail max-lines">
-                            <p class="mb-0">{{ sosmed.is_active == false ? 'Tidak Aktif' : 'Aktif' }}</p>
+                            <p class="mb-0">{{ sosmed.is_active == false ? 'Not Active' : 'Active' }}</p>
                         </div>
                     </div>
 

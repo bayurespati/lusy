@@ -12,7 +12,7 @@
                         S H O W    T I T L E
                         =========================================================================================-->
                     <div class="col-md-4 col-sm-6">
-                        <p class="small text-uppercase mb-0"><strong>Nama</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Name</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ subcategory.title }}</p>
                         </div>
@@ -24,7 +24,7 @@
                         S H O W    C A T E G O R Y
                         =========================================================================================-->
                     <div class="col-md-4 col-sm-6">
-                        <p class="small text-uppercase mb-0"><strong>Kategori</strong></p>
+                        <p class="small text-uppercase mb-0"><strong>Category</strong></p>
                         <div class="detail">
                             <p class="mb-0">{{ subcategory.kategori }}</p>
                         </div>
@@ -38,11 +38,11 @@
                     <div class="col-md-4 col-sm-12 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
-                                @click="isEditingSubCategory = !isEditingSubCategory">Ubah</button>
+                                @click="isEditingSubCategory = !isEditingSubCategory">Edit</button>
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="deleteTheSubCategory">Hapus</button>
+                                @click="deleteTheSubCategory">Delete</button>
                     </div>
 
 
@@ -72,6 +72,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingSubCategory: false,
             }
         },
@@ -81,14 +82,21 @@
             deleteTheSubCategory() {
                 const self = this;
 
-                this.$store.dispatch('destroy_subcategory', {
-                    subcategoryId: self.subcategory.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
+                if(!this.isRequesting){
 
-                    flash('Sub Category berhasil dihapus', 'danger')
-                })
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_subcategory', {
+                        subcategoryId: self.subcategory.id
+                    })
+                    .then(() => {
+                        self.isRequesting = false;
+
+                        flash('Sub Category deleted', 'danger');
+
+
+                    })
+                }
             }
         }
     };

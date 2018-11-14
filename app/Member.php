@@ -22,4 +22,12 @@ class Member extends Model
     	'created_at', 'updated_at',
     ];
 
+
+    /**
+     * Relations
+     */
+
+    public function class(){
+        return $this->belongsTo('App\AboutContent', 'class_id');
+    }
 }

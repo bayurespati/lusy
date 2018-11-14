@@ -27,7 +27,7 @@
             <button type="button" role="button"
                     class="btn btn-success ml-3"
                     @click="editImage">
-                    Simpan
+                    Save
             </button>
 
             <!--=========================================================================================
@@ -36,7 +36,7 @@
             <button class="btn btn-danger"
                     type="button" role="button"
                     @click="closeEditForm"> 
-                    Batal
+                    Cancel
             </button>
         </div>
 
@@ -59,6 +59,7 @@
 
     data(){
         return{
+            isRequesting: false,
             croppie: null,
             image: this.imageConfig.image_path,
             save_image: '',
@@ -82,10 +83,10 @@
 
         createImage(file){
             const reader = new FileReader();
-            const vm  = this;
+            const self  = this;
 
             reader.onload = (event) => {
-                vm.image = event.target.result;
+                self.image = event.target.result;
                 this.croppie.destroy();
                 this.setUpCroppie();
             };
@@ -95,7 +96,7 @@
         },
 
         setUpCroppie(){
-            const vm = this;
+            const self = this;
             let file = document.getElementById('croppie-config-'+this.imageConfig.id);
 
             if(this.imageConfig.page_name === 'Home'){
@@ -128,35 +129,37 @@
             }
 
             this.croppie.options.update = function() {
-                vm.setImage();
+                self.setImage();
             };
         },
 
         setImage(){
-            const vm  = this;
+            const self  = this;
 
             if(this.imageConfig.page_name === 'Home'){
                 this.croppie.result({
                     type: 'canvas',
                     size: {width: 1920, height: 876, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             }else{
                 this.croppie.result({
                     type: 'canvas',
                     size: {width: 1920, height: 270, type: 'square'},
                 }).then(response => {
-                    vm.save_image = response;
+                    self.save_image = response;
                 });
             }
         },
 
         editImage(){
 
-            const vm = this;
+            const self = this;
 
-            if (this.image != this.imageConfig.image_path) {
+            if (this.image != this.imageConfig.image_path && !self.isRequesting) {
+
+                self.isRequesting = true;
 
                 const updatedImage = {
                     id: this.imageConfig.id,
@@ -167,9 +170,16 @@
 
                     .then((updatedImage) => {
                         flash('Image Berhasil diperbaharui', 'success');
-                        vm.closeEditForm();
+
+                        self.isRequesting = false;
+
+                        self.closeEditForm();
                     })
-                    .catch(errors => {});
+                    .catch(errors => {
+
+                        self.isRequesting = false;
+
+                    });
               }
           },
 

@@ -12,7 +12,7 @@
                         =========================================================================================-->
                     <div class="col-md-3 col-xs-12 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Judul</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Title</strong></p>
                         
                             <div class="detail">
                                 <p class="mb-0">{{ event.title }}</p>
@@ -26,7 +26,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 col-xs-12 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Waktu Mulai</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Start Date</strong></p>
                         
                             <div class="detail">
                                 <p class="mb-0">{{ event.start_date }}</p>
@@ -40,7 +40,7 @@
                         =========================================================================================-->
                     <div class="col-md-2 col-xs-12 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Waktu Selesai</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>End Date</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ event.start_date }}</p>
                             </div>
@@ -53,7 +53,7 @@
                         =========================================================================================-->
                     <div class="col-md-3 col-xs-12 d-flex align-items-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Lokasi</strong></p>
+                            <p class="small text-uppercase mb-0"><strong>Location</strong></p>
                         
                             <div class="detail">
                                 <p class="mb-0">{{ event.location }}</p>
@@ -75,12 +75,12 @@
                         <button type="button" 
                                 class="btn btn-sm btn-warning ml-1"
                                 @click="isEditingEvent = !isEditingEvent">
-                            Ubah
+                            Edit
                         </button>               
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-1"
                                 @click="deleteTheEvent">
-                            Hapus
+                            Delete
                         </button>
                     </div>
 
@@ -111,6 +111,7 @@
 
         data() {
             return {
+                isRequesting: false,
                 isEditingEvent: false,
             }
         },
@@ -120,14 +121,20 @@
             deleteTheEvent() {
                 const self = this;
 
-                this.$store.dispatch('destroy_event', {
-                    eventId: self.event.id
-                })
-                .then(() => {
-                    self.isRequesting = false;
+                if(!self.isRequesting){
 
-                    flash('Event berhasil dihapus', 'danger')
-                })
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_event', {
+                        eventId: self.event.id
+                    })
+                    .then(() => {
+
+                        self.isRequesting = false;
+
+                        flash('Event deleted', 'danger')
+                    })
+                }
             },
         }
     };

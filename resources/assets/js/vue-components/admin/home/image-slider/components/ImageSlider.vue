@@ -8,7 +8,7 @@
 		            mode="out-in">
 			<template class="row" v-if="!isAddImage">
 				<button v-if="totalImage < 4" @click="isAddImage = !isAddImage" class="btn btn-primary mt-1">
-					Tambah Image
+					Add Image
 				</button>
 			</template>
 			<template class="row" v-else>
