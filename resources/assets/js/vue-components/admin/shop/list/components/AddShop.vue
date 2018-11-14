@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="card text-center">
 				<div class="col-md-12">
-					<h4 class="title font-weight-bold mb-5">Add Item</h4>
+					<h4 class="title font-weight-bold mb-5">Add Shopƒ Item</h4>
 				</div>
 
 				<div class="col-md-12 d-flex">
@@ -11,6 +11,7 @@
 						<div class="form-group text-left mb-3">
 							<input type="text" 
 							v-model="input.title" 
+							:class="{'form-control-danger': $v.input.title.$error}"
 							@input="$v.input.title.$touch()"
 							class="form-control"
 							placeholder="Item name">
@@ -20,13 +21,13 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
-                            	* Item name must be filled
+                            	Title is required
                         	</span>
                             <span class="text-danger" v-if="!$v.input.title.minLength">
-                            	* Minimum {{ $v.input.title.$params.minLength.min }} character
+                            	Title has minimum of {{ $v.input.title.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.title.maxLength">
-                            	* Maximum {{ $v.input.title.$params.maxLength.max }} character
+                            	Title has maximum of {{ $v.input.title.$params.maxLength.max }} character
                         	</span>
                     	</transition>
 						</div>
@@ -36,6 +37,7 @@
 						<div class="form-group text-left mb-3">
 							<input type="text" 
 							v-model="input.sub_title"
+							:class="{'form-control-danger': $v.input.sub_title.$error}"
 							@input="$v.input.sub_title.$touch()"
 							class="form-control"
 							placeholder="Item sub name">
@@ -45,13 +47,13 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
-                            	* Sub name item must be filled
+                            	Sub name item is required
                         	</span>
                             <span class="text-danger" v-if="!$v.input.sub_title.minLength">
-                            	* Minimum {{ $v.input.sub_title.$params.minLength.min }} character
+                            	Sub name has minimum of {{ $v.input.sub_title.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.sub_title.maxLength">
-                            	* Maximum {{ $v.input.sub_title.$params.maxLength.max }} character
+                            	Sub name has maximum of {{ $v.input.sub_title.$params.maxLength.max }} character
                         	</span>
                     	</transition>
 						</div>
@@ -62,7 +64,8 @@
 					<div class="col-md-6">
 						<div class="form-group text-left mb-3">
 							<input type="number" 
-							v-model="input.price" 
+							v-model="input.price"
+							:class="{'form-control-danger': $v.input.price.$error}"
 							@input="$v.input.price.$touch()"
 							class="form-control"
 							placeholder="Price">
@@ -72,7 +75,7 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
-                            	* Price  must be filled
+                            	Price is required
                         	</span>
                     	</transition>
 						</div>
@@ -82,6 +85,7 @@
 						<div class="form-group text-left mb-3">
 							<input type="number" 
 							v-model="input.stock"
+							:class="{'form-control-danger': $v.input.stock.$error}"
 							@input="$v.input.stock.$touch()"
 					       	class="form-control"
 					       	placeholder="Stock">
@@ -91,7 +95,7 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.stock.required && $v.input.stock.$dirty">
-                            	* Stock must be filled
+                            	Stock is required
                         	</span>
                     	</transition>
 						</div>
@@ -103,6 +107,7 @@
 						<div class="form-group">
 							<select class="form-control" id="category"
 									@input="$v.category.$touch()"
+									:class="{'form-control-danger': $v.category.$error}"
 									v-model="category">
 								<option value="" disabled>Choose category</option>
 								<option v-for="category in categories" :value=category>{{ category.title }}</option>
@@ -113,7 +118,7 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.category.required && $v.category.$dirty">
-                            	* Category must be filled
+                            	Category is required
                         	</span>
                     	</transition>
 						</div>
@@ -138,25 +143,9 @@
 						<div class="form-group text-left mb-3">
 							<textarea rows="4"
 							v-model="input.description"
-							@input="$v.input.description.$touch()"
 							class="form-control form-control-sm normal-placeholder" 
 							placeholder="Description Item">
 							</textarea>
-
-						<!--======================================================================================
-                            V A L I D A T I O N     E R R O R   M E S S A G E S
-                            ======================================================================================-->
-                    	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.description.required && $v.input.description.$dirty">
-                            	* Description item must be filled
-                        	</span>
-                            <span class="text-danger" v-if="!$v.input.description.minLength">
-                            	* Minimum {{ $v.input.description.$params.minLength.min }} character
-                            </span>
-                            <span class="text-danger" v-if="!$v.input.description.maxLength">
-                            	* Maximum {{ $v.input.description.$params.maxLength.max }} character
-                        	</span>
-                    	</transition>
 
 						</div>
 					</div>
@@ -168,6 +157,7 @@
 							<input type="text" 
 							v-model="input.store_link"
 							@input="$v.input.store_link.$touch()"
+							:class="{'form-control-danger': $v.input.store_link.$error}"
 							class="form-control" id="organiser"
 							placeholder="Link online shop">
 
@@ -176,10 +166,10 @@
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.store_link.minLength">
-                            	* Minimum {{ $v.input.store_link.$params.minLength.min }} character
+                            	Link has minimum of {{ $v.input.store_link.$params.minLength.min }} character
                             </span>
                             <span class="text-danger" v-if="!$v.input.store_link.maxLength">
-                            	* Maximum {{ $v.input.store_link.$params.maxLength.max }} character
+                            	Link has maximum of {{ $v.input.store_link.$params.maxLength.max }} character
                         	</span>
                     	</transition>
 
@@ -221,7 +211,6 @@
 				isMoreOne: true,
 				category: '',
 				subcategories: '',
-				is_sub_allow: true,
 				input:{
 					title: '',
 					sub_title: '',
@@ -241,21 +230,16 @@
                 title: {
                     required,
                     minLength: minLength(3),
-                    maxLength: maxLength(20)
+                    maxLength: maxLength(50)
                 },
                 sub_title:{
                 	required,
                     minLength: minLength(3),
-                    maxLength: maxLength(20)
+                    maxLength: maxLength(30)
                 },
                 store_link: {
                 	minLength: minLength(5),
-                	maxLength: maxLength(20),
-                },
-                description: {
-                	required,
-                	minLength: minLength(3),
-                	maxLength: maxLength(100)
+                	maxLength: maxLength(30),
                 },
                 stock: {
                     required,
@@ -277,18 +261,23 @@
 			isFormFilled(){
 				return this.input.title != ''
 					&& this.input.title.length >= 3
-					&& this.input.title.length <= 20
+					&& this.input.title.length <= 50
 					&& this.input.sub_title != ''
 					&& this.input.sub_title.length >= 3
-					&& this.input.sub_title.length <= 20
-					&& this.input.description != ''
-					&& this.input.description.length >= 3
-					&& this.input.description.length <= 100
+					&& this.input.sub_title.length <= 30
 					&& this.input.stock != ''
 					&& this.input.price != ''
 					&& this.input.is_displayed != ''
-					&& (this.input.store_link == '' || (this.input.store_link.length >= 5 && this.input.store_link.length <= 20) )
+					&& (this.input.store_link == '' || (this.input.store_link.length >= 5 && this.input.store_link.length <= 30) )
 			},
+
+			is_subCat(){
+                if(this.category !== '' && this.subcategories.length >= 1){
+                    return this.input.sub_category_id != '';
+                }else{
+                    return this.input.sub_category_id == '';
+                }
+            }
 		},
 
 		methods:{
@@ -296,22 +285,13 @@
 
 				let self = this;
 
-				if(this.category.subcategories.length >= 1){
-					this.is_sub_allow = this.input.sub_category_id != '' ? true : false;
-				}else{
-					this.is_sub_allow = this.input.sub_category_id == '' ? true : false;
-				}
-
-				if(this.isFormFilled && this.is_sub_allow && !self.isRequesting){
+				if(this.isFormFilled && this.is_subCat && !self.isRequesting){
 
 					self.isRequesting = true;
 
 					this.$store.dispatch('store_new_shop', this.input)
                         .then(() => {
                             flash('Shop item added','success');
-                            this.input.title = '';
-
-                            self.setData();
 
                             self.isRequesting = false;
 
@@ -327,22 +307,18 @@
                                 })
                             })
                         });
+				}else{
+					this.diryAllInputs();
 				}
 			},
 
-			setData(){
-
-				this.input.title = '';
-				this.input.start_date = '';
-				this.input.end_date = '';
-				this.input.location = '';
-				this.input.address = '';
-				this.input.content = '';
-				this.input.organiser = '';
-				this.subcategories = '';
-				this.input.organiser = '';
-
-			},
+			diryAllInputs(){
+                this.$v.input.title.$touch();
+                this.$v.input.sub_title.$touch();
+                this.$v.input.stock.$touch();
+                this.$v.input.price.$touch();
+                this.$v.category.$touch();
+            },
 
 			closeAddShop(){
 	           this.$emit('closeAddShop',false);

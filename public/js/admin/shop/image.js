@@ -5542,6 +5542,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5577,6 +5583,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+        },
+        image: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         }
     },
 
@@ -5676,10 +5685,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         });
                     });
                 });
+            } else {
+                this.diryAllInputs();
             }
         },
         closeAdd: function closeAdd() {
             this.$emit('closeAddImage', false);
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.title.$touch();
+            this.$v.image.$touch();
         }
     }
 });
@@ -5710,15 +5725,40 @@ var render = function() {
           _c("div", { staticClass: "col-md-4" }, [
             _c("div", { attrs: { id: "croppie" } }),
             _vm._v(" "),
-            _c("div", { staticClass: "panel panel-transparent text-center" }, [
-              _c("input", {
-                staticClass: "inputfile",
-                attrs: { type: "file", accept: "image/*", id: "file-2" },
-                on: { change: _vm.setUpFileUploader }
-              }),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
+            _c(
+              "div",
+              { staticClass: "panel panel-transparent text-center" },
+              [
+                _c("input", {
+                  staticClass: "inputfile",
+                  attrs: { type: "file", accept: "image/*", id: "file-2" },
+                  on: { change: _vm.setUpFileUploader }
+                }),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "transition",
+                  {
+                    attrs: {
+                      appear: "",
+                      enterActiveClass: "fade-in-down",
+                      leaveActiveClass: "fade-out-up"
+                    }
+                  },
+                  [
+                    !_vm.$v.image.required && _vm.$v.image.$dirty
+                      ? _c("p", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            "\n                                Image is required\n                            "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8" }, [
@@ -5739,6 +5779,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control full-width",
+                    class: { "form-control-danger": _vm.$v.title.$error },
                     attrs: { type: "text", id: "name" },
                     domProps: { value: _vm.title },
                     on: {
@@ -5769,7 +5810,7 @@ var render = function() {
                       !_vm.$v.title.required && _vm.$v.title.$dirty
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Name item must be filled\n                                "
+                              "\n                                    Name is required\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -5777,7 +5818,7 @@ var render = function() {
                       !_vm.$v.title.minLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Minimum " +
+                              "\n                                    Name has minimum of " +
                                 _vm._s(_vm.$v.title.$params.minLength.min) +
                                 " character\n                                "
                             )
@@ -5787,7 +5828,7 @@ var render = function() {
                       !_vm.$v.title.maxLength
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    * Maximum " +
+                              "\n                                    Name has maximum of " +
                                 _vm._s(_vm.$v.title.$params.maxLength.max) +
                                 " character\n                                "
                             )
@@ -6386,6 +6427,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6423,6 +6470,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+            },
+            image: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
             }
         }
     },
@@ -6519,10 +6569,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).catch(function (errors) {
                     self.isRequesting = false;
                 });
+            } else {
+                this.diryAllInputs();
             }
         },
         closeEditForm: function closeEditForm() {
             this.$emit('editionFormIsClosed', false);
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.input.title.$touch();
+            this.$v.input.image.$touch();
         }
     }
 });
@@ -6579,8 +6635,29 @@ var render = function() {
                         attrs: { for: "file-2" }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          appear: "",
+                          enterActiveClass: "fade-in-down",
+                          leaveActiveClass: "fade-out-up"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.image.required && _vm.$v.image.$dirty
+                          ? _c("p", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                "\n                                Image is required\n                            "
+                              )
+                            ])
+                          : _vm._e()
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
@@ -6623,6 +6700,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control form-control-sm",
+                        class: {
+                          "form-control-danger": _vm.$v.input.title.$error
+                        },
                         attrs: {
                           id: "title",
                           type: "text",
@@ -6673,7 +6753,7 @@ var render = function() {
                           _vm.$v.input.title.$dirty
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Name item must be filled\n                                "
+                                  "\n                                    Name is required\n                                "
                                 )
                               ])
                             : _vm._e(),
@@ -6681,7 +6761,7 @@ var render = function() {
                           !_vm.$v.input.title.minLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Minimum " +
+                                  "\n                                    Name has minimum of " +
                                     _vm._s(
                                       _vm.$v.input.title.$params.minLength.min
                                     ) +
@@ -6693,7 +6773,7 @@ var render = function() {
                           !_vm.$v.input.title.maxLength
                             ? _c("span", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                    * Maximum " +
+                                  "\n                                    Name has maximum of " +
                                     _vm._s(
                                       _vm.$v.input.title.$params.maxLength.max
                                     ) +
