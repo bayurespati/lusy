@@ -10528,6 +10528,15 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
     background: #327bc7 !important;
     border-color: #327bc7 !important;
 }
+
+.form-control-danger {
+    border-color: #dc3545 !important;
+}
+
+.form-control-danger:focus {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;
+}
 /*
 	[Table of contents]
 
