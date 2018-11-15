@@ -322,7 +322,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         },
 
         edit_profile: function edit_profile(state, updatedProfile) {
-
             state.profile.title = updatedProfile.title;
             state.profile.content = updatedProfile.content;
             state.profile.image_path = updatedProfile.image_path;
@@ -354,7 +353,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     image: updatedProfile.image
                 }).then(function (response) {
 
-                    updatedProfile.image_path = response.data.image_path;
+                    updatedProfile.image_path = response.data;
 
                     commit('edit_profile', updatedProfile);
 
@@ -1678,6 +1677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     flash('Profile updated', 'success');
 
                     self.isRequsting = false;
+                    self.closeEditForm();
                 }).catch(function (errors) {
 
                     self.isRequsting = false;

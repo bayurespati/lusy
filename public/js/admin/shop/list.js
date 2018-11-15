@@ -2797,6 +2797,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2875,7 +2883,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 																self.isRequesting = true;
 
 																this.$store.dispatch('store_new_shop', this.input).then(function () {
-																				flash('Shop item added', 'success');
+																				flash(self.input.title + ' is successfully added', 'success');
 
 																				self.isRequesting = false;
 
@@ -2936,7 +2944,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _c(
               "div",
-              { staticClass: "form-group text-left mb-3" },
+              { staticClass: "form-group text-center mb-3" },
               [
                 _c("input", {
                   directives: [
@@ -2949,7 +2957,7 @@ var render = function() {
                   ],
                   staticClass: "form-control",
                   class: { "form-control-danger": _vm.$v.input.title.$error },
-                  attrs: { type: "text", placeholder: "Item name" },
+                  attrs: { type: "text", placeholder: "Item Name" },
                   domProps: { value: _vm.input.title },
                   on: {
                     input: [
@@ -2970,39 +2978,57 @@ var render = function() {
                   "transition",
                   {
                     attrs: {
-                      appear: "",
-                      enterActiveClass: "fade-in-down",
-                      leaveActiveClass: "fade-out-up"
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
                     }
                   },
                   [
                     !_vm.$v.input.title.required && _vm.$v.input.title.$dirty
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tTitle is required\n                        \t"
+                      ? _c(
+                          "span",
+                          { key: "title-required", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \tTitle is required\n                        \t"
+                            )
+                          ]
+                        )
+                      : !_vm.$v.input.title.minLength
+                        ? _c(
+                            "span",
+                            {
+                              key: "title-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \tTitle has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.title.$params.minLength.min
+                                  ) +
+                                  " characters\n                            "
+                              )
+                            ]
                           )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.input.title.minLength
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tTitle has minimum of " +
-                              _vm._s(_vm.$v.input.title.$params.minLength.min) +
-                              " character\n                            "
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.input.title.maxLength
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tTitle has maximum of " +
-                              _vm._s(_vm.$v.input.title.$params.maxLength.max) +
-                              " character\n                        \t"
-                          )
-                        ])
-                      : _vm._e()
+                        : !_vm.$v.input.title.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "title-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \tTitle has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.title.$params.maxLength.max
+                                    ) +
+                                    " characters\n                        \t"
+                                )
+                              ]
+                            )
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3013,7 +3039,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _c(
               "div",
-              { staticClass: "form-group text-left mb-3" },
+              { staticClass: "form-group text-center mb-3" },
               [
                 _c("input", {
                   directives: [
@@ -3028,7 +3054,7 @@ var render = function() {
                   class: {
                     "form-control-danger": _vm.$v.input.sub_title.$error
                   },
-                  attrs: { type: "text", placeholder: "Item sub name" },
+                  attrs: { type: "text", placeholder: "Item Subname" },
                   domProps: { value: _vm.input.sub_title },
                   on: {
                     input: [
@@ -3049,44 +3075,62 @@ var render = function() {
                   "transition",
                   {
                     attrs: {
-                      appear: "",
-                      enterActiveClass: "fade-in-down",
-                      leaveActiveClass: "fade-out-up"
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
                     }
                   },
                   [
                     !_vm.$v.input.sub_title.required &&
                     _vm.$v.input.sub_title.$dirty
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tSub name item is required\n                        \t"
+                      ? _c(
+                          "span",
+                          {
+                            key: "subname-required",
+                            staticClass: "text-danger"
+                          },
+                          [
+                            _vm._v(
+                              "\n                            \tItem Subname is required\n                        \t"
+                            )
+                          ]
+                        )
+                      : !_vm.$v.input.sub_title.minLength
+                        ? _c(
+                            "span",
+                            {
+                              key: "subname-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \tItem Subname has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.sub_title.$params.minLength.min
+                                  ) +
+                                  " characters\n                            "
+                              )
+                            ]
                           )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.input.sub_title.minLength
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tSub name has minimum of " +
-                              _vm._s(
-                                _vm.$v.input.sub_title.$params.minLength.min
-                              ) +
-                              " character\n                            "
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.$v.input.sub_title.maxLength
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tSub name has maximum of " +
-                              _vm._s(
-                                _vm.$v.input.sub_title.$params.maxLength.max
-                              ) +
-                              " character\n                        \t"
-                          )
-                        ])
-                      : _vm._e()
+                        : !_vm.$v.input.sub_title.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "subname-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \tItem Subname has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.sub_title.$params.maxLength
+                                        .max
+                                    ) +
+                                    " characters\n                        \t"
+                                )
+                              ]
+                            )
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3099,7 +3143,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _c(
               "div",
-              { staticClass: "form-group text-left mb-3" },
+              { staticClass: "form-group text-center mb-3" },
               [
                 _c("input", {
                   directives: [
@@ -3133,18 +3177,22 @@ var render = function() {
                   "transition",
                   {
                     attrs: {
-                      appear: "",
-                      enterActiveClass: "fade-in-down",
-                      leaveActiveClass: "fade-out-up"
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
                     }
                   },
                   [
                     !_vm.$v.input.price.required && _vm.$v.input.price.$dirty
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tPrice is required\n                        \t"
-                          )
-                        ])
+                      ? _c(
+                          "span",
+                          { key: "price-required", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \tPrice is required\n                        \t"
+                            )
+                          ]
+                        )
                       : _vm._e()
                   ]
                 )
@@ -3156,7 +3204,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _c(
               "div",
-              { staticClass: "form-group text-left mb-3" },
+              { staticClass: "form-group text-center mb-3" },
               [
                 _c("input", {
                   directives: [
@@ -3190,18 +3238,22 @@ var render = function() {
                   "transition",
                   {
                     attrs: {
-                      appear: "",
-                      enterActiveClass: "fade-in-down",
-                      leaveActiveClass: "fade-out-up"
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
                     }
                   },
                   [
                     !_vm.$v.input.stock.required && _vm.$v.input.stock.$dirty
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                            \tStock is required\n                        \t"
-                          )
-                        ])
+                      ? _c(
+                          "span",
+                          { key: "stock-required", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \tStock is required\n                        \t"
+                            )
+                          ]
+                        )
                       : _vm._e()
                   ]
                 )
@@ -3255,7 +3307,7 @@ var render = function() {
                     },
                     [
                       _c("option", { attrs: { value: "", disabled: "" } }, [
-                        _vm._v("Choose category")
+                        _vm._v("Choose Category")
                       ]),
                       _vm._v(" "),
                       _vm._l(_vm.categories, function(category) {
@@ -3419,7 +3471,7 @@ var render = function() {
                   attrs: {
                     type: "text",
                     id: "organiser",
-                    placeholder: "Link online shop"
+                    placeholder: "Link Online Shop"
                   },
                   domProps: { value: _vm.input.store_link },
                   on: {
@@ -3450,11 +3502,11 @@ var render = function() {
                     !_vm.$v.input.store_link.minLength
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                            \tLink has minimum of " +
+                            "\n                            \tLink has a minimum of " +
                               _vm._s(
                                 _vm.$v.input.store_link.$params.minLength.min
                               ) +
-                              " character\n                            "
+                              " characters\n                            "
                           )
                         ])
                       : _vm._e()
@@ -3514,21 +3566,22 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-sm btn-success",
+              staticClass: "btn btn-sm btn-warning",
               attrs: { type: "button" },
-              on: { click: _vm.addShop }
+              on: { click: _vm.closeAddShop }
             },
-            [_vm._v("\n\t\t\t\t\t\tSave\n\t\t\t\t\t")]
+            [_vm._v("\n\t\t\t\t\t\tCancel\n\t\t\t\t\t")]
           ),
           _vm._v(" "),
           _c(
             "button",
             {
-              staticClass: "btn btn-sm btn-warning ml-1",
-              attrs: { type: "button" },
-              on: { click: _vm.closeAddShop }
+              staticClass: "btn btn-sm btn-success ml-1",
+              attrs: { type: "button", disabled: _vm.isRequesting },
+              on: { click: _vm.addShop }
             },
-            [_vm._v("\n\t\t\t\t\t\tCancel\n\t\t\t\t\t")]
+            [_vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]],
+            2
           )
         ])
       ])
@@ -3807,7 +3860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).then(function () {
                     self.isRequesting = false;
 
-                    flash('Shop delete', 'danger');
+                    flash('Item is successfuly deleted', 'danger');
                 });
             }
         }
@@ -4194,6 +4247,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4241,7 +4298,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             sub_title: {
                 required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
             },
             store_link: {
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
@@ -4265,7 +4322,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
         },
         isFormFilled: function isFormFilled() {
-            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 30 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 50 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
         },
         is_subCat: function is_subCat() {
             if (this.subcat.length >= 1) {
@@ -4309,7 +4366,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 this.$store.dispatch('update_shop', updatedShop).then(function (updatedShop) {
 
-                    flash('Shop item updated', 'success');
+                    flash(updatedShop.title + ' is successfully updated', 'success');
 
                     self.isRequesting = false;
 
@@ -4448,44 +4505,62 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.input.title.required &&
                         _vm.$v.input.title.$dirty
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Title is required\n                            "
+                          ? _c(
+                              "span",
+                              {
+                                key: "title-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Title is required\n                            "
+                                )
+                              ]
+                            )
+                          : !_vm.$v.input.title.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
                               )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.input.title.minLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Title has minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.title.$params.minLength.min
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.input.title.maxLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Title has maximum of " +
-                                  _vm._s(
-                                    _vm.$v.input.title.$params.maxLength.max
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
-                          : _vm._e()
+                            : !_vm.$v.input.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "title-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Title has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.title.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -4504,7 +4579,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                            Sub name\n                        "
+                          "\n                            Subname\n                        "
                         )
                       ]
                     ),
@@ -4566,44 +4641,63 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.input.sub_title.required &&
                         _vm.$v.input.sub_title.$dirty
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Sub name item is required\n                            "
+                          ? _c(
+                              "span",
+                              {
+                                key: "subname-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Item Subname is required\n                            "
+                                )
+                              ]
+                            )
+                          : !_vm.$v.input.sub_title.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "subname-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Item Subname has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.sub_title.$params.minLength
+                                          .min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
                               )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.input.sub_title.minLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Sub name has minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.sub_title.$params.minLength.min
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.$v.input.sub_title.maxLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Sub name has maximum of " +
-                                  _vm._s(
-                                    _vm.$v.input.sub_title.$params.maxLength.max
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
-                          : _vm._e()
+                            : !_vm.$v.input.sub_title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "subname-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Item Subname has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.sub_title.$params
+                                            .maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -4682,19 +4776,26 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.input.price.required &&
                         _vm.$v.input.price.$dirty
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                            Price is required\n                        "
-                              )
-                            ])
+                          ? _c(
+                              "span",
+                              {
+                                key: "price-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Price is required\n                        "
+                                )
+                              ]
+                            )
                           : _vm._e()
                       ]
                     )
@@ -4772,19 +4873,26 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.input.stock.required &&
                         _vm.$v.input.stock.$dirty
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Stock is required\n                            "
-                              )
-                            ])
+                          ? _c(
+                              "span",
+                              {
+                                key: "stock-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Stock is required\n                            "
+                                )
+                              ]
+                            )
                           : _vm._e()
                       ]
                     )
@@ -4869,19 +4977,26 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.category_id.required &&
                           _vm.$v.category_id.$dirty
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Category is required\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "category-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Category is required\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -4959,7 +5074,7 @@ var render = function() {
                                   _c(
                                     "option",
                                     { attrs: { value: "", disabled: "" } },
-                                    [_vm._v("Choose Subkategori")]
+                                    [_vm._v("Choose Subcategory")]
                                   ),
                                   _vm._v(" "),
                                   _vm._l(_vm.subcat, function(subcategory) {
@@ -5106,23 +5221,30 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.input.store_link.minLength
-                          ? _c("span", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Link has minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.store_link.$params.minLength
-                                      .min
-                                  ) +
-                                  " character\n                            "
-                              )
-                            ])
+                          ? _c(
+                              "span",
+                              {
+                                key: "link-minimum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Link has minimum of " +
+                                    _vm._s(
+                                      _vm.$v.input.store_link.$params.minLength
+                                        .min
+                                    ) +
+                                    " characters\n                            "
+                                )
+                              ]
+                            )
                           : _vm._e()
                       ]
                     )
@@ -5210,13 +5332,13 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-success btn-sm ml-2",
+                      attrs: { disabled: _vm.isRequesting },
                       on: { click: _vm.editShop }
                     },
                     [
-                      _vm._v(
-                        "\n                        Save\n                    "
-                      )
-                    ]
+                      _vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]
+                    ],
+                    2
                   )
                 ]
               )

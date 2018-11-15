@@ -120,7 +120,7 @@
                     .then(() => {
                         self.isRequesting = false;
 
-                        flash('Shop delete', 'danger')
+                        flash('Item is successfuly deleted', 'danger')
                     })
                 }
             },

@@ -23,15 +23,18 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="title-required" class="text-danger" 
+                                v-if="!$v.input.title.required && $v.input.title.$dirty">
                                     Title is required
                                 </span>
-                                <span class="text-danger" v-if="!$v.input.title.minLength">
-                                    Title has minimum of {{ $v.input.title.$params.minLength.min }} character
+                                <span key="title-minimum" class="text-danger" 
+                                v-else-if="!$v.input.title.minLength">
+                                    Title has a minimum of {{ $v.input.title.$params.minLength.min }} characters
                                 </span>
-                                <span class="text-danger" v-if="!$v.input.title.maxLength">
-                                    Title has maximum of {{ $v.input.title.$params.maxLength.max }} character
+                                <span key="title-maximum" class="text-danger" 
+                                v-else-if="!$v.input.title.maxLength">
+                                    Title has a maximum of {{ $v.input.title.$params.maxLength.max }} characters
                                 </span>
                             </transition>
 
@@ -40,7 +43,7 @@
                         <div class="col-sm-6 col-xs-12 text-center">
                             <label for="sub_title"
                                    class="form-control-label panel-font-small m-0">
-                                Sub name
+                                Subname
                             </label>
 
                             <input id="sub_title" type="text"
@@ -54,15 +57,15 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                <span class="text-danger" v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
-                                    Sub name item is required
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="subname-required" class="text-danger" v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
+                                    Item Subname is required
                                 </span>
-                                <span class="text-danger" v-if="!$v.input.sub_title.minLength">
-                                    Sub name has minimum of {{ $v.input.sub_title.$params.minLength.min }} character
+                                <span key="subname-minimum" class="text-danger" v-else-if="!$v.input.sub_title.minLength">
+                                    Item Subname has a minimum of {{ $v.input.sub_title.$params.minLength.min }} characters
                                 </span>
-                                <span class="text-danger" v-if="!$v.input.sub_title.maxLength">
-                                    Sub name has maximum of {{ $v.input.sub_title.$params.maxLength.max }} character
+                                <span key="subname-maximum" class="text-danger" v-else-if="!$v.input.sub_title.maxLength">
+                                    Item Subname has a maximum of {{ $v.input.sub_title.$params.maxLength.max }} characters
                                 </span>
                             </transition>
 
@@ -86,8 +89,8 @@
                         <!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
-                        <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
+                        <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <span key="price-required" class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
                                 Price is required
                             </span>
                         </transition>
@@ -110,8 +113,8 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                <span class="text-danger" v-if="!$v.input.stock.required && $v.input.stock.$dirty">
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="stock-required" class="text-danger" v-if="!$v.input.stock.required && $v.input.stock.$dirty">
                                     Stock is required
                                 </span>
                             </transition>
@@ -136,8 +139,8 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R    M E S S A G E S
                                 ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.category_id.required && $v.category_id.$dirty">
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="category-required" class="text-danger" v-if="!$v.category_id.required && $v.category_id.$dirty">
                                         Category is required
                                     </span>
                                 </transition>
@@ -150,7 +153,7 @@
                                 </label>
 
                                 <select class="form-control" id="subcategory" v-model.lazy="input.sub_category_id">
-                                    <option value="" disabled>Choose Subkategori</option>
+                                    <option value="" disabled>Choose Subcategory</option>
                                     <option v-for="subcategory in subcat" 
                                             :value=subcategory.id> {{ subcategory.title }} 
                                     </option>
@@ -192,9 +195,9 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                <span class="text-danger" v-if="!$v.input.store_link.minLength">
-                                    Link has minimum of {{ $v.input.store_link.$params.minLength.min }} character
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="link-minimum" class="text-danger" v-if="!$v.input.store_link.minLength">
+                                    Link has minimum of {{ $v.input.store_link.$params.minLength.min }} characters
                                 </span>
                             </transition>
                         </div>
@@ -219,8 +222,9 @@
                             Cancel
                         </button>
 
-                        <button @click="editShop"class="btn btn-success btn-sm ml-2">
-                            Save
+                        <button @click="editShop"class="btn btn-success btn-sm ml-2" :disabled="isRequesting">
+                            <template v-if="isRequesting">Saving..</template>
+                            <template v-else>Save</template>
                         </button>
                     </div>
                 </div>
@@ -276,7 +280,7 @@
                 sub_title:{
                     required,
                     minLength: minLength(3),
-                    maxLength: maxLength(30)
+                    maxLength: maxLength(50)
                 },
                 store_link: {
                     minLength: minLength(5),
@@ -316,7 +320,7 @@
                     && this.input.title.length <= 50
                     && this.input.sub_title != ''
                     && this.input.sub_title.length >= 3
-                    && this.input.sub_title.length <= 30
+                    && this.input.sub_title.length <= 50
                     && this.input.stock != ''
                     && this.input.price != ''
                     && this.input.is_displayed != ''
@@ -369,7 +373,7 @@
 
                         .then((updatedShop) => {
 
-                            flash('Shop item updated', 'success');
+                            flash(updatedShop.title + ' is successfully updated', 'success');
 
                             self.isRequesting = false;
 

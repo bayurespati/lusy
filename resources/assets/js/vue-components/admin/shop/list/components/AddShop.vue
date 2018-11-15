@@ -8,52 +8,58 @@
 
 				<div class="col-md-12 d-flex">
 					<div class="col-md-6">
-						<div class="form-group text-left mb-3">
+						<div class="form-group text-center mb-3">
 							<input type="text" 
 							v-model="input.title" 
 							:class="{'form-control-danger': $v.input.title.$error}"
 							@input="$v.input.title.$touch()"
 							class="form-control"
-							placeholder="Item name">
+							placeholder="Item Name">
 
 						<!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
-                    	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.title.required && $v.input.title.$dirty">
+                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <span key="title-required" class="text-danger" 
+                            v-if="!$v.input.title.required && $v.input.title.$dirty">
                             	Title is required
                         	</span>
-                            <span class="text-danger" v-if="!$v.input.title.minLength">
-                            	Title has minimum of {{ $v.input.title.$params.minLength.min }} character
+                            <span key="title-minimum" class="text-danger" 
+                            v-else-if="!$v.input.title.minLength">
+                            	Title has a minimum of {{ $v.input.title.$params.minLength.min }} characters
                             </span>
-                            <span class="text-danger" v-if="!$v.input.title.maxLength">
-                            	Title has maximum of {{ $v.input.title.$params.maxLength.max }} character
+                            <span key="title-maximum" class="text-danger" 
+                            v-else-if="!$v.input.title.maxLength">
+                            	Title has a maximum of {{ $v.input.title.$params.maxLength.max }} characters
                         	</span>
                     	</transition>
 						</div>
 					</div>
 
 					<div class="col-md-6">
-						<div class="form-group text-left mb-3">
+						<div class="form-group text-center mb-3">
 							<input type="text" 
 							v-model="input.sub_title"
 							:class="{'form-control-danger': $v.input.sub_title.$error}"
 							@input="$v.input.sub_title.$touch()"
 							class="form-control"
-							placeholder="Item sub name">
+							placeholder="Item Subname">
 
 						<!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
-                    	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
-                            	Sub name item is required
+                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <span key="subname-required" class="text-danger" 
+                            v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
+                            	Item Subname is required
                         	</span>
-                            <span class="text-danger" v-if="!$v.input.sub_title.minLength">
-                            	Sub name has minimum of {{ $v.input.sub_title.$params.minLength.min }} character
+                            <span key="subname-minimum" class="text-danger" 
+                            v-else-if="!$v.input.sub_title.minLength">
+                            	Item Subname has a minimum of {{ $v.input.sub_title.$params.minLength.min }} characters
                             </span>
-                            <span class="text-danger" v-if="!$v.input.sub_title.maxLength">
-                            	Sub name has maximum of {{ $v.input.sub_title.$params.maxLength.max }} character
+                            <span key="subname-maximum" class="text-danger" 
+                            v-else-if="!$v.input.sub_title.maxLength">
+                            	Item Subname has a maximum of {{ $v.input.sub_title.$params.maxLength.max }} characters
                         	</span>
                     	</transition>
 						</div>
@@ -62,7 +68,7 @@
 
 				<div class="col-md-12 d-flex">
 					<div class="col-md-6">
-						<div class="form-group text-left mb-3">
+						<div class="form-group text-center mb-3">
 							<input type="number" 
 							v-model="input.price"
 							:class="{'form-control-danger': $v.input.price.$error}"
@@ -73,8 +79,8 @@
 						<!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
-                    	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
+                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <span key="price-required" class="text-danger" v-if="!$v.input.price.required && $v.input.price.$dirty">
                             	Price is required
                         	</span>
                     	</transition>
@@ -82,7 +88,7 @@
 					</div>
 
 					<div class="col-md-6">
-						<div class="form-group text-left mb-3">
+						<div class="form-group text-center mb-3">
 							<input type="number" 
 							v-model="input.stock"
 							:class="{'form-control-danger': $v.input.stock.$error}"
@@ -93,8 +99,9 @@
 					     <!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
-                    	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <span class="text-danger" v-if="!$v.input.stock.required && $v.input.stock.$dirty">
+                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <span key="stock-required" class="text-danger" 
+                            v-if="!$v.input.stock.required && $v.input.stock.$dirty">
                             	Stock is required
                         	</span>
                     	</transition>
@@ -109,7 +116,7 @@
 									@input="$v.category.$touch()"
 									:class="{'form-control-danger': $v.category.$error}"
 									v-model="category">
-								<option value="" disabled>Choose category</option>
+								<option value="" disabled>Choose Category</option>
 								<option v-for="category in categories" :value=category>{{ category.title }}</option>
 							</select>
 
@@ -159,14 +166,14 @@
 							@input="$v.input.store_link.$touch()"
 							:class="{'form-control-danger': $v.input.store_link.$error}"
 							class="form-control" id="organiser"
-							placeholder="Link online shop">
+							placeholder="Link Online Shop">
 
 						<!--======================================================================================
                             V A L I D A T I O N     E R R O R   M E S S A G E S
                             ======================================================================================-->
                     	<transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                             <span class="text-danger" v-if="!$v.input.store_link.minLength">
-                            	Link has minimum of {{ $v.input.store_link.$params.minLength.min }} character
+                            	Link has a minimum of {{ $v.input.store_link.$params.minLength.min }} characters
                             </span>
                     	</transition>
 
@@ -186,11 +193,12 @@
 				</div>
 
 				<div class="col-md-12 d-flex justify-content-center">
-					<button type="button" @click="addShop"class="btn btn-sm btn-success">
-						Save
-					</button>
-					<button type="button" @click="closeAddShop" class="btn btn-sm btn-warning ml-1">
+					<button type="button" @click="closeAddShop" class="btn btn-sm btn-warning">
 						Cancel
+					</button>
+					<button type="button" @click="addShop"class="btn btn-sm btn-success ml-1" :disabled="isRequesting">
+						<template v-if="isRequesting">Saving..</template>
+						<template v-else>Save</template>
 					</button>
 				</div>
 			</div>
@@ -287,7 +295,7 @@
 
 					this.$store.dispatch('store_new_shop', this.input)
                         .then(() => {
-                            flash('Shop item added','success');
+                            flash(self.input.title + ' is successfully added','success');
 
                             self.isRequesting = false;
 

@@ -20,8 +20,9 @@
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
-                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <p key="image-required" class="text-danger" 
+                                v-if="!$v.image.required && $v.image.$dirty">
                                     Image is required
                                 </p>
                             </transition>
@@ -47,15 +48,17 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.title.required && $v.title.$dirty">
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="title-required" class="text-danger" 
+                                    v-if="!$v.title.required && $v.title.$dirty">
                                         Title is required
                                     </span>
-                                    <span class="text-danger" v-if="!$v.title.minLength">
-                                        Title has minimum of {{ $v.title.$params.minLength.min }} character
+                                    <span key="title-minimum" class="text-danger" 
+                                    v-if="!$v.title.minLength">
+                                        Title has a minimum of {{ $v.title.$params.minLength.min }} characters
                                     </span>
-                                    <span class="text-danger" v-if="!$v.title.maxLength">
-                                        Title has Maximum of {{ $v.title.$params.maxLength.max }} character
+                                    <span key="title-maximum" class="text-danger" v-if="!$v.title.maxLength">
+                                        Title has a maximum of {{ $v.title.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
                             </div>
@@ -72,8 +75,8 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->                                
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="date-required" class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
                                         Date is required
                                     </span>
                                 </transition>
@@ -99,12 +102,12 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.location.minLength">
-                                        Location has minimum of {{ $v.location.$params.minLength.min }} character
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="location-minimum" class="text-danger" v-if="!$v.location.minLength">
+                                        Location has a minimum of {{ $v.location.$params.minLength.min }} characters
                                     </span>
-                                    <span class="text-danger" v-if="!$v.location.maxLength">
-                                        Location has Maximum of {{ $v.location.$params.maxLength.max }} character
+                                    <span key="location-maximum" class="text-danger" v-if="!$v.location.maxLength">
+                                        Location has a maximum of {{ $v.location.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
                             </div>
@@ -129,12 +132,12 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.creator.minLength">
-                                        Creator has minimum of {{ $v.creator.$params.minLength.min }} character
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="creator-minimum" class="text-danger" v-if="!$v.creator.minLength">
+                                        Creator has a minimum of {{ $v.creator.$params.minLength.min }} characters
                                     </span>
-                                    <span class="text-danger" v-if="!$v.creator.maxLength">
-                                        Creator has maximum of {{ $v.creator.$params.maxLength.max }} character
+                                    <span key="creator-maximum" class="text-danger" v-if="!$v.creator.maxLength">
+                                        Creator has a maximum of {{ $v.creator.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
                             </div>
@@ -159,9 +162,9 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->                                
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.sub_category_id.required && $v.sub_category_id.$dirty">
-                                        sub category is required
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="subcategory-required" class="text-danger" v-if="!$v.sub_category_id.required && $v.sub_category_id.$dirty">
+                                        Subcategory is required
                                     </span>
                                 </transition>
                             </div>
@@ -172,8 +175,9 @@
                                 Cancel
                             </button>
 
-                            <button @click="editGallery" class="btn btn-success btn-sm ml-2">
-                                Save
+                            <button @click="editGallery" class="btn btn-success btn-sm ml-2" :disabled="isRequesting">
+                                <template v-if="isRequesting">Saving..</template>
+                                <template v-else>Save</template>
                             </button>
                         </div>
                     </div>    

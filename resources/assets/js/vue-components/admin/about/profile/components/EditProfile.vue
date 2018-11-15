@@ -172,6 +172,7 @@
                   flash('Profile updated', 'success');
 
                   self.isRequsting = false;
+                  self.closeEditForm();
 
               })
               .catch(errors => {

@@ -159,19 +159,20 @@
                                 ======================================================================================-->                                
                                 <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                     <span class="text-danger" v-if="!$v.sub_category_id.required && $v.sub_category_id.$dirty">
-                                        Sub category is required
+                                        Subcategory is required
                                     </span>
                                 </transition>
                             </div>
                         </div> 
 
                         <div class="col-sm-9 offset-3 d-flex justify-content-start mt-3 pl-2">
-                            <button type="button" role="button" class="btn btn-success" @click="uploadImage">
-                                Save
+                            <button class="btn btn-danger" type="button" role="button" @click="closeAdd"> 
+                                Cancel
                             </button>
 
-                            <button class="btn btn-danger ml-2" type="button" role="button" @click="closeAdd"> 
-                                Cancel
+                            <button type="button" role="button" class="btn btn-success ml-2" @click="uploadImage" :disabled="isRequesting">
+                                <template v-if="isRequesting">Adding..</template>
+                                <template v-else>Add</template>
                             </button>
                         </div>
                     </div>

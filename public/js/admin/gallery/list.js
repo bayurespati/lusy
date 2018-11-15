@@ -15972,6 +15972,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -16607,7 +16608,7 @@ var render = function() {
                       _vm.$v.sub_category_id.$dirty
                         ? _c("span", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Sub category is required\n                                "
+                              "\n                                    Subcategory is required\n                                "
                             )
                           ])
                         : _vm._e()
@@ -16628,21 +16629,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-success",
-                    attrs: { type: "button", role: "button" },
-                    on: { click: _vm.uploadImage }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Save\n                        "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger ml-2",
+                    staticClass: "btn btn-danger",
                     attrs: { type: "button", role: "button" },
                     on: { click: _vm.closeAdd }
                   },
@@ -16651,6 +16638,21 @@ var render = function() {
                       " \n                            Cancel\n                        "
                     )
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success ml-2",
+                    attrs: {
+                      type: "button",
+                      role: "button",
+                      disabled: _vm.isRequesting
+                    },
+                    on: { click: _vm.uploadImage }
+                  },
+                  [_vm.isRequesting ? [_vm._v("Adding..")] : [_vm._v("Add")]],
+                  2
                 )
               ]
             )
@@ -17318,6 +17320,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -17555,18 +17561,25 @@ var render = function() {
                       "transition",
                       {
                         attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
                         }
                       },
                       [
                         !_vm.$v.image.required && _vm.$v.image.$dirty
-                          ? _c("p", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Image is required\n                            "
-                              )
-                            ])
+                          ? _c(
+                              "p",
+                              {
+                                key: "image-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Image is required\n                            "
+                                )
+                              ]
+                            )
                           : _vm._e()
                       ]
                     )
@@ -17655,38 +17668,63 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.title.required && _vm.$v.title.$dirty
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Title is required\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Title is required\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           !_vm.$v.title.minLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Title has minimum of " +
-                                    _vm._s(_vm.$v.title.$params.minLength.min) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           !_vm.$v.title.maxLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Title has Maximum of " +
-                                    _vm._s(_vm.$v.title.$params.maxLength.max) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-maximum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Title has a maximum of " +
+                                      _vm._s(
+                                        _vm.$v.title.$params.maxLength.max
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -17739,18 +17777,25 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.date.required && _vm.$v.date.$dirty
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Date is required\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "date-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Date is required\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -17840,34 +17885,48 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.location.minLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Location has minimum of " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.minLength.min
-                                    ) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "location-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Location has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.location.$params.minLength.min
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           !_vm.$v.location.maxLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Location has Maximum of " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.maxLength.max
-                                    ) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "location-maximum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Location has a maximum of " +
+                                      _vm._s(
+                                        _vm.$v.location.$params.maxLength.max
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -17955,34 +18014,48 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.creator.minLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Creator has minimum of " +
-                                    _vm._s(
-                                      _vm.$v.creator.$params.minLength.min
-                                    ) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "creator-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Creator has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.creator.$params.minLength.min
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           !_vm.$v.creator.maxLength
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    Creator has maximum of " +
-                                    _vm._s(
-                                      _vm.$v.creator.$params.maxLength.max
-                                    ) +
-                                    " character\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "creator-maximum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Creator has a maximum of " +
+                                      _vm._s(
+                                        _vm.$v.creator.$params.maxLength.max
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -18070,19 +18143,26 @@ var render = function() {
                         "transition",
                         {
                           attrs: {
-                            appear: "",
-                            enterActiveClass: "fade-in-down",
-                            leaveActiveClass: "fade-out-up"
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
                           }
                         },
                         [
                           !_vm.$v.sub_category_id.required &&
                           _vm.$v.sub_category_id.$dirty
-                            ? _c("span", { staticClass: "text-danger" }, [
-                                _vm._v(
-                                  "\n                                    sub category is required\n                                "
-                                )
-                              ])
+                            ? _c(
+                                "span",
+                                {
+                                  key: "subcategory-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Subcategory is required\n                                "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ]
                       )
@@ -18116,13 +18196,15 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-success btn-sm ml-2",
+                        attrs: { disabled: _vm.isRequesting },
                         on: { click: _vm.editGallery }
                       },
                       [
-                        _vm._v(
-                          "\n                            Save\n                        "
-                        )
-                      ]
+                        _vm.isRequesting
+                          ? [_vm._v("Saving..")]
+                          : [_vm._v("Save")]
+                      ],
+                      2
                     )
                   ]
                 )
