@@ -23,27 +23,23 @@
             </label>
 
             <!--=========================================================================================
-                B U T T O N   S A V E                =========================================================================================-->
+                B U T T O N                =========================================================================================-->
             <button type="button" role="button"
-                    class="btn btn-success ml-3"
+                    class="btn btn-success ml-3" :disabled="isRequesting"
                     @click="uploadImage">
-                    Save
+                    <template v-if="!isRequesting">
+                        Save
+                    </template>
+                    <template v-else="">
+                          Please wait...                         
+                    </template>
             </button>
-
-            <!--=========================================================================================
-                B U T T O N   C A N C E L
-                =========================================================================================-->
             <button class="btn btn-danger"
+                    :disabled="isRequesting"
                     type="button" role="button"
                     @click="closeAdd"> 
                     Cancel
             </button>
-        </div>
-
-        <!--=========================================================================================
-            A C T I O N   B U T T O N
-            =========================================================================================-->
-        <div class="panel panel-transparent">
         </div>
     </div>
 </template>

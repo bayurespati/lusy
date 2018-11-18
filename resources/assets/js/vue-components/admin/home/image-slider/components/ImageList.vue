@@ -53,7 +53,7 @@
                     })
                     .then(() => {
 
-                        flash('Foto berhasil dihapus', 'danger');
+                        flash('Image deleted', 'danger');
 
                         self.isRequesting = false;
                     })
