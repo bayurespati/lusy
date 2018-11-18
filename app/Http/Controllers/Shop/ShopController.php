@@ -6,7 +6,7 @@ use App\Sosmed;
 use App\Category;
 use App\ShopItem;
 use App\ImageConfig;
-use App\Subcategory;
+use App\SubCategory;
 use App\ShopInquiry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -99,7 +99,7 @@ class ShopController extends Controller
     }
 
 
-    public function getSubcategory(Subcategory $subcategory){
+    public function getSubcategory(SubCategory $subcategory){
 
     	$items = ShopItem::whereIsDisplayed(true)->whereSubCategoryId($subcategory->id)->paginate(8);
 

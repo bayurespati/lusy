@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gallery;
 use App\Sosmed;
 use App\Category;
 use App\ImageConfig;
+use App\SubCategory;
 use App\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,7 +33,7 @@ class GalleryController extends Controller
     	return $category->subcategories()->get();
     }
 
-    public function getSubcategory(){
+    public function getSubcategory(SubCategory $subcategory){
     	$gallery = Gallery::whereSubCategoryId($subcategory->id)->paginate(8);
 
         return $gallery;
