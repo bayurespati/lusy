@@ -353,8 +353,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             var commit = _ref2.commit;
 
 
-            console.log(imageFile);
-
             return new Promise(function (resolve, reject) {
 
                 axios.post('add/image-slider', {
@@ -1260,7 +1258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     imageId: this.imageSlider.id
                 }).then(function () {
 
-                    flash('Foto berhasil dihapus', 'danger');
+                    flash('Image deleted', 'danger');
 
                     self.isRequesting = false;
                 });
@@ -1486,10 +1484,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -1653,25 +1647,40 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-success ml-3",
-            attrs: { type: "button", role: "button" },
+            attrs: {
+              type: "button",
+              role: "button",
+              disabled: _vm.isRequesting
+            },
             on: { click: _vm.uploadImage }
           },
-          [_vm._v("\n                Save\n        ")]
+          [
+            !_vm.isRequesting
+              ? [_vm._v("\n                    Save\n                ")]
+              : [
+                  _vm._v(
+                    "\n                      Please wait...                         \n                "
+                  )
+                ]
+          ],
+          2
         ),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass: "btn btn-danger",
-            attrs: { type: "button", role: "button" },
+            attrs: {
+              disabled: _vm.isRequesting,
+              type: "button",
+              role: "button"
+            },
             on: { click: _vm.closeAdd }
           },
           [_vm._v(" \n                Cancel\n        ")]
         )
       ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel panel-transparent" })
+    )
   ])
 }
 var staticRenderFns = [

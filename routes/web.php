@@ -1,19 +1,4 @@
     <?php
-use App\Member;
-use App\ApplicantList;
-use App\ContactMessage;
-use App\ShopInquiry;
-use App\Sosmed;
-use App\imageSlider;
-use App\AboutContent;
-use App\Category;
-use App\SubCategory;
-use App\Gallery;
-use App\Event;
-use App\ShopItem;
-use App\imageConfig;
-use Carbon\Carbon;
-
 use Illuminate\Http\Request;
 
 /*
@@ -37,53 +22,10 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 |  
 |
 */
-Route::get('/', function () {
-    $sosmed = Sosmed::all();
-    $imageSlider = imageSlider::all();
-    $introduction = AboutContent::where('is_class', '=', false)->get();
-    $shopItems = ShopItem::whereIsShowcase(true)->get();
-    $showcasedImage = Gallery::whereIsShowcase(true)->get();
-    $eventBanner = imageConfig::find(1)->image_path === null 
-    ? '/img/upcoming-event-bg.jpg'
-    : imageConfig::find(1)->image_path;
 
-    $introduction[0]->content = str_limit($introduction[0]->content, 300);
-
-    foreach ($shopItems as $item) {
-            $item->poster = $item->poster()->get()->isEmpty()
-            ? '/img/welcome-1.jpg'
-            : $item->poster()->get()[0]->image_path;
-
-            $item->price = number_format($item->price, 2, ",", ".");
-        }
-
-    if(
-        count($showcasedImage) > 0 && 
-        count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-        $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
-    }
-    else {
-        $showedImage = $showcasedImage;
-    }
-
-    $showcasedEvents = Event::orderBy('end_date', 'DESC')->paginate(2);
-    foreach ($showcasedEvents as $event) {
-        $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-
-        $startDate = Carbon::parse($event->start_date);
-        $endDate = Carbon::parse($event->end_date);
-
-        $event->day = $startDate->format('D');
-        $event->dayComplete = $startDate->format('l');
-        $event->dayDate = $startDate->format('d');
-        $event->month = $startDate->format('M');
-        $event->startHour = $startDate->format('h:i A');
-        $event->endHour = $endDate->format('h:i A');
-    }
-
-    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'shopItems', 'showedImage', 'showcasedEvents', 'eventBanner'));
-})->name('home');
-
+Route::get('/','HomeController@index')->name('home');
+Route::get('*','HomeController@index');
+Route::post('member','HomeController@addMember');
 
 
 /*
@@ -99,27 +41,8 @@ Route::group([
 	'namespace' => 'About',
 ], function () {
 
-	Route::get('/', function () { 
-        $sosmed = Sosmed::all();
-        $about = AboutContent::where('is_class', '=', false)->get();
-        $classes = AboutContent::where('is_class', '=', true)->get();
-        $aboutBanner = imageConfig::find(2)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(2)->image_path;
+    Route::get('/','AboutController@index')->name('about.index');
 
-        $showcasedImage = Gallery::whereIsShowcase(true)->get();
-
-        if(
-            count($showcasedImage) > 0 && 
-            count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-            $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
-        }
-        else {
-            $showedImage = $showcasedImage;
-        }
-
-		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage', 'aboutBanner'));
-	})->name('about.index');
 });
 
 
@@ -137,32 +60,16 @@ Route::group([
 	'namespace' => 'Gallery',
 ], function () {
 
-	Route::get('/', function () { 
-        $sosmed = Sosmed::all();
-        $categories = Category::with('subcategories')->whereType(1)->get();
-        $gallery = Gallery::paginate(8);
-        $galleryBanner = imageConfig::find(3)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(3)->image_path;
+    Route::get('/','GalleryController@index')->name('gallery.index');
 
-		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner'));
-	})->name('gallery.index');
+    Route::get('/all','GalleryController@getAll');
 
-    Route::get('category/{category}', function(Request $request, Category $category){
-        return $category->subcategories()->get();
-    });
+    Route::get('category/{category}','GalleryController@getCategory');
 
-    Route::get('/all', function(){
-        return $gallery = Gallery::paginate(8);
+    Route::get('category/{category}','GalleryController@getCategory');
 
-        return $gallery;
-    });
+    Route::get('/subcategory/{subcategory}','GalleryController@getSubcategory');
 
-    Route::get('/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
-        $gallery = Gallery::whereSubCategoryId($subcategory->id)->paginate(8);
-
-        return $gallery;
-    });
 });
 
 
@@ -180,183 +87,22 @@ Route::group([
 	'namespace' => 'Event',
 ], function () {
 
-	Route::get('/', function () { 
-        $sosmed = Sosmed::all();
-        $categories = Category::with('subcategories')->whereType(2)->get();
-        $upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
-        $eventBanner = imageConfig::find(4)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(4)->image_path;
+    Route::get('/','EventController@index')->name('event.index');
 
-        $isEventsExist = count(Event::all()) > 0 
-        ? true 
-        : false;
+    Route::get('/single/{event}','EventController@getSingle');
 
-        foreach ($upcomingEvents as $event) {
-            $event->content = str_limit($event->content, 300);
-            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-            $event->poster = $event->poster()->get()->isEmpty()
-            ? '/img/events1.jpg'
-            : $event->poster()->get()[0]->image_path;
+    Route::get('/pass/all','EventController@getAllpast');
 
-            $startDate = Carbon::parse($event->start_date);
-            $endDate = Carbon::parse($event->end_date);
+    Route::get('/upcoming/all','EventController@getAllUpcoming');
 
-            $event->day = $startDate->format('D');
-            $event->dayDate = $startDate->format('d');
-            $event->month = $startDate->format('M');
-            $event->startHour = $startDate->format('h:i A');
-            $event->endHour = $endDate->format('h:i A');
-        }
+    Route::get('/past/subcategory/{subcategory}','EventController@getPastSubcategory');
+    
+    Route::get('/upcoming/subcategory/{subcategory}','EventController@getUpcomingSubcategory');
 
-		return view('event.index', compact('sosmed', 'categories', 'upcomingEvents', 'isEventsExist', 'eventBanner'));
-	})->name('event.index');
+    Route::get('single/images/{event}','EventController@getSingleImage');
 
-    Route::get('/past/all', function(){
-        $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->paginate(6);
+    Route::post('/registration/{event}', 'EventController@registration');
 
-        foreach ($events as $event) {
-            $event->content = str_limit($event->content, 300);
-
-            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-            $event->poster = $event->poster()->get()->isEmpty()
-            ? '/img/events1.jpg'
-            : $event->poster()->get()[0]->image_path;
-
-            $startDate = Carbon::parse($event->start_date);
-            $endDate = Carbon::parse($event->end_date);
-
-            $event->day = $startDate->format('D');
-            $event->dayDate = $startDate->format('d');
-            $event->month = $startDate->format('M');
-            $event->startHour = $startDate->format('h:i A');
-            $event->endHour = $endDate->format('h:i A');
-        }
-
-        return $events;
-    });
-
-    Route::get('/upcoming/all', function(){
-        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
-
-        foreach ($events as $event) {
-            $event->content = str_limit($event->content, 300);
-
-            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-            $event->poster = $event->poster()->get()->isEmpty()
-            ? '/img/events1.jpg'
-            : $event->poster()->get()[0]->image_path;
-
-            $startDate = Carbon::parse($event->start_date);
-            $endDate = Carbon::parse($event->end_date);
-
-            $event->day = $startDate->format('D');
-            $event->dayDate = $startDate->format('d');
-            $event->month = $startDate->format('M');
-            $event->startHour = $startDate->format('h:i A');
-            $event->endHour = $endDate->format('h:i A');
-        }
-
-        return $events;
-    });
-
-    Route::get('/past/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
-        $events = Event::whereDate('end_date', '<', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
-
-        foreach ($events as $event) {
-            $event->content = str_limit($event->content, 300);
-
-            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-            $event->poster = $event->poster()->get()->isEmpty()
-            ? '/img/events1.jpg'
-            : $event->poster()->get()[0]->image_path;
-
-            $startDate = Carbon::parse($event->start_date);
-            $endDate = Carbon::parse($event->end_date);
-
-            $event->day = $startDate->format('D');
-            $event->dayDate = $startDate->format('d');
-            $event->month = $startDate->format('M');
-            $event->startHour = $startDate->format('h:i A');
-            $event->endHour = $endDate->format('h:i A');
-        }
-
-        return $events;
-    });
-
-    Route::get('/upcoming/subcategory/{subcategory}', function(Request $request, SubCategory $subcategory){
-        $events = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->whereSubCategoryId($subcategory->id)->paginate(6);
-
-        foreach ($events as $event) {
-            $event->content = str_limit($event->content, 300);
-
-            $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-            $event->poster = $event->poster()->get()->isEmpty()
-            ? '/img/events1.jpg'
-            : $event->poster()->get()[0]->image_path;
-
-            $startDate = Carbon::parse($event->start_date);
-            $endDate = Carbon::parse($event->end_date);
-
-            $event->day = $startDate->format('D');
-            $event->dayDate = $startDate->format('d');
-            $event->month = $startDate->format('M');
-            $event->startHour = $startDate->format('h:i A');
-            $event->endHour = $endDate->format('h:i A');
-        }
-
-        return $events;
-    });
-
-    Route::get('single/{event}', function(Request $request, Event $event){
-        $sosmed = Sosmed::all();
-
-        $eventBanner = imageConfig::find(4)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(4)->image_path;
-
-        $event->kategori = SubCategory::find($event->sub_category_id)
-        ->category()
-        ->get()[0]->title;
-
-        $event->poster = $event->poster()->get()->isEmpty()
-        ? '/img/events1.jpg'
-        : $event->poster()->get()[0]->image_path;
-
-        $event->images = $event->images()->whereIsPoster(false)->paginate(8);
-
-        $startDate = Carbon::parse($event->start_date);
-        $endDate = Carbon::parse($event->end_date);
-
-        $event->day = $startDate->format('D');
-        $event->dayDate = $startDate->format('d');
-        $event->month = $startDate->format('M');
-        $event->startHour = $startDate->format('h:i A');
-        $event->endHour = $endDate->format('h:i A');
-
-        $event->isUpcoming = $endDate >= Carbon::today()->toDateString();
-
-        return view('event.single', compact('sosmed', 'event', 'eventBanner'));
-    });
-
-    Route::get('single/images/{event}', function(Request $request, Event $event){
-        return $event->images()->whereIsPoster(false)->paginate(8);
-    });
-
-    Route::post('/registration/{event}', function(Request $request,Event $event){
-
-        $applicantList = new ApplicantList;
-
-        $applicantList->event_id = $event->id;
-        $applicantList->name = $request->name;
-        $applicantList->email = $request->email;
-        $applicantList->phone = $request->phone;
-        $applicantList->is_approve = false;
-
-        $applicantList->save();
-
-        return back();
-    });
 });
 
 
@@ -374,116 +120,19 @@ Route::group([
 	'namespace' => 'Shop',
 ], function () {
 
-	Route::get('/', function () { 
-        $sosmed = Sosmed::all();
-        $categories = Category::with('subcategories')->whereType(3)->get();
+    Route::get('/','ShopController@index')->name('shop.index');
 
-        $items = ShopItem::whereIsDisplayed(true)->paginate(8);
+    Route::get('/item/{shopItem}','ShopController@getItems');
 
-        $isItemsExist = count(ShopItem::all()) > 0 
-        ? true 
-        : false;
+    Route::get('/item/{shopItem}','ShopController@getItems');
 
-        $shopBanner = imageConfig::find(5)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(5)->image_path;
+    Route::get('/all','ShopController@getAll');
 
-        foreach ($items as $item) {
-            $item->poster = $item->poster()->get()->isEmpty()
-            ? '/img/shop-item.gif'
-            : $item->poster()->get()[0]->image_path;
+    Route::get('/category/{category}','ShopController@getCategory');
 
-            $item->price = number_format($item->price, 2, ",", ".");
-        }
+    Route::get('/subcategory/{subcategory}','ShopController@getSubcategory');
 
-		return view('shop.index', compact('sosmed', 'categories', 'items', 'shopBanner', 'isItemsExist'));
-	})->name('shop.index');
-
-	Route::get('/item/{shopItem}', function (Request $request, ShopItem $shopItem) { 
-        $sosmed = Sosmed::all();
-
-        $shopBanner = imageConfig::find(5)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(5)->image_path;
-
-        $shopItem->poster = $shopItem->poster()->get()->isEmpty()
-        ? '/img/welcome-1.jpg'
-        : $shopItem->poster()->get()[0]->image_path;
-
-        $shopItem->images = $shopItem->images()->whereIsPoster(false)->paginate(4);
-
-        $shopItem->price = number_format($shopItem->price, 2, ",", ".");
-
-		return view('shop.item', compact('sosmed', 'shopItem', 'shopBanner'));
-	})->name('shop.item');
-
-    Route::get('item/images/{shopItem}', function(Request $request, ShopItem $shopItem){
-        return $shopItem->images()->whereIsPoster(false)->paginate(4);
-    });
-
-    Route::get('/all', function () {
-        $items = ShopItem::whereIsDisplayed(true)->paginate(8);
-
-        foreach ($items as $item) {
-            $item->poster = $item->poster()->get()->isEmpty()
-            ? '/img/shop-item.gif'
-            : $item->poster()->get()[0]->image_path;
-
-            $item->price = number_format($item->price, 2, ",", ".");
-
-        }
-
-        return $items;
-    });
-
-    Route::get('/category/{category}', function (Request $request, Category $category) {
-        $items = ShopItem::whereIsDisplayed(true)->whereCategoryId($category->id)->paginate(8);
-
-        foreach ($items as $item) {
-            $item->poster = $item->poster()->get()->isEmpty()
-            ? '/img/shop-item.gif'
-            : $item->poster()->get()[0]->image_path;
-
-            $item->price = number_format($item->price, 2, ",", ".");
-        }
-
-        return $items;
-    });
-
-    Route::get('/subcategory/{subcategory}', function (Request $request, SubCategory $subcategory) {
-        $items = ShopItem::whereIsDisplayed(true)->whereSubCategoryId($subcategory->id)->paginate(8);
-
-        foreach ($items as $item) {
-            $item->poster = $item->poster()->get()->isEmpty()
-            ? '/img/shop-item.gif'
-            : $item->poster()->get()[0]->image_path;
-
-            $item->price = number_format($item->price, 2, ",", ".");
-        }
-
-        return $items;
-    });
-
-    Route::post('/update/overseas/{shopitem}', function(Request $request, ShopItem $shopitem){
-
-        $shopInquiry = new ShopInquiry;
-
-        $shopInquiry->shop_item_id = $shopitem->id;
-        $shopInquiry->buyer_name = $request->buyer_name;
-        $shopInquiry->gender = $request->gender;
-        $shopInquiry->email = $request->email;
-        $shopInquiry->address = $request->address;
-        $shopInquiry->city = $request->city;
-        $shopInquiry->state_province = $request->state_province;
-        $shopInquiry->postal_code = $request->postal_code;
-        $shopInquiry->notes = $request->notes;
-        $shopInquiry->quantity = $request->quantity;
-        $shopInquiry->is_confirmed = 0;
-
-        $shopInquiry->save();
-
-        return back();
-    });
+    Route::post('/update/overseas/{shopItem}','ShopController@overseasInquiry');
 
 });
 
@@ -502,68 +151,9 @@ Route::group([
 	'namespace' => 'Contact',
 ], function () {
 
-	Route::get('/', function () { 
-        $sosmed = Sosmed::all();
+    Route::get('/','ContactController@index')->name('contact.index');
 
-        $contactBanner = imageConfig::find(6)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : imageConfig::find(6)->image_path;
-
-		return view('contact.index', compact('sosmed', 'contactBanner'));
-	})->name('contact.index');
-
-    Route::post('contact_message',function(Request $request){
-
-        $contact_message = new ContactMessage;
-
-        $contact_message->name = $request->contact_fname .' '. $request->contact_lname;
-        $contact_message->phone = $request->contact_phone;
-        $contact_message->email = $request->contact_email;
-        $contact_message->message = $request->contact_message;
-        $contact_message->is_replay = false;
-
-        $contact_message->save();
-
-        return back();
-    });
-
-
-});
-
-Route::post('member', function(Request $request) {
-
-    $date = explode('/', str_replace(' ', '', $request->date_of_birth) );
-    $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
-
-    $member = new Member;
-    $member->name = $request->name;
-    $member->gender = $request->gender;
-    $member->place_of_birth = $request->place_of_birth;
-    $member->date_of_birth = $date_of_birth;
-
-    $member->email = $request->email;
-    $member->telephone = $request->telephone;
-    $member->mobile = $request->mobile;
-    $member->fax = $request->fax;
-
-    $member->is_approve = false;
-    $member->is_active = false;
-    $member->class_id = $request->class_id;
-    $member->save();
-
-    return back();
-
-    // dd(
-        // $request->name,
-        // $request->email,
-        // $request->fax,
-        // $request->telephone,
-        // $request->mobile,
-        // $request->place_of_birth,
-        // $request->date_of_birth,
-        // $request->gender,
-        // $request->class_id
-    // );
+    Route::post('contact_message','ContactController@message');
 
 });
 

@@ -59,8 +59,6 @@ export const store = new Vuex.Store({
 
         store_image_slider({commit}, imageFile) {
 
-            console.log(imageFile);
-
             return new Promise((resolve, reject) => {
 
                 axios.post('add/image-slider', {
