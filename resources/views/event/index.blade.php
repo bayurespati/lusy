@@ -185,6 +185,8 @@
                                 <a onClick="goToPage({{ $upcomingEvents->lastPage() }})"><i class="fa fa-angle-double-right"></i></a>
                             </li>
                         </ul>
+                        @else
+                        <ul id="pagination-list"></ul>
                         @endif
                     </nav>
                 </div>

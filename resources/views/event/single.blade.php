@@ -146,7 +146,7 @@
                                 </div>
 
                                 @if($event->isUpcoming)
-                                <div class="col-12" style="padding-left: 100px">
+                                <div class="col-12" style="padding-left: 100px; margin-bottom: 20px">
                                     <button class="general-btn transitioned-btn" type="button" 
                                     data-toggle="modal"
                                     data-target="#event" style="width: 100%">
