@@ -84,8 +84,9 @@
                     </div>
                 </div>
                 <!-- Container /- -->
-                <div id="gallery-container" class="portfolio-list zoom-in">
-                    @foreach($gallery as $photo)
+                <div id="gallery-container-wrapper">
+                    <div id="gallery-container" class="portfolio-list zoom-in">
+                        @foreach($gallery as $photo)
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
                             <a href="{{ $photo->image_path }}">
                                 <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
@@ -97,13 +98,14 @@
                                 </div>
                             </a>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
 
                 <div id="divider-80" class="padding-80"></div>
 
                 <nav id="gallery-pagination" class="ow-pagination text-center fade-in">
-                    <ul class="pagination">
+                    <ul id="pagination-list" class="pagination">
                         <li class="{{ ($gallery->currentPage() == 1) ? ' disabled' : '' }}">
                             <a onClick="goToPage(1)"><i class="fa fa-angle-double-left"></i></a>
                         </li>
@@ -378,17 +380,16 @@
     }
 
     function cleanPagination(){
-        var galleryPagination = document.getElementById('gallery-pagination');
-        galleryPagination.setAttribute('class', 'ow-pagination text-center fade-out');
+        var paginationList = document.getElementById('pagination-list');
+        paginationList.setAttribute('class', 'pagination fade-out');
 
         setTimeout(function(){
-            galleryPagination.parentNode.removeChild(galleryPagination);
+            paginationList.parentNode.removeChild(paginationList);
         }, 100);
     }
 
     function prepareImages(array){
-        var parentOfDivider80 = document.getElementById('divider-80').parentNode;
-        var divider80 = document.getElementById('divider-80');
+        var galleryContainerWrapper = document.getElementById('gallery-container-wrapper');
         var galleryContainer = document.createElement('div');
         galleryContainer.setAttribute('id', 'gallery-container');
         galleryContainer.setAttribute('class', 'portfolio-list zoom-in');
@@ -418,25 +419,25 @@
         }
 
         galleryContainer.innerHTML = galleryContent;
+
+        console.log(galleryContainerWrapper);
         setTimeout(function(){
-            parentOfDivider80.insertBefore(galleryContainer, divider80);
+            galleryContainerWrapper.appendChild(galleryContainer);
 
             check();
         }, 100);
     }
 
     function preparePagination(data){
-        var parentOfSectionPadding = document.getElementById('section-padding').parentNode;
-        var sectionPadding = document.getElementById('section-padding');
-        var paginationContainer = document.createElement('nav');
-        paginationContainer.setAttribute('id', 'gallery-pagination');
-        paginationContainer.setAttribute('class', 'ow-pagination text-center fade-in');
+        var galleryPagination = document.getElementById('gallery-pagination');
+        var paginationContainer = document.createElement('ul');
+        paginationContainer.setAttribute('id', 'pagination-list');
+        paginationContainer.setAttribute('class', 'pagination fade-in');
 
         let paginationContent = '';
 
         if(data.data.length > 0){
-            paginationContent = paginationContent + 
-            '<ul class="pagination">';
+            paginationContent = '';
 
             if(data.current_page == 1) {
                 paginationContent = paginationContent + 
@@ -493,13 +494,12 @@
             '       <a onClick="goToPage(' + data.last_page + ')">' + 
             '           <i class="fa fa-angle-double-right"></i>' + 
             '       </a>' + 
-            '   </li>' + 
-            '</ul>';
+            '   </li>';
         }
 
         paginationContainer.innerHTML = paginationContent;
         setTimeout(function(){
-            parentOfSectionPadding.insertBefore(paginationContainer, sectionPadding);
+            galleryPagination.appendChild(paginationContainer);
         }, 120);
     }
 
