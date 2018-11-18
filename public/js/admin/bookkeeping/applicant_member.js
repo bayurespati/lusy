@@ -2911,7 +2911,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-8" }, [
                     _vm._v(
                       "\n                            " +
-                        _vm._s(_vm.detail.gender === 1 ? "Men" : "Women") +
+                        _vm._s(_vm.detail.gender == 1 ? "Men" : "Women") +
                         "\n                        "
                     )
                   ])

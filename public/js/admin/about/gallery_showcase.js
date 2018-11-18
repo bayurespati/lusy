@@ -1587,9 +1587,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 self.isRequesting = true;
 
+                var isBool = this.galleryImage.is_showcase == 0 ? true : false;
+
                 var updatedGallery = {
                     id: this.galleryImage.id,
-                    is_showcase: !this.galleryImage.is_showcase
+                    is_showcase: isBool
                 };
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {

@@ -2668,6 +2668,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: { item: {} },
@@ -2813,7 +2814,7 @@ var render = function() {
                 {
                   staticClass:
                     "d-flex justify-content-center align-items-center",
-                  class: _vm.item.is_approve === 0 ? "col-2" : "col-4"
+                  class: _vm.item.is_approve == 0 ? "col-2" : "col-4"
                 },
                 [
                   _c("div", [
@@ -2827,8 +2828,8 @@ var render = function() {
                       _c("p", { staticClass: "mb-0 text-center" }, [
                         _vm._v(
                           _vm._s(
-                            _vm.item.is_approve === 1 ||
-                            _vm.item.is_approve === true
+                            _vm.item.is_approve == 1 ||
+                            _vm.item.is_approve == true
                               ? "Approve"
                               : "Waiting"
                           )
@@ -2839,7 +2840,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm.item.is_approve === 0
+              _vm.item.is_approve == 0 || _vm.item.is_approve == false
                 ? _c(
                     "div",
                     {

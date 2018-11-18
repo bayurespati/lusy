@@ -287,12 +287,10 @@
                             <!-- <label for="city">Mobile number</label> -->
                             <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number">
                       </div>
-
                       <div class="form-group form-control-sm">
                             <!-- <label for="city">Fax number</label> -->
                             <input type="text" class="form-control" name="fax" id="fax" placeholder="Fax Number">
                       </div>
-
 
                       <div hidden=""> <input  type="text" name="class_id" id="about_contents_id"> </div>
 

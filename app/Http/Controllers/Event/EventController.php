@@ -48,7 +48,7 @@ class EventController extends Controller
     }
 
 
-    public function getsingle(Event $event){
+    public function getSingle(Event $event){
 
     	$sosmed = Sosmed::all();
 

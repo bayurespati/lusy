@@ -2849,6 +2849,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: { detail: {} },
@@ -2999,7 +3013,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-8" }, [
                     _vm._v(
                       "\n                            " +
-                        _vm._s(_vm.detail.gender === 1 ? "Men" : "Women") +
+                        _vm._s(_vm.detail.gender == 1 ? "Male" : "Female") +
                         "\n                        "
                     )
                   ])
@@ -3066,6 +3080,39 @@ var render = function() {
                     _vm._v(
                       "\n                            " +
                         _vm._s(_vm.detail.email) +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-sm-4 d-flex align-items-center justify-content-end"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "email" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Shop Item\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.shop.title) +
                         "\n                        "
                     )
                   ])

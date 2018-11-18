@@ -40,6 +40,7 @@ export const store = new Vuex.Store({
 
 
             if(updatedShop.is_showcase){
+                console.log("satu");
 
                 //Find index object on array shop hide
                 const shopIndex = helpers.getIndexOfShopHide(updatedShop.id);
@@ -52,6 +53,7 @@ export const store = new Vuex.Store({
                 state.shopHide.splice(shopIndex, 1);
 
             }else{
+                console.log("dua");
 
                 //Find index object on array show show
                 const shopIndex = helpers.getIndexOfShopShow(updatedShop.id);
@@ -84,9 +86,10 @@ export const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
 
                 axios.patch('update/shop-showcase/' + updatedShop.id, {
-                    is_showcase: updatedShop.is_showcase,  
+                    is_showcase: updatedShop.is_showcase,
                 })
                     .then(response => {
+                        console.log(updatedShop.is_showcase);
                         commit('edit_shop', updatedShop);
 
                         resolve(updatedShop);

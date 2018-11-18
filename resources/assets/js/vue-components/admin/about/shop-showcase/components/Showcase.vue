@@ -106,7 +106,7 @@
 
                         .then((updatedShop) => {
 
-                            flash('Shop showcase Berhasil diperbaharui', 'success');
+                            flash('Shop showcase updated', 'success');
 
                             self.isRequesting = false;
 

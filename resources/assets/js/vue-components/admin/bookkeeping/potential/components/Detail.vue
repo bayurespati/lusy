@@ -30,7 +30,7 @@
                             </div>
                         
                             <div class="col-sm-8">
-                                {{ detail.gender === 1 ? 'Men' : 'Women' }}
+                                {{ detail.gender == 1 ? 'Male' : 'Female' }}
                             </div>
                         </div>
 
@@ -59,6 +59,20 @@
                                 {{ detail.email }}
                             </div>
                         </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="email"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Shop Item
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ detail.shop.title }}
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-6">

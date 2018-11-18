@@ -91,7 +91,7 @@ Route::group([
 
     Route::get('/single/{event}','EventController@getSingle');
 
-    Route::get('/pass/all','EventController@getAllpast');
+    Route::get('/past/all','EventController@getAllpast');
 
     Route::get('/upcoming/all','EventController@getAllUpcoming');
 

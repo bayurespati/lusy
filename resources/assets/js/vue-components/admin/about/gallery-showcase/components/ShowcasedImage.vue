@@ -111,9 +111,11 @@
 
                     self.isRequesting = true;
 
+                    const isBool = this.galleryImage.is_showcase == 0 ? true : false;
+
                     const updatedGallery = {
                         id: this.galleryImage.id,
-                        is_showcase: !this.galleryImage.is_showcase,
+                        is_showcase: isBool
                     };
 
                     this.$store.dispatch('update_galllery', updatedGallery)

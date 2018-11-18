@@ -21,8 +21,8 @@ class CreateMembersTable extends Migration
             $table->dateTime('date_of_birth');
 
             $table->string('telephone');
-            $table->string('mobile');
-            $table->string('fax');
+            $table->string('mobile')->nullable();
+            $table->string('fax')->nullable();
             $table->string('email');
 
             $table->integer('teacher_id')->unsigned()->nullable();

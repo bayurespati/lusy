@@ -45,19 +45,20 @@
                     </div>
 
                     <div class="d-flex justify-content-center align-items-center"
-                    :class="item.is_approve === 0 ? 'col-2' : 'col-4'">
+                    :class="item.is_approve == 0 ? 'col-2' : 'col-4'">
                         <div>
                             <p class="small text-uppercase mb-0 text-center">
                                 <strong>Status</strong>
                             </p>
                             
                             <div class="detail">
-                                <p class="mb-0 text-center">{{ item.is_approve === 1 || item.is_approve === true ? 'Approve' : 'Waiting' }}</p>
+                                <p class="mb-0 text-center">{{ item.is_approve == 1 || item.is_approve == true ? 'Approve' : 'Waiting' }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-2 d-flex align-items-center justify-content-end" v-if="item.is_approve === 0">
+                    <div class="col-2 d-flex align-items-center justify-content-end" 
+                         v-if="item.is_approve == 0 || item.is_approve == false">
                         <button type="button" 
                         class="btn btn-success btn-sm" 
                         @click="editItem">

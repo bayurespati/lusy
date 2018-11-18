@@ -27,7 +27,7 @@
                         <p class="small text-uppercase mb-0"><strong>Link</strong></p>
                         <div class="detail">
                             <p class="mb-0 max-lines">
-                                {{ sosmed.link === "" || sosmed.link === null ? 'None' : sosmed.link }}
+                                {{ sosmed.link == "" || sosmed.link == null ? 'None' : sosmed.link }}
                             </p>
                         </div>
                     </div>

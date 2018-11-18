@@ -1784,7 +1784,7 @@ var render = function() {
                     _vm._v(
                       "\n                            " +
                         _vm._s(
-                          _vm.sosmed.link === "" || _vm.sosmed.link === null
+                          _vm.sosmed.link == "" || _vm.sosmed.link == null
                             ? "None"
                             : _vm.sosmed.link
                         ) +

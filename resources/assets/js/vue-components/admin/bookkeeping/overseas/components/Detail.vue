@@ -30,7 +30,7 @@
                             </div>
                         
                             <div class="col-sm-8">
-                                {{ detail.gender === 1 ? 'Men' : 'Women' }}
+                                {{ detail.gender == 1 ? 'Male' : 'Female' }}
                             </div>
                         </div>
 

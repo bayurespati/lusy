@@ -17,11 +17,11 @@ class OverseasController extends Controller
     }
 
     public function loadOverseas(){
-    	return ShopInquiry::where('is_confirmed', 1)->get();
+    	return ShopInquiry::with('shop')->where('is_confirmed', 1)->get();
     }
 
     public function loadPotentialOverseas(){
-    	return ShopInquiry::where('is_confirmed', 0)->get();
+    	return ShopInquiry::with('shop')->where('is_confirmed', 0)->get();
     }
 
     public function update(Request $request, ShopInquiry $shopInquiry){

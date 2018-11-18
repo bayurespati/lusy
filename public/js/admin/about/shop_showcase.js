@@ -423,6 +423,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         edit_shop: function edit_shop(state, updatedShop) {
 
             if (updatedShop.is_showcase) {
+                console.log("satu");
 
                 //Find index object on array shop hide
                 var shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopHide(updatedShop.id);
@@ -434,6 +435,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 //Delete the same object on show hide
                 state.shopHide.splice(shopIndex, 1);
             } else {
+                console.log("dua");
 
                 //Find index object on array show show
                 var _shopIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShopShow(updatedShop.id);
@@ -469,6 +471,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 axios.patch('update/shop-showcase/' + updatedShop.id, {
                     is_showcase: updatedShop.is_showcase
                 }).then(function (response) {
+                    console.log(updatedShop.is_showcase);
                     commit('edit_shop', updatedShop);
 
                     resolve(updatedShop);
@@ -1576,7 +1579,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.$store.dispatch('update_shop', updatedShop).then(function (updatedShop) {
 
-                    flash('Shop showcase Berhasil diperbaharui', 'success');
+                    flash('Shop showcase updated', 'success');
 
                     self.isRequesting = false;
                 }).catch(function (errors) {
