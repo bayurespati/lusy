@@ -26,7 +26,7 @@ class OverseasController extends Controller
 
     public function update(Request $request, ShopInquiry $shopInquiry){
 
-        $shopInquiry->is_confirmed = $request->is_confirmed;
+        $shopInquiry->is_confirmed = true;
         $shopInquiry->update();
 
     }

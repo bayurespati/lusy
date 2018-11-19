@@ -97,9 +97,11 @@
 
                     this.isRequesting = true;
 
+                    const isBool = this.shopItem.is_showcase == 0 ? true : false;
+
                     const updatedShop = {
                         id: this.shopItem.id,
-                        is_showcase: !this.shopItem.is_showcase,
+                        is_showcase: isBool
                     };
 
                     this.$store.dispatch('update_shop', updatedShop)

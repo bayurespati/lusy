@@ -2689,9 +2689,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.isRequesting = true;
 
+                var isBool = this.item.is_approve == 0 ? true : false;
+
                 var updatedItem = {
                     id: this.item.id,
-                    is_approve: !this.item.is_approve
+                    is_approve: isBool
                 };
 
                 this.$store.dispatch('update_item', updatedItem).then(function (updatedItem) {

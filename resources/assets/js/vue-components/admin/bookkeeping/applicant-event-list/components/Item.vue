@@ -96,9 +96,11 @@
 
                     this.isRequesting = true;
 
+                    const isBool = this.item.is_approve == 0 ? true : false;
+
                     const updatedItem = {
                         id: this.item.id,
-                        is_approve: !this.item.is_approve
+                        is_approve: isBool
                     };
 
                     this.$store.dispatch('update_item', updatedItem)

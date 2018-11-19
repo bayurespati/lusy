@@ -1572,9 +1572,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 this.isRequesting = true;
 
+                var isBool = this.shopItem.is_showcase == 0 ? true : false;
+
                 var updatedShop = {
                     id: this.shopItem.id,
-                    is_showcase: !this.shopItem.is_showcase
+                    is_showcase: isBool
                 };
 
                 this.$store.dispatch('update_shop', updatedShop).then(function (updatedShop) {
