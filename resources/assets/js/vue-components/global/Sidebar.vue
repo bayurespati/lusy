@@ -126,7 +126,7 @@
 						id: 'bookkeeping',
 						name: 'Bookkeeping',
 						subMenu:[
-							{ name:'Member', link: '#' },
+							{ name:'Member', link: '/admin/bookkeeping/member' },
 							{ name:'Member Applicants', link: '/admin/bookkeeping/applicant-member' },
 							{ name:'Event Applicants', link: '/admin/bookkeeping/applicant-event' },
 							{ name:'Overseas Inquiries', link: '/admin/bookkeeping/overseas' },

@@ -449,11 +449,23 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G   O V E R S E A S   I N Q U I R Y
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/member', 'MemberController@member')->name('admin.bookkeeping.member');
+        Route::get('/data/member', 'MemberController@loadMember');
+        Route::get('/data/rank', 'MemberController@loadRank');
+        Route::get('/data/class', 'MemberController@loadClass');
+        Route::post('/add/member', 'MemberController@addMember');
+
+        /*
+        |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   A P P L I C A N T   M E M B E R
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.member');
+        Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.applicant_member');
         Route::get('/data/applicant-member', 'MemberController@loadApplicantMember');
         Route::patch('/update/applicant-member/{member}', 'MemberController@update');
         Route::delete('/delete/applicant-member/{member}', 'MemberController@destroy');

@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Admin-Bookkeeping-Applicant-Member</title>
+	<title>Admin-Bookkeeping-Member</title>
 @endpush
 
 @push('additional_css')
@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-<div class="wrapper" id="applicant-member">
+<div class="wrapper" id="member-list">
 
 	<!-- SIDE BAR  -->
 	<side-bar></side-bar>
@@ -52,12 +52,12 @@
             </div>
         </nav>
 		
-		<applicant-member> </applicant-member>
+		<member-list> </member-list>
 		<flash> </flash>	
     </div>
 </div>
 @endsection
 
 @push('additional_js')
-	<script src="{{ asset('js/admin/bookkeeping/applicant_member.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/member.js') }}"></script>
 @endpush
