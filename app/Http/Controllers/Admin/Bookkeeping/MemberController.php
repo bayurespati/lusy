@@ -23,6 +23,42 @@ class MemberController extends Controller
 
         $data = Member::with(['rank','class','classRegion','subscription'])->whereIsApprove(true)->get();
 
+        $dataMember = $data->map(function ($member) {
+
+            $ranks = $member['rank']->map(function ($rank){
+
+                $data = [
+                    'rankId' => $rank['id'],
+                    'title' => $rank['title'],
+                    'annointed_date' => $rank['pivot']['annointed_date']
+                ];
+
+                return $data;
+            });
+
+            $member = [
+                'id' => $member['id'],
+                'name' => $member['name'],
+                'gender' => $member['gender'],
+                'place_of_birth' => $member['place_of_birth'],
+                'date_of_birth' => $member['date_of_birth'],
+                'email' => $member['email'],
+                'fax' => $member['fax'],
+                'telephone' => $member['telephone'],
+                'mobile' => $member['mobile'],
+                'join_date' => $member['join_date'],
+                'is_active' => $member['is_active'],
+                'is_approve' => $member['is_approve'],
+                'class' => $member['class'],
+                'class_region' => $member['class_region'],
+                'subscription' => $member['subscription'],
+                'ranks' => $ranks
+            ];
+
+            return $member;
+        });
+
+        return $dataMember;
     }
 
     public function loadRank(){
