@@ -35,8 +35,8 @@ class Member extends Model
         return $this->belongsToMany('App\Rank', 'member_rank', 'member_id', 'rank_id')->withPivot('annointed_date');
     }
 
-    public function classRegion(){
-        return $this->hasMany('App\ClassRegion', 'member_id');
+    public function region(){
+        return $this->belongsToMany('App\Region', 'member_region', 'member_id', 'region_id');
     }
 
     public function subscription(){

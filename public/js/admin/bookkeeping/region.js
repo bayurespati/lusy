@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 308);
+/******/ 	return __webpack_require__(__webpack_require__.s = 570);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -455,130 +455,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 116:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(310);
-
-
-
-var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        categories: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getCategories: function getCategories(state) {
-            return state.categories;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_categories: function set_categories(state, categories) {
-            state.categories = categories;
-        },
-
-        add_new_category: function add_new_category(state, category) {
-            state.categories.push({
-                id: category.id,
-                title: category.detail.title,
-                type: 1
-            });
-        },
-        edit_category: function edit_category(state, updatedCategory) {
-
-            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedCategory.id);
-
-            state.categories[categoryIndex].title = updatedCategory.title;
-        },
-        delete_category: function delete_category(state, ids) {
-            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(ids.categoryId);
-
-            state.categories.splice(categoryIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_categories: function load_categories(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/event/data/category').then(function (response) {
-                commit('set_categories', response.data);
-            });
-        },
-
-        store_new_category: function store_new_category(_ref2, newCategory) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/category', newCategory).then(function (response) {
-
-                    var category = {
-                        id: response.data,
-                        detail: newCategory
-                    };
-
-                    commit('add_new_category', category);
-
-                    resolve(category);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_category: function update_category(_ref3, updatedCategory) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/category/' + updatedCategory.id, {
-                    id: updatedCategory.id,
-                    title: updatedCategory.title
-                }).then(function (response) {
-                    commit('edit_category', updatedCategory);
-
-                    resolve(updatedCategory);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_category: function destroy_category(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/category/' + ids.categoryId).then(function (response) {
-                    commit('delete_category', ids);
-                    resolve();
-                });
-            });
-        }
-    }
-});
 
 /***/ }),
 
@@ -1980,54 +1856,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 308:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(309);
-
-
-/***/ }),
-
-/***/ 309:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
-
-
-
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
-
-var admin = new Vue({
-    el: '#categories',
-
-    components: {
-        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_categories');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
-});
-
-/***/ }),
-
 /***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2051,23 +1879,6 @@ var _default = function _default(prop) {
 };
 
 exports.default = _default;
-
-/***/ }),
-
-/***/ 310:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(116);
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfCategory: function getIndexOfCategory(categoryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-            return category.id === categoryId;
-        });
-    }
-});
 
 /***/ }),
 
@@ -4149,25 +3960,73 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 51:
+/***/ 570:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(571);
+
+
+/***/ }),
+
+/***/ 571:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(572);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(596);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
+
+
+
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
+
+var admin = new Vue({
+    el: '#class-region',
+
+    components: {
+        RegionList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_region');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+});
+
+/***/ }),
+
+/***/ 572:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(52)
+  __webpack_require__(573)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(54)
+var __vue_script__ = __webpack_require__(575)
 /* template */
-var __vue_template__ = __webpack_require__(70)
+var __vue_template__ = __webpack_require__(595)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5851c01a"
+var __vue_scopeId__ = "data-v-aaa7a372"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -4178,7 +4037,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/vue-components/global/categories/Categories.vue"
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/region/components/List.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -4187,9 +4046,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5851c01a", Component.options)
+    hotAPI.createRecord("data-v-aaa7a372", Component.options)
   } else {
-    hotAPI.reload("data-v-5851c01a", Component.options)
+    hotAPI.reload("data-v-aaa7a372", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -4201,23 +4060,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 52:
+/***/ 573:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(53);
+var content = __webpack_require__(574);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("663929c8", content, false, {});
+var update = __webpack_require__(2)("063a7077", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5851c01a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Categories.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5851c01a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Categories.vue");
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-aaa7a372\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-aaa7a372\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -4228,7 +4087,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 53:
+/***/ 574:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4236,25 +4095,27 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.slide-enter[data-v-5851c01a] {\n        opacity: 0;\n}\n.slide-enter-active[data-v-5851c01a] {\n        animation: slide-in-data-v-5851c01a 0.6s ease;\n        transition: opacity 0.6s;\n}\n.slide-leave[data-v-5851c01a] {\n}\n.slide-leave-active[data-v-5851c01a] {\n        animation: slide-out-data-v-5851c01a 0.6s ease forwards;\n        transition: opacity 0.6s;\n        opacity: 0;\n        position: absolute;\n        width: 100%;\n}\n.slide-move[data-v-5851c01a] {\n        transition: transform 0.6s;\n}\n@keyframes slide-in-data-v-5851c01a {\nfrom {\n            transform: translateY(-20px);\n}\nto {\n            background-color: white;\n            transform: translateY(0px);\n}\n}\n@keyframes slide-out-data-v-5851c01a {\nfrom {\n            transform: translateY(0);\n}\nto {\n            transform: translateY(-20px);\n}\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter[data-v-aaa7a372] {\n        opacity: 0;\n}\n.slide-enter-active[data-v-aaa7a372] {\n        animation: slide-in-data-v-aaa7a372 0.6s ease;\n        transition: opacity 0.6s;\n}\n.slide-leave[data-v-aaa7a372] {\n}\n.slide-leave-active[data-v-aaa7a372] {\n        animation: slide-out-data-v-aaa7a372 0.6s ease forwards;\n        transition: opacity 0.6s;\n        opacity: 0;\n        position: absolute;\n        width: 100%;\n}\n.slide-move[data-v-aaa7a372] {\n        transition: transform 0.6s;\n}\n@keyframes slide-in-data-v-aaa7a372 {\nfrom {\n            transform: translateY(-20px);\n}\nto {\n            background-color: white;\n            transform: translateY(0px);\n}\n}\n@keyframes slide-out-data-v-aaa7a372 {\nfrom {\n            transform: translateY(0);\n}\nto {\n            transform: translateY(-20px);\n}\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 54:
+/***/ 575:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddCategory_vue__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddCategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddCategory_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Category_vue__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Category_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Category_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__ = __webpack_require__(576);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue__ = __webpack_require__(583);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Region_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -4295,42 +4156,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      isAddCategory: false
+      isAddRegion: false
     };
   },
 
 
   components: {
-    Category: __WEBPACK_IMPORTED_MODULE_1__Category_vue___default.a,
-    Add: __WEBPACK_IMPORTED_MODULE_0__AddCategory_vue___default.a
+    RegionItem: __WEBPACK_IMPORTED_MODULE_1__Region_vue___default.a,
+    AddRegion: __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue___default.a
   },
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
-    categories: 'getCategories'
+    list: 'getRegions'
   }))
 });
 
 /***/ }),
 
-/***/ 55:
+/***/ 576:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(56)
+  __webpack_require__(577)
+  __webpack_require__(579)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(58)
+var __vue_script__ = __webpack_require__(581)
 /* template */
-var __vue_template__ = __webpack_require__(59)
+var __vue_template__ = __webpack_require__(582)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-a1709310"
+var __vue_scopeId__ = "data-v-2ed750c8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -4341,7 +4203,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/vue-components/global/categories/AddCategory.vue"
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/region/components/AddRegion.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -4350,9 +4212,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a1709310", Component.options)
+    hotAPI.createRecord("data-v-2ed750c8", Component.options)
   } else {
-    hotAPI.reload("data-v-a1709310", Component.options)
+    hotAPI.reload("data-v-2ed750c8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -4364,23 +4226,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 56:
+/***/ 577:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(57);
+var content = __webpack_require__(578);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("15cabc98", content, false, {});
+var update = __webpack_require__(2)("348b7b5b", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a1709310\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddCategory.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a1709310\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddCategory.vue");
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ed750c8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddRegion.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ed750c8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddRegion.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -4391,7 +4253,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 578:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4399,14 +4261,56 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-a1709310] {\n\t\tdisplay: inline-block;\n\t\twidth: 100%;\n\t\tpadding: 36px 20px 26px 20px;\n}\n[data-v-a1709310]::-webkit-input-placeholder {\n   \t\ttext-align: center;\n}\n[data-v-a1709310]:-moz-placeholder { /* Firefox 18- */\n   \t\ttext-align: center;\n}\n[data-v-a1709310]::-moz-placeholder {  /* Firefox 19+ */\n   \t\ttext-align: center;\n}\n[data-v-a1709310]:-ms-input-placeholder {  \n   \t\ttext-align: center;\n}\ninput[data-v-a1709310] {\n\t\ttext-align: center;\n}\n", ""]);
+exports.push([module.i, "\n::-webkit-input-placeholder {\n   \t\ttext-align: center;\n}\n:-moz-placeholder { /* Firefox 18- */\n   \t\ttext-align: center;\n}\n::-moz-placeholder {  /* Firefox 19+ */\n   \t\ttext-align: center;\n}\n:-ms-input-placeholder {  \n   \t\ttext-align: center;\n}\ninput {\n\t\ttext-align: center;\n}\nselect {\n  \t\ttext-align: center;\n  \t\ttext-align-last: center;\n  \t\t/* webkit*/\n}\noption {\n  \t\ttext-align: left;\n}\n.normal-placeholder::-webkit-input-placeholder,\n    .normal-placeholder:-moz-placeholder,\n    .normal-placeholder::-moz-placeholder,\n    .normal-placeholder:-ms-input-placeholder {\n        text-align: left !important;\n}\n.form-control-danger input {\n    \tborder-color: #dc3545 !important;\n}\n.form-control-danger input:focus {\n    \tborder-color: #dc3545 !important;\n    \tbox-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 58:
+/***/ 579:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(580);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("d273f966", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ed750c8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./AddRegion.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ed750c8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./AddRegion.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 580:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-2ed750c8] {\n\tflex-direction: unset;\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\twidth: 100%;\n\tpadding: 36px 10px 26px 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 581:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4460,51 +4364,90 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			isRequesting: false,
+			subcategories: '',
 			input: {
-				isRequesting: false,
-				title: ''
+				name: '',
+				city: '',
+				address: ''
 			}
 		};
+	},
+	mounted: function mounted() {
+		this.$v.$reset();
 	},
 
 
 	validations: {
 		input: {
-			title: {
+			name: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
 			}
 		}
 	},
 
+	computed: {
+		formAddFilled: function formAddFilled() {
+			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50;
+		}
+	},
+
 	methods: {
-		addCategory: function addCategory() {
+		addRegion: function addRegion() {
+			var _this = this;
 
 			var self = this;
 
-			if (this.input.title.length > 3 && this.input.title.length < 20 && !self.input.isRequesting) {
+			if (self.formAddFilled && !self.isRequesting) {
 
-				self.input.isRequesting = true;
+				self.isRequesting = true;
 
-				this.$store.dispatch('store_new_category', this.input).then(function () {
+				var regionName = this.input.name;
 
-					flash('Category is successfully added', 'success');
+				this.$store.dispatch('store_new_region', this.input).then(function () {
+					flash(regionName + ' is successfully added', 'success');
+					_this.input.title = '';
 
-					self.input.isRequesting = false;
+					self.isRequesting = false;
 
-					self.input.title = '';
-
-					self.$v.$reset();
+					self.setData();
 				}).catch(function (errors) {
 
-					self.input.isRequesting = false;
+					self.isRequesting = false;
 
 					Object.keys(errors).forEach(function (field) {
 						errors[field].forEach(function (message) {
@@ -4513,138 +4456,211 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					});
 				});
 			} else {
-				this.$v.input.title.$touch();
+				this.dirtyAllInputs();
 			}
 		},
-		closeAddCatergory: function closeAddCatergory() {
-			this.$emit('closeAddCategory', false);
+		setData: function setData() {
+			this.input.title = '';
+			this.input.city = '';
+			this.input.address = '';
+		},
+		dirtyAllInputs: function dirtyAllInputs() {
+			this.$v.input.name.$touch();
+		},
+		closeAddRegion: function closeAddRegion() {
+			this.$emit('closeAddRegion', false);
 		}
 	}
 });
 
 /***/ }),
 
-/***/ 59:
+/***/ 582:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row pt-5" }, [
+  return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card text-center" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group text-center mb-3" },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.input.title,
-                  expression: "input.title"
-                }
-              ],
-              staticClass: "form-control",
-              class: { "form-control-danger": _vm.$v.input.title.$error },
-              attrs: {
-                type: "text",
-                id: "title",
-                placeholder: "Category Name"
-              },
-              domProps: { value: _vm.input.title },
-              on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.input, "title", $event.target.value)
-                  },
-                  function($event) {
-                    _vm.$v.input.title.$touch()
-                  }
-                ]
-              }
-            }),
-            _vm._v(" "),
+        _c("div", { staticClass: "col-md-12 d-flex" }, [
+          _c("div", { staticClass: "col-md-6" }, [
             _c(
-              "transition",
-              {
-                attrs: {
-                  enterActiveClass: "fade-in",
-                  leaveActiveClass: "fade-out",
-                  mode: "out-in"
-                }
-              },
+              "div",
+              { staticClass: "form-group text-center mb-3" },
               [
-                !_vm.$v.input.title.required && _vm.$v.input.title.$dirty
-                  ? _c(
-                      "span",
-                      { key: "name-required", staticClass: "text-danger" },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\tCategory Name is required\n\t\t\t\t\t"
-                        )
-                      ]
-                    )
-                  : !_vm.$v.input.title.minLength
-                    ? _c(
-                        "span",
-                        { key: "title-minimum", staticClass: "text-danger" },
-                        [
-                          _vm._v(
-                            "\n\t\t\t\t\t\tCategory Name has a minimum of " +
-                              _vm._s(_vm.$v.input.title.$params.minLength.min) +
-                              " characters\n\t\t\t\t\t"
-                          )
-                        ]
-                      )
-                    : !_vm.$v.input.title.maxLength
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.input.name,
+                      expression: "input.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "form-control-danger": _vm.$v.input.name.$error },
+                  attrs: {
+                    type: "text",
+                    id: "name-region",
+                    placeholder: "Name"
+                  },
+                  domProps: { value: _vm.input.name },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.input, "name", $event.target.value)
+                      },
+                      function($event) {
+                        _vm.$v.input.name.$touch()
+                      }
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "transition",
+                  {
+                    attrs: {
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
+                    }
+                  },
+                  [
+                    !_vm.$v.input.name.required && _vm.$v.input.name.$dirty
                       ? _c(
                           "span",
-                          { key: "key-maximum", staticClass: "text-danger" },
+                          { key: "name-required", staticClass: "text-danger" },
                           [
                             _vm._v(
-                              "\n\t\t\t\t\t\tCategory Name has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.title.$params.maxLength.max
-                                ) +
-                                " characters\n\t\t\t\t\t"
+                              "\n                            \t\tName is required\n                        \t\t"
                             )
                           ]
                         )
-                      : _vm._e()
-              ]
+                      : !_vm.$v.input.name.minLength
+                        ? _c(
+                            "span",
+                            { key: "name-minimum", staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                            \t\tName has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.name.$params.minLength.min
+                                  ) +
+                                  " characters\n                            \t"
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.name.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "key-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \t\tName has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.name.$params.maxLength.max
+                                    ) +
+                                    " characters\n                        \t\t"
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                  ]
+                )
+              ],
+              1
             )
-          ],
-          1
-        ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.city,
+                    expression: "input.city"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "City" },
+                domProps: { value: _vm.input.city },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.input, "city", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-danger",
-            attrs: { type: "button" },
-            on: { click: _vm.closeAddCatergory }
-          },
-          [_vm._v("\n\t\t\t\tCancel\n\t\t\t")]
-        ),
+        _c("div", { staticClass: "col-md-12 d-flex" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "form-group text-left mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.address,
+                    expression: "input.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Address" },
+                domProps: { value: _vm.input.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.input, "address", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-sm btn-success ml-1",
-            attrs: { type: "button", disabled: _vm.input.isRequesting },
-            on: { click: _vm.addCategory }
-          },
-          [_vm.input.isRequesting ? [_vm._v("Adding..")] : [_vm._v("Add")]],
-          2
-        )
+        _c("div", { staticClass: "col-md-12 d-flex justify-content-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-warning",
+              attrs: { type: "button" },
+              on: { click: _vm.closeAddRegion }
+            },
+            [_vm._v("\n\t\t\t\t\t\tClose\n\t\t\t\t\t")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-success ml-1",
+              attrs: { type: "button", disabled: _vm.isRequesting },
+              on: { click: _vm.addRegion }
+            },
+            [_vm.isRequesting ? [_vm._v("Adding..")] : [_vm._v("Add")]],
+            2
+          )
+        ])
       ])
     ])
   ])
@@ -4654,9 +4670,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "title mb-4" }, [
-      _vm._v("Add New "),
-      _c("strong", [_vm._v("Category")])
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h4", { staticClass: "title mb-5" }, [
+        _vm._v("Add New Class "),
+        _c("strong", [_vm._v("Region")])
+      ])
     ])
   }
 ]
@@ -4665,65 +4683,31 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-a1709310", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-2ed750c8", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-
-/***/ 60:
+/***/ 583:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(61)
+  __webpack_require__(584)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(63)
+var __vue_script__ = __webpack_require__(586)
 /* template */
-var __vue_template__ = __webpack_require__(69)
+var __vue_template__ = __webpack_require__(594)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-54ea9995"
+var __vue_scopeId__ = "data-v-62e8495d"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -4734,7 +4718,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/vue-components/global/categories/Category.vue"
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/region/components/Region.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -4743,9 +4727,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-54ea9995", Component.options)
+    hotAPI.createRecord("data-v-62e8495d", Component.options)
   } else {
-    hotAPI.reload("data-v-54ea9995", Component.options)
+    hotAPI.reload("data-v-62e8495d", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -4757,23 +4741,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 61:
+/***/ 584:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(62);
+var content = __webpack_require__(585);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("bc71cd9e", content, false, {});
+var update = __webpack_require__(2)("7d615a03", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54ea9995\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Category.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54ea9995\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Category.vue");
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62e8495d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Region.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62e8495d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Region.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -4784,7 +4768,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 62:
+/***/ 585:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4792,20 +4776,26 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-54ea9995] {\n    border: 1px solid transparent !important;\n}\n.card-block[data-v-54ea9995]{\n    padding: 1em !important;\n}\n.detail[data-v-54ea9995] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n.f-24[data-v-54ea9995] {\n    font-size: 24px !important;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-62e8495d] {\n    border: 1px solid transparent !important;\n}\n.card-block[data-v-62e8495d]{\n    padding: 1em !important;\n}\n.detail[data-v-62e8495d] {\n    line-height: 30px !important;\n    vertical-align: middle !important;\n    padding: 0 !important;\n}\n.f-24[data-v-62e8495d] {\n    font-size: 24px !important;\n}\n.bgSalmon[data-v-62e8495d] {\n    background: salmon;\n}\n.max-lines[data-v-62e8495d]{\n  text-overflow: ellipsis;\n  max-width: 80ch;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 63:
+/***/ 586:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditCategory_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue__ = __webpack_require__(587);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditRegion_vue__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4859,34 +4849,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { category: {} },
+    props: { region: {} },
 
     components: {
-        EditCategory: __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue___default.a
+        EditRegion: __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue___default.a
     },
 
     data: function data() {
         return {
-            isRequesting: false,
-            isEditingCategory: false
+            isRequsting: false,
+            isEditRegion: false
         };
     },
 
 
     methods: {
-        deleteTheCategory: function deleteTheCategory() {
+        deleteItems: function deleteItems() {
+
             var self = this;
 
-            if (!self.isRequesting) {
+            if (!self.isRequsting) {
 
-                self.isRequesting = true;
+                self.isRequsting = true;
 
-                this.$store.dispatch('destroy_category', {
-                    categoryId: this.category.id
+                this.$store.dispatch('destroy_region', {
+                    regionId: self.region.id
                 }).then(function () {
-                    self.isRequesting = false;
+                    flash('Region deleted', 'danger');
 
-                    flash('Category deleted', 'danger');
+                    self.isRequsting = false;
                 });
             }
         }
@@ -4895,25 +4886,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 64:
+/***/ 587:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(65)
+  __webpack_require__(588)
+  __webpack_require__(590)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(67)
+var __vue_script__ = __webpack_require__(592)
 /* template */
-var __vue_template__ = __webpack_require__(68)
+var __vue_template__ = __webpack_require__(593)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-1eac053f"
+var __vue_scopeId__ = "data-v-4c3bbe87"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -4924,7 +4916,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/vue-components/global/categories/EditCategory.vue"
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/region/components/EditRegion.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -4933,9 +4925,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1eac053f", Component.options)
+    hotAPI.createRecord("data-v-4c3bbe87", Component.options)
   } else {
-    hotAPI.reload("data-v-1eac053f", Component.options)
+    hotAPI.reload("data-v-4c3bbe87", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -4947,23 +4939,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 65:
+/***/ 588:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(66);
+var content = __webpack_require__(589);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("6e50684e", content, false, {});
+var update = __webpack_require__(2)("09072a0a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1eac053f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditCategory.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1eac053f\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditCategory.vue");
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c3bbe87\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditRegion.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c3bbe87\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditRegion.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -4974,7 +4966,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 66:
+/***/ 589:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4982,20 +4974,65 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.bg-grey[data-v-1eac053f] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-1eac053f] {\n    font-size: 0.9rem;\n}\n", ""]);
+exports.push([module.i, "\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n::-webkit-input-placeholder,\n:-moz-placeholder, /* Firefox 18- */\n::-moz-placeholder, /* Firefox 19+ */\n:-ms-input-placeholder {\n    text-align: center;\n}\ninput {\n    text-align: center;\n}\nselect {\n    text-align: center;\n    text-align-last: center;\n    /* webkit*/\n}\noption {\n    text-align: left;\n}\n.normal-placeholder::-webkit-input-placeholder,\n.normal-placeholder:-moz-placeholder,\n.normal-placeholder::-moz-placeholder,\n.normal-placeholder:-ms-input-placeholder {\n    text-align: left !important;\n}\n.form-control-danger input {\n    border-color: #dc3545 !important;\n}\n.form-control-danger input:focus {\n    border-color: #dc3545 !important;\n    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25) !important;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 67:
+/***/ 590:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(591);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("53f8d059", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c3bbe87\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./EditRegion.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c3bbe87\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=1!./EditRegion.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 591:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.bg-grey[data-v-4c3bbe87] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-4c3bbe87] {\n    font-size: 0.9rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 592:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
+//
+//
 //
 //
 //
@@ -5083,7 +5120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        category: {
+        region: {
             type: [Object],
             default: function _default() {
                 return {};
@@ -5094,46 +5131,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             isRequesting: false,
-            input: {
-                title: this.category.title === '' ? '' : this.category.title
-            }
+            name: this.region.name,
+            city: this.region.city == undefined ? '' : this.region.city,
+            address: this.region.address == undefined ? '' : this.region.address
         };
     },
 
 
     validations: {
-        input: {
-            title: {
-                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
-            }
+        name: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
         }
     },
 
     computed: {
-        categoryIsEdited: function categoryIsEdited() {
-            return this.category.title !== this.input.title;
+        regionIsEdited: function regionIsEdited() {
+            return this.region.name !== this.name || this.region.city !== this.city || this.region.address !== this.address;
+        },
+        formIsFilled: function formIsFilled() {
+            return this.name != '' && this.name.length >= 3 && this.name.length <= 50;
         }
     },
 
     methods: {
-        editCategory: function editCategory() {
+        editRegion: function editRegion() {
 
             var self = this;
 
-            if (this.categoryIsEdited && !this.isRequesting && this.input.title.length > 3 && this.input.title.length < 20) {
+            if (this.regionIsEdited && this.formIsFilled && !this.isRequesting) {
 
                 this.isRequesting = true;
 
-                var updatedCategory = {
-                    id: this.category.id,
-                    title: this.input.title
+                var updatedRegion = {
+                    id: this.region.id,
+                    name: this.name,
+                    city: this.city,
+                    address: this.address
                 };
 
-                this.$store.dispatch('update_category', updatedCategory).then(function (updatedCategory) {
+                this.$store.dispatch('update_region', updatedRegion).then(function (updatedRegion) {
 
-                    flash('Category is successfully updated', 'success');
+                    flash(updatedRegion.name + ' is succesfully updated', 'success');
 
                     self.isRequesting = false;
 
@@ -5151,7 +5191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 68:
+/***/ 593:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5172,63 +5212,52 @@ var render = function() {
         "div",
         {
           staticClass: "panel-default panel mt-3 pt-4 bg-grey",
-          attrs: { id: "edit_category" }
+          attrs: { id: "edit_region" }
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("h3", { staticClass: "text-center" }, [
+            _c("h3", { staticClass: "text-center mb-3" }, [
               _vm._v("Edit "),
-              _c("strong", [_vm._v(_vm._s(_vm.category.title))])
+              _c("strong", [_vm._v(_vm._s(_vm.region.name))]),
+              _vm._v(" Region")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-sm-12 row" }, [
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
                 _c(
                   "div",
-                  {
-                    staticClass:
-                      "col-sm-3 col-xs-12 d-flex align-items-center justify-content-end"
-                  },
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
                   [
                     _c(
                       "label",
                       {
-                        staticClass:
-                          "form-control-label panel-font-small m-0 font-weight-bold",
-                        attrs: { for: "title" }
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "name-region" }
                       },
                       [
                         _vm._v(
-                          "\n                            Category Name\n                        "
+                          "\n                            Name\n                        "
                         )
                       ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-9 col-xs-12" },
-                  [
+                    ),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.input.title,
-                          expression: "input.title"
+                          value: _vm.name,
+                          expression: "name"
                         }
                       ],
                       staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.title.$error
-                      },
+                      class: { "form-control-danger": _vm.$v.name.$error },
                       attrs: {
-                        id: "title",
+                        id: "name-region",
                         type: "text",
-                        placeholder: "Category Name"
+                        placeholder: _vm.region.name
                       },
-                      domProps: { value: _vm.input.title },
+                      domProps: { value: _vm.name },
                       on: {
                         keyup: function($event) {
                           if (
@@ -5243,17 +5272,17 @@ var render = function() {
                           ) {
                             return null
                           }
-                          return _vm.editCategory($event)
+                          return _vm.editRegion($event)
                         },
                         input: [
                           function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.input, "title", $event.target.value)
+                            _vm.name = $event.target.value
                           },
                           function($event) {
-                            _vm.$v.input.title.$touch()
+                            _vm.$v.name.$touch()
                           }
                         ]
                       }
@@ -5269,50 +5298,42 @@ var render = function() {
                         }
                       },
                       [
-                        !_vm.$v.input.title.required &&
-                        _vm.$v.input.title.$dirty
+                        !_vm.$v.name.required && _vm.$v.name.$dirty
                           ? _c(
                               "span",
                               {
                                 key: "name-required",
-                                staticClass: "text-danger"
+                                staticClass: "text-danger text-center"
                               },
                               [
                                 _vm._v(
-                                  "\n                                Category Name is required\n                            "
+                                  "\n                                Name is required\n                            "
                                 )
                               ]
                             )
-                          : !_vm.$v.input.title.minLength
+                          : !_vm.$v.name.minLength
                             ? _c(
                                 "span",
-                                {
-                                  key: "title-minimum",
-                                  staticClass: "text-danger"
-                                },
+                                { staticClass: "text-danger text-center" },
                                 [
                                   _vm._v(
-                                    "\n                                Category Name has a minimum of " +
+                                    "\n                                Name has a minimum of " +
                                       _vm._s(
-                                        _vm.$v.input.title.$params.minLength.min
+                                        _vm.$v.name.$params.minLength.min
                                       ) +
                                       " characters\n                            "
                                   )
                                 ]
                               )
-                            : !_vm.$v.input.title.maxLength
+                            : !_vm.$v.name.maxLength
                               ? _c(
                                   "span",
-                                  {
-                                    key: "key-maximum",
-                                    staticClass: "text-danger"
-                                  },
+                                  { staticClass: "text-danger text-center" },
                                   [
                                     _vm._v(
-                                      "\n                                Category Name has a maximum of " +
+                                      "\n                                Name has a maximum of " +
                                         _vm._s(
-                                          _vm.$v.input.title.$params.maxLength
-                                            .max
+                                          _vm.$v.name.$params.maxLength.max
                                         ) +
                                         " characters\n                            "
                                     )
@@ -5323,15 +5344,125 @@ var render = function() {
                     )
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "region-city" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            City\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.city,
+                        expression: "city"
+                      }
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: {
+                      id: "region-city",
+                      type: "text",
+                      placeholder: _vm.region.city
+                    },
+                    domProps: { value: _vm.city },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.editRegion($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.city = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c("div", { staticClass: "col-sm-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "region-address" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Address\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address,
+                        expression: "address"
+                      }
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: {
+                      type: "region-address",
+                      placeholder: _vm.region.address
+                    },
+                    domProps: { value: _vm.address },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.editRegion($event)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c(
                 "div",
-                {
-                  staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
-                },
+                { staticClass: "col-sm-12 d-flex justify-content-center mt-2" },
                 [
                   _c(
                     "button",
@@ -5352,7 +5483,7 @@ var render = function() {
                     {
                       staticClass: "btn btn-success btn-sm ml-2",
                       attrs: { disabled: _vm.isRequesting },
-                      on: { click: _vm.editCategory }
+                      on: { click: _vm.editRegion }
                     },
                     [
                       _vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]
@@ -5374,13 +5505,13 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1eac053f", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4c3bbe87", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 69:
+/***/ 594:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5402,74 +5533,110 @@ var render = function() {
             }
           },
           [
-            _c(
-              "div",
-              { staticClass: "row col d-flex justify-content-between m-0" },
-              [
-                _c("div", [
-                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Name")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "detail" }, [
-                    _c("p", { staticClass: "mb-0" }, [
-                      _vm._v(_vm._s(_vm.category.title))
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-3 d-flex justify-content-start align-items-center"
+                },
+                [
+                  _c("div", [
+                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                      _c("strong", [_vm._v("Name")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.region.name))
+                      ])
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex align-items-center justify-content-around"
-                  },
-                  [
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-5 d-flex justify-content-center align-items-center"
+                },
+                [
+                  _c("div", [
                     _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-warning",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.isEditingCategory = !_vm.isEditingCategory
-                          }
-                        }
-                      },
-                      [_vm._v("Edit")]
+                      "p",
+                      { staticClass: "small text-uppercase mb-0 text-center" },
+                      [_c("strong", [_vm._v("Address")])]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-danger ml-2",
-                        attrs: { type: "button" },
-                        on: { click: _vm.deleteTheCategory }
-                      },
-                      [_vm._v("Delete")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-12" },
-                  [
-                    _vm.isEditingCategory
-                      ? _c("edit-category", {
-                          attrs: { category: _vm.category },
-                          on: {
-                            editionFormIsClosed: function($event) {
-                              _vm.isEditingCategory = $event
-                            }
+                    _c("div", { staticClass: "detail text-center" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.region.address))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-2 d-flex align-items-center justify-content-end"
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.deleteItems }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Delete\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-warning btn-sm ml-2",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.isEditRegion = !_vm.isEditRegion
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Edit\n                    "
+                      )
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-12" },
+                [
+                  _vm.isEditRegion
+                    ? _c("edit-region", {
+                        attrs: { region: _vm.region },
+                        on: {
+                          editionFormIsClosed: function($event) {
+                            _vm.isEditRegion = $event
                           }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ]
-            )
+                        }
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
           ]
         )
       ],
@@ -5483,9 +5650,265 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-54ea9995", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-62e8495d", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 595:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Overseas Inquiry")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-3" }, [
+        _vm._v("\n    Here is where you can see list of Class Region\n  ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "transition",
+        {
+          attrs: {
+            enterActiveClass: "fade-in",
+            leaveActiveClass: "fade-out",
+            mode: "out-in"
+          }
+        },
+        [
+          !_vm.isAddRegion
+            ? [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddRegion = !_vm.isAddRegion
+                          }
+                        }
+                      },
+                      [_vm._v("Add Region")]
+                    )
+                  ])
+                ])
+              ]
+            : [
+                _c("add-region", {
+                  on: {
+                    closeAddRegion: function($event) {
+                      _vm.isAddRegion = $event
+                    }
+                  }
+                })
+              ]
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c(
+              "transition-group",
+              { attrs: { name: "slide" } },
+              _vm._l(_vm.list, function(region) {
+                return _c("region-item", {
+                  key: region.id,
+                  attrs: { region: region }
+                })
+              })
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-aaa7a372", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 596:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        regions: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getRegions: function getRegions(state) {
+            return state.regions;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_regions: function set_regions(state, data) {
+            state.regions = data;
+        },
+
+        add_new_region: function add_new_region(state, region) {
+
+            state.regions.push({
+                id: region.id,
+                name: region.detail.name,
+                city: region.detail.city,
+                address: region.detail.address
+            });
+        },
+        edit_region: function edit_region(state, updatedRegion) {
+            var regionIndex = _.findIndex(state.regions, ['id', updatedRegion.id]);
+
+            state.regions[regionIndex].name = updatedRegion.name;
+            state.regions[regionIndex].city = updatedRegion.city;
+            state.regions[regionIndex].address = updatedRegion.address;
+        },
+        delete_region: function delete_region(state, ids) {
+            var regionIndex = _.findIndex(state.regions, ['id', ids.regionId]);
+
+            state.regions.splice(regionIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_region: function load_region(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/bookkeeping/data/region').then(function (response) {
+                commit('set_regions', response.data);
+            });
+        },
+
+        store_new_region: function store_new_region(_ref2, newRegion) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/region', newRegion).then(function (response) {
+
+                    var region = {
+                        id: response.data,
+                        detail: newRegion
+                    };
+
+                    commit('add_new_region', region);
+
+                    resolve(region);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_region: function update_region(_ref3, updatedRegion) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/region/' + updatedRegion.id, {
+                    id: updatedRegion.id,
+                    name: updatedRegion.name,
+                    city: updatedRegion.city,
+                    address: updatedRegion.address
+                }).then(function (response) {
+                    commit('edit_region', updatedRegion);
+
+                    resolve(updatedRegion);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_region: function destroy_region(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/region/' + ids.regionId).then(function (response) {
+                    commit('delete_region', ids);
+
+                    resolve();
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 6:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
 
 /***/ }),
 
@@ -5538,93 +5961,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-
-/***/ 70:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "transition",
-        {
-          attrs: {
-            enterActiveClass: "fade-in",
-            leaveActiveClass: "fade-out",
-            mode: "out-in"
-          }
-        },
-        [
-          !_vm.isAddCategory
-            ? [
-                _c("div", { staticClass: "row pt-5" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        on: {
-                          click: function($event) {
-                            _vm.isAddCategory = !_vm.isAddCategory
-                          }
-                        }
-                      },
-                      [_vm._v("Add Category")]
-                    )
-                  ])
-                ])
-              ]
-            : [
-                _c("add", {
-                  on: {
-                    closeAddCategory: function($event) {
-                      _vm.isAddCategory = $event
-                    }
-                  }
-                })
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-md-12" },
-          [
-            _c(
-              "transition-group",
-              { attrs: { name: "slide" } },
-              _vm._l(_vm.categories, function(category) {
-                return _c("category", {
-                  key: category.id,
-                  attrs: { category: category }
-                })
-              })
-            )
-          ],
-          1
-        )
-      ])
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5851c01a", module.exports)
-  }
-}
 
 /***/ }),
 

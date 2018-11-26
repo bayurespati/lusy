@@ -21,7 +21,7 @@ class MemberController extends Controller
 
     public function loadMember(){
 
-        $data = Member::with(['rank','class','classRegion','subscription'])->whereIsApprove(true)->get();
+        $data = Member::with(['rank','class','subscription'])->whereIsApprove(true)->get();
 
         $dataMember = $data->map(function ($member) {
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Admin-Bookkeeping-Potential-Overseas</title>
+	<title>Admin-Bookkeeping-Region</title>
 @endpush
 
 @push('additional_css')
@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-<div class="wrapper" id="overseas-inquiry">
+<div class="wrapper" id="class-region">
 
 	<!-- SIDE BAR  -->
 	<side-bar></side-bar>
@@ -52,12 +52,12 @@
             </div>
         </nav>
 		
-        <potential-list> </potential-list>
+		<region-list> </region-list>
 		<flash> </flash>	
     </div>
 </div>
 @endsection
 
 @push('additional_js')
-    <script src="{{ asset('js/admin/bookkeeping/potential.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/region.js') }}"></script>
 @endpush

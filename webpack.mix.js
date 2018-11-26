@@ -268,6 +268,10 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/bookkeeping/member/main.js',
 ], 'public/js/admin/bookkeeping/member.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/bookkeeping/region/main.js',
+], 'public/js/admin/bookkeeping/region.js');
+
 
 
 

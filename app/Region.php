@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClassRegion extends Model
+class Region extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'class_region';
+    protected $table = 'regions';
 
     /**
      * Settings
@@ -21,7 +21,7 @@ class ClassRegion extends Model
     protected $hidden = [
         'created_at', 'updated_at',
     ];
-    
+
 
     /**
      * Relations
@@ -29,5 +29,4 @@ class ClassRegion extends Model
     public function member(){
         return $this->belongsToMany('App\Member', 'member_region', 'region_id', 'member_id');
     }
-
 }

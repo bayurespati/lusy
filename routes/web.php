@@ -469,6 +469,19 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
+        | A D M I N   B O O K E P I N G   R E G I O N
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/region', 'RegionController@index')->name('admin.bookkeeping.region');
+        Route::get('/data/region', 'RegionController@loadRegion');
+        Route::post('/add/region', 'RegionController@addRegion');
+        Route::patch('/update/region/{region}', 'RegionController@editRegion');
+        Route::delete('/delete/region/{region}', 'RegionController@deleteRegion');
+
+
+        /*
+        |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   A P P L I C A N T   M E M B E R
         |--------------------------------------------------------------------------
         |
