@@ -274,56 +274,23 @@
 				</div>
 				<div class="col-md-12 d-flex">
 					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempName"
-							@input="$v.tempName.$touch()"
-							:class="{'form-control-danger': $v.tempName.$error}"
-							class="form-control" id="name-region" 
-							placeholder="Name">
-
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="telephone-required" class="text-danger" 
-                            		  v-if="!$v.tempName.required && $v.tempName.$dirty">
-                            		Name is required
-                        		</span>
-                    		</transition>
-						</div>
+						<select class="form-control" id="calss-region" 
+							    v-model="region">
+				    	<option value='' disabled="">Choose Class Region</option>
+					    <option v-for="region in regions" :value=region>{{ region.name }}</option>
+				    </select>
 					</div>
 
 					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempCity"
-							class="form-control" id="city-region" 
-							placeholder="City">
-						</div>						
+						<button type="button" @click="add_region" class="btn btn-success btn-sm">
+							Add Region
+						</button>
 					</div>
-				</div>
-
-				<div class="col-md-12 d-flex">
-					<div class="col-md-12">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempAddress"
-							class="form-control" id="address-region" 
-							placeholder="Adress">
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12 d-flex justify-content-center">
-					<button type="button" @click="add_region" class="btn btn-success btn-sm">
-						Add Region
-					</button>
 				</div>
 
 				<div class="col-md-12 d-flex">
 					<div v-for="(list, index) in classRegion">
-						<p>{{ list.name }} 
+						<p>{{ list.name }}
 							<span @click="delete_region(index)" 
 								  class="badge badge-danger" 
 								  style="cursor: pointer">X
@@ -367,9 +334,7 @@
 				subscription:[],
 				year: '',
 				classRegion:[],
-				tempName: '',
-				tempCity: '',
-				tempAddress: '',
+				region: '',
 				input:{
 					name: '',
 					gender: '',
@@ -435,6 +400,7 @@
 			...mapGetters({
 				classList: 'getClass',
 				ranks: 'getRanks',
+				regions: 'getRegions'
 			}),
 
 			formAddFilled(){
@@ -453,30 +419,26 @@
 
 		methods:{
 			add_region(){
-				if(this.tempName != ''){
-					this.classRegion.push({
-						name: this.tempName,
-						city: this.tempCity,
-						address: this.tempAddress,
-					});
+				if(this.region != ''){
+					this.classRegion.push(this.region);
 
-					this.tempName = '';
-					this.tempCity = '';
-					this.tempAddress = '';
+					const regionIndex = _.findIndex(this.regions,['id', this.region.id]);
 
-					this.$v.tempName.$reset();
+					this.regions.splice(regionIndex, 1);
 
-				}else{
-					this.$v.tempName.$touch();
+					this.region = '';
 				}
 			},
 
-			delete_region($index){
-				this.classRegion.splice($index, 1);
+			delete_region(index){
+
+				this.regions.push(this.classRegion[index]);
+
+				this.classRegion.splice(index, 1);
 			},
 
-			delete_year($index){
-				this.subscription.splice($index, 1);
+			delete_year(index){
+				this.subscription.splice(index, 1);
 			},
 
 			add_subscription(){
@@ -486,16 +448,16 @@
 				}
 			},
 
-			delete_rank($index){
-				this.rankData.splice($index, 1);
+			delete_rank(index){
+				this.rankData.splice(index, 1);
 				this.limit -= 1;
 			},
 
-			add_rank($index){
+			add_rank(index){
 				if(this.temp_annointed_date != ''){
 					this.rankData.push({
-						title: this.ranks[$index].title,
-						rankId: this.ranks[$index].id,
+						title: this.ranks[index].title,
+						rankId: this.ranks[index].id,
 						annointed_date: this.temp_annointed_date
 					});
 					this.limit += 1;
@@ -527,9 +489,9 @@
 
                             self.isRequesting = false;
 
-                            self.setData();
+                            // self.setData();
 
-                            self.closeAddMember();
+                            // self.closeAddMember();
                         })
                         .catch(errors => {
 

@@ -4864,6 +4864,8 @@ var admin = new Vue({
         this.$store.dispatch('load_rank');
 
         this.$store.dispatch('load_class');
+
+        this.$store.dispatch('load_region');
     },
 
 
@@ -5508,39 +5510,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5558,9 +5527,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			subscription: [],
 			year: '',
 			classRegion: [],
-			tempName: '',
-			tempCity: '',
-			tempAddress: '',
+			region: '',
 			input: _defineProperty({
 				name: '',
 				gender: '',
@@ -5623,7 +5590,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
 		classList: 'getClass',
-		ranks: 'getRanks'
+		ranks: 'getRanks',
+		regions: 'getRegions'
 	}), {
 		formAddFilled: function formAddFilled() {
 			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.input.class_id != '';
@@ -5632,27 +5600,24 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 	methods: {
 		add_region: function add_region() {
-			if (this.tempName != '') {
-				this.classRegion.push({
-					name: this.tempName,
-					city: this.tempCity,
-					address: this.tempAddress
-				});
+			if (this.region != '') {
+				this.classRegion.push(this.region);
 
-				this.tempName = '';
-				this.tempCity = '';
-				this.tempAddress = '';
+				var regionIndex = _.findIndex(this.regions, ['id', this.region.id]);
 
-				this.$v.tempName.$reset();
-			} else {
-				this.$v.tempName.$touch();
+				this.regions.splice(regionIndex, 1);
+
+				this.region = '';
 			}
 		},
-		delete_region: function delete_region($index) {
-			this.classRegion.splice($index, 1);
+		delete_region: function delete_region(index) {
+
+			this.regions.push(this.classRegion[index]);
+
+			this.classRegion.splice(index, 1);
 		},
-		delete_year: function delete_year($index) {
-			this.subscription.splice($index, 1);
+		delete_year: function delete_year(index) {
+			this.subscription.splice(index, 1);
 		},
 		add_subscription: function add_subscription() {
 			if (this.year != '') {
@@ -5660,15 +5625,15 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				this.year = '';
 			}
 		},
-		delete_rank: function delete_rank($index) {
-			this.rankData.splice($index, 1);
+		delete_rank: function delete_rank(index) {
+			this.rankData.splice(index, 1);
 			this.limit -= 1;
 		},
-		add_rank: function add_rank($index) {
+		add_rank: function add_rank(index) {
 			if (this.temp_annointed_date != '') {
 				this.rankData.push({
-					title: this.ranks[$index].title,
-					rankId: this.ranks[$index].id,
+					title: this.ranks[index].title,
+					rankId: this.ranks[index].id,
 					annointed_date: this.temp_annointed_date
 				});
 				this.limit += 1;
@@ -5698,9 +5663,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 					self.isRequesting = false;
 
-					self.setData();
+					// self.setData();
 
-					self.closeAddMember();
+					// self.closeAddMember();
 				}).catch(function (errors) {
 
 					self.isRequesting = false;
@@ -6607,141 +6572,60 @@ var render = function() {
         _c("div", { staticClass: "col-md-12 d-flex" }, [
           _c("div", { staticClass: "col-md-6" }, [
             _c(
-              "div",
-              { staticClass: "form-group text-center mb-3" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.tempName,
-                      expression: "tempName"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: { "form-control-danger": _vm.$v.tempName.$error },
-                  attrs: {
-                    type: "text",
-                    id: "name-region",
-                    placeholder: "Name"
-                  },
-                  domProps: { value: _vm.tempName },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.tempName = $event.target.value
-                      },
-                      function($event) {
-                        _vm.$v.tempName.$touch()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "transition",
+              "select",
+              {
+                directives: [
                   {
-                    attrs: {
-                      enterActiveClass: "fade-in",
-                      leaveActiveClass: "fade-out",
-                      mode: "out-in"
-                    }
-                  },
-                  [
-                    !_vm.$v.tempName.required && _vm.$v.tempName.$dirty
-                      ? _c(
-                          "span",
-                          {
-                            key: "telephone-required",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tName is required\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ]
-                )
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.region,
+                    expression: "region"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "calss-region" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.region = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "", disabled: "" } }, [
+                  _vm._v("Choose Class Region")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.regions, function(region) {
+                  return _c("option", { domProps: { value: region } }, [
+                    _vm._v(_vm._s(region.name))
+                  ])
+                })
               ],
-              1
+              2
             )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "form-group text-center mb-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.tempCity,
-                    expression: "tempCity"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", id: "city-region", placeholder: "City" },
-                domProps: { value: _vm.tempCity },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.tempCity = $event.target.value
-                  }
-                }
-              })
-            ])
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-sm",
+                attrs: { type: "button" },
+                on: { click: _vm.add_region }
+              },
+              [_vm._v("\n\t\t\t\t\t\t\tAdd Region\n\t\t\t\t\t\t")]
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-12 d-flex" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "form-group text-center mb-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.tempAddress,
-                    expression: "tempAddress"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "address-region",
-                  placeholder: "Adress"
-                },
-                domProps: { value: _vm.tempAddress },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.tempAddress = $event.target.value
-                  }
-                }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-12 d-flex justify-content-center" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success btn-sm",
-              attrs: { type: "button" },
-              on: { click: _vm.add_region }
-            },
-            [_vm._v("\n\t\t\t\t\t\tAdd Region\n\t\t\t\t\t")]
-          )
         ]),
         _vm._v(" "),
         _c(
@@ -6750,7 +6634,7 @@ var render = function() {
           _vm._l(_vm.classRegion, function(list, index) {
             return _c("div", [
               _c("p", [
-                _vm._v(_vm._s(list.name) + " \n\t\t\t\t\t\t\t"),
+                _vm._v(_vm._s(list.name) + "\n\t\t\t\t\t\t\t"),
                 _c(
                   "span",
                   {
@@ -9550,7 +9434,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     state: {
         members: {},
         rank: {},
-        classList: {}
+        classList: {},
+        regionList: {}
     },
 
     //=========================================================================================
@@ -9567,6 +9452,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
         getClass: function getClass(state) {
             return state.classList;
+        },
+
+        getRegions: function getRegions(state) {
+            return state.regionList;
         }
     },
 
@@ -9584,6 +9473,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
         set_class: function set_class(state, classList) {
             state.classList = classList;
+        },
+
+        set_region: function set_region(state, regionList) {
+            state.regionList = regionList;
         },
 
         edit_member: function edit_member(state, member) {
@@ -9677,8 +9570,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
 
-        store_new_member: function store_new_member(_ref4, dataMember) {
+        load_region: function load_region(_ref4) {
             var commit = _ref4.commit;
+
+            axios.get('/admin/bookkeeping/data/region').then(function (response) {
+                commit('set_region', response.data);
+            });
+        },
+
+        store_new_member: function store_new_member(_ref5, dataMember) {
+            var commit = _ref5.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9693,8 +9594,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        add_rank: function add_rank(_ref5, dataRank) {
-            var commit = _ref5.commit;
+        add_rank: function add_rank(_ref6, dataRank) {
+            var commit = _ref6.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9708,8 +9609,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        edit_rank: function edit_rank(_ref6, dataRank) {
-            var commit = _ref6.commit;
+        edit_rank: function edit_rank(_ref7, dataRank) {
+            var commit = _ref7.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9720,8 +9621,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        destroy_rank: function destroy_rank(_ref7, dataRank) {
-            var commit = _ref7.commit;
+        destroy_rank: function destroy_rank(_ref8, dataRank) {
+            var commit = _ref8.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9732,8 +9633,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        add_subscription: function add_subscription(_ref8, dataSubscription) {
-            var commit = _ref8.commit;
+        add_subscription: function add_subscription(_ref9, dataSubscription) {
+            var commit = _ref9.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9755,8 +9656,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        destroy_subscription: function destroy_subscription(_ref9, ids) {
-            var commit = _ref9.commit;
+        destroy_subscription: function destroy_subscription(_ref10, ids) {
+            var commit = _ref10.commit;
 
 
             console.log(ids);
@@ -9769,8 +9670,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        update_member: function update_member(_ref10, member) {
-            var commit = _ref10.commit;
+        update_member: function update_member(_ref11, member) {
+            var commit = _ref11.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9785,8 +9686,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        destroy_member: function destroy_member(_ref11, ids) {
-            var commit = _ref11.commit;
+        destroy_member: function destroy_member(_ref12, ids) {
+            var commit = _ref12.commit;
 
 
             return new Promise(function (resolve, reject) {

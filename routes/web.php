@@ -457,6 +457,7 @@ Route::group([
         Route::get('/data/member', 'MemberController@loadMember');
         Route::get('/data/rank', 'MemberController@loadRank');
         Route::get('/data/class', 'MemberController@loadClass');
+        Route::get('/data/region', 'MemberController@loadClassRegion');
         Route::post('/add/member', 'MemberController@addMember');
         Route::patch('/update/member/{member}', 'MemberController@updateMember');
 

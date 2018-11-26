@@ -20,6 +20,8 @@ const admin = new Vue({
         this.$store.dispatch('load_rank');
 
         this.$store.dispatch('load_class');
+
+        this.$store.dispatch('load_region');
     },
 
     store

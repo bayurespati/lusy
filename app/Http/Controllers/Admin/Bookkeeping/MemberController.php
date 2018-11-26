@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Bookkeeping;
 
 use App\AboutContent;
-use App\ClassRegion;
+use App\Region;
 use App\Subscription;
 use App\Rank;
 use App\Member;
@@ -21,7 +21,7 @@ class MemberController extends Controller
 
     public function loadMember(){
 
-        $data = Member::with(['rank','class','subscription'])->whereIsApprove(true)->get();
+        $data = Member::with(['rank','class','subscription','region'])->whereIsApprove(true)->get();
 
         $dataMember = $data->map(function ($member) {
 
@@ -50,7 +50,7 @@ class MemberController extends Controller
                 'is_active' => $member['is_active'],
                 'is_approve' => $member['is_approve'],
                 'class' => $member['class'],
-                'class_region' => $member['class_region'],
+                'region' => $member['region'],
                 'subscription' => $member['subscription'],
                 'ranks' => $ranks
             ];
@@ -71,6 +71,10 @@ class MemberController extends Controller
         return $classList;
     }
 
+    public function loadClassRegion(){
+        return Region::all();
+    }
+
     public function addMember(Request $request){
 
         DB::transaction(function () use ($request) {
@@ -87,7 +91,9 @@ class MemberController extends Controller
             $member->mobile = $request->personal['mobile'];
             $member->fax = $request->personal['fax'];
             $member->class_id = $request->personal['class_id'];
-            $member->join_date = substr($request->personal['join_date'],0,10);
+            $member->join_date = $request->personal['join_date'] == '' 
+                                ? null 
+                                : substr($request->personal['join_date'],0,10);
 
             $member->save();
 
@@ -103,12 +109,7 @@ class MemberController extends Controller
             }
 
             foreach ($request->region as $region) {
-                $classRegion = new ClassRegion;
-                $classRegion->member_id = $member->id;
-                $classRegion->name = $region['name'];
-                $classRegion->city = $region['city'];
-                $classRegion->address = $region['address'];
-                $classRegion->save();
+                $member->region()->attach($region['id']);
             }
 
         });
