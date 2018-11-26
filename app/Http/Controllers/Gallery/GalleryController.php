@@ -51,11 +51,16 @@ class GalleryController extends Controller
     }
 
     public function getSubcategory(Request $request, SubCategory $subcategory){
-        $gallery = Gallery::whereSubCategoryId($subcategory->id)->when($request->keyword, function ($query) use ($request, $subcategory) {
-            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) .'%" AND sub_category_id LIKE ' . $subcategory->id . '')
-            ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%" AND sub_category_id LIKE ' . $subcategory->id . '')
-            ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%" AND sub_category_id LIKE ' . $subcategory->id . '')
-            ->orWhere('date', 'LIKE', '%' . strtolower($request->keyword) . '% AND sub_category_id LIKE ' . $subcategory->id . '');
+        $gallery = Gallery::whereSubCategoryId($subcategory->id)
+        ->when($request->keyword, function ($query) use ($request, $subcategory) {
+            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) . '%" 
+                AND sub_category_id LIKE ' . $subcategory->id)
+            ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%" 
+                AND sub_category_id LIKE ' . $subcategory->id)
+            ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%" 
+                AND sub_category_id LIKE ' . $subcategory->id)
+            ->orWhere('date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+                ->whereSubCategoryId($subcategory->id);
         })->paginate(8);
 
         $gallery->appends($request->only('keyword'));

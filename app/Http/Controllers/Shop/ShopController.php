@@ -66,9 +66,16 @@ class ShopController extends Controller
     }
 
 
-    public function getAll(){
-
-    	$items = ShopItem::whereIsDisplayed(true)->paginate(8);
+    public function getAll(Request $request){
+    	$items = ShopItem::whereIsDisplayed(true)
+        ->when($request->keyword, function ($query) use ($request) {
+            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) .'%"')
+                ->whereIsDisplayed(true)
+            ->orWhereRaw('LOWER(sub_title) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true)
+            ->orWhereRaw('LOWER(description) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true);
+        })->paginate(8);
 
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
@@ -83,9 +90,21 @@ class ShopController extends Controller
     }
 
 
-    public function getCategory(Category $category){
+    public function getCategory(Request $request, Category $category){
 
-    	$items = ShopItem::whereIsDisplayed(true)->whereCategoryId($category->id)->paginate(8);
+    	$items = ShopItem::whereIsDisplayed(true)
+        ->whereCategoryId($category->id)
+        ->when($request->keyword, function ($query) use ($request, $category) {
+            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) .'%"')
+                ->whereIsDisplayed(true)
+                ->whereCategoryId($category->id)
+            ->orWhereRaw('LOWER(sub_title) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true)
+                ->whereCategoryId($category->id)
+            ->orWhereRaw('LOWER(description) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true)
+                ->whereCategoryId($category->id);
+        })->paginate(8);
 
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
@@ -99,9 +118,21 @@ class ShopController extends Controller
     }
 
 
-    public function getSubcategory(SubCategory $subcategory){
+    public function getSubcategory(Request $request, SubCategory $subcategory){
 
-    	$items = ShopItem::whereIsDisplayed(true)->whereSubCategoryId($subcategory->id)->paginate(8);
+    	$items = ShopItem::whereIsDisplayed(true)
+        ->whereSubCategoryId($subcategory->id)
+        ->when($request->keyword, function ($query) use ($request, $subcategory) {
+            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) .'%"')
+                ->whereIsDisplayed(true)
+                ->whereSubCategoryId($subcategory->id)
+            ->orWhereRaw('LOWER(sub_title) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true)
+                ->whereSubCategoryId($subcategory->id)
+            ->orWhereRaw('LOWER(description) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereIsDisplayed(true)
+                ->whereSubCategoryId($subcategory->id);
+        })->paginate(8);
 
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()

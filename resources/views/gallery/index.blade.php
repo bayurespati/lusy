@@ -185,8 +185,6 @@
     function searchFunction(){
         searchKey = document.getElementById("search-key").value.trim();
 
-        console.log(loadedImageType);
-
         if(loadedImageType === 'all'){
             getAll();
         }
@@ -197,6 +195,7 @@
 
     function toAll(){
         searchKey = '';
+
         getAll();
     }
 
@@ -274,38 +273,20 @@
 
         showLoader();
 
-        if(loadedImageType === 'all'){
-            $.ajax({
-                type: 'GET',
-                url: targetUrl,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareImages(data);
-                        preparePagination(data);
-                        prepareSearchMessage(data);
+        $.ajax({
+            type: 'GET',
+            url: targetUrl,
+            dataType: 'JSON',
+            success: function (data) {
+                setTimeout(function(){
+                    prepareImages(data);
+                    preparePagination(data);
+                    prepareSearchMessage(data);
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
-        else {
-            $.ajax({
-                type: 'GET',
-                url: targetUrl,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareImages(data);
-                        preparePagination(data);
-                        prepareSearchMessage(data);
-
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
+                    hideLoader();
+                }, 1000);
+            }
+        });
     }
 
     function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
@@ -415,8 +396,6 @@
         else {
             targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?page=1';
         };
-
-        console.log(targetUrl);
 
         showLoader();
 

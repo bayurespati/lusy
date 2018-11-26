@@ -92,6 +92,10 @@
         height: 500px;
         background: white;
     }
+
+    .event-block .event-content h4 {
+        text-transform: unset;
+    }
 </style>
 @endpush
 
@@ -139,7 +143,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 event-content">
                                     <div class="post-date"><span>{{ $event->dayDate }}</span><span>{{ $event->month }}</span></div>
                                     <h1 class="mt-0">{{ $event->title }}</h1>
-                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <a><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
                                     <p class="m-0" style="text-align: justify;">
                                         {!! nl2br(e($event->content)) !!}
                                     </p>
