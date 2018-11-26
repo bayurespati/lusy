@@ -801,3 +801,54 @@
 #search .icon:hover {
   color: #e2b13c;
 }
+
+.achievement-view {
+        padding: 30px 70px;
+        background-color: #e2b13c;
+    }
+
+    .achievement-view .achievement-wrapper {
+        padding: 16px;
+        background-color: #e2b13c;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border {
+        background-color: white;
+        padding: 10px;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content {
+        background-color: white;
+        border: 2px solid #e2b13c;
+        padding: 26px 16px;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content .icon span {
+        background-color: #e2b13c;
+        display: inline-block;
+        padding: 16px;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content .icon span i {
+        font-size: 26px;
+        color: white;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content .value {
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content .value span {
+        color: #222222;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    .achievement-view .achievement-wrapper .achievement-border .achievement-content .title span {
+        color: #e2b13c;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: 'PT Serif', serif;
+    }

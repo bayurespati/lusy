@@ -145,8 +145,85 @@
             <!-- About Us Section /- -->
             
             <!-- Portfolio Section -->
-            <div class="container-fluid no-padding onview-section" style="background-color: unset;">
-                <img src="{{ asset('img/portofolio-temp.png') }}" alt="" style="width: 100%">
+            <div class="container-fluid no-padding">
+                <div class="row achievement-view">
+                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
+                        <div class="achievement-border">
+                            <div class="achievement-content">
+                                <div class="icon">
+                                    <span>
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                </div>
+
+                                <div class="value">
+                                    <span>78</span>
+                                </div>
+
+                                <div class="title">
+                                    <span>Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
+                        <div class="achievement-border">
+                            <div class="achievement-content">
+                                <div class="icon">
+                                    <span>
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                </div>
+
+                                <div class="value">
+                                    <span>78</span>
+                                </div>
+
+                                <div class="title">
+                                    <span>Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
+                        <div class="achievement-border">
+                            <div class="achievement-content">
+                                <div class="icon">
+                                    <span>
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                </div>
+
+                                <div class="value">
+                                    <span>78</span>
+                                </div>
+
+                                <div class="title">
+                                    <span>Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
+                        <div class="achievement-border">
+                            <div class="achievement-content">
+                                <div class="icon">
+                                    <span>
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                </div>
+
+                                <div class="value">
+                                    <span>78</span>
+                                </div>
+
+                                <div class="title">
+                                    <span>Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Portfolio Section /- -->
             
