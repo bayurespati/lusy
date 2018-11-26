@@ -14496,3 +14496,7 @@ a.active-forced.dropdown-toggle a[aria-expanded="true"] {
 .navbar-brand {
   height: 118px;
 }
+
+#search .icon:hover {
+  color: #e2b13c;
+}

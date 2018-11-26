@@ -4824,8 +4824,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 				self.isRequesting = true;
 
-				this.rankData.splice(this.limit, this.rankData.length - 1);
-
 				var name = this.input.name;
 
 				var dataMember = {
@@ -5576,17 +5574,7 @@ var render = function() {
                 { key: index, staticClass: "col-md-12 d-flex" },
                 [
                   _c("div", { staticClass: "col-md-5" }, [
-                    _c("p", [
-                      _vm._v(
-                        " " +
-                          _vm._s(rank.title) +
-                          " " +
-                          _vm._s(index) +
-                          " " +
-                          _vm._s(_vm.limit - 1) +
-                          " "
-                      )
-                    ])
+                    _c("p", [_vm._v(" " + _vm._s(rank.title) + "  ")])
                   ]),
                   _vm._v(" "),
                   _c(
@@ -6502,7 +6490,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
                 axios.post('add/member', dataMember).then(function (response) {
 
-                    // commit('add_new_shop', shop);
+                    // commit('add_new_member', dataMember);
 
                     resolve(dataMember);
                 }).catch(function (errors) {
