@@ -1,15 +1,17 @@
-<template> 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="card text-center">
-				<div class="col-md-12">
-					<h4 class="title mb-5">Add New <strong>Member</strong></h4>
-				</div>
+<template>
+    <transition enterActiveClass="fade-in-down"leaveActiveClass="fade-out-up"mode="out-in">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_member">
+            <div class="panel-body">
+                <h3 class="text-center mb-3">Edit <strong>{{ member.title }}</strong></h3>
 
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="title" class="form-control-label panel-font-small m-0">
+                                Name
+                            </label>
+
+                            <input type="text" 
 							v-model="input.name"
 							@input="$v.input.name.$touch()"
 							class="form-control" id="name-member" 
@@ -32,24 +34,28 @@
                             	v-else-if="!$v.input.name.maxLength">
                             		Name has a maximum of {{ $v.input.name.$params.maxLength.max }} characters
                         		</span>
-                    		</transition>	
-						</div>
-					</div>
+                    		</transition> 
+                        </div>
 
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="radio" name="gender"  
-								   value=1 v-model="input.gender"> Male
-							<input type="radio" name="gender"  
-							       value=0 v-model="input.gender" class="ml-2"> Female
-						</div>
-					</div>
-				</div>
+                        <div class="col-sm-6 col-xs-12 text-center">
+                        	<label for="title" class="form-control-label panel-font-small m-0">
+	                            Gender
+    	                    </label>
 
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+							<input type="radio" :name="'gender' + member.id"
+							   	   value=1 v-model="input.gender"> Male
+							<input type="radio" :name="'gender' + member.id" 
+						       	   value=0 v-model="input.gender" class="ml-2"> Female
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="start_date"class="form-control-label panel-font-small m-0">
+                                Place of birth
+                            </label>
+
+                            <input type="text" 
 							v-model="input.place_of_birth"
 							@input="$v.input.place_of_birth.$touch()"
 							class="form-control" id="place_of_birth"
@@ -65,14 +71,16 @@
                             		Place of birth is required
                         		</span>
                     		</transition>
-						</div>
-					</div>
+                        </div>
 
-
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<datetime type="date" id="date_of_birth" 
-							v-model="input.date_of_birth" 
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="end_date"class="form-control-label panel-font-small m-0">
+                                Date of birth
+                            </label>
+                            
+                            <datetime type="date" id="date_of_birth" 
+							v-model="input.date_of_birth"
+							value-zone="local"
 							@input="$v.input.date_of_birth.$touch()"
 							:class="{'form-control-danger': $v.input.date_of_birth.$error}"
 							placeholder="Date of birth">
@@ -86,15 +94,17 @@
                             	v-if="!$v.input.date_of_birth.required && $v.input.date_of_birth.$dirty">
                             		Date of birth is required
                         		</span>
-                    		</transition>
-						</div>
-					</div>
-				</div>
+                    		</transition> 
+                        </div>
+                    </div>
 
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="location"class="form-control-label panel-font-small m-0">
+                                Email
+                            </label>
+
+                            <input type="text" 
 							v-model="input.email"
 							@input="$v.input.email.$touch()"
 							:class="{'form-control-danger': $v.input.email.$error}"
@@ -118,23 +128,27 @@
                             		Email has a maximum of {{ $v.input.email.$params.maxLength.max }} characters
                         		</span>
                     		</transition>
-						</div>
-					</div>
+                        </div>
 
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="addres" class="form-control-label panel-font-small m-0">
+                                Fax
+                            </label>
+
+                            <input type="text" 
 							v-model="input.fax" 
 							class="form-control" id="fax"
-							placeholder="Fax">
-						</div>
-					</div>
-				</div>
+							placeholder="member.fax">
+                        </div>
+                    </div>
 
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="category" class="form-control-label panel-font-small m-0">
+                                Telephone
+                            </label>
+                            
+                            <input type="text" 
 							v-model="input.telephone"
 							@input="$v.input.telephone.$touch()"
 							:class="{'form-control-danger': $v.input.telephone.$error}"
@@ -150,23 +164,27 @@
                             		Telephone is required
                         		</span>
                     		</transition>
-						</div>
-					</div>
+                        </div>
 
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="subcategory" class="form-control-label panel-font-small m-0">
+                                Mobile
+                            </label>
+                            
+                            <input type="text" 
 							v-model="input.mobile" 
 							class="form-control" id="mobile"
 							placeholder="Mobile">
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
 
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group">
-							<select class="form-control" id="category" 
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="category" class="form-control-label panel-font-small m-0">
+                                Class
+                            </label>
+                            
+                            <select class="form-control" id="category" 
 							@input="$v.input.class_id.$touch()"
 							:class="{'form-control-danger': $v.input.class_id.$error}"
 							v-model="input.class_id">
@@ -185,203 +203,72 @@
                             		Class is required
                         		</span>
                     		</transition>
-						</div>
-					</div>
+                        </div>
 
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<datetime type="date" id="join_birth" 
+                        <div class="col-sm-6 col-xs-12 text-center">
+                            <label for="subcategory" class="form-control-label panel-font-small m-0">
+                                Join Date
+                            </label>
+                            
+                            <datetime type="date" id="join_birth" 
 									  v-model="input.join_date"
+									  value-zone="local"
 									  placeholder="Join Date">
 							</datetime>
-						</div>
-					</div>
-				</div>
-			</div>
+                        </div>
+                    </div>
 
-			<div class="card text-center">
-				<div class="col-md-12"><h4 class="title mb-5">Ranks</h4></div>
+                    <div class="col-sm-12 d-flex justify-content-center mt-2">
+                        <button @click="editMember"
+                        class="btn btn-success btn-sm ml-2" :disabled="isRequesting">
+                            <template v-if="isRequesting">Saving..</template>
+                            <template v-else>Save</template>
+                        </button>
+                    </div>
+                </div>
 
-				<div class="col-md-12 d-flex">
-					<template v-for="(rank, index) in ranks" v-if="index == limit">
-						<div class="col-md-4">
-							<p> {{rank.title}} </p>
-						</div>
-						<div class="col-md-4">
-							<datetime type="date" v-model="temp_annointed_date"></datetime>
-						</div>
-						<div class="col-md-2">
-							<button class="btn btn-success btn-sm" @click="add_rank(index)">Add</button>
-						</div>
-					</template>
-				</div>
-				<transition-group name="slide">
-					<div class="col-md-12 d-flex" v-for="(rank, index) in rankData" :key="index">
-						<div class="col-md-5">
-							<p> {{rank.title}}  </p>
-						</div>
-						<div class="col-md-5">
-							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
-						</div>
-						<div class="col-md-2" v-if="index == (limit - 1)">
-							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
-						</div>
-					</div>
-				</transition-group>
-			</div>
+            	<edit-rank :member="member"> </edit-rank>
 
-			<div class="card text-center">
-				<div class="col-md-12 d-flex">
-					<div class="col-md-5">
-						<p> Subscription </p>
-					</div>
-					<div class="col-md-5">
-						<div class="form-group text-center mb-3">
-							<input type="number" 
-								   @input="$v.year.$touch()"
-								   :class="{'form-control-danger': $v.year.$error}"
-								   placeholder="input years" v-model="year">
-						</div>
-						<!--======================================================================================
-                            V A L I D A T I O N     E R R O R   M E S S A G E S
-                            ======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="year-minimum" class="text-danger" v-if="!$v.year.minLength">
-                            		Year must has of {{ $v.year.$params.minLength.min }} characters
-                            	</span>
-                            	<span key="year-maximum" class="text-danger" v-if="!$v.year.maxLength">
-                            		Year must has of {{ $v.year.$params.maxLength.max }} characters
-                        		</span>
-                    		</transition>
-					</div>
-					<div class="col-md-2">
-						<button class="btn btn-success btn-sm" @click="add_subscription()">Add</button>
-					</div>
-				</div>
-				<div class="col-md-12 d-flex">
-					<div v-for="(list, index) in subscription">
-						<p>{{ list }} 
-							<span @click="delete_year(index)" 
-								  class="badge badge-danger" style="cursor: pointer">X</span> 
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="card text-center">
-				<div class="col-md-12">
-					<h4 class="title mb-5">Class Region</h4>
-				</div>
-				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempName"
-							@input="$v.tempName.$touch()"
-							:class="{'form-control-danger': $v.tempName.$error}"
-							class="form-control" id="name-region" 
-							placeholder="Name">
-
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="telephone-required" class="text-danger" 
-                            		  v-if="!$v.tempName.required && $v.tempName.$dirty">
-                            		Name is required
-                        		</span>
-                    		</transition>
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempCity"
-							class="form-control" id="city-region" 
-							placeholder="City">
-						</div>						
-					</div>
-				</div>
-
-				<div class="col-md-12 d-flex">
-					<div class="col-md-12">
-						<div class="form-group text-center mb-3">
-							<input type="text" 
-							v-model="tempAddress"
-							class="form-control" id="address-region" 
-							placeholder="Adress">
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12 d-flex justify-content-center">
-					<button type="button" @click="add_region" class="btn btn-success btn-sm">
-						Add Region
-					</button>
-				</div>
-
-				<div class="col-md-12 d-flex">
-					<div v-for="(list, index) in classRegion">
-						<p>{{ list.name }} 
-							<span @click="delete_region(index)" 
-								  class="badge badge-danger" 
-								  style="cursor: pointer">X
-							</span> 
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="card text-center">
-				<div class="col-md-12">
-					<div class="col-md-12 d-flex justify-content-center">
-						<button type="button" @click="closeAddMember" class="btn btn-sm btn-warning">
-							Cancel
-						</button>
-						<button type="button" @click="addMember" 
-								class="btn btn-sm btn-success ml-1" :disabled="isRequesting">
-							<template v-if="isRequesting">Adding..</template>
-							<template v-else>Add Member</template>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+                	<div class="col-sm-12 d-flex justify-content-center mt-2">
+                		<button type="button" class="btn btn-secondary btn-sm"
+                                @click="closeEditForm">
+                            Close
+                        </button>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </transition>
 </template>
+
 <script>
+	import EditRank from './EditAddRank.vue';
 	import {required, minLength, maxLength} from 'vuelidate/lib/validators';
-	import {mapGetters} from 'vuex';
+	import {mapGetters} from 'vuex';	
 	import 'vue-datetime/dist/vue-datetime.css';
 	import {Datetime} from 'vue-datetime';
     Vue.use(Datetime)
 
 	export default{
+		props:{member:{}},
+
 		data(){
 			return{
-				isRequesting: false,
-				limit: 0,
-				rankData:[],
-				temp_annointed_date: '',
-				subscription:[],
-				year: '',
-				classRegion:[],
-				tempName: '',
-				tempCity: '',
-				tempAddress: '',
+				isRequesting: false,			
 				input:{
-					name: '',
-					gender: '',
-					place_of_birth: '',
-					date_of_birth: '',
-					join_date: '',
-					email: '',
-					telephone: '',
-					mobile: '',
-					fax: '',
-					class_id: '',
-					gender: '1'
+					name: this.member.name,
+					gender: this.member.gender,
+					place_of_birth: this.member.place_of_birth,
+					date_of_birth: this.member.date_of_birth,
+					join_date: this.member.join_date,
+					email: this.member.email,
+					telephone: this.member.telephone,
+					mobile: this.member.mobile,
+					fax: this.member.fax,
+					class_id: this.member.class.id,
+					gender: this.member.gender,
+					id: this.member.id
 				}
 			}
 		},
@@ -389,6 +276,12 @@
 		mounted() {
 			this.$v.$reset();
 		},
+
+		components:{
+			Datetime,
+			EditRank
+		},
+
 
 		validations: {
             input: {
@@ -418,17 +311,6 @@
                 	required
                 }
             },
-            tempName:{
-            	required,
-            },
-            year:{
-            	maxLength: maxLength(4),
-            	minLength: minLength(4)
-            }
-        },
-
-		components:{
-			Datetime
 		},
 
 		computed:{
@@ -437,7 +319,7 @@
 				ranks: 'getRanks',
 			}),
 
-			formAddFilled(){
+			formIsFilled(){
 				return this.input.name != ''
 					&& this.input.name.length >= 3
 					&& this.input.name.length <= 50
@@ -448,88 +330,41 @@
 					&& this.input.email.length <= 50
 					&& this.input.telephone != ''
 					&& this.input.class_id != '';
+			},
+
+			memberIsedited(){
+				return this.input.name != this.member.name 
+					|| this.input.gender != this.member.gender
+					|| this.input.place_of_birth != this.member.place_of_birth
+					|| this.input.email != this.member.email
+					|| this.input.fax != this.member.fax
+					|| this.input.telephone != this.member.telephone
+					|| this.input.mobile != this.member.mobile
+					|| this.input.class_id != this.member.class.id
+					|| this.input.join_date.substring(0,10) != this.member.join_date
+					|| this.input.date_of_birth.substring(0,10) != this.member.date_of_birth
 			}
 		},
 
 		methods:{
-			add_region(){
-				if(this.tempName != ''){
-					this.classRegion.push({
-						name: this.tempName,
-						city: this.tempCity,
-						address: this.tempAddress,
-					});
 
-					this.tempName = '';
-					this.tempCity = '';
-					this.tempAddress = '';
-
-					this.$v.tempName.$reset();
-
-				}else{
-					this.$v.tempName.$touch();
-				}
-			},
-
-			delete_region($index){
-				this.classRegion.splice($index, 1);
-			},
-
-			delete_year($index){
-				this.subscription.splice($index, 1);
-			},
-
-			add_subscription(){
-				if(this.year != ''){
-					this.subscription.push(this.year);
-					this.year = '';
-				}
-			},
-
-			delete_rank($index){
-				this.rankData.splice($index, 1);
-				this.limit -= 1;
-			},
-
-			add_rank($index){
-				if(this.temp_annointed_date != ''){
-					this.rankData.push({
-						title: this.ranks[$index].title,
-						rankId: this.ranks[$index].id,
-						annointed_date: this.temp_annointed_date
-					});
-					this.limit += 1;
-
-					this.temp_annointed_date = '';
-				}
-			},
-
-			addMember(){
+			editMember(){
 
 				let self = this;
 				
-				if(self.formAddFilled && !self.isRequesting){
+				if(self.formIsFilled && !self.isRequesting && this.memberIsedited){
 
 					self.isRequesting = true;
 
 					const name = this.input.name;
 
-					const dataMember = {
-						personal: this.input,
-						ranks: this.rankData,
-						subscription: this.subscription,
-						region: this.classRegion
-					};
-
-					this.$store.dispatch('store_new_member',dataMember)
+					this.$store.dispatch('update_member',this.input)
                         .then(() => {
-                            flash(name + ' is successfully added','success');
+                            flash(name + ' is successfully updated','success');
 
                             self.isRequesting = false;
 
-                            self.setData();
-
-                            self.closeAddMember();
+                            self.closeEditForm();
                         })
                         .catch(errors => {
 
@@ -547,19 +382,6 @@
 				}
 			},
 
-			setData(){
-				this.input.name = '';
-				this.input.gender = '';
-				this.input.place_of_birth = '';
-				this.input.date_of_birth = '';
-				this.input.join_date = '';
-				this.input.email = '';
-				this.input.telephone = '';
-				this.input.mobile = '';
-				this.input.fax = '';
-				this.input.class_id = '';
-			},
-
 			dirtyAllInputs(){
                 this.$v.input.name.$touch();
                 this.$v.input.gender.$touch();
@@ -570,8 +392,8 @@
                 this.$v.input.class_id.$touch();
 			},
 
-			closeAddMember(){
-	           this.$emit('closeAddMember',false);
+			closeEditForm(){
+	           this.$emit('closeEditMember',false);
 	        }
 		},
 	};

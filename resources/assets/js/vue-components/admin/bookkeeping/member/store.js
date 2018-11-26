@@ -6,7 +6,7 @@ export const store = new Vuex.Store({
     //  S T A T E
     //=========================================================================================
     state: {
-        memebers:{},
+        members:{},
         rank:{},
         classList:{}
     },
@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
     //=========================================================================================
     getters: {
         getMembers: state => {
-            return state.memebers;
+            return state.members;
         },
 
         getRanks: state => {
@@ -34,8 +34,8 @@ export const store = new Vuex.Store({
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_member: (state, memebers) =>{
-            state.memebers = memebers;
+        set_member: (state, members) =>{
+            state.members = members;
         },
 
         set_rank: (state, rank) =>{
@@ -46,11 +46,55 @@ export const store = new Vuex.Store({
             state.classList = classList;
         },
 
+        edit_member(state, member){
+
+            const memberIndex = _.findIndex(state.members, ['id', member.id]);
+            const classIndex = _.findIndex(state.classList, ['id', member.class_id]);
+
+            state.members[memberIndex].name = member.name;
+            state.members[memberIndex].gender = member.gender;
+            state.members[memberIndex].place_of_birth = member.place_of_birth;
+            state.members[memberIndex].date_of_birth = member.date_of_birth;
+            state.members[memberIndex].email = member.email;
+            state.members[memberIndex].fax = member.fax;
+            state.members[memberIndex].telephone = member.telephone;
+            state.members[memberIndex].mobile = member.mobile;
+            state.members[memberIndex].class.id = member.class_id;
+            state.members[memberIndex].class.title = state.classList[classIndex].title;
+            state.members[memberIndex].join_date = member.join_date;
+
+        },
+
         delete_member(state, ids){
             
-            const memberIndex = _.findIndex(state.memebers, ['id', ids.memberId]);
+            const memberIndex = _.findIndex(state.members, ['id', ids.memberId]);
 
-            state.memebers.splice(memberIndex, 1);
+            state.members.splice(memberIndex, 1);
+        },
+
+        add_rank(state, dataRank){
+
+            const memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
+
+            state.members[memberIndex].ranks.push({
+                annointed_date: dataRank.annointed_date,
+                rankId: dataRank.rank_id,
+                title: dataRank.title
+            })
+        },
+
+        update_rank(state, dataRank){
+            const memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
+            const rankIndex = _.findIndex(state.members[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+
+            state.members[memberIndex].ranks[rankIndex].annointed_date = dataRank.annointed_date;
+        },
+
+        delete_rank(state, dataRank){
+            const memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
+            const rankIndex = _.findIndex(state.members[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+
+            state.members[memberIndex].ranks.splice(rankIndex, 1);
         }
     },
 
@@ -97,6 +141,66 @@ export const store = new Vuex.Store({
             })
         },
 
+        add_rank({commit}, dataRank){
+
+            return new Promise((resolve, reject) => {
+                axios.post('add/rank',dataRank)
+                    .then(response => {
+
+                        commit('add_rank', dataRank);
+
+                        resolve(dataRank);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+        destroy_rank({commit}, dataRank) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('delete/rank', dataRank)
+                    .then((response) => {
+                        commit('delete_rank', dataRank);
+                        resolve();
+                    });
+            })
+        },
+
+        edit_rank({commit}, dataRank) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('update/rank', dataRank)
+                    .then((response) => {
+                        commit('update_rank', dataRank);
+                        resolve();
+                    });
+            })
+        },
+
+
+        update_member({commit}, member){
+
+            return new Promise((resolve,reject) => {
+
+                axios.patch('update/member/'+ member.id, member)
+                    .then(response => {
+
+                        commit('edit_member', member);
+
+                        resolve(member);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+
+            })
+
+        },
+
         destroy_member({commit}, ids) {
 
             return new Promise((resolve, reject) => {
@@ -107,7 +211,6 @@ export const store = new Vuex.Store({
                         resolve();
                     });
             })
-
         },
     }
 });

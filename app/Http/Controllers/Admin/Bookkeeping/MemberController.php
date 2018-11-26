@@ -41,12 +41,12 @@ class MemberController extends Controller
                 'name' => $member['name'],
                 'gender' => $member['gender'],
                 'place_of_birth' => $member['place_of_birth'],
-                'date_of_birth' => $member['date_of_birth'],
+                'date_of_birth' => substr($member['date_of_birth'],0,10),
                 'email' => $member['email'],
                 'fax' => $member['fax'],
                 'telephone' => $member['telephone'],
                 'mobile' => $member['mobile'],
-                'join_date' => $member['join_date'],
+                'join_date' => substr($member['join_date'],0,10),
                 'is_active' => $member['is_active'],
                 'is_approve' => $member['is_approve'],
                 'class' => $member['class'],
@@ -113,6 +113,53 @@ class MemberController extends Controller
 
         });
     }
+
+    public function updateMember(Request $request, Member $member){
+
+        $member->name = $request->name;
+        $member->gender = $request->gender;
+        $member->place_of_birth = $request->place_of_birth;
+        $member->date_of_birth = substr($request->date_of_birth,0, 10);
+        $member->telephone = $request->telephone;
+        $member->mobile = $request->mobile;
+        $member->email = $request->email;
+        $member->fax = $request->fax;
+        $member->class_id = $request->class_id;
+        $member->join_date = substr($request->join_date,0, 10);
+
+        $member->update();
+    }
+
+    public function addRank(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->rank()
+               ->attach( 
+                    $request->rank_id, [
+                        'annointed_date' => substr($request->annointed_date,0,10)
+                    ]);
+    }
+
+    public function deleteRank(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->rank()->detach($request->rank_id);
+    }
+
+    public function updateRank(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->rank()
+               ->updateExistingPivot(
+                    $request->rank_id, [
+                        'annointed_date' => substr($request->annointed_date,0,10)
+                    ]);
+    }
+
+
 
     //-----------------------------//
     //       APPLICANT MEMBER      //

@@ -46,11 +46,11 @@
                         @click="isEdit = !isEdit">Edit</button>
                     </div>
 
-                    <!-- <div class="col-12"> -->
-                        <!-- <detail v-if="isShowDetail" :detail="member" -->
-                            <!-- @closeDetail="isShowDetail = $event"> -->
-                        <!-- </detail> -->
-                    <!-- </div> -->
+                    <div class="col-12">
+                        <edit-member v-if="isEdit" :member="member"
+                            @closeEditMember="isEdit = $event">
+                        </edit-member>
+                    </div>
                 </div>
             </transition>
         </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-    // import Detail from './Detail.vue'
+    import EditMember from './EditMember.vue'
     export default{
         props:{member:{}},
 
@@ -69,7 +69,7 @@
         },
 
         components:{
-            // Detail
+            EditMember
         },
     };
 </script>
