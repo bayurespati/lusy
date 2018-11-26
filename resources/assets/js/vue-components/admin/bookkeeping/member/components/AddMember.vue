@@ -260,7 +260,7 @@
 				</div>
 				<div class="col-md-12 d-flex">
 					<div v-for="(list, index) in subscription">
-						<p>{{ list }} 
+						<p>{{ list.year }} 
 							<span @click="delete_year(index)" 
 								  class="badge badge-danger" style="cursor: pointer">X</span> 
 						</p>

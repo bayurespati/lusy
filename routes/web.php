@@ -464,6 +464,9 @@ Route::group([
         Route::patch('/delete/rank', 'MemberController@deleteRank');
         Route::patch('/update/rank', 'MemberController@updateRank');
 
+        Route::post('/add/subscription', 'MemberController@addSubscription');
+        Route::delete('/delete/subscription/{subscription}', 'MemberController@deleteSubscription');
+
         /*
         |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   A P P L I C A N T   M E M B E R

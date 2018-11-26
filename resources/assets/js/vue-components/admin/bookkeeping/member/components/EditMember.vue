@@ -229,6 +229,8 @@
 
             	<edit-rank :member="member"> </edit-rank>
 
+                <edit-subscription :member="member"> </edit-subscription>
+
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                 	<div class="col-sm-12 d-flex justify-content-center mt-2">
                 		<button type="button" class="btn btn-secondary btn-sm"
@@ -243,6 +245,7 @@
 </template>
 
 <script>
+    import EditSubscription from './EditAddSubscription.vue';
 	import EditRank from './EditAddRank.vue';
 	import {required, minLength, maxLength} from 'vuelidate/lib/validators';
 	import {mapGetters} from 'vuex';	
@@ -279,7 +282,8 @@
 
 		components:{
 			Datetime,
-			EditRank
+			EditRank,
+            EditSubscription
 		},
 
 

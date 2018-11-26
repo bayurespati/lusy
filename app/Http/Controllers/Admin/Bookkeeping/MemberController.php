@@ -73,7 +73,7 @@ class MemberController extends Controller
 
     public function addMember(Request $request){
 
-        return DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request) {
 
             $member = new Member;
             $member->name = $request->personal['name'];
@@ -130,6 +130,9 @@ class MemberController extends Controller
         $member->update();
     }
 
+    //-----------------------------//
+    //          RANK               //
+    //-----------------------------//
     public function addRank(Request $request){
 
         $member = Member::find($request->member_id);
@@ -139,13 +142,6 @@ class MemberController extends Controller
                     $request->rank_id, [
                         'annointed_date' => substr($request->annointed_date,0,10)
                     ]);
-    }
-
-    public function deleteRank(Request $request){
-
-        $member = Member::find($request->member_id);
-
-        $member->rank()->detach($request->rank_id);
     }
 
     public function updateRank(Request $request){
@@ -159,6 +155,30 @@ class MemberController extends Controller
                     ]);
     }
 
+
+    public function deleteRank(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->rank()->detach($request->rank_id);
+    }
+
+     //-----------------------------//
+    //          Subscription       //
+    //-----------------------------//
+    public function addSubscription(Request $request){
+        $subscription = new Subscription;
+        $subscription->year = $request->year;
+        $subscription->member_id = $request->member_id;
+
+        $subscription->save();
+
+        return $subscription->id;
+    }
+
+    public function deleteSubscription(Subscription $subscription){
+        $subscription->delete();
+    }
 
 
     //-----------------------------//

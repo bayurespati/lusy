@@ -95,6 +95,25 @@ export const store = new Vuex.Store({
             const rankIndex = _.findIndex(state.members[memberIndex].ranks, ['rankId', dataRank.rank_id]);
 
             state.members[memberIndex].ranks.splice(rankIndex, 1);
+        },
+
+        add_subscription(state, dataSubscription){
+            const memberIndex = _.findIndex(state.members, ['id', dataSubscription.member_id]);
+
+            state.members[memberIndex].subscription.push({
+                member_id: dataSubscription.member_id,
+                year: dataSubscription.year,
+                id: dataSubscription.id
+            });
+        },
+
+        delete_subscription(state, ids){
+
+            const memberIndex = _.findIndex(state.members, ['id', ids.member_id])
+            const subscriptionIndex = _.findIndex(state.members[memberIndex].subscription, ['id', ids.subscription_id])
+
+            state.members[memberIndex].subscription.splice(subscriptionIndex, 1);
+
         }
     },
 
@@ -157,18 +176,6 @@ export const store = new Vuex.Store({
             })
         },
 
-        destroy_rank({commit}, dataRank) {
-
-            return new Promise((resolve, reject) => {
-
-                axios.patch('delete/rank', dataRank)
-                    .then((response) => {
-                        commit('delete_rank', dataRank);
-                        resolve();
-                    });
-            })
-        },
-
         edit_rank({commit}, dataRank) {
 
             return new Promise((resolve, reject) => {
@@ -181,6 +188,55 @@ export const store = new Vuex.Store({
             })
         },
 
+        destroy_rank({commit}, dataRank) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('delete/rank', dataRank)
+                    .then((response) => {
+                        commit('delete_rank', dataRank);
+                        resolve();
+                    });
+            })
+        },
+
+        add_subscription({commit}, dataSubscription){
+
+            return new Promise((resolve, reject) => {
+
+                axios.post('add/subscription', dataSubscription)
+                    .then(response => {
+
+                        const data = {
+                            id: response.data.id,
+                            year: dataSubscription.year,
+                            member_id: dataSubscription.member_id
+                        }
+
+                        commit('add_subscription', data)
+
+                        resolve(data);
+                    })
+                    .catch(errors => {
+
+                        reject(errors.resolve.data);
+                    })
+            })
+        },
+
+        destroy_subscription({commit}, ids){
+
+            console.log(ids);
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/subscription/'+ids.subscription_id)
+                    .then((response) => {
+                        commit('delete_subscription', ids);
+                        resolve();
+                    });
+            })
+        },
 
         update_member({commit}, member){
 

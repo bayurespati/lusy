@@ -1,8 +1,8 @@
 <template>
 	<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-	<div class="col-sm-12 d-flex form-group">
-		<h4 class="title mb-5">Ranks</h4>
-	</div>
+		<div class="col-sm-12 d-flex form-group">
+			<h4 class="title mb-5">Ranks</h4>
+		</div>
 
 		<div class="col-sm-12 d-flex form-group">
 			<template v-for="(rank, index) in ranks" v-if="index == currentIndex">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+	import 'vue-datetime/dist/vue-datetime.css';
 	import Item from './Rank.vue';
 	import {mapGetters} from 'vuex';
 	export default{
@@ -67,14 +68,14 @@
 					})
 					.then(()=>{
 
-						flash('Ranks added');
+						flash('Ranks added','success');
 
 						this.isRequesting = false;
 
 						this.annointed_date = '';
 					})
 					.catch(()=>{
-						this.isRequesting = false
+						this.isRequesting = false;
 					})
 				}
 			}
