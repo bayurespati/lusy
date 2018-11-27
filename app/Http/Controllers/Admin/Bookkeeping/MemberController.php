@@ -21,11 +21,24 @@ class MemberController extends Controller
 
     public function loadMember(){
 
-        $data = Member::with(['rank','class','subscription','region'])->whereIsApprove(true)->get();
+        $members = Member::with('class')->get();
+
+        $datas = [];
+
+        foreach ($members as  $member) {
+            foreach ($member->class as $class) {
+                if($class['pivot']->is_approve){
+                    array_push($datas,$member);
+                    break;
+                }
+            }
+        }
+
+        $data = collect($datas);
 
         $dataMember = $data->map(function ($member) {
 
-            $ranks = $member['rank']->map(function ($rank){
+            $ranks = $member->rank->map(function ($rank){
 
                 $data = [
                     'rankId' => $rank['id'],
@@ -49,7 +62,7 @@ class MemberController extends Controller
                 'join_date' => substr($member['join_date'],0,10),
                 'is_active' => $member['is_active'],
                 'is_approve' => $member['is_approve'],
-                'class' => $member['class'],
+                'class' => $member['classActive'],
                 'region' => $member['region'],
                 'subscription' => $member['subscription'],
                 'ranks' => $ranks

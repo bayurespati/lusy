@@ -9548,12 +9548,12 @@ var render = function() {
                 [
                   _c("div", [
                     _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Class")])
+                      _c("strong", [_vm._v("Phone")])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "detail text-center" }, [
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.member.class.title))
+                        _vm._v(_vm._s(_vm.member.telephone))
                       ])
                     ])
                   ])

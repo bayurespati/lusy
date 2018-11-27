@@ -128,7 +128,6 @@
                 }
             },
 
-
             show(){
 
                 let a = _.findIndex(this.imageList, ['is_poster', 1]);

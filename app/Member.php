@@ -32,6 +32,11 @@ class Member extends Model
                     ->withPivot('is_approve');
     }
 
+    public function classActive(){
+        return $this->belongsToMany('App\AboutContent', 'member_class', 'member_id', 'class_id')
+                    ->wherePivot('is_approve', 1);
+    }
+
     public function rank(){
         return $this->belongsToMany('App\Rank', 'member_rank', 'member_id', 'rank_id')->withPivot('annointed_date');
     }
