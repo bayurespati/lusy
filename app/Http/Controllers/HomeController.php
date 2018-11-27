@@ -11,9 +11,11 @@ use App\ImageConfig;
 use App\Event;
 use App\SubCategory;
 use App\Member;
+use Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -75,25 +77,54 @@ class HomeController extends Controller
 
     public function addMember(Request $request){
 
-    	$date = explode('/', str_replace(' ', '', $request->date_of_birth) );
-	    $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
+    	$validator = Validator::make($request->all(),
+    		array('email'  => 'required|email|unique:members',)
+        );
 
-	    $member = new Member;
-	    $member->name = $request->name;
-	    $member->gender = $request->gender;
-	    $member->place_of_birth = $request->place_of_birth;
-	    $member->date_of_birth = $date_of_birth;
+		if(!$validator->fails()){
 
-	    $member->email = $request->email;
-	    $member->telephone = $request->telephone;
-	    $member->mobile = $request->mobile;
-	    $member->fax = $request->fax;
+			DB::transaction(function () use ($request) {
 
-	    $member->is_approve = false;
-	    $member->is_active = false;
-	    $member->class_id = $request->class_id;
-	    $member->save();
+				$date = explode('/', str_replace(' ', '', $request->date_of_birth) );
+			    $date_of_birth = $date[2].'-'.$date[0].'-'.$date[1];
 
+			    $member = new Member;
+			    $member->name = $request->name;
+			    $member->gender = $request->gender;
+			    $member->place_of_birth = $request->place_of_birth;
+			    $member->date_of_birth = $date_of_birth;
+
+			    $member->email = $request->email;
+			    $member->telephone = $request->telephone;
+			    $member->mobile = $request->mobile;
+			    $member->fax = $request->fax;
+
+			    $member->is_active = false;
+			    $member->save();
+
+			    $member->class()->attach($request->class_id, ['is_approve' => false]);
+
+		    });
+
+		}else{
+
+			$alradyHasClass = false;
+
+			$member = Member::where('email', $request->email)->with('class')->first();
+
+			foreach ($member->class as $class) {
+				if($class['pivot']->class_id == (int) $request->class_id){
+					$alradyHasClass = true;
+				}
+			}
+
+			if(!$alradyHasClass){
+				$member->class()->attach($request->class_id, ['is_approve' => false]);
+			}else{
+				return back();
+			}
+		}
+    	
 	    return back();
     }
 }

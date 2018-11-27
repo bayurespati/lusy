@@ -489,9 +489,7 @@
 
                             self.isRequesting = false;
 
-                            // self.setData();
-
-                            // self.closeAddMember();
+                            self.setData();
                         })
                         .catch(errors => {
 

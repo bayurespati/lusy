@@ -28,7 +28,8 @@ class Member extends Model
      */
 
     public function class(){
-        return $this->belongsTo('App\AboutContent', 'class_id');
+        return $this->belongsToMany('App\AboutContent', 'member_class', 'member_id', 'class_id')
+                    ->withPivot('is_approve');
     }
 
     public function rank(){

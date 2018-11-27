@@ -18,4 +18,9 @@ class AboutContent extends Model
     protected $hidden = [
         'created_at', 'updated_at',
     ];
+
+
+    public function member(){
+        return $this->belongsToMany('App\Member', 'member_rank', 'class_id', 'member_id')->withPivot('is_approve');
+    }
 }

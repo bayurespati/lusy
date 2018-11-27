@@ -23,12 +23,10 @@ class CreateMembersTable extends Migration
             $table->string('telephone');
             $table->string('mobile')->nullable();
             $table->string('fax')->nullable();
-            $table->string('email');
+            $table->string('email')->unique();
 
             $table->integer('teacher_id')->unsigned()->nullable();
-            $table->integer('class_id')->unsigned();
             $table->dateTime('join_date')->nullable();
-            $table->boolean('is_approve');
             $table->boolean('is_active');
 
             $table->timestamps();
