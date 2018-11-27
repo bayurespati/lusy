@@ -69,7 +69,7 @@
                             </div>
                         
                             <div class="col-sm-8">
-                                {{ detail.class.title }}
+                                {{ detail.class_title }}
                             </div>
                         </div>
 

@@ -3013,7 +3013,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-8" }, [
                     _vm._v(
                       "\n                            " +
-                        _vm._s(_vm.detail.class.title) +
+                        _vm._s(_vm.detail.class_title) +
                         "\n                        "
                     )
                   ])
@@ -3281,7 +3281,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "detail text-center" }, [
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.member.class.title))
+                        _vm._v(_vm._s(_vm.member.class_title))
                       ])
                     ])
                   ])
@@ -3323,7 +3323,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "detail text-center" }, [
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.member.mobile))
+                        _vm._v(_vm._s(_vm.member.telephone))
                       ])
                     ])
                   ])
@@ -3412,8 +3412,8 @@ var render = function() {
           _c(
             "transition-group",
             { attrs: { name: "slide" } },
-            _vm._l(_vm.list, function(member) {
-              return _c("item", { key: member.id, attrs: { member: member } })
+            _vm._l(_vm.list, function(member, index) {
+              return _c("item", { key: index, attrs: { member: member } })
             })
           )
         ],

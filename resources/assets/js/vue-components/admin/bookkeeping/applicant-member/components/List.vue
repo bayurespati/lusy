@@ -8,9 +8,9 @@
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-          <item v-for="member in list"
+          <item v-for="(member, index) in list"
           :member="member"
-          :key="member.id">
+          :key="index">
           </item>
         </transition-group>
       </div>

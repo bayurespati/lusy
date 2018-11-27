@@ -5666,9 +5666,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 					self.isRequesting = false;
 
-					// self.setData();
-
-					// self.closeAddMember();
+					self.setData();
 				}).catch(function (errors) {
 
 					self.isRequesting = false;

@@ -212,8 +212,32 @@ class MemberController extends Controller
 
     public function loadApplicantMember(){
 
-    	return Member::where('is_approve', 0)->with('class')->get();
+        $members = Member::with('class')->get();
 
+        $applicantMember = [];
+
+        foreach ($members as  $member) {
+            foreach ($member->class as $class) {
+                if(!$class['pivot']->is_approve){
+                    array_push($applicantMember,[
+                        'id' => $member->id,
+                        'name' => $member->name,
+                        'gender' => $member->gender,
+                        'place_of_birth' => $member->place_of_birth,
+                        'date_of_birth' => $member->date_of_birth,
+                        'telephone' => $member->telephone,
+                        'mobile' => $member->mobile,
+                        'fax' => $member->fax,
+                        'email' => $member->email,
+                        'class_id' => $class->id,
+                        'class_title' => $class->title,
+                        'is_approve' => $class['pivot']->is_approve,
+                    ]);
+                }
+            }
+        }
+
+    	return $applicantMember;
     }
 
     public function update(Request $request, Member $member){

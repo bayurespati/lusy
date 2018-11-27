@@ -23,7 +23,7 @@
                             </p>
                         
                             <div class="detail text-center">
-                                <p class="mb-0">{{ member.class.title }}</p>
+                                <p class="mb-0">{{ member.class_title }}</p>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             </p>
                         
                             <div class="detail text-center">
-                                <p class="mb-0">{{ member.mobile }}</p>
+                                <p class="mb-0">{{ member.telephone }}</p>
                             </div>
                         </div>
                     </div>
