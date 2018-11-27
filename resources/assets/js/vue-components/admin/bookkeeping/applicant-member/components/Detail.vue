@@ -208,7 +208,8 @@
                     self.isRequesting = true;
 
                     this.$store.dispatch('destroy_item', {
-                        id: self.detail.id
+                        class_id: self.detail.class_id,
+                        member_id: self.detail.id,
                     })
                     .then(() => {
 

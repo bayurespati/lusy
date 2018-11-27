@@ -69,7 +69,7 @@ export const store = new Vuex.Store({
 
             return new Promise((resolve, reject) => {
 
-                axios.delete('delete/applicant-member/'+ids.id)
+                axios.delete('delete/applicant-member/'+ids.member_id+'/'+ids.class_id)
                     .then((response) => {
                         commit('delete_member', ids);
                         resolve();

@@ -2803,7 +2803,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.isRequesting = true;
 
                 this.$store.dispatch('destroy_item', {
-                    id: self.detail.id
+                    class_id: self.detail.class_id,
+                    member_id: self.detail.id
                 }).then(function () {
 
                     flash('Member has been rejected', 'danger');
@@ -3512,7 +3513,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
             return new Promise(function (resolve, reject) {
 
-                axios.delete('delete/applicant-member/' + ids.id).then(function (response) {
+                axios.delete('delete/applicant-member/' + ids.member_id + '/' + ids.class_id).then(function (response) {
                     commit('delete_member', ids);
                     resolve();
                 });

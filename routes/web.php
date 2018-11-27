@@ -493,7 +493,7 @@ Route::group([
         Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.applicant_member');
         Route::get('/data/applicant-member', 'MemberController@loadApplicantMember');
         Route::patch('/update/applicant-member/{member}', 'MemberController@update');
-        Route::delete('/delete/applicant-member/{member}', 'MemberController@destroy');
+        Route::delete('/delete/applicant-member/{member}/{class}', 'MemberController@destroy');
 
 
         /*

@@ -247,9 +247,16 @@ class MemberController extends Controller
 
     }
 
-    public function destroy(Member $member){
+    public function destroy(Member $member, AboutContent $class){
 
-    	$member->delete();
-        
+        $size = sizeof($member->class);
+
+        if($size > 1){
+            $member->class()->detach($class->id);
+        }else{
+            $member->class()->detach($class->id);
+            
+            $member->delete();
+        }
     }
 }
