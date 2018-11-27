@@ -306,6 +306,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         notificationExists: function notificationExists() {
             return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
         }
     },
 
@@ -401,7 +404,7 @@ var render = function() {
                   return _c(
                     "div",
                     {
-                      key: "notification.id",
+                      key: index,
                       staticClass: "alert alert-contrast alert-position",
                       class: notification.alertClass,
                       style: _vm.getBottomPosition(index)
@@ -4839,7 +4842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(569);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(572);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
 
@@ -4886,7 +4889,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(537)
 /* template */
-var __vue_template__ = __webpack_require__(568)
+var __vue_template__ = __webpack_require__(571)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -6751,7 +6754,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(548)
 /* template */
-var __vue_template__ = __webpack_require__(567)
+var __vue_template__ = __webpack_require__(570)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -6931,7 +6934,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(554)
 /* template */
-var __vue_template__ = __webpack_require__(566)
+var __vue_template__ = __webpack_require__(569)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -7060,17 +7063,19 @@ exports.push([module.i, "\n.card[data-v-29f55f53] {\n\tflex-direction: unset;\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddSubscription_vue__ = __webpack_require__(555);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddSubscription_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditAddSubscription_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddRank_vue__ = __webpack_require__(558);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddRank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditAddRank_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_datetime_dist_vue_datetime_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_datetime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddRegion_vue__ = __webpack_require__(555);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditAddRegion_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue__ = __webpack_require__(558);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue__ = __webpack_require__(561);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_datetime__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -7321,6 +7326,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -7328,7 +7335,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_datetime__["Datetime"]);
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_6_vue_datetime__["Datetime"]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: { member: {} },
@@ -7358,42 +7366,43 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_5_vue_datetime__["Datetime"]);
 
 
 	components: {
-		Datetime: __WEBPACK_IMPORTED_MODULE_5_vue_datetime__["Datetime"],
-		EditRank: __WEBPACK_IMPORTED_MODULE_1__EditAddRank_vue___default.a,
-		EditSubscription: __WEBPACK_IMPORTED_MODULE_0__EditAddSubscription_vue___default.a
+		Datetime: __WEBPACK_IMPORTED_MODULE_6_vue_datetime__["Datetime"],
+		EditRank: __WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue___default.a,
+		EditRegion: __WEBPACK_IMPORTED_MODULE_0__EditAddRegion_vue___default.a,
+		EditSubscription: __WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue___default.a
 	},
 
 	validations: {
 		input: {
 			name: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["maxLength"])(50)
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["maxLength"])(50)
 			},
 			gender: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"]
 			},
 			place_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"]
 			},
 			date_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"]
 			},
 			email: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["maxLength"])(50)
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["maxLength"])(50)
 			},
 			telephone: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"]
 			},
 			class_id: {
-				required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
+				required: __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__["required"]
 			}
 		}
 	},
 
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])({
 		classList: 'getClass',
 		ranks: 'getRanks'
 	}), {
@@ -7478,6 +7487,314 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/EditAddRegion.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8e80bf68", Component.options)
+  } else {
+    hotAPI.reload("data-v-8e80bf68", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 556:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: { member: {} },
+
+	data: function data() {
+		return {
+			region: '',
+			isRequesting: false,
+			classRegion: this.member.region
+		};
+	},
+
+
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
+		regions: 'getRegions'
+	}), {
+		hasChoosen: function hasChoosen() {
+			var isFind = _.find(this.member.region, ['id', this.region.id]);
+
+			return isFind == undefined ? false : true;
+		}
+	}),
+
+	methods: {
+		add_region: function add_region() {
+
+			var self = this;
+
+			if (!self.isRequesting && !self.hasChoosen && this.region != '') {
+
+				var tempRegion = self.region;
+				self.region = '';
+
+				this.$store.dispatch('add_region', {
+					name: tempRegion.name,
+					region_id: tempRegion.id,
+					member_id: self.member.id
+				}).then(function () {
+					flash('Class ragion ' + tempRegion.name + ' has been added.', 'success');
+
+					self.isRequesting = false;
+				}).catch(function () {
+
+					self.isRequesting = false;
+				});
+			}
+		},
+		delete_region: function delete_region(region) {
+
+			var self = this;
+
+			if (!self.isRequesting) {
+
+				self.isRequesting = true;
+
+				this.$store.dispatch('destroy_region', {
+					region_id: region.id,
+					member_id: this.member.id
+				}).then(function () {
+					flash('Class region ' + region.name + ' has been deleted.', 'danger');
+
+					self.isRequesting = false;
+				}).catch(function () {
+
+					self.isRequesting = false;
+				});
+			}
+		}
+	}
+});
+
+/***/ }),
+
+/***/ 557:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 d-flex" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.region,
+                expression: "region"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "calss-region" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.region = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "", disabled: "" } }, [
+              _vm._v("Choose Class Region")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.regions, function(region) {
+              return _c("option", { domProps: { value: region } }, [
+                _vm._v(_vm._s(region.name))
+              ])
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-sm",
+              attrs: { type: "button", disabled: _vm.hasChoosen },
+              on: { click: _vm.add_region }
+            },
+            [_vm._v("\n\t\t\t\tAdd Region\n\t\t\t")]
+          ),
+          _vm._v(" "),
+          _c(
+            "transition",
+            {
+              attrs: {
+                enterActiveClass: "fade-in",
+                leaveActiveClass: "fade-out",
+                mode: "out-in"
+              }
+            },
+            [
+              _vm.hasChoosen
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v("Already chosen")
+                  ])
+                : _vm._e()
+            ]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-12 d-flex" },
+      _vm._l(_vm.member.region, function(list, index) {
+        return _c("div", [
+          _c("p", [
+            _vm._v(_vm._s(list.name) + "\n\t\t\t\t"),
+            _c(
+              "span",
+              {
+                staticClass: "badge badge-danger",
+                staticStyle: { cursor: "pointer" },
+                on: {
+                  click: function($event) {
+                    _vm.delete_region(list)
+                  }
+                }
+              },
+              [_vm._v("X\n\t\t\t\t")]
+            )
+          ])
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+      _c("h4", { staticClass: "title mb-5" }, [_vm._v("Class Region")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8e80bf68", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 558:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(559)
+/* template */
+var __vue_template__ = __webpack_require__(560)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/EditAddSubscription.vue"
 
 /* hot reload */
@@ -7501,7 +7818,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 556:
+/***/ 559:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7617,7 +7934,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 557:
+/***/ 560:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -7767,19 +8084,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 558:
+/***/ 561:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(559)
+  __webpack_require__(562)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(561)
+var __vue_script__ = __webpack_require__(564)
 /* template */
-var __vue_template__ = __webpack_require__(565)
+var __vue_template__ = __webpack_require__(568)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -7819,13 +8136,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 559:
+/***/ 562:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(560);
+var content = __webpack_require__(563);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7846,7 +8163,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 560:
+/***/ 563:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -7861,14 +8178,14 @@ exports.push([module.i, "\n.card[data-v-cbeeccf8] {\n\tflex-direction: unset;\n\
 
 /***/ }),
 
-/***/ 561:
+/***/ 564:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue__ = __webpack_require__(562);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue__ = __webpack_require__(565);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Rank_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7957,15 +8274,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 562:
+/***/ 565:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(563)
+var __vue_script__ = __webpack_require__(566)
 /* template */
-var __vue_template__ = __webpack_require__(564)
+var __vue_template__ = __webpack_require__(567)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -8005,7 +8322,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 563:
+/***/ 566:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8107,7 +8424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 564:
+/***/ 567:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -8190,7 +8507,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 565:
+/***/ 568:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -8288,7 +8605,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 566:
+/***/ 569:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -9135,6 +9452,8 @@ var render = function() {
               _vm._v(" "),
               _c("edit-subscription", { attrs: { member: _vm.member } }),
               _vm._v(" "),
+              _c("edit-region", { attrs: { member: _vm.member } }),
+              _vm._v(" "),
               _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
                 _c(
                   "div",
@@ -9178,7 +9497,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 567:
+/***/ 570:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -9324,7 +9643,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 568:
+/***/ 571:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -9418,7 +9737,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 569:
+/***/ 572:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9539,6 +9858,22 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             var subscriptionIndex = _.findIndex(state.members[memberIndex].subscription, ['id', ids.subscription_id]);
 
             state.members[memberIndex].subscription.splice(subscriptionIndex, 1);
+        },
+        add_region: function add_region(state, dataRegion) {
+
+            var memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
+
+            state.members[memberIndex].region.push({
+                id: dataRegion.region_id,
+                name: dataRegion.name
+            });
+        },
+        delete_region: function delete_region(state, dataRegion) {
+
+            var memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
+            var regionIndex = _.findIndex(state.members[memberIndex].region, ['id', dataRegion.region_id]);
+
+            state.members[memberIndex].region.splice(regionIndex, 1);
         }
     },
 
@@ -9652,7 +9987,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     resolve(data);
                 }).catch(function (errors) {
 
-                    reject(errors.resolve.data);
+                    reject(errors.response.data);
                 });
             });
         },
@@ -9670,8 +10005,37 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        update_member: function update_member(_ref11, member) {
+        add_region: function add_region(_ref11, dataRegion) {
             var commit = _ref11.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/class_region', dataRegion).then(function (response) {
+
+                    commit('add_region', dataRegion);
+
+                    resolve(dataRegion);
+                }).catch(function (errors) {
+
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_region: function destroy_region(_ref12, dataRegion) {
+            var commit = _ref12.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('delete/class_region', dataRegion).then(function (response) {
+                    commit('delete_region', dataRegion);
+                    resolve();
+                });
+            });
+        },
+        update_member: function update_member(_ref13, member) {
+            var commit = _ref13.commit;
 
 
             return new Promise(function (resolve, reject) {
@@ -9686,8 +10050,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 });
             });
         },
-        destroy_member: function destroy_member(_ref12, ids) {
-            var commit = _ref12.commit;
+        destroy_member: function destroy_member(_ref14, ids) {
+            var commit = _ref14.commit;
 
 
             return new Promise(function (resolve, reject) {

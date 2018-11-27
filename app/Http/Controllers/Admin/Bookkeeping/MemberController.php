@@ -164,6 +164,25 @@ class MemberController extends Controller
         $member->rank()->detach($request->rank_id);
     }
 
+    //-----------------------------//
+    //          REGION             //
+    //-----------------------------//
+    public function addClassRegion(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->region()->attach($request->region_id);
+
+    }
+
+    public function deleteClassRegion(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $member->region()->detach($request->rank_id);
+
+    }
+
      //-----------------------------//
     //          Subscription       //
     //-----------------------------//

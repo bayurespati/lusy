@@ -468,6 +468,9 @@ Route::group([
         Route::post('/add/subscription', 'MemberController@addSubscription');
         Route::delete('/delete/subscription/{subscription}', 'MemberController@deleteSubscription');
 
+        Route::post('/add/class_region', 'MemberController@addClassRegion');
+        Route::patch('/delete/class_region', 'MemberController@deleteClassRegion');
+
         /*
         |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   R E G I O N

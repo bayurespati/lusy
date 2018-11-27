@@ -123,6 +123,25 @@ export const store = new Vuex.Store({
 
             state.members[memberIndex].subscription.splice(subscriptionIndex, 1);
 
+        },
+
+        add_region(state, dataRegion){
+
+            const memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
+
+            state.members[memberIndex].region.push({
+                id: dataRegion.region_id,
+                name: dataRegion.name
+            })
+        },
+
+        delete_region(state, dataRegion){
+
+            const memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
+            const regionIndex = _.findIndex(state.members[memberIndex].region, ['id', dataRegion.region_id]);
+
+            state.members[memberIndex].region.splice(regionIndex, 1);
+
         }
     },
 
@@ -235,7 +254,7 @@ export const store = new Vuex.Store({
                     })
                     .catch(errors => {
 
-                        reject(errors.resolve.data);
+                        reject(errors.response.data);
                     })
             })
         },
@@ -249,6 +268,36 @@ export const store = new Vuex.Store({
                 axios.delete('delete/subscription/'+ids.subscription_id)
                     .then((response) => {
                         commit('delete_subscription', ids);
+                        resolve();
+                    });
+            })
+        },
+
+        add_region({commit}, dataRegion){
+
+            return new Promise((resolve, reject) => {
+
+                axios.post('add/class_region', dataRegion)
+                    .then(response => {
+
+                        commit('add_region', dataRegion)
+
+                        resolve(dataRegion);
+                    })
+                    .catch(errors => {
+
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+        destroy_region({commit}, dataRegion){
+
+            return new Promise((resolve, reject) => {
+
+                axios.patch('delete/class_region', dataRegion)
+                    .then((response) => {
+                        commit('delete_region', dataRegion);
                         resolve();
                     });
             })

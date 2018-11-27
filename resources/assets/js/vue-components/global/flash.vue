@@ -22,7 +22,7 @@
                      class="alert alert-contrast alert-position"
                      :class="notification.alertClass"
                      :style="getBottomPosition(index)"
-                     key="notification.id">
+                     :key="index">
 
 
                     <!--=========================================================================================
@@ -68,6 +68,10 @@
         computed: {
             notificationExists(){
                 return this.notifications.length > 0
+            },
+
+            time(){
+                return _.now();
             }
         },
 

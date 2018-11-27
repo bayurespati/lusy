@@ -225,6 +225,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         notificationExists: function notificationExists() {
             return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
         }
     },
 
@@ -401,7 +404,7 @@ var render = function() {
                   return _c(
                     "div",
                     {
-                      key: "notification.id",
+                      key: index,
                       staticClass: "alert alert-contrast alert-position",
                       class: notification.alertClass,
                       style: _vm.getBottomPosition(index)
