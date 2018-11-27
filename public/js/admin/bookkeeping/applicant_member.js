@@ -2780,7 +2780,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 var updatedMember = {
                     id: this.detail.id,
-                    is_approve: !this.detail.is_approve
+                    is_approve: !this.detail.is_approve,
+                    class_id: self.detail.class_id
                 };
 
                 this.$store.dispatch('update_member', updatedMember).then(function (updatedMember) {
@@ -3497,7 +3498,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
                 axios.patch('update/applicant-member/' + updatedItem.id, {
                     id: updatedItem.id,
-                    is_approve: updatedItem.is_approve
+                    is_approve: updatedItem.is_approve,
+                    class_id: updatedItem.class_id
                 }).then(function (response) {
                     commit('delete_member', updatedItem);
 

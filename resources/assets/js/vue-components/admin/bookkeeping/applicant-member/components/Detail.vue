@@ -181,6 +181,7 @@
                     const updatedMember = {
                         id: this.detail.id,
                         is_approve: !this.detail.is_approve,
+                        class_id: self.detail.class_id
                     };
 
                     this.$store.dispatch('update_member', updatedMember)                        

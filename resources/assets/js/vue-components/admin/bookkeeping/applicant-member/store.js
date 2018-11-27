@@ -53,6 +53,7 @@ export const store = new Vuex.Store({
                 axios.patch('update/applicant-member/' + updatedItem.id, {
                     id: updatedItem.id,
                     is_approve: updatedItem.is_approve,
+                    class_id: updatedItem.class_id
                 })
                     .then(response => {
                         commit('delete_member', updatedItem);

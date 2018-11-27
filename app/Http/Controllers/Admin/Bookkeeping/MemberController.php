@@ -242,8 +242,7 @@ class MemberController extends Controller
 
     public function update(Request $request, Member $member){
 
-    	$member->is_approve = $request->is_approve;
-    	$member->update();
+        $member->class()->updateExistingPivot($request->class_id, ['is_approve' => $request->is_approve]);
 
     }
 
@@ -255,7 +254,7 @@ class MemberController extends Controller
             $member->class()->detach($class->id);
         }else{
             $member->class()->detach($class->id);
-            
+
             $member->delete();
         }
     }
