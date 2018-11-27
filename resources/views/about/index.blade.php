@@ -124,82 +124,27 @@
             <!-- Portfolio Section -->
             <div class="container-fluid no-padding">
                 <div class="row achievement-view">
+                    @foreach($achievements as $achievement)
                     <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
                         <div class="achievement-border">
                             <div class="achievement-content">
                                 <div class="icon">
                                     <span>
-                                        <i class="fa fa-users"></i>
+                                        <i class="{{ $achievement['logo'] }}"></i>
                                     </span>
                                 </div>
 
                                 <div class="value">
-                                    <span>78</span>
+                                    <span>{{ $achievement['value'] }}</span>
                                 </div>
 
                                 <div class="title">
-                                    <span>Students</span>
+                                    <span>{{ $achievement['title'] }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
-                        <div class="achievement-border">
-                            <div class="achievement-content">
-                                <div class="icon">
-                                    <span>
-                                        <i class="fa fa-users"></i>
-                                    </span>
-                                </div>
-
-                                <div class="value">
-                                    <span>78</span>
-                                </div>
-
-                                <div class="title">
-                                    <span>Students</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
-                        <div class="achievement-border">
-                            <div class="achievement-content">
-                                <div class="icon">
-                                    <span>
-                                        <i class="fa fa-users"></i>
-                                    </span>
-                                </div>
-
-                                <div class="value">
-                                    <span>78</span>
-                                </div>
-
-                                <div class="title">
-                                    <span>Students</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
-                        <div class="achievement-border">
-                            <div class="achievement-content">
-                                <div class="icon">
-                                    <span>
-                                        <i class="fa fa-users"></i>
-                                    </span>
-                                </div>
-
-                                <div class="value">
-                                    <span>78</span>
-                                </div>
-
-                                <div class="title">
-                                    <span>Students</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Portfolio Section /- -->
