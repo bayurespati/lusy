@@ -149,6 +149,10 @@ class MemberController extends Controller
         $member->update();
     }
 
+    public function deleteMember(Member $member){
+        $member->delete();
+    }
+
     //-----------------------------//
     //          RANK               //
     //-----------------------------//

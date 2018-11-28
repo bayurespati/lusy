@@ -460,6 +460,7 @@ Route::group([
         Route::get('/data/region', 'MemberController@loadClassRegion');
         Route::post('/add/member', 'MemberController@addMember');
         Route::patch('/update/member/{member}', 'MemberController@updateMember');
+        Route::delete('/delete/member/{member}', 'MemberController@deleteMember');
 
         Route::post('/add/rank', 'MemberController@addRank');
         Route::patch('/delete/rank', 'MemberController@deleteRank');

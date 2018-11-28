@@ -228,16 +228,14 @@ export const store = new Vuex.Store({
                     .catch(errors => {
                         reject(errors.response.data);
                     })
-
             })
-
         },
 
         destroy_member({commit}, ids) {
 
             return new Promise((resolve, reject) => {
 
-                axios.delete('delete/applicant-member/'+ids.memberId)
+                axios.delete('delete/member/'+ids)
                     .then((response) => {
                         commit('delete_member', ids);
                         resolve();

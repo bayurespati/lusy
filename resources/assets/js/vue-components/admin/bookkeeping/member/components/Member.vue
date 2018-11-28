@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-center align-items-center">
+                    <div class="col-3 d-flex justify-content-start align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0">
                                 <strong>Phone</strong>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-center align-items-center">
+                    <div class="col-3 d-flex justify-content-start align-items-center">
                         <div>
                             <p class="small text-uppercase mb-0">
                                 <strong>Email</strong>
@@ -58,7 +58,7 @@
 
                         <button type="button" 
                                 class="btn btn-sm btn-danger ml-2"
-                                @click="">delete</button>
+                                @click="deleteMember()">delete</button>
 
                     </div>
 
@@ -126,6 +126,25 @@
                         self.isRequesting = false;
                     })
                 }
+            },
+
+            deleteMember(){
+
+                const self = this;
+
+                if(!self.isRequesting){
+
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_member',self.member.id)
+                        .then(() => {
+
+                            flash('Member has been deleted', 'danger');
+
+                            self.isRequesting = false
+                        })
+                }
+
             }
         }
     };

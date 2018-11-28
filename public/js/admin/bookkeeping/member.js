@@ -7178,6 +7178,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     self.isRequesting = false;
                 });
             }
+        },
+        deleteMember: function deleteMember() {
+
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_member', self.member.id).then(function () {
+
+                    flash('Member has been deleted', 'danger');
+
+                    self.isRequesting = false;
+                });
+            }
         }
     }
 });
@@ -10096,7 +10112,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-3 d-flex justify-content-center align-items-center"
+                    "col-3 d-flex justify-content-start align-items-center"
                 },
                 [
                   _c("div", [
@@ -10117,7 +10133,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-3 d-flex justify-content-center align-items-center"
+                    "col-3 d-flex justify-content-start align-items-center"
                 },
                 [
                   _c("div", [
@@ -10200,7 +10216,11 @@ var render = function() {
                     {
                       staticClass: "btn btn-sm btn-danger ml-2",
                       attrs: { type: "button" },
-                      on: { click: function($event) {} }
+                      on: {
+                        click: function($event) {
+                          _vm.deleteMember()
+                        }
+                      }
                     },
                     [_vm._v("delete")]
                   )
@@ -10570,7 +10590,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
             return new Promise(function (resolve, reject) {
 
-                axios.delete('delete/applicant-member/' + ids.memberId).then(function (response) {
+                axios.delete('delete/member/' + ids).then(function (response) {
                     commit('delete_member', ids);
                     resolve();
                 });
