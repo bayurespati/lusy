@@ -1,51 +1,36 @@
 <template>
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
-    <div class="card mt-5">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_image">
+            <div class="panel-body">
+                <div class="mt-4">
+                    <div :id=" 'croppie-config-'+imageConfig.id "></div>
 
-        <!--=========================================================================================
-            S H O W   C R O P P I E
-            =========================================================================================-->
-        <div :id=" 'croppie-config-'+imageConfig.id "></div>
+                    <div class="panel panel-transparent p-1 pb-4" style="text-align: center;">
+                        <input type="file"
+                        accept="image/*"
+                        id="file-2"
+                        class="inputfile"
+                        @change="setUpFileUploader">
 
+                        <label for="file-2" class="btn btn-outline-primary m-0">
+                            <span>Browse image</span>
+                        </label>
 
-        <!--=========================================================================================
-            I N P U T   I M A G E
-            =========================================================================================-->
-        <div class="panel panel-transparent p-1 pb-4" style="text-align: center;">
-            <input type="file"
-                   accept="image/*"
-                   id="file-2"
-                   class="inputfile"
-                   @change="setUpFileUploader">
+                        <button type="button" role="button"
+                        class="btn btn-success ml-3"
+                        @click="editImage">
+                            Save
+                        </button>
 
-            <label for="file-2" class="btn btn-outline-primary m-0">
-                <span>Browse image</span>
-            </label>
-
-            <!--=========================================================================================
-                B U T T O N   S A V E                =========================================================================================-->
-            <button type="button" role="button"
-                    class="btn btn-success ml-3"
-                    @click="editImage">
-                    Save
-            </button>
-
-            <!--=========================================================================================
-                B U T T O N   C A N C E L
-                =========================================================================================-->
-            <button class="btn btn-danger"
-                    type="button" role="button"
-                    @click="closeEditForm"> 
-                    Cancel
-            </button>
+                        <button class="btn btn-danger"
+                        type="button" role="button"
+                        @click="closeEditForm"> 
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!--=========================================================================================
-            A C T I O N   B U T T O N
-            =========================================================================================-->
-        <div class="panel panel-transparent">
-        </div>
-    </div>
     </transition>
 </template>
 
