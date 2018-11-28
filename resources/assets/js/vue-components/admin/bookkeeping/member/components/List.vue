@@ -18,6 +18,50 @@
       </template>
     </transition>
 
+    <div class="row mt-4">
+      <div class="col-12 btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary btn-full-width active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Active Members
+        </label>
+        <label class="btn btn-secondary btn-full-width">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Inactive Members
+        </label>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <select class="form-control" id="sel1">
+          <option>Change the order based on..</option>
+          <option>Subscription Payment</option>
+          <option>Gender</option>
+          <option>Join Date</option>
+          <option>Current Rank</option>
+          <option>Place & Date of Birth</option>
+          <option>Address</option>
+          <option>Telephone</option>
+          <option>Mobile Phone</option>
+          <option>Fax</option>
+          <option>Email</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 form-group">
+        <select class="form-control" id="sel1">
+          <option>Choose year..</option>
+          <option>2018</option>
+          <option>2017</option>
+          <option>2016</option>
+          <option>2015</option>
+          <option>2014</option>
+          <option>2013</option>
+          <option>2012</option>
+        </select>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
@@ -58,6 +102,18 @@
 </script>
 
 <style scoped>
+  select {
+    text-align: center;
+    text-align-last: center;
+    font-weight: bold;
+    /* webkit*/
+  }
+
+  .btn-full-width {
+    display: inline-block;
+    width: 100%;
+  }
+
   .slide-enter {
       opacity: 0;
   }
