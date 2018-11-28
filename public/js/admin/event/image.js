@@ -2780,12 +2780,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 });
             }
 
-<<<<<<< HEAD
-            if (this.image == null || this.image == '') {
-                this.croppie.bind({
-                    url: '/img/events1.jpg'
-                });
-=======
             if (this.image === null || this.image === '') {
                 if (this.isWide) {
                     this.croppie.bind({
@@ -2796,7 +2790,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                         url: '/img/portfolio-2.jpg'
                     });
                 }
->>>>>>> ari
             } else {
                 this.croppie.bind({
                     url: this.image
@@ -3612,12 +3605,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     title: this.imageItem.title,
                     description: this.imageItem.description,
                     image: this.imageItem.image_path,
-<<<<<<< HEAD
-                    is_poster: isBool
-=======
-                    is_poster: !this.imageItem.is_poster,
+                    is_poster: isBool,
                     isWide: this.imageItem.is_wide
->>>>>>> ari
                 };
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
@@ -3967,12 +3956,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-<<<<<<< HEAD
-            if (this.input.image == null || this.input.image == '') {
-                this.croppie.bind({
-                    url: '/img/events1.jpg'
-                });
-=======
             if (this.input.image === null || this.input.image === '') {
                 if (this.isWide) {
                     this.croppie.bind({
@@ -3983,7 +3966,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         url: '/img/portfolio-2.jpg'
                     });
                 }
->>>>>>> ari
             } else {
                 this.croppie.bind({
                     url: this.input.image
@@ -4025,14 +4007,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     id: this.imageItem.id,
                     title: this.input.title,
                     description: this.input.description,
-<<<<<<< HEAD
-                    image: this.input.image == this.imageItem.image_path ? this.input.image : this.save_image,
-                    is_poster: this.imageItem.is_poster
-=======
+
                     image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
                     is_poster: this.imageItem.is_poster,
                     isWide: this.isWide
->>>>>>> ari
                 };
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {

@@ -16131,12 +16131,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                 });
             }
 
-<<<<<<< HEAD
-            if (this.image == null || this.image == '') {
-                this.croppie.bind({
-                    url: '/img/portfolio-2.jpg'
-                });
-=======
             if (this.image === null || this.image === '') {
                 if (this.isWide) {
                     this.croppie.bind({
@@ -16147,7 +16141,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                         url: '/img/portfolio-2.jpg'
                     });
                 }
->>>>>>> ari
             } else {
                 this.croppie.bind({
                     url: this.image
