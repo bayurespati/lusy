@@ -5554,6 +5554,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5563,6 +5572,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
+		var _input;
+
 		return {
 			isHasClass: false,
 			isRequesting: false,
@@ -5575,7 +5586,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			region: '',
 			classData: [],
 			classItem: '',
-			input: _defineProperty({
+			input: (_input = {
 				name: '',
 				gender: '',
 				place_of_birth: '',
@@ -5586,7 +5597,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				mobile: '',
 				fax: '',
 				teacher_id: ''
-			}, 'gender', '1')
+			}, _defineProperty(_input, 'gender', '1'), _defineProperty(_input, 'is_teacher', '0'), _defineProperty(_input, 'is_active', '1'), _input)
 		};
 	},
 	mounted: function mounted() {
@@ -5616,9 +5627,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
 			},
 			telephone: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			},
-			teacher_id: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 			}
 		},
@@ -5779,7 +5787,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			this.$v.input.date_of_birth.$touch();
 			this.$v.input.email.$touch();
 			this.$v.input.telephone.$touch();
-			this.$v.input.teacher_id.$touch();
 			this.$v.classData.$touch();
 		},
 		closeAddMember: function closeAddMember() {
@@ -6308,93 +6315,54 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-md-12 d-flex" }, [
           _c("div", { staticClass: "col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.teacher_id,
-                        expression: "input.teacher_id"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "form-control-danger": _vm.$v.input.teacher_id.$error
-                    },
-                    attrs: { id: "category" },
-                    on: {
-                      input: function($event) {
-                        _vm.$v.input.teacher_id.$touch()
-                      },
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.input,
-                          "teacher_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.input.teacher_id,
+                      expression: "input.teacher_id"
                     }
-                  },
-                  [
-                    _c("option", { attrs: { value: "", disabled: "" } }, [
-                      _vm._v("Choose Teacher")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.members, function(member) {
-                      return _c("option", { domProps: { value: member.id } }, [
-                        _vm._v(_vm._s(member.name) + "\n\t\t\t\t\t\t\t\t")
-                      ])
-                    })
                   ],
-                  2
-                ),
-                _vm._v(" "),
-                _c(
-                  "transition",
-                  {
-                    attrs: {
-                      enterActiveClass: "fade-in",
-                      leaveActiveClass: "fade-out",
-                      mode: "out-in"
+                  staticClass: "form-control",
+                  attrs: { id: "category" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.input,
+                        "teacher_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     }
-                  },
-                  [
-                    !_vm.$v.input.teacher_id.required &&
-                    _vm.$v.input.teacher_id.$dirty
-                      ? _c(
-                          "span",
-                          {
-                            key: "teacher_id-required",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tClass is required\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ]
-                )
-              ],
-              1
-            )
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "", disabled: "" } }, [
+                    _vm._v("Choose Teacher")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.members, function(member) {
+                    return _c("option", { domProps: { value: member.id } }, [
+                      _vm._v(_vm._s(member.name) + "\n\t\t\t\t\t\t\t\t")
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
@@ -6420,6 +6388,100 @@ var render = function() {
               1
             )
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12 d-flex" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.is_teacher,
+                    expression: "input.is_teacher"
+                  }
+                ],
+                attrs: {
+                  type: "radio",
+                  name: "member_teacher-add",
+                  value: "0"
+                },
+                domProps: { checked: _vm._q(_vm.input.is_teacher, "0") },
+                on: {
+                  change: function($event) {
+                    _vm.$set(_vm.input, "is_teacher", "0")
+                  }
+                }
+              }),
+              _vm._v(" Student\n\t\t\t\t\t\t\t"),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.is_teacher,
+                    expression: "input.is_teacher"
+                  }
+                ],
+                staticClass: "ml-2",
+                attrs: {
+                  type: "radio",
+                  name: "member_teacher-add",
+                  value: "1"
+                },
+                domProps: { checked: _vm._q(_vm.input.is_teacher, "1") },
+                on: {
+                  change: function($event) {
+                    _vm.$set(_vm.input, "is_teacher", "1")
+                  }
+                }
+              }),
+              _vm._v(" Teacher\n\t\t\t\t\t\t")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.is_active,
+                    expression: "input.is_active"
+                  }
+                ],
+                attrs: { type: "radio", name: "member-starus-add", value: "1" },
+                domProps: { checked: _vm._q(_vm.input.is_active, "1") },
+                on: {
+                  change: function($event) {
+                    _vm.$set(_vm.input, "is_active", "1")
+                  }
+                }
+              }),
+              _vm._v(" Active\n\t\t\t\t\t\t\t"),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.is_active,
+                    expression: "input.is_active"
+                  }
+                ],
+                staticClass: "ml-2",
+                attrs: { type: "radio", name: "member-starus-add", value: "0" },
+                domProps: { checked: _vm._q(_vm.input.is_active, "0") },
+                on: {
+                  change: function($event) {
+                    _vm.$set(_vm.input, "is_active", "0")
+                  }
+                }
+              }),
+              _vm._v(" Not Active\n\t\t\t\t\t\t")
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -6428,56 +6490,6 @@ var render = function() {
         { staticClass: "card text-center" },
         [
           _vm._m(1),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12 d-flex" },
-            [
-              _vm._l(_vm.ranks, function(rank, index) {
-                return index == _vm.limit
-                  ? [
-                      _c("div", { staticClass: "col-md-4" }, [
-                        _c("p", [_vm._v(" " + _vm._s(rank.title) + " ")])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-4" },
-                        [
-                          _c("datetime", {
-                            attrs: { type: "date" },
-                            model: {
-                              value: _vm.temp_annointed_date,
-                              callback: function($$v) {
-                                _vm.temp_annointed_date = $$v
-                              },
-                              expression: "temp_annointed_date"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-sm",
-                            on: {
-                              click: function($event) {
-                                _vm.add_rank(index)
-                              }
-                            }
-                          },
-                          [_vm._v("Add")]
-                        )
-                      ])
-                    ]
-                  : _vm._e()
-              })
-            ],
-            2
-          ),
           _vm._v(" "),
           _c(
             "transition-group",
@@ -6528,6 +6540,56 @@ var render = function() {
                 ]
               )
             })
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-12 d-flex" },
+            [
+              _vm._l(_vm.ranks, function(rank, index) {
+                return index == _vm.limit
+                  ? [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("p", [_vm._v(" " + _vm._s(rank.title) + " ")])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-md-4" },
+                        [
+                          _c("datetime", {
+                            attrs: { type: "date" },
+                            model: {
+                              value: _vm.temp_annointed_date,
+                              callback: function($$v) {
+                                _vm.temp_annointed_date = $$v
+                              },
+                              expression: "temp_annointed_date"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-sm",
+                            on: {
+                              click: function($event) {
+                                _vm.add_rank(index)
+                              }
+                            }
+                          },
+                          [_vm._v("Add")]
+                        )
+                      ])
+                    ]
+                  : _vm._e()
+              })
+            ],
+            2
           )
         ],
         1

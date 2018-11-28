@@ -28,6 +28,7 @@ class CreateMembersTable extends Migration
             $table->integer('teacher_id')->unsigned()->nullable();
             $table->dateTime('join_date')->nullable();
             $table->boolean('is_active');
+            $table->boolean('is_teacher');
 
             $table->timestamps();
         });

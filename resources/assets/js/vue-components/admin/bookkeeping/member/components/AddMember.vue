@@ -167,24 +167,12 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<select class="form-control" id="category" 
-							@input="$v.input.teacher_id.$touch()"
-							:class="{'form-control-danger': $v.input.teacher_id.$error}"
-							v-model="input.teacher_id">
+									v-model="input.teacher_id">
 								<option value="" disabled="">Choose Teacher</option>
 								<option v-for="member in members" 
 										:value=member.id>{{ member.name }}
 								</option>
 							</select>
-
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="teacher_id-required" class="text-danger" 
-                            	v-if="!$v.input.teacher_id.required && $v.input.teacher_id.$dirty">
-                            		Class is required
-                        		</span>
-                    		</transition>
 						</div>
 					</div>
 
@@ -197,10 +185,44 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="col-md-12 d-flex">
+					<div class="col-md-6">
+						<div class="form-group text-center mb-3">
+							<input type="radio" name="member_teacher-add"  
+								   value=0 v-model="input.is_teacher"> Student
+							<input type="radio" name="member_teacher-add"  
+							       value=1 v-model="input.is_teacher" class="ml-2"> Teacher
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group text-center mb-3">
+							<input type="radio" name="member-starus-add"  
+								   value=1 v-model="input.is_active"> Active
+							<input type="radio" name="member-starus-add"  
+							       value=0 v-model="input.is_active" class="ml-2"> Not Active
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="card text-center">
 				<div class="col-md-12"><h4 class="title mb-5">Ranks</h4></div>
+
+				<transition-group name="slide">
+					<div class="col-md-12 d-flex" v-for="(rank, index) in rankData" :key="index">
+						<div class="col-md-5">
+							<p> {{rank.title}}  </p>
+						</div>
+						<div class="col-md-5">
+							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
+						</div>
+						<div class="col-md-2" v-if="index == (limit - 1)">
+							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
+						</div>
+					</div>
+				</transition-group>
 
 				<div class="col-md-12 d-flex">
 					<template v-for="(rank, index) in ranks" v-if="index == limit">
@@ -215,19 +237,6 @@
 						</div>
 					</template>
 				</div>
-				<transition-group name="slide">
-					<div class="col-md-12 d-flex" v-for="(rank, index) in rankData" :key="index">
-						<div class="col-md-5">
-							<p> {{rank.title}}  </p>
-						</div>
-						<div class="col-md-5">
-							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
-						</div>
-						<div class="col-md-2" v-if="index == (limit - 1)">
-							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
-						</div>
-					</div>
-				</transition-group>
 			</div>
 
 			<div class="card text-center">
@@ -390,7 +399,9 @@
 					mobile: '',
 					fax: '',
 					teacher_id: '',
-					gender: '1'
+					gender: '1',
+					is_teacher: '0',
+					is_active: '1'
 				}
 			}
 		},
@@ -422,9 +433,6 @@
                 },
                 telephone:{
                 	required,
-                },
-                teacher_id:{
-                	required
                 }
             },
             tempName:{
@@ -610,7 +618,6 @@
                 this.$v.input.date_of_birth.$touch();
                 this.$v.input.email.$touch();
                 this.$v.input.telephone.$touch();
-                this.$v.input.teacher_id.$touch();
                 this.$v.classData.$touch();
 			},
 

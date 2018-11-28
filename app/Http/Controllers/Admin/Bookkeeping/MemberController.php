@@ -97,7 +97,8 @@ class MemberController extends Controller
             $member->gender = $request->personal['gender'];
             $member->place_of_birth = $request->personal['place_of_birth'];
             $member->date_of_birth = substr($request->personal['date_of_birth'],0,10);
-            $member->is_active = false;
+            $member->is_active = $request->personal['is_active'];;
+            $member->is_teacher = $request->personal['is_teacher'];;
             $member->teacher_id = $request->personal['teacher_id'];
             $member->email = $request->personal['email'];
             $member->telephone = $request->personal['telephone'];
