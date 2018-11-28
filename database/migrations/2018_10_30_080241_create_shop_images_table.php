@@ -19,6 +19,7 @@ class CreateShopImagesTable extends Migration
             $table->string('image_path');
             $table->string('title');
             $table->boolean('is_poster');
+            $table->boolean('is_wide');
             $table->timestamps();
 
             $table->foreign('shop_item_id')->references('id')->on('shop_items')->onDelete('cascade');

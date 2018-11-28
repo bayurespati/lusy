@@ -153,7 +153,9 @@
                         title: this.imageItem.title,
                         description: this.imageItem.description,
                         image: this.imageItem.image_path,
+
                         is_poster: isBool
+                        isWide: this.imageItem.is_wide
                     };
 
                     this.$store.dispatch('update_image', updatedImage)

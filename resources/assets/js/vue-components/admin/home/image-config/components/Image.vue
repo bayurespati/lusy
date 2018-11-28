@@ -10,7 +10,7 @@
                     <!--=========================================================================================
                         I M A G E
                         =========================================================================================-->
-                    <div class="col-md-4">
+                    <div class="col-md-5 d-flex align-items-center">
                         <img :src=imageConfig.image_path alt="image">
                     </div>
 
@@ -18,11 +18,11 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col-md-4 d-flex align-items-center">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
                         <span>
-                            <p class="small text-uppercase mb-0"><strong>Page Name</strong></p>
+                            <p class="small text-uppercase text-center mb-0"><strong>Page</strong></p>
 
-                            <div class="detail">
+                            <div class="detail text-center">
                                 <p class="mb-0">{{ imageConfig.page_name }}</p>
                             </div>
                         </span>
@@ -32,7 +32,7 @@
                     <!--=========================================================================================
                         B U T T O N   A C T I O N
                         =========================================================================================-->
-                    <div class="col-md-3 d-flex align-items-center justify-content-end">
+                    <div class="col-md-1 d-flex align-items-center justify-content-end">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
                                 @click="isEditingImage = !isEditingImage">Edit</button>

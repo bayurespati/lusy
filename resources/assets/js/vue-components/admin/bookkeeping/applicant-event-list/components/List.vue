@@ -2,10 +2,10 @@
   <div class="container">
     <h3>Applicants of {{ event.title }}</h3>
     <p class="mb-0">
-      Here is where you can approve or reject applicants of {{ event.title }}
+      Here is where you can <strong>approve</strong> or <strong>reject</strong> applicants of <strong>{{ event.title }}</strong>
     </p>
     <p class="mb-5">
-      People you approved will have its status changed, but rejected people are automatically deleted from the list
+      People you <strong>approved</strong> will have its <strong>status changed</strong>, but <strong>rejected</strong> people are <strong>automatically deleted</strong> from the list.
     </p>
 
     <ul class="breadcrumb">

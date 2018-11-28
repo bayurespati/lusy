@@ -36,6 +36,42 @@
         height: 500px;
         background: white;
     }
+
+    #search-message {
+        color: lightgrey;
+    }
+
+    #search-message strong {
+        color: darkgrey;
+    }
+
+    .event-block .event-content {
+        padding: 22px 25px 61px;
+    }
+
+    .event-block .event-content h3 {
+        font-size: 24px;
+        line-height: 30px;
+        padding-right: 60px;
+    }
+
+    .event-block .event-content .organiser-by {
+        color: #e2b13c;
+    }
+
+    .event-block .event-content h4 a i {
+        position: absolute;
+        left: 26px;
+    }
+
+    .event-block .event-content h4 a {
+        padding-left: 22px;
+    }
+
+    .event-block .event-content h4 {
+        padding-right: 54px;
+        text-transform: unset;
+    }
 </style>
 @endpush
 
@@ -72,7 +108,7 @@
             <div class="section-padding"></div>
 
             @if($isEventsExist)
-            <div id="menu-container" class="container" style="padding-bottom: 7.5rem">
+            <div id="menu-container" class="container">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
                         <li class="text-uppercase">
@@ -97,7 +133,7 @@
                         <li class="text-uppercase">
                             <a class="active" 
                             id="all-option" 
-                            onclick="getAll()" 
+                            onclick="toAll()" 
                             style="cursor: pointer;">
                                 ALL
                             </a>
@@ -115,8 +151,12 @@
                     </ul>
                 </div>
             </div>
+
+            <div id="search-message-wrapper">
+                <h4 id="search-message" class="text-center fade-in"></h4>
+            </div>
             
-            <div class="container-fluid no-padding events-listing">
+            <div class="container-fluid no-padding events-listing mt-6">
                 <!-- Container -->
                 <div class="container">
                     <div id="event-content" class="row">
@@ -136,8 +176,15 @@
                                         <span>{{ $event->dayDate }}</span>
                                         <span>{{ $event->month }}</span>
                                     </div>
-                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
-                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                    <h3 class="mb-0">
+                                        <a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a>
+                                    </h3>
+                                    <h4 class="organiser">
+                                        <a class="p-0" href="/event/single/{{ $event->id }}">
+                                            <span class="organiser-by">by</span> {{ $event->organiser }}
+                                        </a>
+                                    </h4>
+                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a href="{{ $event->id }}" class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
                                     <p>
                                         {!! nl2br(e($event->content)) !!}
                                     </p>
@@ -222,6 +269,20 @@
     let loadedEventType = 'all';
     let eventStatus = 'upcoming';
     let subcategoryIdTemp = 0;
+    let searchKey = '';
+    let subcategoryId = -1;
+    let subcategoryListOrder = -1;
+
+    function searchFunction(){
+        searchKey = document.getElementById("search-key").value.trim();
+
+        if(loadedEventType === 'all'){
+            getAll();
+        }
+        else {
+            getEvents();
+        }
+    }
 
     function changeStatus(newStatus){
         removeActiveClass(eventStatus + '-events');
@@ -231,11 +292,19 @@
 
         eventStatus = newStatus;
 
+        toAll();
+    }
+
+    function toAll(){
+        searchKey = '';
+
         getAll();
     }
 
     function getAll(){
         loadedEventType = 'all';
+        subcategoryId = -1;
+        subcategoryListOrder = -1;
 
         removeCategoriesActiveClass();
 
@@ -247,17 +316,28 @@
 
         cleanEvents();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0) {
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=1';
+        }
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareEvents(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
                     hideLoader();
                     subcategoryIdTemp = 0;
@@ -272,42 +352,55 @@
     function goToPage(pageNumber){
         cleanEvents();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(loadedEventType === 'all') {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber;
+            } 
+        }
+        else {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?page=' + pageNumber;
+            }
+        }
 
         showLoader();
 
-        if(loadedEventType === 'all'){
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareEvents(data);
-                        preparePagination(data);
+        $.ajax({
+            type: 'GET',
+            url: targetUrl,
+            dataType: 'JSON',
+            success: function (data) {
+                setTimeout(function(){
+                    prepareEvents(data);
+                    preparePagination(data);
+                    prepareSearchMessage(data);
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
-        else {
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareEvents(data);
-                        preparePagination(data);
+                    hideLoader();
+                }, 1000);
+            }
+        });
+    }
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
+    function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
+        subcategoryId = newSubcategoryId;
+        subcategoryListOrder = newSubcategoryListOrder;
+        searchKey = '';
+
+        getEvents();
     }
 
     function getSubcategories(categoryId, categoryListOrder){
+        searchKey = '';
         removeCategoriesActiveClass();
 
         var option = document.getElementById('category-' + categoryListOrder);
@@ -328,7 +421,8 @@
                 return i;
             }
         }
-    return -1;
+
+        return -1;
     }
 
     function removeActiveClass(className){
@@ -347,6 +441,8 @@
     function removeSubcategory() {
         // Removes an element from the document
         var subcategoriesMenu = document.getElementById('subcategories-menu');
+        subcategoriesMenu.setAttribute('class', 'col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories fade-out');
+
         subcategoriesMenu.parentNode.removeChild(subcategoriesMenu);
         submenuExist = false;
         subcategoryCount = 0;
@@ -368,7 +464,7 @@
         $.each(data, function (i, prop) {
             lists = lists + 
             '<li class="text-uppercase">' + 
-            '   <a id="subcategory-' + i + '" onclick="getEvents(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
+            '   <a id="subcategory-' + i + '" onclick="setSubcategoryIdAndListOrder(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
             '</li>';
 
             subcategoryCount++;
@@ -377,10 +473,9 @@
         unorderedList.innerHTML = lists;
         listWrapper.appendChild(unorderedList);
         submenuExist = true;
-
     }
 
-    function getEvents(subcategoryId, subcategoryListOrder) {
+    function getEvents() {
         loadedEventType = 'subcategory';
 
         if(subCategoryChosen){
@@ -393,21 +488,33 @@
 
         cleanEvents();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0){
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?page=1';
+        };
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareEvents(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
+
+                    subcategoryIdTemp = subcategoryId;
 
                     hideLoader();
-                    subcategoryIdTemp = subcategoryId;
-                });
+                }, 1000);
             }
         });
     }
@@ -452,6 +559,35 @@
         }, 100);
     }
 
+    function cleanSearchMessage(){
+        var searchMessage = document.getElementById('search-message');
+        searchMessage.setAttribute('class', 'text-center fade-out');
+
+        setTimeout(function(){
+            searchMessage.parentNode.removeChild(searchMessage);
+        }, 100);
+    }
+
+    function prepareSearchMessage(array){
+        var searchMessageWrapper = document.getElementById('search-message-wrapper');
+        var searchMessage = document.createElement('h4');
+        searchMessage.setAttribute('id', 'search-message');
+        searchMessage.setAttribute('class', 'text-center fade-in');
+
+        if(searchKey.length > 0){
+            searchMessage.innerHTML = array.total > 0 
+            ? 'displaying <strong>' + array.total + '</strong> results using the keyword of <strong>"' + searchKey + '"</strong>.'
+            : '';
+        }
+        else {
+            searchMessage.innerHTML = '';
+        }
+
+        setTimeout(function(){
+            searchMessageWrapper.appendChild(searchMessage);
+        }, 100);
+    }
+
     function prepareEvents(array){
         var parentOfEventGroup = document.getElementById('event-content');
         var eventGroup = document.createElement('div');
@@ -482,11 +618,12 @@
                 '       </h3>' +
                 '       <h4>' +
                 '           <a href="/event/single/' + event.id + '" title="London">' +
-                '               <i class="fa fa-map-marker"></i>' + event.location + 
+                '               <i class="fa fa-map-marker"></i>' + event.location + ', ' + event.address +
                 '           </a>' +
-                '           <a href="' + event.id + '">' +
+                '           <br>' +
+                '           <a class="mt-2" href="' + event.id + '">' +
                 '               <i class="fa fa-clock-o"></i>' + 
-                '               ' + event.day + ': ' + event.startHour + ' - ' + event.endHour +
+                '               ' + event.day + ': ' + event.startHour + ' - ' + event.endDay + ': ' + event.endHour +
                 '           </a>' +
                 '       </h4>' +
                 '       <p>' + nl2br(event.content) + '</p>' +
@@ -496,8 +633,11 @@
             }, eventContent);
         }
         else {
-            eventContent = eventContent + 
-            '<h3 class="text-center" style="color: lightgrey">*there are no events on this classification yet*</h3>';
+            eventContent = searchKey.length > 0
+            ? eventContent + 
+                '<h3 class="text-center" style="color: lightgrey">' + "we couldn't find anything for " + '<strong style="color: darkgrey">"' + searchKey + '"</strong>.</h3>'
+            : eventContent + eventContent + 
+                '<h3 class="text-center" style="color: lightgrey">*there are no events on this classification yet*</h3>';
         }
 
         eventGroup.innerHTML = eventContent;

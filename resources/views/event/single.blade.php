@@ -92,6 +92,10 @@
         height: 500px;
         background: white;
     }
+
+    .event-block .event-content h4 {
+        text-transform: unset;
+    }
 </style>
 @endpush
 
@@ -138,8 +142,11 @@
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 event-content">
                                     <div class="post-date"><span>{{ $event->dayDate }}</span><span>{{ $event->month }}</span></div>
-                                    <h1 class="mt-0">{{ $event->title }}</h1>
-                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <a><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                    <h1 class="mt-0 mb-0">{{ $event->title }}</h1>
+                                    <h4 class="mb-4">
+                                        <span style="color: #e2b13c">by</span> {{ $event->organiser }}
+                                    </h4>
+                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
                                     <p class="m-0" style="text-align: justify;">
                                         {!! nl2br(e($event->content)) !!}
                                     </p>
@@ -162,8 +169,12 @@
                 @if(count($event->images) > 0)
                 <div id="gallery-section" class="portfolio-section" style="padding-top: 40px">
                   <div id="gallery-container" class="portfolio-list zoom-in">
-                    @foreach($event->images as $photo)
+                    @foreach($sortedEvent as $photo)
+                    @if($photo->is_wide)
+                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                    @else
                     <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                    @endif
                       <a href="{{ $photo->image_path }}">
                         <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
 
@@ -339,9 +350,17 @@
 
         let galleryContent = '';
 
-        array.data.forEach(function(photo){
+        array[1].forEach(function(photo){
+            if(photo.is_wide){
+                galleryContent = galleryContent + 
+                '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">';
+            }
+            else {
+                galleryContent = galleryContent + 
+                '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">';
+            }
+
             galleryContent = galleryContent + 
-            '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
             '   <a href="' + photo.image_path + '">' +
             '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
             '       <div class="portfolio-content">' +
@@ -370,7 +389,7 @@
 
         let paginationContent = '';
 
-        if(data.current_page == 1) {
+        if(data[0].current_page == 1) {
             paginationContent = paginationContent + 
             '<li class="disabled">';
         } else {
@@ -384,21 +403,21 @@
         '       </a>' + 
         '   </li>';
 
-        for(let i = 1; i <= data.last_page; i++){
+        for(let i = 1; i <= data[0].last_page; i++){
             const halfTotalLinks = Math.floor(4/2);
-            let from = data.current_page - halfTotalLinks;
-            let to = data.current_page + halfTotalLinks;
+            let from = data[0].current_page - halfTotalLinks;
+            let to = data[0].current_page + halfTotalLinks;
 
-            if (data.current_page < halfTotalLinks) {
-                to += halfTotalLinks - data.current_page;
+            if (data[0].current_page < halfTotalLinks) {
+                to += halfTotalLinks - data[0].current_page;
             };
 
-            if (data.last_page - data.current_page < halfTotalLinks) {
-                from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+            if (data[0].last_page - data[0].current_page < halfTotalLinks) {
+                from -= halfTotalLinks - (data[0].last_page - data[0].current_page - 1);
             };
 
             if (from < i && i < to) {
-                if (data.current_page == i) {
+                if (data[0].current_page == i) {
                     paginationContent = paginationContent + 
                     '<li class="active">';
                 }
@@ -414,7 +433,7 @@
             }
         }
 
-        if(data.current_page == data.last_page) {
+        if(data[0].current_page == data[0].last_page) {
             paginationContent = paginationContent + 
             '<li class="disabled">';
         } else {
@@ -423,7 +442,7 @@
         }
 
         paginationContent = paginationContent + 
-        '   <a onClick="goToPage(' + data.last_page + ', ' + event.id + ')">' + 
+        '   <a onClick="goToPage(' + data[0].last_page + ', ' + event.id + ')">' + 
         '       <i class="fa fa-angle-double-right"></i>' + 
         '   </a>' + 
         '</li>';

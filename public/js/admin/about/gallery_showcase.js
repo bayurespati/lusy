@@ -663,7 +663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -1757,12 +1757,10 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h3", [_vm._v("Showcased Images")]),
     _vm._v(" "),
-    _c("p", { staticClass: "m-0" }, [
-      _vm._v("Here you can manages images shown in Home and About page.")
-    ]),
+    _vm._m(0),
     _vm._v(" "),
     _c("p", { staticClass: "mb-5" }, [
-      _vm._v("(Images shown are in the group of 4 or 8).")
+      _vm._v("(Images shown are in the group of 4 or 8)")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -1803,7 +1801,22 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "m-0" }, [
+      _vm._v("Here you can manages "),
+      _c("strong", [_vm._v("images")]),
+      _vm._v(" shown in "),
+      _c("strong", [_vm._v("Home")]),
+      _vm._v(" and "),
+      _c("strong", [_vm._v("About")]),
+      _vm._v(" pages.")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

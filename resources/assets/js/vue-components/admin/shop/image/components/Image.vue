@@ -141,7 +141,8 @@
                         id: this.imageItem.id,
                         title: this.imageItem.title,
                         image: this.imageItem.image_path,
-                        is_poster: !this.imageItem.is_poster
+                        is_poster: !this.imageItem.is_poster,
+                        isWide: this.imageItem.is_wide
                     };
 
                     this.$store.dispatch('update_image', updatedImage)

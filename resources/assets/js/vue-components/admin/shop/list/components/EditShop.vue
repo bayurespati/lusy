@@ -275,12 +275,12 @@
                 title: {
                     required,
                     minLength: minLength(3),
-                    maxLength: maxLength(50)
+                    maxLength: maxLength(100)
                 },
                 sub_title:{
                     required,
                     minLength: minLength(3),
-                    maxLength: maxLength(50)
+                    maxLength: maxLength(100)
                 },
                 store_link: {
                     minLength: minLength(5),
@@ -317,10 +317,10 @@
             isFormFilled(){
                 return this.input.title != ''
                     && this.input.title.length >= 3
-                    && this.input.title.length <= 50
+                    && this.input.title.length <= 100
                     && this.input.sub_title != ''
                     && this.input.sub_title.length >= 3
-                    && this.input.sub_title.length <= 50
+                    && this.input.sub_title.length <= 100
                     && this.input.stock != ''
                     && this.input.price != ''
                     && this.input.is_displayed != ''

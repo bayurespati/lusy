@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Event Applicants</h3>
     <p class="mb-5">
-      Here is where you can see every upcoming events shown in Events & Activites page
+      Here is where you can see every <strong>upcoming events</strong> shown in <strong>Events & Activites</strong> page
     </p>
 
     <div class="row">

@@ -677,7 +677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -2914,18 +2914,15 @@ var render = function() {
     _c("h3", [_vm._v("Applicants of " + _vm._s(_vm.event.title))]),
     _vm._v(" "),
     _c("p", { staticClass: "mb-0" }, [
-      _vm._v(
-        "\n    Here is where you can approve or reject applicants of " +
-          _vm._s(_vm.event.title) +
-          "\n  "
-      )
+      _vm._v("\n    Here is where you can "),
+      _c("strong", [_vm._v("approve")]),
+      _vm._v(" or "),
+      _c("strong", [_vm._v("reject")]),
+      _vm._v(" applicants of "),
+      _c("strong", [_vm._v(_vm._s(_vm.event.title))])
     ]),
     _vm._v(" "),
-    _c("p", { staticClass: "mb-5" }, [
-      _vm._v(
-        "\n    People you approved will have its status changed, but rejected people are automatically deleted from the list\n  "
-      )
-    ]),
+    _vm._m(0),
     _vm._v(" "),
     _c("ul", { staticClass: "breadcrumb" }, [
       _c("li", [
@@ -2972,7 +2969,24 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-5" }, [
+      _vm._v("\n    People you "),
+      _c("strong", [_vm._v("approved")]),
+      _vm._v(" will have its "),
+      _c("strong", [_vm._v("status changed")]),
+      _vm._v(", but "),
+      _c("strong", [_vm._v("rejected")]),
+      _vm._v(" people are "),
+      _c("strong", [_vm._v("automatically deleted")]),
+      _vm._v(" from the list.\n  ")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

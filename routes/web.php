@@ -124,7 +124,7 @@ Route::group([
 
     Route::get('/item/{shopItem}','ShopController@getItems');
 
-    Route::get('/item/{shopItem}','ShopController@getItems');
+    Route::get('/item/images/{shopItem}','ShopController@getImageItems');
 
     Route::get('/all','ShopController@getAll');
 

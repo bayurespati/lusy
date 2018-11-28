@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Shop's Item Master</h3>
     <p class="mb-5">
-      Here you can manage Items shown in Shop page.
+      Here you can manage <strong>items</strong> shown in <strong>Shop</strong> page.
     </p>
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddShop">

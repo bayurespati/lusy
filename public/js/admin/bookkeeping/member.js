@@ -640,7 +640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -8698,10 +8698,109 @@ if (false) {
 /***/ 564:
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(565)
+=======
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Member List")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "transition",
+        {
+          attrs: {
+            enterActiveClass: "fade-in",
+            leaveActiveClass: "fade-out",
+            mode: "out-in"
+          }
+        },
+        [
+          !_vm.isAddMember
+            ? [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            _vm.isAddMember = !_vm.isAddMember
+                          }
+                        }
+                      },
+                      [_vm._v("Add Member")]
+                    )
+                  ])
+                ])
+              ]
+            : [
+                _c("add-member", {
+                  on: {
+                    closeAddMember: function($event) {
+                      _vm.isAddMember = $event
+                    }
+                  }
+                })
+              ]
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c(
+              "transition-group",
+              { attrs: { name: "slide" } },
+              _vm._l(_vm.members, function(member) {
+                return _c("member", {
+                  key: member.id,
+                  attrs: { member: member }
+                })
+              })
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-3" }, [
+      _vm._v("\n    Here is where you can see list of "),
+      _c("strong", [_vm._v("members")]),
+      _vm._v(".\n  ")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-734642ed", module.exports)
+  }
+>>>>>>> ari
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
@@ -8843,6 +8942,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		};
 	},
 
+<<<<<<< HEAD
+=======
+                    // commit('add_new_member', dataMember);
+>>>>>>> ari
 
 	components: {
 		Item: __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default.a

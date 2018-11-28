@@ -559,7 +559,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -1605,21 +1605,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1768,55 +1753,74 @@ var render = function() {
       }
     },
     [
-      _c("div", { staticClass: "card mt-5" }, [
-        _c("div", { attrs: { id: "croppie-config-" + _vm.imageConfig.id } }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "panel panel-transparent p-1 pb-4",
-            staticStyle: { "text-align": "center" }
-          },
-          [
-            _c("input", {
-              staticClass: "inputfile",
-              attrs: { type: "file", accept: "image/*", id: "file-2" },
-              on: { change: _vm.setUpFileUploader }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "btn btn-outline-primary m-0",
-                attrs: { for: "file-2" }
-              },
-              [_c("span", [_vm._v("Browse image")])]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success ml-3",
-                attrs: { type: "button", role: "button" },
-                on: { click: _vm.editImage }
-              },
-              [_vm._v("\n                Save\n        ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                attrs: { type: "button", role: "button" },
-                on: { click: _vm.closeEditForm }
-              },
-              [_vm._v(" \n                Cancel\n        ")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "panel panel-transparent" })
-      ])
+      _c(
+        "div",
+        {
+          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
+          attrs: { id: "edit_image" }
+        },
+        [
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "mt-4" }, [
+              _c("div", {
+                attrs: { id: "croppie-config-" + _vm.imageConfig.id }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "panel panel-transparent p-1 pb-4",
+                  staticStyle: { "text-align": "center" }
+                },
+                [
+                  _c("input", {
+                    staticClass: "inputfile",
+                    attrs: { type: "file", accept: "image/*", id: "file-2" },
+                    on: { change: _vm.setUpFileUploader }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "btn btn-outline-primary m-0",
+                      attrs: { for: "file-2" }
+                    },
+                    [_c("span", [_vm._v("Browse image")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success ml-3",
+                      attrs: { type: "button", role: "button" },
+                      on: { click: _vm.editImage }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Save\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button", role: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [
+                      _vm._v(
+                        " \n                        Cancel\n                    "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]
+      )
     ]
   )
 }
@@ -1855,31 +1859,40 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "col-md-5 d-flex align-items-center" }, [
                 _c("img", {
                   attrs: { src: _vm.imageConfig.image_path, alt: "image" }
                 })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-4 d-flex align-items-center" }, [
-                _c("span", [
-                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                    _c("strong", [_vm._v("Page Name")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "detail" }, [
-                    _c("p", { staticClass: "mb-0" }, [
-                      _vm._v(_vm._s(_vm.imageConfig.page_name))
-                    ])
-                  ])
-                ])
               ]),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   staticClass:
-                    "col-md-3 d-flex align-items-center justify-content-end"
+                    "col-md-6 d-flex align-items-center justify-content-center"
+                },
+                [
+                  _c("span", [
+                    _c(
+                      "p",
+                      { staticClass: "small text-uppercase text-center mb-0" },
+                      [_c("strong", [_vm._v("Page")])]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail text-center" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.imageConfig.page_name))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-md-1 d-flex align-items-center justify-content-end"
                 },
                 [
                   _c(
@@ -1945,7 +1958,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h3", [_vm._v("Image Config")]),
     _vm._v(" "),
-    _c("p", { staticClass: "mb-5" }, [_vm._v("Here you can manages image.")]),
+    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -1968,7 +1981,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-5" }, [
+      _vm._v("Here you can manages "),
+      _c("strong", [_vm._v("banner")]),
+      _vm._v(" and "),
+      _c("strong", [_vm._v("events showcase background")]),
+      _vm._v(" images in each listed pages.")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

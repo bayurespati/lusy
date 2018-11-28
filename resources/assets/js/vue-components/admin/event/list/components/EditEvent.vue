@@ -298,12 +298,12 @@
             title: {
                 required,
                 minLength: minLength(3),
-                maxLength: maxLength(20)
+                maxLength: maxLength(100)
             },
             organiser:{
                 required,
                 minLength: minLength(3),
-                maxLength: maxLength(20)
+                maxLength: maxLength(100)
             },
             start_date: {
                 required,
@@ -314,12 +314,12 @@
             location:{
                 required,
                 minLength: minLength(3),
-                maxLength: maxLength(20)
+                maxLength: maxLength(50)
             },
             address: {
                 required,
                 minLength: minLength(3),
-                maxLength: maxLength(50),
+                maxLength: maxLength(100),
             },
             category_id: {
                 required
@@ -349,16 +349,16 @@
             formAddFilled(){
                 return this.title != ''
                     && this.title.length >= 3
-                    && this.title.length <= 50
+                    && this.title.length <= 100
                     && this.organiser != ''
                     && this.organiser.length >= 3 
-                    && this.organiser.length <= 50
+                    && this.organiser.length <= 100
                     && this.location != ''
                     && this.location.length >= 3
-                    && this.location.length <= 30
+                    && this.location.length <= 50
                     && this.address != ''
                     && this.address.length >= 3
-                    && this.address.length <= 50
+                    && this.address.length <= 100
                     && this.start_date != ''
                     && this.end_date != ''
                     && this.category_id != ''

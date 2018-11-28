@@ -44,6 +44,7 @@ export const store = new Vuex.Store({
                 date: imageData.detail.date,
                 location: imageData.detail.location,
                 creator: imageData.detail.creator,
+                is_wide: imageData.detail.isWide,
             });
         },
 
@@ -56,6 +57,7 @@ export const store = new Vuex.Store({
             state.gallery[imageIndex].location = updatedGallery.detail.location;
             state.gallery[imageIndex].creator = updatedGallery.detail.creator;
             state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
+            state.gallery[imageIndex].is_wide = updatedGallery.detail.isWide;
             state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
 
@@ -102,6 +104,8 @@ export const store = new Vuex.Store({
 
         update_galllery({commit}, updatedGallery) {
 
+            console.log(updatedGallery);
+
             return new Promise((resolve, reject) => {
 
                 axios.patch('update/list/' + updatedGallery.id, {
@@ -111,7 +115,8 @@ export const store = new Vuex.Store({
                     location: updatedGallery.location,
                     creator: updatedGallery.creator,
                     sub_category_id: updatedGallery.sub_category_id,
-                    image: updatedGallery.image
+                    image: updatedGallery.image,
+                    isWide: updatedGallery.isWide,
                 })
                     .then(response => {
 

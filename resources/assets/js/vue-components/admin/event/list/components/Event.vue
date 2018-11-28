@@ -42,7 +42,7 @@
                         <span>
                             <p class="small text-uppercase mb-0"><strong>End Date</strong></p>
                             <div class="detail">
-                                <p class="mb-0">{{ event.start_date }}</p>
+                                <p class="mb-0">{{ event.end_date }}</p>
                             </div>
                         </span>
                     </div>

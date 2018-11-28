@@ -280,12 +280,12 @@
                 title: {
                     required,
                     minLength: minLength(3),
-                    maxLength: maxLength(50)
+                    maxLength: maxLength(100)
                 },
                 organiser:{
                 	required,
                     minLength: minLength(3),
-                    maxLength: maxLength(50)
+                    maxLength: maxLength(100)
                 },
                 start_date: {
                     required,
@@ -296,12 +296,12 @@
                 location:{
                 	required,
                 	minLength: minLength(3),
-                	maxLength: maxLength(30)
+                	maxLength: maxLength(50)
                 },
                 address: {
                 	required,
                 	minLength: minLength(3),
-                	maxLength: maxLength(50),
+                	maxLength: maxLength(100),
                 },
                 subcategories: {
                 	required
@@ -324,16 +324,16 @@
 			formAddFilled(){
 				return this.input.title != ''
 					&& this.input.title.length >= 3
-					&& this.input.title.length <= 50
+					&& this.input.title.length <= 100
 					&& this.input.organiser != ''
 					&& this.input.organiser.length >= 3 
-					&& this.input.organiser.length <= 50
+					&& this.input.organiser.length <= 100
 					&& this.input.location != ''
 					&& this.input.location.length >= 3
-					&& this.input.location.length <= 30
+					&& this.input.location.length <= 50
 					&& this.input.address != ''
 					&& this.input.address.length >= 3
-					&& this.input.address.length <= 50
+					&& this.input.address.length <= 100
 					&& this.input.start_date != ''
 					&& this.input.end_date != ''
 					&& this.input.subcategories != ''

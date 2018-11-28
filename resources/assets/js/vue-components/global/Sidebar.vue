@@ -80,7 +80,7 @@
 						id: 'home',
 						name: 'Home',
 						subMenu:[ 
-							{ name: 'Sosial Media', link: '/admin/home/sosmed' },
+							{ name: 'Social Media', link: '/admin/home/sosmed' },
 							{ name: 'Image Slider', link: '/admin/home/image-slider' },
 							{ name: 'Image Config', link: '/admin/home/image-config' }
 						]

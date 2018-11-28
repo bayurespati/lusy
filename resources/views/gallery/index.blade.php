@@ -22,6 +22,14 @@
         height: 500px;
         background: white;
     }
+
+    #search-message {
+        color: lightgrey;
+    }
+
+    #search-message strong {
+        color: darkgrey;
+    }
 </style>
 @endpush
 
@@ -57,7 +65,6 @@
         
             <!-- Portfolio Section -->
             <div class="container-fluid no-padding portfolio-section">
-                <!-- Container -->
                 @if(count($gallery) > 0)
                 <div id="menu-container" class="container">
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
@@ -65,7 +72,7 @@
                             <li class="text-uppercase">
                                 <a class="active" 
                                 id="all-option" 
-                                onclick="getAll()" 
+                                onclick="toAll()" 
                                 style="cursor: pointer;">
                                     ALL
                                 </a>
@@ -83,11 +90,19 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Container /- -->
+
+                <div id="search-message-wrapper">
+                    <h4 id="search-message" class="text-center fade-in"></h4>
+                </div>
+
                 <div id="gallery-container-wrapper">
                     <div id="gallery-container" class="portfolio-list zoom-in">
-                        @foreach($gallery as $photo)
+                        @foreach($sortedGallery as $photo)
+                        @if($photo->is_wide)
+                        <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                        @else
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                        @endif
                             <a href="{{ $photo->image_path }}">
                                 <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
 
@@ -95,6 +110,8 @@
                                     <i class="icon icon-Search"></i>
                                     <h3>{{ $photo->title }}</h3>
                                     <span>{{ $photo->creator }}</span>
+                                    <span>{{ $photo->location }}</span>
+                                    <span>{{ $photo->date }}</span>
                                 </div>
                             </a>
                         </div>
@@ -166,9 +183,31 @@
     let subCategoryChosen = false;
     let loadedImageType = 'all';
     let subcategoryIdTemp = 0;
+    let searchKey = '';
+    let subcategoryId = -1;
+    let subcategoryListOrder = -1;
+
+    function searchFunction(){
+        searchKey = document.getElementById("search-key").value.trim();
+
+        if(loadedImageType === 'all'){
+            getAll();
+        }
+        else {
+            getImages();
+        }
+    }
+
+    function toAll(){
+        searchKey = '';
+
+        getAll();
+    }
 
     function getAll(){
         loadedImageType = 'all';
+        subcategoryId = -1;
+        subcategoryListOrder = -1;
 
         removeCategoriesActiveClass();
 
@@ -180,17 +219,28 @@
 
         cleanImages();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0) {
+            targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=1';
+        }
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareImages(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
                     hideLoader();
                     subcategoryIdTemp = 0;
@@ -205,42 +255,55 @@
     function goToPage(pageNumber){
         cleanImages();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(loadedImageType === 'all') {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber;
+            } 
+        }
+        else {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '/' + subcategoryIdTemp + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '/' + subcategoryIdTemp + '?page=' + pageNumber;
+            }
+        }
 
         showLoader();
 
-        if(loadedImageType === 'all'){
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareImages(data);
-                        preparePagination(data);
+        $.ajax({
+            type: 'GET',
+            url: targetUrl,
+            dataType: 'JSON',
+            success: function (data) {
+                setTimeout(function(){
+                    prepareImages(data);
+                    preparePagination(data);
+                    prepareSearchMessage(data);
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
-        else {
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType + '/' + subcategoryIdTemp + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareImages(data);
-                        preparePagination(data);
+                    hideLoader();
+                }, 1000);
+            }
+        });
+    }
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-        }
+    function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
+        subcategoryId = newSubcategoryId;
+        subcategoryListOrder = newSubcategoryListOrder;
+        searchKey = '';
+
+        getImages();
     }
 
     function getSubcategories(categoryId, categoryListOrder){
+        searchKey = '';
         removeCategoriesActiveClass();
 
         var option = document.getElementById('category-' + categoryListOrder);
@@ -261,7 +324,7 @@
                 return i;
             }
         }
-    return -1;
+        return -1;
     }
 
     function removeActiveClass(className){
@@ -303,7 +366,7 @@
         $.each(data, function (i, prop) {
             lists = lists + 
             '<li class="text-uppercase">' + 
-            '   <a id="subcategory-' + i + '" onclick="getImages(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
+            '   <a id="subcategory-' + i + '" onclick="setSubcategoryIdAndListOrder(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
             '</li>';
 
             subcategoryCount++;
@@ -312,10 +375,10 @@
         unorderedList.innerHTML = lists;
         listWrapper.appendChild(unorderedList);
         submenuExist = true;
-
     }
 
-    function getImages(subcategoryId, subcategoryListOrder) {
+    function getImages() {
+        subcategoryId = subcategoryId;
         loadedImageType = 'subcategory';
 
         if(subCategoryChosen){
@@ -328,21 +391,32 @@
 
         cleanImages();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0){
+            targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?page=1';
+        };
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/gallery/' + loadedImageType +  '/' + parseInt(subcategoryId) + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
-                    hideLoader();
-
                     prepareImages(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
                     subcategoryIdTemp = subcategoryId;
+
+                    hideLoader();
                 }, 1000);
             }
         });
@@ -388,6 +462,35 @@
         }, 100);
     }
 
+    function cleanSearchMessage(){
+        var searchMessage = document.getElementById('search-message');
+        searchMessage.setAttribute('class', 'text-center fade-out');
+
+        setTimeout(function(){
+            searchMessage.parentNode.removeChild(searchMessage);
+        }, 100);
+    }
+
+    function prepareSearchMessage(array){
+        var searchMessageWrapper = document.getElementById('search-message-wrapper');
+        var searchMessage = document.createElement('h4');
+        searchMessage.setAttribute('id', 'search-message');
+        searchMessage.setAttribute('class', 'text-center fade-in');
+
+        if(searchKey.length > 0){
+            searchMessage.innerHTML = array[0].total > 0 
+            ? 'displaying <strong>' + array[0].total + '</strong> results using the keyword of <strong>"' + searchKey + '"</strong>.'
+            : '';
+        }
+        else {
+            searchMessage.innerHTML = '';
+        }
+
+        setTimeout(function(){
+            searchMessageWrapper.appendChild(searchMessage);
+        }, 100);
+    }
+
     function prepareImages(array){
         var galleryContainerWrapper = document.getElementById('gallery-container-wrapper');
         var galleryContainer = document.createElement('div');
@@ -396,31 +499,45 @@
 
         let galleryContent = '';
 
-        if(array.data.length > 0){
-            array.data.forEach(function(photo){
+        if(array[1].length > 0){
+            array[1].forEach(function(photo){
+                if(photo.is_wide){
+                    galleryContent = galleryContent +
+                    '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">'                    
+                }
+                else {
+                    galleryContent = galleryContent +
+                    '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">'             
+                }
+
                 galleryContent = galleryContent + 
-                '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
                 '   <a href="' + photo.image_path + '">' +
                 '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
                 '       <div class="portfolio-content">' +
                 '           <i class="icon icon-Search"></i>' +
                 '           <h3>' + photo.title + '</h3>' +
                 '           <span>' + photo.creator + '</span>' +
+                '           <span>' + photo.location + '</span>' +
+                '           <span>' + photo.date + '</span>' +
                 '       </div>' +
                 '   </a>' +
                 '</div>'
             }, galleryContent);
         }
         else {
-            galleryContent = galleryContent +
-            '<h3 class="text-center" style="color: lightgrey">' +
-            "   *there are no images on this classification yet*" +
-            '</h3>'
+            galleryContent = searchKey.length > 0 
+            ? galleryContent + 
+                '<h3 class="text-center" style="color: lightgrey">' + 
+                "we couldn't find anything for " + '<strong style="color: darkgrey">"' + searchKey + '"</strong>.' + 
+                '</h3>'
+            : galleryContent +
+                '<h3 class="text-center" style="color: lightgrey">' +
+                "   *there are no images on this classification yet*" +
+                '</h3>';
         }
 
         galleryContainer.innerHTML = galleryContent;
 
-        console.log(galleryContainerWrapper);
         setTimeout(function(){
             galleryContainerWrapper.appendChild(galleryContainer);
 
@@ -436,10 +553,10 @@
 
         let paginationContent = '';
 
-        if(data.data.length > 0){
+        if(data[0].data.length > 0){
             paginationContent = '';
 
-            if(data.current_page == 1) {
+            if(data[0].current_page == 1) {
                 paginationContent = paginationContent + 
                 '<li class="disabled">';
             } else {
@@ -453,21 +570,21 @@
             '       </a>' + 
             '   </li>';
 
-            for(let i = 1; i <= data.last_page; i++){
+            for(let i = 1; i <= data[0].last_page; i++){
                 const halfTotalLinks = Math.floor(4/2);
-                let from = data.current_page - halfTotalLinks;
-                let to = data.current_page + halfTotalLinks;
+                let from = data[0].current_page - halfTotalLinks;
+                let to = data[0].current_page + halfTotalLinks;
 
-                if (data.current_page < halfTotalLinks) {
-                    to += halfTotalLinks - data.current_page;
+                if (data[0].current_page < halfTotalLinks) {
+                    to += halfTotalLinks - data[0].current_page;
                 };
 
-                if (data.last_page - data.current_page < halfTotalLinks) {
-                    from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+                if (data[0].last_page - data[0].current_page < halfTotalLinks) {
+                    from -= halfTotalLinks - (data[0].last_page - data[0].current_page - 1);
                 };
 
                 if (from < i && i < to) {
-                    if (data.current_page == i) {
+                    if (data[0].current_page == i) {
                         paginationContent = paginationContent + 
                         '<li class="active">';
                     }
@@ -482,7 +599,7 @@
                 }
             }
 
-            if(data.current_page == data.last_page) {
+            if(data[0].current_page == data[0].last_page) {
                 paginationContent = paginationContent + 
                 '<li class="disabled">';
             } else {
@@ -491,7 +608,7 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a onClick="goToPage(' + data.last_page + ')">' + 
+            '       <a onClick="goToPage(' + data[0].last_page + ')">' + 
             '           <i class="fa fa-angle-double-right"></i>' + 
             '       </a>' + 
             '   </li>';

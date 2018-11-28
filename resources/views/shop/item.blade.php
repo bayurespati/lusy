@@ -124,8 +124,12 @@
                     <div id="gallery-section" class="portfolio-section" style="padding-top: 8px">
                       <div id="gallery-container" class="portfolio-list zoom-in">
 
-                        @foreach($shopItem->images as $photo)
+                        @foreach($sortedItem as $photo)
+                        @if($photo->is_wide)
+                        <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                        @else
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                        @endif
                           <a href="{{ $photo->image_path }}">
                             <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
 
@@ -362,15 +366,22 @@
 
     let galleryContent = '';
 
-    array.data.forEach(function(photo){
+    array[1].forEach(function(photo){
+      if(photo.is_wide){
+        galleryContent = galleryContent + 
+        '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">';
+      }
+      else {
+        galleryContent = galleryContent + 
+        '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">';
+      }
+
       galleryContent = galleryContent + 
-      '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
       '   <a href="' + photo.image_path + '">' +
       '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
       '       <div class="portfolio-content">' +
       '           <i class="icon icon-Search"></i>' +
       '           <h3>' + photo.title + '</h3>' +
-      '           <span>' + photo.description + '</span>' +
       '       </div>' +
       '   </a>' +
       '</div>'
@@ -393,7 +404,7 @@
 
     let paginationContent = '';
 
-    if(data.current_page == 1) {
+    if(data[0].current_page == 1) {
       paginationContent = paginationContent + 
       '<li class="disabled">';
     } else {
@@ -407,21 +418,21 @@
     '       </a>' + 
     '   </li>';
 
-    for(let i = 1; i <= data.last_page; i++){
+    for(let i = 1; i <= data[0].last_page; i++){
       const halfTotalLinks = Math.floor(4/2);
-      let from = data.current_page - halfTotalLinks;
-      let to = data.current_page + halfTotalLinks;
+      let from = data[0].current_page - halfTotalLinks;
+      let to = data[0].current_page + halfTotalLinks;
 
-      if (data.current_page < halfTotalLinks) {
-        to += halfTotalLinks - data.current_page;
+      if (data[0].current_page < halfTotalLinks) {
+        to += halfTotalLinks - data[0].current_page;
       };
 
-      if (data.last_page - data.current_page < halfTotalLinks) {
-        from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+      if (data[0].last_page - data[0].current_page < halfTotalLinks) {
+        from -= halfTotalLinks - (data[0].last_page - data[0].current_page - 1);
       };
 
       if (from < i && i < to) {
-        if (data.current_page == i) {
+        if (data[0].current_page == i) {
           paginationContent = paginationContent + 
           '<li class="active">';
         }
@@ -436,7 +447,7 @@
       }
     }
 
-    if(data.current_page == data.last_page) {
+    if(data[0].current_page == data[0].last_page) {
       paginationContent = paginationContent + 
       '<li class="disabled">';
     } else {
@@ -445,7 +456,7 @@
     }
 
     paginationContent = paginationContent + 
-    '   <a onClick="goToPage(' +data.last_page+ ', ' +item.id+ ')" style="padding-top: 10px">' + 
+    '   <a onClick="goToPage(' +data[0].last_page+ ', ' +item.id+ ')" style="padding-top: 10px">' + 
     '       <i class="fa fa-angle-double-right"></i>' + 
     '   </a>' + 
     '</li>';

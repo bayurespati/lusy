@@ -145,8 +145,30 @@
             <!-- About Us Section /- -->
             
             <!-- Portfolio Section -->
-            <div class="container-fluid no-padding onview-section" style="background-color: unset;">
-                <img src="{{ asset('img/portofolio-temp.png') }}" alt="" style="width: 100%">
+            <div class="container-fluid no-padding">
+                <div class="row achievement-view">
+                    @foreach($achievements as $achievement)
+                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
+                        <div class="achievement-border">
+                            <div class="achievement-content">
+                                <div class="icon">
+                                    <span>
+                                        <i class="{{ $achievement['logo'] }}"></i>
+                                    </span>
+                                </div>
+
+                                <div class="value">
+                                    <span>{{ $achievement['value'] }}</span>
+                                </div>
+
+                                <div class="title">
+                                    <span>{{ $achievement['title'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
             <!-- Portfolio Section /- -->
             
@@ -160,7 +182,7 @@
                     <div class="section-header">
                         <div class="section-title-border">
                             <span>Proud to Presents</span>
-                            <h2>LATEST EVENTS</h2>
+                            <h2>OUR LATEST EVENTS</h2>
                         </div>
                     </div>
                     <!-- Section Header /- -->
@@ -174,7 +196,7 @@
                                     <span>{{ $event->month }}</span>
                                 </div>
                                 <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
-                                <h4><a href="/event/single/{{ $event->id }}" title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="/event/single/{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->dayComplete }} {{ $event->startHour }} - {{ $event->endHour }}</a></h4>
+                                <h4><a href="/event/single/{{ $event->id }}" title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="/event/single/{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
                                 <p class="cut-content">{{ $event->content }}</p>
                             </div>
                         </div>
@@ -211,18 +233,20 @@
                 <div class="portfolio-list">
                      
                     @foreach($showedImage as $image)
-                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                            <a href="{{ $image->image_path }}">
-
-                                <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />
-
+                    @if($image->is_wide)
+                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                    @else
+                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                    @endif
+                        <a href="{{ $image->image_path }}">
+                            <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />
                                 <div class="portfolio-content">
-                                    <i class="icon icon-Search"></i>
-                                    <h3>{{ $image->title }}</h3>
-                                    <span>{{ $image->creator }}</span>
-                                </div>
-                            </a>
-                        </div>
+                                <i class="icon icon-Search"></i>
+                                <h3>{{ $image->title }}</h3>
+                                <span>{{ $image->creator }}</span>
+                            </div>
+                        </a>
+                    </div>
                     @endforeach
                     
                 </div>

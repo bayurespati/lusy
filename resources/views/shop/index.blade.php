@@ -22,6 +22,14 @@
         height: 500px;
         background: white;
     }
+
+     #search-message {
+        color: lightgrey;
+    }
+
+    #search-message strong {
+        color: darkgrey;
+    }
 </style>
 @endpush
 
@@ -62,7 +70,7 @@
                         <li class="text-uppercase">
                             <a class="active" 
                             id="all-option" 
-                            onclick="getAll()" 
+                            onclick="toAll()" 
                             style="cursor: pointer;">
                                 ALL
                             </a>
@@ -79,6 +87,10 @@
                         @endfor
                     </ul>
                 </div>
+            </div>
+
+            <div id="search-message-wrapper">
+                <h4 id="search-message" class="text-center fade-in"></h4>
             </div>
 
             <!-- Shop Items /- -->
@@ -177,47 +189,36 @@
     let subCategoryChosen = false;
     let loadedImageType = 'all';
     let idTemp = 0;
+    let searchKey = '';
+    let categoryId = -1;
+    let subcategoryId = -1;
+    let subcategoryListOrder = -1;
 
-    function goToPage(pageNumber){
-        cleanItems();
-        cleanPagination();
-
-        showLoader();
+    function searchFunction(){
+        searchKey = document.getElementById("search-key").value.trim();
 
         if(loadedImageType === 'all'){
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareItems(data);
-                        preparePagination(data);
+            getAll();
+        }
+        else if(loadedImageType === 'category') {
+            getCategoryItems()
+        }
+        else {
+            getSubcategoryItems();
+        }
+    }
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-         }
-         else {
-            $.ajax({
-                type: 'GET',
-                url: 'https://' + window.location.hostname + '/shop/' + loadedImageType + '/' + idTemp + '?page=' + pageNumber,
-                dataType: 'JSON',
-                success: function (data) {
-                    setTimeout(function(){
-                        prepareItems(data);
-                        preparePagination(data);
+    function toAll(){
+        searchKey = '';
 
-                        hideLoader();
-                    }, 1000);
-                }
-            });
-         }
+        getAll();
     }
 
     function getAll(){
         loadedImageType = 'all';
+        categoryId = -1;
+        subcategoryId = -1;
+        subcategoryListOrder = -1
 
         removeCategoriesActiveClass();
 
@@ -229,17 +230,28 @@
 
         cleanItems();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0) {
+            targetUrl = 'https://' + window.location.hostname + '/shop/all?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/shop/all?page=1';
+        }
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/all?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareItems(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
                     hideLoader();
                 }, 1000);
@@ -250,7 +262,57 @@
         allOption.setAttribute('class', 'active');
     }
 
-    function getSubcategories(categoryId, categoryListOrder){
+    function goToPage(pageNumber){
+        cleanItems();
+        cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(loadedImageType === 'all') {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/shop/' + loadedImageType + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/shop/' + loadedImageType + '?page=' + pageNumber;
+            } 
+        }
+        else {
+            if(searchKey.length > 0) {
+                targetUrl = 'https://' + window.location.hostname + '/shop/' + loadedImageType + '/' + idTemp + '?keyword=' + searchKey + '&page=' + pageNumber;
+            }
+            else {
+                targetUrl = 'https://' + window.location.hostname + '/shop/' + loadedImageType + '/' + idTemp + '?page=' + pageNumber;
+            }
+        }
+
+        showLoader();
+
+        if(loadedImageType === 'all'){
+            categoryId = -1;
+            subcategoryId = -1;
+            subcategoryListOrder = -1
+         }
+
+         $.ajax({
+            type: 'GET',
+            url: targetUrl,
+            dataType: 'JSON',
+            success: function (data) {
+                setTimeout(function(){
+                    prepareItems(data);
+                    preparePagination(data);
+                    prepareSearchMessage(data);
+
+                    hideLoader();
+                }, 1000);
+            }
+        });
+    }
+
+    function getSubcategories(newCategoryId, categoryListOrder){
+        searchKey = '';
+        categoryId = newCategoryId;
         removeCategoriesActiveClass();
 
         var option = document.getElementById('category-' + categoryListOrder);
@@ -266,7 +328,7 @@
             prepareSubcategory(categoriesAndSubcategories[categoryIndex].subcategories);
         }
         else {
-            getCategoryItems(categoryId);
+            getCategoryItems();
         }
     }
 
@@ -314,7 +376,7 @@
         let lists = "";
 
         $.each(data, function (i, prop) {
-            lists = lists + '<li class="text-uppercase"><a id="subcategory-' + i + '" onclick="getSubcategoryItems(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a></li>';
+            lists = lists + '<li class="text-uppercase"><a id="subcategory-' + i + '" onclick="setSubcategoryIdAndListOrder(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a></li>';
 
             subcategoryCount++;
         });
@@ -325,31 +387,50 @@
 
     }
 
-    function getCategoryItems(categoryId){
+    function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
+        subcategoryId = newSubcategoryId;
+        subcategoryListOrder = newSubcategoryListOrder;
+        searchKey = '';
+
+        getSubcategoryItems();
+    }
+
+    function getCategoryItems(){
         loadedImageType = 'category';
 
         cleanItems();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0){
+            targetUrl = 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '?page=1';
+        };
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/category/' + parseInt(categoryId) + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareItems(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
-                    hideLoader();
                     idTemp = categoryId;
+                    hideLoader();
                 }, 1000);
             }
         });
     }
 
-    function getSubcategoryItems(subcategoryId, subcategoryListOrder) {
+    function getSubcategoryItems() {
         loadedImageType = 'subcategory';
 
         if(subCategoryChosen){
@@ -362,17 +443,28 @@
 
         cleanItems();
         cleanPagination();
+        cleanSearchMessage();
+
+        let targetUrl = '';
+
+        if(searchKey.length > 0){
+            targetUrl = 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '?keyword=' + searchKey + '&page=1';
+        }
+        else {
+            targetUrl = 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '?page=1';
+        };
 
         showLoader();
 
         $.ajax({
             type: 'GET',
-            url: 'https://' + window.location.hostname + '/shop/subcategory/' + parseInt(subcategoryId) + '?page=1',
+            url: targetUrl,
             dataType: 'JSON',
             success: function (data) {
                 setTimeout(function(){
                     prepareItems(data);
                     preparePagination(data);
+                    prepareSearchMessage(data);
 
                     hideLoader();
                     idTemp = subcategoryId;
@@ -421,6 +513,35 @@
         }, 100);
     }
 
+    function cleanSearchMessage(){
+        var searchMessage = document.getElementById('search-message');
+        searchMessage.setAttribute('class', 'text-center fade-out');
+
+        setTimeout(function(){
+            searchMessage.parentNode.removeChild(searchMessage);
+        }, 100);
+    }
+
+    function prepareSearchMessage(array){
+        var searchMessageWrapper = document.getElementById('search-message-wrapper');
+        var searchMessage = document.createElement('h4');
+        searchMessage.setAttribute('id', 'search-message');
+        searchMessage.setAttribute('class', 'text-center fade-in');
+
+        if(searchKey.length > 0){
+            searchMessage.innerHTML = array.total > 0 
+            ? 'displaying <strong>' + array.total + '</strong> results using the keyword of <strong>"' + searchKey + '"</strong>.'
+            : '';
+        }
+        else {
+            searchMessage.innerHTML = '';
+        }
+
+        setTimeout(function(){
+            searchMessageWrapper.appendChild(searchMessage);
+        }, 100);
+    }
+
     function prepareItems(array){
         var itemsContainer = document.getElementById('items-container');
         var itemGroup = document.createElement('div');
@@ -450,8 +571,11 @@
             }, itemGroupContent);
         }
         else{
-            itemGroupContent = itemGroupContent + 
-            '<h3 class="text-center" style="color: lightgrey">*there are no items on this classification yet*</h3>';
+            itemGroupContent = searchKey.length > 0 
+            ?itemGroupContent +
+                '<h3 class="text-center" style="color: lightgrey">' + "we couldn't find anything for " + '<strong style="color: darkgrey">"' + searchKey + '"</strong>.</h3>'
+            :itemGroupContent + 
+                '<h3 class="text-center" style="color: lightgrey">*there are no items on this classification yet*</h3>';
         }
 
         itemGroup.innerHTML = itemGroupContent;

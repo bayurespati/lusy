@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h3>Showcased Images</h3>
-    <p class="m-0">Here you can manages images shown in Home and About page.</p>
-    <p class="mb-5">(Images shown are in the group of 4 or 8).</p>
+    <p class="m-0">Here you can manages <strong>images</strong> shown in <strong>Home</strong> and <strong>About</strong> pages.</p>
+    <p class="mb-5">(Images shown are in the group of 4 or 8)</p>
 
     <div class="row">
       <div class="col-md-12">
