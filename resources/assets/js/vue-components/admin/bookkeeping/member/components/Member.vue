@@ -40,10 +40,26 @@
                         </div>
                     </div>
                     
-                    <div class="col-1 d-flex align-items-center justify-content-end">
+                    <div class="col-3 d-flex justify-content-end align-items-center">
+                        
+                        <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in"> 
+                        <button type="button" v-if="input.is_active"
+                                class="btn btn-sm btn-success ml-2"
+                                @click="editStatus()">Aktif</button>
+    
+                        <button type="button" v-else
+                                class="btn btn-sm btn-danger ml-2"
+                                @click="editStatus()">Non Aktif</button>
+                        </transition>
+
                         <button type="button" 
-                        class="btn btn-sm btn-warning"
-                        @click="isEdit = !isEdit">Edit</button>
+                                class="btn btn-sm btn-warning ml-2"
+                                @click="isEdit = !isEdit">Edit</button>
+
+                        <button type="button" 
+                                class="btn btn-sm btn-danger ml-2"
+                                @click="">delete</button>
+
                     </div>
 
                     <div class="col-12">
@@ -64,13 +80,54 @@
 
         data(){
             return{
+                isRequesting: false,
                 isEdit: false,
+                input:{
+                    name: this.member.name,
+                    gender: this.member.gender,
+                    place_of_birth: this.member.place_of_birth,
+                    date_of_birth: this.member.date_of_birth,
+                    join_date: this.member.join_date,
+                    email: this.member.email,
+                    telephone: this.member.telephone,
+                    mobile: this.member.mobile,
+                    fax: this.member.fax,
+                    teacher_id: this.member.teacher_id,
+                    gender: this.member.gender,
+                    id: this.member.id,
+                    is_active: this.member.is_active
+                }
             }
         },
 
         components:{
             EditMember
         },
+
+        methods:{
+            editStatus(){
+                const self = this;
+
+                if(!self.isRequesting){
+
+                    const isBool = this.member.is_active == 0  ? true : false;
+
+                    this.input.is_active = isBool;
+
+                    self.isRequesting = true;
+
+                    const status = isBool 
+                                   ? {status: 'active', color: 'success'} 
+                                   : {status: 'not active', color: 'danger'}
+
+                    this.$store.dispatch('update_member',self.input)
+                    .then(() =>{
+                        flash('Member '+self.input.name+' is '+status.status, status.color);
+                        self.isRequesting = false;
+                    })
+                }
+            }
+        }
     };
 </script>
 <style scoped>

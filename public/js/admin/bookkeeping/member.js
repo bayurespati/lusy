@@ -7051,6 +7051,24 @@ exports.push([module.i, "\n.card[data-v-d7f825ae] {\n    border: 1px solid trans
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditMember_vue__ = __webpack_require__(549);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditMember_vue__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7116,14 +7134,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: { member: {} },
 
     data: function data() {
+        var _input;
+
         return {
-            isEdit: false
+            isRequesting: false,
+            isEdit: false,
+            input: (_input = {
+                name: this.member.name,
+                gender: this.member.gender,
+                place_of_birth: this.member.place_of_birth,
+                date_of_birth: this.member.date_of_birth,
+                join_date: this.member.join_date,
+                email: this.member.email,
+                telephone: this.member.telephone,
+                mobile: this.member.mobile,
+                fax: this.member.fax,
+                teacher_id: this.member.teacher_id
+            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _defineProperty(_input, 'is_active', this.member.is_active), _input)
         };
     },
 
 
     components: {
         EditMember: __WEBPACK_IMPORTED_MODULE_0__EditMember_vue___default.a
+    },
+
+    methods: {
+        editStatus: function editStatus() {
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                var isBool = this.member.is_active == 0 ? true : false;
+
+                this.input.is_active = isBool;
+
+                self.isRequesting = true;
+
+                var status = isBool ? { status: 'active', color: 'success' } : { status: 'not active', color: 'danger' };
+
+                this.$store.dispatch('update_member', self.input).then(function () {
+                    flash('Member ' + self.input.name + ' is ' + status.status, status.color);
+                    self.isRequesting = false;
+                });
+            }
+        }
     }
 });
 
@@ -7558,7 +7613,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 				mobile: this.member.mobile,
 				fax: this.member.fax,
 				teacher_id: this.member.teacher_id
-			}, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _input)
+			}, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'is_active', this.member.is_active), _defineProperty(_input, 'id', this.member.id), _input)
 		};
 	},
 	mounted: function mounted() {
@@ -10083,13 +10138,53 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-1 d-flex align-items-center justify-content-end"
+                    "col-3 d-flex justify-content-end align-items-center"
                 },
                 [
                   _c(
+                    "transition",
+                    {
+                      attrs: {
+                        enterActiveClass: "fade-in",
+                        leaveActiveClass: "fade-out",
+                        mode: "out-in"
+                      }
+                    },
+                    [
+                      _vm.input.is_active
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-success ml-2",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.editStatus()
+                                }
+                              }
+                            },
+                            [_vm._v("Aktif")]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-danger ml-2",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.editStatus()
+                                }
+                              }
+                            },
+                            [_vm._v("Non Aktif")]
+                          )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
                     "button",
                     {
-                      staticClass: "btn btn-sm btn-warning",
+                      staticClass: "btn btn-sm btn-warning ml-2",
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
@@ -10098,8 +10193,19 @@ var render = function() {
                       }
                     },
                     [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-danger ml-2",
+                      attrs: { type: "button" },
+                      on: { click: function($event) {} }
+                    },
+                    [_vm._v("delete")]
                   )
-                ]
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
@@ -10301,6 +10407,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
             state.members[memberIndex].name = member.name;
             state.members[memberIndex].gender = member.gender;
+            state.members[memberIndex].is_active = member.is_active;
             state.members[memberIndex].place_of_birth = member.place_of_birth;
             state.members[memberIndex].date_of_birth = member.date_of_birth;
             state.members[memberIndex].email = member.email;

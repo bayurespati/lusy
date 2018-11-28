@@ -265,6 +265,7 @@
 					fax: this.member.fax,
 					teacher_id: this.member.teacher_id,
 					gender: this.member.gender,
+                    is_active: this.member.is_active,
 					id: this.member.id
 				}
 			}

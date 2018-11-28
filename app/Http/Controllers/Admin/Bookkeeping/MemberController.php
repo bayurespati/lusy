@@ -134,6 +134,7 @@ class MemberController extends Controller
 
         $member->name = $request->name;
         $member->gender = $request->gender;
+        $member->is_active = $request->is_active;
         $member->place_of_birth = $request->place_of_birth;
         $member->date_of_birth = substr($request->date_of_birth,0, 10);
         $member->teacher_id = $request->teacher_id;
