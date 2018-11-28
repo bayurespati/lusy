@@ -471,6 +471,9 @@ Route::group([
         Route::post('/add/class_region', 'MemberController@addClassRegion');
         Route::patch('/delete/class_region', 'MemberController@deleteClassRegion');
 
+        Route::post('/add/class_member', 'MemberController@addClass');
+        Route::delete('/delete/class_member/{member}/{class}', 'MemberController@deleteClass');
+
         /*
         |--------------------------------------------------------------------------
         | A D M I N   B O O K E P I N G   R E G I O N

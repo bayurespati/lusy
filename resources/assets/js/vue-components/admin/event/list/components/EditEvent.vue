@@ -371,7 +371,7 @@
             setSubcategory(){
                 for(let a = 0; a < this.categories.length; a++){
                     for(let b = 0; b < this.categories[a].subcategories.length; b++){
-                        if(this.categories[a].subcategories[b].id === this.event.sub_category_id ){
+                        if(this.categories[a].subcategories[b].id == this.event.sub_category_id ){
                             this.subcategories =  this.categories[a].subcategories;
                         }
                     }

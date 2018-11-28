@@ -52,6 +52,7 @@ class MemberController extends Controller
             $member = [
                 'id' => $member['id'],
                 'name' => $member['name'],
+                'teacher_id' => $member['teacher_id'],
                 'gender' => $member['gender'],
                 'place_of_birth' => $member['place_of_birth'],
                 'date_of_birth' => substr($member['date_of_birth'],0,10),
@@ -61,7 +62,6 @@ class MemberController extends Controller
                 'mobile' => $member['mobile'],
                 'join_date' => substr($member['join_date'],0,10),
                 'is_active' => $member['is_active'],
-                'is_approve' => $member['is_approve'],
                 'class' => $member['classActive'],
                 'region' => $member['region'],
                 'subscription' => $member['subscription'],
@@ -136,12 +136,14 @@ class MemberController extends Controller
         $member->gender = $request->gender;
         $member->place_of_birth = $request->place_of_birth;
         $member->date_of_birth = substr($request->date_of_birth,0, 10);
+        $member->teacher_id = $request->teacher_id;
         $member->telephone = $request->telephone;
         $member->mobile = $request->mobile;
         $member->email = $request->email;
         $member->fax = $request->fax;
-        $member->class_id = $request->class_id;
-        $member->join_date = substr($request->join_date,0, 10);
+        $member->join_date = $request->personal['join_date'] == '' 
+                                ? null 
+                                : substr($request->personal['join_date'],0,10);
 
         $member->update();
     }
@@ -198,8 +200,8 @@ class MemberController extends Controller
 
     }
 
-     //-----------------------------//
-    //          Subscription       //
+    //-----------------------------//
+    //         SUBSCRIPTION        
     //-----------------------------//
     public function addSubscription(Request $request){
         $subscription = new Subscription;
@@ -213,6 +215,31 @@ class MemberController extends Controller
 
     public function deleteSubscription(Subscription $subscription){
         $subscription->delete();
+    }
+
+    //-----------------------------//
+    //            CLASS            //
+    //-----------------------------//
+    public function addClass(Request $request){
+
+        $member = Member::find($request->member_id);
+
+        $exists = $member->class->contains($request->class_id);
+
+        if($exists){
+            $member->class()->updateExistingPivot($request->class_id, ['is_approve' => true]);
+        }else{
+            $member->class()->attach($request->class_id, ['is_approve' => true]);
+        }
+    }
+
+    public function deleteClass(Member $member, AboutContent $class){
+
+        $size = sizeof($member->classActive);
+
+        if($size > 1){
+            $member->class()->detach($class->id);
+        }
     }
 
 
@@ -262,8 +289,6 @@ class MemberController extends Controller
     }
 
     public function destroy(Member $member, AboutContent $class){
-
-        $size = sizeof($member->class);
 
         if($size > 1){
             $member->class()->detach($class->id);

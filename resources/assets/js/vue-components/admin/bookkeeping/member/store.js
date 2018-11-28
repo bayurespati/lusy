@@ -68,8 +68,7 @@ export const store = new Vuex.Store({
             state.members[memberIndex].fax = member.fax;
             state.members[memberIndex].telephone = member.telephone;
             state.members[memberIndex].mobile = member.mobile;
-            state.members[memberIndex].class.id = member.class_id;
-            state.members[memberIndex].class.title = state.classList[classIndex].title;
+            state.members[memberIndex].teacher_id = member.teacher_id;
             state.members[memberIndex].join_date = member.join_date;
 
         },
@@ -142,6 +141,25 @@ export const store = new Vuex.Store({
 
             state.members[memberIndex].region.splice(regionIndex, 1);
 
+        },
+
+        add_class(state, dataClass){
+
+            const memberIndex = _.findIndex(state.members, ['id', dataClass.member_id]);
+
+            state.members[memberIndex].class.push({
+                id: dataClass.class_id,
+                title: dataClass.title
+            })
+
+        },
+
+        delete_class(state, dataClass){
+
+            const memberIndex = _.findIndex(state.members, ['id', dataClass.member_id]);
+            const classIndex = _.findIndex(state.members[memberIndex].class, ['id', dataClass.class_id]);
+
+            state.members[memberIndex].class.splice(classIndex, 1);
         }
     },
 
@@ -192,6 +210,37 @@ export const store = new Vuex.Store({
                     .catch(errors => {
                         reject(errors.response.data);
                     })
+            })
+        },
+
+        update_member({commit}, member){
+
+            return new Promise((resolve,reject) => {
+
+                axios.patch('update/member/'+ member.id, member)
+                    .then(response => {
+
+                        commit('edit_member', member);
+
+                        resolve(member);
+                    })
+                    .catch(errors => {
+                        reject(errors.response.data);
+                    })
+
+            })
+
+        },
+
+        destroy_member({commit}, ids) {
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/applicant-member/'+ids.memberId)
+                    .then((response) => {
+                        commit('delete_member', ids);
+                        resolve();
+                    });
             })
         },
 
@@ -301,35 +350,34 @@ export const store = new Vuex.Store({
             })
         },
 
-        update_member({commit}, member){
-
-            return new Promise((resolve,reject) => {
-
-                axios.patch('update/member/'+ member.id, member)
-                    .then(response => {
-
-                        commit('edit_member', member);
-
-                        resolve(member);
-                    })
-                    .catch(errors => {
-                        reject(errors.response.data);
-                    })
-
-            })
-
-        },
-
-        destroy_member({commit}, ids) {
+        add_class({commit}, dataClass){
 
             return new Promise((resolve, reject) => {
 
-                axios.delete('delete/applicant-member/'+ids.memberId)
+                axios.post('add/class_member', dataClass)
+                    .then(response => {
+
+                        commit('add_class', dataClass)
+
+                        resolve(dataClass);
+                    })
+                    .catch(errors => {
+
+                        reject(errors.response.data);
+                    })
+            })
+        },
+
+        destroy_class({commit}, dataClass){
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete('delete/class_member/'+dataClass.member_id+'/'+dataClass.class_id)
                     .then((response) => {
-                        commit('delete_member', ids);
+                        commit('delete_class',dataClass);
                         resolve();
                     });
             })
-        },
+        }
     }
 });

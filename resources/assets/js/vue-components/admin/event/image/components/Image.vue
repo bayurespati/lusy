@@ -133,7 +133,7 @@
                 let a = _.findIndex(this.imageList, ['is_poster', 1]);
                 let b = _.findIndex(this.imageList, ['is_poster', true]);
 
-                if(a === -1 && b === -1){
+                if(a == -1 && b == -1){
                     this.editImage();
                 }
             },
@@ -146,12 +146,14 @@
 
                     this.isRequesting = true;
 
+                    const isBool = this.imageItem.is_poster == 0 ? true : false;
+
                     const updatedImage = {
                         id: this.imageItem.id,
                         title: this.imageItem.title,
                         description: this.imageItem.description,
                         image: this.imageItem.image_path,
-                        is_poster: !this.imageItem.is_poster
+                        is_poster: isBool
                     };
 
                     this.$store.dispatch('update_image', updatedImage)

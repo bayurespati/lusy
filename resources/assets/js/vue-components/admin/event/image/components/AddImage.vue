@@ -189,7 +189,7 @@
                     enableOrientation: false
                 });
 
-                if(this.image === null || this.image === ''){
+                if(this.image == null || this.image == ''){
                     this.croppie.bind({
                         url: '/img/events1.jpg'
                     });

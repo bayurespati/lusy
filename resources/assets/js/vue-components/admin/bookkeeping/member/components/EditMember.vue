@@ -11,7 +11,7 @@
                                 Name
                             </label>
 
-                            <input type="text" 
+                            <input type="text"
 							v-model="input.name"
 							@input="$v.input.name.$touch()"
 							class="form-control" id="name-member" 
@@ -181,28 +181,16 @@
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
                             <label for="category" class="form-control-label panel-font-small m-0">
-                                Class
+                                Teacher
                             </label>
                             
                             <select class="form-control" id="category" 
-							@input="$v.input.class_id.$touch()"
-							:class="{'form-control-danger': $v.input.class_id.$error}"
-							v-model="input.class_id">
-								<option value="" disabled="">Choose Class</option>
-								<option v-for="item in classList" 
-										:value=item.id>{{ item.title }}
+                                    v-model="input.teacher_id">
+								<option value="" disabled="">Choose teacher</option>
+								<option v-for="item in members" 
+										:value=item.id>{{ item.name }}
 								</option>
 							</select>
-
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="class_id-required" class="text-danger" 
-                            	v-if="!$v.input.class_id.required && $v.input.class_id.$dirty">
-                            		Class is required
-                        		</span>
-                    		</transition>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -219,8 +207,8 @@
                     </div>
 
                     <div class="col-sm-12 d-flex justify-content-center mt-2">
-                        <button @click="editMember"
-                        class="btn btn-success btn-sm ml-2" :disabled="isRequesting">
+                        <button @click="editMember" :disabled="isRequesting"
+                                class="btn btn-success btn-sm ml-2">
                             <template v-if="isRequesting">Saving..</template>
                             <template v-else>Save</template>
                         </button>
@@ -230,6 +218,8 @@
             	<edit-rank :member="member"> </edit-rank>
 
                 <edit-subscription :member="member"> </edit-subscription>
+                
+                <edit-class :member="member"> </edit-class> 
 
                 <edit-region :member="member"> </edit-region>
 
@@ -247,6 +237,7 @@
 </template>
 
 <script>
+    import EditClass from './EditAddClass.vue';
     import EditRegion from './EditAddRegion.vue';
     import EditSubscription from './EditAddSubscription.vue';
 	import EditRank from './EditAddRank.vue';
@@ -272,7 +263,7 @@
 					telephone: this.member.telephone,
 					mobile: this.member.mobile,
 					fax: this.member.fax,
-					class_id: this.member.class.id,
+					teacher_id: this.member.teacher_id,
 					gender: this.member.gender,
 					id: this.member.id
 				}
@@ -286,6 +277,7 @@
 		components:{
 			Datetime,
 			EditRank,
+            EditClass,
             EditRegion,
             EditSubscription
 		},
@@ -314,10 +306,7 @@
                 },
                 telephone:{
                 	required,
-                },
-                class_id:{
-                	required
-                }
+                }            
             },
 		},
 
@@ -325,6 +314,7 @@
 			...mapGetters({
 				classList: 'getClass',
 				ranks: 'getRanks',
+                members: 'getMembers'
 			}),
 
 			formIsFilled(){
@@ -337,7 +327,6 @@
 					&& this.input.email.length >= 3
 					&& this.input.email.length <= 50
 					&& this.input.telephone != ''
-					&& this.input.class_id != '';
 			},
 
 			memberIsedited(){
@@ -346,9 +335,9 @@
 					|| this.input.place_of_birth != this.member.place_of_birth
 					|| this.input.email != this.member.email
 					|| this.input.fax != this.member.fax
+                    || this.input.teacher_id != this.member.teacher_id
 					|| this.input.telephone != this.member.telephone
 					|| this.input.mobile != this.member.mobile
-					|| this.input.class_id != this.member.class.id
 					|| this.input.join_date.substring(0,10) != this.member.join_date
 					|| this.input.date_of_birth.substring(0,10) != this.member.date_of_birth
 			}
@@ -372,7 +361,7 @@
 
                             self.isRequesting = false;
 
-                            self.closeEditForm();
+                            // self.closeEditForm();
                         })
                         .catch(errors => {
 
@@ -397,7 +386,6 @@
                 this.$v.input.date_of_birth.$touch();
                 this.$v.input.email.$touch();
                 this.$v.input.telephone.$touch();
-                this.$v.input.class_id.$touch();
 			},
 
 			closeEditForm(){

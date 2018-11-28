@@ -182,9 +182,13 @@
 
                 if (!self.isRequsting) {
 
+                    this.isRequsting = true;
+
+                    const isBool = this.detail.is_confirmed == 0 ? true : false;
+
                     const updatedPotential = {
                         id: this.detail.id,
-                        is_confirmed: !this.detail.is_confirmed,
+                        is_confirmed: isBool,
                     };
 
                     this.$store.dispatch('update_potential', updatedPotential)                        

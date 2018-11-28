@@ -675,7 +675,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
@@ -2884,9 +2884,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (!self.isRequsting) {
 
+                this.isRequsting = true;
+
+                var isBool = this.detail.is_confirmed == 0 ? true : false;
+
                 var updatedPotential = {
                     id: this.detail.id,
-                    is_confirmed: !this.detail.is_confirmed
+                    is_confirmed: isBool
                 };
 
                 this.$store.dispatch('update_potential', updatedPotential).then(function (updatedPotential) {

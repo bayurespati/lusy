@@ -299,7 +299,7 @@
                     enableOrientation: false
                 });
 
-                if(this.image === null || this.image === ''){
+                if(this.image == null || this.image == ''){
                     this.croppie.bind({
                         url: '/img/portfolio-2.jpg'
                     });

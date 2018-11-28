@@ -178,9 +178,11 @@
 
                     self.isRequesting = true;
 
+                    const isBool = this.detail.is_approve == 0 ? true : false;
+
                     const updatedMember = {
                         id: this.detail.id,
-                        is_approve: !this.detail.is_approve,
+                        is_approve: isBool,
                         class_id: self.detail.class_id
                     };
 
@@ -191,6 +193,8 @@
                             flash('Member has been accepted', 'success');
 
                             self.isRequesting = false;
+
+                            self.closeDetail();
                         })
                         .catch(errors => {
 
@@ -226,7 +230,6 @@
                     });
                 }
             },
-
 
             closeDetail() {
                 this.$emit('closeDetail', false);

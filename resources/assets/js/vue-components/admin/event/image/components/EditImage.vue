@@ -117,7 +117,7 @@
                 input:{
                     title : this.imageItem.title,
                     image : this.imageItem.image_path,
-                    description : this.imageItem.description === null ? '' : this.imageItem.description,
+                    description : this.imageItem.description == null ? '' : this.imageItem.description,
                 }
             }   
         },
@@ -191,7 +191,7 @@
                     enableOrientation: false
                 });
 
-                if(this.input.image === null || this.input.image === ''){
+                if(this.input.image == null || this.input.image == ''){
                     this.croppie.bind({
                         url: '/img/events1.jpg'
                     });
@@ -230,7 +230,7 @@
                         id: this.imageItem.id,
                         title: this.input.title,
                         description: this.input.description,
-                        image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
+                        image: this.input.image == this.imageItem.image_path ? this.input.image : this.save_image,
                         is_poster: this.imageItem.is_poster
                     };
 
