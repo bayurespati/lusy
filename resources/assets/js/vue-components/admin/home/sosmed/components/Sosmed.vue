@@ -1,7 +1,7 @@
 <template>
   <div class="container">
   	<h3>Social Media Setting</h3>
-  	<p>You can set which social media to be displayed on the navigation bar through here.</p>
+  	<p>You can set which <strong>social media</strong> to be displayed on the <strong>footer</strong> through here.</p>
 
   	<div class="row">
 		<div class="col-md-12">

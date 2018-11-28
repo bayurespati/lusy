@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h3>Member</h3>
+    <h3>Member List</h3>
     <p class="mb-3">
-      Here is where you can see list of members
+      Here is where you can see list of <strong>members</strong>.
     </p>
 
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">

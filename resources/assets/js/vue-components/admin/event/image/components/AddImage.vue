@@ -87,6 +87,12 @@
                             <div class="col-md-9">
                                 <textarea v-model="description" class="form-control full-width" id="description">
                                 </textarea>
+
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="description-maximum" class="text-danger" v-if="!$v.description.maxLength">
+                                        Description has a maximum of {{ $v.description.$params.maxLength.max }} characters
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
@@ -152,6 +158,9 @@
                 minLength: minLength(3),
                 maxLength: maxLength(30)
             },
+            description: {
+                maxLength: maxLength(100)
+            }
         },
 
         computed:{
@@ -162,8 +171,9 @@
             formIsFilled(){
                 return this.image != '' 
                     && this.title != '' 
-                    && this.title.length >= 3
-                    && this.title.length <= 50
+                    && this.title.length > 3
+                    && this.title.length <= 30
+                    && this.description < 100
              },
 
              colForPicture(){

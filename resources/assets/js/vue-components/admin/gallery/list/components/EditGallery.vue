@@ -240,7 +240,7 @@
             },
             location:{
                 minLength: minLength(3),
-                maxLength: maxLength(100)
+                maxLength: maxLength(50)
             },
             sub_category_id:{
                 required
@@ -277,7 +277,7 @@
                     && this.sub_category_id != '' 
                     && this.date != ''
                     && this.title != '' && this.title.length >= 3 && this.title.length <= 50
-                    && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 30) )
+                    && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 50) )
                     && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
              },
 

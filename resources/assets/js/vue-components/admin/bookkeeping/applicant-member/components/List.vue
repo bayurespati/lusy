@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h3>Applicant member list</h3>
+    <h3>Applicant Member List</h3>
     <p class="mb-5">
-      Here is where you can see list of applicant members
+      Here is where you can see list of <strong>applicant members</strong> and approve them to accept them as <strong>active members</strong>.
     </p>
     
     <div class="row">

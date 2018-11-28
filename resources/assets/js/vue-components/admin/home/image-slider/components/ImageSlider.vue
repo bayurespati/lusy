@@ -2,7 +2,7 @@
 	<div class="container">
 		<h3>Image Slider Setting</h3>
 
-		<p>You can insert maximum to 4 (four) images here to be displayed at the Home page.</p>
+		<p>You can insert a maximum to 4 (four) images here to be displayed at the <strong>Home</strong> page.</p>
 		<transition enterActiveClass="fade-in"
 		            leaveActiveClass="fade-out"
 		            mode="out-in">

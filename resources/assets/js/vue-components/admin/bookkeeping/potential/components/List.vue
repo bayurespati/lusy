@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <h3>Potential Overseas Inquiry</h3>
+    <p class="mb-0">
+      Here is where you can see list of <strong>overseas inquiry</strong> sent from <strong>Shop Item</strong> page
+    </p>
     <p class="mb-5">
-      Here is where you can see list of overseas inquiry sent from Shop Item page
+      <strong>Accepted inquiries</strong> will be automatically moved to <strong>Overseas Inquiries</strong> page.
     </p>
 
     <div class="row">

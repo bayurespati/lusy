@@ -2062,7 +2062,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -14077,12 +14077,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			title: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 			},
 			organiser: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 			},
 			start_date: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -14093,12 +14093,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			location: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
 			},
 			address: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 			},
 			subcategories: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -14117,7 +14117,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		categories: 'getCategories'
 	}), {
 		formAddFilled: function formAddFilled() {
-			return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.organiser != '' && this.input.organiser.length >= 3 && this.input.organiser.length <= 50 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 30 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 50 && this.input.start_date != '' && this.input.end_date != '' && this.input.subcategories != '' && this.input.sub_category_id != '';
+			return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.organiser != '' && this.input.organiser.length >= 3 && this.input.organiser.length <= 100 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 50 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 100 && this.input.start_date != '' && this.input.end_date != '' && this.input.subcategories != '' && this.input.sub_category_id != '';
 		}
 	}),
 
@@ -15672,12 +15672,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         title: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
         },
         organiser: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
         },
         start_date: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -15688,12 +15688,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         location: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
         },
         address: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
         },
         category_id: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -15710,7 +15710,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.subcategory.category_id !== this.category_id || this.event.sub_category_id !== this.sub_category_id;
         },
         formAddFilled: function formAddFilled() {
-            return this.title != '' && this.title.length >= 3 && this.title.length <= 50 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 50 && this.location != '' && this.location.length >= 3 && this.location.length <= 30 && this.address != '' && this.address.length >= 3 && this.address.length <= 50 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.sub_category_id != '';
+            return this.title != '' && this.title.length >= 3 && this.title.length <= 100 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 100 && this.location != '' && this.location.length >= 3 && this.location.length <= 50 && this.address != '' && this.address.length >= 3 && this.address.length <= 100 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.sub_category_id != '';
         }
     }),
 
@@ -16955,9 +16955,7 @@ var render = function() {
     [
       _c("h3", [_vm._v("Events' Master")]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
-        _vm._v("Here you can manages events shown in Events & Activities page.")
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "transition",
@@ -17021,7 +17019,20 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-5" }, [
+      _vm._v("Here you can manages "),
+      _c("strong", [_vm._v("events")]),
+      _vm._v(" shown in "),
+      _c("strong", [_vm._v("Events & Activities")]),
+      _vm._v(" page.")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

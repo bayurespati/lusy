@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>Image Config</h3>
-    <p class="mb-5">Here you can manages image.</p>
+    <p class="mb-5">Here you can manages <strong>banner</strong> images in each listed pages.</p>
 
     <div class="row">
       <div class="col-md-12">

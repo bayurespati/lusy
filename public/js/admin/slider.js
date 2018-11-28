@@ -665,7 +665,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -1719,11 +1719,7 @@ var render = function() {
     [
       _c("h3", [_vm._v("Image Slider Setting")]),
       _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "You can insert maximum to 4 (four) images here to be displayed at the Home page."
-        )
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "transition",
@@ -1779,7 +1775,20 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "You can insert a maximum to 4 (four) images here to be displayed at the "
+      ),
+      _c("strong", [_vm._v("Home")]),
+      _vm._v(" page.")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

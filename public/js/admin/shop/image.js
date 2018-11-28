@@ -781,7 +781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -6234,15 +6234,14 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("h3", { staticClass: "text-uppercase" }, [
-        _vm._v(_vm._s(_vm.item.title) + " IMAGE LIST MASTER")
+        _c("strong", [_vm._v(_vm._s(_vm.item.title))]),
+        _vm._v(" IMAGE LIST MASTER")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "mb-0" }, [
-        _vm._v(
-          "This is where you can manage images shown in the shop item's poster shown in Shop page and shop item's images shown in " +
-            _vm._s(_vm.item.title) +
-            " single page"
-        )
+        _vm._v("This is where you can manage images that belongs to "),
+        _c("strong", [_vm._v(_vm._s(_vm.item.title))]),
+        _vm._v(" item.")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "mb-5" }, [

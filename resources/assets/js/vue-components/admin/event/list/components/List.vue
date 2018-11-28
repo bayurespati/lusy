@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>Events' Master</h3>
-    <p class="mb-5">Here you can manages events shown in Events & Activities page.</p>
+    <p class="mb-5">Here you can manages <strong>events</strong> shown in <strong>Events & Activities</strong> page.</p>
 
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddEvent">

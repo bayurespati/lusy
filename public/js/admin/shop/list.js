@@ -797,7 +797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -2836,12 +2836,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 												title: {
 																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 												},
 												sub_title: {
 																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 												},
 												store_link: {
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
@@ -2862,7 +2862,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 								categories: 'getCategories'
 				}), {
 								isFormFilled: function isFormFilled() {
-												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 50 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
 								},
 								is_subCat: function is_subCat() {
 												if (this.category !== '' && this.subcategories.length >= 1) {
@@ -4293,12 +4293,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             title: {
                 required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
             },
             sub_title: {
                 required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
             },
             store_link: {
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
@@ -4322,7 +4322,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
         },
         isFormFilled: function isFormFilled() {
-            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 50 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
         },
         is_subCat: function is_subCat() {
             if (this.subcat.length >= 1) {
@@ -6511,9 +6511,7 @@ var render = function() {
     [
       _c("h3", [_vm._v("Shop's Item Master")]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
-        _vm._v("\n    Here you can manage Items shown in Shop page.\n  ")
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "transition",
@@ -6577,7 +6575,20 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-5" }, [
+      _vm._v("\n    Here you can manage "),
+      _c("strong", [_vm._v("items")]),
+      _vm._v(" shown in "),
+      _c("strong", [_vm._v("Shop")]),
+      _vm._v(" page.\n  ")
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

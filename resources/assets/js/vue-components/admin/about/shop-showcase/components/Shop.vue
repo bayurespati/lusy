@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h3>Showcased Shop</h3>
-    <p class="m-0">Here you can manages shop shown in About page.</p>
+    <p class="m-0">Here you can manages <strong>shops</strong> shown in <strong>About</strong> page.</p>
+    <p class="mb-5">(Showcased shops have a maximum of 4)</p>
 
     <div class="row">
       <div class="col-md-12">

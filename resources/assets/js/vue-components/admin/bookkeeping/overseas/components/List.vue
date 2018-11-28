@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Overseas Inquiry</h3>
     <p class="mb-3">
-      Here is where you can see list of inquiries that are approved
+      Here is where you can see list of <strong>approved inquiries</strong>.
     </p>
 
     <div class="row">

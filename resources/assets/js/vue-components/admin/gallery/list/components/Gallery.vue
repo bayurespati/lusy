@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>Gallery's Images Master</h3>
-    <p class="mb-0">Here you can manages images that are shown in Gallery page.</p>
+    <p class="mb-0">Here you can manages <strong>images</strong> that are shown in <strong>Gallery</strong> page, images uploaded here will also shows up in <strong>Gallery Showcase</strong> page as options.</p>
     <p>Dimension: (480 x 500) or (960 x 500)</p>
 
     <transition enterActiveClass="fade-in" 

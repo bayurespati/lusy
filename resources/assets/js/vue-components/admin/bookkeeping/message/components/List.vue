@@ -2,10 +2,10 @@
   <div class="container">
     <h3>Contact Messages</h3>
     <p class="mb-0">
-      Here you can see messages submitted by guests from the Contacts page
+      Here you can see <strong>messages</strong> sent from the <strong>Contact</strong> page by guests
     </p>
     <p class="mb-5">
-      You can also replied to their messages here and have it sent straight to their email
+      You can also <strong>replied</strong> to their messages here and have it sent straight to their <strong>email</strong>.
     </p>
 
     <div class="row">

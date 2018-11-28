@@ -785,7 +785,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			menus: [{
 				id: 'home',
 				name: 'Home',
-				subMenu: [{ name: 'Sosial Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
 			}, {
 				id: 'about',
 				name: 'About',
@@ -2669,6 +2669,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2709,6 +2715,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+        },
+        description: {
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
         }
     },
 
@@ -2716,7 +2725,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         eventId: 'getEventId'
     }), {
         formIsFilled: function formIsFilled() {
-            return this.image != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50;
+            return this.image != '' && this.title != '' && this.title.length > 3 && this.title.length <= 30 && this.description < 100;
         },
         colForPicture: function colForPicture() {
             return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
@@ -3097,29 +3106,65 @@ var render = function() {
             _c("div", { staticClass: "row mt-2" }, [
               _vm._m(2),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-9" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.description,
-                      expression: "description"
-                    }
-                  ],
-                  staticClass: "form-control full-width",
-                  attrs: { id: "description" },
-                  domProps: { value: _vm.description },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _c(
+                "div",
+                { staticClass: "col-md-9" },
+                [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.description,
+                        expression: "description"
                       }
-                      _vm.description = $event.target.value
+                    ],
+                    staticClass: "form-control full-width",
+                    attrs: { id: "description" },
+                    domProps: { value: _vm.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.description = $event.target.value
+                      }
                     }
-                  }
-                })
-              ])
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    {
+                      attrs: {
+                        enterActiveClass: "fade-in",
+                        leaveActiveClass: "fade-out",
+                        mode: "out-in"
+                      }
+                    },
+                    [
+                      !_vm.$v.description.maxLength
+                        ? _c(
+                            "span",
+                            {
+                              key: "description-maximum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Description has a maximum of " +
+                                  _vm._s(
+                                    _vm.$v.description.$params.maxLength.max
+                                  ) +
+                                  " characters\n                                "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]
+                  )
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -3795,6 +3840,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3835,7 +3886,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
             },
             description: {
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
             },
             image: {
@@ -3849,7 +3899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.imageItem.title !== this.input.title || this.imageItem.is_wide !== this.isWide || this.imageItem.image_path !== this.input.image || this.imageItem.description !== this.input.description;
         },
         formIsFilled: function formIsFilled() {
-            return this.input.image != '' && this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50;
+            return this.input.image != '' && this.input.title != '' && this.title.length > 3 && this.input.title.length <= 30 && this.input.description.length <= 100;
         },
         colForPicture: function colForPicture() {
             return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
@@ -4276,7 +4326,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    Name has a maximum " +
+                                        "\n                                    Name has a maximum of " +
                                           _vm._s(
                                             _vm.$v.input.title.$params.maxLength
                                               .max
@@ -4317,47 +4367,84 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9 col-xs-12" }, [
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.description,
-                          expression: "input.description"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      domProps: { value: _vm.input.description },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-9 col-xs-12" },
+                    [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.input.description,
+                            expression: "input.description"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        domProps: { value: _vm.input.description },
+                        on: {
+                          keyup: function($event) {
+                            if (
+                              !("button" in $event) &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.editImage($event)
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.input,
+                              "description",
+                              $event.target.value
                             )
-                          ) {
-                            return null
                           }
-                          return _vm.editImage($event)
-                        },
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.input,
-                            "description",
-                            $event.target.value
-                          )
                         }
-                      }
-                    })
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          !_vm.$v.input.description.maxLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "description-maximum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Description has a maximum of " +
+                                      _vm._s(
+                                        _vm.$v.input.description.$params
+                                          .maxLength.max
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
                 _c(
@@ -4597,15 +4684,14 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("h3", { staticClass: "text-uppercase" }, [
-        _vm._v(_vm._s(_vm.event.title) + " IMAGE LIST MASTER")
+        _c("strong", [_vm._v(_vm._s(_vm.event.title))]),
+        _vm._v(" IMAGE LIST MASTER")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "mb-0" }, [
-        _vm._v(
-          "This is where you can manage images shown in the event's poster shown in Events & Activities page and event's images shown in " +
-            _vm._s(_vm.event.title) +
-            " single page"
-        )
+        _vm._v("This is where you can manage images that belongs to "),
+        _c("strong", [_vm._v(_vm._s(_vm.event.title))]),
+        _vm._v(" event.")
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "mb-5" }, [

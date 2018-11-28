@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h3 class="text-uppercase">{{ event.title }} IMAGE LIST MASTER</h3>
-    <p class="mb-0">This is where you can manage images shown in the event's poster shown in Events & Activities page and event's images shown in {{ event.title }} single page</p>
+    <h3 class="text-uppercase"><strong>{{ event.title }}</strong> IMAGE LIST MASTER</h3>
+    <p class="mb-0">This is where you can manage images that belongs to <strong>{{ event.title }}</strong> event.</p>
     <p class="mb-5">Dimension: (480 x 500) or (960 x 500)</p>
     
     <ul class="breadcrumb">

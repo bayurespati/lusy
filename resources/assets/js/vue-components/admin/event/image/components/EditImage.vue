@@ -71,7 +71,7 @@
                                         Name has a minimum of {{ $v.input.title.$params.minLength.min }} characters
                                     </span>
                                     <span key="name-maximum" class="text-danger" v-else-if="!$v.input.title.maxLength">
-                                        Name has a maximum {{ $v.input.title.$params.maxLength.max }} characters
+                                        Name has a maximum of {{ $v.input.title.$params.maxLength.max }} characters
                                     </span>
                                 </transition>
                             </div>
@@ -89,6 +89,12 @@
                                 <textarea  v-model="input.description" 
                                 class="form-control form-control-sm" 
                                 @keyup.enter="editImage"></textarea>
+
+                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                    <span key="description-maximum" class="text-danger" v-if="!$v.input.description.maxLength">
+                                        Description has a maximum of {{ $v.input.description.$params.maxLength.max }} characters
+                                    </span>
+                                </transition>
                             </div>
                         </div>
 
@@ -153,7 +159,6 @@
                     maxLength: maxLength(30)
                 },
                 description:{
-                    minLength: minLength(3),
                     maxLength: maxLength(100)
                 },
                 image:{
@@ -174,8 +179,9 @@
             formIsFilled(){
                 return this.input.image != '' 
                     && this.input.title != '' 
-                    && this.input.title.length >= 3
-                    && this.input.title.length <= 50
+                    && this.title.length > 3
+                    && this.input.title.length <= 30
+                    && this.input.description.length <= 100
              },
 
              colForPicture(){
