@@ -13,72 +13,76 @@ class RanksTableSeeder extends Seeder
     {
         DB::table('ranks')->insert([
             [
-                'title' => 'Tingkat 1',
-                'price' => '1000000',
+                'title' => 'Nyumon',
+                'price' => '35',
             ],
             [
-                'tile' => 'Tingkat 2',
-                'price' => '1000000',
+                'tile' => 'Shoden',
+                'price' => '35',
             ],
             [
-                'tile' => 'Tingkat 3',
-                'price' => '1000000',
+                'tile' => 'Chuden',
+                'price' => '35',
             ],
             [
-                'tile' => 'Tingkat 4',
-                'price' => '1000000',
+                'tile' => 'Kaiden',
+                'price' => '50',
             ],
             [
-                'tile' => 'Tingkat 5',
-                'price' => '1000000',
+                'tile' => 'Kasho',
+                'price' => '60',
             ],
             [
-                'tile' => 'Tingkat 6',
-                'price' => '1000000',
+                'tile' => 'Junkakyo',
+                'price' => '65',
             ],
             [
-            	'tile' => 'Tingkat 7',
-                'price' => '1000000',
+            	'tile' => 'Junkakan',
+                'price' => '65',
             ],
             [
-                'tile' => 'Tingkat 8',
-                'price' => '1000000',
+                'tile' => 'Junkako',
+                'price' => '65',
             ],
             [
-                'tile' => 'Tingkat 9',
-                'price' => '1000000',
+                'tile' => 'Kakyo',
+                'price' => '130',
             ],
             [
-                'tile' => 'Tingkat 10',
-                'price' => '1000000',
+                'tile' => 'Kakan',
+                'price' => '130',
             ],
             [
-                'tile' => 'Tingkat 11',
-                'price' => '1000000',
+                'tile' => 'Kako',
+                'price' => '130',
             ],
             [
-                'tile' => 'Tingkat 12',
-                'price' => '1000000',
+                'tile' => 'Sokakyo',
+                'price' => '195',
             ],
             [
-                'tile' => 'Tingkat 13',
-                'price' => '1000000',
+                'tile' => 'Sokakan',
+                'price' => '195',
             ],
             [
-                'tile' => 'Tingkat 14',
-                'price' => '1000000',
+                'tile' => 'Sokako',
+                'price' => '195',
             ],
             [
-                'tile' => 'Tingkat 15',
-                'price' => '1000000',
+                'tile' => 'Junkatoku',
+                'price' => '325',
             ],
             [
-                'tile' => 'Tingkat 16',
-                'price' => '1000000',
+                'tile' => 'Katoku',
+                'price' => '520',
             ],
             [
-                'tile' => 'Tingkat 17',
-                'price' => '1000000',
+                'tile' => 'Fukusokatoku',
+                'price' => '650',
+            ],
+            [
+                'title' => 'Sokatoku',
+                'price' => '840'
             ]
         ]);
     }

@@ -4964,7 +4964,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.slide-enter[data-v-734642ed] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-734642ed] {\n    animation: slide-in-data-v-734642ed 0.6s ease;\n    transition: opacity 0.6s;\n}\n.slide-leave[data-v-734642ed] {\n}\n.slide-leave-active[data-v-734642ed] {\n    animation: slide-out-data-v-734642ed 0.6s ease forwards;\n    transition: opacity 0.6s;\n    opacity: 0;\n    position: absolute;\n    width: 100%;\n}\n.slide-move[data-v-734642ed] {\n    transition: transform 0.6s;\n}\n@keyframes slide-in-data-v-734642ed {\nfrom {\n        transform: translateY(-20px);\n}\nto {\n        background-color: white;\n        transform: translateY(0px);\n}\n}\n@keyframes slide-out-data-v-734642ed {\nfrom {\n        transform: translateY(0);\n}\nto {\n        transform: translateY(-20px);\n}\n}\n", ""]);
+exports.push([module.i, "\nselect[data-v-734642ed] {\n  text-align: center;\n  text-align-last: center;\n  font-weight: bold;\n  /* webkit*/\n}\n.btn-full-width[data-v-734642ed] {\n  display: inline-block;\n  width: 100%;\n}\n.slide-enter[data-v-734642ed] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-734642ed] {\n    animation: slide-in-data-v-734642ed 0.6s ease;\n    transition: opacity 0.6s;\n}\n.slide-leave[data-v-734642ed] {\n}\n.slide-leave-active[data-v-734642ed] {\n    animation: slide-out-data-v-734642ed 0.6s ease forwards;\n    transition: opacity 0.6s;\n    opacity: 0;\n    position: absolute;\n    width: 100%;\n}\n.slide-move[data-v-734642ed] {\n    transition: transform 0.6s;\n}\n@keyframes slide-in-data-v-734642ed {\nfrom {\n        transform: translateY(-20px);\n}\nto {\n        background-color: white;\n        transform: translateY(0px);\n}\n}\n@keyframes slide-out-data-v-734642ed {\nfrom {\n        transform: translateY(0);\n}\nto {\n        transform: translateY(-20px);\n}\n}\n", ""]);
 
 // exports
 
@@ -4983,6 +4983,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10322,6 +10366,12 @@ var render = function() {
         2
       ),
       _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _vm._m(3),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
@@ -10354,6 +10404,108 @@ var staticRenderFns = [
       _vm._v("\n    Here is where you can see list of "),
       _c("strong", [_vm._v("members")]),
       _vm._v(".\n  ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-4" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-12 btn-group btn-group-toggle",
+          attrs: { "data-toggle": "buttons" }
+        },
+        [
+          _c(
+            "label",
+            { staticClass: "btn btn-secondary btn-full-width active" },
+            [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "option1",
+                  autocomplete: "off",
+                  checked: ""
+                }
+              }),
+              _vm._v(" Active Members\n      ")
+            ]
+          ),
+          _vm._v(" "),
+          _c("label", { staticClass: "btn btn-secondary btn-full-width" }, [
+            _c("input", {
+              attrs: {
+                type: "radio",
+                name: "options",
+                id: "option2",
+                autocomplete: "off"
+              }
+            }),
+            _vm._v(" Inactive Members\n      ")
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("select", { staticClass: "form-control", attrs: { id: "sel1" } }, [
+          _c("option", [_vm._v("Change the order based on..")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Subscription Payment")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Gender")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Join Date")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Current Rank")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Place & Date of Birth")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Address")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Telephone")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Mobile Phone")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Fax")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("Email")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col-12 form-group" }, [
+        _c("select", { staticClass: "form-control", attrs: { id: "sel1" } }, [
+          _c("option", [_vm._v("Choose year..")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2018")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2017")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2016")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2015")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2014")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2013")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("2012")])
+        ])
+      ])
     ])
   }
 ]
