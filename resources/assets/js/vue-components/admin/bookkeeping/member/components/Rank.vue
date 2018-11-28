@@ -53,8 +53,6 @@
 
 				if(!self.isRequesting){
 
-					console.log(this.annointed_date);
-
 					self.isRequesting = true
 
 					this.$store.dispatch('edit_rank',{

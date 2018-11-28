@@ -97,18 +97,21 @@ class MemberController extends Controller
             $member->gender = $request->personal['gender'];
             $member->place_of_birth = $request->personal['place_of_birth'];
             $member->date_of_birth = substr($request->personal['date_of_birth'],0,10);
-            $member->is_approve = true;
             $member->is_active = false;
+            $member->teacher_id = $request->personal['teacher_id'];
             $member->email = $request->personal['email'];
             $member->telephone = $request->personal['telephone'];
             $member->mobile = $request->personal['mobile'];
             $member->fax = $request->personal['fax'];
-            $member->class_id = $request->personal['class_id'];
             $member->join_date = $request->personal['join_date'] == '' 
                                 ? null 
                                 : substr($request->personal['join_date'],0,10);
 
             $member->save();
+
+            foreach ($request->classes as $list) {
+                $member->class()->attach($list['id'], ['is_approve' => true]);
+            }
 
             foreach ($request->ranks as $rank) {
                 $member->rank()->attach($rank['rankId'], ['annointed_date' => substr($rank['annointed_date'],0,10) ]);
@@ -124,7 +127,6 @@ class MemberController extends Controller
             foreach ($request->region as $region) {
                 $member->region()->attach($region['id']);
             }
-
         });
     }
 

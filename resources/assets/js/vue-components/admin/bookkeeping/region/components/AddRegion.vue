@@ -123,7 +123,7 @@
 					this.$store.dispatch('store_new_region', this.input)
                         .then(() => {
                             flash(regionName + ' is successfully added','success');
-                            this.input.title = '';
+                            self.input.name = '';
 
                             self.isRequesting = false;
 
@@ -146,9 +146,10 @@
 			},
 
 			setData(){
-				this.input.title = '';
+				this.input.name = '';
 				this.input.city = '';
 				this.input.address = '';
+				this.$v.input.name.$reset();
 			},
 
 			dirtyAllInputs(){

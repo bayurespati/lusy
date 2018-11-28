@@ -178,14 +178,14 @@ export const store = new Vuex.Store({
                 });
         },
 
-        store_new_member({commit}, dataMember) {
+        store_new_member({commit,dispatch}, dataMember) {
 
             return new Promise((resolve, reject) => {
 
                 axios.post('add/member', dataMember)
                     .then(response => {
 
-                        // commit('add_new_member', dataMember);
+                        dispatch('load_members');
 
                         resolve(dataMember);
                     })
@@ -260,8 +260,6 @@ export const store = new Vuex.Store({
         },
 
         destroy_subscription({commit}, ids){
-
-            console.log(ids);
 
             return new Promise((resolve, reject) => {
 

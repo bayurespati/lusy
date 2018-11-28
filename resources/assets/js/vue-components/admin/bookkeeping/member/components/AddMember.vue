@@ -32,7 +32,7 @@
                             	v-else-if="!$v.input.name.maxLength">
                             		Name has a maximum of {{ $v.input.name.$params.maxLength.max }} characters
                         		</span>
-                    		</transition>	
+                    		</transition>
 						</div>
 					</div>
 
@@ -167,12 +167,12 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<select class="form-control" id="category" 
-							@input="$v.input.class_id.$touch()"
-							:class="{'form-control-danger': $v.input.class_id.$error}"
-							v-model="input.class_id">
-								<option value="" disabled="">Choose Class</option>
-								<option v-for="item in classList" 
-										:value=item.id>{{ item.title }}
+							@input="$v.input.teacher_id.$touch()"
+							:class="{'form-control-danger': $v.input.teacher_id.$error}"
+							v-model="input.teacher_id">
+								<option value="" disabled="">Choose Teacher</option>
+								<option v-for="member in members" 
+										:value=member.id>{{ member.name }}
 								</option>
 							</select>
 
@@ -180,8 +180,8 @@
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
                             	======================================================================================-->
                     		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="class_id-required" class="text-danger" 
-                            	v-if="!$v.input.class_id.required && $v.input.class_id.$dirty">
+                            	<span key="teacher_id-required" class="text-danger" 
+                            	v-if="!$v.input.teacher_id.required && $v.input.teacher_id.$dirty">
                             		Class is required
                         		</span>
                     		</transition>
@@ -260,9 +260,50 @@
 				</div>
 				<div class="col-md-12 d-flex">
 					<div v-for="(list, index) in subscription">
-						<p>{{ list.year }} 
+						<p>{{ list }} 
 							<span @click="delete_year(index)" 
 								  class="badge badge-danger" style="cursor: pointer">X</span> 
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="card text-center">
+				<div class="col-md-12">
+					<h4 class="title mb-5">Class</h4>
+				</div>
+				<div class="col-md-12 d-flex">
+					<div class="col-md-6">
+						<select class="form-control" id="calss-list"
+								:class="{'form-control-danger':isHasClass }"
+							    v-model="classItem">
+				    	<option value='' disabled="">Choose Class</option>
+					    <option v-for="item in classList" :value=item>{{ item.title }}</option>
+					   </select>
+					   <!--======================================================================================
+                        	V A L I D A T I O N     E R R O R   M E S S A G E S
+                        	======================================================================================-->
+                			<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                        		<span class="text-danger" v-if="isHasClass">
+                        		  	Class is required
+                    			</span>
+                			</transition>
+					</div>
+
+					<div class="col-md-6">
+						<button type="button" @click="add_class" class="btn btn-success btn-sm">
+							Add Class
+						</button>
+					</div>
+				</div>
+
+				<div class="col-md-12 d-flex">
+					<div v-for="(list, index) in classData">
+						<p>{{ list.title }}
+							<span @click="delete_class(index)" 
+								  class="badge badge-danger" 
+								  style="cursor: pointer">X
+							</span> 
 						</p>
 					</div>
 				</div>
@@ -327,6 +368,7 @@
 	export default{
 		data(){
 			return{
+				isHasClass: false,
 				isRequesting: false,
 				limit: 0,
 				rankData:[],
@@ -335,6 +377,8 @@
 				year: '',
 				classRegion:[],
 				region: '',
+				classData:[],
+				classItem: '',
 				input:{
 					name: '',
 					gender: '',
@@ -345,7 +389,7 @@
 					telephone: '',
 					mobile: '',
 					fax: '',
-					class_id: '',
+					teacher_id: '',
 					gender: '1'
 				}
 			}
@@ -379,7 +423,7 @@
                 telephone:{
                 	required,
                 },
-                class_id:{
+                teacher_id:{
                 	required
                 }
             },
@@ -389,6 +433,9 @@
             year:{
             	maxLength: maxLength(4),
             	minLength: minLength(4)
+            },
+            classData:{
+            	required
             }
         },
 
@@ -400,7 +447,8 @@
 			...mapGetters({
 				classList: 'getClass',
 				ranks: 'getRanks',
-				regions: 'getRegions'
+				regions: 'getRegions',
+				members: 'getMembers'
 			}),
 
 			formAddFilled(){
@@ -413,11 +461,78 @@
 					&& this.input.email.length >= 3
 					&& this.input.email.length <= 50
 					&& this.input.telephone != ''
-					&& this.input.class_id != '';
+					&& this.classData != '';
 			}
 		},
 
 		methods:{
+
+			addMember(){
+
+				let self = this;
+				
+				if(self.formAddFilled && !self.isRequesting){
+
+					self.isRequesting = true;
+
+					const name = this.input.name;
+
+					const dataMember = {
+						personal: this.input,
+						ranks: this.rankData,
+						subscription: this.subscription,
+						region: this.classRegion,
+						classes: this.classData
+					};
+
+					this.$store.dispatch('store_new_member',dataMember)
+                        .then(() => {
+                            flash(name + ' is successfully added','success');
+
+                            self.isRequesting = false;
+
+                            self.setData();
+
+                            self.closeAddMember();
+                        })
+                        .catch(errors => {
+
+                        	self.isRequesting = false;
+
+                            Object.keys(errors).forEach(field=> {
+                                errors[field].forEach(message=> {
+                                    flash(message, 'danger', 5000);
+                                })
+                            })
+                        });
+				}
+				else {
+					this.dirtyAllInputs();
+				}
+			},
+
+			add_class(){
+
+				if(this.classItem != ''){
+
+					this.classData.push(this.classItem);
+
+					const classIndex = _.findIndex(this.classList,['id', this.classItem.id]);
+
+					this.classList.splice(classIndex, 1);
+
+					this.classItem = '';
+				}
+			},
+
+			delete_class(index){
+
+				this.classList.push(this.classData[index]);
+
+				this.classData.splice(index, 1);
+
+			},
+
 			add_region(){
 				if(this.region != ''){
 					this.classRegion.push(this.region);
@@ -437,20 +552,15 @@
 				this.classRegion.splice(index, 1);
 			},
 
-			delete_year(index){
-				this.subscription.splice(index, 1);
-			},
-
 			add_subscription(){
-				if(this.year != ''){
+				if(this.year != '' && this.year.length == 4){
 					this.subscription.push(this.year);
 					this.year = '';
 				}
 			},
 
-			delete_rank(index){
-				this.rankData.splice(index, 1);
-				this.limit -= 1;
+			delete_year(index){
+				this.subscription.splice(index, 1);
 			},
 
 			add_rank(index){
@@ -466,45 +576,9 @@
 				}
 			},
 
-			addMember(){
-
-				let self = this;
-				
-				if(self.formAddFilled && !self.isRequesting){
-
-					self.isRequesting = true;
-
-					const name = this.input.name;
-
-					const dataMember = {
-						personal: this.input,
-						ranks: this.rankData,
-						subscription: this.subscription,
-						region: this.classRegion
-					};
-
-					this.$store.dispatch('store_new_member',dataMember)
-                        .then(() => {
-                            flash(name + ' is successfully added','success');
-
-                            self.isRequesting = false;
-
-                            self.setData();
-                        })
-                        .catch(errors => {
-
-                        	self.isRequesting = false;
-
-                            Object.keys(errors).forEach(field=> {
-                                errors[field].forEach(message=> {
-                                    flash(message, 'danger', 5000);
-                                })
-                            })
-                        });
-				}
-				else {
-					this.dirtyAllInputs();
-				}
+			delete_rank(index){
+				this.rankData.splice(index, 1);
+				this.limit -= 1;
 			},
 
 			setData(){
@@ -517,23 +591,41 @@
 				this.input.telephone = '';
 				this.input.mobile = '';
 				this.input.fax = '';
-				this.input.class_id = '';
+				this.input.teacher_id = '';
+				this.subscription = [];
+				this.rankData = [];
+				this.classData = [];
+				this.classRegion = [];
 			},
 
 			dirtyAllInputs(){
+
+				if(this.classData.length == 0){
+					this.isHasClass = true;
+				}
+
                 this.$v.input.name.$touch();
                 this.$v.input.gender.$touch();
                 this.$v.input.place_of_birth.$touch();
                 this.$v.input.date_of_birth.$touch();
                 this.$v.input.email.$touch();
                 this.$v.input.telephone.$touch();
-                this.$v.input.class_id.$touch();
+                this.$v.input.teacher_id.$touch();
+                this.$v.classData.$touch();
 			},
 
 			closeAddMember(){
 	           this.$emit('closeAddMember',false);
 	        }
 		},
+
+		watch:{
+			classData(){
+				if(this.classData.length >= 1){
+					this.isHasClass = false
+				}
+			}
+		}
 	};
 </script>
 

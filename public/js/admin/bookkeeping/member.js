@@ -927,6 +927,108 @@ if (false) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.pushParams = pushParams;
+exports.popParams = popParams;
+exports.withParams = withParams;
+exports._setTarget = exports.target = void 0;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var stack = [];
+var target = null;
+exports.target = target;
+
+var _setTarget = function _setTarget(x) {
+  exports.target = target = x;
+};
+
+exports._setTarget = _setTarget;
+
+function pushParams() {
+  if (target !== null) {
+    stack.push(target);
+  }
+
+  exports.target = target = {};
+}
+
+function popParams() {
+  var lastTarget = target;
+  var newTarget = exports.target = target = stack.pop() || null;
+
+  if (newTarget) {
+    if (!Array.isArray(newTarget.$sub)) {
+      newTarget.$sub = [];
+    }
+
+    newTarget.$sub.push(lastTarget);
+  }
+
+  return lastTarget;
+}
+
+function addParams(params) {
+  if (_typeof(params) === 'object' && !Array.isArray(params)) {
+    exports.target = target = _objectSpread({}, target, params);
+  } else {
+    throw new Error('params must be an object');
+  }
+}
+
+function withParamsDirect(params, validator) {
+  return withParamsClosure(function (add) {
+    return function () {
+      add(params);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return validator.apply(this, args);
+    };
+  });
+}
+
+function withParamsClosure(closure) {
+  var validator = closure(addParams);
+  return function () {
+    pushParams();
+
+    try {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return validator.apply(this, args);
+    } finally {
+      popParams();
+    }
+  };
+}
+
+function withParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return withParamsDirect(paramsOrClosure, maybeValidator);
+  }
+
+  return withParamsClosure(paramsOrClosure);
+}
+
+/***/ }),
+
+/***/ 18:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 Object.defineProperty(exports, "alpha", {
   enumerable: true,
   get: function get() {
@@ -1104,108 +1206,6 @@ exports.helpers = helpers;
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.pushParams = pushParams;
-exports.popParams = popParams;
-exports.withParams = withParams;
-exports._setTarget = exports.target = void 0;
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var stack = [];
-var target = null;
-exports.target = target;
-
-var _setTarget = function _setTarget(x) {
-  exports.target = target = x;
-};
-
-exports._setTarget = _setTarget;
-
-function pushParams() {
-  if (target !== null) {
-    stack.push(target);
-  }
-
-  exports.target = target = {};
-}
-
-function popParams() {
-  var lastTarget = target;
-  var newTarget = exports.target = target = stack.pop() || null;
-
-  if (newTarget) {
-    if (!Array.isArray(newTarget.$sub)) {
-      newTarget.$sub = [];
-    }
-
-    newTarget.$sub.push(lastTarget);
-  }
-
-  return lastTarget;
-}
-
-function addParams(params) {
-  if (_typeof(params) === 'object' && !Array.isArray(params)) {
-    exports.target = target = _objectSpread({}, target, params);
-  } else {
-    throw new Error('params must be an object');
-  }
-}
-
-function withParamsDirect(params, validator) {
-  return withParamsClosure(function (add) {
-    return function () {
-      add(params);
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return validator.apply(this, args);
-    };
-  });
-}
-
-function withParamsClosure(closure) {
-  var validator = closure(addParams);
-  return function () {
-    pushParams();
-
-    try {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      return validator.apply(this, args);
-    } finally {
-      popParams();
-    }
-  };
-}
-
-function withParams(paramsOrClosure, maybeValidator) {
-  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
-    return withParamsDirect(paramsOrClosure, maybeValidator);
-  }
-
-  return withParamsClosure(paramsOrClosure);
-}
 
 /***/ }),
 
@@ -1467,7 +1467,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var withParams = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(21).withParams : __webpack_require__(18).withParams;
+var withParams = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(21).withParams : __webpack_require__(17).withParams;
 var _default = withParams;
 exports.default = _default;
 
@@ -3113,7 +3113,7 @@ exports.default = exports.validationMixin = void 0;
 
 var _vval = __webpack_require__(43);
 
-var _params = __webpack_require__(18);
+var _params = __webpack_require__(17);
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -3995,834 +3995,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 50:
-/***/ (function(module, exports, __webpack_require__) {
-
-/*!
- * vue-datetime v1.0.0-beta.8
- * (c) 2018 Mario Juárez
- * Released under the MIT License.
- */
-
-(function (global, factory) {
-	 true ? factory(exports, __webpack_require__(91)) :
-	typeof define === 'function' && define.amd ? define(['exports', 'luxon'], factory) :
-	(factory((global.VueDatetime = global.VueDatetime || {}),global.luxon));
-}(this, (function (exports,luxon) { 'use strict';
-
-var FlowManager = function FlowManager (flow, endStatus) {
-  if ( flow === void 0 ) flow = [];
-  if ( endStatus === void 0 ) endStatus = null;
-
-  this.flow = flow;
-  this.endStatus = endStatus;
-  this.diversionNext = null;
-};
-
-FlowManager.prototype.step = function step (index) {
-  return this.flow.length > index ? this.flow[index] : this.endStatus
-};
-
-FlowManager.prototype.first = function first () {
-  return this.step(0)
-};
-
-FlowManager.prototype.next = function next (current) {
-  if (this.diversionNext) {
-    var next = this.diversionNext;
-    this.diversionNext = null;
-
-    return next
-  }
-
-  return this.step(this.flow.indexOf(current) + 1)
-};
-
-FlowManager.prototype.diversion = function diversion (next) {
-  this.diversionNext = next;
-};
-
-function capitalize (string) {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
-
-function datetimeFromISO (string) {
-  var datetime = luxon.DateTime.fromISO(string).toUTC();
-
-  return datetime.isValid ? datetime : null
-}
-
-function monthDays (year, month, weekStart) {
-  var monthDate = luxon.DateTime.local(year, month, 1);
-  var firstDay = monthDate.weekday - weekStart;
-
-  if (firstDay < 0) {
-    firstDay += 7;
-  }
-  var lastDay = (weekStart - monthDate.weekday - monthDate.daysInMonth) % 7;
-  if (lastDay < 0) {
-    lastDay += 7;
-  }
-
-  return new Array(monthDate.daysInMonth + firstDay + lastDay)
-    .fill(null)
-    .map(function (value, index) { return (index + 1 <= firstDay || index >= firstDay + monthDate.daysInMonth) ? null : (index + 1 - firstDay); }
-    )
-}
-
-function monthDayIsDisabled (minDate, maxDate, year, month, day) {
-  var date = luxon.DateTime.fromObject({ year: year, month: month, day: day, zone: 'UTC' });
-
-  minDate = minDate ? startOfDay(minDate) : null;
-  maxDate = maxDate ? startOfDay(maxDate) : null;
-
-  return (minDate && date < minDate) ||
-         (maxDate && date > maxDate)
-}
-
-function yearIsDisabled (minDate, maxDate, year) {
-  var minYear = minDate ? minDate.year : null;
-  var maxYear = maxDate ? maxDate.year : null;
-
-  return (minYear && year < minYear) ||
-         (maxYear && year > maxYear)
-}
-
-function timeComponentIsDisabled (min, max, component) {
-  return (min && component < min) ||
-         (max && component > max)
-}
-
-function weekdays (weekStart) {
-  if (--weekStart < 0) {
-    weekStart = 6;
-  }
-
-  var weekDays = luxon.Info.weekdays('short').map(function (weekday) { return capitalize(weekday); });
-
-  weekDays = weekDays.concat(weekDays.splice(0, weekStart));
-
-  return weekDays
-}
-
-function months () {
-  return luxon.Info.months().map(function (month) { return capitalize(month); })
-}
-
-function hours (step) {
-  return new Array(Math.ceil(24 / step)).fill(null).map(function (item, index) { return index * step; })
-}
-
-function minutes (step) {
-  return new Array(Math.ceil(60 / step)).fill(null).map(function (item, index) { return index * step; })
-}
-
-function years (current) {
-  return new Array(201).fill(null).map(function (item, index) { return current - 100 + index; })
-}
-
-function pad (number) {
-  return number < 10 ? '0' + number : number
-}
-
-function startOfDay (datetime) {
-  return datetime.startOf('day')
-}
-
-function createFlowManagerFromType (type) {
-  var flow = [];
-
-  switch (type) {
-    case 'datetime':
-      flow = ['date', 'time'];
-      break
-    case 'time':
-      flow = ['time'];
-      break
-    default:
-      flow = ['date'];
-  }
-
-  return new FlowManager(flow, 'end')
-}
-
-function weekStart () {
-  var weekstart;
-
-  try {
-    weekstart = __webpack_require__(92);
-  } catch (e) {
-    weekstart = window.weekstart;
-  }
-
-  var firstDay = weekstart ? weekstart.getWeekStartByLocale(luxon.Settings.defaultLocale) : 1;
-
-  return firstDay === 0 ? 7 : firstDay
-}
-
-var DatetimeCalendar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-calendar"},[_c('div',{staticClass:"vdatetime-calendar__navigation"},[_c('div',{staticClass:"vdatetime-calendar__navigation--previous",on:{"click":_vm.previousMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__current--month"},[_vm._v(_vm._s(_vm.monthName)+" "+_vm._s(_vm.newYear))]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__navigation--next",on:{"click":_vm.nextMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__month"},[_vm._l((_vm.weekdays),function(weekday){return _c('div',{staticClass:"vdatetime-calendar__month__weekday"},[_vm._v(_vm._s(weekday))])}),_vm._v(" "),_vm._l((_vm.days),function(day){return _c('div',{staticClass:"vdatetime-calendar__month__day",class:{'vdatetime-calendar__month__day--selected': day.selected, 'vdatetime-calendar__month__day--disabled': day.disabled},on:{"click":function($event){_vm.selectDay(day);}}},[_c('span',[_c('span',[_vm._v(_vm._s(day.number))])])])})],2)])},staticRenderFns: [],
-  props: {
-    year: {
-      type: Number,
-      required: true
-    },
-    month: {
-      type: Number,
-      required: true
-    },
-    day: {
-      type: Number,
-      default: null
-    },
-    disabled: {
-      type: Array
-    },
-    minDate: {
-      type: luxon.DateTime,
-      default: null
-    },
-    maxDate: {
-      type: luxon.DateTime,
-      default: null
-    },
-    weekStart: {
-      type: Number,
-      default: 1
-    }
-  },
-
-  data: function data () {
-    return {
-      newDate: luxon.DateTime.fromObject({ year: this.year, month: this.month, zone: 'UTC' }),
-      weekdays: weekdays(this.weekStart),
-      months: months()
-    }
-  },
-
-  computed: {
-    newYear: function newYear () {
-      return this.newDate.year
-    },
-    newMonth: function newMonth () {
-      return this.newDate.month
-    },
-    monthName: function monthName () {
-      return this.months[this.newMonth - 1]
-    },
-    days: function days () {
-      var this$1 = this;
-
-      return monthDays(this.newYear, this.newMonth, this.weekStart).map(function (day) { return ({
-        number: day,
-        selected: day && this$1.year === this$1.newYear && this$1.month === this$1.newMonth && this$1.day === day,
-        disabled: !day || monthDayIsDisabled(this$1.minDate, this$1.maxDate, this$1.newYear, this$1.newMonth, day)
-      }); })
-    }
-  },
-
-  methods: {
-    selectDay: function selectDay (day) {
-      if (day.disabled) {
-        return
-      }
-
-      this.$emit('change', this.newYear, this.newMonth, day.number);
-    },
-    previousMonth: function previousMonth () {
-      this.newDate = this.newDate.minus({ months: 1 });
-    },
-    nextMonth: function nextMonth () {
-      this.newDate = this.newDate.plus({ months: 1 });
-    }
-  }
-};
-
-var DatetimeTimePicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:{'vdatetime-time-picker': true, 'vdatetime-time-picker__with-suffix': _vm.use12Hour}},[_c('div',{ref:"hourList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--hours"},_vm._l((_vm.hours),function(hour){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': hour.selected, 'vdatetime-time-picker__item--disabled': hour.disabled},on:{"click":function($event){_vm.selectHour(hour);}}},[_vm._v(_vm._s(_vm.formatHour(hour.number)))])})),_vm._v(" "),_c('div',{ref:"minuteList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--minutes"},_vm._l((_vm.minutes),function(minute){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': minute.selected, 'vdatetime-time-picker__item--disabled': minute.disabled},on:{"click":function($event){_vm.selectMinute(minute);}}},[_vm._v(_vm._s(minute.number))])})),_vm._v(" "),(_vm.use12Hour)?_c('div',{ref:"suffixList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--suffix"},[_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour < 12},on:{"click":function($event){_vm.selectSuffix('am');}}},[_vm._v("am")]),_vm._v(" "),_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour >= 12},on:{"click":function($event){_vm.selectSuffix('pm');}}},[_vm._v("pm")])]):_vm._e()])},staticRenderFns: [],
-  props: {
-    hour: {
-      type: Number,
-      required: true
-    },
-    minute: {
-      type: Number,
-      required: true
-    },
-    use12Hour: {
-      type: Boolean,
-      default: false
-    },
-    hourStep: {
-      type: Number,
-      default: 1
-    },
-    minuteStep: {
-      type: Number,
-      default: 1
-    },
-    minTime: {
-      type: String,
-      default: null
-    },
-    maxTime: {
-      type: String,
-      default: null
-    }
-  },
-
-  computed: {
-    hours: function hours$1 () {
-      var this$1 = this;
-
-      return hours(this.hourStep).filter(function (hour) {
-        if (!this$1.use12Hour) {
-          return true
-        } else {
-          if (this$1.hour < 12) {
-            return hour < 12
-          } else {
-            return hour >= 12
-          }
-        }
-      }).map(function (hour) { return ({
-        number: pad(hour),
-        selected: hour === this$1.hour,
-        disabled: timeComponentIsDisabled(this$1.minHour, this$1.maxHour, hour)
-      }); })
-    },
-    minutes: function minutes$1 () {
-      var this$1 = this;
-
-      return minutes(this.minuteStep).map(function (minute) { return ({
-        number: pad(minute),
-        selected: minute === this$1.minute,
-        disabled: timeComponentIsDisabled(this$1.minMinute, this$1.maxMinute, minute)
-      }); })
-    },
-    minHour: function minHour () {
-      return this.minTime ? parseInt(this.minTime.split(':')[0]) : null
-    },
-    minMinute: function minMinute () {
-      return this.minTime && this.minHour === this.hour ? parseInt(this.minTime.split(':')[1]) : null
-    },
-    maxHour: function maxHour () {
-      return this.maxTime ? parseInt(this.maxTime.split(':')[0]) : null
-    },
-    maxMinute: function maxMinute () {
-      return this.maxTime && this.maxHour === this.hour ? parseInt(this.maxTime.split(':')[1]) : null
-    }
-  },
-
-  methods: {
-    selectHour: function selectHour (hour) {
-      if (hour.disabled) {
-        return
-      }
-
-      this.$emit('change', { hour: parseInt(hour.number) });
-    },
-    selectMinute: function selectMinute (minute) {
-      if (minute.disabled) {
-        return
-      }
-
-      this.$emit('change', { minute: parseInt(minute.number) });
-    },
-    selectSuffix: function selectSuffix (suffix) {
-      if (suffix === 'am') {
-        if (this.hour >= 12) {
-          this.$emit('change', { hour: parseInt(this.hour - 12), suffixTouched: true });
-        }
-      }
-      if (suffix === 'pm') {
-        if (this.hour < 12) {
-          this.$emit('change', { hour: parseInt(this.hour + 12), suffixTouched: true });
-        }
-      }
-    },
-    formatHour: function formatHour (hour) {
-      var numHour = Number(hour);
-      if (this.use12Hour) {
-        if (numHour === 0) {
-          return 12
-        }
-        if (numHour > 12) {
-          return numHour - 12
-        }
-        return numHour
-      }
-      return hour
-    }
-  },
-
-  mounted: function mounted () {
-    var selectedHour = this.$refs.hourList.querySelector('.vdatetime-time-picker__item--selected');
-    var selectedMinute = this.$refs.minuteList.querySelector('.vdatetime-time-picker__item--selected');
-    this.$refs.hourList.scrollTop = selectedHour ? selectedHour.offsetTop - 250 : 0;
-    this.$refs.minuteList.scrollTop = selectedMinute ? selectedMinute.offsetTop - 250 : 0;
-  }
-};
-
-var DatetimeYearPicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-year-picker"},[_c('div',{ref:"yearList",staticClass:"vdatetime-year-picker__list vdatetime-year-picker__list"},_vm._l((_vm.years),function(year){return _c('div',{staticClass:"vdatetime-year-picker__item",class:{'vdatetime-year-picker__item--selected': year.selected, 'vdatetime-year-picker__item--disabled': year.disabled},on:{"click":function($event){_vm.select(year);}}},[_vm._v(_vm._s(year.number)+" ")])}))])},staticRenderFns: [],
-  props: {
-    year: {
-      type: Number,
-      required: true
-    },
-    minDate: {
-      type: luxon.DateTime,
-      default: null
-    },
-    maxDate: {
-      type: luxon.DateTime,
-      default: null
-    }
-  },
-
-  computed: {
-    years: function years$1 () {
-      var this$1 = this;
-
-      return years(this.year).map(function (year) { return ({
-        number: year,
-        selected: year === this$1.year,
-        disabled: !year || yearIsDisabled(this$1.minDate, this$1.maxDate, year)
-      }); })
-    }
-  },
-
-  methods: {
-    select: function select (year) {
-      if (year.disabled) {
-        return
-      }
-
-      this.$emit('change', parseInt(year.number));
-    },
-
-    scrollToCurrent: function scrollToCurrent () {
-      var selectedYear = this.$refs.yearList.querySelector('.vdatetime-year-picker__item--selected');
-      this.$refs.yearList.scrollTop = selectedYear ? selectedYear.offsetTop - 250 : 0;
-    }
-  },
-
-  mounted: function mounted () {
-    this.scrollToCurrent();
-  },
-
-  updated: function updated () {
-    this.scrollToCurrent();
-  }
-};
-
-var KEY_TAB = 9;
-var KEY_ENTER = 13;
-var KEY_ESC = 27;
-
-var DatetimePopup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-popup"},[_c('div',{staticClass:"vdatetime-popup__header"},[(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__year",on:{"click":_vm.showYear}},[_vm._v(_vm._s(_vm.year))]):_vm._e(),_vm._v(" "),(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__date"},[_vm._v(_vm._s(_vm.dateFormatted))]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__body"},[(_vm.step === 'year')?_c('datetime-year-picker',{attrs:{"min-date":_vm.minDatetimeUTC,"max-date":_vm.maxDatetimeUTC,"year":_vm.year},on:{"change":_vm.onChangeYear}}):_vm._e(),_vm._v(" "),(_vm.step === 'date')?_c('datetime-calendar',{attrs:{"year":_vm.year,"month":_vm.month,"day":_vm.day,"min-date":_vm.minDatetimeUTC,"max-date":_vm.maxDatetimeUTC,"week-start":_vm.weekStart},on:{"change":_vm.onChangeDate}}):_vm._e(),_vm._v(" "),(_vm.step === 'time')?_c('datetime-time-picker',{attrs:{"hour":_vm.hour,"minute":_vm.minute,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-time":_vm.minTime,"max-time":_vm.maxTime},on:{"change":_vm.onChangeTime}}):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions"},[_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--cancel",on:{"click":_vm.cancel}},[_vm._v(_vm._s(_vm.phrases.cancel))]),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--confirm",on:{"click":_vm.confirm}},[_vm._v(_vm._s(_vm.phrases.ok))])])])},staticRenderFns: [],
-  components: {
-    DatetimeCalendar: DatetimeCalendar,
-    DatetimeTimePicker: DatetimeTimePicker,
-    DatetimeYearPicker: DatetimeYearPicker
-  },
-
-  props: {
-    datetime: {
-      type: luxon.DateTime,
-      required: true
-    },
-    phrases: {
-      type: Object,
-      default: function default$1 () {
-        return {
-          cancel: 'Cancel',
-          ok: 'Ok'
-        }
-      }
-    },
-    type: {
-      type: String,
-      default: 'date'
-    },
-    use12Hour: {
-      type: Boolean,
-      default: false
-    },
-    hourStep: {
-      type: Number,
-      default: 1
-    },
-    minuteStep: {
-      type: Number,
-      default: 1
-    },
-    minDatetime: {
-      type: luxon.DateTime,
-      default: null
-    },
-    maxDatetime: {
-      type: luxon.DateTime,
-      default: null
-    },
-    auto: {
-      type: Boolean,
-      default: false
-    },
-    weekStart: {
-      type: Number,
-      default: 1
-    }
-  },
-
-  data: function data () {
-    var flow = createFlowManagerFromType(this.type);
-
-    return {
-      newDatetime: this.datetime,
-      flow: flow,
-      step: flow.first(),
-      timePartsTouched: []
-    }
-  },
-
-  created: function created () {
-    document.addEventListener('keydown', this.onKeyDown);
-  },
-
-  beforeDestroy: function beforeDestroy () {
-    document.removeEventListener('keydown', this.onKeyDown);
-  },
-
-  computed: {
-    year: function year () {
-      return this.newDatetime.year
-    },
-    month: function month () {
-      return this.newDatetime.month
-    },
-    day: function day () {
-      return this.newDatetime.day
-    },
-    hour: function hour () {
-      return this.newDatetime.hour
-    },
-    minute: function minute () {
-      return this.newDatetime.minute
-    },
-    dateFormatted: function dateFormatted () {
-      return this.newDatetime.toLocaleString({
-        month: 'long',
-        day: 'numeric'
-      })
-    },
-    minDatetimeUTC: function minDatetimeUTC () {
-      return this.minDatetime ? this.minDatetime.toUTC() : null
-    },
-    maxDatetimeUTC: function maxDatetimeUTC () {
-      return this.maxDatetime ? this.maxDatetime.toUTC() : null
-    },
-    minTime: function minTime () {
-      return (
-        this.minDatetime &&
-        this.minDatetime.year === this.year &&
-        this.minDatetime.month === this.month &&
-        this.minDatetime.day === this.day
-      ) ? this.minDatetime.toFormat('HH:mm') : null
-    },
-    maxTime: function maxTime () {
-      return (
-        this.maxDatetime &&
-        this.maxDatetime.year === this.year &&
-        this.maxDatetime.month === this.month &&
-        this.maxDatetime.day === this.day
-      ) ? this.maxDatetime.toFormat('HH:mm') : null
-    }
-  },
-
-  methods: {
-    nextStep: function nextStep () {
-      this.step = this.flow.next(this.step);
-      this.timePartsTouched = [];
-
-      if (this.step === 'end') {
-        this.$emit('confirm', this.newDatetime);
-      }
-    },
-    showYear: function showYear () {
-      this.step = 'year';
-      this.flow.diversion('date');
-    },
-    confirm: function confirm () {
-      this.nextStep();
-    },
-    cancel: function cancel () {
-      this.$emit('cancel');
-    },
-    onChangeYear: function onChangeYear (year) {
-      this.newDatetime = this.newDatetime.set({ year: year });
-
-      if (this.auto) {
-        this.nextStep();
-      }
-    },
-    onChangeDate: function onChangeDate (year, month, day) {
-      this.newDatetime = this.newDatetime.set({ year: year, month: month, day: day });
-
-      if (this.auto) {
-        this.nextStep();
-      }
-    },
-    onChangeTime: function onChangeTime (ref) {
-      var hour = ref.hour;
-      var minute = ref.minute;
-      var suffixTouched = ref.suffixTouched;
-
-      if (suffixTouched) {
-        this.timePartsTouched['suffix'] = true;
-      }
-
-      if (Number.isInteger(hour)) {
-        this.newDatetime = this.newDatetime.set({ hour: hour });
-        this.timePartsTouched['hour'] = true;
-      }
-
-      if (Number.isInteger(minute)) {
-        this.newDatetime = this.newDatetime.set({ minute: minute });
-        this.timePartsTouched['minute'] = true;
-      }
-
-      var goNext = this.auto && this.timePartsTouched['hour'] && this.timePartsTouched['minute'] && (
-        this.timePartsTouched['suffix'] ||
-        !this.use12Hour
-      );
-
-      if (goNext) {
-        this.nextStep();
-      }
-    },
-    onKeyDown: function onKeyDown (event) {
-      switch (event.keyCode) {
-        case KEY_ESC:
-        case KEY_TAB:
-          this.cancel();
-          break
-
-        case KEY_ENTER:
-          this.nextStep();
-          break
-      }
-    }
-  }
-};
-
-var Datetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime"},[_vm._t("before"),_vm._v(" "),_c('input',_vm._g(_vm._b({staticClass:"vdatetime-input",class:_vm.inputClass,attrs:{"id":_vm.inputId,"type":"text"},domProps:{"value":_vm.inputValue},on:{"click":_vm.open,"focus":_vm.open}},'input',_vm.$attrs,false),_vm.$listeners)),_vm._v(" "),(_vm.hiddenName)?_c('input',{attrs:{"type":"hidden","name":_vm.hiddenName},domProps:{"value":_vm.value},on:{"input":_vm.setValue}}):_vm._e(),_vm._v(" "),_vm._t("after"),_vm._v(" "),_c('transition-group',{attrs:{"name":"vdatetime-fade","tag":"div"}},[(_vm.isOpen)?_c('div',{key:"overlay",staticClass:"vdatetime-overlay",on:{"click":function($event){if($event.target !== $event.currentTarget){ return null; }_vm.cancel($event);}}}):_vm._e(),_vm._v(" "),(_vm.isOpen)?_c('datetime-popup',{key:"popup",attrs:{"type":_vm.type,"datetime":_vm.popupDate,"phrases":_vm.phrases,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-datetime":_vm.popupMinDatetime,"max-datetime":_vm.popupMaxDatetime,"auto":_vm.auto,"week-start":_vm.weekStart},on:{"confirm":_vm.confirm,"cancel":_vm.cancel}}):_vm._e()],1)],2)},staticRenderFns: [],
-  components: {
-    DatetimePopup: DatetimePopup
-  },
-
-  props: {
-    value: {
-      type: String
-    },
-    valueZone: {
-      type: String,
-      default: 'UTC'
-    },
-    inputId: {
-      type: String,
-      default: ''
-    },
-    inputClass: {
-      type: String,
-      default: ''
-    },
-    hiddenName: {
-      type: String
-    },
-    zone: {
-      type: String,
-      default: 'local'
-    },
-    format: {
-      type: [Object, String],
-      default: null
-    },
-    type: {
-      type: String,
-      default: 'date'
-    },
-    phrases: {
-      type: Object,
-      default: function default$1 () {
-        return {
-          cancel: 'Cancel',
-          ok: 'Ok'
-        }
-      }
-    },
-    use12Hour: {
-      type: Boolean,
-      default: false
-    },
-    hourStep: {
-      type: Number,
-      default: 1
-    },
-    minuteStep: {
-      type: Number,
-      default: 1
-    },
-    minDatetime: {
-      type: String,
-      default: null
-    },
-    maxDatetime: {
-      type: String,
-      default: null
-    },
-    auto: {
-      type: Boolean,
-      default: false
-    },
-    weekStart: {
-      type: Number,
-      default: function default$2 () {
-        return weekStart()
-      }
-    }
-  },
-
-  data: function data () {
-    return {
-      isOpen: false,
-      datetime: datetimeFromISO(this.value)
-    }
-  },
-
-  watch: {
-    value: function value (newValue) {
-      this.datetime = datetimeFromISO(newValue);
-    }
-  },
-
-  created: function created () {
-    this.emitInput();
-  },
-
-  computed: {
-    inputValue: function inputValue () {
-      var format = this.format;
-
-      if (!format) {
-        switch (this.type) {
-          case 'date':
-            format = luxon.DateTime.DATE_MED;
-            break
-          case 'time':
-            format = luxon.DateTime.TIME_24_SIMPLE;
-            break
-          case 'datetime':
-          case 'default':
-            format = luxon.DateTime.DATETIME_MED;
-            break
-        }
-      }
-
-      if (typeof format === 'string') {
-        return this.datetime ? luxon.DateTime.fromISO(this.datetime).setZone(this.zone).toFormat(format) : ''
-      } else {
-        return this.datetime ? this.datetime.setZone(this.zone).toLocaleString(format) : ''
-      }
-    },
-    popupDate: function popupDate () {
-      return this.datetime ? this.datetime.setZone(this.zone) : this.newPopupDatetime()
-    },
-    popupMinDatetime: function popupMinDatetime () {
-      return this.minDatetime ? luxon.DateTime.fromISO(this.minDatetime).setZone(this.zone) : null
-    },
-    popupMaxDatetime: function popupMaxDatetime () {
-      return this.maxDatetime ? luxon.DateTime.fromISO(this.maxDatetime).setZone(this.zone) : null
-    }
-  },
-
-  methods: {
-    emitInput: function emitInput () {
-      var datetime = this.datetime ? this.datetime.setZone(this.valueZone) : null;
-
-      if (datetime && this.type === 'date') {
-        datetime = startOfDay(datetime);
-      }
-
-      this.$emit('input', datetime ? datetime.toISO() : '');
-    },
-    open: function open (event) {
-      event.target.blur();
-
-      this.isOpen = true;
-    },
-    close: function close () {
-      this.isOpen = false;
-      this.$emit('close');
-    },
-    confirm: function confirm (datetime) {
-      this.datetime = datetime.toUTC();
-      this.emitInput();
-      this.close();
-    },
-    cancel: function cancel () {
-      this.close();
-    },
-    newPopupDatetime: function newPopupDatetime () {
-      var datetime = luxon.DateTime.utc().setZone(this.zone).set({ seconds: 0, milliseconds: 0 });
-
-      if (this.popupMinDatetime && datetime < this.popupMinDatetime) {
-        datetime = this.popupMinDatetime.set({ seconds: 0, milliseconds: 0 });
-      }
-
-      if (this.popupMaxDatetime && datetime > this.popupMaxDatetime) {
-        datetime = this.popupMaxDatetime.set({ seconds: 0, milliseconds: 0 });
-      }
-
-      if (this.minuteStep === 1) {
-        return datetime
-      }
-
-      var roundedMinute = Math.round(datetime.minute / this.minuteStep) * this.minuteStep;
-
-      if (roundedMinute === 60) {
-        return datetime.plus({ hours: 1 }).set({ minute: 0 })
-      }
-
-      return datetime.set({ minute: roundedMinute })
-    },
-    setValue: function setValue (event) {
-      this.datetime = datetimeFromISO(event.target.value);
-      this.emitInput();
-    }
-  }
-};
-
-function plugin (Vue) {
-  Vue.component('datetime', Datetime);
-}
-
-// Install by default if using the script tag
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(plugin);
-}
-
-var version = '1.0.0-beta.8';
-
-exports['default'] = plugin;
-exports.Datetime = Datetime;
-exports.version = version;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-
-
-/***/ }),
-
 /***/ 532:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5183,17 +4355,58 @@ exports.push([module.i, "\n.card[data-v-59c14948] {\n\tflex-direction: unset;\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5523,6 +4736,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			isHasClass: false,
 			isRequesting: false,
 			limit: 0,
 			rankData: [],
@@ -5531,6 +4745,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			year: '',
 			classRegion: [],
 			region: '',
+			classData: [],
+			classItem: '',
 			input: _defineProperty({
 				name: '',
 				gender: '',
@@ -5541,7 +4757,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				telephone: '',
 				mobile: '',
 				fax: '',
-				class_id: ''
+				teacher_id: ''
 			}, 'gender', '1')
 		};
 	},
@@ -5574,7 +4790,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			telephone: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 			},
-			class_id: {
+			teacher_id: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 			}
 		},
@@ -5584,6 +4800,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		year: {
 			maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(4),
 			minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(4)
+		},
+		classData: {
+			required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 		}
 	},
 
@@ -5594,14 +4813,74 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
 		classList: 'getClass',
 		ranks: 'getRanks',
-		regions: 'getRegions'
+		regions: 'getRegions',
+		members: 'getMembers'
 	}), {
 		formAddFilled: function formAddFilled() {
-			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.input.class_id != '';
+			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.classData != '';
 		}
 	}),
 
 	methods: {
+		addMember: function addMember() {
+
+			var self = this;
+
+			if (self.formAddFilled && !self.isRequesting) {
+
+				self.isRequesting = true;
+
+				var name = this.input.name;
+
+				var dataMember = {
+					personal: this.input,
+					ranks: this.rankData,
+					subscription: this.subscription,
+					region: this.classRegion,
+					classes: this.classData
+				};
+
+				this.$store.dispatch('store_new_member', dataMember).then(function () {
+					flash(name + ' is successfully added', 'success');
+
+					self.isRequesting = false;
+
+					self.setData();
+
+					self.closeAddMember();
+				}).catch(function (errors) {
+
+					self.isRequesting = false;
+
+					Object.keys(errors).forEach(function (field) {
+						errors[field].forEach(function (message) {
+							flash(message, 'danger', 5000);
+						});
+					});
+				});
+			} else {
+				this.dirtyAllInputs();
+			}
+		},
+		add_class: function add_class() {
+
+			if (this.classItem != '') {
+
+				this.classData.push(this.classItem);
+
+				var classIndex = _.findIndex(this.classList, ['id', this.classItem.id]);
+
+				this.classList.splice(classIndex, 1);
+
+				this.classItem = '';
+			}
+		},
+		delete_class: function delete_class(index) {
+
+			this.classList.push(this.classData[index]);
+
+			this.classData.splice(index, 1);
+		},
 		add_region: function add_region() {
 			if (this.region != '') {
 				this.classRegion.push(this.region);
@@ -5619,18 +4898,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 			this.classRegion.splice(index, 1);
 		},
-		delete_year: function delete_year(index) {
-			this.subscription.splice(index, 1);
-		},
 		add_subscription: function add_subscription() {
-			if (this.year != '') {
+			if (this.year != '' && this.year.length == 4) {
 				this.subscription.push(this.year);
 				this.year = '';
 			}
 		},
-		delete_rank: function delete_rank(index) {
-			this.rankData.splice(index, 1);
-			this.limit -= 1;
+		delete_year: function delete_year(index) {
+			this.subscription.splice(index, 1);
 		},
 		add_rank: function add_rank(index) {
 			if (this.temp_annointed_date != '') {
@@ -5644,42 +4919,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				this.temp_annointed_date = '';
 			}
 		},
-		addMember: function addMember() {
-
-			var self = this;
-
-			if (self.formAddFilled && !self.isRequesting) {
-
-				self.isRequesting = true;
-
-				var name = this.input.name;
-
-				var dataMember = {
-					personal: this.input,
-					ranks: this.rankData,
-					subscription: this.subscription,
-					region: this.classRegion
-				};
-
-				this.$store.dispatch('store_new_member', dataMember).then(function () {
-					flash(name + ' is successfully added', 'success');
-
-					self.isRequesting = false;
-
-					self.setData();
-				}).catch(function (errors) {
-
-					self.isRequesting = false;
-
-					Object.keys(errors).forEach(function (field) {
-						errors[field].forEach(function (message) {
-							flash(message, 'danger', 5000);
-						});
-					});
-				});
-			} else {
-				this.dirtyAllInputs();
-			}
+		delete_rank: function delete_rank(index) {
+			this.rankData.splice(index, 1);
+			this.limit -= 1;
 		},
 		setData: function setData() {
 			this.input.name = '';
@@ -5691,19 +4933,37 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 			this.input.telephone = '';
 			this.input.mobile = '';
 			this.input.fax = '';
-			this.input.class_id = '';
+			this.input.teacher_id = '';
+			this.subscription = [];
+			this.rankData = [];
+			this.classData = [];
+			this.classRegion = [];
 		},
 		dirtyAllInputs: function dirtyAllInputs() {
+
+			if (this.classData.length == 0) {
+				this.isHasClass = true;
+			}
+
 			this.$v.input.name.$touch();
 			this.$v.input.gender.$touch();
 			this.$v.input.place_of_birth.$touch();
 			this.$v.input.date_of_birth.$touch();
 			this.$v.input.email.$touch();
 			this.$v.input.telephone.$touch();
-			this.$v.input.class_id.$touch();
+			this.$v.input.teacher_id.$touch();
+			this.$v.classData.$touch();
 		},
 		closeAddMember: function closeAddMember() {
 			this.$emit('closeAddMember', false);
+		}
+	},
+
+	watch: {
+		classData: function classData() {
+			if (this.classData.length >= 1) {
+				this.isHasClass = false;
+			}
 		}
 	}
 });
@@ -6231,18 +5491,18 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.input.class_id,
-                        expression: "input.class_id"
+                        value: _vm.input.teacher_id,
+                        expression: "input.teacher_id"
                       }
                     ],
                     staticClass: "form-control",
                     class: {
-                      "form-control-danger": _vm.$v.input.class_id.$error
+                      "form-control-danger": _vm.$v.input.teacher_id.$error
                     },
                     attrs: { id: "category" },
                     on: {
                       input: function($event) {
-                        _vm.$v.input.class_id.$touch()
+                        _vm.$v.input.teacher_id.$touch()
                       },
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -6255,7 +5515,7 @@ var render = function() {
                           })
                         _vm.$set(
                           _vm.input,
-                          "class_id",
+                          "teacher_id",
                           $event.target.multiple
                             ? $$selectedVal
                             : $$selectedVal[0]
@@ -6265,12 +5525,12 @@ var render = function() {
                   },
                   [
                     _c("option", { attrs: { value: "", disabled: "" } }, [
-                      _vm._v("Choose Class")
+                      _vm._v("Choose Teacher")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.classList, function(item) {
-                      return _c("option", { domProps: { value: item.id } }, [
-                        _vm._v(_vm._s(item.title) + "\n\t\t\t\t\t\t\t\t")
+                    _vm._l(_vm.members, function(member) {
+                      return _c("option", { domProps: { value: member.id } }, [
+                        _vm._v(_vm._s(member.name) + "\n\t\t\t\t\t\t\t\t")
                       ])
                     })
                   ],
@@ -6287,12 +5547,12 @@ var render = function() {
                     }
                   },
                   [
-                    !_vm.$v.input.class_id.required &&
-                    _vm.$v.input.class_id.$dirty
+                    !_vm.$v.input.teacher_id.required &&
+                    _vm.$v.input.teacher_id.$dirty
                       ? _c(
                           "span",
                           {
-                            key: "class_id-required",
+                            key: "teacher_id-required",
                             staticClass: "text-danger"
                           },
                           [
@@ -6547,7 +5807,7 @@ var render = function() {
           _vm._l(_vm.subscription, function(list, index) {
             return _c("div", [
               _c("p", [
-                _vm._v(_vm._s(list.year) + " \n\t\t\t\t\t\t\t"),
+                _vm._v(_vm._s(list) + " \n\t\t\t\t\t\t\t"),
                 _c(
                   "span",
                   {
@@ -6569,6 +5829,120 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card text-center" }, [
         _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12 d-flex" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-6" },
+            [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.classItem,
+                      expression: "classItem"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "form-control-danger": _vm.isHasClass },
+                  attrs: { id: "calss-list" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.classItem = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "", disabled: "" } }, [
+                    _vm._v("Choose Class")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.classList, function(item) {
+                    return _c("option", { domProps: { value: item } }, [
+                      _vm._v(_vm._s(item.title))
+                    ])
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "transition",
+                {
+                  attrs: {
+                    enterActiveClass: "fade-in",
+                    leaveActiveClass: "fade-out",
+                    mode: "out-in"
+                  }
+                },
+                [
+                  _vm.isHasClass
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(
+                          "\n                        \t\t  \tClass is required\n                    \t\t\t"
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-sm",
+                attrs: { type: "button" },
+                on: { click: _vm.add_class }
+              },
+              [_vm._v("\n\t\t\t\t\t\t\tAdd Class\n\t\t\t\t\t\t")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-12 d-flex" },
+          _vm._l(_vm.classData, function(list, index) {
+            return _c("div", [
+              _c("p", [
+                _vm._v(_vm._s(list.title) + "\n\t\t\t\t\t\t\t"),
+                _c(
+                  "span",
+                  {
+                    staticClass: "badge badge-danger",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        _vm.delete_class(index)
+                      }
+                    }
+                  },
+                  [_vm._v("X\n\t\t\t\t\t\t\t")]
+                )
+              ])
+            ])
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card text-center" }, [
+        _vm._m(4),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-12 d-flex" }, [
           _c("div", { staticClass: "col-md-6" }, [
@@ -6718,6 +6092,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-5" }, [
       _c("p", [_vm._v(" Subscription ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h4", { staticClass: "title mb-5" }, [_vm._v("Class")])
     ])
   },
   function() {
@@ -7067,12 +6449,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditAddSubscription_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue__ = __webpack_require__(561);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__EditAddRank_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_datetime_dist_vue_datetime_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_datetime__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -7821,7 +7203,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 //
 //
@@ -8377,8 +7759,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var self = this;
 
 			if (!self.isRequesting) {
-
-				console.log(this.annointed_date);
 
 				self.isRequesting = true;
 
@@ -9912,14 +9292,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         },
 
         store_new_member: function store_new_member(_ref5, dataMember) {
-            var commit = _ref5.commit;
+            var commit = _ref5.commit,
+                dispatch = _ref5.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.post('add/member', dataMember).then(function (response) {
 
-                    // commit('add_new_member', dataMember);
+                    dispatch('load_members');
 
                     resolve(dataMember);
                 }).catch(function (errors) {
@@ -9992,8 +9373,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         destroy_subscription: function destroy_subscription(_ref10, ids) {
             var commit = _ref10.commit;
 
-
-            console.log(ids);
 
             return new Promise(function (resolve, reject) {
 
@@ -10189,6 +9568,834 @@ exports = module.exports = __webpack_require__(1)(false);
 exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    position: fixed;\n    right: 0;\n    z-index: 1100 !important;\n    bottom: 160px;\n}\n.alert-position[data-v-41dc6b34] {\n    position: fixed;\n    right: 25px;\n}\n.alert-contrast[data-v-41dc6b34] {\n    padding-right: 30px;\n}\n", ""]);
 
 // exports
+
+
+/***/ }),
+
+/***/ 90:
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * vue-datetime v1.0.0-beta.8
+ * (c) 2018 Mario Juárez
+ * Released under the MIT License.
+ */
+
+(function (global, factory) {
+	 true ? factory(exports, __webpack_require__(91)) :
+	typeof define === 'function' && define.amd ? define(['exports', 'luxon'], factory) :
+	(factory((global.VueDatetime = global.VueDatetime || {}),global.luxon));
+}(this, (function (exports,luxon) { 'use strict';
+
+var FlowManager = function FlowManager (flow, endStatus) {
+  if ( flow === void 0 ) flow = [];
+  if ( endStatus === void 0 ) endStatus = null;
+
+  this.flow = flow;
+  this.endStatus = endStatus;
+  this.diversionNext = null;
+};
+
+FlowManager.prototype.step = function step (index) {
+  return this.flow.length > index ? this.flow[index] : this.endStatus
+};
+
+FlowManager.prototype.first = function first () {
+  return this.step(0)
+};
+
+FlowManager.prototype.next = function next (current) {
+  if (this.diversionNext) {
+    var next = this.diversionNext;
+    this.diversionNext = null;
+
+    return next
+  }
+
+  return this.step(this.flow.indexOf(current) + 1)
+};
+
+FlowManager.prototype.diversion = function diversion (next) {
+  this.diversionNext = next;
+};
+
+function capitalize (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function datetimeFromISO (string) {
+  var datetime = luxon.DateTime.fromISO(string).toUTC();
+
+  return datetime.isValid ? datetime : null
+}
+
+function monthDays (year, month, weekStart) {
+  var monthDate = luxon.DateTime.local(year, month, 1);
+  var firstDay = monthDate.weekday - weekStart;
+
+  if (firstDay < 0) {
+    firstDay += 7;
+  }
+  var lastDay = (weekStart - monthDate.weekday - monthDate.daysInMonth) % 7;
+  if (lastDay < 0) {
+    lastDay += 7;
+  }
+
+  return new Array(monthDate.daysInMonth + firstDay + lastDay)
+    .fill(null)
+    .map(function (value, index) { return (index + 1 <= firstDay || index >= firstDay + monthDate.daysInMonth) ? null : (index + 1 - firstDay); }
+    )
+}
+
+function monthDayIsDisabled (minDate, maxDate, year, month, day) {
+  var date = luxon.DateTime.fromObject({ year: year, month: month, day: day, zone: 'UTC' });
+
+  minDate = minDate ? startOfDay(minDate) : null;
+  maxDate = maxDate ? startOfDay(maxDate) : null;
+
+  return (minDate && date < minDate) ||
+         (maxDate && date > maxDate)
+}
+
+function yearIsDisabled (minDate, maxDate, year) {
+  var minYear = minDate ? minDate.year : null;
+  var maxYear = maxDate ? maxDate.year : null;
+
+  return (minYear && year < minYear) ||
+         (maxYear && year > maxYear)
+}
+
+function timeComponentIsDisabled (min, max, component) {
+  return (min && component < min) ||
+         (max && component > max)
+}
+
+function weekdays (weekStart) {
+  if (--weekStart < 0) {
+    weekStart = 6;
+  }
+
+  var weekDays = luxon.Info.weekdays('short').map(function (weekday) { return capitalize(weekday); });
+
+  weekDays = weekDays.concat(weekDays.splice(0, weekStart));
+
+  return weekDays
+}
+
+function months () {
+  return luxon.Info.months().map(function (month) { return capitalize(month); })
+}
+
+function hours (step) {
+  return new Array(Math.ceil(24 / step)).fill(null).map(function (item, index) { return index * step; })
+}
+
+function minutes (step) {
+  return new Array(Math.ceil(60 / step)).fill(null).map(function (item, index) { return index * step; })
+}
+
+function years (current) {
+  return new Array(201).fill(null).map(function (item, index) { return current - 100 + index; })
+}
+
+function pad (number) {
+  return number < 10 ? '0' + number : number
+}
+
+function startOfDay (datetime) {
+  return datetime.startOf('day')
+}
+
+function createFlowManagerFromType (type) {
+  var flow = [];
+
+  switch (type) {
+    case 'datetime':
+      flow = ['date', 'time'];
+      break
+    case 'time':
+      flow = ['time'];
+      break
+    default:
+      flow = ['date'];
+  }
+
+  return new FlowManager(flow, 'end')
+}
+
+function weekStart () {
+  var weekstart;
+
+  try {
+    weekstart = __webpack_require__(92);
+  } catch (e) {
+    weekstart = window.weekstart;
+  }
+
+  var firstDay = weekstart ? weekstart.getWeekStartByLocale(luxon.Settings.defaultLocale) : 1;
+
+  return firstDay === 0 ? 7 : firstDay
+}
+
+var DatetimeCalendar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-calendar"},[_c('div',{staticClass:"vdatetime-calendar__navigation"},[_c('div',{staticClass:"vdatetime-calendar__navigation--previous",on:{"click":_vm.previousMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__current--month"},[_vm._v(_vm._s(_vm.monthName)+" "+_vm._s(_vm.newYear))]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__navigation--next",on:{"click":_vm.nextMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__month"},[_vm._l((_vm.weekdays),function(weekday){return _c('div',{staticClass:"vdatetime-calendar__month__weekday"},[_vm._v(_vm._s(weekday))])}),_vm._v(" "),_vm._l((_vm.days),function(day){return _c('div',{staticClass:"vdatetime-calendar__month__day",class:{'vdatetime-calendar__month__day--selected': day.selected, 'vdatetime-calendar__month__day--disabled': day.disabled},on:{"click":function($event){_vm.selectDay(day);}}},[_c('span',[_c('span',[_vm._v(_vm._s(day.number))])])])})],2)])},staticRenderFns: [],
+  props: {
+    year: {
+      type: Number,
+      required: true
+    },
+    month: {
+      type: Number,
+      required: true
+    },
+    day: {
+      type: Number,
+      default: null
+    },
+    disabled: {
+      type: Array
+    },
+    minDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    weekStart: {
+      type: Number,
+      default: 1
+    }
+  },
+
+  data: function data () {
+    return {
+      newDate: luxon.DateTime.fromObject({ year: this.year, month: this.month, zone: 'UTC' }),
+      weekdays: weekdays(this.weekStart),
+      months: months()
+    }
+  },
+
+  computed: {
+    newYear: function newYear () {
+      return this.newDate.year
+    },
+    newMonth: function newMonth () {
+      return this.newDate.month
+    },
+    monthName: function monthName () {
+      return this.months[this.newMonth - 1]
+    },
+    days: function days () {
+      var this$1 = this;
+
+      return monthDays(this.newYear, this.newMonth, this.weekStart).map(function (day) { return ({
+        number: day,
+        selected: day && this$1.year === this$1.newYear && this$1.month === this$1.newMonth && this$1.day === day,
+        disabled: !day || monthDayIsDisabled(this$1.minDate, this$1.maxDate, this$1.newYear, this$1.newMonth, day)
+      }); })
+    }
+  },
+
+  methods: {
+    selectDay: function selectDay (day) {
+      if (day.disabled) {
+        return
+      }
+
+      this.$emit('change', this.newYear, this.newMonth, day.number);
+    },
+    previousMonth: function previousMonth () {
+      this.newDate = this.newDate.minus({ months: 1 });
+    },
+    nextMonth: function nextMonth () {
+      this.newDate = this.newDate.plus({ months: 1 });
+    }
+  }
+};
+
+var DatetimeTimePicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:{'vdatetime-time-picker': true, 'vdatetime-time-picker__with-suffix': _vm.use12Hour}},[_c('div',{ref:"hourList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--hours"},_vm._l((_vm.hours),function(hour){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': hour.selected, 'vdatetime-time-picker__item--disabled': hour.disabled},on:{"click":function($event){_vm.selectHour(hour);}}},[_vm._v(_vm._s(_vm.formatHour(hour.number)))])})),_vm._v(" "),_c('div',{ref:"minuteList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--minutes"},_vm._l((_vm.minutes),function(minute){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': minute.selected, 'vdatetime-time-picker__item--disabled': minute.disabled},on:{"click":function($event){_vm.selectMinute(minute);}}},[_vm._v(_vm._s(minute.number))])})),_vm._v(" "),(_vm.use12Hour)?_c('div',{ref:"suffixList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--suffix"},[_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour < 12},on:{"click":function($event){_vm.selectSuffix('am');}}},[_vm._v("am")]),_vm._v(" "),_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour >= 12},on:{"click":function($event){_vm.selectSuffix('pm');}}},[_vm._v("pm")])]):_vm._e()])},staticRenderFns: [],
+  props: {
+    hour: {
+      type: Number,
+      required: true
+    },
+    minute: {
+      type: Number,
+      required: true
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minTime: {
+      type: String,
+      default: null
+    },
+    maxTime: {
+      type: String,
+      default: null
+    }
+  },
+
+  computed: {
+    hours: function hours$1 () {
+      var this$1 = this;
+
+      return hours(this.hourStep).filter(function (hour) {
+        if (!this$1.use12Hour) {
+          return true
+        } else {
+          if (this$1.hour < 12) {
+            return hour < 12
+          } else {
+            return hour >= 12
+          }
+        }
+      }).map(function (hour) { return ({
+        number: pad(hour),
+        selected: hour === this$1.hour,
+        disabled: timeComponentIsDisabled(this$1.minHour, this$1.maxHour, hour)
+      }); })
+    },
+    minutes: function minutes$1 () {
+      var this$1 = this;
+
+      return minutes(this.minuteStep).map(function (minute) { return ({
+        number: pad(minute),
+        selected: minute === this$1.minute,
+        disabled: timeComponentIsDisabled(this$1.minMinute, this$1.maxMinute, minute)
+      }); })
+    },
+    minHour: function minHour () {
+      return this.minTime ? parseInt(this.minTime.split(':')[0]) : null
+    },
+    minMinute: function minMinute () {
+      return this.minTime && this.minHour === this.hour ? parseInt(this.minTime.split(':')[1]) : null
+    },
+    maxHour: function maxHour () {
+      return this.maxTime ? parseInt(this.maxTime.split(':')[0]) : null
+    },
+    maxMinute: function maxMinute () {
+      return this.maxTime && this.maxHour === this.hour ? parseInt(this.maxTime.split(':')[1]) : null
+    }
+  },
+
+  methods: {
+    selectHour: function selectHour (hour) {
+      if (hour.disabled) {
+        return
+      }
+
+      this.$emit('change', { hour: parseInt(hour.number) });
+    },
+    selectMinute: function selectMinute (minute) {
+      if (minute.disabled) {
+        return
+      }
+
+      this.$emit('change', { minute: parseInt(minute.number) });
+    },
+    selectSuffix: function selectSuffix (suffix) {
+      if (suffix === 'am') {
+        if (this.hour >= 12) {
+          this.$emit('change', { hour: parseInt(this.hour - 12), suffixTouched: true });
+        }
+      }
+      if (suffix === 'pm') {
+        if (this.hour < 12) {
+          this.$emit('change', { hour: parseInt(this.hour + 12), suffixTouched: true });
+        }
+      }
+    },
+    formatHour: function formatHour (hour) {
+      var numHour = Number(hour);
+      if (this.use12Hour) {
+        if (numHour === 0) {
+          return 12
+        }
+        if (numHour > 12) {
+          return numHour - 12
+        }
+        return numHour
+      }
+      return hour
+    }
+  },
+
+  mounted: function mounted () {
+    var selectedHour = this.$refs.hourList.querySelector('.vdatetime-time-picker__item--selected');
+    var selectedMinute = this.$refs.minuteList.querySelector('.vdatetime-time-picker__item--selected');
+    this.$refs.hourList.scrollTop = selectedHour ? selectedHour.offsetTop - 250 : 0;
+    this.$refs.minuteList.scrollTop = selectedMinute ? selectedMinute.offsetTop - 250 : 0;
+  }
+};
+
+var DatetimeYearPicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-year-picker"},[_c('div',{ref:"yearList",staticClass:"vdatetime-year-picker__list vdatetime-year-picker__list"},_vm._l((_vm.years),function(year){return _c('div',{staticClass:"vdatetime-year-picker__item",class:{'vdatetime-year-picker__item--selected': year.selected, 'vdatetime-year-picker__item--disabled': year.disabled},on:{"click":function($event){_vm.select(year);}}},[_vm._v(_vm._s(year.number)+" ")])}))])},staticRenderFns: [],
+  props: {
+    year: {
+      type: Number,
+      required: true
+    },
+    minDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDate: {
+      type: luxon.DateTime,
+      default: null
+    }
+  },
+
+  computed: {
+    years: function years$1 () {
+      var this$1 = this;
+
+      return years(this.year).map(function (year) { return ({
+        number: year,
+        selected: year === this$1.year,
+        disabled: !year || yearIsDisabled(this$1.minDate, this$1.maxDate, year)
+      }); })
+    }
+  },
+
+  methods: {
+    select: function select (year) {
+      if (year.disabled) {
+        return
+      }
+
+      this.$emit('change', parseInt(year.number));
+    },
+
+    scrollToCurrent: function scrollToCurrent () {
+      var selectedYear = this.$refs.yearList.querySelector('.vdatetime-year-picker__item--selected');
+      this.$refs.yearList.scrollTop = selectedYear ? selectedYear.offsetTop - 250 : 0;
+    }
+  },
+
+  mounted: function mounted () {
+    this.scrollToCurrent();
+  },
+
+  updated: function updated () {
+    this.scrollToCurrent();
+  }
+};
+
+var KEY_TAB = 9;
+var KEY_ENTER = 13;
+var KEY_ESC = 27;
+
+var DatetimePopup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-popup"},[_c('div',{staticClass:"vdatetime-popup__header"},[(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__year",on:{"click":_vm.showYear}},[_vm._v(_vm._s(_vm.year))]):_vm._e(),_vm._v(" "),(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__date"},[_vm._v(_vm._s(_vm.dateFormatted))]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__body"},[(_vm.step === 'year')?_c('datetime-year-picker',{attrs:{"min-date":_vm.minDatetimeUTC,"max-date":_vm.maxDatetimeUTC,"year":_vm.year},on:{"change":_vm.onChangeYear}}):_vm._e(),_vm._v(" "),(_vm.step === 'date')?_c('datetime-calendar',{attrs:{"year":_vm.year,"month":_vm.month,"day":_vm.day,"min-date":_vm.minDatetimeUTC,"max-date":_vm.maxDatetimeUTC,"week-start":_vm.weekStart},on:{"change":_vm.onChangeDate}}):_vm._e(),_vm._v(" "),(_vm.step === 'time')?_c('datetime-time-picker',{attrs:{"hour":_vm.hour,"minute":_vm.minute,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-time":_vm.minTime,"max-time":_vm.maxTime},on:{"change":_vm.onChangeTime}}):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions"},[_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--cancel",on:{"click":_vm.cancel}},[_vm._v(_vm._s(_vm.phrases.cancel))]),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--confirm",on:{"click":_vm.confirm}},[_vm._v(_vm._s(_vm.phrases.ok))])])])},staticRenderFns: [],
+  components: {
+    DatetimeCalendar: DatetimeCalendar,
+    DatetimeTimePicker: DatetimeTimePicker,
+    DatetimeYearPicker: DatetimeYearPicker
+  },
+
+  props: {
+    datetime: {
+      type: luxon.DateTime,
+      required: true
+    },
+    phrases: {
+      type: Object,
+      default: function default$1 () {
+        return {
+          cancel: 'Cancel',
+          ok: 'Ok'
+        }
+      }
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minDatetime: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDatetime: {
+      type: luxon.DateTime,
+      default: null
+    },
+    auto: {
+      type: Boolean,
+      default: false
+    },
+    weekStart: {
+      type: Number,
+      default: 1
+    }
+  },
+
+  data: function data () {
+    var flow = createFlowManagerFromType(this.type);
+
+    return {
+      newDatetime: this.datetime,
+      flow: flow,
+      step: flow.first(),
+      timePartsTouched: []
+    }
+  },
+
+  created: function created () {
+    document.addEventListener('keydown', this.onKeyDown);
+  },
+
+  beforeDestroy: function beforeDestroy () {
+    document.removeEventListener('keydown', this.onKeyDown);
+  },
+
+  computed: {
+    year: function year () {
+      return this.newDatetime.year
+    },
+    month: function month () {
+      return this.newDatetime.month
+    },
+    day: function day () {
+      return this.newDatetime.day
+    },
+    hour: function hour () {
+      return this.newDatetime.hour
+    },
+    minute: function minute () {
+      return this.newDatetime.minute
+    },
+    dateFormatted: function dateFormatted () {
+      return this.newDatetime.toLocaleString({
+        month: 'long',
+        day: 'numeric'
+      })
+    },
+    minDatetimeUTC: function minDatetimeUTC () {
+      return this.minDatetime ? this.minDatetime.toUTC() : null
+    },
+    maxDatetimeUTC: function maxDatetimeUTC () {
+      return this.maxDatetime ? this.maxDatetime.toUTC() : null
+    },
+    minTime: function minTime () {
+      return (
+        this.minDatetime &&
+        this.minDatetime.year === this.year &&
+        this.minDatetime.month === this.month &&
+        this.minDatetime.day === this.day
+      ) ? this.minDatetime.toFormat('HH:mm') : null
+    },
+    maxTime: function maxTime () {
+      return (
+        this.maxDatetime &&
+        this.maxDatetime.year === this.year &&
+        this.maxDatetime.month === this.month &&
+        this.maxDatetime.day === this.day
+      ) ? this.maxDatetime.toFormat('HH:mm') : null
+    }
+  },
+
+  methods: {
+    nextStep: function nextStep () {
+      this.step = this.flow.next(this.step);
+      this.timePartsTouched = [];
+
+      if (this.step === 'end') {
+        this.$emit('confirm', this.newDatetime);
+      }
+    },
+    showYear: function showYear () {
+      this.step = 'year';
+      this.flow.diversion('date');
+    },
+    confirm: function confirm () {
+      this.nextStep();
+    },
+    cancel: function cancel () {
+      this.$emit('cancel');
+    },
+    onChangeYear: function onChangeYear (year) {
+      this.newDatetime = this.newDatetime.set({ year: year });
+
+      if (this.auto) {
+        this.nextStep();
+      }
+    },
+    onChangeDate: function onChangeDate (year, month, day) {
+      this.newDatetime = this.newDatetime.set({ year: year, month: month, day: day });
+
+      if (this.auto) {
+        this.nextStep();
+      }
+    },
+    onChangeTime: function onChangeTime (ref) {
+      var hour = ref.hour;
+      var minute = ref.minute;
+      var suffixTouched = ref.suffixTouched;
+
+      if (suffixTouched) {
+        this.timePartsTouched['suffix'] = true;
+      }
+
+      if (Number.isInteger(hour)) {
+        this.newDatetime = this.newDatetime.set({ hour: hour });
+        this.timePartsTouched['hour'] = true;
+      }
+
+      if (Number.isInteger(minute)) {
+        this.newDatetime = this.newDatetime.set({ minute: minute });
+        this.timePartsTouched['minute'] = true;
+      }
+
+      var goNext = this.auto && this.timePartsTouched['hour'] && this.timePartsTouched['minute'] && (
+        this.timePartsTouched['suffix'] ||
+        !this.use12Hour
+      );
+
+      if (goNext) {
+        this.nextStep();
+      }
+    },
+    onKeyDown: function onKeyDown (event) {
+      switch (event.keyCode) {
+        case KEY_ESC:
+        case KEY_TAB:
+          this.cancel();
+          break
+
+        case KEY_ENTER:
+          this.nextStep();
+          break
+      }
+    }
+  }
+};
+
+var Datetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime"},[_vm._t("before"),_vm._v(" "),_c('input',_vm._g(_vm._b({staticClass:"vdatetime-input",class:_vm.inputClass,attrs:{"id":_vm.inputId,"type":"text"},domProps:{"value":_vm.inputValue},on:{"click":_vm.open,"focus":_vm.open}},'input',_vm.$attrs,false),_vm.$listeners)),_vm._v(" "),(_vm.hiddenName)?_c('input',{attrs:{"type":"hidden","name":_vm.hiddenName},domProps:{"value":_vm.value},on:{"input":_vm.setValue}}):_vm._e(),_vm._v(" "),_vm._t("after"),_vm._v(" "),_c('transition-group',{attrs:{"name":"vdatetime-fade","tag":"div"}},[(_vm.isOpen)?_c('div',{key:"overlay",staticClass:"vdatetime-overlay",on:{"click":function($event){if($event.target !== $event.currentTarget){ return null; }_vm.cancel($event);}}}):_vm._e(),_vm._v(" "),(_vm.isOpen)?_c('datetime-popup',{key:"popup",attrs:{"type":_vm.type,"datetime":_vm.popupDate,"phrases":_vm.phrases,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-datetime":_vm.popupMinDatetime,"max-datetime":_vm.popupMaxDatetime,"auto":_vm.auto,"week-start":_vm.weekStart},on:{"confirm":_vm.confirm,"cancel":_vm.cancel}}):_vm._e()],1)],2)},staticRenderFns: [],
+  components: {
+    DatetimePopup: DatetimePopup
+  },
+
+  props: {
+    value: {
+      type: String
+    },
+    valueZone: {
+      type: String,
+      default: 'UTC'
+    },
+    inputId: {
+      type: String,
+      default: ''
+    },
+    inputClass: {
+      type: String,
+      default: ''
+    },
+    hiddenName: {
+      type: String
+    },
+    zone: {
+      type: String,
+      default: 'local'
+    },
+    format: {
+      type: [Object, String],
+      default: null
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    phrases: {
+      type: Object,
+      default: function default$1 () {
+        return {
+          cancel: 'Cancel',
+          ok: 'Ok'
+        }
+      }
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minDatetime: {
+      type: String,
+      default: null
+    },
+    maxDatetime: {
+      type: String,
+      default: null
+    },
+    auto: {
+      type: Boolean,
+      default: false
+    },
+    weekStart: {
+      type: Number,
+      default: function default$2 () {
+        return weekStart()
+      }
+    }
+  },
+
+  data: function data () {
+    return {
+      isOpen: false,
+      datetime: datetimeFromISO(this.value)
+    }
+  },
+
+  watch: {
+    value: function value (newValue) {
+      this.datetime = datetimeFromISO(newValue);
+    }
+  },
+
+  created: function created () {
+    this.emitInput();
+  },
+
+  computed: {
+    inputValue: function inputValue () {
+      var format = this.format;
+
+      if (!format) {
+        switch (this.type) {
+          case 'date':
+            format = luxon.DateTime.DATE_MED;
+            break
+          case 'time':
+            format = luxon.DateTime.TIME_24_SIMPLE;
+            break
+          case 'datetime':
+          case 'default':
+            format = luxon.DateTime.DATETIME_MED;
+            break
+        }
+      }
+
+      if (typeof format === 'string') {
+        return this.datetime ? luxon.DateTime.fromISO(this.datetime).setZone(this.zone).toFormat(format) : ''
+      } else {
+        return this.datetime ? this.datetime.setZone(this.zone).toLocaleString(format) : ''
+      }
+    },
+    popupDate: function popupDate () {
+      return this.datetime ? this.datetime.setZone(this.zone) : this.newPopupDatetime()
+    },
+    popupMinDatetime: function popupMinDatetime () {
+      return this.minDatetime ? luxon.DateTime.fromISO(this.minDatetime).setZone(this.zone) : null
+    },
+    popupMaxDatetime: function popupMaxDatetime () {
+      return this.maxDatetime ? luxon.DateTime.fromISO(this.maxDatetime).setZone(this.zone) : null
+    }
+  },
+
+  methods: {
+    emitInput: function emitInput () {
+      var datetime = this.datetime ? this.datetime.setZone(this.valueZone) : null;
+
+      if (datetime && this.type === 'date') {
+        datetime = startOfDay(datetime);
+      }
+
+      this.$emit('input', datetime ? datetime.toISO() : '');
+    },
+    open: function open (event) {
+      event.target.blur();
+
+      this.isOpen = true;
+    },
+    close: function close () {
+      this.isOpen = false;
+      this.$emit('close');
+    },
+    confirm: function confirm (datetime) {
+      this.datetime = datetime.toUTC();
+      this.emitInput();
+      this.close();
+    },
+    cancel: function cancel () {
+      this.close();
+    },
+    newPopupDatetime: function newPopupDatetime () {
+      var datetime = luxon.DateTime.utc().setZone(this.zone).set({ seconds: 0, milliseconds: 0 });
+
+      if (this.popupMinDatetime && datetime < this.popupMinDatetime) {
+        datetime = this.popupMinDatetime.set({ seconds: 0, milliseconds: 0 });
+      }
+
+      if (this.popupMaxDatetime && datetime > this.popupMaxDatetime) {
+        datetime = this.popupMaxDatetime.set({ seconds: 0, milliseconds: 0 });
+      }
+
+      if (this.minuteStep === 1) {
+        return datetime
+      }
+
+      var roundedMinute = Math.round(datetime.minute / this.minuteStep) * this.minuteStep;
+
+      if (roundedMinute === 60) {
+        return datetime.plus({ hours: 1 }).set({ minute: 0 })
+      }
+
+      return datetime.set({ minute: roundedMinute })
+    },
+    setValue: function setValue (event) {
+      this.datetime = datetimeFromISO(event.target.value);
+      this.emitInput();
+    }
+  }
+};
+
+function plugin (Vue) {
+  Vue.component('datetime', Datetime);
+}
+
+// Install by default if using the script tag
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(plugin);
+}
+
+var version = '1.0.0-beta.8';
+
+exports['default'] = plugin;
+exports.Datetime = Datetime;
+exports.version = version;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 
 
 /***/ }),
