@@ -26,7 +26,9 @@ class GalleryController extends Controller
             $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
         }
 
-		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner'));
+        $sortedGallery = $gallery->sortByDesc('is_wide');
+
+		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner', 'sortedGallery'));
     }
 
     public function getAll(Request $request){
@@ -34,16 +36,27 @@ class GalleryController extends Controller
             $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) .'%"')
             ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%"')
             ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%"')
-            ->orWhere('date', 'LIKE', '%' . strtolower($request->keyword) . '%');
+            ->orWhereRaw('DATE_FORMAT(date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"');
         })->paginate(8);
 
         $gallery->appends($request->only('keyword'));
 
-        foreach ($gallery as $photo) {
+        $gallerySorted[0] = $gallery;
+        $gallerySorted[1] = [];
+
+        foreach ($gallery->sortByDesc('is_wide') as $photo) {
             $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
+            $photo->location = $photo->location == NULL 
+            ? ""
+            : $photo->location;
+            $photo->creator = $photo->creator == NULL
+            ? ""
+            : $photo->creator;
+
+            array_push($gallerySorted[1], $photo);
         }
 
-        return $gallery;    	
+        return $gallerySorted;
     }
 
     public function getCategory(Category $category){
@@ -53,19 +66,35 @@ class GalleryController extends Controller
     public function getSubcategory(Request $request, SubCategory $subcategory){
         $gallery = Gallery::whereSubCategoryId($subcategory->id)
         ->when($request->keyword, function ($query) use ($request, $subcategory) {
-            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) . '%" 
-                AND sub_category_id LIKE ' . $subcategory->id)
-            ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%" 
-                AND sub_category_id LIKE ' . $subcategory->id)
-            ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%" 
-                AND sub_category_id LIKE ' . $subcategory->id)
-            ->orWhere('date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            $query->whereRaw('LOWER(title) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereSubCategoryId($subcategory->id)
+            ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereSubCategoryId($subcategory->id)
+            ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%"')
+                ->whereSubCategoryId($subcategory->id)
+            ->orWhereRaw('DATE_FORMAT(date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id);
         })->paginate(8);
 
         $gallery->appends($request->only('keyword'));
 
-        return $gallery;
+        $gallerySorted[0] = $gallery;
+        $gallerySorted[1] = [];
+
+        foreach ($gallery->sortByDesc('is_wide') as $photo) {
+            $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
+            $photo->location = $photo->location == NULL 
+            ? ""
+            : $photo->location;
+            $photo->creator = $photo->creator == NULL
+            ? ""
+            : $photo->creator;
+            
+            array_push($gallerySorted[1], $photo);
+        }
+
+        return $gallerySorted;
     }
+
 
 }

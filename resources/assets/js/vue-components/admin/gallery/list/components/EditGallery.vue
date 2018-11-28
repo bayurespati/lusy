@@ -4,10 +4,10 @@
                 mode="out-in">
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_gallery">
             <div class="panel-body">
-                <h3 class="text-center font-weight-bold">Edit {{ galleryImage.title }}</h3>
+                <h3 class="text-center">Edit <strong>{{ galleryImage.title }}</strong></h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                    <div class="col-md-4">
+                    <div :class="colForPicture">
                         <div :id="'croppie-' + galleryImage.id"></div>
 
                         <div class="panel panel-transparent text-center">
@@ -16,6 +16,17 @@
                             id="file-2"
                             class="inputfile"
                             @change="setUpFileUploader">
+
+                            <div class="col-md-12">
+                                <div class="form-group text-center mb-3">
+                                    <label>
+                                        <input type="radio" :name="'orientation-' + galleryImage.id" value='false' v-model="isWide"> Square
+                                    </label>
+                                    <label>
+                                        <input type="radio" :name="'orientation-' + galleryImage.id" value='true' v-model="isWide" class="ml-2"> Wide
+                                    </label>
+                                </div>
+                            </div>
 
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
@@ -29,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div :class="colForData">
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"class="form-control-label panel-font-small m-0 font-weight-bold">
@@ -205,6 +216,7 @@
         data(){
             return {
                 isRequesting: false,
+                isWide: this.galleryImage.is_wide,
                 title: this.galleryImage.title,
                 date: this.galleryImage.date,
                 location: this.galleryImage.location === null ? '' : this.galleryImage.location,
@@ -252,6 +264,7 @@
 
             galleryIsEdited(){
                 return this.galleryImage.title !== this.title 
+                    || this.galleryImage.is_wide !== this.isWide
                     || this.galleryImage.date !== this.date.substring(0,10)
                     || this.galleryImage.location !== this.location
                     || this.galleryImage.creator !== this.creator
@@ -276,7 +289,19 @@
                         }
                     }
                 }
-            }
+            },
+
+            colForPicture(){
+                return this.isWide
+                ? 'col-md-12 mb-4'
+                : 'col-md-4'
+             },
+
+             colForData(){
+                return this.isWide
+                ? 'col-md-12'
+                : 'col-md-8'
+             }
         },
 
         methods: {
@@ -308,16 +333,32 @@
                 const self = this;
                 let file = document.getElementById('croppie-' + this.galleryImage.id);
 
-                this.croppie = new Croppie(file,{
-                    viewport: {width: 240, height: 250, type: 'square'},
-                    boundary: {width: 290, height: 300 },
-                    enableOrientation: false
-                });
+                if(this.isWide){
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 480, height: 250, type: 'square'},
+                        boundary: {width: 530, height: 300 },
+                        enableOrientation: false
+                    });
+                }
+                else {
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 240, height: 250, type: 'square'},
+                        boundary: {width: 290, height: 300 },
+                        enableOrientation: false
+                    });
+                }
 
                 if(this.image === null || this.image === ''){
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
+                    if(this.isWide){
+                        this.croppie.bind({
+                            url: '/img/portfolio-1.jpg'
+                        });
+                    }
+                    else {
+                        this.croppie.bind({
+                            url: '/img/portfolio-2.jpg'
+                        });
+                    }
                 }else {
                     this.croppie.bind({
                         url: this.image
@@ -332,12 +373,22 @@
             setImage(){
                 const self = this;
 
-                this.croppie.result({
-                    type: 'canvas',
-                    size: {witdh: 480, height: 500, type: 'square'},
-                }).then(response => {
-                    self.save_image = response;
-                });
+                if(this.isWide){
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 960, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
+                else {
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 480, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
             },
 
             editGallery(){
@@ -355,7 +406,8 @@
                         location: this.location,
                         creator: this.creator,
                         sub_category_id: this.sub_category_id,
-                        image: this.image === this.galleryImage.image_path ? this.image : this.save_image
+                        image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
+                        isWide: this.isWide
                     };
 
                     this.$store.dispatch('update_galllery', updatedGallery)
@@ -386,6 +438,23 @@
                 this.$v.sub_category_id.$touch();
                 this.$v.image.$touch();
             },
+        },
+
+        watch: {
+            isWide(){
+                if(this.isWide == 'false') {
+                    this.isWide = false;
+                    this.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+                else if(this.isWide == 'true') {
+                    this.isWide = true;
+                    this.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+            }
         }
     };
 </script>

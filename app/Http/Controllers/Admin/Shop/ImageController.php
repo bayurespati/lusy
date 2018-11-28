@@ -21,6 +21,12 @@ class ImageController extends Controller
 
     	$imageList = ShopImage::where('shop_item_id',$param)->get();
 
+        foreach ($imageList as $photo) {
+            $photo->is_wide = $photo->is_wide 
+            ? true
+            : false;
+        }
+
     	return $imageList;
     }
 
@@ -43,6 +49,7 @@ class ImageController extends Controller
     	$shopImage->title = $request->title;
     	$shopImage->is_poster = false;
     	$shopImage->image_path = url('img/shop/'.$imageName);
+        $shopImage->is_wide = $request->isWide;
     	$shopImage->save();
 
     	return $shopImage;
@@ -68,6 +75,7 @@ class ImageController extends Controller
 
         $shopImage->title = $request->title;
         $shopImage->is_poster = $request->is_poster;
+        $shopImage->is_wide = $request->isWide;
 
         $shopImage->update();
 

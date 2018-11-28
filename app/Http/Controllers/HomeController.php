@@ -29,7 +29,7 @@ class HomeController extends Controller
 	    $imageSlider = imageSlider::all();
 	    $introduction = AboutContent::where('is_class', '=', false)->get();
 	    $shopItems = ShopItem::whereIsShowcase(true)->get();
-	    $showcasedImage = Gallery::whereIsShowcase(true)->get();
+	    $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
 	    $eventBanner = ImageConfig::find(1)->image_path === null 
 	    ? '/img/upcoming-event-bg.jpg'
 	    : ImageConfig::find(1)->image_path;
@@ -47,7 +47,7 @@ class HomeController extends Controller
 	    if(
 	        count($showcasedImage) > 0 && 
 	        count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-	        $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+	        $showedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->paginate(4); 
 	    }
 	    else {
 	        $showedImage = $showcasedImage;
@@ -61,12 +61,12 @@ class HomeController extends Controller
 	        $startDate = Carbon::parse($event->start_date);
 	        $endDate = Carbon::parse($event->end_date);
 
-	        $event->day = $startDate->format('D');
-	        $event->dayComplete = $startDate->format('l');
-	        $event->dayDate = $startDate->format('d');
-	        $event->month = $startDate->format('M');
-	        $event->startHour = $startDate->format('h:i A');
-	        $event->endHour = $endDate->format('h:i A');
+	        $event->day = $startDate->format('l');
+            $event->dayDate = $startDate->format('d');
+            $event->month = $startDate->format('M');
+            $event->startHour = $startDate->format('h:i A');
+            $event->endHour = $endDate->format('h:i A');
+            $event->endDay = $endDate->format('l');
 	    }
 
 	    $events = Event::with('subcategory', 'subcategory.category')->get();

@@ -3,13 +3,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center font-weight-bold mb-5">
-                        Add Image {{ itemName }}
+                    <h3 class="text-center mb-5">
+                        Add New Image for <strong>{{ itemName }}</strong>
                     </h3>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div :class="colForPicture">
                         <div id="croppie"></div>
 
                         <div class="panel panel-transparent text-center">
@@ -18,6 +18,17 @@
                             id="file-2"
                             class="inputfile"
                             @change="setUpFileUploader">
+
+                            <div class="col-md-12">
+                                <div class="form-group text-center mb-3">
+                                    <label>
+                                        <input type="radio" name="orientation" value=false v-model="isWide"> Square
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="orientation" value=true v-model="isWide" class="ml-2"> Wide
+                                    </label>
+                                </div>
+                            </div>
 
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
@@ -30,9 +41,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div :class="colForData">
                         <div class="row">
-                            <div class="col-md-3 d-flex align-items-center">
+                            <div class="col-md-3 d-flex align-items-center justify-content-end">
                                 <label class="m-0 pl-1" for="name">Name</label>
                             </div>
                             <div class="col-md-9">
@@ -90,6 +101,7 @@
         
         data: function () {
             return{
+                isWide: false,
                 isRequesting : false,
                 croppie: null,
                 save_image:'',
@@ -126,6 +138,18 @@
                     && this.title != '' 
                     && this.title.length >= 3
                     && this.title.length <= 30
+             },
+
+             colForPicture(){
+                return this.isWide
+                ? 'col-md-12 mb-4'
+                : 'col-md-4'
+             },
+
+             colForData(){
+                return this.isWide
+                ? 'col-md-12'
+                : 'col-md-8'
              }
         },
 
@@ -157,16 +181,32 @@
                 const self = this;
                 let file = document.getElementById('croppie');
 
-                this.croppie = new Croppie(file,{
-                    viewport: {width: 235, height: 300, type: 'square'},
-                    boundary: {width: 285, height: 350 },
-                    enableOrientation: false
-                });
+                if(this.isWide){
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 480, height: 250, type: 'square'},
+                        boundary: {width: 530, height: 300 },
+                        enableOrientation: false
+                    });
+                }
+                else {
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 240, height: 250, type: 'square'},
+                        boundary: {width: 290, height: 300 },
+                        enableOrientation: false
+                    });
+                }
 
                 if(this.image === null || this.image === ''){
-                    this.croppie.bind({
-                        url: '/img/welcome-1.jpg'
-                    });
+                    if(this.isWide){
+                        this.croppie.bind({
+                            url: '/img/portfolio-1.jpg'
+                        });
+                    }
+                    else {
+                        this.croppie.bind({
+                            url: '/img/portfolio-2.jpg'
+                        });
+                    }
                 }else {
                     this.croppie.bind({
                         url: this.image
@@ -181,12 +221,22 @@
             setImage(){
                 const self = this;
 
-                this.croppie.result({
-                    type: 'canvas',
-                    size: {witdh: 470, height: 600, type: 'square'},
-                }).then(response => {
-                    self.save_image = response;
-                });
+                if(this.isWide){
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 960, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
+                else {
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 480, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
             },
 
             uploadImage(){
@@ -200,7 +250,8 @@
                     const imageData = {
                         image : this.save_image,
                         title : this.title,
-                        shopId: this.shopId
+                        shopId: this.shopId,
+                        isWide: this.isWide
                     };
 
                     this.$store.dispatch('store_new_image', imageData)
@@ -222,7 +273,7 @@
                             });
                         });
                 }else{
-                    this.diryAllInputs();
+                    this.dirtyAllInputs();
                 }
             },
 
@@ -230,11 +281,28 @@
                this.$emit('closeAddImage',false);
             },
 
-            diryAllInputs(){
+            dirtyAllInputs(){
                 this.$v.title.$touch();
                 this.$v.image.$touch();
             },
 
+        },
+
+        watch:{
+            isWide(){
+                if(this.isWide == 'false') {
+                    this.isWide = false;
+                    this.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+                else if(this.isWide == 'true') {
+                    this.isWide = true;
+                    this.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+            }
         }
     };
 </script>

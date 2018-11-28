@@ -21,6 +21,15 @@ class ImageController extends Controller
 
     	$imageList = EventImage::where('event_id',$param)->get();
 
+        foreach ($imageList as $photo) {
+            $photo->is_wide = $photo->is_wide 
+            ? true
+            : false;
+            $photo->description = $photo->description == null 
+            ? '' 
+            : $photo->description;
+        }
+
     	return $imageList;
     }
 
@@ -44,6 +53,7 @@ class ImageController extends Controller
         $eventImage->description = $request->description;
     	$eventImage->is_poster = false;
     	$eventImage->image_path = url('img/event/'.$imageName);
+        $eventImage->is_wide = $request->isWide;
     	$eventImage->save();
 
     	return $eventImage;
@@ -70,6 +80,7 @@ class ImageController extends Controller
         $eventImage->title = $request->title;
         $eventImage->description = $request->description;
         $eventImage->is_poster = $request->is_poster;
+        $eventImage->is_wide = $request->isWide;
 
         $eventImage->update();
 

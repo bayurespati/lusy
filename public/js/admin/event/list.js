@@ -16829,7 +16829,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "detail" }, [
                       _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.event.start_date))
+                        _vm._v(_vm._s(_vm.event.end_date))
                       ])
                     ])
                   ])

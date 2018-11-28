@@ -510,14 +510,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
         },
 
         add_new_image: function add_new_image(state, imageItem) {
-
             state.imageList.push({
                 id: imageItem.id,
                 image_path: imageItem.image_path,
                 is_poster: imageItem.is_poster,
                 title: imageItem.title,
                 description: imageItem.description,
-                event_id: imageItem.event_id
+                event_id: imageItem.event_id,
+                is_wide: imageItem.is_wide
             });
         },
         edit_item: function edit_item(state, updatedItem) {
@@ -528,6 +528,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             state.imageList[imageIndex].image_path = updatedItem.image_path;
             state.imageList[imageIndex].title = updatedItem.title;
             state.imageList[imageIndex].description = updatedItem.description;
+            state.imageList[imageIndex].is_wide = updatedItem.is_wide;
             state.imageList[imageIndex].is_poster = updatedItem.is_poster;
         },
         delete_image: function delete_image(state, ids) {
@@ -576,8 +577,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     title: updatedItem.title,
                     image: updatedItem.image,
                     description: updatedItem.description,
-                    is_poster: updatedItem.is_poster
+                    is_poster: updatedItem.is_poster,
+                    isWide: updatedItem.isWide
                 }).then(function (response) {
+
                     commit('edit_item', response.data);
 
                     resolve(updatedItem);
@@ -2655,6 +2658,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2670,6 +2684,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     data: function data() {
         return {
+            isWide: false,
             isRequesting: false,
             croppie: null,
             save_image: '',
@@ -2702,6 +2717,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }), {
         formIsFilled: function formIsFilled() {
             return this.image != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50;
+        },
+        colForPicture: function colForPicture() {
+            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+        },
+        colForData: function colForData() {
+            return this.isWide ? 'col-md-12' : 'col-md-8';
         }
     }),
 
@@ -2733,16 +2754,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var self = this;
             var file = document.getElementById('croppie');
 
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                viewport: { width: 205, height: 200, type: 'square' },
-                boundary: { width: 255, height: 250 },
-                enableOrientation: false
-            });
+            if (this.isWide) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
+            } else {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 240, height: 250, type: 'square' },
+                    boundary: { width: 290, height: 300 },
+                    enableOrientation: false
+                });
+            }
 
             if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: '/img/events1.jpg'
-                });
+                if (this.isWide) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
+                    });
+                } else {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                }
             } else {
                 this.croppie.bind({
                     url: this.image
@@ -2756,18 +2791,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         setImage: function setImage() {
             var self = this;
 
-            this.croppie.result({
-                type: 'canvas',
-                size: { witdh: 410, height: 400, type: 'square' }
-            }).then(function (response) {
-                self.save_image = response;
-            });
+            if (this.isWide) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            }
         },
         uploadImage: function uploadImage() {
 
             var self = this;
-
-            console.log(this.formIsFilled);
 
             if (this.formIsFilled && !self.isRequesting) {
 
@@ -2777,7 +2819,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     image: this.save_image,
                     title: this.title,
                     description: this.description,
-                    eventId: this.eventId
+                    eventId: this.eventId,
+                    isWide: this.isWide
                 };
 
                 this.$store.dispatch('store_new_image', imageData).then(function (response) {
@@ -2806,6 +2849,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         closeAdd: function closeAdd() {
             this.$emit('closeAddImage', false);
         }
+    },
+
+    watch: {
+        isWide: function isWide() {
+            if (this.isWide == 'false') {
+                this.isWide = false;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            } else if (this.isWide == 'true') {
+                this.isWide = true;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            }
+        }
     }
 });
 
@@ -2829,7 +2888,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { class: _vm.colForPicture }, [
             _c("div", { attrs: { id: "croppie" } }),
             _vm._v(" "),
             _c(
@@ -2846,6 +2905,61 @@ var render = function() {
                     change: _vm.setUpFileUploader
                   }
                 }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "form-group text-center mb-3" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.isWide,
+                            expression: "isWide"
+                          }
+                        ],
+                        attrs: {
+                          type: "radio",
+                          name: "orientation",
+                          value: "false"
+                        },
+                        domProps: { checked: _vm._q(_vm.isWide, "false") },
+                        on: {
+                          change: function($event) {
+                            _vm.isWide = "false"
+                          }
+                        }
+                      }),
+                      _vm._v(" Square\n                                ")
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.isWide,
+                            expression: "isWide"
+                          }
+                        ],
+                        staticClass: "ml-2",
+                        attrs: {
+                          type: "radio",
+                          name: "orientation",
+                          value: "true"
+                        },
+                        domProps: { checked: _vm._q(_vm.isWide, "true") },
+                        on: {
+                          change: function($event) {
+                            _vm.isWide = "true"
+                          }
+                        }
+                      }),
+                      _vm._v(" Wide\n                                ")
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _vm._m(0),
                 _vm._v(" "),
@@ -2881,7 +2995,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { class: _vm.colForData }, [
             _c("div", { staticClass: "row" }, [
               _vm._m(1),
               _vm._v(" "),
@@ -3424,7 +3538,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var a = _.findIndex(this.imageList, ['is_poster', 1]);
             var b = _.findIndex(this.imageList, ['is_poster', true]);
 
-            if (a === -1 && b === -1) {
+            if (a == -1 && b == -1) {
                 this.editImage();
             }
         },
@@ -3441,7 +3555,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     title: this.imageItem.title,
                     description: this.imageItem.description,
                     image: this.imageItem.image_path,
-                    is_poster: !this.imageItem.is_poster
+                    is_poster: !this.imageItem.is_poster,
+                    isWide: this.imageItem.is_wide
                 };
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
@@ -3662,6 +3777,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3680,6 +3813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             isRequesting: false,
+            isWide: this.imageItem.is_wide,
             save_image: '',
             input: {
                 title: this.imageItem.title,
@@ -3703,16 +3837,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             description: {
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
                 maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+            },
+            image: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
             }
         }
     },
 
     computed: {
         imageIsEdited: function imageIsEdited() {
-            return this.imageItem.title !== this.input.title || this.imageItem.image_path !== this.input.image || this.imageItem.description !== this.input.description;
+            return this.imageItem.title !== this.input.title || this.imageItem.is_wide !== this.isWide || this.imageItem.image_path !== this.input.image || this.imageItem.description !== this.input.description;
         },
         formIsFilled: function formIsFilled() {
             return this.input.image != '' && this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 50;
+        },
+        colForPicture: function colForPicture() {
+            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+        },
+        colForData: function colForData() {
+            return this.isWide ? 'col-md-12' : 'col-md-8';
         }
     },
 
@@ -3733,7 +3876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var setUpFileUploaderself = this;
 
             reader.onload = function (event) {
-                self.input.image = event.target.result;
+                _this.input.image = event.target.result;
                 _this.croppie.destroy();
                 _this.setUpCroppie();
             };
@@ -3744,16 +3887,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             var file = document.getElementById('croppie-' + this.imageItem.id);
 
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                viewport: { width: 205, height: 200, type: 'square' },
-                boundary: { width: 255, height: 250 },
-                enableOrientation: false
-            });
+            if (this.isWide) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
+            } else {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 240, height: 250, type: 'square' },
+                    boundary: { width: 290, height: 300 },
+                    enableOrientation: false
+                });
+            }
 
             if (this.input.image === null || this.input.image === '') {
-                this.croppie.bind({
-                    url: '/img/events1.jpg'
-                });
+                if (this.isWide) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
+                    });
+                } else {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                }
             } else {
                 this.croppie.bind({
                     url: this.input.image
@@ -3767,12 +3924,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setImage: function setImage() {
             var self = this;
 
-            this.croppie.result({
-                type: 'canvas',
-                size: { witdh: 410, height: 400, type: 'square' }
-            }).then(function (response) {
-                self.save_image = response;
-            });
+            if (this.isWide) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            }
         },
         editImage: function editImage() {
 
@@ -3787,7 +3953,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     title: this.input.title,
                     description: this.input.description,
                     image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
-                    is_poster: this.imageItem.is_poster
+                    is_poster: this.imageItem.is_poster,
+                    isWide: this.isWide
                 };
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
@@ -3800,10 +3967,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }).catch(function (errors) {
                     self.isRequesting = false;
                 });
+            } else {
+                this.dirytAllInputs();
             }
+        },
+        dirytAllInputs: function dirytAllInputs() {
+            this.$v.input.title.$touch();
+            this.$v.input.description.$touch();
+            this.$v.input.image.$touch();
         },
         closeEditForm: function closeEditForm() {
             this.$emit('editionFormIsClosed', false);
+        }
+    },
+
+    watch: {
+        isWide: function isWide() {
+            if (this.isWide == 'false') {
+                this.isWide = false;
+                this.input.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            } else if (this.isWide == 'true') {
+                this.isWide = true;
+                this.input.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            }
         }
     }
 });
@@ -3842,7 +4032,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { class: _vm.colForPicture }, [
                 _c("div", { attrs: { id: "croppie-" + _vm.imageItem.id } }),
                 _vm._v(" "),
                 _c(
@@ -3855,6 +4045,67 @@ var render = function() {
                       on: { change: _vm.setUpFileUploader }
                     }),
                     _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group text-center mb-3" },
+                        [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.isWide,
+                                  expression: "isWide"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.imageItem.id,
+                                value: "false"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.isWide, "false")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.isWide = "false"
+                                }
+                              }
+                            }),
+                            _vm._v(" Square\n                                ")
+                          ]),
+                          _vm._v(" "),
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.isWide,
+                                  expression: "isWide"
+                                }
+                              ],
+                              staticClass: "ml-2",
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.imageItem.id,
+                                value: "true"
+                              },
+                              domProps: { checked: _vm._q(_vm.isWide, "true") },
+                              on: {
+                                change: function($event) {
+                                  _vm.isWide = "true"
+                                }
+                              }
+                            }),
+                            _vm._v(" Wide\n                                ")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "label",
                       {
@@ -3862,12 +4113,41 @@ var render = function() {
                         attrs: { for: "file-2" }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.image.required &&
+                        _vm.$v.input.image.$dirty
+                          ? _c(
+                              "p",
+                              {
+                                key: "image-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Image is required\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-8" }, [
+              _c("div", { class: _vm.colForData }, [
                 _c("div", { staticClass: "col-sm-12 row form-group" }, [
                   _c(
                     "div",
@@ -4328,7 +4608,9 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [_vm._v("Dimension: 480 x 500")]),
+      _c("p", { staticClass: "mb-5" }, [
+        _vm._v("Dimension: (480 x 500) or (960 x 500)")
+      ]),
       _vm._v(" "),
       _c("ul", { staticClass: "breadcrumb" }, [
         _c("li", [

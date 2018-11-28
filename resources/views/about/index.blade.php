@@ -171,18 +171,22 @@
                 </div><!-- Container /- -->
                 <div class="portfolio-list">
                     @foreach($showedImage as $image)
-                        <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                            <a href="{{ $image->image_path }}">
+                    @if($image->is_wide)
+                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                    @else
+                    <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                    @endif
+                        <a href="{{ $image->image_path }}">
 
-                                <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />
+                            <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />
 
-                                <div class="portfolio-content">
-                                    <i class="icon icon-Search"></i>
-                                    <h3>{{ $image->title }}</h3>
-                                    <span>{{ $image->creator }}</span>
-                                </div>
-                            </a>
-                        </div>
+                            <div class="portfolio-content">
+                                <i class="icon icon-Search"></i>
+                                <h3>{{ $image->title }}</h3>
+                                <span>{{ $image->creator }}</span>
+                            </div>
+                        </a>
+                    </div>
                     @endforeach
                 </div>
             </div>

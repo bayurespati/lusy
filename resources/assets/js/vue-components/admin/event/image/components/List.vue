@@ -2,7 +2,7 @@
   <div class="container">
     <h3 class="text-uppercase">{{ event.title }} IMAGE LIST MASTER</h3>
     <p class="mb-0">This is where you can manage images shown in the event's poster shown in Events & Activities page and event's images shown in {{ event.title }} single page</p>
-    <p class="mb-5">Dimension: 480 x 500</p>
+    <p class="mb-5">Dimension: (480 x 500) or (960 x 500)</p>
     
     <ul class="breadcrumb">
       <li><a href="/admin/event/list">{{ event.title }}</a></li>

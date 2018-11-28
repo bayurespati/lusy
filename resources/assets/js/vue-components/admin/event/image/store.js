@@ -44,7 +44,6 @@ export const store = new Vuex.Store({
         },
 
         add_new_image(state, imageItem){
-
             state.imageList.push({
                 id: imageItem.id,
                 image_path: imageItem.image_path,
@@ -52,6 +51,7 @@ export const store = new Vuex.Store({
                 title: imageItem.title,
                 description: imageItem.description,
                 event_id: imageItem.event_id,
+                is_wide: imageItem.is_wide,
             });
         },
 
@@ -63,6 +63,7 @@ export const store = new Vuex.Store({
             state.imageList[imageIndex].image_path = updatedItem.image_path;
             state.imageList[imageIndex].title = updatedItem.title;
             state.imageList[imageIndex].description = updatedItem.description;
+            state.imageList[imageIndex].is_wide = updatedItem.is_wide;
             state.imageList[imageIndex].is_poster = updatedItem.is_poster;
         },
 
@@ -111,8 +112,10 @@ export const store = new Vuex.Store({
                     image: updatedItem.image,
                     description: updatedItem.description,
                     is_poster: updatedItem.is_poster,
+                    isWide: updatedItem.isWide,
                 })
                     .then(response => {
+
                         commit('edit_item', response.data);
 
                         resolve(updatedItem);

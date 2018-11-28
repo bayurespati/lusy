@@ -65,6 +65,8 @@ class EventController extends Controller
 
         $event->images = $event->images()->whereIsPoster(false)->paginate(8);
 
+        $sortedEvent = $event->images->sortByDesc('is_wide');
+
         $startDate = Carbon::parse($event->start_date);
         $endDate = Carbon::parse($event->end_date);
 
@@ -77,12 +79,24 @@ class EventController extends Controller
 
         $event->isUpcoming = $endDate >= Carbon::today()->toDateString();
 
-        return view('event.single', compact('sosmed', 'event', 'eventBanner'));
+        return view('event.single', compact('sosmed', 'event', 'eventBanner', 'sortedEvent'));
     }
 
 
     public function getSingleImage(Event $event){
-    	return $event->images()->whereIsPoster(false)->paginate(8);
+        $images = $event->images()->whereIsPoster(false)->paginate(8);
+
+        $imagesSorted[0] = $images;
+        $imagesSorted[1] = [];
+
+        foreach ($images->sortByDesc('is_wide') as $photo) {
+            $photo->description = $photo->description == NULL
+            ? ""
+            : $photo->description;
+
+            array_push($imagesSorted[1], $photo);
+        }
+    	return $imagesSorted;
     }
 
 
@@ -99,9 +113,9 @@ class EventController extends Controller
                 ->where('end_date', '<', Carbon::today()->toDateString())
             ->orWhereRaw('LOWER(organiser) LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '<', Carbon::today()->toDateString())
-            ->orWhere('start_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(start_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '<', Carbon::today()->toDateString())
-            ->orWhere('end_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '<', Carbon::today()->toDateString());
         })->paginate(6);
 
@@ -143,9 +157,9 @@ class EventController extends Controller
                 ->where('end_date', '>=', Carbon::today()->toDateString())
             ->orWhereRaw('LOWER(organiser) LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '>=', Carbon::today()->toDateString())
-            ->orWhere('start_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(start_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '>=', Carbon::today()->toDateString())
-            ->orWhere('end_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '>=', Carbon::today()->toDateString());
         })->paginate(6);
 
@@ -193,10 +207,10 @@ class EventController extends Controller
             ->orWhereRaw('LOWER(organiser) LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '<', Carbon::today()->toDateString())
-            ->orWhere('start_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '<', Carbon::today()->toDateString())
-            ->orWhere('end_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(start_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '<', Carbon::today()->toDateString());
         })->paginate(6);
@@ -245,10 +259,10 @@ class EventController extends Controller
             ->orWhereRaw('LOWER(organiser) LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '>=', Carbon::today()->toDateString())
-            ->orWhere('start_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(start_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '>=', Carbon::today()->toDateString())
-            ->orWhere('end_date', 'LIKE', '%' . strtolower($request->keyword) . '%')
+            ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '>=', Carbon::today()->toDateString());
         })->paginate(6);

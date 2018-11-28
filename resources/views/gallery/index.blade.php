@@ -97,8 +97,12 @@
 
                 <div id="gallery-container-wrapper">
                     <div id="gallery-container" class="portfolio-list zoom-in">
-                        @foreach($gallery as $photo)
+                        @foreach($sortedGallery as $photo)
+                        @if($photo->is_wide)
+                        <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
+                        @else
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                        @endif
                             <a href="{{ $photo->image_path }}">
                                 <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
 
@@ -106,7 +110,8 @@
                                     <i class="icon icon-Search"></i>
                                     <h3>{{ $photo->title }}</h3>
                                     <span>{{ $photo->creator }}</span>
-                                    <span>{{ $photo->location }}, {{ $photo->date }}</span>
+                                    <span>{{ $photo->location }}</span>
+                                    <span>{{ $photo->date }}</span>
                                 </div>
                             </a>
                         </div>
@@ -473,8 +478,8 @@
         searchMessage.setAttribute('class', 'text-center fade-in');
 
         if(searchKey.length > 0){
-            searchMessage.innerHTML = array.total > 0 
-            ? 'displaying <strong>' + array.total + '</strong> results using the keyword of <strong>"' + searchKey + '"</strong>.'
+            searchMessage.innerHTML = array[0].total > 0 
+            ? 'displaying <strong>' + array[0].total + '</strong> results using the keyword of <strong>"' + searchKey + '"</strong>.'
             : '';
         }
         else {
@@ -494,17 +499,26 @@
 
         let galleryContent = '';
 
-        if(array.data.length > 0){
-            array.data.forEach(function(photo){
+        if(array[1].length > 0){
+            array[1].forEach(function(photo){
+                if(photo.is_wide){
+                    galleryContent = galleryContent +
+                    '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">'                    
+                }
+                else {
+                    galleryContent = galleryContent +
+                    '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">'             
+                }
+
                 galleryContent = galleryContent + 
-                '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
                 '   <a href="' + photo.image_path + '">' +
                 '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
                 '       <div class="portfolio-content">' +
                 '           <i class="icon icon-Search"></i>' +
                 '           <h3>' + photo.title + '</h3>' +
                 '           <span>' + photo.creator + '</span>' +
-                '           <span>' + photo.location + ', ' + photo.date + '</span>' +
+                '           <span>' + photo.location + '</span>' +
+                '           <span>' + photo.date + '</span>' +
                 '       </div>' +
                 '   </a>' +
                 '</div>'
@@ -539,10 +553,10 @@
 
         let paginationContent = '';
 
-        if(data.data.length > 0){
+        if(data[0].data.length > 0){
             paginationContent = '';
 
-            if(data.current_page == 1) {
+            if(data[0].current_page == 1) {
                 paginationContent = paginationContent + 
                 '<li class="disabled">';
             } else {
@@ -556,21 +570,21 @@
             '       </a>' + 
             '   </li>';
 
-            for(let i = 1; i <= data.last_page; i++){
+            for(let i = 1; i <= data[0].last_page; i++){
                 const halfTotalLinks = Math.floor(4/2);
-                let from = data.current_page - halfTotalLinks;
-                let to = data.current_page + halfTotalLinks;
+                let from = data[0].current_page - halfTotalLinks;
+                let to = data[0].current_page + halfTotalLinks;
 
-                if (data.current_page < halfTotalLinks) {
-                    to += halfTotalLinks - data.current_page;
+                if (data[0].current_page < halfTotalLinks) {
+                    to += halfTotalLinks - data[0].current_page;
                 };
 
-                if (data.last_page - data.current_page < halfTotalLinks) {
-                    from -= halfTotalLinks - (data.last_page - data.current_page - 1);
+                if (data[0].last_page - data[0].current_page < halfTotalLinks) {
+                    from -= halfTotalLinks - (data[0].last_page - data[0].current_page - 1);
                 };
 
                 if (from < i && i < to) {
-                    if (data.current_page == i) {
+                    if (data[0].current_page == i) {
                         paginationContent = paginationContent + 
                         '<li class="active">';
                     }
@@ -585,7 +599,7 @@
                 }
             }
 
-            if(data.current_page == data.last_page) {
+            if(data[0].current_page == data[0].last_page) {
                 paginationContent = paginationContent + 
                 '<li class="disabled">';
             } else {
@@ -594,7 +608,7 @@
             }
 
             paginationContent = paginationContent + 
-            '       <a onClick="goToPage(' + data.last_page + ')">' + 
+            '       <a onClick="goToPage(' + data[0].last_page + ')">' + 
             '           <i class="fa fa-angle-double-right"></i>' + 
             '       </a>' + 
             '   </li>';

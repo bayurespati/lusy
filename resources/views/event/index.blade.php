@@ -52,8 +52,11 @@
     .event-block .event-content h3 {
         font-size: 24px;
         line-height: 30px;
-        margin-bottom: 36px;
         padding-right: 60px;
+    }
+
+    .event-block .event-content .organiser-by {
+        color: #e2b13c;
     }
 
     .event-block .event-content h4 a i {
@@ -173,7 +176,14 @@
                                         <span>{{ $event->dayDate }}</span>
                                         <span>{{ $event->month }}</span>
                                     </div>
-                                    <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
+                                    <h3 class="mb-0">
+                                        <a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a>
+                                    </h3>
+                                    <h4 class="organiser">
+                                        <a class="p-0" href="/event/single/{{ $event->id }}">
+                                            <span class="organiser-by">by</span> {{ $event->organiser }}
+                                        </a>
+                                    </h4>
                                     <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a href="{{ $event->id }}" class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
                                     <p>
                                         {!! nl2br(e($event->content)) !!}

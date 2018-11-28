@@ -15170,7 +15170,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 sub_category_id: imageData.detail.sub_category_id,
                 date: imageData.detail.date,
                 location: imageData.detail.location,
-                creator: imageData.detail.creator
+                creator: imageData.detail.creator,
+                is_wide: imageData.detail.isWide
             });
         },
         edit_image: function edit_image(state, updatedGallery) {
@@ -15182,6 +15183,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             state.gallery[imageIndex].location = updatedGallery.detail.location;
             state.gallery[imageIndex].creator = updatedGallery.detail.creator;
             state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
+            state.gallery[imageIndex].is_wide = updatedGallery.detail.isWide;
             state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
         delete_gallery: function delete_gallery(state, ids) {
@@ -15229,6 +15231,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             var commit = _ref3.commit;
 
 
+            console.log(updatedGallery);
+
             return new Promise(function (resolve, reject) {
 
                 axios.patch('update/list/' + updatedGallery.id, {
@@ -15238,7 +15242,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     location: updatedGallery.location,
                     creator: updatedGallery.creator,
                     sub_category_id: updatedGallery.sub_category_id,
-                    image: updatedGallery.image
+                    image: updatedGallery.image,
+                    isWide: updatedGallery.isWide
                 }).then(function (response) {
 
                     var updateData = {
@@ -15973,6 +15978,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15988,6 +16004,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
 
     data: function data() {
         return {
+            isWide: false,
             isRequesting: false,
             subcategories: '',
             croppie: null,
@@ -16041,12 +16058,31 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
     }), {
         formIsFilled: function formIsFilled() {
             return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+        },
+        colForPicture: function colForPicture() {
+            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+        },
+        colForData: function colForData() {
+            return this.isWide ? 'col-md-12' : 'col-md-8';
         }
     }),
 
     watch: {
         subcategories: function subcategories() {
             this.sub_category_id = "";
+        },
+        isWide: function isWide() {
+            if (this.isWide == 'false') {
+                this.isWide = false;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            } else if (this.isWide == 'true') {
+                this.isWide = true;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            }
         }
     },
 
@@ -16078,16 +16114,30 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
             var self = this;
             var file = document.getElementById('croppie');
 
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-                viewport: { width: 240, height: 250, type: 'square' },
-                boundary: { width: 290, height: 300 },
-                enableOrientation: false
-            });
+            if (this.isWide) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
+            } else {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+                    viewport: { width: 240, height: 250, type: 'square' },
+                    boundary: { width: 290, height: 300 },
+                    enableOrientation: false
+                });
+            }
 
             if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: '/img/portfolio-2.jpg'
-                });
+                if (this.isWide) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
+                    });
+                } else {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                }
             } else {
                 this.croppie.bind({
                     url: this.image
@@ -16101,12 +16151,21 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         setImage: function setImage() {
             var self = this;
 
-            this.croppie.result({
-                type: 'canvas',
-                size: { witdh: 480, height: 500, type: 'square' }
-            }).then(function (response) {
-                self.save_image = response;
-            });
+            if (this.isWide) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            }
         },
         uploadImage: function uploadImage() {
 
@@ -16122,7 +16181,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                     title: this.title,
                     date: this.date.substring(0, 10),
                     location: this.location,
-                    creator: this.creator
+                    creator: this.creator,
+                    isWide: this.isWide
                 };
 
                 this.$store.dispatch('store_new_image', galleryData).then(function (response) {
@@ -16170,7 +16230,7 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { class: _vm.colForPicture }, [
             _c("div", { attrs: { id: "croppie" } }),
             _vm._v(" "),
             _c(
@@ -16182,6 +16242,61 @@ var render = function() {
                   attrs: { type: "file", accept: "image/*", id: "file-2" },
                   on: { change: _vm.setUpFileUploader }
                 }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "form-group text-center mb-3" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.isWide,
+                            expression: "isWide"
+                          }
+                        ],
+                        attrs: {
+                          type: "radio",
+                          name: "orientation",
+                          value: "false"
+                        },
+                        domProps: { checked: _vm._q(_vm.isWide, "false") },
+                        on: {
+                          change: function($event) {
+                            _vm.isWide = "false"
+                          }
+                        }
+                      }),
+                      _vm._v(" Square\n                                ")
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.isWide,
+                            expression: "isWide"
+                          }
+                        ],
+                        staticClass: "ml-2",
+                        attrs: {
+                          type: "radio",
+                          name: "orientation",
+                          value: "true"
+                        },
+                        domProps: { checked: _vm._q(_vm.isWide, "true") },
+                        on: {
+                          change: function($event) {
+                            _vm.isWide = "true"
+                          }
+                        }
+                      }),
+                      _vm._v(" Wide\n                                ")
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _vm._m(1),
                 _vm._v(" "),
@@ -16209,7 +16324,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { class: _vm.colForData }, [
             _c("div", { staticClass: "row" }, [
               _vm._m(2),
               _vm._v(" "),
@@ -16299,7 +16414,7 @@ var render = function() {
                   _c("datetime", {
                     staticClass: "full-width",
                     class: { "form-control-danger": _vm.$v.date.$error },
-                    attrs: { type: "date" },
+                    attrs: { type: "date", "value-zone": "local" },
                     model: {
                       value: _vm.date,
                       callback: function($$v) {
@@ -16668,8 +16783,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12 text-center" }, [
-      _c("h3", { staticClass: "text-center font-weight-bold mb-5" }, [
-        _vm._v("Add Image Gallery")
+      _c("h3", { staticClass: "text-center mb-5" }, [
+        _vm._v("Add Image "),
+        _c("strong", [_vm._v("Gallery")])
       ])
     ])
   },
@@ -17324,6 +17440,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17342,6 +17469,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             isRequesting: false,
+            isWide: this.galleryImage.is_wide,
             title: this.galleryImage.title,
             date: this.galleryImage.date,
             location: this.galleryImage.location === null ? '' : this.galleryImage.location,
@@ -17386,7 +17514,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         categories: 'getCategories'
     }), {
         galleryIsEdited: function galleryIsEdited() {
-            return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
+            return this.galleryImage.title !== this.title || this.galleryImage.is_wide !== this.isWide || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
         },
         formIsFilled: function formIsFilled() {
             return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 30) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
@@ -17399,6 +17527,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     }
                 }
             }
+        },
+        colForPicture: function colForPicture() {
+            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+        },
+        colForData: function colForData() {
+            return this.isWide ? 'col-md-12' : 'col-md-8';
         }
     }),
 
@@ -17430,16 +17564,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var self = this;
             var file = document.getElementById('croppie-' + this.galleryImage.id);
 
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                viewport: { width: 240, height: 250, type: 'square' },
-                boundary: { width: 290, height: 300 },
-                enableOrientation: false
-            });
+            if (this.isWide) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
+            } else {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 240, height: 250, type: 'square' },
+                    boundary: { width: 290, height: 300 },
+                    enableOrientation: false
+                });
+            }
 
             if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: '/img/portfolio-2.jpg'
-                });
+                if (this.isWide) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
+                    });
+                } else {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                }
             } else {
                 this.croppie.bind({
                     url: this.image
@@ -17453,12 +17601,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         setImage: function setImage() {
             var self = this;
 
-            this.croppie.result({
-                type: 'canvas',
-                size: { witdh: 480, height: 500, type: 'square' }
-            }).then(function (response) {
-                self.save_image = response;
-            });
+            if (this.isWide) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            }
         },
         editGallery: function editGallery() {
 
@@ -17475,7 +17632,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     location: this.location,
                     creator: this.creator,
                     sub_category_id: this.sub_category_id,
-                    image: this.image === this.galleryImage.image_path ? this.image : this.save_image
+                    image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
+                    isWide: this.isWide
                 };
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
@@ -17500,6 +17658,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$v.date.$touch();
             this.$v.sub_category_id.$touch();
             this.$v.image.$touch();
+        }
+    },
+
+    watch: {
+        isWide: function isWide() {
+            if (this.isWide == 'false') {
+                this.isWide = false;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            } else if (this.isWide == 'true') {
+                this.isWide = true;
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
+            }
         }
     }
 });
@@ -17530,12 +17704,13 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "panel-body" }, [
-            _c("h3", { staticClass: "text-center font-weight-bold" }, [
-              _vm._v("Edit " + _vm._s(_vm.galleryImage.title))
+            _c("h3", { staticClass: "text-center" }, [
+              _vm._v("Edit "),
+              _c("strong", [_vm._v(_vm._s(_vm.galleryImage.title))])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { class: _vm.colForPicture }, [
                 _c("div", { attrs: { id: "croppie-" + _vm.galleryImage.id } }),
                 _vm._v(" "),
                 _c(
@@ -17547,6 +17722,67 @@ var render = function() {
                       attrs: { type: "file", accept: "image/*", id: "file-2" },
                       on: { change: _vm.setUpFileUploader }
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group text-center mb-3" },
+                        [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.isWide,
+                                  expression: "isWide"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.galleryImage.id,
+                                value: "false"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.isWide, "false")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.isWide = "false"
+                                }
+                              }
+                            }),
+                            _vm._v(" Square\n                                ")
+                          ]),
+                          _vm._v(" "),
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.isWide,
+                                  expression: "isWide"
+                                }
+                              ],
+                              staticClass: "ml-2",
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.galleryImage.id,
+                                value: "true"
+                              },
+                              domProps: { checked: _vm._q(_vm.isWide, "true") },
+                              on: {
+                                change: function($event) {
+                                  _vm.isWide = "true"
+                                }
+                              }
+                            }),
+                            _vm._v(" Wide\n                                ")
+                          ])
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "label",
@@ -17588,7 +17824,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-8" }, [
+              _c("div", { class: _vm.colForData }, [
                 _c("div", { staticClass: "col-sm-12 row form-group" }, [
                   _c(
                     "div",
@@ -18398,7 +18634,7 @@ var render = function() {
         _vm._v("Here you can manages images that are shown in Gallery page.")
       ]),
       _vm._v(" "),
-      _c("p", [_vm._v("Dimension: 480 x 500")]),
+      _c("p", [_vm._v("Dimension: (480 x 500) or (960 x 500)")]),
       _vm._v(" "),
       _c(
         "transition",

@@ -53,16 +53,25 @@ class ShopController extends Controller
         : $shopItem->poster()->get()[0]->image_path;
 
         $shopItem->images = $shopItem->images()->whereIsPoster(false)->paginate(4);
+        $sortedItem = $shopItem->images->sortByDesc('is_wide');
 
         $shopItem->price = number_format($shopItem->price, 2, ",", ".");
 
-		return view('shop.item', compact('sosmed', 'shopItem', 'shopBanner'));
+		return view('shop.item', compact('sosmed', 'shopItem', 'shopBanner', 'sortedItem'));
     }
 
 
     public function getImageItems(ShopItem $shopItem){
+        $images = $shopItem->images()->whereIsPoster(false)->paginate(4);
 
-    	return $shopItem->images()->whereIsPoster(false)->paginate(4);
+        $imagesSorted[0] = $images;
+        $imagesSorted[1] = [];
+
+        foreach ($images->sortByDesc('is_wide') as $photo) {
+            array_push($imagesSorted[1], $photo);
+        }
+
+    	return $imagesSorted;
     }
 
 

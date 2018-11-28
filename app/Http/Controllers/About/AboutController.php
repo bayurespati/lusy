@@ -21,12 +21,12 @@ class AboutController extends Controller
         ? '/img/page-banner-bg.jpg'
         : ImageConfig::find(2)->image_path;
 
-        $showcasedImage = Gallery::whereIsShowcase(true)->get();
+        $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
 
         if(
             count($showcasedImage) > 0 && 
             count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-            $showedImage = Gallery::whereIsShowcase(true)->paginate(4); 
+            $showedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->paginate(4); 
         }
         else {
             $showedImage = $showcasedImage;

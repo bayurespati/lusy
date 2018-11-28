@@ -7,7 +7,7 @@
                 <h3 class="text-center">Edit <strong>{{ imageItem.title }}</strong> Image</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                    <div class="col-md-4">
+                    <div :class="colForPicture">
                         <div :id="'croppie-' + imageItem.id"></div>
 
                         <div class="panel panel-transparent text-center">
@@ -17,13 +17,31 @@
                             class="inputfile"
                             @change="setUpFileUploader">
 
+                            <div class="col-md-12">
+                                <div class="form-group text-center mb-3">
+                                    <label>
+                                        <input type="radio" :name="'orientation-' + imageItem.id" value='false' v-model="isWide"> Square
+                                    </label>
+                                    <label>
+                                        <input type="radio" :name="'orientation-' + imageItem.id" value='true' v-model="isWide" class="ml-2"> Wide
+                                    </label>
+                                </div>
+                            </div>
+
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
+
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <p key="image-required" class="text-danger" 
+                                v-if="!$v.input.image.required && $v.input.image.$dirty">
+                                    Image is required
+                                </p>
+                            </transition>
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div :class="colForData">
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"
@@ -113,6 +131,7 @@
         data(){
             return {
                 isRequesting: false,
+                isWide: this.imageItem.is_wide,
                 save_image: '',
                 input:{
                     title : this.imageItem.title,
@@ -136,7 +155,10 @@
                 description:{
                     minLength: minLength(3),
                     maxLength: maxLength(100)
-                }                
+                },
+                image:{
+                    required
+                }             
             }
         },
 
@@ -144,6 +166,7 @@
 
             imageIsEdited(){
                 return this.imageItem.title !== this.input.title
+                    || this.imageItem.is_wide !== this.isWide
                     || this.imageItem.image_path !== this.input.image
                     || this.imageItem.description !== this.input.description;
             },
@@ -153,6 +176,18 @@
                     && this.input.title != '' 
                     && this.input.title.length >= 3
                     && this.input.title.length <= 50
+             },
+
+             colForPicture(){
+                return this.isWide
+                ? 'col-md-12 mb-4'
+                : 'col-md-4'
+             },
+
+             colForData(){
+                return this.isWide
+                ? 'col-md-12'
+                : 'col-md-8'
              }
         },
 
@@ -173,7 +208,7 @@
                 const setUpFileUploaderself = this;
 
                 reader.onload = (event) => {
-                    self.input.image = event.target.result;
+                    this.input.image = event.target.result;
                     this.croppie.destroy();
                     this.setUpCroppie();
                 };
@@ -185,16 +220,32 @@
                 const self = this;
                 let file = document.getElementById('croppie-' + this.imageItem.id);
 
-                this.croppie = new Croppie(file,{
-                    viewport: {width: 205, height: 200, type: 'square'},
-                    boundary: {width: 255, height: 250 },
-                    enableOrientation: false
-                });
+                if(this.isWide){
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 480, height: 250, type: 'square'},
+                        boundary: {width: 530, height: 300 },
+                        enableOrientation: false
+                    });
+                }
+                else {
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 240, height: 250, type: 'square'},
+                        boundary: {width: 290, height: 300 },
+                        enableOrientation: false
+                    });
+                }
 
                 if(this.input.image === null || this.input.image === ''){
-                    this.croppie.bind({
-                        url: '/img/events1.jpg'
-                    });
+                    if(this.isWide){
+                        this.croppie.bind({
+                            url: '/img/portfolio-1.jpg'
+                        });
+                    }
+                    else {
+                        this.croppie.bind({
+                            url: '/img/portfolio-2.jpg'
+                        });
+                    }
                 }else {
                     this.croppie.bind({
                         url: this.input.image
@@ -209,12 +260,22 @@
             setImage(){
                 const self = this;
 
-                this.croppie.result({
-                    type: 'canvas',
-                    size: {witdh: 410, height:400, type: 'square'},
-                }).then(response => {
-                    self.save_image = response;
-                });
+                if(this.isWide){
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 960, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
+                else {
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 480, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
             },
 
 
@@ -231,7 +292,8 @@
                         title: this.input.title,
                         description: this.input.description,
                         image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
-                        is_poster: this.imageItem.is_poster
+                        is_poster: this.imageItem.is_poster,
+                        isWide: this.isWide
                     };
 
                     this.$store.dispatch('update_image', updatedImage)
@@ -248,12 +310,38 @@
                             self.isRequesting = false;
                         });
                 }
+                else {
+                    this.dirytAllInputs();
+                }
+            },
+
+            dirytAllInputs(){
+                this.$v.input.title.$touch();
+                this.$v.input.description.$touch();
+                this.$v.input.image.$touch();
             },
 
             closeEditForm() {
                 this.$emit('editionFormIsClosed', false);
             }
         },
+
+        watch: {
+            isWide(){
+                if(this.isWide == 'false') {
+                    this.isWide = false;
+                    this.input.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+                else if(this.isWide == 'true') {
+                    this.isWide = true;
+                    this.input.image = '';
+                    this.croppie.destroy();
+                    this.setUpCroppie();
+                }
+            }
+        }
     };
 </script>
 
