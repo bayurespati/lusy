@@ -95,7 +95,8 @@
                     teacher_id: this.member.teacher_id,
                     gender: this.member.gender,
                     id: this.member.id,
-                    is_active: this.member.is_active
+                    is_active: this.member.is_active,
+                    is_teacher: this.member.is_teacher
                 }
             }
         },

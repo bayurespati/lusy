@@ -16,7 +16,7 @@
 							@input="$v.input.name.$touch()"
 							class="form-control" id="name-member" 
 							:class="{'form-control-danger': $v.input.name.$error}"
-							placeholder="Name">
+							:placeholder="member.name">
 
 							<!--======================================================================================
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
@@ -60,7 +60,7 @@
 							@input="$v.input.place_of_birth.$touch()"
 							class="form-control" id="place_of_birth"
 							:class="{'form-control-danger': $v.input.place_of_birth.$error}"
-							placeholder="place of birth">
+							:placeholder="member.place_of_birth">
 
 							<!--======================================================================================
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
@@ -109,7 +109,7 @@
 							@input="$v.input.email.$touch()"
 							:class="{'form-control-danger': $v.input.email.$error}"
 							class="form-control" id="email" 
-							placeholder="Email">
+							:placeholder="member.email">
 
 							<!--======================================================================================
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
@@ -138,7 +138,7 @@
                             <input type="text" 
 							v-model="input.fax" 
 							class="form-control" id="fax"
-							placeholder="member.fax">
+							:placeholder="member.fax">
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
 							@input="$v.input.telephone.$touch()"
 							:class="{'form-control-danger': $v.input.telephone.$error}"
 							class="form-control" id="telephone" 
-							placeholder="Telephone">
+							:placeholder="member.telephone">
 
 							<!--======================================================================================
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
@@ -174,7 +174,7 @@
                             <input type="text" 
 							v-model="input.mobile" 
 							class="form-control" id="mobile"
-							placeholder="Mobile">
+							:placeholder="member.mobile">
                         </div>
                     </div>
 
@@ -186,7 +186,8 @@
                             
                             <select class="form-control" id="category" 
                                     v-model="input.teacher_id">
-								<option value="" disabled="">Choose teacher</option>
+								<option value="Choose teacher" disabled>Choose teacher</option>
+                                <option value="">Teacher not chosen</option>
 								<option v-for="item in members" 
 										:value=item.id>{{ item.name }}
 								</option>
@@ -203,6 +204,16 @@
 									  value-zone="local"
 									  placeholder="Join Date">
 							</datetime>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-6 col-xs-12 text-center">
+
+                            <input type="radio" :name="'is_teacher' + member.id"
+                                   value=0 v-model="input.is_teacher"> Student
+                            <input type="radio" :name="'is_teacher' + member.id" 
+                                   value=1 v-model="input.is_teacher" class="ml-2"> Teacher
                         </div>
                     </div>
 
@@ -263,9 +274,10 @@
 					telephone: this.member.telephone,
 					mobile: this.member.mobile,
 					fax: this.member.fax,
-					teacher_id: this.member.teacher_id,
-					gender: this.member.gender,
+					teacher_id: this.member.teacher_id == undefined ? '' : this.member.teacher_id,
                     is_active: this.member.is_active,
+                    is_teacher: this.member.is_teacher,
+					gender: this.member.gender,
 					id: this.member.id
 				}
 			}
@@ -319,38 +331,26 @@
 			}),
 
 			formIsFilled(){
-				return this.input.name != ''
+				return this.input.name !== ''
 					&& this.input.name.length >= 3
 					&& this.input.name.length <= 50
-					&& this.input.gender != ''
-					&& this.input.place_of_birth != ''
-					&& this.input.email != ''
+					&& this.input.gender !== ''
+					&& this.input.place_of_birth !== ''
+					&& this.input.email !== ''
 					&& this.input.email.length >= 3
 					&& this.input.email.length <= 50
-					&& this.input.telephone != ''
+					&& this.input.telephone !== ''
 			},
 
-			memberIsedited(){
-				return this.input.name != this.member.name 
-					|| this.input.gender != this.member.gender
-					|| this.input.place_of_birth != this.member.place_of_birth
-					|| this.input.email != this.member.email
-					|| this.input.fax != this.member.fax
-                    || this.input.teacher_id != this.member.teacher_id
-					|| this.input.telephone != this.member.telephone
-					|| this.input.mobile != this.member.mobile
-					|| this.input.join_date.substring(0,10) != this.member.join_date
-					|| this.input.date_of_birth.substring(0,10) != this.member.date_of_birth
-			}
-		},
+        },
 
 		methods:{
 
 			editMember(){
 
 				let self = this;
-				
-				if(self.formIsFilled && !self.isRequesting && this.memberIsedited){
+
+				if(self.formIsFilled && !self.isRequesting && this.memberIsedited()){
 
 					self.isRequesting = true;
 
@@ -362,7 +362,6 @@
 
                             self.isRequesting = false;
 
-                            // self.closeEditForm();
                         })
                         .catch(errors => {
 
@@ -379,6 +378,20 @@
 					this.dirtyAllInputs();
 				}
 			},
+
+            memberIsedited(){
+                return this.input.name != this.member.name 
+                    || this.input.gender != this.member.gender
+                    || this.input.place_of_birth != this.member.place_of_birth
+                    || this.input.email != this.member.email
+                    || this.input.fax != this.member.fax
+                    || this.input.is_teacher != this.member.is_teacher
+                    || this.input.teacher_id != this.member.teacher_id
+                    || this.input.telephone != this.member.telephone
+                    || this.input.mobile != this.member.mobile
+                    || this.input.join_date.substring(0,10) != this.member.join_date.substring(0,10)
+                    || this.input.date_of_birth.substring(0,10) != this.member.date_of_birth.substring(0,10);
+            },  
 
 			dirtyAllInputs(){
                 this.$v.input.name.$touch();

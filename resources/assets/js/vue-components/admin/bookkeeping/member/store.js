@@ -63,6 +63,7 @@ export const store = new Vuex.Store({
             state.members[memberIndex].name = member.name;
             state.members[memberIndex].gender = member.gender;
             state.members[memberIndex].is_active = member.is_active;
+            state.members[memberIndex].is_teacher = member.is_teacher;
             state.members[memberIndex].place_of_birth = member.place_of_birth;
             state.members[memberIndex].date_of_birth = member.date_of_birth;
             state.members[memberIndex].email = member.email;

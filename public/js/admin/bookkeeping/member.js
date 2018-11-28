@@ -7256,7 +7256,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 mobile: this.member.mobile,
                 fax: this.member.fax,
                 teacher_id: this.member.teacher_id
-            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _defineProperty(_input, 'is_active', this.member.is_active), _input)
+            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _defineProperty(_input, 'is_active', this.member.is_active), _defineProperty(_input, 'is_teacher', this.member.is_teacher), _input)
         };
     },
 
@@ -7705,6 +7705,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7734,8 +7745,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 				telephone: this.member.telephone,
 				mobile: this.member.mobile,
 				fax: this.member.fax,
-				teacher_id: this.member.teacher_id
-			}, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'is_active', this.member.is_active), _defineProperty(_input, 'id', this.member.id), _input)
+				teacher_id: this.member.teacher_id == undefined ? '' : this.member.teacher_id,
+				is_active: this.member.is_active,
+				is_teacher: this.member.is_teacher
+			}, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _input)
 		};
 	},
 	mounted: function mounted() {
@@ -7784,10 +7797,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 		members: 'getMembers'
 	}), {
 		formIsFilled: function formIsFilled() {
-			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '';
-		},
-		memberIsedited: function memberIsedited() {
-			return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.join_date.substring(0, 10) != this.member.join_date || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth;
+			return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
 		}
 	}),
 
@@ -7796,7 +7806,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 
 			var self = this;
 
-			if (self.formIsFilled && !self.isRequesting && this.memberIsedited) {
+			if (self.formIsFilled && !self.isRequesting && this.memberIsedited()) {
 
 				self.isRequesting = true;
 
@@ -7806,8 +7816,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 					flash(name + ' is successfully updated', 'success');
 
 					self.isRequesting = false;
-
-					// self.closeEditForm();
 				}).catch(function (errors) {
 
 					self.isRequesting = false;
@@ -7821,6 +7829,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 			} else {
 				this.dirtyAllInputs();
 			}
+		},
+		memberIsedited: function memberIsedited() {
+			return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.is_teacher != this.member.is_teacher || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.join_date.substring(0, 10) != this.member.join_date.substring(0, 10) || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10);
 		},
 		dirtyAllInputs: function dirtyAllInputs() {
 			this.$v.input.name.$touch();
@@ -9389,7 +9400,7 @@ var render = function() {
                         attrs: {
                           type: "text",
                           id: "name-member",
-                          placeholder: "Name"
+                          placeholder: _vm.member.name
                         },
                         domProps: { value: _vm.input.name },
                         on: {
@@ -9572,7 +9583,7 @@ var render = function() {
                         attrs: {
                           type: "text",
                           id: "place_of_birth",
-                          placeholder: "place of birth"
+                          placeholder: _vm.member.place_of_birth
                         },
                         domProps: { value: _vm.input.place_of_birth },
                         on: {
@@ -9735,7 +9746,7 @@ var render = function() {
                         attrs: {
                           type: "text",
                           id: "email",
-                          placeholder: "Email"
+                          placeholder: _vm.member.email
                         },
                         domProps: { value: _vm.input.email },
                         on: {
@@ -9847,7 +9858,7 @@ var render = function() {
                       attrs: {
                         type: "text",
                         id: "fax",
-                        placeholder: "member.fax"
+                        placeholder: _vm.member.fax
                       },
                       domProps: { value: _vm.input.fax },
                       on: {
@@ -9897,7 +9908,7 @@ var render = function() {
                         attrs: {
                           type: "text",
                           id: "telephone",
-                          placeholder: "Telephone"
+                          placeholder: _vm.member.telephone
                         },
                         domProps: { value: _vm.input.telephone },
                         on: {
@@ -9977,7 +9988,7 @@ var render = function() {
                       attrs: {
                         type: "text",
                         id: "mobile",
-                        placeholder: "Mobile"
+                        placeholder: _vm.member.mobile
                       },
                       domProps: { value: _vm.input.mobile },
                       on: {
@@ -10041,8 +10052,14 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "", disabled: "" } }, [
-                          _vm._v("Choose teacher")
+                        _c(
+                          "option",
+                          { attrs: { value: "Choose teacher", disabled: "" } },
+                          [_vm._v("Choose teacher")]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Teacher not chosen")
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.members, function(item) {
@@ -10093,6 +10110,56 @@ var render = function() {
                     ],
                     1
                   )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                  _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_teacher,
+                          expression: "input.is_teacher"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "is_teacher" + _vm.member.id,
+                        value: "0"
+                      },
+                      domProps: { checked: _vm._q(_vm.input.is_teacher, "0") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_teacher", "0")
+                        }
+                      }
+                    }),
+                    _vm._v(" Student\n                            "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_teacher,
+                          expression: "input.is_teacher"
+                        }
+                      ],
+                      staticClass: "ml-2",
+                      attrs: {
+                        type: "radio",
+                        name: "is_teacher" + _vm.member.id,
+                        value: "1"
+                      },
+                      domProps: { checked: _vm._q(_vm.input.is_teacher, "1") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_teacher", "1")
+                        }
+                      }
+                    }),
+                    _vm._v(" Teacher\n                        ")
+                  ])
                 ]),
                 _vm._v(" "),
                 _c(
@@ -10651,6 +10718,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             state.members[memberIndex].name = member.name;
             state.members[memberIndex].gender = member.gender;
             state.members[memberIndex].is_active = member.is_active;
+            state.members[memberIndex].is_teacher = member.is_teacher;
             state.members[memberIndex].place_of_birth = member.place_of_birth;
             state.members[memberIndex].date_of_birth = member.date_of_birth;
             state.members[memberIndex].email = member.email;

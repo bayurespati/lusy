@@ -62,6 +62,7 @@ class MemberController extends Controller
                 'mobile' => $member['mobile'],
                 'join_date' => substr($member['join_date'],0,10),
                 'is_active' => $member['is_active'],
+                'is_teacher' => $member['is_teacher'],
                 'class' => $member['classActive'],
                 'region' => $member['region'],
                 'subscription' => $member['subscription'],
@@ -97,8 +98,8 @@ class MemberController extends Controller
             $member->gender = $request->personal['gender'];
             $member->place_of_birth = $request->personal['place_of_birth'];
             $member->date_of_birth = substr($request->personal['date_of_birth'],0,10);
-            $member->is_active = $request->personal['is_active'];;
-            $member->is_teacher = $request->personal['is_teacher'];;
+            $member->is_active = $request->personal['is_active'];
+            $member->is_teacher = $request->personal['is_teacher'];
             $member->teacher_id = $request->personal['teacher_id'];
             $member->email = $request->personal['email'];
             $member->telephone = $request->personal['telephone'];
@@ -136,6 +137,7 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->gender = $request->gender;
         $member->is_active = $request->is_active;
+        $member->is_teacher = $request->is_teacher;
         $member->place_of_birth = $request->place_of_birth;
         $member->date_of_birth = substr($request->date_of_birth,0, 10);
         $member->teacher_id = $request->teacher_id;
