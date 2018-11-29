@@ -4,7 +4,7 @@
             <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
                 <div class="row">
 
-                    <div class="col-2 d-flex justify-content-start align-items-center">
+                    <div class="d-flex justify-content-start align-items-center" :class="type == 'date_of_birth' ? 'col-3' : 'col-5'">
                         <div>
                             <p class="small text-uppercase mb-0">
                                 <strong>Name</strong>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex justify-content-start align-items-center">
+                    <div class="d-flex justify-content-start align-items-center" :class="type == 'date_of_birth' ? 'col-3' : 'col-5'">
                         <div>
                             <p class="small text-uppercase mb-0">
                                 <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in"> 
@@ -43,9 +43,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-3 d-flex justify-content-end align-items-center">
 
+                    <div class="d-flex justify-content-end align-items-center" 
+                         :class="type == 'date_of_birth' ? 'col-3' : 'col-2'">
                         <button type="button" 
                                 class="btn btn-sm btn-warning ml-2"
                                 @click="isDetail = !isDetail">Detail</button>

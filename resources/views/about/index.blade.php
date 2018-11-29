@@ -124,6 +124,7 @@
             <!-- About Us Section /- -->
 
             <!-- Timeline Section -->
+            @if(count($timelines) > 0)
             <div class="cd-horizontal-timeline">
                 <div class="timeline">
                     <div class="events-wrapper">
@@ -190,6 +191,7 @@
                     </ol>
                 </div>
             </div>
+            @endif
             <!-- End of Timeline Section -->
             
             <!-- Portfolio Section -->
