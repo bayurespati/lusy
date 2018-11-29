@@ -13849,6 +13849,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -14577,6 +14582,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14609,7 +14648,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
                 teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                 is_active: this.member.is_active,
                 is_teacher: this.member.is_teacher
-            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _input)
+            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'address', this.member.address), _defineProperty(_input, 'id', this.member.id), _input)
         };
     },
     mounted: function mounted() {
@@ -14641,6 +14680,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
             date_of_birth: {
                 required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
             },
+            address: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+            },
             email: {
                 required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
                 minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
@@ -14658,7 +14700,22 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
         teachers: 'getTeachers'
     }), {
         formIsFilled: function formIsFilled() {
-            return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
+            return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.address !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
+        },
+        showTeacher: function showTeacher() {
+            var tempTeacher = [];
+            var self = this;
+
+            this.teachers.map(function (value) {
+                if (value.id != self.member.id) {
+                    tempTeacher.push({
+                        name: value.name,
+                        id: value.id
+                    });
+                }
+            });
+
+            return tempTeacher;
         }
     }),
 
@@ -14672,6 +14729,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
                 self.isRequesting = true;
 
                 var name = this.input.name;
+
+                if (this.input.teacher_id === 'null') {
+                    this.input.teacher_id = '';
+                }
 
                 this.$store.dispatch('update_member', this.input).then(function () {
                     flash(name + ' is successfully updated', 'success');
@@ -14692,7 +14753,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
             }
         },
         memberIsedited: function memberIsedited() {
-            return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.is_teacher != this.member.is_teacher || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10) || this.isJoinDate();
+            return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.address != this.member.address || this.input.is_teacher != this.member.is_teacher || this.input.is_active != this.member.is_active || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10) || this.isJoinDate();
         },
         isJoinDate: function isJoinDate() {
             if (this.input.join_date == '') {
@@ -14707,6 +14768,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
         },
         dirtyAllInputs: function dirtyAllInputs() {
             this.$v.input.name.$touch();
+            this.$v.input.address.$touch();
             this.$v.input.gender.$touch();
             this.$v.input.place_of_birth.$touch();
             this.$v.input.date_of_birth.$touch();
@@ -15645,7 +15707,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "col-md-12 d-flex" },
-      _vm._l(_vm.subscription, function(list, index) {
+      _vm._l(_vm.member.subscription, function(list, index) {
         return _c("div", [
           _c("p", [
             _vm._v(_vm._s(list.year) + "\n\t\t\t\t\t"),
@@ -16401,7 +16463,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "title" }
+                        attrs: { for: "gender" }
                       },
                       [
                         _vm._v(
@@ -16468,7 +16530,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label panel-font-small m-0",
-                          attrs: { for: "start_date" }
+                          attrs: { for: "place_of_birth" }
                         },
                         [
                           _vm._v(
@@ -16556,7 +16618,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label panel-font-small m-0",
-                          attrs: { for: "end_date" }
+                          attrs: { for: "date_of_birth" }
                         },
                         [
                           _vm._v(
@@ -16632,7 +16694,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label panel-font-small m-0",
-                          attrs: { for: "location" }
+                          attrs: { for: "email-member" }
                         },
                         [
                           _vm._v(
@@ -16656,7 +16718,7 @@ var render = function() {
                         },
                         attrs: {
                           type: "text",
-                          id: "email",
+                          id: "email-member",
                           placeholder: _vm.member.email
                         },
                         domProps: { value: _vm.input.email },
@@ -16747,7 +16809,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "addres" }
+                        attrs: { for: "fax-member" }
                       },
                       [
                         _vm._v(
@@ -16794,7 +16856,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label panel-font-small m-0",
-                          attrs: { for: "category" }
+                          attrs: { for: "telephone" }
                         },
                         [
                           _vm._v(
@@ -16877,7 +16939,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "subcategory" }
+                        attrs: { for: "mobile" }
                       },
                       [
                         _vm._v(
@@ -16920,7 +16982,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "category" }
+                        attrs: { for: "teacher-member" }
                       },
                       [
                         _vm._v(
@@ -16941,7 +17003,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { id: "category" },
+                        attrs: { id: "teacher-member" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -16973,7 +17035,7 @@ var render = function() {
                           _vm._v("Teacher not chosen")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.teachers, function(item) {
+                        _vm._l(_vm.showTeacher, function(item) {
                           return _c(
                             "option",
                             { domProps: { value: item.id } },
@@ -16994,7 +17056,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label panel-font-small m-0",
-                          attrs: { for: "subcategory" }
+                          attrs: { for: "join_date" }
                         },
                         [
                           _vm._v(
@@ -17018,6 +17080,95 @@ var render = function() {
                           expression: "input.join_date"
                         }
                       })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-12 col-xs-12 text-center" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label panel-font-small m-0",
+                          attrs: { for: "address" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Address\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.input.address,
+                            expression: "input.address"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "form-control-danger": _vm.$v.input.address.$error
+                        },
+                        attrs: {
+                          type: "text",
+                          id: "address",
+                          placeholder: _vm.member.address
+                        },
+                        domProps: { value: _vm.input.address },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.input,
+                                "address",
+                                $event.target.value
+                              )
+                            },
+                            function($event) {
+                              _vm.$v.input.address.$touch()
+                            }
+                          ]
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          !_vm.$v.input.address.required &&
+                          _vm.$v.input.address.$dirty
+                            ? _c(
+                                "span",
+                                {
+                                  key: "address-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Address is required\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
                     ],
                     1
                   )
@@ -17070,6 +17221,54 @@ var render = function() {
                       }
                     }),
                     _vm._v(" Teacher\n                        ")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_active,
+                          expression: "input.is_active"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "is_active" + _vm.member.id,
+                        value: "1"
+                      },
+                      domProps: { checked: _vm._q(_vm.input.is_active, "1") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_active", "1")
+                        }
+                      }
+                    }),
+                    _vm._v(" Active\n                            "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_active,
+                          expression: "input.is_active"
+                        }
+                      ],
+                      staticClass: "ml-2",
+                      attrs: {
+                        type: "radio",
+                        name: "is_active" + _vm.member.id,
+                        value: "0"
+                      },
+                      domProps: { checked: _vm._q(_vm.input.is_active, "0") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_active", "0")
+                        }
+                      }
+                    }),
+                    _vm._v(" Not Active\n                        ")
                   ])
                 ]),
                 _vm._v(" "),
@@ -17200,8 +17399,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "nama" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17233,8 +17431,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "gender" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17266,8 +17463,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "address" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17299,8 +17495,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "address" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17332,8 +17527,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "state_province" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17367,8 +17561,39 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "address" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Type\n                            "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm._f("type")(_vm.member.is_teacher)) +
+                            "\n                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-sm-4 d-flex align-items-center justify-content-end"
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17400,8 +17625,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "email" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17433,8 +17657,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "city" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17466,8 +17689,7 @@ var render = function() {
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "state_province" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
@@ -17485,36 +17707,37 @@ var render = function() {
                             "\n                        "
                         )
                       ])
-                    ]),
-                    _vm._v(" "),
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
                     _c("div", { staticClass: "col-sm-12 row form-group" }, [
                       _c(
                         "div",
                         {
                           staticClass:
-                            "col-sm-4 d-flex align-items-center justify-content-end"
+                            "col-sm-2 d-flex align-items-center justify-content-end"
                         },
                         [
                           _c(
                             "label",
                             {
                               staticClass:
-                                "form-control-label font-weight-bold panel-font-small m-0",
-                              attrs: { for: "state_province" }
+                                "form-control-label font-weight-bold panel-font-small m-0"
                             },
                             [
                               _vm._v(
-                                "\n                                Type\n                            "
+                                "\n                                Address\n                            "
                               )
                             ]
                           )
                         ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-8" }, [
+                      _c("div", { staticClass: "col-sm-10 row" }, [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(_vm._f("type")(_vm.member.is_teacher)) +
+                            _vm._s(_vm.member.address) +
                             "\n                        "
                         )
                       ])
@@ -18826,7 +19049,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		classList: 'getClass',
 		ranks: 'getRanks',
 		regions: 'getRegions',
-		members: 'getTeacher'
+		members: 'getTeachers'
 	}), {
 		formAddFilled: function formAddFilled() {
 			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.address != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.classData != '';
@@ -20895,11 +21118,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
                 var memberIndex = _.findIndex(state.studentNoTeacher, ['id', dataSubscription.member_id]);
 
+                console.log(state.studentNoTeacher[memberIndex].subscription);
+
                 state.studentNoTeacher[memberIndex].subscription.push({
                     member_id: dataSubscription.member_id,
                     year: dataSubscription.year,
                     id: dataSubscription.id
                 });
+
+                console.log(state.studentNoTeacher[memberIndex].subscription);
             } else {
 
                 var teacherIndex = _.findIndex(state.teachers, ['id', dataSubscription.teacher_id]);

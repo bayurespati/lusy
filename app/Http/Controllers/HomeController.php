@@ -133,6 +133,7 @@ class HomeController extends Controller
 			    $member->gender = $request->gender;
 			    $member->place_of_birth = $request->place_of_birth;
 			    $member->date_of_birth = $date_of_birth;
+			    $member->address = $request->address;
 
 			    $member->email = $request->email;
 			    $member->telephone = $request->telephone;

@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="col-md-12 d-flex">
-			<div v-for="(list, index) in subscription">
+			<div v-for="(list, index) in member.subscription">
 				<p>{{ list.year }}
 					<span @click="delete_subscription(list)" 
 						  class="badge badge-danger" style="cursor: pointer">X</span> 

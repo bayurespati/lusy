@@ -10,8 +10,7 @@
                     <div class="col-6">
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 col-xs-12 d-flex align-items-center justify-content-end">
-                                <label for="nama"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Name
                                 </label>
                             </div>
@@ -23,8 +22,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="gender"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Gender
                                 </label>
                             </div>
@@ -36,8 +34,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Place of birth
                                 </label>
                             </div>
@@ -49,8 +46,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Date of birth
                                 </label>
                             </div>
@@ -62,8 +58,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="state_province"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Teacher
                                 </label>
                             </div>
@@ -79,8 +74,19 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Type
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.is_teacher | type }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Email
                                 </label>
                             </div>
@@ -92,8 +98,7 @@
 
                        <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="email"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Telephone
                                 </label>
                             </div>
@@ -105,8 +110,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="city"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Mobile
                                 </label>
                             </div>
@@ -118,8 +122,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="state_province"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
                                     Fax
                                 </label>
                             </div>
@@ -129,16 +132,19 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 row form-group">
-                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="state_province"
-                                class="form-control-label font-weight-bold panel-font-small m-0">
-                                    Type
+                    </div>
+
+                    <div class="col-12">
+
+                         <div class="col-sm-12 row form-group">
+                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Address
                                 </label>
                             </div>
                         
-                            <div class="col-sm-8">
-                                {{ member.is_teacher | type }}
+                            <div class="col-sm-10 row">
+                                {{ member.address }}
                             </div>
                         </div>
                     </div>
@@ -158,7 +164,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-12">

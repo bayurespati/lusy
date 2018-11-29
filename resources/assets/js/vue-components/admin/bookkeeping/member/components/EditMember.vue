@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                        	<label for="title" class="form-control-label panel-font-small m-0">
+                        	<label for="gender" class="form-control-label panel-font-small m-0">
 	                            Gender
     	                    </label>
 
@@ -51,7 +51,7 @@
 
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="start_date"class="form-control-label panel-font-small m-0">
+                            <label for="place_of_birth" class="form-control-label panel-font-small m-0">
                                 Place of birth
                             </label>
 
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="end_date"class="form-control-label panel-font-small m-0">
+                            <label for="date_of_birth" class="form-control-label panel-font-small m-0">
                                 Date of birth
                             </label>
                             
@@ -100,7 +100,7 @@
 
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="location"class="form-control-label panel-font-small m-0">
+                            <label for="email-member" class="form-control-label panel-font-small m-0">
                                 Email
                             </label>
 
@@ -108,7 +108,7 @@
 							v-model="input.email"
 							@input="$v.input.email.$touch()"
 							:class="{'form-control-danger': $v.input.email.$error}"
-							class="form-control" id="email" 
+							class="form-control" id="email-member" 
 							:placeholder="member.email">
 
 							<!--======================================================================================
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="addres" class="form-control-label panel-font-small m-0">
+                            <label for="fax-member" class="form-control-label panel-font-small m-0">
                                 Fax
                             </label>
 
@@ -144,7 +144,7 @@
 
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="category" class="form-control-label panel-font-small m-0">
+                            <label for="telephone" class="form-control-label panel-font-small m-0">
                                 Telephone
                             </label>
                             
@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="subcategory" class="form-control-label panel-font-small m-0">
+                            <label for="mobile" class="form-control-label panel-font-small m-0">
                                 Mobile
                             </label>
                             
@@ -180,22 +180,22 @@
 
                     <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="category" class="form-control-label panel-font-small m-0">
+                            <label for="teacher-member" class="form-control-label panel-font-small m-0">
                                 Teacher
                             </label>
                             
-                            <select class="form-control" id="category" 
+                            <select class="form-control" id="teacher-member"
                                     v-model="input.teacher_id">
 								<option value="Choose teacher" disabled>Choose teacher</option>
                                 <option value="null">Teacher not chosen</option>
-								<option v-for="item in teachers" 
+								<option v-for="item in showTeacher" 
 										:value=item.id>{{ item.name }}
 								</option>
 							</select>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="subcategory" class="form-control-label panel-font-small m-0">
+                            <label for="join_date" class="form-control-label panel-font-small m-0">
                                 Join Date
                             </label>
                             
@@ -208,12 +208,46 @@
                     </div>
 
                     <div class="col-sm-12 d-flex form-group">
+                        <div class="col-sm-12 col-xs-12 text-center">
+                            <label for="address" class="form-control-label panel-font-small m-0">
+                                Address
+                            </label>
+                            
+                            <input type="text" 
+                            v-model="input.address"
+                            @input="$v.input.address.$touch()"
+                            :class="{'form-control-danger': $v.input.address.$error}"
+                            class="form-control" id="address" 
+                            :placeholder="member.address">
+
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="address-required" class="text-danger" 
+                                v-if="!$v.input.address.required && $v.input.address.$dirty">
+                                    Address is required
+                                </span>
+                            </transition>
+                        </div>
+                    </div>
+    
+
+                    <div class="col-sm-12 d-flex form-group">
                         <div class="col-sm-6 col-xs-12 text-center">
 
                             <input type="radio" :name="'is_teacher' + member.id"
                                    value=0 v-model="input.is_teacher"> Student
                             <input type="radio" :name="'is_teacher' + member.id" 
                                    value=1 v-model="input.is_teacher" class="ml-2"> Teacher
+                        </div>
+
+                        <div class="col-sm-6 col-xs-12 text-center">
+
+                            <input type="radio" :name="'is_active' + member.id"
+                                   value=1 v-model="input.is_active"> Active
+                            <input type="radio" :name="'is_active' + member.id" 
+                                   value=0 v-model="input.is_active" class="ml-2"> Not Active
                         </div>
                     </div>
 
@@ -278,6 +312,7 @@
                     is_active: this.member.is_active,
                     is_teacher: this.member.is_teacher,
 					gender: this.member.gender,
+                    address: this.member.address,
 					id: this.member.id
 				}
 			}
@@ -312,6 +347,9 @@
                 date_of_birth: {
                 	required,
                 },
+                address:{
+                    required
+                },
                 email:{
                 	required,
                 	minLength: minLength(3),
@@ -335,6 +373,7 @@
 					&& this.input.name.length >= 3
 					&& this.input.name.length <= 50
 					&& this.input.gender !== ''
+                    && this.input.address !== ''
 					&& this.input.place_of_birth !== ''
 					&& this.input.email !== ''
 					&& this.input.email.length >= 3
@@ -342,6 +381,21 @@
 					&& this.input.telephone !== ''
 			},
 
+            showTeacher(){
+                const tempTeacher = [];
+                const self = this;
+
+                this.teachers.map(function(value){
+                    if(value.id != self.member.id){
+                        tempTeacher.push({
+                            name: value.name,
+                            id: value.id
+                        })
+                    }
+                })
+
+                return tempTeacher;
+            }
         },
 
 		methods:{
@@ -355,6 +409,10 @@
 					self.isRequesting = true;
 
 					const name = this.input.name;
+
+                    if(this.input.teacher_id === 'null'){
+                        this.input.teacher_id = '';
+                    }
 
 					this.$store.dispatch('update_member',this.input)
                         .then(() => {
@@ -385,7 +443,9 @@
                     || this.input.place_of_birth != this.member.place_of_birth
                     || this.input.email != this.member.email
                     || this.input.fax != this.member.fax
+                    || this.input.address != this.member.address
                     || this.input.is_teacher != this.member.is_teacher
+                    || this.input.is_active != this.member.is_active
                     || this.input.teacher_id != this.member.teacher_id
                     || this.input.telephone != this.member.telephone
                     || this.input.mobile != this.member.mobile
@@ -407,6 +467,7 @@
 
 			dirtyAllInputs(){
                 this.$v.input.name.$touch();
+                this.$v.input.address.$touch();
                 this.$v.input.gender.$touch();
                 this.$v.input.place_of_birth.$touch();
                 this.$v.input.date_of_birth.$touch();

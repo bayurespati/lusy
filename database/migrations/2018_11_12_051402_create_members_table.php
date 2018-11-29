@@ -19,6 +19,7 @@ class CreateMembersTable extends Migration
             $table->boolean('gender');
             $table->string('place_of_birth');
             $table->dateTime('date_of_birth');
+            $table->string('address');
 
             $table->string('telephone');
             $table->string('mobile')->nullable();

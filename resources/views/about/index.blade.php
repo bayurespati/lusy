@@ -374,19 +374,20 @@
                             <input type='text' name="date_of_birth" class="form-control" id="date-of-birth" placeholder="Date of birth : MM/DD/YYYY"/>
                       </div>
                       <div class="form-group form-control-sm">
+                            <input type="text" class="form-control" 
+                                   name="address" id="address-regis" placeholder="Address*" required>
+                      </div>
+                      <div class="form-group form-control-sm">
                             <input type="email" class="form-control" 
                             name="email" id="email" placeholder="Email*" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <!-- <label for="city">Telephone number</label> -->
                             <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telephone Number*" required>
                       </div>
                       <div class="form-group form-control-sm">
-                            <!-- <label for="city">Mobile number</label> -->
                             <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number">
                       </div>
                       <div class="form-group form-control-sm">
-                            <!-- <label for="city">Fax number</label> -->
                             <input type="text" class="form-control" name="fax" id="fax" placeholder="Fax Number">
                       </div>
 

@@ -2752,6 +2752,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: { detail: {} },
@@ -2939,7 +2952,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "address" }
+                          attrs: { for: "place_of_birth" }
                         },
                         [
                           _vm._v(
@@ -2972,7 +2985,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "address" }
+                          attrs: { for: "date_of_birth" }
                         },
                         [
                           _vm._v(
@@ -3005,7 +3018,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "state_province" }
+                          attrs: { for: "class-member" }
                         },
                         [
                           _vm._v(
@@ -3040,7 +3053,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "address" }
+                          attrs: { for: "email" }
                         },
                         [
                           _vm._v(
@@ -3073,7 +3086,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "email" }
+                          attrs: { for: "telephone" }
                         },
                         [
                           _vm._v(
@@ -3106,7 +3119,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "city" }
+                          attrs: { for: "mobile" }
                         },
                         [
                           _vm._v(
@@ -3139,7 +3152,7 @@ var render = function() {
                         {
                           staticClass:
                             "form-control-label font-weight-bold panel-font-small m-0",
-                          attrs: { for: "state_province" }
+                          attrs: { for: "fax" }
                         },
                         [
                           _vm._v(
@@ -3154,6 +3167,36 @@ var render = function() {
                     _vm._v(
                       "\n                            " +
                         _vm._s(_vm.detail.fax) +
+                        "\n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-4 d-flex justify-content-end" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "email" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Address\n                            "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.detail.address) +
                         "\n                        "
                     )
                   ])

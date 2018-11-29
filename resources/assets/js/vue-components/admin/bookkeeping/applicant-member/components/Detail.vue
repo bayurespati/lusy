@@ -36,7 +36,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
+                                <label for="place_of_birth"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Place of birth
                                 </label>
@@ -49,7 +49,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
+                                <label for="date_of_birth"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Date of birth
                                 </label>
@@ -62,7 +62,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="state_province"
+                                <label for="class-member"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Class
                                 </label>
@@ -79,7 +79,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="address"
+                                <label for="email"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Email
                                 </label>
@@ -92,7 +92,7 @@
 
                        <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="email"
+                                <label for="telephone"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Telephone
                                 </label>
@@ -105,7 +105,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="city"
+                                <label for="mobile"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Mobile
                                 </label>
@@ -118,7 +118,7 @@
 
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <label for="state_province"
+                                <label for="fax"
                                 class="form-control-label font-weight-bold panel-font-small m-0">
                                     Fax
                                 </label>
@@ -126,6 +126,19 @@
                         
                             <div class="col-sm-8">
                                 {{ detail.fax }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex justify-content-end">
+                                <label for="email"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Address
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ detail.address }}
                             </div>
                         </div>
                     </div>
