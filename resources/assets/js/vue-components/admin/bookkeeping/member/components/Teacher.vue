@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="card mt-3" style="background-color: pink">
+        <div class="card mt-3" style="background-color: #6d7fcc;">
             <div class="card-block">
                 <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
                     <div class="row">
 
-                        <div class="col-4 d-flex justify-content-start align-items-center">
+                        <div class="col-5 d-flex justify-content-start align-items-center">
                             <div>
                                 <p class="small text-uppercase mb-0">
                                     <strong>Name</strong>
@@ -17,10 +17,10 @@
                             </div>
                         </div>
 
-                        <div class="col-4 d-flex justify-content-start align-items-center">
+                        <div class="d-flex justify-content-start align-items-center" :class="totalStudent > 0 ? 'col-5' : 'col-7'">
                             <div>
                                 <p class="small text-uppercase mb-0">
-                                    <strong>Total Studen</strong>
+                                    <strong>Total Students</strong>
                                 </p>
                             
                                 <div class="detail text-center">
@@ -29,9 +29,11 @@
                             </div>
                         </div>
                         
-                        <div class="col-3 d-flex justify-content-end align-items-center">
+                        <div class="col-2 d-flex justify-content-end align-items-center" v-if="totalStudent > 0">
                             <button type="button" class="btn btn-sm btn-success ml-2"
-                                    @click="isShow = !isShow">Show Student</button>
+                            @click="isShow = !isShow">
+                              Show Student
+                            </button>
                         </div>
                     </div>
                 </transition>
@@ -54,7 +56,7 @@
         data(){
             return{
                 isRequesting: false,
-                isShow: true,
+                isShow: false,
             }
         },
 
@@ -94,58 +96,35 @@
         padding: 0 !important;
     }
 
-    .f-24 {
-        font-size: 24px !important;
+    .card-block p {
+      color: white;
     }
 
-    .bgSalmon {
-        background: salmon;
-    }
-
-    .max-lines{
-      text-overflow: ellipsis;
-      max-width: 80ch;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-  select {
-    text-align: center;
-    text-align-last: center;
-    font-weight: bold;
-    /* webkit*/
-  }
-
-  .btn-full-width {
-    display: inline-block;
-    width: 100%;
-  }
-
-  .slide-enter {
+    .slide-enter {
       opacity: 0;
-  }
+    }
 
-  .slide-enter-active {
+    .slide-enter-active {
       animation: slide-in 0.6s ease;
       transition: opacity 0.6s;
-  }
+    }
 
-  .slide-leave {
-  }
+    .slide-leave {
+    }
 
-  .slide-leave-active {
+    .slide-leave-active {
       animation: slide-out 0.6s ease forwards;
       transition: opacity 0.6s;
       opacity: 0;
       position: absolute;
       width: 100%;
-  }
+    }
 
-  .slide-move {
+    .slide-move {
       transition: transform 0.6s;
-  }
+    }
 
-  @keyframes slide-in {
+    @keyframes slide-in {
       from {
           transform: translateY(-20px);
       }
@@ -153,14 +132,14 @@
           background-color: white;
           transform: translateY(0px);
       }
-  }
+    }
 
-  @keyframes slide-out {
+    @keyframes slide-out {
       from {
           transform: translateY(0);
       }
       to {
           transform: translateY(-20px);
       }
-  }
+    }
 </style>

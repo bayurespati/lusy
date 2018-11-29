@@ -1,13 +1,13 @@
 <template>
 	<div class="col-sm-12 d-flex form-group">
-		<div class="col-md-5">
-			<p> {{ rank.title }} </p>
+		<div class="col-md-3 col-sm-5 d-flex justify-content-center align-items-center">
+			<p class="m-0"> {{ rank.title }} </p>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-8 col-sm-5">
 			<datetime type="date" v-model="annointed_date" value-zone="local"></datetime>
 		</div>
 		
-		<div class="col-md-2 d-flex">
+		<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center">
 			<template v-if="isEdit">
 				<button class="btn btn-success btn-sm" @click="editRank">Save</button>
 				<button class="btn btn-secondary btn-sm ml-2" @click="cancel">Cancel</button>

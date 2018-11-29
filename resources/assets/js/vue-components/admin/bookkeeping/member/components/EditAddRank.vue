@@ -1,28 +1,30 @@
 <template>
-	<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-		<div class="col-sm-12 d-flex form-group">
-			<h4 class="title mb-5">Ranks</h4>
-		</div>
+	<div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_member">
+		<div class="panel-body">
+			<h3 class="text-center mb-3">Edit <strong>{{ member.name }}</strong> Ranks</h3>
 
-		<div class="col-sm-12 d-flex form-group">
-			<template v-for="(rank, index) in ranks" v-if="index == currentIndex">
-				<div class="col-md-4">
-					<p> {{rank.title}} </p>
-				</div>
-				<div class="col-md-4">
-					<datetime type="date" v-model="annointed_date"></datetime>
-				</div>
-				<div class="col-md-2">
-					<button class="btn btn-success btn-sm" @click="addRank(index)">Add</button>
-				</div>
-			</template>
-		</div>
+			<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+				<transition-group class="col-12 p-0" name="slide">	
+					<item v-for="(rank, index) in member.rank" :member="member" :key="index" :rank="rank"></item>
+				</transition-group>
 
-		<transition-group name="slide">	
-			<item v-for="(rank, index) in member.rank"
-				  :member="member" :key="index" :rank="rank">
-			</item>
-		</transition-group>
+				<transition-group class="col-12 p-0" name="slide">
+					<div :key="'rank-options-' + index" v-for="(rank, index) in ranks" class="col-sm-12 d-flex form-group" v-if="index == currentIndex">
+						<div class="col-md-3 col-sm-5 d-flex justify-content-center align-items-center">
+							<p class="m-0"> {{rank.title}} </p>
+						</div>
+
+						<div class="col-md-8 col-sm-5">
+							<datetime type="date" v-model="annointed_date"></datetime>
+						</div>
+
+						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center">
+							<button class="btn btn-success btn-sm" @click="addRank(index)">Add</button>
+						</div>
+					</div>
+				</transition-group>
+			</div>
+		</div>
 	</div>
 </template>
 

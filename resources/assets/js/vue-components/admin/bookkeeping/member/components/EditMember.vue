@@ -1,8 +1,9 @@
 <template>
     <transition enterActiveClass="fade-in-down"leaveActiveClass="fade-out-up"mode="out-in">
+    <div>
         <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_member">
             <div class="panel-body">
-                <h3 class="text-center mb-3">Edit <strong>{{ member.title }}</strong></h3>
+                <h3 class="text-center mb-3">Edit <strong>{{ member.name }}</strong> Data</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                     <div class="col-sm-12 d-flex form-group">
@@ -12,40 +13,40 @@
                             </label>
 
                             <input type="text"
-							v-model="input.name"
-							@input="$v.input.name.$touch()"
-							class="form-control" id="name-member" 
-							:class="{'form-control-danger': $v.input.name.$error}"
-							:placeholder="member.name">
+                            v-model="input.name"
+                            @input="$v.input.name.$touch()"
+                            class="form-control" id="name-member" 
+                            :class="{'form-control-danger': $v.input.name.$error}"
+                            :placeholder="member.name">
 
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="name-required" class="text-danger" 
-                            	v-if="!$v.input.name.required && $v.input.name.$dirty">
-                            		Name is required
-                        		</span>
-                            	<span key="Name-minimum" class="text-danger" 
-                            	v-else-if="!$v.input.name.minLength">
-                            		Name has a minimum of {{ $v.input.name.$params.minLength.min }} characters
-                            	</span>
-                            	<span key="key-maximum" class="text-danger" 
-                            	v-else-if="!$v.input.name.maxLength">
-                            		Name has a maximum of {{ $v.input.name.$params.maxLength.max }} characters
-                        		</span>
-                    		</transition> 
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="name-required" class="text-danger" 
+                                v-if="!$v.input.name.required && $v.input.name.$dirty">
+                                    Name is required
+                                </span>
+                                <span key="Name-minimum" class="text-danger" 
+                                v-else-if="!$v.input.name.minLength">
+                                    Name has a minimum of {{ $v.input.name.$params.minLength.min }} characters
+                                </span>
+                                <span key="key-maximum" class="text-danger" 
+                                v-else-if="!$v.input.name.maxLength">
+                                    Name has a maximum of {{ $v.input.name.$params.maxLength.max }} characters
+                                </span>
+                            </transition> 
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
-                        	<label for="gender" class="form-control-label panel-font-small m-0">
-	                            Gender
-    	                    </label>
+                            <label for="gender" class="form-control-label panel-font-small m-0">
+                                Gender
+                            </label>
 
-							<input type="radio" :name="'gender' + member.id"
-							   	   value=1 v-model="input.gender"> Male
-							<input type="radio" :name="'gender' + member.id" 
-						       	   value=0 v-model="input.gender" class="ml-2"> Female
+                            <input type="radio" :name="'gender' + member.id"
+                                   value=1 v-model="input.gender"> Male
+                            <input type="radio" :name="'gender' + member.id" 
+                                   value=0 v-model="input.gender" class="ml-2"> Female
                         </div>
                     </div>
 
@@ -56,21 +57,21 @@
                             </label>
 
                             <input type="text" 
-							v-model="input.place_of_birth"
-							@input="$v.input.place_of_birth.$touch()"
-							class="form-control" id="place_of_birth"
-							:class="{'form-control-danger': $v.input.place_of_birth.$error}"
-							:placeholder="member.place_of_birth">
+                            v-model="input.place_of_birth"
+                            @input="$v.input.place_of_birth.$touch()"
+                            class="form-control" id="place_of_birth"
+                            :class="{'form-control-danger': $v.input.place_of_birth.$error}"
+                            :placeholder="member.place_of_birth">
 
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="place_of_birth-required" class="text-danger" 
-                            	v-if="!$v.input.place_of_birth.required && $v.input.place_of_birth.$dirty">
-                            		Place of birth is required
-                        		</span>
-                    		</transition>
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="place_of_birth-required" class="text-danger" 
+                                v-if="!$v.input.place_of_birth.required && $v.input.place_of_birth.$dirty">
+                                    Place of birth is required
+                                </span>
+                            </transition>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -79,22 +80,22 @@
                             </label>
                             
                             <datetime type="date" id="date_of_birth" 
-							v-model="input.date_of_birth"
-							value-zone="local"
-							@input="$v.input.date_of_birth.$touch()"
-							:class="{'form-control-danger': $v.input.date_of_birth.$error}"
-							placeholder="Date of birth">
-							</datetime>
+                            v-model="input.date_of_birth"
+                            value-zone="local"
+                            @input="$v.input.date_of_birth.$touch()"
+                            :class="{'form-control-danger': $v.input.date_of_birth.$error}"
+                            placeholder="Date of birth">
+                            </datetime>
 
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="end-required" class="text-danger" 
-                            	v-if="!$v.input.date_of_birth.required && $v.input.date_of_birth.$dirty">
-                            		Date of birth is required
-                        		</span>
-                    		</transition> 
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="end-required" class="text-danger" 
+                                v-if="!$v.input.date_of_birth.required && $v.input.date_of_birth.$dirty">
+                                    Date of birth is required
+                                </span>
+                            </transition> 
                         </div>
                     </div>
 
@@ -105,29 +106,29 @@
                             </label>
 
                             <input type="text" 
-							v-model="input.email"
-							@input="$v.input.email.$touch()"
-							:class="{'form-control-danger': $v.input.email.$error}"
-							class="form-control" id="email-member" 
-							:placeholder="member.email">
+                            v-model="input.email"
+                            @input="$v.input.email.$touch()"
+                            :class="{'form-control-danger': $v.input.email.$error}"
+                            class="form-control" id="email-member" 
+                            :placeholder="member.email">
 
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="email-required" class="text-danger" 
-                            	v-if="!$v.input.email.required && $v.input.email.$dirty">
-                            		Email is required
-                        		</span>
-                            	<span key="email-minimum" class="text-danger" 
-                            	v-else-if="!$v.input.email.minLength">
-                            		Email has a minimum of {{ $v.input.email.$params.minLength.min }} characters
-                            	</span>
-                            	<span key="email-maximum" class="text-danger" 
-                            	v-else-if="!$v.input.email.maxLength">
-                            		Email has a maximum of {{ $v.input.email.$params.maxLength.max }} characters
-                        		</span>
-                    		</transition>
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="email-required" class="text-danger" 
+                                v-if="!$v.input.email.required && $v.input.email.$dirty">
+                                    Email is required
+                                </span>
+                                <span key="email-minimum" class="text-danger" 
+                                v-else-if="!$v.input.email.minLength">
+                                    Email has a minimum of {{ $v.input.email.$params.minLength.min }} characters
+                                </span>
+                                <span key="email-maximum" class="text-danger" 
+                                v-else-if="!$v.input.email.maxLength">
+                                    Email has a maximum of {{ $v.input.email.$params.maxLength.max }} characters
+                                </span>
+                            </transition>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -136,9 +137,9 @@
                             </label>
 
                             <input type="text" 
-							v-model="input.fax" 
-							class="form-control" id="fax"
-							:placeholder="member.fax">
+                            v-model="input.fax" 
+                            class="form-control" id="fax"
+                            :placeholder="member.fax">
                         </div>
                     </div>
 
@@ -149,21 +150,21 @@
                             </label>
                             
                             <input type="text" 
-							v-model="input.telephone"
-							@input="$v.input.telephone.$touch()"
-							:class="{'form-control-danger': $v.input.telephone.$error}"
-							class="form-control" id="telephone" 
-							:placeholder="member.telephone">
+                            v-model="input.telephone"
+                            @input="$v.input.telephone.$touch()"
+                            :class="{'form-control-danger': $v.input.telephone.$error}"
+                            class="form-control" id="telephone" 
+                            :placeholder="member.telephone">
 
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="telephone-required" class="text-danger" 
-                            	v-if="!$v.input.telephone.required && $v.input.telephone.$dirty">
-                            		Telephone is required
-                        		</span>
-                    		</transition>
+                            <!--======================================================================================
+                                V A L I D A T I O N     E R R O R   M E S S A G E S
+                                ======================================================================================-->
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span key="telephone-required" class="text-danger" 
+                                v-if="!$v.input.telephone.required && $v.input.telephone.$dirty">
+                                    Telephone is required
+                                </span>
+                            </transition>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -172,9 +173,9 @@
                             </label>
                             
                             <input type="text" 
-							v-model="input.mobile" 
-							class="form-control" id="mobile"
-							:placeholder="member.mobile">
+                            v-model="input.mobile" 
+                            class="form-control" id="mobile"
+                            :placeholder="member.mobile">
                         </div>
                     </div>
 
@@ -186,12 +187,12 @@
                             
                             <select class="form-control" id="teacher-member"
                                     v-model="input.teacher_id">
-								<option value="Choose teacher" disabled>Choose teacher</option>
+                                <option value="Choose teacher" disabled>Choose teacher</option>
                                 <option value="null">Teacher not chosen</option>
-								<option v-for="item in showTeacher" 
-										:value=item.id>{{ item.name }}
-								</option>
-							</select>
+                                <option v-for="item in showTeacher" 
+                                        :value=item.id>{{ item.name }}
+                                </option>
+                            </select>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -200,10 +201,10 @@
                             </label>
                             
                             <datetime type="date" id="join_birth" 
-									  v-model="input.join_date"
-									  value-zone="local"
-									  placeholder="Join Date">
-							</datetime>
+                                      v-model="input.join_date"
+                                      value-zone="local"
+                                      placeholder="Join Date">
+                            </datetime>
                         </div>
                     </div>
 
@@ -251,33 +252,28 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 d-flex justify-content-center mt-2">
-                        <button @click="editMember" :disabled="isRequesting"
-                                class="btn btn-success btn-sm ml-2">
+                    <div class="col-sm-12 d-flex justify-content-center mt-3">
+                        <button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
+                            Close
+                        </button>
+
+                        <button @click="editMember" :disabled="isRequesting" class="btn btn-success btn-sm ml-2">
                             <template v-if="isRequesting">Saving..</template>
                             <template v-else>Save</template>
                         </button>
                     </div>
                 </div>
-
-            	<edit-rank :member="member" :teacherId="teacherId"> </edit-rank>
-
-                <edit-subscription :member="member" :teacherId="teacherId"> </edit-subscription>
-                
-                <edit-class :member="member" :teacherId="teacherId"> </edit-class> 
-
-                <edit-region :member="member" :teacherId="teacherId"> </edit-region>
-
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                	<div class="col-sm-12 d-flex justify-content-center mt-2">
-                		<button type="button" class="btn btn-secondary btn-sm"
-                                @click="closeEditForm">
-                            Close
-                        </button>
-                	</div>
-                </div>
             </div>
         </div>
+
+        <edit-class :member="member" :teacherId="teacherId"> </edit-class> 
+
+        <edit-rank :member="member" :teacherId="teacherId"> </edit-rank>
+
+        <edit-subscription :member="member" :teacherId="teacherId"> </edit-subscription>
+
+        <edit-region :member="member" :teacherId="teacherId"> </edit-region>
+    </div>
     </transition>
 </template>
 
