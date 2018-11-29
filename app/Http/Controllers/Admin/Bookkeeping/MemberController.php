@@ -21,58 +21,64 @@ class MemberController extends Controller
 
     public function loadMember(){
 
-        $members = Member::with('class')->get();
+        $datas = Member::where('teacher_id', NULL)->with('class','region','rank','subscription')->get();
 
-        $datas = [];
+        $members = [];
 
-        foreach ($members as  $member) {
+        foreach ($datas as  $member) {
             foreach ($member->class as $class) {
                 if($class['pivot']->is_approve){
-                    array_push($datas,$member);
+                    array_push($members,$member);
                     break;
                 }
             }
         }
 
-        $data = collect($datas);
+        $teachers = Member::where('is_teacher', 1)->with('student')->get();
 
-        $dataMember = $data->map(function ($member) {
+        return [$teachers,$members];
 
-            $ranks = $member->rank->map(function ($rank){
+        // $members = Member::with('class')->get();
 
-                $data = [
-                    'rankId' => $rank['id'],
-                    'title' => $rank['title'],
-                    'annointed_date' => $rank['pivot']['annointed_date']
-                ];
+        // $data = collect($datas);
 
-                return $data;
-            });
+        // $dataMember = $data->map(function ($member) {
 
-            $member = [
-                'id' => $member['id'],
-                'name' => $member['name'],
-                'teacher_id' => $member['teacher_id'],
-                'gender' => $member['gender'],
-                'place_of_birth' => $member['place_of_birth'],
-                'date_of_birth' => substr($member['date_of_birth'],0,10),
-                'email' => $member['email'],
-                'fax' => $member['fax'],
-                'telephone' => $member['telephone'],
-                'mobile' => $member['mobile'],
-                'join_date' => substr($member['join_date'],0,10),
-                'is_active' => $member['is_active'],
-                'is_teacher' => $member['is_teacher'],
-                'class' => $member['classActive'],
-                'region' => $member['region'],
-                'subscription' => $member['subscription'],
-                'ranks' => $ranks
-            ];
+        //     $ranks = $member->rank->map(function ($rank){
 
-            return $member;
-        });
+        //         $data = [
+        //             'rankId' => $rank['id'],
+        //             'title' => $rank['title'],
+        //             'annointed_date' => $rank['pivot']['annointed_date']
+        //         ];
 
-        return $dataMember;
+        //         return $data;
+        //     });
+
+        //     $member = [
+        //         'id' => $member['id'],
+        //         'name' => $member['name'],
+        //         'teacher_id' => $member['teacher_id'],
+        //         'gender' => $member['gender'],
+        //         'place_of_birth' => $member['place_of_birth'],
+        //         'date_of_birth' => substr($member['date_of_birth'],0,10),
+        //         'email' => $member['email'],
+        //         'fax' => $member['fax'],
+        //         'telephone' => $member['telephone'],
+        //         'mobile' => $member['mobile'],
+        //         'join_date' => substr($member['join_date'],0,10),
+        //         'is_active' => $member['is_active'],
+        //         'is_teacher' => $member['is_teacher'],
+        //         'class' => $member['classActive'],
+        //         'region' => $member['region'],
+        //         'subscription' => $member['subscription'],
+        //         'ranks' => $ranks
+        //     ];
+
+        //     return $member;
+        // });
+
+        // return $dataMember;
     }
 
     public function loadRank(){
@@ -145,9 +151,7 @@ class MemberController extends Controller
         $member->mobile = $request->mobile;
         $member->email = $request->email;
         $member->fax = $request->fax;
-        $member->join_date = $request->personal['join_date'] == '' 
-                                ? null 
-                                : substr($request->personal['join_date'],0,10);
+        $member->join_date = $request->join_date == '' ? null : substr($request->join_date,0,10);
 
         $member->update();
     }
@@ -204,7 +208,7 @@ class MemberController extends Controller
 
         $member = Member::find($request->member_id);
 
-        $member->region()->detach($request->rank_id);
+        $member->region()->detach($request->region_id);
 
     }
 

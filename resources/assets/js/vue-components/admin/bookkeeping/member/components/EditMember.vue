@@ -187,8 +187,8 @@
                             <select class="form-control" id="category" 
                                     v-model="input.teacher_id">
 								<option value="Choose teacher" disabled>Choose teacher</option>
-                                <option value="">Teacher not chosen</option>
-								<option v-for="item in members" 
+                                <option value="null">Teacher not chosen</option>
+								<option v-for="item in teachers" 
 										:value=item.id>{{ item.name }}
 								</option>
 							</select>
@@ -226,13 +226,13 @@
                     </div>
                 </div>
 
-            	<edit-rank :member="member"> </edit-rank>
+            	<edit-rank :member="member" :teacherId="teacherId"> </edit-rank>
 
-                <edit-subscription :member="member"> </edit-subscription>
+                <edit-subscription :member="member" :teacherId="teacherId"> </edit-subscription>
                 
-                <edit-class :member="member"> </edit-class> 
+                <edit-class :member="member" :teacherId="teacherId"> </edit-class> 
 
-                <edit-region :member="member"> </edit-region>
+                <edit-region :member="member" :teacherId="teacherId"> </edit-region>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
                 	<div class="col-sm-12 d-flex justify-content-center mt-2">
@@ -259,7 +259,7 @@
     Vue.use(Datetime)
 
 	export default{
-		props:{member:{}},
+		props:{member:{},teacherId:''},
 
 		data(){
 			return{
@@ -268,13 +268,13 @@
 					name: this.member.name,
 					gender: this.member.gender,
 					place_of_birth: this.member.place_of_birth,
-					date_of_birth: this.member.date_of_birth,
-					join_date: this.member.join_date,
+					date_of_birth: this.member.date_of_birth.substring(0,10),
+					join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0,10),
 					email: this.member.email,
 					telephone: this.member.telephone,
 					mobile: this.member.mobile,
 					fax: this.member.fax,
-					teacher_id: this.member.teacher_id == undefined ? '' : this.member.teacher_id,
+					teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                     is_active: this.member.is_active,
                     is_teacher: this.member.is_teacher,
 					gender: this.member.gender,
@@ -327,7 +327,7 @@
 			...mapGetters({
 				classList: 'getClass',
 				ranks: 'getRanks',
-                members: 'getMembers'
+                teachers: 'getTeachers'
 			}),
 
 			formIsFilled(){
@@ -389,9 +389,21 @@
                     || this.input.teacher_id != this.member.teacher_id
                     || this.input.telephone != this.member.telephone
                     || this.input.mobile != this.member.mobile
-                    || this.input.join_date.substring(0,10) != this.member.join_date.substring(0,10)
-                    || this.input.date_of_birth.substring(0,10) != this.member.date_of_birth.substring(0,10);
+                    || this.input.date_of_birth.substring(0,10) != this.member.date_of_birth.substring(0,10)
+                    || this.isJoinDate();
             },  
+
+            isJoinDate(){
+                if(this.input.join_date == ''){
+                    return false
+                }else{
+                    if(this.member.join_date === null || this.member.join_date === undefined){
+                        return true
+                    }else{
+                        return this.input.join_date.substring(0,10) != this.member.join_date.substring(0,10);
+                    }
+                }
+            },
 
 			dirtyAllInputs(){
                 this.$v.input.name.$touch();

@@ -15,7 +15,7 @@ const admin = new Vue({
     },
 
     mounted(){
-        this.$store.dispatch('load_members');
+        this.$store.dispatch('load_data_members');
 
         this.$store.dispatch('load_rank');
 

@@ -4862,7 +4862,7 @@ var admin = new Vue({
     },
 
     mounted: function mounted() {
-        this.$store.dispatch('load_members');
+        this.$store.dispatch('load_data_members');
 
         this.$store.dispatch('load_rank');
 
@@ -4976,11 +4976,13 @@ exports.push([module.i, "\nselect[data-v-734642ed] {\n  text-align: center;\n  t
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddMember_vue__ = __webpack_require__(538);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddMember_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Member_vue__ = __webpack_require__(545);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Member_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Member_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Teacher_vue__ = __webpack_require__(603);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Teacher_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddMember_vue__ = __webpack_require__(538);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddMember_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Member_vue__ = __webpack_require__(545);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Member_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Member_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -5060,6 +5062,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -5068,19 +5085,32 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      isAddMember: false
+      isAddMember: false,
+      active: 1
     };
   },
 
 
   components: {
-    Member: __WEBPACK_IMPORTED_MODULE_1__Member_vue___default.a,
-    AddMember: __WEBPACK_IMPORTED_MODULE_0__AddMember_vue___default.a
+    Member: __WEBPACK_IMPORTED_MODULE_2__Member_vue___default.a,
+    AddMember: __WEBPACK_IMPORTED_MODULE_1__AddMember_vue___default.a,
+    Teacher: __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default.a
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
-    members: 'getMembers'
-  }))
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
+    teachers: 'getTeachers',
+    members: 'getStudentNoTeacher'
+  }), {
+    showMember: function showMember() {
+      return _.filter(this.members, ['is_active', this.active]);
+    }
+  }),
+
+  methods: {
+    changeValue: function changeValue(value) {
+      this.active = value;
+    }
+  }
 });
 
 /***/ }),
@@ -5694,7 +5724,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		classList: 'getClass',
 		ranks: 'getRanks',
 		regions: 'getRegions',
-		members: 'getMembers'
+		members: 'getTeacher'
 	}), {
 		formAddFilled: function formAddFilled() {
 			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.classData != '';
@@ -7237,7 +7267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { member: {} },
+    props: { member: {}, teacherId: '' },
 
     data: function data() {
         var _input;
@@ -7728,123 +7758,134 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: { member: {} },
+    props: { member: {}, teacherId: '' },
 
-	data: function data() {
-		var _input;
+    data: function data() {
+        var _input;
 
-		return {
-			isRequesting: false,
-			input: (_input = {
-				name: this.member.name,
-				gender: this.member.gender,
-				place_of_birth: this.member.place_of_birth,
-				date_of_birth: this.member.date_of_birth,
-				join_date: this.member.join_date,
-				email: this.member.email,
-				telephone: this.member.telephone,
-				mobile: this.member.mobile,
-				fax: this.member.fax,
-				teacher_id: this.member.teacher_id == undefined ? '' : this.member.teacher_id,
-				is_active: this.member.is_active,
-				is_teacher: this.member.is_teacher
-			}, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _input)
-		};
-	},
-	mounted: function mounted() {
-		this.$v.$reset();
-	},
+        return {
+            isRequesting: false,
+            input: (_input = {
+                name: this.member.name,
+                gender: this.member.gender,
+                place_of_birth: this.member.place_of_birth,
+                date_of_birth: this.member.date_of_birth.substring(0, 10),
+                join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0, 10),
+                email: this.member.email,
+                telephone: this.member.telephone,
+                mobile: this.member.mobile,
+                fax: this.member.fax,
+                teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
+                is_active: this.member.is_active,
+                is_teacher: this.member.is_teacher
+            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _input)
+        };
+    },
+    mounted: function mounted() {
+        this.$v.$reset();
+    },
 
 
-	components: {
-		Datetime: __WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"],
-		EditRank: __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue___default.a,
-		EditClass: __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue___default.a,
-		EditRegion: __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue___default.a,
-		EditSubscription: __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue___default.a
-	},
+    components: {
+        Datetime: __WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"],
+        EditRank: __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue___default.a,
+        EditClass: __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue___default.a,
+        EditRegion: __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue___default.a,
+        EditSubscription: __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue___default.a
+    },
 
-	validations: {
-		input: {
-			name: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
-			},
-			gender: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-			},
-			place_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-			},
-			date_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-			},
-			email: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
-			},
-			telephone: {
-				required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-			}
-		}
-	},
+    validations: {
+        input: {
+            name: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
+            },
+            gender: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+            },
+            place_of_birth: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+            },
+            date_of_birth: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+            },
+            email: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
+            },
+            telephone: {
+                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+            }
+        }
+    },
 
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])({
-		classList: 'getClass',
-		ranks: 'getRanks',
-		members: 'getMembers'
-	}), {
-		formIsFilled: function formIsFilled() {
-			return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
-		}
-	}),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])({
+        classList: 'getClass',
+        ranks: 'getRanks',
+        teachers: 'getTeachers'
+    }), {
+        formIsFilled: function formIsFilled() {
+            return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
+        }
+    }),
 
-	methods: {
-		editMember: function editMember() {
+    methods: {
+        editMember: function editMember() {
 
-			var self = this;
+            var self = this;
 
-			if (self.formIsFilled && !self.isRequesting && this.memberIsedited()) {
+            if (self.formIsFilled && !self.isRequesting && this.memberIsedited()) {
 
-				self.isRequesting = true;
+                self.isRequesting = true;
 
-				var name = this.input.name;
+                var name = this.input.name;
 
-				this.$store.dispatch('update_member', this.input).then(function () {
-					flash(name + ' is successfully updated', 'success');
+                this.$store.dispatch('update_member', this.input).then(function () {
+                    flash(name + ' is successfully updated', 'success');
 
-					self.isRequesting = false;
-				}).catch(function (errors) {
+                    self.isRequesting = false;
+                }).catch(function (errors) {
 
-					self.isRequesting = false;
+                    self.isRequesting = false;
 
-					Object.keys(errors).forEach(function (field) {
-						errors[field].forEach(function (message) {
-							flash(message, 'danger', 5000);
-						});
-					});
-				});
-			} else {
-				this.dirtyAllInputs();
-			}
-		},
-		memberIsedited: function memberIsedited() {
-			return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.is_teacher != this.member.is_teacher || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.join_date.substring(0, 10) != this.member.join_date.substring(0, 10) || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10);
-		},
-		dirtyAllInputs: function dirtyAllInputs() {
-			this.$v.input.name.$touch();
-			this.$v.input.gender.$touch();
-			this.$v.input.place_of_birth.$touch();
-			this.$v.input.date_of_birth.$touch();
-			this.$v.input.email.$touch();
-			this.$v.input.telephone.$touch();
-		},
-		closeEditForm: function closeEditForm() {
-			this.$emit('closeEditMember', false);
-		}
-	}
+                    Object.keys(errors).forEach(function (field) {
+                        errors[field].forEach(function (message) {
+                            flash(message, 'danger', 5000);
+                        });
+                    });
+                });
+            } else {
+                this.dirtyAllInputs();
+            }
+        },
+        memberIsedited: function memberIsedited() {
+            return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.is_teacher != this.member.is_teacher || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10) || this.isJoinDate();
+        },
+        isJoinDate: function isJoinDate() {
+            if (this.input.join_date == '') {
+                return false;
+            } else {
+                if (this.member.join_date === null || this.member.join_date === undefined) {
+                    return true;
+                } else {
+                    return this.input.join_date.substring(0, 10) != this.member.join_date.substring(0, 10);
+                }
+            }
+        },
+        dirtyAllInputs: function dirtyAllInputs() {
+            this.$v.input.name.$touch();
+            this.$v.input.gender.$touch();
+            this.$v.input.place_of_birth.$touch();
+            this.$v.input.date_of_birth.$touch();
+            this.$v.input.email.$touch();
+            this.$v.input.telephone.$touch();
+        },
+        closeEditForm: function closeEditForm() {
+            this.$emit('closeEditMember', false);
+        }
+    }
 });
 
 /***/ }),
@@ -7950,7 +7991,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: { member: {} },
+	props: { member: {}, teacherId: '' },
 
 	data: function data() {
 		return {
@@ -8596,7 +8637,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: { member: {} },
+	props: {
+		member: {},
+		teacherId: ''
+	},
 
 	data: function data() {
 		return {
@@ -8622,6 +8666,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				self.isRequesting = true;
 
 				this.$store.dispatch('add_subscription', {
+					teacher_id: this.teacherId,
 					member_id: self.member.id,
 					year: this.year
 				}).then(function () {
@@ -8645,7 +8690,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 				this.$store.dispatch('destroy_subscription', {
 					subscription_id: subscription.id,
-					member_id: this.member.id
+					member_id: this.member.id,
+					teacher_id: this.teacherId
 
 				}).then(function () {
 
@@ -8969,7 +9015,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		ranks: 'getRanks'
 	}), {
 		currentIndex: function currentIndex() {
-			return this.member.ranks.length;
+			return this.member.rank.length;
 		}
 	}),
 
@@ -9082,26 +9128,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		rank: {}
 	},
 
-	computed: {
-		isEdit: function isEdit() {
-			return this.annointed_date.substring(0, 10) != this.rank.annointed_date;
-		},
-		isLastIndex: function isLastIndex() {
-			return this.member.ranks[this.member.ranks.length - 1].rankId == this.rank.rankId;
-		}
-	},
-
 	data: function data() {
 		return {
 			isRequesting: false,
-			annointed_date: this.rank.annointed_date
+			annointed_date: this.rank.pivot.annointed_date
 		};
 	},
 
 
+	computed: {
+		isEdit: function isEdit() {
+			return this.annointed_date.substring(0, 10) != this.rank.pivot.annointed_date;
+		},
+		isLastIndex: function isLastIndex() {
+			return this.member.rank[this.member.rank.length - 1].id == this.rank.id;
+		}
+	},
+
 	methods: {
 		cancel: function cancel() {
-			this.annointed_date = this.rank.annointed_date;
+			this.annointed_date = this.rank.pivot.annointed_date;
 		},
 		editRank: function editRank() {
 			var self = this;
@@ -9111,7 +9157,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				self.isRequesting = true;
 
 				this.$store.dispatch('edit_rank', {
-					rank_id: self.rank.rankId,
+					rank_id: self.rank.id,
 					member_id: self.member.id,
 					annointed_date: this.annointed_date.substring(0, 10)
 				}).then(function () {
@@ -9129,7 +9175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				self.isRequesting = true;
 
 				this.$store.dispatch('destroy_rank', {
-					rank_id: self.rank.rankId,
+					rank_id: self.rank.id,
 					member_id: self.member.id
 				}).then(function () {
 
@@ -9299,7 +9345,7 @@ var render = function() {
       _c(
         "transition-group",
         { attrs: { name: "slide" } },
-        _vm._l(_vm.member.ranks, function(rank, index) {
+        _vm._l(_vm.member.rank, function(rank, index) {
           return _c("item", {
             key: index,
             attrs: { member: _vm.member, rank: rank }
@@ -10058,11 +10104,11 @@ var render = function() {
                           [_vm._v("Choose teacher")]
                         ),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "" } }, [
+                        _c("option", { attrs: { value: "null" } }, [
                           _vm._v("Teacher not chosen")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.members, function(item) {
+                        _vm._l(_vm.teachers, function(item) {
                           return _c(
                             "option",
                             { domProps: { value: item.id } },
@@ -10186,13 +10232,21 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("edit-rank", { attrs: { member: _vm.member } }),
+              _c("edit-rank", {
+                attrs: { member: _vm.member, teacherId: _vm.teacherId }
+              }),
               _vm._v(" "),
-              _c("edit-subscription", { attrs: { member: _vm.member } }),
+              _c("edit-subscription", {
+                attrs: { member: _vm.member, teacherId: _vm.teacherId }
+              }),
               _vm._v(" "),
-              _c("edit-class", { attrs: { member: _vm.member } }),
+              _c("edit-class", {
+                attrs: { member: _vm.member, teacherId: _vm.teacherId }
+              }),
               _vm._v(" "),
-              _c("edit-region", { attrs: { member: _vm.member } }),
+              _c("edit-region", {
+                attrs: { member: _vm.member, teacherId: _vm.teacherId }
+              }),
               _vm._v(" "),
               _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
                 _c(
@@ -10407,7 +10461,7 @@ var render = function() {
                 [
                   _vm.isEdit
                     ? _c("edit-member", {
-                        attrs: { member: _vm.member },
+                        attrs: { member: _vm.member, teacherId: _vm.teacherId },
                         on: {
                           closeEditMember: function($event) {
                             _vm.isEdit = $event
@@ -10495,11 +10549,66 @@ var render = function() {
         2
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "row mt-4" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-12 btn-group btn-group-toggle",
+            attrs: { "data-toggle": "buttons" }
+          },
+          [
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary btn-full-width active",
+                on: {
+                  click: function($event) {
+                    _vm.changeValue(1)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  attrs: {
+                    type: "radio",
+                    name: "options-member",
+                    id: "option1",
+                    autocomplete: "off"
+                  }
+                }),
+                _vm._v(" Active Members\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary btn-full-width",
+                on: {
+                  click: function($event) {
+                    _vm.changeValue(0)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  attrs: {
+                    type: "radio",
+                    name: "options-member",
+                    id: "option2",
+                    autocomplete: "off"
+                  }
+                }),
+                _vm._v(" Inactive Members\n      ")
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
       _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c(
@@ -10509,10 +10618,30 @@ var render = function() {
             _c(
               "transition-group",
               { attrs: { name: "slide" } },
-              _vm._l(_vm.members, function(member) {
+              _vm._l(_vm.showMember, function(member) {
                 return _c("member", {
                   key: member.id,
                   attrs: { member: member }
+                })
+              })
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c(
+              "transition-group",
+              { attrs: { name: "slide" } },
+              _vm._l(_vm.teachers, function(teacher) {
+                return _c("teacher", {
+                  key: teacher.id,
+                  attrs: { teacher: teacher, status: _vm.active }
                 })
               })
             )
@@ -10533,50 +10662,6 @@ var staticRenderFns = [
       _vm._v("\n    Here is where you can see list of "),
       _c("strong", [_vm._v("members")]),
       _vm._v(".\n  ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-4" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-12 btn-group btn-group-toggle",
-          attrs: { "data-toggle": "buttons" }
-        },
-        [
-          _c(
-            "label",
-            { staticClass: "btn btn-secondary btn-full-width active" },
-            [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "option1",
-                  autocomplete: "off",
-                  checked: ""
-                }
-              }),
-              _vm._v(" Active Members\n      ")
-            ]
-          ),
-          _vm._v(" "),
-          _c("label", { staticClass: "btn btn-secondary btn-full-width" }, [
-            _c("input", {
-              attrs: {
-                type: "radio",
-                name: "options",
-                id: "option2",
-                autocomplete: "off"
-              }
-            }),
-            _vm._v(" Inactive Members\n      ")
-          ])
-        ]
-      )
     ])
   },
   function() {
@@ -10663,7 +10748,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     //  S T A T E
     //=========================================================================================
     state: {
-        members: {},
+        teachers: {},
+        studentNoTeacher: {},
         rank: {},
         classList: {},
         regionList: {}
@@ -10673,8 +10759,12 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     //  G E T T E R S
     //=========================================================================================
     getters: {
-        getMembers: function getMembers(state) {
-            return state.members;
+        getTeachers: function getTeachers(state) {
+            return state.teachers;
+        },
+
+        getStudentNoTeacher: function getStudentNoTeacher(state) {
+            return state.studentNoTeacher;
         },
 
         getRanks: function getRanks(state) {
@@ -10694,8 +10784,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_member: function set_member(state, members) {
-            state.members = members;
+        set_data_member: function set_data_member(state, data) {
+
+            state.teachers = data[0];
+            state.studentNoTeacher = data[1];
         },
 
         set_rank: function set_rank(state, rank) {
@@ -10712,97 +10804,120 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
         edit_member: function edit_member(state, member) {
 
-            var memberIndex = _.findIndex(state.members, ['id', member.id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', member.id]);
             var classIndex = _.findIndex(state.classList, ['id', member.class_id]);
 
-            state.members[memberIndex].name = member.name;
-            state.members[memberIndex].gender = member.gender;
-            state.members[memberIndex].is_active = member.is_active;
-            state.members[memberIndex].is_teacher = member.is_teacher;
-            state.members[memberIndex].place_of_birth = member.place_of_birth;
-            state.members[memberIndex].date_of_birth = member.date_of_birth;
-            state.members[memberIndex].email = member.email;
-            state.members[memberIndex].fax = member.fax;
-            state.members[memberIndex].telephone = member.telephone;
-            state.members[memberIndex].mobile = member.mobile;
-            state.members[memberIndex].teacher_id = member.teacher_id;
-            state.members[memberIndex].join_date = member.join_date;
+            state.teachers[memberIndex].name = member.name;
+            state.teachers[memberIndex].gender = member.gender;
+            state.teachers[memberIndex].is_active = member.is_active;
+            state.teachers[memberIndex].is_teacher = member.is_teacher;
+            state.teachers[memberIndex].place_of_birth = member.place_of_birth;
+            state.teachers[memberIndex].date_of_birth = member.date_of_birth;
+            state.teachers[memberIndex].email = member.email;
+            state.teachers[memberIndex].fax = member.fax;
+            state.teachers[memberIndex].telephone = member.telephone;
+            state.teachers[memberIndex].mobile = member.mobile;
+            state.teachers[memberIndex].teacher_id = member.teacher_id;
+            state.teachers[memberIndex].join_date = member.join_date;
         },
         delete_member: function delete_member(state, ids) {
 
-            var memberIndex = _.findIndex(state.members, ['id', ids.memberId]);
+            var memberIndex = _.findIndex(state.teachers, ['id', ids.memberId]);
 
-            state.members.splice(memberIndex, 1);
+            state.teachers.splice(memberIndex, 1);
         },
         add_rank: function add_rank(state, dataRank) {
 
-            var memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
 
-            state.members[memberIndex].ranks.push({
+            state.teachers[memberIndex].ranks.push({
                 annointed_date: dataRank.annointed_date,
                 rankId: dataRank.rank_id,
                 title: dataRank.title
             });
         },
         update_rank: function update_rank(state, dataRank) {
-            var memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
-            var rankIndex = _.findIndex(state.members[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
+            var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
 
-            state.members[memberIndex].ranks[rankIndex].annointed_date = dataRank.annointed_date;
+            state.teachers[memberIndex].ranks[rankIndex].annointed_date = dataRank.annointed_date;
         },
         delete_rank: function delete_rank(state, dataRank) {
-            var memberIndex = _.findIndex(state.members, ['id', dataRank.member_id]);
-            var rankIndex = _.findIndex(state.members[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
+            var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
 
-            state.members[memberIndex].ranks.splice(rankIndex, 1);
+            state.teachers[memberIndex].ranks.splice(rankIndex, 1);
         },
         add_subscription: function add_subscription(state, dataSubscription) {
-            var memberIndex = _.findIndex(state.members, ['id', dataSubscription.member_id]);
 
-            state.members[memberIndex].subscription.push({
-                member_id: dataSubscription.member_id,
-                year: dataSubscription.year,
-                id: dataSubscription.id
-            });
+            if (dataSubscription.teacher_id == undefined) {
+
+                var memberIndex = _.findIndex(state.studentNoTeacher, ['id', dataSubscription.member_id]);
+
+                state.studentNoTeacher[memberIndex].subscription.push({
+                    member_id: dataSubscription.member_id,
+                    year: dataSubscription.year,
+                    id: dataSubscription.id
+                });
+            } else {
+
+                var teacherIndex = _.findIndex(state.teachers, ['id', dataSubscription.teacher_id]);
+                var _memberIndex = _.findIndex(state.teachers[teacherIndex].student, ['id', dataSubscription.member_id]);
+
+                state.teachers[teacherIndex].student[_memberIndex].subscription.push({
+                    member_id: dataSubscription.member_id,
+                    year: dataSubscription.year,
+                    id: dataSubscription.id
+                });
+            }
         },
         delete_subscription: function delete_subscription(state, ids) {
 
-            var memberIndex = _.findIndex(state.members, ['id', ids.member_id]);
-            var subscriptionIndex = _.findIndex(state.members[memberIndex].subscription, ['id', ids.subscription_id]);
+            if (ids.teacher_id == undefined) {
+                var memberIndex = _.findIndex(state.studentNoTeacher, ['id', ids.member_id]);
+                var subscriptionIndex = _.findIndex(state.studentNoTeacher[memberIndex].subscription, ['id', ids.subscription_id]);
 
-            state.members[memberIndex].subscription.splice(subscriptionIndex, 1);
+                state.studentNoTeacher[memberIndex].subscription.splice(subscriptionIndex, 1);
+            } else {
+
+                var teacherIndex = _.findIndex(state.teachers, ['id', ids.teacher_id]);
+                var _memberIndex2 = _.findIndex(state.teachers[teacherIndex].student, ['id', ids.member_id]);
+                var _subscriptionIndex = _.findIndex(state.teachers[teacherIndex].student[_memberIndex2].subscription, ['id', ids.subscription_id]);
+
+                state.teachers[teacherIndex].student[_memberIndex2].subscription.splice(_subscriptionIndex, 1);
+            }
         },
         add_region: function add_region(state, dataRegion) {
 
-            var memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
 
-            state.members[memberIndex].region.push({
+            state.teachers[memberIndex].region.push({
                 id: dataRegion.region_id,
                 name: dataRegion.name
             });
         },
         delete_region: function delete_region(state, dataRegion) {
 
-            var memberIndex = _.findIndex(state.members, ['id', dataRegion.member_id]);
-            var regionIndex = _.findIndex(state.members[memberIndex].region, ['id', dataRegion.region_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
+            var regionIndex = _.findIndex(state.teachers[memberIndex].region, ['id', dataRegion.region_id]);
 
-            state.members[memberIndex].region.splice(regionIndex, 1);
+            state.teachers[memberIndex].region.splice(regionIndex, 1);
         },
         add_class: function add_class(state, dataClass) {
 
-            var memberIndex = _.findIndex(state.members, ['id', dataClass.member_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
 
-            state.members[memberIndex].class.push({
+            state.teachers[memberIndex].class.push({
                 id: dataClass.class_id,
                 title: dataClass.title
             });
         },
         delete_class: function delete_class(state, dataClass) {
 
-            var memberIndex = _.findIndex(state.members, ['id', dataClass.member_id]);
-            var classIndex = _.findIndex(state.members[memberIndex].class, ['id', dataClass.class_id]);
+            var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
+            var classIndex = _.findIndex(state.teachers[memberIndex].class, ['id', dataClass.class_id]);
 
-            state.members[memberIndex].class.splice(classIndex, 1);
+            state.teachers[memberIndex].class.splice(classIndex, 1);
         }
     },
 
@@ -10810,11 +10925,11 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     //  A C T I O N S
     //=========================================================================================
     actions: {
-        load_members: function load_members(_ref) {
+        load_data_members: function load_data_members(_ref) {
             var commit = _ref.commit;
 
             axios.get('/admin/bookkeeping/data/member').then(function (response) {
-                commit('set_member', response.data);
+                commit('set_data_member', response.data);
             });
         },
 
@@ -10851,7 +10966,11 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
                 axios.post('add/member', dataMember).then(function (response) {
 
-                    dispatch('load_members');
+                    dispatch('load_data_members');
+
+                    dispatch('load_region');
+
+                    dispatch('load_class');
 
                     resolve(dataMember);
                 }).catch(function (errors) {
@@ -10860,14 +10979,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         update_member: function update_member(_ref6, member) {
-            var commit = _ref6.commit;
+            var commit = _ref6.commit,
+                dispatch = _ref6.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.patch('update/member/' + member.id, member).then(function (response) {
 
-                    commit('edit_member', member);
+                    dispatch('load_data_members');
 
                     resolve(member);
                 }).catch(function (errors) {
@@ -10876,25 +10996,29 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         destroy_member: function destroy_member(_ref7, ids) {
-            var commit = _ref7.commit;
+            var commit = _ref7.commit,
+                dispatch = _ref7.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.delete('delete/member/' + ids).then(function (response) {
-                    commit('delete_member', ids);
+
+                    dispatch('load_data_members');
+
                     resolve();
                 });
             });
         },
         add_rank: function add_rank(_ref8, dataRank) {
-            var commit = _ref8.commit;
+            var commit = _ref8.commit,
+                dispatch = _ref8.dispatch;
 
 
             return new Promise(function (resolve, reject) {
                 axios.post('add/rank', dataRank).then(function (response) {
 
-                    commit('add_rank', dataRank);
+                    dispatch('load_data_members');
 
                     resolve(dataRank);
                 }).catch(function (errors) {
@@ -10903,31 +11027,38 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         edit_rank: function edit_rank(_ref9, dataRank) {
-            var commit = _ref9.commit;
+            var commit = _ref9.commit,
+                dispatch = _ref9.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.patch('update/rank', dataRank).then(function (response) {
-                    commit('update_rank', dataRank);
+
+                    dispatch('load_data_members');
+
                     resolve();
                 });
             });
         },
         destroy_rank: function destroy_rank(_ref10, dataRank) {
-            var commit = _ref10.commit;
+            var commit = _ref10.commit,
+                dispatch = _ref10.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.patch('delete/rank', dataRank).then(function (response) {
-                    commit('delete_rank', dataRank);
+
+                    dispatch('load_data_members');
+
                     resolve();
                 });
             });
         },
         add_subscription: function add_subscription(_ref11, dataSubscription) {
-            var commit = _ref11.commit;
+            var commit = _ref11.commit,
+                dispatch = _ref11.dispatch;
 
 
             return new Promise(function (resolve, reject) {
@@ -10935,9 +11066,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 axios.post('add/subscription', dataSubscription).then(function (response) {
 
                     var data = {
-                        id: response.data.id,
+                        id: response.data,
                         year: dataSubscription.year,
-                        member_id: dataSubscription.member_id
+                        member_id: dataSubscription.member_id,
+                        teacher_id: dataSubscription.teacher_id
                     };
 
                     commit('add_subscription', data);
@@ -10950,7 +11082,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         destroy_subscription: function destroy_subscription(_ref12, ids) {
-            var commit = _ref12.commit;
+            var commit = _ref12.commit,
+                dispatch = _ref12.dispatch;
 
 
             return new Promise(function (resolve, reject) {
@@ -10962,14 +11095,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         add_region: function add_region(_ref13, dataRegion) {
-            var commit = _ref13.commit;
+            var commit = _ref13.commit,
+                dispatch = _ref13.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.post('add/class_region', dataRegion).then(function (response) {
 
-                    commit('add_region', dataRegion);
+                    dispatch('load_data_members');
 
                     resolve(dataRegion);
                 }).catch(function (errors) {
@@ -10979,26 +11113,30 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         destroy_region: function destroy_region(_ref14, dataRegion) {
-            var commit = _ref14.commit;
+            var commit = _ref14.commit,
+                dispatch = _ref14.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.patch('delete/class_region', dataRegion).then(function (response) {
-                    commit('delete_region', dataRegion);
+
+                    dispatch('load_data_members');
+
                     resolve();
                 });
             });
         },
         add_class: function add_class(_ref15, dataClass) {
-            var commit = _ref15.commit;
+            var commit = _ref15.commit,
+                dispatch = _ref15.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.post('add/class_member', dataClass).then(function (response) {
 
-                    commit('add_class', dataClass);
+                    dispatch('load_data_members');
 
                     resolve(dataClass);
                 }).catch(function (errors) {
@@ -11008,13 +11146,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             });
         },
         destroy_class: function destroy_class(_ref16, dataClass) {
-            var commit = _ref16.commit;
+            var commit = _ref16.commit,
+                dispatch = _ref16.dispatch;
 
 
             return new Promise(function (resolve, reject) {
 
                 axios.delete('delete/class_member/' + dataClass.member_id + '/' + dataClass.class_id).then(function (response) {
-                    commit('delete_class', dataClass);
+
+                    dispatch('load_data_members');
+
                     resolve();
                 });
             });
@@ -11055,6 +11196,323 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+
+/***/ 603:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(604)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(606)
+/* template */
+var __vue_template__ = __webpack_require__(607)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-00f0613a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/Teacher.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-00f0613a", Component.options)
+  } else {
+    hotAPI.reload("data-v-00f0613a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 604:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(605);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("589b098b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-00f0613a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Teacher.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-00f0613a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Teacher.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 605:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.card[data-v-00f0613a] {\n      border: 1px solid transparent !important;\n}\n.card-block[data-v-00f0613a]{\n      padding: 1em !important;\n}\n.detail[data-v-00f0613a] {\n      line-height: 30px !important;\n      vertical-align: middle !important;\n      padding: 0 !important;\n}\n.f-24[data-v-00f0613a] {\n      font-size: 24px !important;\n}\n.bgSalmon[data-v-00f0613a] {\n      background: salmon;\n}\n.max-lines[data-v-00f0613a]{\n    text-overflow: ellipsis;\n    max-width: 80ch;\n    overflow: hidden;\n    white-space: nowrap;\n}\nselect[data-v-00f0613a] {\n  text-align: center;\n  text-align-last: center;\n  font-weight: bold;\n  /* webkit*/\n}\n.btn-full-width[data-v-00f0613a] {\n  display: inline-block;\n  width: 100%;\n}\n.slide-enter[data-v-00f0613a] {\n    opacity: 0;\n}\n.slide-enter-active[data-v-00f0613a] {\n    animation: slide-in-data-v-00f0613a 0.6s ease;\n    transition: opacity 0.6s;\n}\n.slide-leave[data-v-00f0613a] {\n}\n.slide-leave-active[data-v-00f0613a] {\n    animation: slide-out-data-v-00f0613a 0.6s ease forwards;\n    transition: opacity 0.6s;\n    opacity: 0;\n    position: absolute;\n    width: 100%;\n}\n.slide-move[data-v-00f0613a] {\n    transition: transform 0.6s;\n}\n@keyframes slide-in-data-v-00f0613a {\nfrom {\n        transform: translateY(-20px);\n}\nto {\n        background-color: white;\n        transform: translateY(0px);\n}\n}\n@keyframes slide-out-data-v-00f0613a {\nfrom {\n        transform: translateY(0);\n}\nto {\n        transform: translateY(-20px);\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 606:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Member_vue__ = __webpack_require__(545);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Member_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Member_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: { teacher: {}, status: '' },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            isShow: true
+        };
+    },
+
+
+    components: {
+        Member: __WEBPACK_IMPORTED_MODULE_0__Member_vue___default.a
+    },
+
+    computed: {
+        totalStudent: function totalStudent() {
+            return this.teacher.student.length;
+        },
+        showMember: function showMember() {
+            return _.filter(this.teacher.student, ['is_active', this.status]);
+        }
+    },
+
+    methods: {}
+});
+
+/***/ }),
+
+/***/ 607:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        {
+          staticClass: "card mt-3",
+          staticStyle: { "background-color": "pink" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "card-block" },
+            [
+              _c(
+                "transition",
+                {
+                  attrs: {
+                    enterActiveClass: "fade-in",
+                    leaveActiveClass: "fade-out",
+                    mode: "out-in"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-4 d-flex justify-content-start align-items-center"
+                      },
+                      [
+                        _c("div", [
+                          _c(
+                            "p",
+                            { staticClass: "small text-uppercase mb-0" },
+                            [_c("strong", [_vm._v("Name")])]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "detail" }, [
+                            _c("p", { staticClass: "mb-0" }, [
+                              _vm._v(_vm._s(_vm.teacher.name))
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-4 d-flex justify-content-start align-items-center"
+                      },
+                      [
+                        _c("div", [
+                          _c(
+                            "p",
+                            { staticClass: "small text-uppercase mb-0" },
+                            [_c("strong", [_vm._v("Total Studen")])]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "detail text-center" }, [
+                            _c("p", { staticClass: "mb-0" }, [
+                              _vm._v(_vm._s(_vm.totalStudent))
+                            ])
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-3 d-flex justify-content-end align-items-center"
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success ml-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.isShow = !_vm.isShow
+                              }
+                            }
+                          },
+                          [_vm._v("Show Student")]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition-group",
+        { attrs: { name: "slide", mode: "out-in" } },
+        _vm._l(_vm.showMember, function(member) {
+          return _vm.isShow
+            ? _c("member", {
+                key: member.id,
+                attrs: { member: member, teacherId: _vm.teacher.id }
+              })
+            : _vm._e()
+        })
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-00f0613a", module.exports)
+  }
+}
 
 /***/ }),
 

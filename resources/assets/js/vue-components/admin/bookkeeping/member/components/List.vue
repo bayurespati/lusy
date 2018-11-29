@@ -20,11 +20,13 @@
 
     <div class="row mt-4">
       <div class="col-12 btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary btn-full-width active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked> Active Members
+        <label class="btn btn-secondary btn-full-width active" @click="changeValue(1)">
+          <input type="radio" name="options-member"
+                 id="option1" autocomplete="off"> Active Members
         </label>
-        <label class="btn btn-secondary btn-full-width">
-          <input type="radio" name="options" id="option2" autocomplete="off"> Inactive Members
+        <label class="btn btn-secondary btn-full-width" @click="changeValue(0)">
+          <input type="radio" name="options-member"
+                 id="option2" autocomplete="off"> Inactive Members
         </label>
       </div>
     </div>
@@ -61,14 +63,26 @@
         </select>
       </div>
     </div>
-
+  
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-          <member v-for="member in members"
+          <member v-for="member in showMember"
           :member="member"
           :key="member.id">
           </member>
+        </transition-group>
+      </div>
+    </div>
+
+  
+    <div class="row">
+      <div class="col-md-12">
+        <transition-group name="slide">
+          <teacher v-for="teacher in teachers"
+          :teacher="teacher" :status="active"
+          :key="teacher.id">
+          </teacher>
         </transition-group>
       </div>
     </div>
@@ -76,6 +90,7 @@
 </template>
 
 <script>
+  import Teacher from './Teacher.vue';
   import AddMember from './AddMember.vue';
   import Member from './Member.vue';
   import {mapGetters} from 'vuex';
@@ -85,18 +100,31 @@
     data(){
       return{
         isAddMember : false,
+        active: 1
       }
     },
 
     components:{
       Member,
-      AddMember
+      AddMember,
+      Teacher
     },
 
     computed:{
         ...mapGetters({
-            members : 'getMembers',
-        })
+            teachers : 'getTeachers',
+            members : 'getStudentNoTeacher'
+        }),
+
+        showMember(){
+          return _.filter(this.members,['is_active', this.active ])
+        },
+    },
+
+    methods:{
+      changeValue(value){
+        this.active = value;
+      }
     }
   };
 </script>

@@ -456,7 +456,7 @@
 				classList: 'getClass',
 				ranks: 'getRanks',
 				regions: 'getRegions',
-				members: 'getMembers'
+				members: 'getTeacher'
 			}),
 
 			formAddFilled(){

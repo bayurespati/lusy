@@ -27,6 +27,16 @@ class Member extends Model
      * Relations
      */
 
+    public function teacher()
+    {
+        return $this->belongsTo(self::class, 'teacher_id');
+    }
+
+    public function student()
+    {
+        return $this->hasMany(self::class, 'teacher_id')->with('rank','region','subscription','class');
+    }
+
     public function class(){
         return $this->belongsToMany('App\AboutContent', 'member_class', 'member_id', 'class_id')
                     ->withPivot('is_approve');

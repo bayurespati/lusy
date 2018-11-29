@@ -41,7 +41,10 @@
 <script>
 	import {minLength, maxLength} from 'vuelidate/lib/validators';
 	export default{
-		props:{member:{}},
+		props:{
+			member:{},
+			teacherId:''
+		},
 
 		data(){
 			return{
@@ -66,6 +69,7 @@
 					self.isRequesting = true;
 
 					this.$store.dispatch('add_subscription',{
+						teacher_id: this.teacherId,
 						member_id: self.member.id,
 						year: this.year
 					}).then(()=>{
@@ -82,7 +86,6 @@
 				}
 			},
 
-
 			delete_subscription(subscription){
 				const self = this;
 
@@ -92,7 +95,8 @@
 
 					this.$store.dispatch('destroy_subscription',{
 							subscription_id: subscription.id,
-							member_id: this.member.id
+							member_id: this.member.id,
+							teacher_id: this.teacherId,
 
 						})
 							.then(() => {

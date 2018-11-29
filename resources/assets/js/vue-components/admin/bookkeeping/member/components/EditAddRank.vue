@@ -19,7 +19,7 @@
 		</div>
 
 		<transition-group name="slide">	
-			<item v-for="(rank, index) in member.ranks"
+			<item v-for="(rank, index) in member.rank"
 				  :member="member" :key="index" :rank="rank">
 			</item>
 		</transition-group>
@@ -50,7 +50,7 @@
 			}),
 
 			currentIndex(){
-				return this.member.ranks.length; 
+				return this.member.rank.length; 
 			}
 		},
 

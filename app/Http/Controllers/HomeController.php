@@ -139,6 +139,7 @@ class HomeController extends Controller
 			    $member->mobile = $request->mobile;
 			    $member->fax = $request->fax;
 
+			    $member->is_teacher = false;
 			    $member->is_active = false;
 			    $member->save();
 

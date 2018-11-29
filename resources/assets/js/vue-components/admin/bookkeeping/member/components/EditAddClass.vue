@@ -43,7 +43,7 @@
 <script>
 	import {mapGetters} from 'vuex';
 	export default{
-		props:{member:{}},
+		props:{member:{}, teacherId:''},
 
 		data(){
 			return{

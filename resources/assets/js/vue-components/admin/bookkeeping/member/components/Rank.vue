@@ -25,27 +25,27 @@
 			rank:{},
 		},
 
-		computed:{
-			isEdit(){
-				return this.annointed_date.substring(0,10) != this.rank.annointed_date;
-			},
-
-			isLastIndex(){
-				return this.member.ranks[this.member.ranks.length - 1].rankId == this.rank.rankId;
-			}
-		},
-
 		data(){
 			return{
 				isRequesting: false,
-				annointed_date: this.rank.annointed_date
+				annointed_date: this.rank.pivot.annointed_date
+			}
+		},
+
+		computed:{
+			isEdit(){
+				return this.annointed_date.substring(0,10) != this.rank.pivot.annointed_date;
+			},
+
+			isLastIndex(){
+				return this.member.rank[this.member.rank.length - 1].id == this.rank.id;
 			}
 		},
 
 		methods:{
 
 			cancel(){
-				this.annointed_date = this.rank.annointed_date
+				this.annointed_date = this.rank.pivot.annointed_date
 			},
 
 			editRank(){
@@ -56,7 +56,7 @@
 					self.isRequesting = true
 
 					this.$store.dispatch('edit_rank',{
-						rank_id: self.rank.rankId,
+						rank_id: self.rank.id,
 						member_id: self.member.id,
 						annointed_date: this.annointed_date.substring(0,10),
 					})
@@ -76,7 +76,7 @@
                     self.isRequesting = true;
 
                     this.$store.dispatch('destroy_rank', {
-                        rank_id: self.rank.rankId,
+                        rank_id: self.rank.id,
                         member_id: self.member.id
                     })
                     .then(() => {

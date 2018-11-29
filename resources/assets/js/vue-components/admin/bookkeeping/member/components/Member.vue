@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="col-12">
-                        <edit-member v-if="isEdit" :member="member"
+                        <edit-member v-if="isEdit" :member="member" :teacherId="teacherId"
                             @closeEditMember="isEdit = $event">
                         </edit-member>
                     </div>
@@ -76,7 +76,7 @@
 <script>
     import EditMember from './EditMember.vue'
     export default{
-        props:{member:{}},
+        props:{member:{},teacherId:''},
 
         data(){
             return{
