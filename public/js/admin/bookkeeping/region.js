@@ -60,7 +60,11 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 581);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 604);
+>>>>>>> ari
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -644,7 +648,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -3963,26 +3967,79 @@ module.exports = g;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 581:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(582);
+=======
+/***/ 6:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
 
 
 /***/ }),
 
+/***/ 604:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(605);
+>>>>>>> ari
+
+
+/***/ }),
+
+<<<<<<< HEAD
 /***/ 582:
+=======
+/***/ 605:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(583);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(606);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(607);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(630);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
 
@@ -4011,12 +4068,17 @@ var admin = new Vue({
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 583:
+=======
+/***/ 606:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(584)
 }
 var normalizeComponent = __webpack_require__(3)
@@ -4024,6 +4086,15 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(586)
 /* template */
 var __vue_template__ = __webpack_require__(606)
+=======
+  __webpack_require__(607)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(609)
+/* template */
+var __vue_template__ = __webpack_require__(629)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4063,13 +4134,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 584:
+=======
+/***/ 607:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(585);
+=======
+var content = __webpack_require__(608);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4090,7 +4169,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 585:
+=======
+/***/ 608:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4105,14 +4188,24 @@ exports.push([module.i, "\n.slide-enter[data-v-aaa7a372] {\n        opacity: 0;\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 586:
+=======
+/***/ 609:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__ = __webpack_require__(587);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue__ = __webpack_require__(594);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddRegion_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue__ = __webpack_require__(617);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Region_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4176,12 +4269,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 587:
+=======
+/***/ 610:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(588)
   __webpack_require__(590)
 }
@@ -4190,6 +4288,16 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(592)
 /* template */
 var __vue_template__ = __webpack_require__(593)
+=======
+  __webpack_require__(611)
+  __webpack_require__(613)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(615)
+/* template */
+var __vue_template__ = __webpack_require__(616)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4229,13 +4337,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 588:
+=======
+/***/ 611:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(589);
+=======
+var content = __webpack_require__(612);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4256,7 +4372,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 589:
+=======
+/***/ 612:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4271,13 +4391,21 @@ exports.push([module.i, "\n::-webkit-input-placeholder {\n   \t\ttext-align: cen
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 590:
+=======
+/***/ 613:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(591);
+=======
+var content = __webpack_require__(614);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4298,7 +4426,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 591:
+=======
+/***/ 614:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4313,7 +4445,11 @@ exports.push([module.i, "\n.card[data-v-2ed750c8] {\n\tflex-direction: unset;\n\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 592:
+=======
+/***/ 615:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4478,7 +4614,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 593:
+=======
+/***/ 616:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -4692,12 +4832,17 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 594:
+=======
+/***/ 617:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(595)
 }
 var normalizeComponent = __webpack_require__(3)
@@ -4705,6 +4850,15 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(597)
 /* template */
 var __vue_template__ = __webpack_require__(605)
+=======
+  __webpack_require__(618)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(620)
+/* template */
+var __vue_template__ = __webpack_require__(628)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4744,13 +4898,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 595:
+=======
+/***/ 618:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(596);
+=======
+var content = __webpack_require__(619);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4771,7 +4933,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 596:
+=======
+/***/ 619:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4786,12 +4952,20 @@ exports.push([module.i, "\n.card[data-v-62e8495d] {\n    border: 1px solid trans
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 597:
+=======
+/***/ 620:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue__ = __webpack_require__(598);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue__ = __webpack_require__(621);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditRegion_vue__);
 //
 //
@@ -4889,12 +5063,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 598:
+=======
+/***/ 621:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(599)
   __webpack_require__(601)
 }
@@ -4903,6 +5082,16 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(603)
 /* template */
 var __vue_template__ = __webpack_require__(604)
+=======
+  __webpack_require__(622)
+  __webpack_require__(624)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(626)
+/* template */
+var __vue_template__ = __webpack_require__(627)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4942,13 +5131,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 599:
+=======
+/***/ 622:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(600);
+=======
+var content = __webpack_require__(623);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4969,6 +5166,7 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -5004,6 +5202,9 @@ module.exports = function listToStyles (parentId, list) {
 /***/ }),
 
 /***/ 600:
+=======
+/***/ 623:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -5018,13 +5219,21 @@ exports.push([module.i, "\n.vdatetime-input {\n    width: 100%;\n    padding: .3
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 601:
+=======
+/***/ 624:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(602);
+=======
+var content = __webpack_require__(625);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -5045,7 +5254,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 602:
+=======
+/***/ 625:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -5060,7 +5273,11 @@ exports.push([module.i, "\n.bg-grey[data-v-4c3bbe87] {\n    background: #fafafa;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 603:
+=======
+/***/ 626:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5228,7 +5445,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 604:
+=======
+/***/ 627:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5548,7 +5769,11 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 605:
+=======
+/***/ 628:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5693,7 +5918,11 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 606:
+=======
+/***/ 629:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5787,7 +6016,11 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 607:
+=======
+/***/ 630:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -2,6 +2,7 @@
     "/js/admin/bookkeeping/member.js": "/js/admin/bookkeeping/member.js",
     "/js/admin/gallery/list.js": "/js/admin/gallery/list.js",
     "/js/admin/event/list.js": "/js/admin/event/list.js",
+    "/js/admin/about/timeline.js": "/js/admin/about/timeline.js",
     "/js/admin/shop/image.js": "/js/admin/shop/image.js",
     "/js/admin/event/image.js": "/js/admin/event/image.js",
     "/js/admin/shop/list.js": "/js/admin/shop/list.js",
@@ -29,8 +30,10 @@
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
     "/css/croppie.css": "/css/croppie.css",
+    "/css/timeline.css": "/css/timeline.css",
     "/css/base.css": "/css/base.css",
     "/js/croppie.js": "/js/croppie.js",
+    "/js/timeline.js": "/js/timeline.js",
     "/js/base.js": "/js/base.js",
     "/js/html5.js": "/js/html5.js"
 }

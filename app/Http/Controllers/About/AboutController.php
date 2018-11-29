@@ -8,6 +8,8 @@ use App\ImageConfig;
 use App\Gallery;
 use App\Event;
 use App\Member;
+use App\Timeline;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,6 +23,16 @@ class AboutController extends Controller
         ? '/img/page-banner-bg.jpg'
         : ImageConfig::find(2)->image_path;
 
+        $timelines = Timeline::orderBy('date', 'ASC')->get();
+
+        foreach($timelines as $timeline){
+            $timeline->year = Carbon::parse($timeline->date)->format('Y');
+            $timeline->date = Carbon::parse($timeline->date)->format('j M');
+            $timeline->dataDate = Carbon::parse($timeline->date)->format('d/m/Y');
+            $timeline->dateHeader = Carbon::parse($timeline->date)->format('F jS, Y');
+            $timeline->desc = $timeline->description;
+        }
+
         $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
 
         if(
@@ -32,7 +44,7 @@ class AboutController extends Controller
             $showedImage = $showcasedImage;
         }
 
-         $events = Event::with('subcategory', 'subcategory.category')->get();
+        $events = Event::with('subcategory', 'subcategory.category')->get();
         $exhibitionsCount = 0;
         $classesCount = 0;
         $workshopsCount = 0;
@@ -72,6 +84,6 @@ class AboutController extends Controller
             )
         );
 
-		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage', 'aboutBanner', 'achievements'));
+		return view('about.index', compact('sosmed', 'about', 'classes', 'showedImage', 'aboutBanner', 'achievements', 'timelines'));
     }
 }

@@ -62,6 +62,8 @@
         text-align: center;
     }
 </style>
+
+<link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -120,6 +122,75 @@
                 <!-- Container /- -->
             </div>
             <!-- About Us Section /- -->
+
+            <!-- Timeline Section -->
+            <div class="cd-horizontal-timeline">
+                <div class="timeline">
+                    <div class="events-wrapper">
+                        <div class="events">
+                            <ol>
+                                @for($i = 0; $i < count($timelines); $i++)
+                                @if($i == 0)
+                                <li>
+                                    <a href="#0" data-date="{{ $timelines[$i]->dataDate }}" class="selected">
+                                        {{ $timelines[$i]->date }}
+                                    </a>
+                                    <p class="year">{{ $timelines[$i]->year }}</p>
+                                </li>
+                                @else
+                                <li>
+                                    <a href="#0" data-date="{{ $timelines[$i]->dataDate }}">
+                                        {{ $timelines[$i]->date }}
+                                    </a>
+                                    <p class="year">{{ $timelines[$i]->year }}</p>
+                                </li>
+                                @endif
+                                @endfor
+                            </ol>
+
+                            <span class="filling-line" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <ul class="cd-timeline-navigation">
+                        <li><a href="#0" class="prev inactive">Prev</a></li>
+                        <li><a href="#0" class="next">Next</a></li>
+                    </ul>
+                </div>
+
+                <div class="events-content">
+                    <ol>
+                        @for($i = 0; $i < count($timelines); $i++)
+                        @if($i == 0)
+                        <li class="selected" data-date="{{ $timelines[$i]->dataDate }}">
+                            <div>
+                                <div class="section-title-border">
+                                <h2>{{ $timelines[$i]->title }}</h2>
+                                <em>{{ $timelines[$i]->dateHeader }}</em>
+                            </div>
+                            </div>
+                            <p class="mt-6"> 
+                                {!! nl2br(e($timelines[$i]->description)) !!}
+                            </p>
+                        </li>
+                        @else
+                        <li data-date="{{ $timelines[$i]->dataDate }}">
+                            <div>
+                                <div class="section-title-border">
+                                <h2>{{ $timelines[$i]->title }}</h2>
+                                <em>{{ $timelines[$i]->dateHeader }}</em>
+                            </div>
+                            </div>
+                            <p class="mt-6"> 
+                                {!! nl2br(e($timelines[$i]->description)) !!}
+                            </p>
+                        </li>
+                        @endif
+                        @endfor
+                    </ol>
+                </div>
+            </div>
+            <!-- End of Timeline Section -->
             
             <!-- Portfolio Section -->
             <div class="container-fluid no-padding">
@@ -260,8 +331,7 @@
         </main>
         
         <!-- Modal -->
-        <div class="modal fade" id="member-register" tabindex="-1" 
-             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="member-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header text-center p-0" style="border: 0">
@@ -375,4 +445,6 @@
     });
 
 </script>
+
+<script src="{{ asset('js/timeline.js') }}"></script>
 @endpush

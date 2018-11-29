@@ -60,7 +60,11 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 469);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 496);
+>>>>>>> ari
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -513,13 +517,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 125:
+/***/ 126:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(486);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(513);
+>>>>>>> ari
 
 
 
@@ -724,7 +732,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'about',
 				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
 			}, {
 				id: 'gallery',
 				name: 'Gallery',
@@ -4015,26 +4023,41 @@ function h(tag, key, args) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 469:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(470);
+=======
+/***/ 496:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(497);
+>>>>>>> ari
 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 470:
+=======
+/***/ 497:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(471);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(498);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
 
@@ -4063,12 +4086,17 @@ var admin = new Vue({
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 471:
+=======
+/***/ 498:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(472)
 }
 var normalizeComponent = __webpack_require__(3)
@@ -4076,6 +4104,15 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(474)
 /* template */
 var __vue_template__ = __webpack_require__(485)
+=======
+  __webpack_require__(499)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(501)
+/* template */
+var __vue_template__ = __webpack_require__(512)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4115,13 +4152,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 472:
+=======
+/***/ 499:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(473);
+=======
+var content = __webpack_require__(500);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4142,7 +4187,39 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 473:
+=======
+/***/ 5:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 500:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4157,12 +4234,20 @@ exports.push([module.i, "\n.slide-enter[data-v-45348e58] {\n        opacity: 0;\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 474:
+=======
+/***/ 501:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Message_vue__ = __webpack_require__(475);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Message_vue__ = __webpack_require__(502);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Message_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Message_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -4211,12 +4296,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 475:
+=======
+/***/ 502:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(476)
 }
 var normalizeComponent = __webpack_require__(3)
@@ -4224,6 +4314,15 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(478)
 /* template */
 var __vue_template__ = __webpack_require__(484)
+=======
+  __webpack_require__(503)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(505)
+/* template */
+var __vue_template__ = __webpack_require__(511)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4263,13 +4362,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 476:
+=======
+/***/ 503:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(477);
+=======
+var content = __webpack_require__(504);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4290,7 +4397,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 477:
+=======
+/***/ 504:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4305,12 +4416,20 @@ exports.push([module.i, "\n.card[data-v-0ba9d5c1] {\n    border: 1px solid trans
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 478:
+=======
+/***/ 505:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Replay_vue__ = __webpack_require__(479);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Replay_vue__ = __webpack_require__(506);
+>>>>>>> ari
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Replay_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Replay_vue__);
 //
 //
@@ -4391,12 +4510,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 479:
+=======
+/***/ 506:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
+<<<<<<< HEAD
   __webpack_require__(480)
 }
 var normalizeComponent = __webpack_require__(3)
@@ -4404,6 +4528,15 @@ var normalizeComponent = __webpack_require__(3)
 var __vue_script__ = __webpack_require__(482)
 /* template */
 var __vue_template__ = __webpack_require__(483)
+=======
+  __webpack_require__(507)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(509)
+/* template */
+var __vue_template__ = __webpack_require__(510)
+>>>>>>> ari
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -4443,13 +4576,21 @@ module.exports = Component.exports
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 480:
+=======
+/***/ 507:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
+<<<<<<< HEAD
 var content = __webpack_require__(481);
+=======
+var content = __webpack_require__(508);
+>>>>>>> ari
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -4470,7 +4611,11 @@ if(false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 481:
+=======
+/***/ 508:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4485,7 +4630,11 @@ exports.push([module.i, "\n.bg-grey[data-v-088457c6] {\n    background: #fafafa;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 482:
+=======
+/***/ 509:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4697,7 +4846,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 483:
+=======
+/***/ 510:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5058,7 +5211,11 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 484:
+=======
+/***/ 511:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5208,7 +5365,11 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 485:
+=======
+/***/ 512:
+>>>>>>> ari
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -5280,11 +5441,15 @@ if (false) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 486:
+=======
+/***/ 513:
+>>>>>>> ari
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(126);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -5294,34 +5459,6 @@ if (false) {
         });
     }
 });
-
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
 
 /***/ }),
 

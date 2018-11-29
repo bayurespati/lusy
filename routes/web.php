@@ -226,6 +226,18 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
+        | A D M I N   A B O U T   T I M E L I N E   R O U T E S
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('/timeline', 'TimelineController@index')->name('admin.about.timeline');
+        Route::get('/data/timeline', 'TimelineController@loadTimelines');
+        Route::post('/add/timeline', 'TimelineController@store');
+        Route::patch('/update/timeline/{timeline}', 'TimelineController@update');
+        Route::delete('/delete/timeline/{timeline}', 'TimelineController@destroy');
+
+        /*
+        |--------------------------------------------------------------------------
         | A D M I N   A B O U T   S H O W C A S E   G A L L E R Y
         |--------------------------------------------------------------------------
         |

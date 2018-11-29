@@ -104,8 +104,6 @@ export const store = new Vuex.Store({
 
         update_galllery({commit}, updatedGallery) {
 
-            console.log(updatedGallery);
-
             return new Promise((resolve, reject) => {
 
                 axios.patch('update/list/' + updatedGallery.id, {
