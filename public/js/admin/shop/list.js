@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 376);
+/******/ 	return __webpack_require__(__webpack_require__.s = 377);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -519,7 +519,7 @@ module.exports = Component.exports
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(403);
 
 
 
@@ -2217,20 +2217,20 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 376:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(377);
+module.exports = __webpack_require__(378);
 
 
 /***/ }),
 
-/***/ 377:
+/***/ 378:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue__ = __webpack_require__(379);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_List_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
@@ -2265,19 +2265,19 @@ var admin = new Vue({
 
 /***/ }),
 
-/***/ 378:
+/***/ 379:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(379)
+  __webpack_require__(380)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(381)
+var __vue_script__ = __webpack_require__(382)
 /* template */
-var __vue_template__ = __webpack_require__(401)
+var __vue_template__ = __webpack_require__(402)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2317,33 +2317,6 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 379:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(380);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("646a6ec2", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb763182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
-     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb763182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
 /***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2373,6 +2346,33 @@ exports.default = _default;
 /***/ 380:
 /***/ (function(module, exports, __webpack_require__) {
 
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(381);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("646a6ec2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb763182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb763182\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 381:
+/***/ (function(module, exports, __webpack_require__) {
+
 exports = module.exports = __webpack_require__(1)(false);
 // imports
 
@@ -2385,14 +2385,14 @@ exports.push([module.i, "\n.slide-enter[data-v-fb763182] {\n        opacity: 0;\
 
 /***/ }),
 
-/***/ 381:
+/***/ 382:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddShop_vue__ = __webpack_require__(382);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddShop_vue__ = __webpack_require__(383);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddShop_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddShop_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Shop_vue__ = __webpack_require__(389);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Shop_vue__ = __webpack_require__(390);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Shop_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Shop_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2454,20 +2454,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 382:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(383)
-  __webpack_require__(385)
+  __webpack_require__(384)
+  __webpack_require__(386)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(387)
+var __vue_script__ = __webpack_require__(388)
 /* template */
-var __vue_template__ = __webpack_require__(388)
+var __vue_template__ = __webpack_require__(389)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2507,13 +2507,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 383:
+/***/ 384:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(384);
+var content = __webpack_require__(385);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2534,7 +2534,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 384:
+/***/ 385:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2549,13 +2549,13 @@ exports.push([module.i, "\n::-webkit-input-placeholder {\n   \t\ttext-align: cen
 
 /***/ }),
 
-/***/ 385:
+/***/ 386:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(386);
+var content = __webpack_require__(387);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2576,7 +2576,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 386:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2591,7 +2591,7 @@ exports.push([module.i, "\n.card[data-v-40e802a6] {\n\tdisplay: inline-block;\n\
 
 /***/ }),
 
-/***/ 387:
+/***/ 388:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2931,7 +2931,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
-/***/ 388:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -3615,19 +3615,45 @@ if (false) {
 
 /***/ }),
 
-/***/ 389:
+/***/ 39:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(0);
+
+var _default = function _default(max) {
+  return (0, _common.withParams)({
+    type: 'maxValue',
+    max: max
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value <= +max;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(390)
+  __webpack_require__(391)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(392)
+var __vue_script__ = __webpack_require__(393)
 /* template */
-var __vue_template__ = __webpack_require__(400)
+var __vue_template__ = __webpack_require__(401)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3667,39 +3693,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 39:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _common = __webpack_require__(0);
-
-var _default = function _default(max) {
-  return (0, _common.withParams)({
-    type: 'maxValue',
-    max: max
-  }, function (value) {
-    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value <= +max;
-  });
-};
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ 390:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(391);
+var content = __webpack_require__(392);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3720,7 +3720,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 391:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -3735,12 +3735,12 @@ exports.push([module.i, "\n.card[data-v-1d7b2597] {\n    border: 1px solid trans
 
 /***/ }),
 
-/***/ 392:
+/***/ 393:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditShop_vue__ = __webpack_require__(393);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditShop_vue__ = __webpack_require__(394);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditShop_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditShop_vue__);
 //
 //
@@ -3872,20 +3872,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 393:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(394)
-  __webpack_require__(396)
+  __webpack_require__(395)
+  __webpack_require__(397)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(398)
+var __vue_script__ = __webpack_require__(399)
 /* template */
-var __vue_template__ = __webpack_require__(399)
+var __vue_template__ = __webpack_require__(400)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -3925,13 +3925,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 394:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(395);
+var content = __webpack_require__(396);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3952,7 +3952,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 395:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -3967,13 +3967,13 @@ exports.push([module.i, "\n::-webkit-input-placeholder,\n:-moz-placeholder, /* F
 
 /***/ }),
 
-/***/ 396:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(397);
+var content = __webpack_require__(398);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -3994,7 +3994,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 397:
+/***/ 398:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -4009,7 +4009,7 @@ exports.push([module.i, "\n.bg-grey[data-v-31aebd7e] {\n    background: #fafafa;
 
 /***/ }),
 
-/***/ 398:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4403,964 +4403,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     }
 });
-
-/***/ }),
-
-/***/ 399:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    {
-      attrs: {
-        enterActiveClass: "fade-in-down",
-        leaveActiveClass: "fade-out-up",
-        mode: "out-in"
-      }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
-          attrs: { id: "edit_shop" }
-        },
-        [
-          _c("div", { staticClass: "panel-body" }, [
-            _c("h3", { staticClass: "text-center mb-3" }, [
-              _vm._v("Edit "),
-              _c("strong", [_vm._v(_vm._s(_vm.shop.title))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "title" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Name\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.title,
-                          expression: "input.title"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.title.$error
-                      },
-                      attrs: {
-                        id: "title",
-                        type: "text",
-                        placeholder: _vm.shop.title
-                      },
-                      domProps: { value: _vm.input.title },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.input, "title", $event.target.value)
-                          },
-                          function($event) {
-                            _vm.$v.input.title.$touch()
-                          }
-                        ]
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.title.required &&
-                        _vm.$v.input.title.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Title is required\n                            "
-                                )
-                              ]
-                            )
-                          : !_vm.$v.input.title.minLength
-                            ? _c(
-                                "span",
-                                {
-                                  key: "title-minimum",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Title has a minimum of " +
-                                      _vm._s(
-                                        _vm.$v.input.title.$params.minLength.min
-                                      ) +
-                                      " characters\n                            "
-                                  )
-                                ]
-                              )
-                            : !_vm.$v.input.title.maxLength
-                              ? _c(
-                                  "span",
-                                  {
-                                    key: "title-maximum",
-                                    staticClass: "text-danger"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Title has a maximum of " +
-                                        _vm._s(
-                                          _vm.$v.input.title.$params.maxLength
-                                            .max
-                                        ) +
-                                        " characters\n                            "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "sub_title" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Subname\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.sub_title,
-                          expression: "input.sub_title"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.sub_title.$error
-                      },
-                      attrs: {
-                        id: "sub_title",
-                        type: "text",
-                        placeholder: _vm.shop.sub_title
-                      },
-                      domProps: { value: _vm.input.sub_title },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.input,
-                              "sub_title",
-                              $event.target.value
-                            )
-                          },
-                          function($event) {
-                            _vm.$v.input.sub_title.$touch()
-                          }
-                        ]
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.sub_title.required &&
-                        _vm.$v.input.sub_title.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "subname-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Item Subname is required\n                            "
-                                )
-                              ]
-                            )
-                          : !_vm.$v.input.sub_title.minLength
-                            ? _c(
-                                "span",
-                                {
-                                  key: "subname-minimum",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Item Subname has a minimum of " +
-                                      _vm._s(
-                                        _vm.$v.input.sub_title.$params.minLength
-                                          .min
-                                      ) +
-                                      " characters\n                            "
-                                  )
-                                ]
-                              )
-                            : !_vm.$v.input.sub_title.maxLength
-                              ? _c(
-                                  "span",
-                                  {
-                                    key: "subname-maximum",
-                                    staticClass: "text-danger"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Item Subname has a maximum of " +
-                                        _vm._s(
-                                          _vm.$v.input.sub_title.$params
-                                            .maxLength.max
-                                        ) +
-                                        " characters\n                            "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "price" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Price\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.price,
-                          expression: "input.price"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.price.$error
-                      },
-                      attrs: {
-                        id: "price",
-                        type: "number",
-                        placeholder: _vm.shop.price
-                      },
-                      domProps: { value: _vm.input.price },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.input, "price", $event.target.value)
-                          },
-                          function($event) {
-                            _vm.$v.input.price.$touch()
-                          }
-                        ]
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.price.required &&
-                        _vm.$v.input.price.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "price-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            Price is required\n                        "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "stock" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Stock\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.stock,
-                          expression: "input.stock"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.stock.$error
-                      },
-                      attrs: {
-                        id: "stock",
-                        type: "number",
-                        placeholder: _vm.shop.stock
-                      },
-                      domProps: { value: _vm.input.stock },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.input, "stock", $event.target.value)
-                          },
-                          function($event) {
-                            _vm.$v.input.stock.$touch()
-                          }
-                        ]
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.stock.required &&
-                        _vm.$v.input.stock.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "stock-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Stock is required\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-12 d-flex form-group" },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "col-sm-6 col-xs-12 text-center" },
-                    [
-                      _c(
-                        "label",
-                        {
-                          staticClass:
-                            "form-control-label panel-font-small m-0",
-                          attrs: { for: "category" }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Category\n                        "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.category_id,
-                              expression: "category_id"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "form-control-danger": _vm.$v.category_id.$error
-                          },
-                          attrs: { id: "category" },
-                          on: {
-                            input: function($event) {
-                              _vm.$v.category_id.$touch()
-                            },
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.category_id = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            }
-                          }
-                        },
-                        _vm._l(_vm.categories, function(category) {
-                          return _c(
-                            "option",
-                            { domProps: { value: category.id } },
-                            [
-                              _vm._v(
-                                " " +
-                                  _vm._s(category.title) +
-                                  "\n                            "
-                              )
-                            ]
-                          )
-                        })
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "transition",
-                        {
-                          attrs: {
-                            enterActiveClass: "fade-in",
-                            leaveActiveClass: "fade-out",
-                            mode: "out-in"
-                          }
-                        },
-                        [
-                          !_vm.$v.category_id.required &&
-                          _vm.$v.category_id.$dirty
-                            ? _c(
-                                "span",
-                                {
-                                  key: "category-required",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Category is required\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "transition",
-                    {
-                      attrs: {
-                        enterActiveClass: "fade-in-down",
-                        leaveActiveClass: "fade-out-up",
-                        mode: "out-in"
-                      }
-                    },
-                    [
-                      _vm.isMoreOne
-                        ? _c(
-                            "div",
-                            { staticClass: "col-sm-6 col-xs-12 text-center" },
-                            [
-                              _c(
-                                "label",
-                                {
-                                  staticClass:
-                                    "form-control-label panel-font-small m-0",
-                                  attrs: { for: "subcategory" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Subcategory\n                            "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model.lazy",
-                                      value: _vm.input.sub_category_id,
-                                      expression: "input.sub_category_id",
-                                      modifiers: { lazy: true }
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: { id: "subcategory" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.input,
-                                        "sub_category_id",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "", disabled: "" } },
-                                    [_vm._v("Choose Subcategory")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.subcat, function(subcategory) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: subcategory.id } },
-                                      [
-                                        _vm._v(
-                                          " " +
-                                            _vm._s(subcategory.title) +
-                                            " \n                                "
-                                        )
-                                      ]
-                                    )
-                                  })
-                                ],
-                                2
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c("div", { staticClass: "col-sm-12 text-center" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-control-label panel-font-small m-0",
-                      attrs: { for: "description" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            Desciption\n                        "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.description,
-                        expression: "input.description"
-                      }
-                    ],
-                    staticClass:
-                      "form-control form-control-sm normal-placeholder",
-                    attrs: {
-                      id: "description",
-                      rows: "10",
-                      placeholder: _vm.shop.description
-                    },
-                    domProps: { value: _vm.input.description },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.input,
-                            "description",
-                            $event.target.value
-                          )
-                        },
-                        function($event) {
-                          _vm.$v.input.description.$touch()
-                        }
-                      ]
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-sm-12 text-center" },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "link" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Link online shop\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.store_link,
-                          expression: "input.store_link"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.store_link.$error
-                      },
-                      attrs: {
-                        id: "link",
-                        type: "text",
-                        placeholder: _vm.shop.store_link
-                      },
-                      domProps: { value: _vm.input.store_link },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.input, "store_link", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.store_link.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "link-minimum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Link has minimum of " +
-                                    _vm._s(
-                                      _vm.$v.input.store_link.$params.minLength
-                                        .min
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
-                _c("div", { staticClass: "col-sm-12 text-center" }, [
-                  _c("div", { staticClass: "full-width" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "status" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Status Item\n                            "
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.is_displayed,
-                        expression: "input.is_displayed"
-                      }
-                    ],
-                    attrs: { type: "radio", name: _vm.shop.id, value: "1" },
-                    domProps: { checked: _vm._q(_vm.input.is_displayed, "1") },
-                    on: {
-                      change: function($event) {
-                        _vm.$set(_vm.input, "is_displayed", "1")
-                      }
-                    }
-                  }),
-                  _vm._v(" Show\n                        "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.is_displayed,
-                        expression: "input.is_displayed"
-                      }
-                    ],
-                    staticClass: "ml-2",
-                    attrs: { type: "radio", name: _vm.shop.id, value: "0" },
-                    domProps: { checked: _vm._q(_vm.input.is_displayed, "0") },
-                    on: {
-                      change: function($event) {
-                        _vm.$set(_vm.input, "is_displayed", "0")
-                      }
-                    }
-                  }),
-                  _vm._v(" Hide\n                    ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-12 d-flex justify-content-center mt-2" },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary btn-sm",
-                      attrs: { type: "button" },
-                      on: { click: _vm.closeEditForm }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Cancel\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success btn-sm ml-2",
-                      attrs: { disabled: _vm.isRequesting },
-                      on: { click: _vm.editShop }
-                    },
-                    [
-                      _vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]
-                    ],
-                    2
-                  )
-                ]
-              )
-            ])
-          ])
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-31aebd7e", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -6336,6 +5378,964 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    {
+      attrs: {
+        enterActiveClass: "fade-in-down",
+        leaveActiveClass: "fade-out-up",
+        mode: "out-in"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "panel-default panel mt-3 pt-4 bg-grey",
+          attrs: { id: "edit_shop" }
+        },
+        [
+          _c("div", { staticClass: "panel-body" }, [
+            _c("h3", { staticClass: "text-center mb-3" }, [
+              _vm._v("Edit "),
+              _c("strong", [_vm._v(_vm._s(_vm.shop.title))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "title" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Name\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.title,
+                          expression: "input.title"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "form-control-danger": _vm.$v.input.title.$error
+                      },
+                      attrs: {
+                        id: "title",
+                        type: "text",
+                        placeholder: _vm.shop.title
+                      },
+                      domProps: { value: _vm.input.title },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editShop($event)
+                        },
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.input, "title", $event.target.value)
+                          },
+                          function($event) {
+                            _vm.$v.input.title.$touch()
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.title.required &&
+                        _vm.$v.input.title.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "title-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Title is required\n                            "
+                                )
+                              ]
+                            )
+                          : !_vm.$v.input.title.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.input.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "title-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Title has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.title.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "sub_title" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Subname\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.sub_title,
+                          expression: "input.sub_title"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "form-control-danger": _vm.$v.input.sub_title.$error
+                      },
+                      attrs: {
+                        id: "sub_title",
+                        type: "text",
+                        placeholder: _vm.shop.sub_title
+                      },
+                      domProps: { value: _vm.input.sub_title },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editShop($event)
+                        },
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.input,
+                              "sub_title",
+                              $event.target.value
+                            )
+                          },
+                          function($event) {
+                            _vm.$v.input.sub_title.$touch()
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.sub_title.required &&
+                        _vm.$v.input.sub_title.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "subname-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Item Subname is required\n                            "
+                                )
+                              ]
+                            )
+                          : !_vm.$v.input.sub_title.minLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "subname-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Item Subname has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.sub_title.$params.minLength
+                                          .min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.input.sub_title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "subname-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Item Subname has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.sub_title.$params
+                                            .maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "price" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Price\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.price,
+                          expression: "input.price"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "form-control-danger": _vm.$v.input.price.$error
+                      },
+                      attrs: {
+                        id: "price",
+                        type: "number",
+                        placeholder: _vm.shop.price
+                      },
+                      domProps: { value: _vm.input.price },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editShop($event)
+                        },
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.input, "price", $event.target.value)
+                          },
+                          function($event) {
+                            _vm.$v.input.price.$touch()
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.price.required &&
+                        _vm.$v.input.price.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "price-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Price is required\n                        "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-6 col-xs-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "stock" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Stock\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.stock,
+                          expression: "input.stock"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "form-control-danger": _vm.$v.input.stock.$error
+                      },
+                      attrs: {
+                        id: "stock",
+                        type: "number",
+                        placeholder: _vm.shop.stock
+                      },
+                      domProps: { value: _vm.input.stock },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editShop($event)
+                        },
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.input, "stock", $event.target.value)
+                          },
+                          function($event) {
+                            _vm.$v.input.stock.$touch()
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.stock.required &&
+                        _vm.$v.input.stock.$dirty
+                          ? _c(
+                              "span",
+                              {
+                                key: "stock-required",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Stock is required\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-sm-12 d-flex form-group" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "col-sm-6 col-xs-12 text-center" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label panel-font-small m-0",
+                          attrs: { for: "category" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Category\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.category_id,
+                              expression: "category_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "form-control-danger": _vm.$v.category_id.$error
+                          },
+                          attrs: { id: "category" },
+                          on: {
+                            input: function($event) {
+                              _vm.$v.category_id.$touch()
+                            },
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.category_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.categories, function(category) {
+                          return _c(
+                            "option",
+                            { domProps: { value: category.id } },
+                            [
+                              _vm._v(
+                                " " +
+                                  _vm._s(category.title) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        })
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          !_vm.$v.category_id.required &&
+                          _vm.$v.category_id.$dirty
+                            ? _c(
+                                "span",
+                                {
+                                  key: "category-required",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Category is required\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    {
+                      attrs: {
+                        enterActiveClass: "fade-in-down",
+                        leaveActiveClass: "fade-out-up",
+                        mode: "out-in"
+                      }
+                    },
+                    [
+                      _vm.isMoreOne
+                        ? _c(
+                            "div",
+                            { staticClass: "col-sm-6 col-xs-12 text-center" },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "form-control-label panel-font-small m-0",
+                                  attrs: { for: "subcategory" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Subcategory\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model.lazy",
+                                      value: _vm.input.sub_category_id,
+                                      expression: "input.sub_category_id",
+                                      modifiers: { lazy: true }
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "subcategory" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.input,
+                                        "sub_category_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "", disabled: "" } },
+                                    [_vm._v("Choose Subcategory")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.subcat, function(subcategory) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: subcategory.id } },
+                                      [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(subcategory.title) +
+                                            " \n                                "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c("div", { staticClass: "col-sm-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "description" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Desciption\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.input.description,
+                        expression: "input.description"
+                      }
+                    ],
+                    staticClass:
+                      "form-control form-control-sm normal-placeholder",
+                    attrs: {
+                      id: "description",
+                      rows: "10",
+                      placeholder: _vm.shop.description
+                    },
+                    domProps: { value: _vm.input.description },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.input,
+                            "description",
+                            $event.target.value
+                          )
+                        },
+                        function($event) {
+                          _vm.$v.input.description.$touch()
+                        }
+                      ]
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-sm-12 text-center" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "link" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Link online shop\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.store_link,
+                          expression: "input.store_link"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      class: {
+                        "form-control-danger": _vm.$v.input.store_link.$error
+                      },
+                      attrs: {
+                        id: "link",
+                        type: "text",
+                        placeholder: _vm.shop.store_link
+                      },
+                      domProps: { value: _vm.input.store_link },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editShop($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.input, "store_link", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      {
+                        attrs: {
+                          enterActiveClass: "fade-in",
+                          leaveActiveClass: "fade-out",
+                          mode: "out-in"
+                        }
+                      },
+                      [
+                        !_vm.$v.input.store_link.minLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "link-minimum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Link has minimum of " +
+                                    _vm._s(
+                                      _vm.$v.input.store_link.$params.minLength
+                                        .min
+                                    ) +
+                                    " characters\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
+                _c("div", { staticClass: "col-sm-12 text-center" }, [
+                  _c("div", { staticClass: "full-width" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-control-label panel-font-small m-0",
+                        attrs: { for: "status" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Status Item\n                            "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.input.is_displayed,
+                        expression: "input.is_displayed"
+                      }
+                    ],
+                    attrs: { type: "radio", name: _vm.shop.id, value: "1" },
+                    domProps: { checked: _vm._q(_vm.input.is_displayed, "1") },
+                    on: {
+                      change: function($event) {
+                        _vm.$set(_vm.input, "is_displayed", "1")
+                      }
+                    }
+                  }),
+                  _vm._v(" Show\n                        "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.input.is_displayed,
+                        expression: "input.is_displayed"
+                      }
+                    ],
+                    staticClass: "ml-2",
+                    attrs: { type: "radio", name: _vm.shop.id, value: "0" },
+                    domProps: { checked: _vm._q(_vm.input.is_displayed, "0") },
+                    on: {
+                      change: function($event) {
+                        _vm.$set(_vm.input, "is_displayed", "0")
+                      }
+                    }
+                  }),
+                  _vm._v(" Hide\n                    ")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-sm-12 d-flex justify-content-center mt-2" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Cancel\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm ml-2",
+                      attrs: { disabled: _vm.isRequesting },
+                      on: { click: _vm.editShop }
+                    },
+                    [
+                      _vm.isRequesting ? [_vm._v("Saving..")] : [_vm._v("Save")]
+                    ],
+                    2
+                  )
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-31aebd7e", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 401:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card mt-3" }, [
     _c(
       "div",
@@ -6501,7 +6501,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 401:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -6603,7 +6603,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

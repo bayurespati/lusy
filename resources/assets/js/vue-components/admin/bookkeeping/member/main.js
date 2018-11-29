@@ -22,6 +22,8 @@ const admin = new Vue({
         this.$store.dispatch('load_class');
 
         this.$store.dispatch('load_region');
+
+        this.$store.dispatch('load_subscription');
     },
 
     store

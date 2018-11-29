@@ -23,12 +23,12 @@ class MemberController extends Controller
 
         $datas = Member::where('teacher_id', NULL)->with('class','region','rank','subscription')->get();
 
-        $members = [];
+        $membersNoteacher = [];
 
         foreach ($datas as  $member) {
             foreach ($member->class as $class) {
                 if($class['pivot']->is_approve){
-                    array_push($members,$member);
+                    array_push($membersNoteacher,$member);
                     break;
                 }
             }
@@ -36,7 +36,7 @@ class MemberController extends Controller
 
         $teachers = Member::where('is_teacher', 1)->with('student')->get();
 
-        return [$teachers,$members];
+        return [$teachers,$membersNoteacher];
 
         // $members = Member::with('class')->get();
 
@@ -79,6 +79,10 @@ class MemberController extends Controller
         // });
 
         // return $dataMember;
+    }
+
+    public function loadSubscription(){
+        return Subscription::all();
     }
 
     public function loadRank(){

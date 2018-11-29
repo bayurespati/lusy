@@ -33,42 +33,44 @@
 
     <div class="row mt-3">
       <div class="col-12">
-        <select class="form-control" id="sel1">
-          <option>Change the order based on..</option>
-          <option>Subscription Payment</option>
-          <option>Gender</option>
-          <option>Join Date</option>
-          <option>Current Rank</option>
-          <option>Place & Date of Birth</option>
-          <option>Address</option>
-          <option>Telephone</option>
-          <option>Mobile Phone</option>
-          <option>Fax</option>
-          <option>Email</option>
+        <select class="form-control" id="sel1" v-model="type">
+          <option disabled="">Change the order based on..</option>
+          <option value="subscription">Subscription Payment</option>
+          <option value="gender">Gender</option>
+          <option value="join_date">Join Date</option>
+          <option value="rank">Current Rank</option>
+          <option value="date_of_birth">Place & Date of Birth</option>
+          <option value="address">Address</option>
+          <option value="telephone">Telephone</option>
+          <option value="mobile">Mobile Phone</option>
+          <option value="fax">Fax</option>
+          <option value="email">Email</option>
         </select>
       </div>
     </div>
-
-    <div class="row mt-3">
+    
+    <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="in-out">
+    <div class="row mt-3" v-if="isSubscription">
       <div class="col-12 form-group">
-        <select class="form-control" id="sel1">
-          <option>Choose year..</option>
-          <option>2018</option>
-          <option>2017</option>
-          <option>2016</option>
-          <option>2015</option>
-          <option>2014</option>
-          <option>2013</option>
-          <option>2012</option>
+        <select class="form-control" id="sel1"  v-model="yearSubs">
+          <option value="" disabled="">Choose year..</option>
+          <option :value="year.year" v-for="year in showYeas"> {{ year.year }}</option>
+          <!-- <option value="2017">2017</option> -->
+          <!-- <option value="2016">2016</option> -->
+          <!-- <option value="2015">2015</option> -->
+          <!-- <option value="2014">2014</option> -->
+          <!-- <option value="2013">2013</option> -->
+          <!-- <option value="2012">2012</option> -->
         </select>
       </div>
-    </div>
+  </div>
+    </transition>
   
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
           <member v-for="member in showMember"
-          :member="member"
+          :member="member" :type="type" :yearSubs="yearSubs"
           :key="member.id">
           </member>
         </transition-group>
@@ -80,7 +82,7 @@
       <div class="col-md-12">
         <transition-group name="slide">
           <teacher v-for="teacher in teachers"
-          :teacher="teacher" :status="active"
+          :teacher="teacher" :status="active" :type="type" :yearSubs="yearSubs"
           :key="teacher.id">
           </teacher>
         </transition-group>
@@ -100,7 +102,9 @@
     data(){
       return{
         isAddMember : false,
-        active: 1
+        active: 1,
+        type: 'email',
+        yearSubs: ''
       }
     },
 
@@ -113,12 +117,23 @@
     computed:{
         ...mapGetters({
             teachers : 'getTeachers',
-            members : 'getStudentNoTeacher'
+            members : 'getStudentNoTeacher',
+            subscriptions : 'getSubscription'
         }),
 
-        showMember(){
-          return _.filter(this.members,['is_active', this.active ])
+        showYeas(){
+          return _.unionBy(this.subscriptions,'year')
         },
+
+        showMember(){
+          const tempType = this.type === 'subscription' ? 'email' : this.type;
+
+          return _.sortBy(_.filter(this.members,['is_active', this.active ]), [tempType]);
+        },
+
+        isSubscription(){
+          return this.type == 'subscription';
+        }
     },
 
     methods:{

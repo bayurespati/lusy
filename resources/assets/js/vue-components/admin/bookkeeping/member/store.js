@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
         studentNoTeacher:{},
         rank:{},
         classList:{},
-        regionList: {}
+        regionList: {},
+        subscription: {}
     },
 
 
@@ -36,7 +37,12 @@ export const store = new Vuex.Store({
 
         getRegions: state => {
             return state.regionList;
+        },
+
+        getSubscription: state => {
+            return state.subscription;
         }
+
     },
 
 
@@ -60,6 +66,10 @@ export const store = new Vuex.Store({
 
         set_region: (state, regionList) =>{
             state.regionList = regionList;
+        },
+
+        set_subscription: (state, subscription) =>{
+            state.subscription = subscription;  
         },
 
         edit_member(state, member){
@@ -227,6 +237,13 @@ export const store = new Vuex.Store({
             axios.get('/admin/bookkeeping/data/region')
                 .then(response =>{
                     commit('set_region',response.data);
+                });
+        },
+
+        load_subscription: ({commit}) => {
+            axios.get('/admin/bookkeeping/data/subscription')
+                .then(response =>{
+                    commit('set_subscription',response.data);
                 });
         },
 

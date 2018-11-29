@@ -40,7 +40,7 @@
         <transition-group name="slide" mode="out-in">
           <member v-for="member in showMember"
                   :member="member" v-if="isShow"
-                  :teacherId="teacher.id"
+                  :teacherId="teacher.id" :type="type" :yearSubs="yearSubs"
                   :key="member.id">
           </member>
         </transition-group>
@@ -49,7 +49,7 @@
 <script>
     import Member from './Member.vue';
     export default{
-        props:{teacher:{}, status:''},
+        props:{teacher:{}, status:'' , type:'', yearSubs:''},
 
         data(){
             return{
@@ -68,7 +68,10 @@
             },
 
             showMember(){
-              return _.filter(this.teacher.student,['is_active', this.status ])
+
+              const tempType = this.type === 'subscription' ? 'email' : this.type;
+
+              return _.sortBy(_.filter(this.teacher.student,['is_active', this.status ]), [tempType]);
             },
         },
 
