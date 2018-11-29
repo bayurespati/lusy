@@ -67,6 +67,18 @@ mix.styles([
 
 /*
  |--------------------------------------------------------------------------
+ | T I M E L I N E   C S S
+ |--------------------------------------------------------------------------
+ |
+ |
+ */
+mix.styles('resources/assets/css/timeline.css', 'public/css/timeline.css');
+
+
+
+
+/*
+ |--------------------------------------------------------------------------
  | B A S E   C S S
  |--------------------------------------------------------------------------
  |
@@ -97,6 +109,20 @@ mix.styles([
 mix.scripts([
 	'resources/assets/js/croppie.min.js',
 ], 'public/js/croppie.js');
+
+
+
+/*
+ |--------------------------------------------------------------------------
+ | T I M E L I N E   J S
+ |--------------------------------------------------------------------------
+ |
+ |
+ */
+mix.scripts([
+    'resources/assets/js/timeline.min.js',
+], 'public/js/timeline.js');
+
 
 
 
@@ -168,6 +194,9 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-components/admin/about/classes/main.js',
 ], 'public/js/admin/about/classes.js');
+mix.js([
+    'resources/assets/js/vue-components/admin/about/timeline/main.js',
+], 'public/js/admin/about/timeline.js');
 mix.js([
     'resources/assets/js/vue-components/admin/about/gallery-showcase/main.js',
 ], 'public/js/admin/about/gallery_showcase.js');
