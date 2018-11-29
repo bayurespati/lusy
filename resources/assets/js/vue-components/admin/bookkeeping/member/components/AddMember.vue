@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="card text-center">
 				<div class="col-md-12">
-					<h4 class="title mb-5">Add New <strong>Member</strong></h4>
+					<h4 class="title mb-5">Add New <strong>Member Data</strong></h4>
 				</div>
 
 				<div class="col-md-12 d-flex">
@@ -43,6 +43,16 @@
 							<input type="radio" name="gender"  
 							       value=0 v-model="input.gender" class="ml-2"> Female
 						</div>
+
+						<!--======================================================================================
+							V A L I D A T I O N     E R R O R   M E S S A G E S
+							======================================================================================-->
+						<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+							<span key="gender-required" class="text-danger" 
+							v-if="!$v.input.gender.required && $v.input.gender.$dirty">
+								Gender is required
+							</span>
+						</transition>
 					</div>
 				</div>
 
@@ -54,7 +64,7 @@
 							@input="$v.input.place_of_birth.$touch()"
 							class="form-control" id="place_of_birth"
 							:class="{'form-control-danger': $v.input.place_of_birth.$error}"
-							placeholder="place of birth">
+							placeholder="Place of Birth">
 
 							<!--======================================================================================
                             	V A L I D A T I O N     E R R O R   M E S S A G E S
@@ -75,7 +85,7 @@
 							v-model="input.date_of_birth" 
 							@input="$v.input.date_of_birth.$touch()"
 							:class="{'form-control-danger': $v.input.date_of_birth.$error}"
-							placeholder="Date of birth">
+							placeholder="Date of Birth">
 							</datetime>
 
 							<!--======================================================================================
@@ -127,6 +137,29 @@
 							v-model="input.fax" 
 							class="form-control" id="fax"
 							placeholder="Fax">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12 d-flex">
+					<div class="col-md-12">
+						<div class="form-group text-center mb-3">
+							<input type="text" 
+							v-model="input.address"
+							@input="$v.input.address.$touch()"
+							:class="{'form-control-danger': $v.input.address.$error}"
+							class="form-control" id="address" 
+							placeholder="Address">
+
+							<!--======================================================================================
+                            	V A L I D A T I O N     E R R O R   M E S S A G E S
+                            	======================================================================================-->
+                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            	<span key="address-required" class="text-danger" 
+                            	v-if="!$v.input.address.required && $v.input.address.$dirty">
+                            		Address is required
+                        		</span>
+                    		</transition>
 						</div>
 					</div>
 				</div>
@@ -208,82 +241,12 @@
 			</div>
 
 			<div class="card text-center">
-				<div class="col-md-12"><h4 class="title mb-5">Ranks</h4></div>
-
-				<transition-group name="slide">
-					<div class="col-md-12 d-flex" v-for="(rank, index) in rankData" :key="index">
-						<div class="col-md-5">
-							<p> {{rank.title}}  </p>
-						</div>
-						<div class="col-md-5">
-							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
-						</div>
-						<div class="col-md-2" v-if="index == (limit - 1)">
-							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
-						</div>
-					</div>
-				</transition-group>
-
-				<div class="col-md-12 d-flex">
-					<template v-for="(rank, index) in ranks" v-if="index == limit">
-						<div class="col-md-4">
-							<p> {{rank.title}} </p>
-						</div>
-						<div class="col-md-4">
-							<datetime type="date" v-model="temp_annointed_date"></datetime>
-						</div>
-						<div class="col-md-2">
-							<button class="btn btn-success btn-sm" @click="add_rank(index)">Add</button>
-						</div>
-					</template>
-				</div>
-			</div>
-
-			<div class="card text-center">
-				<div class="col-md-12 d-flex">
-					<div class="col-md-5">
-						<p> Subscription </p>
-					</div>
-					<div class="col-md-5">
-						<div class="form-group text-center mb-3">
-							<input type="number" 
-								   @input="$v.year.$touch()"
-								   :class="{'form-control-danger': $v.year.$error}"
-								   placeholder="input years" v-model="year">
-						</div>
-						<!--======================================================================================
-                            V A L I D A T I O N     E R R O R   M E S S A G E S
-                            ======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="year-minimum" class="text-danger" v-if="!$v.year.minLength">
-                            		Year must has of {{ $v.year.$params.minLength.min }} characters
-                            	</span>
-                            	<span key="year-maximum" class="text-danger" v-if="!$v.year.maxLength">
-                            		Year must has of {{ $v.year.$params.maxLength.max }} characters
-                        		</span>
-                    		</transition>
-					</div>
-					<div class="col-md-2">
-						<button class="btn btn-success btn-sm" @click="add_subscription()">Add</button>
-					</div>
-				</div>
-				<div class="col-md-12 d-flex">
-					<div v-for="(list, index) in subscription">
-						<p>{{ list }} 
-							<span @click="delete_year(index)" 
-								  class="badge badge-danger" style="cursor: pointer">X</span> 
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="card text-center">
 				<div class="col-md-12">
-					<h4 class="title mb-5">Class</h4>
+					<h4 class="title mb-5">Add <strong>Classes</strong></h4>
 				</div>
 				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<select class="form-control" id="calss-list"
+					<div class="col-md-12">
+						<select class="form-control" id="class-list"
 								:class="{'form-control-danger':isHasClass }"
 							    v-model="classItem">
 				    	<option value='' disabled="">Choose Class</option>
@@ -298,55 +261,136 @@
                     			</span>
                 			</transition>
 					</div>
+				</div>
 
-					<div class="col-md-6">
-						<button type="button" @click="add_class" class="btn btn-success btn-sm">
-							Add Class
-						</button>
+				<div class="col-md-12 d-flex justify-content-center">
+					<transition-group enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+						<div :key="'chosen-class-' + index" v-for="(list, index) in classData" style="display: inline-block">
+							<p class="mr-3 mb-0 d-flex align-items-center">{{ list.title }}
+								<span @click="delete_class(index)" 
+								class="badge badge-danger ml-1" 
+								style="cursor: pointer">
+									X
+								</span> 
+							</p>
+						</div>
+					</transition-group>
+				</div>
+
+				<div class="col-md-12 d-flex justify-content-center mt-2">
+					<button type="button" @click="add_class" class="btn btn-success btn-sm">
+						Add Class
+					</button>
+				</div>
+			</div>
+
+			<div class="card text-center">
+				<div class="col-md-12"><h4 class="title mb-5">Add <strong>Ranks</strong></h4></div>
+
+				<transition-group class="col-12 p-0" name="slide">
+					<div class="col-md-12 d-flex mb-2" v-for="(rank, index) in rankData" :key="index">
+						<div class="col-md-3 col-sm-5 d-flex justify-content-center align-items-center">
+							<p class="m-0"> {{rank.title}}  </p>
+						</div>
+						<div class="col-md-8 col-sm-5">
+							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
+						</div>
+						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center" v-if="index == (limit - 1)">
+							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
+						</div>
+					</div>
+				</transition-group>
+
+				<transition-group class="col-12 p-0" name="slide">
+					<div v-for="(rank, index) in ranks" v-if="index == limit" class="col-md-12 mb-2 d-flex justify-content-center" :key="index">
+						<div class="col-md-3 col-sm-5 d-flex justify-content-center align-items-center">
+							<p class="m-0"> {{rank.title}} </p>
+						</div>
+						<div class="col-md-8 col-sm-5">
+							<datetime type="date" v-model="temp_annointed_date" placeholder="Starting Date"></datetime>
+						</div>
+						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center">
+							<button class="btn btn-success btn-sm" @click="add_rank(index)">Add</button>
+						</div>
+					</div>
+				</transition-group>
+			</div>
+
+			<div class="card text-center">
+				<div class="col-md-12"><h4 class="title mb-5">Add <strong>Subscription Records</strong></h4></div>
+
+				<div class="col-md-12 d-flex">
+					<div class="col-md-12">
+						<input type="number" 
+						@input="$v.year.$touch()"
+						class="form-control" 
+						:class="{'form-control-danger': $v.year.$error}"
+						placeholder="Input Years" v-model="year">
+
+						<!--======================================================================================
+							V A L I D A T I O N     E R R O R   M E S S A G E S
+							======================================================================================-->
+						<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+							<span key="year-minimum" class="text-danger" v-if="!$v.year.minLength">
+								Year must has of {{ $v.year.$params.minLength.min }} characters
+							</span>
+							<span key="year-maximum" class="text-danger" v-if="!$v.year.maxLength">
+								Year must has of {{ $v.year.$params.maxLength.max }} characters
+							</span>
+						</transition>
 					</div>
 				</div>
 
-				<div class="col-md-12 d-flex">
-					<div v-for="(list, index) in classData">
-						<p>{{ list.title }}
-							<span @click="delete_class(index)" 
-								  class="badge badge-danger" 
-								  style="cursor: pointer">X
-							</span> 
-						</p>
-					</div>
+				<div class="col-md-12 row mr-0 ml-0 mt-4 mb-2" v-if="subscription.length > 0">
+					<transition-group class="col-12 row m-0" appear enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+						<div :key="'subscription-year-' + index" class="col-md-2 col-sm-6" v-for="(list, index) in subscription">
+							<p class="m-0 d-flex align-items-center justify-content-center">
+								{{ list }} 
+								<span @click="delete_year(index)" 
+								class="badge badge-danger ml-1" style="cursor: pointer">
+									X
+								</span> 
+							</p>
+						</div>
+					</transition-group>
+				</div>
+
+				<div class="col-md-12 d-flex justify-content-center mt-2">
+					<button class="btn btn-success btn-sm" @click="add_subscription()">Add Subscription Year</button>
 				</div>
 			</div>
 
 			<div class="card text-center">
 				<div class="col-md-12">
-					<h4 class="title mb-5">Class Region</h4>
+					<h4 class="title mb-5">Add <strong>Class Regions</strong></h4>
 				</div>
 				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
-						<select class="form-control" id="calss-region" 
-							    v-model="region">
-				    	<option value='' disabled="">Choose Class Region</option>
-					    <option v-for="region in regions" :value=region>{{ region.name }}</option>
-				    </select>
-					</div>
-
-					<div class="col-md-6">
-						<button type="button" @click="add_region" class="btn btn-success btn-sm">
-							Add Region
-						</button>
+					<div class="col-md-12">
+						<select class="form-control" id="class-region" v-model="region">
+							<option value='' disabled="">Choose Class Region</option>
+							<option v-for="region in regions" :value=region>{{ region.name }}</option>
+						</select>
 					</div>
 				</div>
 
-				<div class="col-md-12 d-flex">
-					<div v-for="(list, index) in classRegion">
-						<p>{{ list.name }}
-							<span @click="delete_region(index)" 
-								  class="badge badge-danger" 
-								  style="cursor: pointer">X
-							</span> 
-						</p>
-					</div>
+				<div class="col-md-12 d-flex justify-content-center">
+					<transition-group enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+						<div :key="'class-region-' + index" v-for="(list, index) in classRegion" style="display: inline-block">
+							<p class="mr-3 mb-0 d-flex align-items-center">{{ list.name }}
+								<span @click="delete_region(index)" 
+								class="badge badge-danger ml-1" 
+								style="cursor: pointer">
+									X
+								</span> 
+							</p>
+						</div>
+					</transition-group>
+				</div>
+
+				<div class="col-md-12 d-flex justify-content-center mt-2">
+					<button type="button" @click="add_region" class="btn btn-success btn-sm">
+						Add Class Region
+					</button>
 				</div>
 			</div>
 
@@ -393,6 +437,7 @@
 					gender: '',
 					place_of_birth: '',
 					date_of_birth: '',
+					address: '',
 					join_date: '',
 					email: '',
 					telephone: '',
@@ -422,6 +467,9 @@
                 },
                 place_of_birth: {
                     required,
+                },
+                address: {
+                	required,
                 },
                 date_of_birth: {
                 	required,
@@ -465,6 +513,7 @@
 					&& this.input.name.length <= 50
 					&& this.input.gender != ''
 					&& this.input.place_of_birth != ''
+					&& this.input.address != ''
 					&& this.input.email != ''
 					&& this.input.email.length >= 3
 					&& this.input.email.length <= 50
@@ -616,6 +665,7 @@
                 this.$v.input.gender.$touch();
                 this.$v.input.place_of_birth.$touch();
                 this.$v.input.date_of_birth.$touch();
+                this.$v.input.address.$touch();
                 this.$v.input.email.$touch();
                 this.$v.input.telephone.$touch();
                 this.$v.classData.$touch();
