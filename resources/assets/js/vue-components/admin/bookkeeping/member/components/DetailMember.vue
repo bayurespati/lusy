@@ -1,0 +1,345 @@
+<template>
+
+    <transition enterActiveClass="fade-in-down"leaveActiveClass="fade-out-up"mode="out-in">
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_sosmed">
+            <div class="panel-body" v-if="!isEdit">
+                <h3 class="text-center font-weight-bold">member {{ member.name }}</h3>
+
+                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+
+                    <div class="col-6">
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 col-xs-12 d-flex align-items-center justify-content-end">
+                                <label for="nama"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Name
+                                </label>
+                            </div>
+                            
+                            <div class="col-sm-8 col-xs-12">
+                                {{ member.name }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="gender"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Gender
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.gender == 1 ? 'Men' : 'Women' }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="address"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Place of birth
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.place_of_birth }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="address"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Date of birth
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.date_of_birth | date }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="state_province"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Teacher
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ teacherName }}
+                            </div>
+                        </div>
+
+                     </div>
+
+                    <div class="col-6">
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="address"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Email
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.email }}
+                            </div>
+                        </div>
+
+                       <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="email"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Telephone
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.telephone }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="city"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Mobile
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.mobile }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="state_province"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Fax
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.fax }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <label for="state_province"
+                                class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Type
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-8">
+                                {{ member.is_teacher | type }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Class
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-10 row d-flex">
+                                <div v-for="classList in member.class" class="mr-1 mb-1">
+                                     - {{ classList.title }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Rank
+                                </label>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-10 row d-flex">
+                                <div v-for="rank in member.rank" class="mr-2 mb-2"
+                                    style="border-right: 1px #d7d6d6 solid; padding: 0 10px 0 0; width: 100px">
+                                    <p style="margin-bottom: -4px; color: #5e5b5b; font-size: 0.9em">
+                                        {{ rank.title }}
+                                    </p>
+                                    <span style="font-size: 12px; color: grey"> 
+                                        {{ rank.pivot.annointed_date }} 
+                                    </span> 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Subscription
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-10 row d-flex">
+                                <div v-for="subscription in member.subscription" class="mr-1 mb-1"
+                                     style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
+                                    {{ subscription.year }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Class Region
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-10 row d-flex">
+                                <div v-for="region in member.region" class="mr-1 mb-1"
+                                     style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
+                                    {{ region.name }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-sm-12 d-flex justify-content-center mt-3 pl-2">
+                        <button type="button" 
+                                class="btn btn-secondary btn-sm"
+                                @click="closemember">
+                            Close
+                        </button>
+                        <button type="button" 
+                                class="btn btn-success btn-sm ml-2"
+                                @click="shoeEdit()">
+                            Edit
+                        </button>
+                        <button type="button" 
+                                class="btn btn-danger btn-sm ml-2"
+                                @click="deleteMember">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <edit-member v-if="isEdit" :member="member" :teacherId="teacherId"
+                    @closeEditMember="isEdit = $event">
+                </edit-member>
+            </div>
+        </div>
+    </transition>
+</template>
+
+<script>
+    import {mapGetters} from 'vuex';
+    import EditMember from './EditMember.vue'
+    export default{
+        props:{member:{},teacherId:'', type:''},
+
+        data(){
+            return{
+                isRequesting: false,
+                isEdit: false,
+            }
+        },
+
+        components:{
+            EditMember,
+        },
+
+        computed:{
+            ...mapGetters({
+                teachers: 'getTeachers'
+            }),
+
+            teacherName(){
+                if(this.teacherId === undefined){
+                    return 'No have'
+                }
+                return _.find(this.teachers,['id', this.teacherId]).name;
+            }
+        },
+
+        filters: {
+            date: function (value) {
+                return value.slice(0,10);
+            },
+
+            type: function (value){
+
+                return value === 0 ? 'Student' : 'Teacher';
+            }
+        },
+
+        methods:{
+
+            shoeEdit(){
+                this.isEdit = !this.isEdit;
+            },
+
+            deleteMember() {
+
+                const self = this;
+
+                if(self.isRequesting = true){
+
+                    self.isRequesting = true;
+
+                    this.$store.dispatch('destroy_item', {
+                        class_id: self.member.class_id,
+                        member_id: self.member.id,
+                    })
+                    .then(() => {
+
+                        flash('Member has been rejected', 'danger');
+
+                        self.isRequesting = false;
+
+                    })
+                    .catch(errors => {
+
+                        self.isRequesting = false;
+
+                    });
+                }
+            },
+
+            closemember() {
+                this.$emit('closeDetailMember', false);
+            }
+        }
+    };
+</script>
+
+<style scoped>
+    .bg-grey {
+        background: #fafafa;
+    }
+
+    .panel-font-small {
+        font-size: 0.9rem;
+    }
+</style>

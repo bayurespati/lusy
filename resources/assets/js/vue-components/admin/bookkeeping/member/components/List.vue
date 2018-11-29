@@ -55,12 +55,6 @@
         <select class="form-control" id="sel1"  v-model="yearSubs">
           <option value="" disabled="">Choose year..</option>
           <option :value="year.year" v-for="year in showYeas"> {{ year.year }}</option>
-          <!-- <option value="2017">2017</option> -->
-          <!-- <option value="2016">2016</option> -->
-          <!-- <option value="2015">2015</option> -->
-          <!-- <option value="2014">2014</option> -->
-          <!-- <option value="2013">2013</option> -->
-          <!-- <option value="2012">2012</option> -->
         </select>
       </div>
   </div>
