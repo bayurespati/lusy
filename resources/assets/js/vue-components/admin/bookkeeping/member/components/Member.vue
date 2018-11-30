@@ -53,7 +53,7 @@
 
                     <div class="col-12">
                         <detail-member v-if="isDetail" :member="member" :teacherId="teacherId"
-                            @closeDetailMember="isDetail = $event">
+                            @closeDetailMember="isDetail = $event" @showDeactivateModal="showDeactivateModal">
                         </detail-member>
                     </div>
                 </div>
@@ -109,11 +109,19 @@
 
                 }else if(this.type === 'fax'){
 
-                    return { name: 'Fax', value: this.member.fax }
+                    if(this.member.fax === null){
+                        return { name: 'Fax', value: 'No fax number yet' }
+                    }else{
+                        return { name: 'Fax', value: this.member.fax }
+                    }
 
                 }else if(this.type === 'mobile'){
-
-                    return { name: 'Mobile Phone', value: this.member.mobile }
+                    
+                    if(this.member.mobile === null){
+                        return { name: 'Mobile Phone', value: 'No mobile number yet' }
+                    }else{
+                        return { name: 'Mobile Phone', value: this.member.mobile }
+                    }
 
                 }else if(this.type === 'telephone'){
 
@@ -122,7 +130,7 @@
                 }else if(this.type === 'join_date'){
 
                     if(this.member.join_date === null){
-                        return { name: 'Join date', value: 'Not yet' }
+                        return { name: 'Join date', value: 'No join date yet' }
                     }else{
                         return { name: 'Join date', value: this.member.join_date.substring(0,10) }
                     }
@@ -134,7 +142,7 @@
                 }else if(this.type === 'rank'){
 
                     if(this.member.rank.length === 0){
-                        return { name: 'Rank', value: 'Not yet' }
+                        return { name: 'Rank', value: 'No ranks yet' }
                     }else{
                         return { name: 'Rank', value: this.member.rank[this.member.rank.length - 1].title }
                     }
@@ -155,12 +163,12 @@
                 }else if(this.type === 'subscription'){
 
                     if(this.yearSubs === ''){
-                        return { name: 'Subscription', value: 'Chose Years' }
+                        return { name: 'Subscription', value: 'Choose Years' }
                     }else{
                         const hasYears =  _.find(this.member.subscription,['year',this.yearSubs]);
                         return { 
                             name: 'Subscription', 
-                            value: hasYears === undefined ? 'Not yet paid' : 'Already Paid'
+                            value: hasYears === undefined ? 'Not yet' : 'Paid'
                         }
                     }
                 }
@@ -190,6 +198,10 @@
                         self.isRequesting = false;
                     })
                 }
+            },
+
+            showDeactivateModal(){
+                this.$emit('showDeactivateModal', this.member);
             },
         }
     };

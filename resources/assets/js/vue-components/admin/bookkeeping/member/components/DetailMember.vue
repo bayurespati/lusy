@@ -1,9 +1,9 @@
 <template>
-
     <transition enterActiveClass="fade-in-down"leaveActiveClass="fade-out-up"mode="out-in">
-        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_sosmed">
-            <div class="panel-body" v-if="!isEdit">
-                <h3 class="text-center font-weight-bold">member {{ member.name }}</h3>
+    <div>
+        <div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_sosmed" v-if="!isEdit">
+            <div class="panel-body">
+                <h3 class="text-center"><strong>{{ member.name }}</strong> Detail</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 
@@ -59,12 +59,15 @@
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
                                 <label class="form-control-label font-weight-bold panel-font-small m-0">
-                                    Teacher
+                                    Join Date
                                 </label>
                             </div>
                         
-                            <div class="col-sm-8">
-                                {{ teacherName }}
+                            <div class="col-sm-8" v-if="member.join_date != null">
+                                {{ member.join_date | date }}
+                            </div>
+                            <div class="col-sm-8" v-else>
+                                None
                             </div>
                         </div>
 
@@ -135,6 +138,21 @@
                     </div>
 
                     <div class="col-12">
+                        
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
+                                <label class="form-control-label font-weight-bold panel-font-small m-0">
+                                    Teacher
+                                </label>
+                            </div>
+                        
+                            <div class="col-sm-10 pl-1">
+                                {{ teacherName }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
 
                          <div class="col-sm-12 row form-group">
                             <div class="col-sm-2 d-flex align-items-center justify-content-end">
@@ -143,7 +161,7 @@
                                 </label>
                             </div>
                         
-                            <div class="col-sm-10 row">
+                            <div class="col-sm-10 pl-1">
                                 {{ member.address }}
                             </div>
                         </div>
@@ -158,11 +176,14 @@
                                 </label>
                             </div>
                         
-                            <div class="col-sm-10 row d-flex">
-                                <div v-for="classList in member.class" class="mr-1 mb-1">
-                                     - {{ classList.title }}
+                            <div class="col-sm-10 d-flex pt-2 pl-1 row m-0" v-if="member.class.length > 0">
+                                <div v-for="classList in member.class" class="mr-2 mb-2"
+                                style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
+                                    {{ classList.title }}
                                 </div>
                             </div>
+
+                            <div class="col-sm-10 d-flex pl-1" v-else>None</div>
                         </div>
                     </div>
 
@@ -175,8 +196,8 @@
                                 </label>
                             </div>
                             
-                            <div class="col-sm-12 col-md-10 row d-flex">
-                                <div v-for="rank in member.rank" class="mr-2 mb-2"
+                            <div class="col-sm-10 d-flex pl-1 row m-0" v-if="member.rank.length > 0">
+                                <div v-for="rank in member.rank" class="mr-2 pt-2 pb-2 text-center"
                                     style="border-right: 1px #d7d6d6 solid; padding: 0 10px 0 0; width: 100px">
                                     <p style="margin-bottom: -4px; color: #5e5b5b; font-size: 0.9em">
                                         {{ rank.title }}
@@ -186,6 +207,8 @@
                                     </span> 
                                 </div>
                             </div>
+
+                            <div class="col-sm-10 d-flex pl-1" v-else>None</div>
                         </div>
 
                     </div>
@@ -199,12 +222,14 @@
                                 </label>
                             </div>
                         
-                            <div class="col-sm-10 row d-flex">
-                                <div v-for="subscription in member.subscription" class="mr-1 mb-1"
+                            <div class="col-sm-10 d-flex pt-2 pl-1 row m-0" v-if="member.subscription.length > 0">
+                                <div v-for="subscription in member.subscription" class="mr-2 mb-2"
                                      style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
                                     {{ subscription.year }}
                                 </div>
                             </div>
+
+                            <div class="col-sm-10 d-flex pl-1" v-else>None</div>
                         </div>
 
                     </div>
@@ -218,12 +243,14 @@
                                 </label>
                             </div>
                         
-                            <div class="col-sm-10 row d-flex">
-                                <div v-for="region in member.region" class="mr-1 mb-1"
-                                     style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
-                                    {{ region.name }}
+                            <div class="col-sm-10 d-flex pt-2 pl-1 row m-0" v-if="member.region.length > 0">
+                                <div v-for="region in member.region" class="mr-2 mb-2"
+                                style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
+                                    {{ region.city }}, {{ region.address }}
                                 </div>
                             </div>
+
+                            <div class="col-sm-10 d-flex pl-1" v-else>None</div>
                         </div>
 
                     </div>
@@ -248,13 +275,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-12">
-                <edit-member v-if="isEdit" :member="member" :teacherId="teacherId"
-                    @closeEditMember="isEdit = $event">
-                </edit-member>
-            </div>
         </div>
+
+        <div class="col-12">
+            <edit-member v-if="isEdit" :member="member" :teacherId="teacherId"
+            @closeEditMember="isEdit = $event">
+            </edit-member>
+        </div>
+    </div>
     </transition>
 </template>
 
@@ -282,7 +310,7 @@
 
             teacherName(){
                 if(this.teacherId === undefined){
-                    return 'No have'
+                    return 'None'
                 }
                 return _.find(this.teachers,['id', this.teacherId]).name;
             }
@@ -305,22 +333,9 @@
                 this.isEdit = !this.isEdit;
             },
 
-            deleteMember(){
+            deleteMember() {
+                this.$emit('showDeactivateModal', this.member);
 
-                const self = this;
-
-                if(!self.isRequesting){
-
-                    self.isRequesting = true;
-
-                    this.$store.dispatch('destroy_member',self.member.id)
-                        .then(() => {
-
-                            flash('Member has been deleted', 'danger');
-
-                            self.isRequesting = false
-                        })
-                }
             },
 
             closemember() {
@@ -330,7 +345,7 @@
     };
 </script>
 
-<style scoped>
+<style>
     .bg-grey {
         background: #fafafa;
     }

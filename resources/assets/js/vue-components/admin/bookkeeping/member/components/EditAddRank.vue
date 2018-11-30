@@ -1,47 +1,66 @@
 <template>
-	<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-		<div class="col-sm-12 d-flex form-group">
-			<h4 class="title mb-5">Ranks</h4>
-		</div>
+	<div class="panel-default panel mt-3 pt-4 bg-grey" id="edit_member">
+		<div class="panel-body">
+			<h3 class="text-center mb-3">Edit <strong>{{ member.name }}</strong> Ranks</h3>
 
-		<div class="col-sm-12 d-flex form-group">
-			<template v-for="(rank, index) in ranks" v-if="index == currentIndex">
-				<div class="col-md-4">
-					<p> {{rank.title}} </p>
-				</div>
-				<div class="col-md-4">
-					<datetime type="date" v-model="annointed_date"></datetime>
-				</div>
-				<div class="col-md-2">
-					<button class="btn btn-success btn-sm" @click="addRank(index)">Add</button>
-				</div>
-			</template>
-		</div>
+			<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
+				<transition-group class="col-12 p-0" name="slide">	
+					<item v-for="(rank, index) in member.rank" :member="member" :key="index" :rank="rank" @showDeleteModal="showDeleteModal"></item>
+				</transition-group>
 
-		<transition-group name="slide">	
-			<item v-for="(rank, index) in member.rank"
-				  :member="member" :key="index" :rank="rank">
-			</item>
-		</transition-group>
+				<transition-group class="col-12 p-0" name="slide">
+					<div :key="'rank-options-' + index" v-for="(rank, index) in ranks" class="col-sm-12 d-flex form-group" v-if="index == currentIndex">
+						<div class="col-md-3 col-sm-5 d-flex justify-content-center align-items-center">
+							<p class="m-0"> {{rank.title}} </p>
+						</div>
+
+						<div class="col-md-8 col-sm-5">
+							<datetime type="date" v-model="annointed_date"></datetime>
+						</div>
+
+						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center">
+							<button class="btn btn-success btn-sm" @click="addRank(index)" :disabled="isRequesting">Add</button>
+						</div>
+					</div>
+				</transition-group>
+
+				<div class="col-md-12 d-flex justify-content-center mt-2">
+					<button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
+						Close
+					</button>
+				</div>
+			</div>
+
+			<delete-rank :show-modal="showModal"
+			:rank="rankToBeDeleted"
+			:memberId="member.id"
+			@set-show-modal-to-false="hideModal">
+			</delete-rank>
+		</div>
 	</div>
 </template>
 
 <script>
 	import 'vue-datetime/dist/vue-datetime.css';
 	import Item from './Rank.vue';
+	import DeleteRank from './DeleteRankInEdit.vue'
 	import {mapGetters} from 'vuex';
+
 	export default{
 		props:{member:{}},
 
 		data(){
 			return{
 				isRequesting: false,
-				annointed_date: ''
+				annointed_date: '',
+				showModal: false,
+				rankToBeDeleted: {}
 			}
 		},
 
 		components:{
-			Item
+			Item,
+			DeleteRank,
 		},
 
 		computed:{
@@ -55,10 +74,14 @@
 		},
 
 		methods:{
+			closeEditForm(){
+	           this.$emit('closeEditForm',false);
+			},
 			
 			addRank(index){
 				const self = this;
 				if(!this.isRequesting && this.annointed_date != ''){
+					this.isRequesting = true;
 
 					this.$store.dispatch('add_rank',{
 						member_id: this.member.id,
@@ -78,6 +101,16 @@
 						this.isRequesting = false;
 					})
 				}
+			},
+
+			hideModal(){
+				this.showModal = false;
+				this.rankToBeDeleted = {};
+			},
+
+			showDeleteModal(newRank){
+				this.showModal = true;
+				this.rankToBeDeleted = newRank;
 			}
 		}	
 	};
