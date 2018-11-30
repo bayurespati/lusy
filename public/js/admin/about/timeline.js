@@ -245,7 +245,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(6)
+var listToStyles = __webpack_require__(5)
 
 /*
 type StyleObject = {
@@ -1511,33 +1511,6 @@ var index_esm = {
 /* 5 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
@@ -1568,340 +1541,19 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(8)
+  __webpack_require__(7)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(10)
+var __vue_script__ = __webpack_require__(9)
 /* template */
-var __vue_template__ = __webpack_require__(11)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-41dc6b34"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/vue-components/global/Flash.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-41dc6b34", Component.options)
-  } else {
-    hotAPI.reload("data-v-41dc6b34", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(9);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("681a31c3", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    position: fixed;\n    right: 0;\n    z-index: 1100 !important;\n    bottom: 160px;\n}\n.alert-position[data-v-41dc6b34] {\n    position: fixed;\n    right: 25px;\n}\n.alert-contrast[data-v-41dc6b34] {\n    padding-right: 30px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
-    }
-});
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    {
-      attrs: {
-        enterActiveClass: "fade-in",
-        leaveActiveClass: "fade-out",
-        mode: "out-in"
-      }
-    },
-    [
-      _vm.notificationExists
-        ? _c(
-            "div",
-            { staticClass: "notification-wrapper" },
-            [
-              _c(
-                "transition-group",
-                {
-                  attrs: {
-                    enterActiveClass: "fade-in-down",
-                    leaveActiveClass: "fade-out",
-                    mode: "out-in"
-                  }
-                },
-                _vm._l(_vm.notifications, function(notification, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: index,
-                      staticClass: "alert alert-contrast alert-position",
-                      class: notification.alertClass,
-                      style: _vm.getBottomPosition(index)
-                    },
-                    [
-                      _c("div", { staticClass: "icon" }, [
-                        _c("span", { class: notification.alertIcon })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "message" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "close",
-                            on: {
-                              click: function($event) {
-                                _vm.hide(0, index)
-                              }
-                            }
-                          },
-                          [
-                            _c("span", {
-                              staticClass: "s7-close",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(notification.body) +
-                            "\n                "
-                        )
-                      ])
-                    ]
-                  )
-                })
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
-  }
-}
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(13)
-}
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(15)
-/* template */
-var __vue_template__ = __webpack_require__(16)
+var __vue_template__ = __webpack_require__(10)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -1940,13 +1592,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(8);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1966,7 +1618,7 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1980,7 +1632,7 @@ exports.push([module.i, "\na[data-v-16f575a0]{\n\t\tcursor: pointer;\n}\n.notifi
 
 
 /***/ }),
-/* 15 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2085,7 +1737,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}, {
 				id: 'bookkeeping',
 				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
 			}]
 		};
 	},
@@ -2196,7 +1848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 16 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2337,6 +1989,354 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-16f575a0", module.exports)
+  }
+}
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(13)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(15)
+/* template */
+var __vue_template__ = __webpack_require__(16)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-41dc6b34"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/global/Flash.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-41dc6b34", Component.options)
+  } else {
+    hotAPI.reload("data-v-41dc6b34", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(14);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("681a31c3", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-41dc6b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    position: fixed;\n    right: 0;\n    z-index: 1100 !important;\n    bottom: 160px;\n}\n.alert-position[data-v-41dc6b34] {\n    position: fixed;\n    right: 25px;\n}\n.alert-contrast[data-v-41dc6b34] {\n    padding-right: 30px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            notifications: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('flash', function (message, type) {
+            _this.flash(message, type, 3500);
+        });
+    },
+
+
+    computed: {
+        notificationExists: function notificationExists() {
+            return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
+        }
+    },
+
+    methods: {
+        flash: function flash(message) {
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+            if (this.notifications.length === 8) {
+                this.hide(0);
+            }
+
+            this.display(message, type);
+
+            this.hide(duration);
+        },
+        display: function display(message, type) {
+            this.notifications.push({
+                body: message,
+                type: type,
+                alertClass: this.getAlertClass(type),
+                alertIcon: this.getAlertIcon(type)
+            });
+        },
+        hide: function hide(duration) {
+            var _this2 = this;
+
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            setTimeout(function () {
+                _this2.notifications.splice(index, 1);
+            }, duration);
+        },
+        getAlertClass: function getAlertClass(type) {
+            return 'alert-' + type;
+        },
+        getAlertIcon: function getAlertIcon(type) {
+            if (type === 'success') {
+                return 's7-check';
+            } else if (type === 'danger') {
+                return 's7-less';
+            } else if (type === 'info') {
+                return 's7-info';
+            } else if (type === 'warning') {
+                return 's7-attention';
+            } else {
+                return '';
+            }
+        },
+        getBottomPosition: function getBottomPosition(index) {
+            var margin = 10;
+            var notificationHeight = 60;
+
+            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
+        }
+    }
+});
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    {
+      attrs: {
+        enterActiveClass: "fade-in",
+        leaveActiveClass: "fade-out",
+        mode: "out-in"
+      }
+    },
+    [
+      _vm.notificationExists
+        ? _c(
+            "div",
+            { staticClass: "notification-wrapper" },
+            [
+              _c(
+                "transition-group",
+                {
+                  attrs: {
+                    enterActiveClass: "fade-in-down",
+                    leaveActiveClass: "fade-out",
+                    mode: "out-in"
+                  }
+                },
+                _vm._l(_vm.notifications, function(notification, index) {
+                  return _c(
+                    "div",
+                    {
+                      key: index,
+                      staticClass: "alert alert-contrast alert-position",
+                      class: notification.alertClass,
+                      style: _vm.getBottomPosition(index)
+                    },
+                    [
+                      _c("div", { staticClass: "icon" }, [
+                        _c("span", { class: notification.alertIcon })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "message" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "close",
+                            on: {
+                              click: function($event) {
+                                _vm.hide(0, index)
+                              }
+                            }
+                          },
+                          [
+                            _c("span", {
+                              staticClass: "s7-close",
+                              attrs: { "aria-hidden": "true" }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(notification.body) +
+                            "\n                "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
 
@@ -2688,7 +2688,7 @@ var fakeWithParams = function fakeWithParams(paramsOrClosure, maybeValidator) {
 
 var withParams = root.vuelidate ? root.vuelidate.withParams : fakeWithParams;
 exports.withParams = withParams;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
 /* 22 */
@@ -13369,9 +13369,9 @@ module.exports = __webpack_require__(252);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Timeline_vue__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Timeline_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Timeline_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);

@@ -191,25 +191,6 @@
                     })
                 }
             },
-
-            deleteMember(){
-
-                const self = this;
-
-                if(!self.isRequesting){
-
-                    self.isRequesting = true;
-
-                    this.$store.dispatch('destroy_member',self.member.id)
-                        .then(() => {
-
-                            flash('Member has been deleted', 'danger');
-
-                            self.isRequesting = false
-                        })
-                }
-
-            }
         }
     };
 </script>

@@ -305,30 +305,21 @@
                 this.isEdit = !this.isEdit;
             },
 
-            deleteMember() {
+            deleteMember(){
 
                 const self = this;
 
-                if(self.isRequesting = true){
+                if(!self.isRequesting){
 
                     self.isRequesting = true;
 
-                    this.$store.dispatch('destroy_item', {
-                        class_id: self.member.class_id,
-                        member_id: self.member.id,
-                    })
-                    .then(() => {
+                    this.$store.dispatch('destroy_member',self.member.id)
+                        .then(() => {
 
-                        flash('Member has been rejected', 'danger');
+                            flash('Member has been deleted', 'danger');
 
-                        self.isRequesting = false;
-
-                    })
-                    .catch(errors => {
-
-                        self.isRequesting = false;
-
-                    });
+                            self.isRequesting = false
+                        })
                 }
             },
 

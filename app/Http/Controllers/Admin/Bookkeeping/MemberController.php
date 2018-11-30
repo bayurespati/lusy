@@ -19,7 +19,32 @@ class MemberController extends Controller
 
     }
 
-    public function loadMember(){
+    public function memberDetail(){
+
+        return view('admin.bookkeeping.member_detail');
+
+    }
+
+
+    public function loadMembers(){
+
+        $datas = Member::with('class')->get();
+
+        $members = [];
+
+        foreach ($datas as  $member) {
+            foreach ($member->class as $class) {
+                if($class['pivot']->is_approve){
+                    array_push($members,$member);
+                    break;
+                }
+            }
+        }
+
+        return $members;
+    }
+
+    public function loadTeacherAndStudent(){
 
         $datas = Member::where('teacher_id', NULL)->with('class','region','rank','subscription')->get();
 
@@ -34,7 +59,7 @@ class MemberController extends Controller
             }
         }
 
-        $teachers = Member::where('is_teacher', 1)->with('student')->get();
+        $teachers = Member::where('is_teacher', 1)->with('student')->withCount('student')->orderBy('student_count', 'desc')->get();
 
         return [$teachers,$membersNoteacher];
     }
@@ -120,8 +145,26 @@ class MemberController extends Controller
         $member->update();
     }
 
-    public function deleteMember(Member $member){
-        $member->delete();
+    public function deleteMember(Member $member, AboutContent $class){
+
+        if($member->is_teacher && sizeof($member->student) > 0){
+            
+            $students = $member->student;
+
+            DB::transaction(function () use ($students,$member) {
+
+                foreach ($students as $student) {
+                    $student->teacher_id = NULL;
+                    $student->update();
+                }
+
+                $member->delete();
+
+            });
+
+        }else{
+            $member->delete();
+        }
     }
 
     //-----------------------------//
@@ -214,7 +257,20 @@ class MemberController extends Controller
         $size = sizeof($member->classActive);
 
         if($size > 1){
-            $member->class()->detach($class->id);
+
+            if($class->title == 'Ikebana Ikenobo'){
+                DB::transaction(function () use ($member, $class) {
+
+                    $member->class()->detach($class->id);
+
+                    $member->rank()->detach();
+
+                    $member->subscription()->delete();
+                });
+
+            }else{
+                $member->class()->detach($class->id);
+            }
         }
     }
 
@@ -266,6 +322,8 @@ class MemberController extends Controller
     }
 
     public function destroy(Member $member, AboutContent $class){
+
+        $size = sizeof($member->classActive);
 
         if($size > 1){
             $member->class()->detach($class->id);

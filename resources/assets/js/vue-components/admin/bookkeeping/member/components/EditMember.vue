@@ -306,7 +306,7 @@
 					join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0,10),
 					email: this.member.email,
 					telephone: this.member.telephone,
-					mobile: this.member.mobile,
+					mobile: this.member.mobile == null ? null : this.member.mobile,
 					fax: this.member.fax,
 					teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                     is_active: this.member.is_active,

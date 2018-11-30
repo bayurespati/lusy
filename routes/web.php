@@ -466,7 +466,9 @@ Route::group([
         |
         */
         Route::get('/member', 'MemberController@member')->name('admin.bookkeeping.member');
-        Route::get('/data/member', 'MemberController@loadMember');
+        Route::get('/member-detail', 'MemberController@memberDetail');
+        Route::get('/data/members', 'MemberController@loadMembers');
+        Route::get('/data/teacher_student', 'MemberController@loadTeacherAndStudent');
         Route::get('/data/rank', 'MemberController@loadRank');
         Route::get('/data/class', 'MemberController@loadClass');
         Route::get('/data/subscription', 'MemberController@loadSubscription');
