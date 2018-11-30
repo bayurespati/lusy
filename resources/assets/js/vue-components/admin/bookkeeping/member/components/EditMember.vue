@@ -257,7 +257,7 @@
                             Close
                         </button>
 
-                        <button @click="editMember" :disabled="isRequesting" class="btn btn-success btn-sm ml-2">
+                        <button @click="editMember" :disabled="isRequesting || !isEdited" class="btn btn-success btn-sm ml-2">
                             <template v-if="isRequesting">Saving..</template>
                             <template v-else>Save</template>
                         </button>
@@ -266,13 +266,13 @@
             </div>
         </div>
 
-        <edit-class :member="member" :teacherId="teacherId"> </edit-class> 
+        <edit-class :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-class> 
 
-        <edit-rank :member="member" :teacherId="teacherId"> </edit-rank>
+        <edit-rank :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-rank>
 
-        <edit-subscription :member="member" :teacherId="teacherId"> </edit-subscription>
+        <edit-subscription :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-subscription>
 
-        <edit-region :member="member" :teacherId="teacherId"> </edit-region>
+        <edit-region :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-region>
     </div>
     </transition>
 </template>
@@ -307,7 +307,6 @@
 					teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                     is_active: this.member.is_active,
                     is_teacher: this.member.is_teacher,
-					gender: this.member.gender,
                     address: this.member.address,
 					id: this.member.id
 				}
@@ -376,6 +375,21 @@
 					&& this.input.email.length <= 50
 					&& this.input.telephone !== ''
 			},
+
+            isEdited(){
+                return this.input.name !== this.member.name
+                    || this.input.gender !== this.member.gender
+                    || this.input.place_of_birth !== this.member.place_of_birth
+                    || this.input.date_of_birth !== this.member.date_of_birth
+                    || this.input.join_date !== this.member.join_date
+                    || this.input.email !== this.member.email
+                    || this.input.address !== this.member.address
+                    || this.input.telephone !== this.member.telephone
+                    || this.input.mobile !== this.member.mobile
+                    || this.input.fax !== this.member.fax
+                    || this.input.teacher_id !== this.member.teacher_id
+                    || this.input.is_active !== this.member.is_active;
+            },
 
             showTeacher(){
                 const tempTeacher = [];

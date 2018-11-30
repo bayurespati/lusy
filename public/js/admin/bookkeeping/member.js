@@ -525,7 +525,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(573)
 /* template */
-var __vue_template__ = __webpack_require__(603)
+var __vue_template__ = __webpack_require__(618)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -12683,7 +12683,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(613);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(633);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate__);
 
@@ -12732,7 +12732,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(566)
 /* template */
-var __vue_template__ = __webpack_require__(612)
+var __vue_template__ = __webpack_require__(632)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -12821,11 +12821,13 @@ exports.push([module.i, "\nselect[data-v-734642ed] {\n  text-align: center;\n  t
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Teacher_vue__ = __webpack_require__(567);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Teacher_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddMember_vue__ = __webpack_require__(605);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddMember_vue__ = __webpack_require__(620);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddMember_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Member_vue__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Member_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Member_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue__ = __webpack_require__(627);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -12915,6 +12917,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -12927,7 +12935,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       isAddMember: false,
       active: 1,
       type: 'email',
-      yearSubs: ''
+      yearSubs: '',
+      showModal: false,
+      member: {}
     };
   },
 
@@ -12935,10 +12945,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     Member: __WEBPACK_IMPORTED_MODULE_2__Member_vue___default.a,
     AddMember: __WEBPACK_IMPORTED_MODULE_1__AddMember_vue___default.a,
-    Teacher: __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default.a
+    Teacher: __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default.a,
+    DeleteMember: __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue___default.a
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])({
     teachers: 'getTeachers',
     members: 'getStudentNoTeacher',
     subscriptions: 'getSubscription'
@@ -12959,6 +12970,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: {
     changeValue: function changeValue(value) {
       this.active = value;
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+      this.member = {};
+    },
+    showDeactivateModal: function showDeactivateModal(newMember) {
+      this.showModal = true;
+      this.member = newMember;
     }
   }
 });
@@ -12977,7 +12996,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(570)
 /* template */
-var __vue_template__ = __webpack_require__(604)
+var __vue_template__ = __webpack_require__(619)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -13207,6 +13226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -13236,7 +13256,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    methods: {}
+    methods: {
+        showDeactivateModal: function showDeactivateModal(member) {
+            ;
+            this.$emit('showDeactivateModal', member);
+        }
+    }
 });
 
 /***/ }),
@@ -13479,21 +13504,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
             }
         },
-        deleteMember: function deleteMember() {
-
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_member', self.member.id).then(function () {
-
-                    flash('Member has been deleted', 'danger');
-
-                    self.isRequesting = false;
-                });
-            }
+        showDeactivateModal: function showDeactivateModal() {
+            this.$emit('showDeactivateModal', this.member);
         }
     }
 });
@@ -13506,13 +13518,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(641)
+  __webpack_require__(575)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(577)
 /* template */
-var __vue_template__ = __webpack_require__(643)
+var __vue_template__ = __webpack_require__(617)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -13548,6 +13560,48 @@ if (false) {(function () {
 })()}
 
 module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 575:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(576);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("71db770b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66a89b1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DetailMember.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66a89b1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DetailMember.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 576:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.bg-grey {\n    background: #fafafa;\n}\n.panel-font-small {\n    font-size: 0.9rem;\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -13895,26 +13949,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.isEdit = !this.isEdit;
         },
         deleteMember: function deleteMember() {
-
-            var self = this;
-
-            if (self.isRequesting = true) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_item', {
-                    class_id: self.member.class_id,
-                    member_id: self.member.id
-                }).then(function () {
-
-                    flash('Member has been rejected', 'danger');
-
-                    self.isRequesting = false;
-                }).catch(function (errors) {
-
-                    self.isRequesting = false;
-                });
-            }
+            this.$emit('showDeactivateModal', this.member);
         },
         closemember: function closemember() {
             this.$emit('closeDetailMember', false);
@@ -13937,7 +13972,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(583)
 /* template */
-var __vue_template__ = __webpack_require__(601)
+var __vue_template__ = __webpack_require__(616)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14312,11 +14347,11 @@ exports.push([module.i, "\n.card[data-v-29f55f53] {\n\tflex-direction: unset;\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue__ = __webpack_require__(584);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue__ = __webpack_require__(587);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue__ = __webpack_require__(592);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue__ = __webpack_require__(590);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue__ = __webpack_require__(595);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue__ = __webpack_require__(593);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue__ = __webpack_require__(603);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__);
@@ -14326,8 +14361,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vue_datetime__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -14623,11 +14656,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
     props: { member: {}, teacherId: '' },
 
     data: function data() {
-        var _input;
-
         return {
             isRequesting: false,
-            input: (_input = {
+            input: {
                 name: this.member.name,
                 gender: this.member.gender,
                 place_of_birth: this.member.place_of_birth,
@@ -14639,8 +14670,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
                 fax: this.member.fax,
                 teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                 is_active: this.member.is_active,
-                is_teacher: this.member.is_teacher
-            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'address', this.member.address), _defineProperty(_input, 'id', this.member.id), _input)
+                is_teacher: this.member.is_teacher,
+                address: this.member.address,
+                id: this.member.id
+            }
         };
     },
     mounted: function mounted() {
@@ -14693,6 +14726,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
     }), {
         formIsFilled: function formIsFilled() {
             return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.address !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
+        },
+        isEdited: function isEdited() {
+            return this.input.name !== this.member.name || this.input.gender !== this.member.gender || this.input.place_of_birth !== this.member.place_of_birth || this.input.date_of_birth !== this.member.date_of_birth || this.input.join_date !== this.member.join_date || this.input.email !== this.member.email || this.input.address !== this.member.address || this.input.telephone !== this.member.telephone || this.input.mobile !== this.member.mobile || this.input.fax !== this.member.fax || this.input.teacher_id !== this.member.teacher_id || this.input.is_active !== this.member.is_active;
         },
         showTeacher: function showTeacher() {
             var tempTeacher = [];
@@ -14783,7 +14819,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(585)
 /* template */
-var __vue_template__ = __webpack_require__(586)
+var __vue_template__ = __webpack_require__(591)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14829,6 +14865,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue__ = __webpack_require__(586);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -14883,16 +14921,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: { member: {}, teacherId: '' },
 
+	components: {
+		DeleteClass: __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue___default.a
+	},
+
 	data: function data() {
 		return {
 			isLastClass: false,
 			classItem: '',
-			isRequesting: false
+			isRequesting: false,
+			classItemToBeDeleted: {},
+			showModal: false
 		};
 	},
 
@@ -14908,6 +14965,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	}),
 
 	methods: {
+		closeEditForm: function closeEditForm() {
+			this.$emit('closeEditForm', false);
+		},
 		add_class: function add_class() {
 
 			var self = this;
@@ -14931,31 +14991,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 				});
 			}
 		},
-		delete_class: function delete_class(classItem) {
-
-			var self = this;
-
-			if (!self.isRequesting && this.member.class.length > 1) {
-
-				self.isRequesting = true;
-
-				this.$store.dispatch('destroy_class', {
-					class_id: classItem.id,
-					member_id: this.member.id
-				}).then(function () {
-					flash('Class ' + classItem.title + ' has been deleted.', 'danger');
-
-					self.isRequesting = false;
-				}).catch(function () {
-
-					self.isRequesting = false;
-				});
+		hideModal: function hideModal() {
+			this.showModal = false;
+			this.classItemToBeDeleted = {};
+		},
+		showDeactivateModal: function showDeactivateModal(newClassItem) {
+			if (this.member.class.length > 1) {
+				this.showModal = true;
+				this.classItemToBeDeleted = newClassItem;
 			} else if (this.member.class.length == 1) {
 				this.isLastClass = true;
 
-				var _self = this;
+				var self = this;
 				setTimeout(function () {
-					_self.isLastClass = false;
+					self.isLastClass = false;
 				}, 2000);
 			}
 		}
@@ -14965,6 +15014,381 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ }),
 
 /***/ 586:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(587)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(589)
+/* template */
+var __vue_template__ = __webpack_require__(590)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-47e83e06"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/DeleteClassInEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-47e83e06", Component.options)
+  } else {
+    hotAPI.reload("data-v-47e83e06", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 587:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(588);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("201ba270", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47e83e06\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteClassInEdit.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-47e83e06\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteClassInEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 588:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n*[data-v-47e83e06] {\n    color: white;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 589:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    mounted: function mounted() {
+        var _this = this;
+
+        document.addEventListener("keydown", function (e) {
+            if (_this.showModal && e.keyCode == 27) {
+                _this.cancel();
+            }
+        });
+    },
+
+    props: {
+
+        showModal: {
+            type: Boolean,
+            default: false
+        },
+
+        classItem: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+
+        memberId: {
+            type: Number,
+            default: 0
+        }
+
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            buttonEnabled: true
+        };
+    },
+
+
+    computed: {
+        hideOrShowModal: function hideOrShowModal() {
+            return this.showModal ? 'modal-show' : '';
+        }
+    },
+
+    methods: {
+        cancel: function cancel() {
+            if (!this.isRequesting) {
+                this.$emit('set-show-modal-to-false');
+            }
+        },
+        deleteClass: function deleteClass() {
+            var _this2 = this;
+
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_class', {
+                    class_id: this.classItem.id,
+                    member_id: this.memberId
+                }).then(function () {
+                    flash('Class ' + _this2.classItem.title + ' has been deleted.', 'danger');
+
+                    self.isRequesting = false;
+                    self.cancel();
+                }).catch(function () {
+                    self.isRequesting = false;
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 590:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { on: { click: _vm.cancel } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "modal-container modal-full-color modal-full-color-danger modal-effect-9",
+        class: _vm.hideOrShowModal
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-content",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-header pb-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close modal-close",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.cancel }
+                },
+                [
+                  _c("span", {
+                    staticClass: "fa fa-close",
+                    staticStyle: { "font-size": "20px" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", {
+                  staticClass: "modal-main-icon fa fa-warning mb-0",
+                  staticStyle: { "font-size": "75px" }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-4" }, [_vm._v("Warning")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("You'll be deleting a class named "),
+                  _c("strong", [_vm._v(_vm._s(_vm.classItem.title))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-5" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-secondary modal-close",
+                      on: { click: _vm.cancel }
+                    },
+                    [_vm._v("Cancel\n                        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-danger modal-close",
+                      attrs: { disabled: _vm.isRequesting },
+                      on: { click: _vm.deleteClass }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Continue\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-overlay", class: _vm.hideOrShowModal })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-47e83e06", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 591:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -14989,7 +15413,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-12 d-flex" }, [
             _c(
               "div",
-              { staticClass: "col-md-12" },
+              { staticClass: "col-md-12 text-center" },
               [
                 _c(
                   "select",
@@ -15003,6 +15427,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    class: { "form-control-danger": _vm.isLastClass },
                     attrs: { id: "calss-list" },
                     on: {
                       change: function($event) {
@@ -15089,7 +15514,7 @@ var render = function() {
                               staticStyle: { cursor: "pointer" },
                               on: {
                                 click: function($event) {
-                                  _vm.delete_class(list)
+                                  _vm.showDeactivateModal(list)
                                 }
                               }
                             },
@@ -15112,13 +15537,33 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-success btn-sm",
+                  staticClass: "btn btn-secondary btn-sm",
+                  attrs: { type: "button" },
+                  on: { click: _vm.closeEditForm }
+                },
+                [_vm._v("\n\t\t\t\t\tClose\n\t\t\t\t")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success btn-sm ml-2",
                   attrs: { type: "button", disabled: _vm.hasChoosen },
                   on: { click: _vm.add_class }
                 },
                 [_vm._v("\n\t\t\t\t\tAdd Class\n\t\t\t\t")]
-              )
-            ]
+              ),
+              _vm._v(" "),
+              _c("delete-class", {
+                attrs: {
+                  "show-modal": _vm.showModal,
+                  classItem: _vm.classItemToBeDeleted,
+                  memberId: _vm.member.id
+                },
+                on: { "set-show-modal-to-false": _vm.hideModal }
+              })
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -15162,15 +15607,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 587:
+/***/ 592:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(588)
+var __vue_script__ = __webpack_require__(593)
 /* template */
-var __vue_template__ = __webpack_require__(589)
+var __vue_template__ = __webpack_require__(594)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15210,12 +15655,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 588:
+/***/ 593:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue__ = __webpack_require__(661);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -15266,21 +15713,39 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+	components: {
+		DeleteRegion: __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue___default.a
+	},
+
 	props: { member: {} },
 
 	data: function data() {
 		return {
 			region: '',
 			isRequesting: false,
-			classRegion: this.member.region
+			classRegion: this.member.region,
+			regionToBeDeleted: {},
+			showModal: false
 		};
 	},
 
 
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
 		regions: 'getRegions'
 	}), {
 		hasChoosen: function hasChoosen() {
@@ -15291,6 +15756,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	}),
 
 	methods: {
+		closeEditForm: function closeEditForm() {
+			this.$emit('closeEditForm', false);
+		},
 		add_region: function add_region() {
 
 			var self = this;
@@ -15314,33 +15782,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 				});
 			}
 		},
-		delete_region: function delete_region(region) {
-
-			var self = this;
-
-			if (!self.isRequesting) {
-
-				self.isRequesting = true;
-
-				this.$store.dispatch('destroy_region', {
-					region_id: region.id,
-					member_id: this.member.id
-				}).then(function () {
-					flash('Class region ' + region.name + ' has been deleted.', 'danger');
-
-					self.isRequesting = false;
-				}).catch(function () {
-
-					self.isRequesting = false;
-				});
-			}
+		hideModal: function hideModal() {
+			this.showModal = false;
+			this.regionToBeDeleted = {};
+		},
+		delete_region: function delete_region(newRegion) {
+			this.showModal = true;
+			this.regionToBeDeleted = newRegion;
 		}
 	}
 });
 
 /***/ }),
 
-/***/ 589:
+/***/ 594:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15361,144 +15816,173 @@ var render = function() {
           _vm._v(" Class Regions")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-          _c("div", { staticClass: "col-md-12 d-flex" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.region,
-                      expression: "region"
+        _c(
+          "div",
+          { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" },
+          [
+            _c("div", { staticClass: "col-md-12 d-flex" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.region,
+                        expression: "region"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "calss-region" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.region = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { id: "calss-region" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.region = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "", disabled: "" } }, [
-                    _vm._v("Choose Class Region")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.regions, function(region) {
-                    return _c("option", { domProps: { value: region } }, [
-                      _vm._v(_vm._s(region.name))
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12 d-flex justify-content-center" },
-            [
-              _c(
-                "transition-group",
-                {
-                  attrs: {
-                    enterActiveClass: "fade-in",
-                    leaveActiveClass: "fade-out",
-                    mode: "out-in"
-                  }
-                },
-                _vm._l(_vm.member.region, function(list, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: "class-region-" + index,
-                      staticStyle: { display: "inline-block" }
-                    },
-                    [
-                      _c(
-                        "p",
-                        { staticClass: "mr-3 mb-0 d-flex align-items-center" },
-                        [
-                          _vm._v(_vm._s(list.name) + "\n\t\t\t\t\t\t\t"),
-                          _c(
-                            "span",
-                            {
-                              staticClass: "badge badge-danger ml-1",
-                              staticStyle: { cursor: "pointer" },
-                              on: {
-                                click: function($event) {
-                                  _vm.delete_region(list)
-                                }
-                              }
-                            },
-                            [_vm._v("\n\t\t\t\t\t\t\t\tX\n\t\t\t\t\t\t\t")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                })
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12 d-flex justify-content-center mt-2" },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success btn-sm",
-                  attrs: { type: "button", disabled: _vm.hasChoosen },
-                  on: { click: _vm.add_region }
-                },
-                [_vm._v("\n\t\t\t\t\tAdd Region\n\t\t\t\t")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-12 d-flex justify-content-center mt-2" },
-            [
-              _c(
-                "transition",
-                {
-                  attrs: {
-                    enterActiveClass: "fade-in",
-                    leaveActiveClass: "fade-out",
-                    mode: "out-in"
-                  }
-                },
-                [
-                  _vm.hasChoosen
-                    ? _c("span", { staticClass: "text-danger" }, [
-                        _vm._v("Already chosen")
+                  },
+                  [
+                    _c("option", { attrs: { value: "", disabled: "" } }, [
+                      _vm._v("Choose Class Region")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.regions, function(region) {
+                      return _c("option", { domProps: { value: region } }, [
+                        _vm._v(_vm._s(region.name))
                       ])
-                    : _vm._e()
-                ]
-              )
-            ],
-            1
-          )
-        ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12 d-flex justify-content-center" },
+              [
+                _c(
+                  "transition-group",
+                  {
+                    attrs: {
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
+                    }
+                  },
+                  _vm._l(_vm.member.region, function(list, index) {
+                    return _c(
+                      "div",
+                      {
+                        key: "class-region-" + index,
+                        staticStyle: { display: "inline-block" }
+                      },
+                      [
+                        _c(
+                          "p",
+                          {
+                            staticClass: "mr-3 mb-0 d-flex align-items-center"
+                          },
+                          [
+                            _vm._v(_vm._s(list.name) + "\n\t\t\t\t\t\t\t"),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "badge badge-danger ml-1",
+                                staticStyle: { cursor: "pointer" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.delete_region(list)
+                                  }
+                                }
+                              },
+                              [_vm._v("\n\t\t\t\t\t\t\t\tX\n\t\t\t\t\t\t\t")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  })
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12 d-flex justify-content-center mt-2" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary btn-sm",
+                    attrs: { type: "button" },
+                    on: { click: _vm.closeEditForm }
+                  },
+                  [_vm._v("\n\t\t\t\t\tClose\n\t\t\t\t")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-sm ml-2",
+                    attrs: {
+                      type: "button",
+                      disabled: _vm.hasChoosen || _vm.isRequesting
+                    },
+                    on: { click: _vm.add_region }
+                  },
+                  [_vm._v("\n\t\t\t\t\tAdd Class Region\n\t\t\t\t")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12 d-flex justify-content-center mt-2" },
+              [
+                _c(
+                  "transition",
+                  {
+                    attrs: {
+                      enterActiveClass: "fade-in",
+                      leaveActiveClass: "fade-out",
+                      mode: "out-in"
+                    }
+                  },
+                  [
+                    _vm.hasChoosen
+                      ? _c("span", { staticClass: "text-danger" }, [
+                          _vm._v("Already chosen")
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("delete-region", {
+              attrs: {
+                "show-modal": _vm.showModal,
+                region: _vm.regionToBeDeleted,
+                memberId: _vm.member.id
+              },
+              on: { "set-show-modal-to-false": _vm.hideModal }
+            })
+          ],
+          1
+        )
       ])
     ]
   )
@@ -15515,15 +15999,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 590:
+/***/ 595:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(591)
+var __vue_script__ = __webpack_require__(596)
 /* template */
-var __vue_template__ = __webpack_require__(592)
+var __vue_template__ = __webpack_require__(602)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15563,13 +16047,15 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 591:
+/***/ 596:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue__ = __webpack_require__(597);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__);
 //
 //
 //
@@ -15616,9 +16102,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+	components: {
+		DeleteYear: __WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue___default.a
+	},
+
 	props: {
 		member: {},
 		teacherId: ''
@@ -15628,19 +16133,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			year: '',
 			isRequesting: false,
-			subscription: this.member.subscription
+			subscription: this.member.subscription,
+			yearToBeDeleted: {},
+			showModal: false
 		};
 	},
 
 
 	validations: {
 		year: {
-			maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(4),
-			minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(4)
+			maxLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["maxLength"])(4),
+			minLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["minLength"])(4)
 		}
 	},
 
 	methods: {
+		closeEditForm: function closeEditForm() {
+			this.$emit('closeEditForm', false);
+		},
 		add_subscription: function add_subscription() {
 			var self = this;
 
@@ -15663,34 +16173,432 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				});
 			}
 		},
-		delete_subscription: function delete_subscription(subscription) {
-			var self = this;
-
-			if (!self.isRequesting) {
-
-				this.isRequesting = true;
-
-				this.$store.dispatch('destroy_subscription', {
-					subscription_id: subscription.id,
-					member_id: this.member.id,
-					teacher_id: this.teacherId
-
-				}).then(function () {
-
-					flash('Subscription deleted', 'danger');
-
-					self.isRequesting = false;
-				}).catch(function () {
-					self.isRequesting = false;
-				});
-			}
+		hideModal: function hideModal() {
+			this.showModal = false;
+			this.yearToBeDeleted = {};
+		},
+		delete_subscription: function delete_subscription(newYear) {
+			this.showModal = true;
+			this.yearToBeDeleted = newYear;
 		}
 	}
 });
 
 /***/ }),
 
-/***/ 592:
+/***/ 597:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(598)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(600)
+/* template */
+var __vue_template__ = __webpack_require__(601)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-21df2cb4"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/DeleteSubscriptionInEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21df2cb4", Component.options)
+  } else {
+    hotAPI.reload("data-v-21df2cb4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 598:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(599);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("3af81d8e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-21df2cb4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteSubscriptionInEdit.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-21df2cb4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteSubscriptionInEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 599:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n*[data-v-21df2cb4] {\n    color: white;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 6:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 600:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    mounted: function mounted() {
+        var _this = this;
+
+        document.addEventListener("keydown", function (e) {
+            if (_this.showModal && e.keyCode == 27) {
+                _this.cancel();
+            }
+        });
+    },
+
+    props: {
+
+        showModal: {
+            type: Boolean,
+            default: false
+        },
+
+        year: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+
+        memberId: {
+            type: Number,
+            default: 0
+        },
+
+        teacherId: {
+            type: Number,
+            default: 0
+        }
+
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            buttonEnabled: true
+        };
+    },
+
+
+    computed: {
+        hideOrShowModal: function hideOrShowModal() {
+            return this.showModal ? 'modal-show' : '';
+        }
+    },
+
+    methods: {
+        cancel: function cancel() {
+            if (!this.isRequesting) {
+                this.$emit('set-show-modal-to-false');
+            }
+        },
+        deleteClass: function deleteClass() {
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                this.isRequesting = true;
+
+                this.$store.dispatch('destroy_subscription', {
+                    subscription_id: this.year.id,
+                    member_id: this.memberId,
+                    teacher_id: this.teacherId
+                }).then(function () {
+                    flash('Subscription deleted', 'danger');
+                    self.isRequesting = false;
+                    self.cancel();
+                }).catch(function () {
+                    self.isRequesting = false;
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 601:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { on: { click: _vm.cancel } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "modal-container modal-full-color modal-full-color-danger modal-effect-9",
+        class: _vm.hideOrShowModal
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-content",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-header pb-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close modal-close",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.cancel }
+                },
+                [
+                  _c("span", {
+                    staticClass: "fa fa-close",
+                    staticStyle: { "font-size": "20px" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", {
+                  staticClass: "modal-main-icon fa fa-warning mb-0",
+                  staticStyle: { "font-size": "75px" }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-4" }, [_vm._v("Warning")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("You'll be deleting a subscription on the year of "),
+                  _c("strong", [_vm._v(_vm._s(_vm.year.year))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-5" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-secondary modal-close",
+                      on: { click: _vm.cancel }
+                    },
+                    [_vm._v("Cancel\n                        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-danger modal-close",
+                      attrs: { disabled: _vm.isRequesting },
+                      on: { click: _vm.deleteClass }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Continue\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-overlay", class: _vm.hideOrShowModal })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-21df2cb4", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 602:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15715,7 +16623,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-12 d-flex" }, [
             _c(
               "div",
-              { staticClass: "col-md-12" },
+              { staticClass: "col-md-12 text-center" },
               [
                 _c("input", {
                   directives: [
@@ -15852,16 +16760,38 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-success btn-sm",
+                  staticClass: "btn btn-secondary btn-sm",
+                  attrs: { type: "button" },
+                  on: { click: _vm.closeEditForm }
+                },
+                [_vm._v("\n\t\t\t\t\tClose\n\t\t\t\t")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success btn-sm ml-2",
+                  attrs: { disabled: _vm.isRequesting },
                   on: {
                     click: function($event) {
                       _vm.add_subscription()
                     }
                   }
                 },
-                [_vm._v("Add")]
-              )
-            ]
+                [_vm._v("\n\t\t\t\t\tAdd Subscription Year\n\t\t\t\t")]
+              ),
+              _vm._v(" "),
+              _c("delete-year", {
+                attrs: {
+                  "show-modal": _vm.showModal,
+                  year: _vm.yearToBeDeleted,
+                  memberId: _vm.member.id,
+                  teacherId: _vm.teacherId
+                },
+                on: { "set-show-modal-to-false": _vm.hideModal }
+              })
+            ],
+            1
           )
         ])
       ])
@@ -15880,19 +16810,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 593:
+/***/ 603:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(594)
+  __webpack_require__(604)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(596)
+var __vue_script__ = __webpack_require__(606)
 /* template */
-var __vue_template__ = __webpack_require__(600)
+var __vue_template__ = __webpack_require__(615)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15932,13 +16862,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 594:
+/***/ 604:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(595);
+var content = __webpack_require__(605);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -15959,7 +16889,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 595:
+/***/ 605:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -15974,16 +16904,18 @@ exports.push([module.i, "\n.card[data-v-cbeeccf8] {\n\tflex-direction: unset;\n\
 
 /***/ }),
 
-/***/ 596:
+/***/ 606:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_datetime_dist_vue_datetime_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue__ = __webpack_require__(597);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue__ = __webpack_require__(607);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Rank_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -16016,6 +16948,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -16026,16 +16972,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	data: function data() {
 		return {
 			isRequesting: false,
-			annointed_date: ''
+			annointed_date: '',
+			showModal: false,
+			rankToBeDeleted: {}
 		};
 	},
 
 
 	components: {
-		Item: __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default.a
+		Item: __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default.a,
+		DeleteRank: __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue___default.a
 	},
 
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
 		ranks: 'getRanks'
 	}), {
 		currentIndex: function currentIndex() {
@@ -16044,11 +16993,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	}),
 
 	methods: {
+		closeEditForm: function closeEditForm() {
+			this.$emit('closeEditForm', false);
+		},
 		addRank: function addRank(index) {
 			var _this = this;
 
 			var self = this;
 			if (!this.isRequesting && this.annointed_date != '') {
+				this.isRequesting = true;
 
 				this.$store.dispatch('add_rank', {
 					member_id: this.member.id,
@@ -16066,21 +17019,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 					_this.isRequesting = false;
 				});
 			}
+		},
+		hideModal: function hideModal() {
+			this.showModal = false;
+			this.rankToBeDeleted = {};
+		},
+		showDeleteModal: function showDeleteModal(newRank) {
+			this.showModal = true;
+			this.rankToBeDeleted = newRank;
 		}
 	}
 });
 
 /***/ }),
 
-/***/ 597:
+/***/ 607:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(598)
+var __vue_script__ = __webpack_require__(608)
 /* template */
-var __vue_template__ = __webpack_require__(599)
+var __vue_template__ = __webpack_require__(609)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -16120,7 +17081,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 598:
+/***/ 608:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16192,35 +17153,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		deleteRank: function deleteRank() {
-			var self = this;
-
-			if (!self.isRequesting) {
-
-				self.isRequesting = true;
-
-				this.$store.dispatch('destroy_rank', {
-					rank_id: self.rank.id,
-					member_id: self.member.id
-				}).then(function () {
-
-					self.isRequesting = false;
-
-					flash('Ranks deleted', 'danger');
-
-					self.changeCurrent();
-				});
-			}
-		},
-		changeCurrent: function changeCurrent() {
-
-			this.$emit('changeCurrentIndex', 1);
+			this.$emit('showDeleteModal', this.rank);
 		}
 	}
 });
 
 /***/ }),
 
-/***/ 599:
+/***/ 609:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -16315,41 +17255,380 @@ if (false) {
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports) {
+/***/ 610:
+/***/ (function(module, exports, __webpack_require__) {
 
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(611)
 }
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(613)
+/* template */
+var __vue_template__ = __webpack_require__(614)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2a13f7f5"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/DeleteRankInEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2a13f7f5", Component.options)
+  } else {
+    hotAPI.reload("data-v-2a13f7f5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 600:
+/***/ 611:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(612);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("40ae909f", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2a13f7f5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteRankInEdit.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2a13f7f5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteRankInEdit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 612:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n*[data-v-2a13f7f5] {\n    color: white;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 613:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    mounted: function mounted() {
+        var _this = this;
+
+        document.addEventListener("keydown", function (e) {
+            if (_this.showModal && e.keyCode == 27) {
+                _this.cancel();
+            }
+        });
+    },
+
+    props: {
+
+        showModal: {
+            type: Boolean,
+            default: false
+        },
+
+        rank: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+
+        memberId: {
+            type: Number,
+            default: 0
+        }
+
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            buttonEnabled: true
+        };
+    },
+
+
+    computed: {
+        hideOrShowModal: function hideOrShowModal() {
+            return this.showModal ? 'modal-show' : '';
+        }
+    },
+
+    methods: {
+        cancel: function cancel() {
+            if (!this.isRequesting) {
+                this.$emit('set-show-modal-to-false');
+            }
+        },
+        deleteClass: function deleteClass() {
+
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_rank', {
+                    rank_id: self.rank.id,
+                    member_id: self.memberId
+                }).then(function () {
+
+                    self.isRequesting = false;
+
+                    flash('Ranks deleted', 'danger');
+                    self.cancel();
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 614:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { on: { click: _vm.cancel } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "modal-container modal-full-color modal-full-color-danger modal-effect-9",
+        class: _vm.hideOrShowModal
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-content",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-header pb-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close modal-close",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.cancel }
+                },
+                [
+                  _c("span", {
+                    staticClass: "fa fa-close",
+                    staticStyle: { "font-size": "20px" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", {
+                  staticClass: "modal-main-icon fa fa-warning mb-0",
+                  staticStyle: { "font-size": "75px" }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-4" }, [_vm._v("Warning")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("You'll be deleting a rank named "),
+                  _c("strong", [_vm._v(_vm._s(_vm.rank.title))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-5" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-secondary modal-close",
+                      on: { click: _vm.cancel }
+                    },
+                    [_vm._v("Cancel\n                        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-danger modal-close",
+                      attrs: { disabled: _vm.isRequesting },
+                      on: { click: _vm.deleteClass }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Continue\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-overlay", class: _vm.hideOrShowModal })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2a13f7f5", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 615:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -16363,101 +17642,133 @@ var render = function() {
       attrs: { id: "edit_member" }
     },
     [
-      _c("div", { staticClass: "panel-body" }, [
-        _c("h3", { staticClass: "text-center mb-3" }, [
-          _vm._v("Edit "),
-          _c("strong", [_vm._v(_vm._s(_vm.member.name))]),
-          _vm._v(" Ranks")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" },
-          [
-            _c(
-              "transition-group",
-              { staticClass: "col-12 p-0", attrs: { name: "slide" } },
-              _vm._l(_vm.member.rank, function(rank, index) {
-                return _c("item", {
-                  key: index,
-                  attrs: { member: _vm.member, rank: rank }
+      _c(
+        "div",
+        { staticClass: "panel-body" },
+        [
+          _c("h3", { staticClass: "text-center mb-3" }, [
+            _vm._v("Edit "),
+            _c("strong", [_vm._v(_vm._s(_vm.member.name))]),
+            _vm._v(" Ranks")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" },
+            [
+              _c(
+                "transition-group",
+                { staticClass: "col-12 p-0", attrs: { name: "slide" } },
+                _vm._l(_vm.member.rank, function(rank, index) {
+                  return _c("item", {
+                    key: index,
+                    attrs: { member: _vm.member, rank: rank },
+                    on: { showDeleteModal: _vm.showDeleteModal }
+                  })
                 })
-              })
-            ),
-            _vm._v(" "),
-            _c(
-              "transition-group",
-              { staticClass: "col-12 p-0", attrs: { name: "slide" } },
-              _vm._l(_vm.ranks, function(rank, index) {
-                return index == _vm.currentIndex
-                  ? _c(
-                      "div",
-                      {
-                        key: "rank-options-" + index,
-                        staticClass: "col-sm-12 d-flex form-group"
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-md-3 col-sm-5 d-flex justify-content-center align-items-center"
-                          },
-                          [
-                            _c("p", { staticClass: "m-0" }, [
-                              _vm._v(" " + _vm._s(rank.title) + " ")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-md-8 col-sm-5" },
-                          [
-                            _c("datetime", {
-                              attrs: { type: "date" },
-                              model: {
-                                value: _vm.annointed_date,
-                                callback: function($$v) {
-                                  _vm.annointed_date = $$v
-                                },
-                                expression: "annointed_date"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-md-1 col-sm-2 d-flex justify-content-center align-items-center"
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    _vm.addRank(index)
-                                  }
+              ),
+              _vm._v(" "),
+              _c(
+                "transition-group",
+                { staticClass: "col-12 p-0", attrs: { name: "slide" } },
+                _vm._l(_vm.ranks, function(rank, index) {
+                  return index == _vm.currentIndex
+                    ? _c(
+                        "div",
+                        {
+                          key: "rank-options-" + index,
+                          staticClass: "col-sm-12 d-flex form-group"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "col-md-3 col-sm-5 d-flex justify-content-center align-items-center"
+                            },
+                            [
+                              _c("p", { staticClass: "m-0" }, [
+                                _vm._v(" " + _vm._s(rank.title) + " ")
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-8 col-sm-5" },
+                            [
+                              _c("datetime", {
+                                attrs: { type: "date" },
+                                model: {
+                                  value: _vm.annointed_date,
+                                  callback: function($$v) {
+                                    _vm.annointed_date = $$v
+                                  },
+                                  expression: "annointed_date"
                                 }
-                              },
-                              [_vm._v("Add")]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              })
-            )
-          ],
-          1
-        )
-      ])
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "col-md-1 col-sm-2 d-flex justify-content-center align-items-center"
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success btn-sm",
+                                  attrs: { disabled: _vm.isRequesting },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.addRank(index)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Add")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                })
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-12 d-flex justify-content-center mt-2" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button" },
+                      on: { click: _vm.closeEditForm }
+                    },
+                    [_vm._v("\n\t\t\t\t\tClose\n\t\t\t\t")]
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("delete-rank", {
+            attrs: {
+              "show-modal": _vm.showModal,
+              rank: _vm.rankToBeDeleted,
+              memberId: _vm.member.id
+            },
+            on: { "set-show-modal-to-false": _vm.hideModal }
+          })
+        ],
+        1
+      )
     ]
   )
 }
@@ -16473,7 +17784,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 601:
+/***/ 616:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -17514,7 +18825,9 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-success btn-sm ml-2",
-                          attrs: { disabled: _vm.isRequesting },
+                          attrs: {
+                            disabled: _vm.isRequesting || !_vm.isEdited
+                          },
                           on: { click: _vm.editMember }
                         },
                         [
@@ -17532,19 +18845,39 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("edit-class", {
-            attrs: { member: _vm.member, teacherId: _vm.teacherId }
+            attrs: { member: _vm.member, teacherId: _vm.teacherId },
+            on: {
+              closeEditForm: function($event) {
+                _vm.closeEditForm()
+              }
+            }
           }),
           _vm._v(" "),
           _c("edit-rank", {
-            attrs: { member: _vm.member, teacherId: _vm.teacherId }
+            attrs: { member: _vm.member, teacherId: _vm.teacherId },
+            on: {
+              closeEditForm: function($event) {
+                _vm.closeEditForm()
+              }
+            }
           }),
           _vm._v(" "),
           _c("edit-subscription", {
-            attrs: { member: _vm.member, teacherId: _vm.teacherId }
+            attrs: { member: _vm.member, teacherId: _vm.teacherId },
+            on: {
+              closeEditForm: function($event) {
+                _vm.closeEditForm()
+              }
+            }
           }),
           _vm._v(" "),
           _c("edit-region", {
-            attrs: { member: _vm.member, teacherId: _vm.teacherId }
+            attrs: { member: _vm.member, teacherId: _vm.teacherId },
+            on: {
+              closeEditForm: function($event) {
+                _vm.closeEditForm()
+              }
+            }
           })
         ],
         1
@@ -17564,7 +18897,804 @@ if (false) {
 
 /***/ }),
 
-/***/ 603:
+/***/ 617:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "transition",
+    {
+      attrs: {
+        enterActiveClass: "fade-in-down",
+        leaveActiveClass: "fade-out-up",
+        mode: "out-in"
+      }
+    },
+    [
+      _c("div", [
+        !_vm.isEdit
+          ? _c(
+              "div",
+              {
+                staticClass: "panel-default panel mt-3 pt-4 bg-grey",
+                attrs: { id: "edit_sosmed" }
+              },
+              [
+                _c("div", { staticClass: "panel-body" }, [
+                  _c("h3", { staticClass: "text-center" }, [
+                    _c("strong", [_vm._v(_vm._s(_vm.member.name))]),
+                    _vm._v(" Detail")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 col-xs-12 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Name\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8 col-xs-12" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.name) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Gender\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.gender == 1 ? "Men" : "Women") +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Place of birth\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.place_of_birth) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Date of birth\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm._f("date")(_vm.member.date_of_birth)) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Join Date\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.member.join_date != null
+                          ? _c("div", { staticClass: "col-sm-8" }, [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm._f("date")(_vm.member.join_date)) +
+                                  "\n                        "
+                              )
+                            ])
+                          : _c("div", { staticClass: "col-sm-8" }, [
+                              _vm._v(
+                                "\n                            None\n                        "
+                              )
+                            ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Type\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm._f("type")(_vm.member.is_teacher)) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Email\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.email) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Telephone\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.telephone) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Mobile\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.mobile) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-4 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Fax\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-8" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.fax) +
+                              "\n                        "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Teacher\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10 pl-1" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.teacherName) +
+                              "\n                        "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Address\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-10 pl-1" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.member.address) +
+                              "\n                        "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Class\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.member.class.length > 0
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
+                              },
+                              _vm._l(_vm.member.class, function(classList) {
+                                return _c(
+                                  "div",
+                                  {
+                                    staticClass: "mr-2 mb-2",
+                                    staticStyle: {
+                                      border: "1px #908f96 solid",
+                                      padding: "2px 6px",
+                                      "border-radius": "10%",
+                                      color: "#6d6c73"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(classList.title) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "col-sm-10 d-flex pl-1" },
+                              [_vm._v("None")]
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-12 col-md-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Rank\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.member.rank.length > 0
+                          ? _c(
+                              "div",
+                              { staticClass: "col-sm-10 d-flex pl-1 row m-0" },
+                              _vm._l(_vm.member.rank, function(rank) {
+                                return _c(
+                                  "div",
+                                  {
+                                    staticClass: "mr-2 pt-2 pb-2 text-center",
+                                    staticStyle: {
+                                      "border-right": "1px #d7d6d6 solid",
+                                      padding: "0 10px 0 0",
+                                      width: "100px"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "p",
+                                      {
+                                        staticStyle: {
+                                          "margin-bottom": "-4px",
+                                          color: "#5e5b5b",
+                                          "font-size": "0.9em"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(rank.title) +
+                                            "\n                                "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticStyle: {
+                                          "font-size": "12px",
+                                          color: "grey"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          " \n                                    " +
+                                            _vm._s(rank.pivot.annointed_date) +
+                                            " \n                                "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "col-sm-10 d-flex pl-1" },
+                              [_vm._v("None")]
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Subscription\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.member.subscription.length > 0
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
+                              },
+                              _vm._l(_vm.member.subscription, function(
+                                subscription
+                              ) {
+                                return _c(
+                                  "div",
+                                  {
+                                    staticClass: "mr-2 mb-2",
+                                    staticStyle: {
+                                      border: "1px #908f96 solid",
+                                      padding: "2px 6px",
+                                      "border-radius": "10%",
+                                      color: "#6d6c73"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(subscription.year) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "col-sm-10 d-flex pl-1" },
+                              [_vm._v("None")]
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-sm-2 d-flex align-items-center justify-content-end"
+                          },
+                          [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "form-control-label font-weight-bold panel-font-small m-0"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Class Region\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.member.region.length > 0
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
+                              },
+                              _vm._l(_vm.member.region, function(region) {
+                                return _c(
+                                  "div",
+                                  {
+                                    staticClass: "mr-2 mb-2",
+                                    staticStyle: {
+                                      border: "1px #908f96 solid",
+                                      padding: "2px 6px",
+                                      "border-radius": "10%",
+                                      color: "#6d6c73"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(region.city) +
+                                        ", " +
+                                        _vm._s(region.address) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                )
+                              })
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "col-sm-10 d-flex pl-1" },
+                              [_vm._v("None")]
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "col-sm-12 d-flex justify-content-center mt-3 pl-2"
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary btn-sm",
+                            attrs: { type: "button" },
+                            on: { click: _vm.closemember }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Close\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-sm ml-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.shoeEdit()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Edit\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm ml-2",
+                            attrs: { type: "button" },
+                            on: { click: _vm.deleteMember }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Delete\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12" },
+          [
+            _vm.isEdit
+              ? _c("edit-member", {
+                  attrs: { member: _vm.member, teacherId: _vm.teacherId },
+                  on: {
+                    closeEditMember: function($event) {
+                      _vm.isEdit = $event
+                    }
+                  }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66a89b1a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 618:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -17727,7 +19857,8 @@ var render = function() {
                         on: {
                           closeDetailMember: function($event) {
                             _vm.isDetail = $event
-                          }
+                          },
+                          showDeactivateModal: _vm.showDeactivateModal
                         }
                       })
                     : _vm._e()
@@ -17754,7 +19885,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 604:
+/***/ 619:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -17882,7 +20013,8 @@ var render = function() {
                   teacherId: _vm.teacher.id,
                   type: _vm.type,
                   yearSubs: _vm.yearSubs
-                }
+                },
+                on: { showDeactivateModal: _vm.showDeactivateModal }
               })
             : _vm._e()
         })
@@ -17903,20 +20035,20 @@ if (false) {
 
 /***/ }),
 
-/***/ 605:
+/***/ 620:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(606)
-  __webpack_require__(608)
+  __webpack_require__(621)
+  __webpack_require__(623)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(610)
+var __vue_script__ = __webpack_require__(625)
 /* template */
-var __vue_template__ = __webpack_require__(611)
+var __vue_template__ = __webpack_require__(626)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -17956,13 +20088,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 606:
+/***/ 621:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(607);
+var content = __webpack_require__(622);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -17983,7 +20115,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 607:
+/***/ 622:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -17998,13 +20130,13 @@ exports.push([module.i, "\n.vdatetime-input {\n        width: 100%;\n        pad
 
 /***/ }),
 
-/***/ 608:
+/***/ 623:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(609);
+var content = __webpack_require__(624);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -18025,7 +20157,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 609:
+/***/ 624:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -18040,7 +20172,7 @@ exports.push([module.i, "\n.card[data-v-59c14948] {\n\tflex-direction: unset;\n\
 
 /***/ }),
 
-/***/ 610:
+/***/ 625:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18716,7 +20848,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 
 /***/ }),
 
-/***/ 611:
+/***/ 626:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -20173,7 +22305,410 @@ if (false) {
 
 /***/ }),
 
-/***/ 612:
+/***/ 627:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(628)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(630)
+/* template */
+var __vue_template__ = __webpack_require__(631)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-54279ff4"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/DeleteMember.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54279ff4", Component.options)
+  } else {
+    hotAPI.reload("data-v-54279ff4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 628:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(629);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("7c1f750f", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54279ff4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteMember.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54279ff4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteMember.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 629:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n*[data-v-54279ff4] {\n    color: white;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 630:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    mounted: function mounted() {
+        var _this = this;
+
+        document.addEventListener("keydown", function (e) {
+            if (_this.showModal && e.keyCode == 27) {
+                _this.cancel();
+            }
+        });
+    },
+
+    props: {
+
+        showModal: {
+            type: Boolean,
+            default: false
+        },
+
+        member: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        }
+
+    },
+
+    data: function data() {
+        return {
+            confirmation: '',
+            isRequesting: false,
+            buttonEnabled: true
+        };
+    },
+
+
+    computed: {
+        hideOrShowModal: function hideOrShowModal() {
+            return this.showModal ? 'modal-show' : '';
+        },
+        inputConfirmed: function inputConfirmed() {
+            return this.confirmation === 'DELETE';
+        }
+    },
+
+    methods: {
+        cancel: function cancel() {
+            if (!this.isRequesting) {
+                this.confirmation = '';
+                this.$emit('set-show-modal-to-false');
+            }
+        },
+        deleteMember: function deleteMember() {
+            var _this2 = this;
+
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_member', self.member.id).then(function () {
+
+                    flash('Member has been deleted', 'danger');
+
+                    self.isRequesting = false;
+                    _this2.cancel();
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 631:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { on: { click: _vm.cancel } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "modal-container modal-full-color modal-full-color-danger modal-effect-9",
+        class: _vm.hideOrShowModal
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-content",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "modal-header pb-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close modal-close",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.cancel }
+                },
+                [
+                  _c("span", {
+                    staticClass: "fa fa-close",
+                    staticStyle: { "font-size": "20px" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", {
+                  staticClass: "modal-main-icon fa fa-warning mb-0",
+                  staticStyle: { "font-size": "75px" }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-4" }, [_vm._v("Warning")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("You'll be deleting a member named "),
+                  _c("strong", [_vm._v(_vm._s(_vm.member.name))])
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v('Type "DELETE" to continue on this action')]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.confirmation,
+                      expression: "confirmation"
+                    }
+                  ],
+                  staticClass: "form-control form-control-sm",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.confirmation = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-5" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-secondary modal-close",
+                      on: { click: _vm.cancel }
+                    },
+                    [_vm._v("Cancel\n                        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-danger modal-close",
+                      attrs: {
+                        disabled: !_vm.inputConfirmed || _vm.isRequesting
+                      },
+                      on: { click: _vm.deleteMember }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Continue\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-overlay", class: _vm.hideOrShowModal })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-54279ff4", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 632:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -20184,6 +22719,11 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
+      _c("delete-member", {
+        attrs: { "show-modal": _vm.showModal, member: _vm.member },
+        on: { "set-show-modal-to-false": _vm.hideModal }
+      }),
+      _vm._v(" "),
       _c("h3", [_vm._v("Member List")]),
       _vm._v(" "),
       _vm._m(0),
@@ -20439,7 +22979,8 @@ var render = function() {
                     member: member,
                     type: _vm.type,
                     yearSubs: _vm.yearSubs
-                  }
+                  },
+                  on: { showDeactivateModal: _vm.showDeactivateModal }
                 })
               })
             )
@@ -20464,7 +23005,8 @@ var render = function() {
                     status: _vm.active,
                     type: _vm.type,
                     yearSubs: _vm.yearSubs
-                  }
+                  },
+                  on: { showDeactivateModal: _vm.showDeactivateModal }
                 })
               })
             )
@@ -20499,7 +23041,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 613:
+/***/ 633:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20948,23 +23490,75 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
 
 /***/ }),
 
-/***/ 641:
+/***/ 661:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(662)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(664)
+/* template */
+var __vue_template__ = __webpack_require__(665)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-6d8b1a91"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/vue-components/admin/bookkeeping/member/components/DeleteClassRegionInEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6d8b1a91", Component.options)
+  } else {
+    hotAPI.reload("data-v-6d8b1a91", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 662:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(642);
+var content = __webpack_require__(663);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("71db770b", content, false, {});
+var update = __webpack_require__(2)("39b092be", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66a89b1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DetailMember.vue", function() {
-     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66a89b1a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DetailMember.vue");
+   module.hot.accept("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d8b1a91\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteClassRegionInEdit.vue", function() {
+     var newContent = require("!!../../../../../../../../node_modules/css-loader/index.js!../../../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d8b1a91\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeleteClassRegionInEdit.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -20975,7 +23569,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 642:
+/***/ 663:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -20983,797 +23577,282 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.bg-grey {\n    background: #fafafa;\n}\n.panel-font-small {\n    font-size: 0.9rem;\n}\n", ""]);
+exports.push([module.i, "\n*[data-v-6d8b1a91] {\n    color: white;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 643:
+/***/ 664:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    mounted: function mounted() {
+        var _this = this;
+
+        document.addEventListener("keydown", function (e) {
+            if (_this.showModal && e.keyCode == 27) {
+                _this.cancel();
+            }
+        });
+    },
+
+    props: {
+
+        showModal: {
+            type: Boolean,
+            default: false
+        },
+
+        region: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+
+        memberId: {
+            type: Number,
+            default: 0
+        }
+
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            buttonEnabled: true
+        };
+    },
+
+
+    computed: {
+        hideOrShowModal: function hideOrShowModal() {
+            return this.showModal ? 'modal-show' : '';
+        }
+    },
+
+    methods: {
+        cancel: function cancel() {
+            if (!this.isRequesting) {
+                this.$emit('set-show-modal-to-false');
+            }
+        },
+        deleteClass: function deleteClass() {
+            var _this2 = this;
+
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_region', {
+                    region_id: this.region.id,
+                    member_id: this.memberId
+                }).then(function () {
+                    flash('Class region ' + _this2.region.name + ' has been deleted.', 'danger');
+
+                    self.isRequesting = false;
+                    self.cancel();
+                }).catch(function () {
+
+                    self.isRequesting = false;
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 665:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "transition",
-    {
-      attrs: {
-        enterActiveClass: "fade-in-down",
-        leaveActiveClass: "fade-out-up",
-        mode: "out-in"
-      }
-    },
-    [
-      _c("div", [
-        !_vm.isEdit
-          ? _c(
-              "div",
-              {
-                staticClass: "panel-default panel mt-3 pt-4 bg-grey",
-                attrs: { id: "edit_sosmed" }
-              },
-              [
-                _c("div", { staticClass: "panel-body" }, [
-                  _c("h3", { staticClass: "text-center" }, [
-                    _c("strong", [_vm._v(_vm._s(_vm.member.name))]),
-                    _vm._v(" Detail")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 col-xs-12 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Name\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8 col-xs-12" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.name) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Gender\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.gender == 1 ? "Men" : "Women") +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Place of birth\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.place_of_birth) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Date of birth\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm._f("date")(_vm.member.date_of_birth)) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Join Date\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.member.join_date != null
-                          ? _c("div", { staticClass: "col-sm-8" }, [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(_vm._f("date")(_vm.member.join_date)) +
-                                  "\n                        "
-                              )
-                            ])
-                          : _c("div", { staticClass: "col-sm-8" }, [
-                              _vm._v(
-                                "\n                            None\n                        "
-                              )
-                            ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Type\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm._f("type")(_vm.member.is_teacher)) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Email\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.email) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Telephone\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.telephone) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Mobile\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.mobile) +
-                              "\n                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-4 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Fax\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-8" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.fax) +
-                              "\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Teacher\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-10 pl-1" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.teacherName) +
-                              "\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Address\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-sm-10 pl-1" }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.member.address) +
-                              "\n                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Class\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.member.class.length > 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
-                              },
-                              _vm._l(_vm.member.class, function(classList) {
-                                return _c(
-                                  "div",
-                                  {
-                                    staticClass: "mr-2 mb-2",
-                                    staticStyle: {
-                                      border: "1px #908f96 solid",
-                                      padding: "2px 6px",
-                                      "border-radius": "10%",
-                                      color: "#6d6c73"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(classList.title) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              })
-                            )
-                          : _c(
-                              "div",
-                              { staticClass: "col-sm-10 d-flex pl-1" },
-                              [_vm._v("None")]
-                            )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-12 col-md-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Rank\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.member.rank.length > 0
-                          ? _c(
-                              "div",
-                              { staticClass: "col-sm-10 d-flex pl-1 row m-0" },
-                              _vm._l(_vm.member.rank, function(rank) {
-                                return _c(
-                                  "div",
-                                  {
-                                    staticClass: "mr-2 pt-2 pb-2 text-center",
-                                    staticStyle: {
-                                      "border-right": "1px #d7d6d6 solid",
-                                      padding: "0 10px 0 0",
-                                      width: "100px"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "p",
-                                      {
-                                        staticStyle: {
-                                          "margin-bottom": "-4px",
-                                          color: "#5e5b5b",
-                                          "font-size": "0.9em"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(rank.title) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticStyle: {
-                                          "font-size": "12px",
-                                          color: "grey"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          " \n                                    " +
-                                            _vm._s(rank.pivot.annointed_date) +
-                                            " \n                                "
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              })
-                            )
-                          : _c(
-                              "div",
-                              { staticClass: "col-sm-10 d-flex pl-1" },
-                              [_vm._v("None")]
-                            )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Subscription\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.member.subscription.length > 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
-                              },
-                              _vm._l(_vm.member.subscription, function(
-                                subscription
-                              ) {
-                                return _c(
-                                  "div",
-                                  {
-                                    staticClass: "mr-2 mb-2",
-                                    staticStyle: {
-                                      border: "1px #908f96 solid",
-                                      padding: "2px 6px",
-                                      "border-radius": "10%",
-                                      color: "#6d6c73"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(subscription.year) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              })
-                            )
-                          : _c(
-                              "div",
-                              { staticClass: "col-sm-10 d-flex pl-1" },
-                              [_vm._v("None")]
-                            )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-sm-2 d-flex align-items-center justify-content-end"
-                          },
-                          [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "form-control-label font-weight-bold panel-font-small m-0"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Class Region\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.member.region.length > 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "col-sm-10 d-flex pt-2 pl-1 row m-0"
-                              },
-                              _vm._l(_vm.member.region, function(region) {
-                                return _c(
-                                  "div",
-                                  {
-                                    staticClass: "mr-2 mb-2",
-                                    staticStyle: {
-                                      border: "1px #908f96 solid",
-                                      padding: "2px 6px",
-                                      "border-radius": "10%",
-                                      color: "#6d6c73"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(region.city) +
-                                        ", " +
-                                        _vm._s(region.address) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              })
-                            )
-                          : _c(
-                              "div",
-                              { staticClass: "col-sm-10 d-flex pl-1" },
-                              [_vm._v("None")]
-                            )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-sm-12 d-flex justify-content-center mt-3 pl-2"
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { type: "button" },
-                            on: { click: _vm.closemember }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Close\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-sm ml-2",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.shoeEdit()
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Edit\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger btn-sm ml-2",
-                            attrs: { type: "button" },
-                            on: { click: _vm.deleteMember }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Delete\n                    "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
+  return _c("div", { on: { click: _vm.cancel } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "modal-container modal-full-color modal-full-color-danger modal-effect-9",
+        class: _vm.hideOrShowModal
+      },
+      [
         _c(
           "div",
-          { staticClass: "col-12" },
+          {
+            staticClass: "modal-content",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+              }
+            }
+          },
           [
-            _vm.isEdit
-              ? _c("edit-member", {
-                  attrs: { member: _vm.member, teacherId: _vm.teacherId },
-                  on: {
-                    closeEditMember: function($event) {
-                      _vm.isEdit = $event
-                    }
-                  }
-                })
-              : _vm._e()
-          ],
-          1
+            _c("div", { staticClass: "modal-header pb-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close modal-close",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.cancel }
+                },
+                [
+                  _c("span", {
+                    staticClass: "fa fa-close",
+                    staticStyle: { "font-size": "20px" }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "text-center" }, [
+                _c("span", {
+                  staticClass: "modal-main-icon fa fa-warning mb-0",
+                  staticStyle: { "font-size": "75px" }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-4" }, [_vm._v("Warning")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("You'll be deleting a class region named "),
+                  _c("strong", [_vm._v(_vm._s(_vm.region.name))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mt-5" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-secondary modal-close",
+                      on: { click: _vm.cancel }
+                    },
+                    [_vm._v("Cancel\n                        ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-space btn-danger modal-close",
+                      attrs: { disabled: _vm.isRequesting },
+                      on: { click: _vm.deleteClass }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Continue\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
         )
-      ])
-    ]
-  )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-overlay", class: _vm.hideOrShowModal })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21781,7 +23860,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-66a89b1a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6d8b1a91", module.exports)
   }
 }
 

@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <delete-member :show-modal="showModal"
+    :member="member"
+    @set-show-modal-to-false="hideModal">
+    </delete-member>
+
     <h3>Member List</h3>
     <p class="mb-3">
       Here is where you can see list of <strong>members</strong>.
@@ -65,7 +70,7 @@
         <transition-group name="slide">
           <member v-for="member in showMember"
           :member="member" :type="type" :yearSubs="yearSubs"
-          :key="member.id">
+          :key="member.id" @showDeactivateModal="showDeactivateModal">
           </member>
         </transition-group>
       </div>
@@ -77,7 +82,7 @@
         <transition-group name="slide">
           <teacher v-for="teacher in teachers"
           :teacher="teacher" :status="active" :type="type" :yearSubs="yearSubs"
-          :key="teacher.id">
+          :key="teacher.id" @showDeactivateModal="showDeactivateModal">
           </teacher>
         </transition-group>
       </div>
@@ -89,6 +94,7 @@
   import Teacher from './Teacher.vue';
   import AddMember from './AddMember.vue';
   import Member from './Member.vue';
+  import DeleteMember from './DeleteMember.vue';
   import {mapGetters} from 'vuex';
 
   export default {
@@ -98,14 +104,17 @@
         isAddMember : false,
         active: 1,
         type: 'email',
-        yearSubs: ''
+        yearSubs: '',
+        showModal: false,
+        member: {} 
       }
     },
 
     components:{
       Member,
       AddMember,
-      Teacher
+      Teacher,
+      DeleteMember,
     },
 
     computed:{
@@ -133,6 +142,16 @@
     methods:{
       changeValue(value){
         this.active = value;
+      },
+
+      hideModal(){
+        this.showModal = false;
+        this.member = {};
+      },
+
+      showDeactivateModal(newMember){
+        this.showModal = true;
+        this.member = newMember;
       }
     }
   };

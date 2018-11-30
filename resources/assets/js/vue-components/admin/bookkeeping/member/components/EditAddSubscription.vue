@@ -5,7 +5,7 @@
 
 			<div class="row pl-0 pr-0 m-0 pt-4 pb-4">
 				<div class="col-md-12 d-flex">
-					<div class="col-md-12">
+					<div class="col-md-12 text-center">
 						<input type="number" 
 						@input="$v.year.$touch()"
 						class="form-control" 
@@ -37,7 +37,20 @@
 				</div>
 
 				<div class="col-md-12 d-flex justify-content-center mt-2">
-					<button class="btn btn-success btn-sm" @click="add_subscription()">Add</button>
+					<button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
+						Close
+					</button>
+
+					<button class="btn btn-success btn-sm ml-2" :disabled="isRequesting" @click="add_subscription()">
+						Add Subscription Year
+					</button>
+
+					<delete-year :show-modal="showModal"
+					:year="yearToBeDeleted"
+					:memberId="member.id"
+					:teacherId="teacherId"
+					@set-show-modal-to-false="hideModal">
+					</delete-year>
 				</div>
 			</div>
 		</div>
@@ -45,8 +58,14 @@
 </template>
 
 <script>
+	import DeleteYear from './DeleteSubscriptionInEdit.vue';
 	import {minLength, maxLength} from 'vuelidate/lib/validators';
+
 	export default{
+		components: {
+			DeleteYear
+		},
+
 		props:{
 			member:{},
 			teacherId:''
@@ -56,7 +75,9 @@
 			return{
 				year:'',
 				isRequesting: false,
-				subscription: this.member.subscription
+				subscription: this.member.subscription,
+				yearToBeDeleted: {},
+				showModal: false,
 			}
 		},
 
@@ -68,6 +89,10 @@
 		},
 
 		methods:{
+			closeEditForm(){
+	           this.$emit('closeEditForm',false);
+			},
+
 			add_subscription(){
 				const self = this;
 
@@ -92,30 +117,14 @@
 				}
 			},
 
-			delete_subscription(subscription){
-				const self = this;
+			hideModal(){
+				this.showModal = false;
+				this.yearToBeDeleted = {};
+			},
 
-				if(!self.isRequesting){
-
-					this.isRequesting = true;
-
-					this.$store.dispatch('destroy_subscription',{
-							subscription_id: subscription.id,
-							member_id: this.member.id,
-							teacher_id: this.teacherId,
-
-						})
-							.then(() => {
-
-								flash('Subscription deleted', 'danger')
-
-								self.isRequesting = false;
-							})
-							.catch(() => {
-								self.isRequesting = false;
-							})
-
-				}
+			delete_subscription(newYear){
+				this.showModal = true;
+				this.yearToBeDeleted = newYear;	
 			}
 		}
 	};

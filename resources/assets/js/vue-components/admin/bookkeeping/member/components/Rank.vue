@@ -69,31 +69,8 @@
 			},
 
             deleteRank() {
-                const self = this;
-
-                if(!self.isRequesting){
-
-                    self.isRequesting = true;
-
-                    this.$store.dispatch('destroy_rank', {
-                        rank_id: self.rank.id,
-                        member_id: self.member.id
-                    })
-                    .then(() => {
-
-                        self.isRequesting = false;
-
-                        flash('Ranks deleted', 'danger');
-
-                        self.changeCurrent();
-                    })
-                }
+     			this.$emit('showDeleteModal', this.rank);
             },
-
-            changeCurrent() {
-
-     			this.$emit('changeCurrentIndex',1);
-    		}
         }
 	};
 </script>

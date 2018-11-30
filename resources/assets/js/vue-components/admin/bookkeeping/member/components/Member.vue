@@ -53,7 +53,7 @@
 
                     <div class="col-12">
                         <detail-member v-if="isDetail" :member="member" :teacherId="teacherId"
-                            @closeDetailMember="isDetail = $event">
+                            @closeDetailMember="isDetail = $event" @showDeactivateModal="showDeactivateModal">
                         </detail-member>
                     </div>
                 </div>
@@ -200,24 +200,10 @@
                 }
             },
 
-            deleteMember(){
-
-                const self = this;
-
-                if(!self.isRequesting){
-
-                    self.isRequesting = true;
-
-                    this.$store.dispatch('destroy_member',self.member.id)
-                        .then(() => {
-
-                            flash('Member has been deleted', 'danger');
-
-                            self.isRequesting = false
-                        })
-                }
-
-            }
+            showDeactivateModal(){
+                this.$emit('showDeactivateModal', this.member);
+            },
+            
         }
     };
 </script>

@@ -29,10 +29,14 @@
 				</div>
 
 				<div class="col-md-12 d-flex justify-content-center mt-2">
+					<button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
+						Close
+					</button>
+
 					<button type="button" @click="add_region"
-					:disabled="hasChoosen"
-					class="btn btn-success btn-sm">
-						Add Region
+					:disabled="hasChoosen || isRequesting"
+					class="btn btn-success btn-sm ml-2">
+						Add Class Region
 					</button>
 				</div>
 
@@ -41,14 +45,26 @@
 						<span class="text-danger" v-if="hasChoosen">Already chosen</span>
 					</transition>
 				</div>
+
+				<delete-region :show-modal="showModal"
+				:region="regionToBeDeleted"
+				:memberId="member.id"
+				@set-show-modal-to-false="hideModal">
+				</delete-region>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	import DeleteRegion from './DeleteClassRegionInEdit.vue'; 
 	import {mapGetters} from 'vuex';
+
 	export default{
+		components: {
+			DeleteRegion,
+		},
+
 		props:{member:{}},
 
 		data(){
@@ -56,6 +72,8 @@
 				region: '',
 				isRequesting: false,
 				classRegion: this.member.region,
+				regionToBeDeleted: {},
+				showModal: false,
 			}
 		},
 
@@ -72,6 +90,10 @@
 		},
 
 		methods:{
+			closeEditForm(){
+	           this.$emit('closeEditForm',false);
+			},
+
 			add_region(){
 
 				const self = this;
@@ -99,30 +121,14 @@
 				}
 			},
 
-			delete_region(region){
+			hideModal(){
+				this.showModal = false;
+				this.regionToBeDeleted = {};
+			},
 
-				const self = this;
-
-				if(!self.isRequesting){
-
-					self.isRequesting = true;
-
-					this.$store.dispatch('destroy_region',{
-						region_id : region.id,
-						member_id : this.member.id
-					}).then(() => {
-						flash('Class region '+ region.name +' has been deleted.', 'danger');
-
-						self.isRequesting = false;
-
-					}).catch(() => {
-
-						self.isRequesting = false;
-
-					})
-
-				}
-
+			delete_region(newRegion){
+				this.showModal = true;
+				this.regionToBeDeleted = newRegion;
 			}
 		}
 	};

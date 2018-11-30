@@ -334,30 +334,7 @@
             },
 
             deleteMember() {
-
-                const self = this;
-
-                if(self.isRequesting = true){
-
-                    self.isRequesting = true;
-
-                    this.$store.dispatch('destroy_item', {
-                        class_id: self.member.class_id,
-                        member_id: self.member.id,
-                    })
-                    .then(() => {
-
-                        flash('Member has been rejected', 'danger');
-
-                        self.isRequesting = false;
-
-                    })
-                    .catch(errors => {
-
-                        self.isRequesting = false;
-
-                    });
-                }
+                this.$emit('showDeactivateModal', this.member);
             },
 
             closemember() {

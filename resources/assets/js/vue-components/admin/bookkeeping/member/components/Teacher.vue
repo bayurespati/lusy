@@ -43,6 +43,7 @@
           <member v-for="member in showMember"
                   :member="member" v-if="isShow"
                   :teacherId="teacher.id" :type="type" :yearSubs="yearSubs"
+                  @showDeactivateModal="showDeactivateModal"
                   :key="member.id">
           </member>
         </transition-group>
@@ -78,6 +79,9 @@
         },
 
         methods:{
+          showDeactivateModal(member){;
+            this.$emit('showDeactivateModal', member);
+          },
         }
     };
 </script>
