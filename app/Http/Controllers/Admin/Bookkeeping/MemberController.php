@@ -59,7 +59,7 @@ class MemberController extends Controller
             }
         }
 
-        $teachers = Member::where('is_teacher', 1)->with('student')->withCount('student')->orderBy('student_count', 'desc')->get();
+        $teachers = Member::where('is_teacher', true)->with('student')->withCount('student')->orderBy('student_count', 'desc')->get();
 
         return [$teachers,$membersNoteacher];
     }
@@ -131,8 +131,8 @@ class MemberController extends Controller
         $member->fax = $request->fax;
         $member->name = $request->name;
         $member->gender = $request->gender;
-        $member->is_active = $request->is_active;
-        $member->is_teacher = $request->is_teacher;
+        $member->is_active = $request->is_active ? 1 : 0;
+        $member->is_teacher = $request->is_teacher ? 1 : 0;
         $member->place_of_birth = $request->place_of_birth;
         $member->date_of_birth = substr($request->date_of_birth,0, 10);
         $member->teacher_id = $request->teacher_id;

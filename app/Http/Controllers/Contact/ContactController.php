@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Contact;
 
-use App\sosmed;
+use App\Sosmed;
 use App\ImageConfig;
 use App\ContactMessage;
 use Illuminate\Http\Request;

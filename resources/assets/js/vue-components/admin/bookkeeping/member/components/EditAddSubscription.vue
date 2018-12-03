@@ -9,7 +9,7 @@
 						<input type="number" 
 						@input="$v.year.$touch()"
 						class="form-control" 
-						:class="{'form-control-danger': $v.year.$error}"
+						:class="{'form-control-danger': $v.year.$error || alreadyHasYear }"
 						placeholder="Input Years" v-model="year">
 
 						<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
@@ -19,21 +19,42 @@
 							<span key="year-maximum" class="text-danger" v-if="!$v.year.maxLength">
 								Year must has of {{ $v.year.$params.maxLength.max }} characters
 							</span>
+							<span key="year-maximum" class="text-danger" v-if="alreadyHasYear">
+								Can't input same year
+							</span>
 						</transition>
 					</div>
 				</div>
 
 				<div class="col-md-12 row mr-0 ml-0 mt-4 mb-2" v-if="subscription.length > 0">
-					<transition-group class="col-12 row m-0" appear enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-						<div :key="'subscription-year-' + index" class="col-md-2 col-sm-6" v-for="(list, index) in member.subscription">
+
+					<transition-group class="col-12 row m-0" 
+									  appear enterActiveClass="fade-in" 
+									  leaveActiveClass="fade-out" mode="out-in">
+						
+						<div v-for="(list, index) in member.subscription"
+							 class="mr-2 mb-2"
+							 :key="'subscription-year-' + index"
+							 style="border: 1px #908f96 solid; padding: 2px 6px; color: #6d6c73">
+                                   {{ list.year }}
+                                    <span @click="delete_subscription(list)" 
+									      class="badge badge-danger btn"> X </span>
+                        </div>
+					</transition-group>
+
+					<!-- <transition-group class="col-12 row m-0" appear 
+									 enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+						<div :key="'subscription-year-' + index" 
+						     class="col-md-2 col-sm-6" 
+						     v-for="(list, index) in member.subscription">
 							<p class="m-0 d-flex align-items-center justify-content-center">{{ list.year }}
 								<span @click="delete_subscription(list)" 
-								class="badge badge-danger ml-1" style="cursor: pointer">
-									X
+								      class="badge badge-danger ml-1" 
+								      style="cursor: pointer"> X
 								</span> 
 							</p>
 						</div>
-					</transition-group>
+					</transition-group> -->
 				</div>
 
 				<div class="col-md-12 d-flex justify-content-center mt-2">
@@ -88,6 +109,25 @@
             }
 		},
 
+		computed:{
+            alreadyHasYear(){
+
+                if(this.year.length != 4){
+                    return false;
+                }
+
+                console.log(this.member.subscription[0], this.year);
+
+                for(let index = 0; index < this.member.subscription.length; index++){
+                    if(this.member.subscription[index].year == this.year){
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+		},
+
 		methods:{
 			closeEditForm(){
 	           this.$emit('closeEditForm',false);
@@ -96,13 +136,18 @@
 			add_subscription(){
 				const self = this;
 
-				if(!self.isRequesting){	
+				console.log(self.alreadyHasYear);
+
+				if(!self.isRequesting && !self.alreadyHasYear && this.year.length == 4){	
+
 					self.isRequesting = true;
+					let tempYear = this.year;
+					this.year = '';
 
 					this.$store.dispatch('add_subscription',{
 						teacher_id: this.teacherId,
 						member_id: self.member.id,
-						year: this.year
+						year: tempYear
 					}).then(()=>{
 
 						flash('Subscription added','success');

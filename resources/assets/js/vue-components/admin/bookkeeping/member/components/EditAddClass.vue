@@ -92,6 +92,10 @@
 
 				return isFind == undefined ? false : true;
 			},
+
+			hasIkebana(){
+				return _.some(this.classData, ['title', 'Ikebana Ikenobo']);
+			},
 		},
 
 		methods:{

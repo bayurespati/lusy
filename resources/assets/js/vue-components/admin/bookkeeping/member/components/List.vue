@@ -25,11 +25,11 @@
 
     <div class="row mt-4">
       <div class="col-12 btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary btn-full-width active" @click="changeValue(1)">
+        <label class="btn btn-secondary btn-full-width active" @click="changeValue('true')">
           <input type="radio" name="options-member"
                  id="option1" autocomplete="off"> Active Members
         </label>
-        <label class="btn btn-secondary btn-full-width" @click="changeValue(0)">
+        <label class="btn btn-secondary btn-full-width" @click="changeValue('false')">
           <input type="radio" name="options-member"
                  id="option2" autocomplete="off"> Inactive Members
         </label>
@@ -102,7 +102,7 @@
     data(){
       return{
         isAddMember : false,
-        active: 1,
+        active: true,
         type: 'email',
         yearSubs: '',
         showModal: false,
@@ -141,7 +141,7 @@
 
     methods:{
       changeValue(value){
-        this.active = value;
+        this.active = !this.active;
       },
 
       hideModal(){

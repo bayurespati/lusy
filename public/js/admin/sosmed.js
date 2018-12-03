@@ -1160,7 +1160,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.bg-grey[data-v-667cc964] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-667cc964] {\n    font-size: 0.9rem;\n}\n", ""]);
+exports.push([module.i, "\n.bg-grey[data-v-667cc964] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-667cc964] {\n    font-size: 0.9rem;\n}\n@media (min-width: 576px) {\n.test-class[data-v-667cc964]{\n}\n}\n", ""]);
 
 // exports
 
@@ -1172,6 +1172,7 @@ exports.push([module.i, "\n.bg-grey[data-v-667cc964] {\n    background: #fafafa;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -1337,173 +1338,180 @@ var render = function() {
               _vm._v("Edit " + _vm._s(_vm.sosmed.title))
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 col-xs-12 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "nama" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Link\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9 col-xs-12" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.link,
-                        expression: "input.link"
-                      }
-                    ],
-                    staticClass: "form-control form-control-sm",
-                    attrs: { id: "link", type: "text" },
-                    domProps: { value: _vm.input.link },
-                    on: {
-                      keyup: function($event) {
-                        if (
-                          !("button" in $event) &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.editSosmed($event)
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.input, "link", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-12 row form-group" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-sm-3 d-flex align-items-center justify-content-end"
-                  },
-                  [
-                    _c(
-                      "label",
-                      {
-                        staticClass:
-                          "form-control-label font-weight-bold panel-font-small m-0",
-                        attrs: { for: "kode" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Status\n                        "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.is_active,
-                        expression: "input.is_active"
-                      }
-                    ],
-                    attrs: { type: "radio", name: _vm.sosmed.id, value: "1" },
-                    domProps: { checked: _vm._q(_vm.input.is_active, "1") },
-                    on: {
-                      change: function($event) {
-                        _vm.$set(_vm.input, "is_active", "1")
-                      }
-                    }
-                  }),
-                  _vm._v(" Active\n                        "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.input.is_active,
-                        expression: "input.is_active"
-                      }
-                    ],
-                    staticClass: "ml-2",
-                    attrs: { type: "radio", name: _vm.sosmed.id, value: "0" },
-                    domProps: { checked: _vm._q(_vm.input.is_active, "0") },
-                    on: {
-                      change: function($event) {
-                        _vm.$set(_vm.input, "is_active", "0")
-                      }
-                    }
-                  }),
-                  _vm._v(" Not Active\n                    ")
-                ])
-              ]),
-              _vm._v(" "),
+            _c("form", { staticClass: "pb-4", attrs: { action: "" } }, [
               _c(
                 "div",
                 {
-                  staticClass:
-                    "col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2"
+                  staticClass: "form-group row col-sm-12 col-lg-8 offset-lg-2"
                 },
                 [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary btn-sm",
-                      attrs: { type: "button" },
-                      on: { click: _vm.closeEditForm }
-                    },
+                    "div",
+                    { staticClass: "col-sm-2 d-flex align-items-center" },
                     [
-                      _vm._v(
-                        "\n                        Batal\n                    "
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "link" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Link\n                        "
+                          )
+                        ]
                       )
                     ]
                   ),
                   _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.link,
+                          expression: "input.link"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      attrs: { id: "link", type: "text" },
+                      domProps: { value: _vm.input.link },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.editSosmed($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.input, "link", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "form-group row col-sm-12 col-lg-8 offset-lg-2"
+                },
+                [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success btn-sm ml-2",
-                      class: {
-                        disabled: !_vm.sosmedIsEdited,
-                        "ld-ext-right": _vm.isRequesting
-                      },
-                      on: { click: _vm.editSosmed }
-                    },
+                    "div",
+                    { staticClass: "col-sm-2 d-flex align-items-center" },
                     [
-                      _vm._v(
-                        "\n                        Simpan\n                    "
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "form-control-label font-weight-bold panel-font-small m-0",
+                          attrs: { for: "kode" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Status\n                        "
+                          )
+                        ]
                       )
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_active,
+                          expression: "input.is_active"
+                        }
+                      ],
+                      attrs: { type: "radio", name: _vm.sosmed.id, value: "1" },
+                      domProps: { checked: _vm._q(_vm.input.is_active, "1") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_active", "1")
+                        }
+                      }
+                    }),
+                    _vm._v(" Active\n                        "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.input.is_active,
+                          expression: "input.is_active"
+                        }
+                      ],
+                      staticClass: "ml-2",
+                      attrs: { type: "radio", name: _vm.sosmed.id, value: "0" },
+                      domProps: { checked: _vm._q(_vm.input.is_active, "0") },
+                      on: {
+                        change: function($event) {
+                          _vm.$set(_vm.input, "is_active", "0")
+                        }
+                      }
+                    }),
+                    _vm._v(" Not Active\n                    ")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "form-group row col-sm-12 col-lg-8 offset-lg-2"
+                },
+                [
+                  _c("div", { staticClass: "col offset-lg-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary btn-sm",
+                        attrs: { type: "button" },
+                        on: { click: _vm.closeEditForm }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Batal\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-sm ml-2",
+                        class: {
+                          disabled: !_vm.sosmedIsEdited,
+                          "ld-ext-right": _vm.isRequesting
+                        },
+                        on: { click: _vm.editSosmed }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Simpan\n                            "
+                        )
+                      ]
+                    )
+                  ])
                 ]
               )
             ])
@@ -1600,7 +1608,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-xs-12 col-md-2 d-flex align-items-center justify-content-end"
+                    "col-xs-12 col-md-2 d-flex align-items-center justify-content-center"
                 },
                 [
                   _c(

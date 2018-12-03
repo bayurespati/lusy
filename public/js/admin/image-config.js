@@ -1465,7 +1465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             var file = document.getElementById('croppie-config-' + this.imageConfig.id);
 
-            if (this.imageConfig.page_name === 'Home') {
+            if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
                     viewport: { width: 576, height: 263 },
                     boundary: { width: 626, height: 313 },
@@ -1479,7 +1479,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-            var imageBcg = this.imageConfig.page_name === 'Home' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
+            var imageBcg = this.imageConfig.page_name === 'Event Showcase Background in Home Page' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
 
             if (this.image === null || this.image === '') {
                 this.croppie.bind({
@@ -1498,7 +1498,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setImage: function setImage() {
             var self = this;
 
-            if (this.imageConfig.page_name === 'Home') {
+            if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
                 this.croppie.result({
                     type: 'canvas',
                     size: { width: 1920, height: 876, type: 'square' }

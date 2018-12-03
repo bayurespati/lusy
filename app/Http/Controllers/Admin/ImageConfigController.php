@@ -31,7 +31,7 @@ class ImageConfigController extends Controller
     		$this->removeImageOnServer($imageConfig->image_path);
     	}
 
-    	$imageName = time().$imageConfig->page_name . '.jpg';
+    	$imageName = time() . '.jpg';
         $image = $this->setImage($request->image);
         file_put_contents($path.$imageName,$image);
 

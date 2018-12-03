@@ -47,7 +47,7 @@
                     <!--=========================================================================================
                         B U T T O N   E D I T
                         =========================================================================================-->
-                    <div class="col-xs-12 col-md-2 d-flex align-items-center justify-content-end">
+                    <div class="col-xs-12 col-md-2 d-flex align-items-center justify-content-center">
                         <button type="button" 
                                 class="btn btn-sm btn-warning"
                                 @click="isEditingSosmed = !isEditingSosmed">Ubah</button>

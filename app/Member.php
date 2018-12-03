@@ -16,7 +16,7 @@ class Member extends Model
     /**
      * Settings
      */
-    protected $guraded = [];
+    protected $guraded = ['is_active'];
 
     protected $hidden = [
     	'created_at', 'updated_at',
@@ -26,7 +26,6 @@ class Member extends Model
     /**
      * Relations
      */
-
     public function teacher()
     {
         return $this->belongsTo(self::class, 'teacher_id');
@@ -57,5 +56,18 @@ class Member extends Model
 
     public function subscription(){
         return $this->hasMany('App\Subscription', 'member_id');
+    }
+
+    /**
+    * Accessor
+    */
+    public function getIsActiveAttribute($value)
+    {
+        return (bool) $value;
+    }
+
+    public function getIsTeacherAttribute($value)
+    {
+        return (bool) $value;
     }
 }

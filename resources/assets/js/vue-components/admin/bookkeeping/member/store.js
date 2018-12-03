@@ -153,7 +153,7 @@ export const store = new Vuex.Store({
 
         delete_subscription(state, ids){
 
-            if(ids.teacher_id == undefined){
+            if(ids.teacher_id == 0){
                 const memberIndex = _.findIndex(state.studentNoTeacher, ['id', ids.member_id]);
                 const subscriptionIndex = _.findIndex(state.studentNoTeacher[memberIndex].subscription, ['id', ids.subscription_id]);
 
