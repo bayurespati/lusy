@@ -10,7 +10,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="{{ route('home') }}" class="navbar-brand" style="margin: 0;"><img src="{{ asset('img/logo.png') }}" alt="Logo" style="width: 90px" /></a>
+                        <a href="{{ route('home') }}" class="navbar-brand" style="margin: 0;"><img src="{{ asset('img/logo.png') }}" alt="Logo"/></a>
                     </div>
 
                     <!-- Menu Icon -->

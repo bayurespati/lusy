@@ -15240,3 +15240,23 @@ perspective effects (not including the modals and the overlay).
         text-transform: uppercase;
         font-family: 'PT Serif', serif;
     }
+
+    .navbar-brand img {
+      width: 48px !important;
+      max-width: unset !important;
+      margin: 0 !important;
+    }
+
+    .ow-navigation .navbar-brand {
+      padding: 0 !important;
+    }
+
+    .ow-navigation button.navbar-toggle {
+      margin: 0;
+    }
+
+    @media (min-width: 500px) {
+      .navbar-brand img {
+        width: 90px !important;    
+        max-width: unset !important;
+    }
