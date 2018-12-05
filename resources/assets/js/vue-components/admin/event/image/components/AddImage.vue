@@ -23,10 +23,13 @@
                             <div class="col-md-12">
                                 <div class="form-group text-center mb-3">
                                     <label>
-                                        <input type="radio" name="orientation" value=false v-model="isWide"> Square
+                                        <input type="radio" name="orientation" :value='1' v-model="imageType"> Tall
                                     </label>
                                     <label>
-                                        <input type="radio" name="orientation" value=true v-model="isWide" class="ml-2"> Wide
+                                        <input type="radio" name="orientation" :value='2' v-model="imageType" class="ml-2"> Square
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="orientation" :value='3' v-model="imageType" class="ml-2"> Wide
                                     </label>
                                 </div>
                             </div>
@@ -133,7 +136,7 @@
         
         data: function () {
             return{
-                isWide: false,
+                imageType: 2,
                 isRequesting : false,
                 croppie: null,
                 save_image:'',
@@ -174,19 +177,31 @@
                     && this.title.length > 3
                     && this.title.length <= 30
                     && this.description < 100
+            },
+
+            colForPicture(){
+                if(this.imageType == 1){
+                    return 'col-md-4';
+                }
+                else if(this.imageType == 2){
+                    return 'col-md-4';
+                } 
+                else if(this.imageType == 3){
+                    return 'col-md-12 mb-4';
+                }
              },
 
-             colForPicture(){
-                return this.isWide
-                ? 'col-md-12 mb-4'
-                : 'col-md-4'
-             },
-
-             colForData(){
-                return this.isWide
-                ? 'col-md-12'
-                : 'col-md-8'
-             }
+            colForData(){
+                if(this.imageType == 1){
+                    return 'col-md-8';
+                }
+                else if(this.imageType == 2){
+                    return 'col-md-8';
+                } 
+                else if(this.imageType == 3){
+                    return 'col-md-12';
+                }
+            }
         },
 
         methods:{
@@ -217,31 +232,43 @@
                 const self = this;
                 let file = document.getElementById('croppie');
 
-                if(this.isWide){
+                if(this.imageType == 1){
                     this.croppie = new Croppie(file,{
-                        viewport: {width: 480, height: 250, type: 'square'},
-                        boundary: {width: 530, height: 300 },
+                        viewport: {width: 160, height: 250, type: 'square'},
+                        boundary: {width: 210, height: 300 },
                         enableOrientation: false
                     });
                 }
-                else {
+                else if(this.imageType == 2){
                     this.croppie = new Croppie(file,{
                         viewport: {width: 240, height: 250, type: 'square'},
                         boundary: {width: 290, height: 300 },
                         enableOrientation: false
                     });
                 }
+                else if(this.imageType == 3) {
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 480, height: 250, type: 'square'},
+                        boundary: {width: 530, height: 300 },
+                        enableOrientation: false
+                    });
+                }
 
 
                 if(this.image === null || this.image === ''){
-                    if(this.isWide){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                    else {
+                    if(this.imageType == 1){
                         this.croppie.bind({
                             url: '/img/portfolio-2.jpg'
+                        });
+                    }
+                    else if(this.imageType == 2){
+                        this.croppie.bind({
+                            url: '/img/portfolio-2.jpg'
+                        });
+                    }
+                    else if(this.imageType == 3){
+                        this.croppie.bind({
+                            url: '/img/portfolio-1.jpg'
                         });
                     }
                 }else {
@@ -258,18 +285,26 @@
             setImage(){
                 const self = this;
 
-                if(this.isWide){
+                if(this.imageType == 1){
                     this.croppie.result({
                         type: 'canvas',
-                        size: {witdh: 960, height: 500, type: 'square'},
+                        size: {witdh: 320, height: 500, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
                 }
-                else {
+                else if(this.imageType == 2){
                     this.croppie.result({
                         type: 'canvas',
                         size: {witdh: 480, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
+                else if(this.imageType == 3){
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 960, height: 500, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
@@ -289,7 +324,7 @@
                         title : this.title,
                         description : this.description,
                         eventId: this.eventId,
-                        isWide: this.isWide
+                        imageType: this.imageType
                     };
 
                     this.$store.dispatch('store_new_image', imageData)
@@ -326,19 +361,10 @@
         },
 
         watch:{
-            isWide(){
-                if(this.isWide == 'false') {
-                    this.isWide = false;
-                    this.image = '';
-                    this.croppie.destroy();
-                    this.setUpCroppie();
-                }
-                else if(this.isWide == 'true') {
-                    this.isWide = true;
-                    this.image = '';
-                    this.croppie.destroy();
-                    this.setUpCroppie();
-                }
+            imageType(){
+                this.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
             }
         }
     };

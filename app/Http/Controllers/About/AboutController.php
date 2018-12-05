@@ -27,18 +27,18 @@ class AboutController extends Controller
 
         foreach($timelines as $timeline){
             $timeline->year = Carbon::parse($timeline->date)->format('Y');
-            $timeline->date = Carbon::parse($timeline->date)->format('j M');
             $timeline->dataDate = Carbon::parse($timeline->date)->format('d/m/Y');
             $timeline->dateHeader = Carbon::parse($timeline->date)->format('F jS, Y');
+            $timeline->date = Carbon::parse($timeline->date)->format('j M');
             $timeline->desc = $timeline->description;
         }
 
-        $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
+        $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->get();
 
         if(
             count($showcasedImage) > 0 && 
             count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-            $showedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->paginate(4); 
+            $showedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->paginate(4); 
         }
         else {
             $showedImage = $showcasedImage;

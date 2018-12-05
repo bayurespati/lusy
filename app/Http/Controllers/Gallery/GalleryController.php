@@ -26,7 +26,7 @@ class GalleryController extends Controller
             $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
         }
 
-        $sortedGallery = $gallery->sortByDesc('is_wide');
+        $sortedGallery = $gallery->sortByDesc('type');
 
 		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner', 'sortedGallery'));
     }
@@ -44,7 +44,7 @@ class GalleryController extends Controller
         $gallerySorted[0] = $gallery;
         $gallerySorted[1] = [];
 
-        foreach ($gallery->sortByDesc('is_wide') as $photo) {
+        foreach ($gallery->sortByDesc('type') as $photo) {
             $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
             $photo->location = $photo->location == NULL 
             ? ""
@@ -81,7 +81,7 @@ class GalleryController extends Controller
         $gallerySorted[0] = $gallery;
         $gallerySorted[1] = [];
 
-        foreach ($gallery->sortByDesc('is_wide') as $photo) {
+        foreach ($gallery->sortByDesc('type') as $photo) {
             $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
             $photo->location = $photo->location == NULL 
             ? ""

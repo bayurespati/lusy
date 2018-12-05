@@ -13,22 +13,25 @@
                         <div class="panel panel-transparent text-center">
                             <input type="file"
                             accept="image/*"
-                            id="file-2"
+                            :id="'file-edit-' + imageItem.id"
                             class="inputfile"
                             @change="setUpFileUploader">
 
                             <div class="col-md-12">
                                 <div class="form-group text-center mb-3">
                                     <label>
-                                        <input type="radio" :name="'orientation-' + imageItem.id" value=false v-model="isWide"> Square
+                                        <input type="radio" :name="'orientation-' + imageItem.id" :value='1' v-model="imageType"> Tall
                                     </label>
                                     <label>
-                                        <input type="radio" :name="'orientation-' + imageItem.id" value=true v-model="isWide" class="ml-2"> Wide
+                                        <input type="radio" :name="'orientation-' + imageItem.id" :value='2' v-model="imageType" class="ml-2"> Square
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="'orientation-' + imageItem.id" :value='3' v-model="imageType" class="ml-2"> Wide
                                     </label>
                                 </div>
                             </div>
 
-                            <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
+                            <label :for="'file-edit-' + imageItem.id" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
                             </label>
                             <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
@@ -107,7 +110,7 @@
 
         data(){
             return {
-                isWide: this.imageItem.is_wide,
+                imageType: this.imageItem.imageType,
                 isRequesting: false,
                 save_image: '',
                 input:{
@@ -139,7 +142,7 @@
         computed: {
             imageIsEdited(){
                 return this.imageItem.title !== this.input.title
-                    || this.imageItem.is_wide !== this.isWide
+                    || this.imageItem.imageType !== this.imageType
                     || this.imageItem.image_path !== this.input.image;
             },
 
@@ -151,16 +154,28 @@
             },
 
             colForPicture(){
-                return this.isWide
-                ? 'col-md-12 mb-4'
-                : 'col-md-4'
-             },
+                if(this.imageType == 1){
+                    return 'col-md-4';
+                }
+                else if(this.imageType == 2){
+                    return 'col-md-4';
+                } 
+                else if(this.imageType == 3){
+                    return 'col-md-12 mb-4';
+                }
+            },
 
-             colForData(){
-                return this.isWide
-                ? 'col-md-12'
-                : 'col-md-8'
-             }
+            colForData(){
+                if(this.imageType == 1){
+                    return 'col-md-8';
+                }
+                else if(this.imageType == 2){
+                    return 'col-md-8';
+                } 
+                else if(this.imageType == 3){
+                    return 'col-md-12';
+                }
+            }
         },
 
         methods: {
@@ -191,30 +206,42 @@
                 const self = this;
                 let file = document.getElementById('croppie-' + this.imageItem.id);
 
-                if(this.isWide){
+                if(this.imageType == 1){
                     this.croppie = new Croppie(file,{
-                        viewport: {width: 480, height: 250, type: 'square'},
-                        boundary: {width: 530, height: 300 },
+                        viewport: {width: 160, height: 250, type: 'square'},
+                        boundary: {width: 210, height: 300 },
                         enableOrientation: false
                     });
                 }
-                else {
+                else if(this.imageType == 2){
                     this.croppie = new Croppie(file,{
                         viewport: {width: 240, height: 250, type: 'square'},
                         boundary: {width: 290, height: 300 },
                         enableOrientation: false
                     });
                 }
+                else if(this.imageType == 3) {
+                    this.croppie = new Croppie(file,{
+                        viewport: {width: 480, height: 250, type: 'square'},
+                        boundary: {width: 530, height: 300 },
+                        enableOrientation: false
+                    });
+                }
 
                 if(this.input.image === null || this.input.image === ''){
-                    if(this.isWide){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                    else {
+                    if(this.imageType == 1){
                         this.croppie.bind({
                             url: '/img/portfolio-2.jpg'
+                        });
+                    }
+                    else if(this.imageType == 2){
+                        this.croppie.bind({
+                            url: '/img/portfolio-2.jpg'
+                        });
+                    }
+                    else if(this.imageType == 3){
+                        this.croppie.bind({
+                            url: '/img/portfolio-1.jpg'
                         });
                     }
                 }else {
@@ -231,18 +258,26 @@
             setImage(){
                 const self = this;
 
-                if(this.isWide){
+                if(this.imageType == 1){
                     this.croppie.result({
                         type: 'canvas',
-                        size: {witdh: 960, height: 500, type: 'square'},
+                        size: {witdh: 320, height: 500, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
                 }
-                else {
+                else if(this.imageType == 2){
                     this.croppie.result({
                         type: 'canvas',
                         size: {witdh: 480, height: 500, type: 'square'},
+                    }).then(response => {
+                        self.save_image = response;
+                    });
+                }
+                else if(this.imageType == 3){
+                    this.croppie.result({
+                        type: 'canvas',
+                        size: {witdh: 960, height: 500, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
@@ -263,7 +298,7 @@
                         title: this.input.title,
                         image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
                         is_poster: this.imageItem.is_poster,
-                        isWide: this.isWide
+                        imageType: this.imageType
                     };
 
                     this.$store.dispatch('update_image', updatedImage)
@@ -295,19 +330,10 @@
         },
 
         watch:{
-            isWide(){
-                if(this.isWide == 'false') {
-                    this.isWide = false;
-                    this.input.image = '';
-                    this.croppie.destroy();
-                    this.setUpCroppie();
-                }
-                else if(this.isWide == 'true') {
-                    this.isWide = true;
-                    this.input.image = '';
-                    this.croppie.destroy();
-                    this.setUpCroppie();
-                }
+            imageType(){
+                this.input.image = '';
+                this.croppie.destroy();
+                this.setUpCroppie();
             }
         }
     };

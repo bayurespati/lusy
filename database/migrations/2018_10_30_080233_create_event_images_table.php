@@ -20,7 +20,7 @@ class CreateEventImagesTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->boolean('is_poster');
-            $table->boolean('is_wide');
+            $table->tinyInteger('type');
             $table->timestamps();
             
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

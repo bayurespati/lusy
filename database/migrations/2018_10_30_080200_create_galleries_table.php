@@ -22,7 +22,7 @@ class CreateGalleriesTable extends Migration
             $table->string('creator')->nullable();
             $table->string('image_path');
             $table->boolean('is_showcase')->nullable();
-            $table->boolean('is_wide');
+            $table->tinyInteger('type');
             $table->timestamps();
 
             $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');

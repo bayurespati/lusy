@@ -513,7 +513,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 is_poster: imageItem.is_poster,
                 title: imageItem.title,
                 shop_item_id: imageItem.shop_item_id,
-                is_wide: imageItem.is_wide
+                imageType: imageItem.type
             });
         },
         edit_item: function edit_item(state, updatedItem) {
@@ -523,7 +523,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             state.imageList[imageIndex].shop_item_id = updatedItem.shop_item_id;
             state.imageList[imageIndex].image_path = updatedItem.image_path;
             state.imageList[imageIndex].title = updatedItem.title;
-            state.imageList[imageIndex].is_wide = updatedItem.is_wide;
+            state.imageList[imageIndex].imageType = updatedItem.type;
             state.imageList[imageIndex].is_poster = updatedItem.is_poster;
         },
         delete_image: function delete_image(state, ids) {
@@ -572,7 +572,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     title: updatedItem.title,
                     image: updatedItem.image,
                     is_poster: updatedItem.is_poster,
-                    isWide: updatedItem.isWide
+                    imageType: updatedItem.imageType
                 }).then(function (response) {
                     commit('edit_item', response.data);
 
@@ -5987,6 +5987,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6001,7 +6004,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     data: function data() {
         return {
-            isWide: false,
+            imageType: 2,
             isRequesting: false,
             croppie: null,
             save_image: '',
@@ -6036,10 +6039,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.image != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 30;
         },
         colForPicture: function colForPicture() {
-            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+            if (this.imageType == 1) {
+                return 'col-md-4';
+            } else if (this.imageType == 2) {
+                return 'col-md-4';
+            } else if (this.imageType == 3) {
+                return 'col-md-12 mb-4';
+            }
         },
         colForData: function colForData() {
-            return this.isWide ? 'col-md-12' : 'col-md-8';
+            if (this.imageType == 1) {
+                return 'col-md-8';
+            } else if (this.imageType == 2) {
+                return 'col-md-8';
+            } else if (this.imageType == 3) {
+                return 'col-md-12';
+            }
         }
     }),
 
@@ -6071,28 +6086,38 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var self = this;
             var file = document.getElementById('croppie');
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
+                    viewport: { width: 160, height: 250, type: 'square' },
+                    boundary: { width: 210, height: 300 },
                     enableOrientation: false
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
                     viewport: { width: 240, height: 250, type: 'square' },
                     boundary: { width: 290, height: 300 },
                     enableOrientation: false
                 });
+            } else if (this.imageType == 3) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
             }
 
             if (this.image === null || this.image === '') {
-                if (this.isWide) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                } else {
+                if (this.imageType == 1) {
                     this.croppie.bind({
                         url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 2) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 3) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
                     });
                 }
             } else {
@@ -6108,17 +6133,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         setImage: function setImage() {
             var self = this;
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie.result({
                     type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
+                    size: { witdh: 320, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie.result({
                     type: 'canvas',
                     size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else if (this.imageType == 3) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
@@ -6136,7 +6168,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     image: this.save_image,
                     title: this.title,
                     shopId: this.shopId,
-                    isWide: this.isWide
+                    imageType: this.imageType
                 };
 
                 this.$store.dispatch('store_new_image', imageData).then(function (response) {
@@ -6169,18 +6201,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     watch: {
-        isWide: function isWide() {
-            if (this.isWide == 'false') {
-                this.isWide = false;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            } else if (this.isWide == 'true') {
-                this.isWide = true;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
+        imageType: function imageType() {
+            this.image = '';
+            this.croppie.destroy();
+            this.setUpCroppie();
         }
     }
 });
@@ -6226,19 +6250,43 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.isWide,
-                            expression: "isWide"
+                            value: _vm.imageType,
+                            expression: "imageType"
                           }
                         ],
-                        attrs: {
-                          type: "radio",
-                          name: "orientation",
-                          value: "false"
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 1,
+                          checked: _vm._q(_vm.imageType, 1)
                         },
-                        domProps: { checked: _vm._q(_vm.isWide, "false") },
                         on: {
                           change: function($event) {
-                            _vm.isWide = "false"
+                            _vm.imageType = 1
+                          }
+                        }
+                      }),
+                      _vm._v(" Tall\n                                ")
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.imageType,
+                            expression: "imageType"
+                          }
+                        ],
+                        staticClass: "ml-2",
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 2,
+                          checked: _vm._q(_vm.imageType, 2)
+                        },
+                        on: {
+                          change: function($event) {
+                            _vm.imageType = 2
                           }
                         }
                       }),
@@ -6251,20 +6299,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.isWide,
-                            expression: "isWide"
+                            value: _vm.imageType,
+                            expression: "imageType"
                           }
                         ],
                         staticClass: "ml-2",
-                        attrs: {
-                          type: "radio",
-                          name: "orientation",
-                          value: "true"
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 3,
+                          checked: _vm._q(_vm.imageType, 3)
                         },
-                        domProps: { checked: _vm._q(_vm.isWide, "true") },
                         on: {
                           change: function($event) {
-                            _vm.isWide = "true"
+                            _vm.imageType = 3
                           }
                         }
                       }),
@@ -7153,6 +7200,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -7170,7 +7220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            isWide: this.imageItem.is_wide,
+            imageType: this.imageItem.imageType,
             isRequesting: false,
             save_image: '',
             input: {
@@ -7200,16 +7250,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         imageIsEdited: function imageIsEdited() {
-            return this.imageItem.title !== this.input.title || this.imageItem.is_wide !== this.isWide || this.imageItem.image_path !== this.input.image;
+            return this.imageItem.title !== this.input.title || this.imageItem.imageType !== this.imageType || this.imageItem.image_path !== this.input.image;
         },
         formIsFilled: function formIsFilled() {
             return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 30 && this.input.image != '';
         },
         colForPicture: function colForPicture() {
-            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+            if (this.imageType == 1) {
+                return 'col-md-4';
+            } else if (this.imageType == 2) {
+                return 'col-md-4';
+            } else if (this.imageType == 3) {
+                return 'col-md-12 mb-4';
+            }
         },
         colForData: function colForData() {
-            return this.isWide ? 'col-md-12' : 'col-md-8';
+            if (this.imageType == 1) {
+                return 'col-md-8';
+            } else if (this.imageType == 2) {
+                return 'col-md-8';
+            } else if (this.imageType == 3) {
+                return 'col-md-12';
+            }
         }
     },
 
@@ -7239,28 +7301,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var self = this;
             var file = document.getElementById('croppie-' + this.imageItem.id);
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
+                    viewport: { width: 160, height: 250, type: 'square' },
+                    boundary: { width: 210, height: 300 },
                     enableOrientation: false
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
                     viewport: { width: 240, height: 250, type: 'square' },
                     boundary: { width: 290, height: 300 },
                     enableOrientation: false
                 });
+            } else if (this.imageType == 3) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
             }
 
             if (this.input.image === null || this.input.image === '') {
-                if (this.isWide) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                } else {
+                if (this.imageType == 1) {
                     this.croppie.bind({
                         url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 2) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 3) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
                     });
                 }
             } else {
@@ -7276,17 +7348,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setImage: function setImage() {
             var self = this;
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie.result({
                     type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
+                    size: { witdh: 320, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie.result({
                     type: 'canvas',
                     size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else if (this.imageType == 3) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
@@ -7305,7 +7384,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     title: this.input.title,
                     image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
                     is_poster: this.imageItem.is_poster,
-                    isWide: this.isWide
+                    imageType: this.imageType
                 };
 
                 this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
@@ -7332,18 +7411,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
-        isWide: function isWide() {
-            if (this.isWide == 'false') {
-                this.isWide = false;
-                this.input.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            } else if (this.isWide == 'true') {
-                this.isWide = true;
-                this.input.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
+        imageType: function imageType() {
+            this.input.image = '';
+            this.croppie.destroy();
+            this.setUpCroppie();
         }
     }
 });
@@ -7391,7 +7462,11 @@ var render = function() {
                   [
                     _c("input", {
                       staticClass: "inputfile",
-                      attrs: { type: "file", accept: "image/*", id: "file-2" },
+                      attrs: {
+                        type: "file",
+                        accept: "image/*",
+                        id: "file-edit-" + _vm.imageItem.id
+                      },
                       on: { change: _vm.setUpFileUploader }
                     }),
                     _vm._v(" "),
@@ -7406,21 +7481,49 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.isWide,
-                                  expression: "isWide"
+                                  value: _vm.imageType,
+                                  expression: "imageType"
                                 }
                               ],
                               attrs: {
                                 type: "radio",
-                                name: "orientation-" + _vm.imageItem.id,
-                                value: "false"
+                                name: "orientation-" + _vm.imageItem.id
                               },
                               domProps: {
-                                checked: _vm._q(_vm.isWide, "false")
+                                value: 1,
+                                checked: _vm._q(_vm.imageType, 1)
                               },
                               on: {
                                 change: function($event) {
-                                  _vm.isWide = "false"
+                                  _vm.imageType = 1
+                                }
+                              }
+                            }),
+                            _vm._v(" Tall\n                                ")
+                          ]),
+                          _vm._v(" "),
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.imageType,
+                                  expression: "imageType"
+                                }
+                              ],
+                              staticClass: "ml-2",
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.imageItem.id
+                              },
+                              domProps: {
+                                value: 2,
+                                checked: _vm._q(_vm.imageType, 2)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.imageType = 2
                                 }
                               }
                             }),
@@ -7433,20 +7536,22 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.isWide,
-                                  expression: "isWide"
+                                  value: _vm.imageType,
+                                  expression: "imageType"
                                 }
                               ],
                               staticClass: "ml-2",
                               attrs: {
                                 type: "radio",
-                                name: "orientation-" + _vm.imageItem.id,
-                                value: "true"
+                                name: "'orientation-' + imageItem.id"
                               },
-                              domProps: { checked: _vm._q(_vm.isWide, "true") },
+                              domProps: {
+                                value: 3,
+                                checked: _vm._q(_vm.imageType, 3)
+                              },
                               on: {
                                 change: function($event) {
-                                  _vm.isWide = "true"
+                                  _vm.imageType = 3
                                 }
                               }
                             }),
@@ -7460,7 +7565,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
-                        attrs: { for: "file-2" }
+                        attrs: { for: "file-edit-" + _vm.imageItem.id }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
                     ),
