@@ -33,12 +33,12 @@ class AboutController extends Controller
             $timeline->desc = $timeline->description;
         }
 
-        $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
+        $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->get();
 
         if(
             count($showcasedImage) > 0 && 
             count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-            $showedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->paginate(4); 
+            $showedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->paginate(4); 
         }
         else {
             $showedImage = $showcasedImage;

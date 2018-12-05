@@ -15175,7 +15175,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                 date: imageData.detail.date,
                 location: imageData.detail.location,
                 creator: imageData.detail.creator,
-                is_wide: imageData.detail.isWide
+                imageType: imageData.detail.type
             });
         },
         edit_image: function edit_image(state, updatedGallery) {
@@ -15187,7 +15187,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
             state.gallery[imageIndex].location = updatedGallery.detail.location;
             state.gallery[imageIndex].creator = updatedGallery.detail.creator;
             state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
-            state.gallery[imageIndex].is_wide = updatedGallery.detail.isWide;
+            state.gallery[imageIndex].imageType = updatedGallery.detail.type;
             state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
         delete_gallery: function delete_gallery(state, ids) {
@@ -15245,7 +15245,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
                     creator: updatedGallery.creator,
                     sub_category_id: updatedGallery.sub_category_id,
                     image: updatedGallery.image,
-                    isWide: updatedGallery.isWide
+                    imageType: updatedGallery.imageType
                 }).then(function (response) {
 
                     var updateData = {
@@ -16019,6 +16019,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -16034,7 +16037,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
 
     data: function data() {
         return {
-            isWide: false,
+            imageType: 2,
             isRequesting: false,
             subcategories: '',
             croppie: null,
@@ -16090,10 +16093,22 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
             return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
         },
         colForPicture: function colForPicture() {
-            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+            if (this.imageType == 1) {
+                return 'col-md-4';
+            } else if (this.imageType == 2) {
+                return 'col-md-4';
+            } else if (this.imageType == 3) {
+                return 'col-md-12 mb-4';
+            }
         },
         colForData: function colForData() {
-            return this.isWide ? 'col-md-12' : 'col-md-8';
+            if (this.imageType == 1) {
+                return 'col-md-8';
+            } else if (this.imageType == 2) {
+                return 'col-md-8';
+            } else if (this.imageType == 3) {
+                return 'col-md-12';
+            }
         }
     }),
 
@@ -16101,18 +16116,10 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         subcategories: function subcategories() {
             this.sub_category_id = "";
         },
-        isWide: function isWide() {
-            if (this.isWide == 'false') {
-                this.isWide = false;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            } else if (this.isWide == 'true') {
-                this.isWide = true;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
+        imageType: function imageType() {
+            this.image = '';
+            this.croppie.destroy();
+            this.setUpCroppie();
         }
     },
 
@@ -16144,28 +16151,38 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
             var self = this;
             var file = document.getElementById('croppie');
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
+                    viewport: { width: 160, height: 250, type: 'square' },
+                    boundary: { width: 210, height: 300 },
                     enableOrientation: false
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
                     viewport: { width: 240, height: 250, type: 'square' },
                     boundary: { width: 290, height: 300 },
                     enableOrientation: false
                 });
+            } else if (this.imageType == 3) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
             }
 
             if (this.image === null || this.image === '') {
-                if (this.isWide) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                } else {
+                if (this.imageType == 1) {
                     this.croppie.bind({
                         url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 2) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 3) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
                     });
                 }
             } else {
@@ -16181,17 +16198,24 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         setImage: function setImage() {
             var self = this;
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie.result({
                     type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
+                    size: { witdh: 320, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie.result({
                     type: 'canvas',
                     size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else if (this.imageType == 3) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
@@ -16212,7 +16236,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
                     date: this.date.substring(0, 10),
                     location: this.location,
                     creator: this.creator,
-                    isWide: this.isWide
+                    imageType: this.imageType
                 };
 
                 this.$store.dispatch('store_new_image', galleryData).then(function (response) {
@@ -16281,19 +16305,43 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.isWide,
-                            expression: "isWide"
+                            value: _vm.imageType,
+                            expression: "imageType"
                           }
                         ],
-                        attrs: {
-                          type: "radio",
-                          name: "orientation",
-                          value: "false"
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 1,
+                          checked: _vm._q(_vm.imageType, 1)
                         },
-                        domProps: { checked: _vm._q(_vm.isWide, "false") },
                         on: {
                           change: function($event) {
-                            _vm.isWide = "false"
+                            _vm.imageType = 1
+                          }
+                        }
+                      }),
+                      _vm._v(" Tall\n                                ")
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.imageType,
+                            expression: "imageType"
+                          }
+                        ],
+                        staticClass: "ml-2",
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 2,
+                          checked: _vm._q(_vm.imageType, 2)
+                        },
+                        on: {
+                          change: function($event) {
+                            _vm.imageType = 2
                           }
                         }
                       }),
@@ -16306,20 +16354,19 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.isWide,
-                            expression: "isWide"
+                            value: _vm.imageType,
+                            expression: "imageType"
                           }
                         ],
                         staticClass: "ml-2",
-                        attrs: {
-                          type: "radio",
-                          name: "orientation",
-                          value: "true"
+                        attrs: { type: "radio", name: "orientation" },
+                        domProps: {
+                          value: 3,
+                          checked: _vm._q(_vm.imageType, 3)
                         },
-                        domProps: { checked: _vm._q(_vm.isWide, "true") },
                         on: {
                           change: function($event) {
-                            _vm.isWide = "true"
+                            _vm.imageType = 3
                           }
                         }
                       }),
@@ -17481,6 +17528,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -17499,7 +17549,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             isRequesting: false,
-            isWide: this.galleryImage.is_wide,
+            imageType: this.galleryImage.imageType,
             title: this.galleryImage.title,
             date: this.galleryImage.date,
             location: this.galleryImage.location === null ? '' : this.galleryImage.location,
@@ -17544,7 +17594,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         categories: 'getCategories'
     }), {
         galleryIsEdited: function galleryIsEdited() {
-            return this.galleryImage.title !== this.title || this.galleryImage.is_wide !== this.isWide || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
+            return this.galleryImage.title !== this.title || this.galleryImage.imageType !== this.imageType || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
         },
         formIsFilled: function formIsFilled() {
             return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
@@ -17559,10 +17609,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         },
         colForPicture: function colForPicture() {
-            return this.isWide ? 'col-md-12 mb-4' : 'col-md-4';
+            if (this.imageType == 1) {
+                return 'col-md-4';
+            } else if (this.imageType == 2) {
+                return 'col-md-4';
+            } else if (this.imageType == 3) {
+                return 'col-md-12 mb-4';
+            }
         },
         colForData: function colForData() {
-            return this.isWide ? 'col-md-12' : 'col-md-8';
+            if (this.imageType == 1) {
+                return 'col-md-8';
+            } else if (this.imageType == 2) {
+                return 'col-md-8';
+            } else if (this.imageType == 3) {
+                return 'col-md-12';
+            }
         }
     }),
 
@@ -17594,28 +17656,38 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var self = this;
             var file = document.getElementById('croppie-' + this.galleryImage.id);
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
+                    viewport: { width: 160, height: 250, type: 'square' },
+                    boundary: { width: 210, height: 300 },
                     enableOrientation: false
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
                     viewport: { width: 240, height: 250, type: 'square' },
                     boundary: { width: 290, height: 300 },
                     enableOrientation: false
                 });
+            } else if (this.imageType == 3) {
+                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+                    viewport: { width: 480, height: 250, type: 'square' },
+                    boundary: { width: 530, height: 300 },
+                    enableOrientation: false
+                });
             }
 
             if (this.image === null || this.image === '') {
-                if (this.isWide) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                } else {
+                if (this.imageType == 1) {
                     this.croppie.bind({
                         url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 2) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-2.jpg'
+                    });
+                } else if (this.imageType == 3) {
+                    this.croppie.bind({
+                        url: '/img/portfolio-1.jpg'
                     });
                 }
             } else {
@@ -17631,17 +17703,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         setImage: function setImage() {
             var self = this;
 
-            if (this.isWide) {
+            if (this.imageType == 1) {
                 this.croppie.result({
                     type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
+                    size: { witdh: 320, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
-            } else {
+            } else if (this.imageType == 2) {
                 this.croppie.result({
                     type: 'canvas',
                     size: { witdh: 480, height: 500, type: 'square' }
+                }).then(function (response) {
+                    self.save_image = response;
+                });
+            } else if (this.imageType == 3) {
+                this.croppie.result({
+                    type: 'canvas',
+                    size: { witdh: 960, height: 500, type: 'square' }
                 }).then(function (response) {
                     self.save_image = response;
                 });
@@ -17663,7 +17742,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     creator: this.creator,
                     sub_category_id: this.sub_category_id,
                     image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
-                    isWide: this.isWide
+                    imageType: this.imageType
                 };
 
                 this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
@@ -17692,18 +17771,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     watch: {
-        isWide: function isWide() {
-            if (this.isWide == 'false') {
-                this.isWide = false;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            } else if (this.isWide == 'true') {
-                this.isWide = true;
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
+        imageType: function imageType() {
+            this.image = '';
+            this.croppie.destroy();
+            this.setUpCroppie();
         }
     }
 });
@@ -17749,7 +17820,11 @@ var render = function() {
                   [
                     _c("input", {
                       staticClass: "inputfile",
-                      attrs: { type: "file", accept: "image/*", id: "file-2" },
+                      attrs: {
+                        type: "file",
+                        accept: "image/*",
+                        id: "file-edit-" + _vm.galleryImage.id
+                      },
                       on: { change: _vm.setUpFileUploader }
                     }),
                     _vm._v(" "),
@@ -17764,21 +17839,49 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.isWide,
-                                  expression: "isWide"
+                                  value: _vm.imageType,
+                                  expression: "imageType"
                                 }
                               ],
                               attrs: {
                                 type: "radio",
-                                name: "orientation-" + _vm.galleryImage.id,
-                                value: "false"
+                                name: "orientation-" + _vm.galleryImage.id
                               },
                               domProps: {
-                                checked: _vm._q(_vm.isWide, "false")
+                                value: 1,
+                                checked: _vm._q(_vm.imageType, 1)
                               },
                               on: {
                                 change: function($event) {
-                                  _vm.isWide = "false"
+                                  _vm.imageType = 1
+                                }
+                              }
+                            }),
+                            _vm._v(" Tall\n                                ")
+                          ]),
+                          _vm._v(" "),
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.imageType,
+                                  expression: "imageType"
+                                }
+                              ],
+                              staticClass: "ml-2",
+                              attrs: {
+                                type: "radio",
+                                name: "orientation-" + _vm.galleryImage.id
+                              },
+                              domProps: {
+                                value: 2,
+                                checked: _vm._q(_vm.imageType, 2)
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.imageType = 2
                                 }
                               }
                             }),
@@ -17791,20 +17894,22 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.isWide,
-                                  expression: "isWide"
+                                  value: _vm.imageType,
+                                  expression: "imageType"
                                 }
                               ],
                               staticClass: "ml-2",
                               attrs: {
                                 type: "radio",
-                                name: "orientation-" + _vm.galleryImage.id,
-                                value: "true"
+                                name: "orientation-" + _vm.galleryImage.id
                               },
-                              domProps: { checked: _vm._q(_vm.isWide, "true") },
+                              domProps: {
+                                value: 3,
+                                checked: _vm._q(_vm.imageType, 3)
+                              },
                               on: {
                                 change: function($event) {
-                                  _vm.isWide = "true"
+                                  _vm.imageType = 3
                                 }
                               }
                             }),
@@ -17818,7 +17923,7 @@ var render = function() {
                       "label",
                       {
                         staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
-                        attrs: { for: "file-2" }
+                        attrs: { for: "file-edit-" + _vm.galleryImage.id }
                       },
                       [_c("span", [_vm._v("Browse Image")])]
                     ),
@@ -18662,7 +18767,7 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("p", [_vm._v("Dimension: (480 x 500) or (960 x 500)")]),
+      _c("p", [_vm._v("Dimension: (320 x 500) or (480 x 500) or (960 x 500)")]),
       _vm._v(" "),
       _c(
         "transition",

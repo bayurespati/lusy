@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
                 title: imageItem.title,
                 description: imageItem.description,
                 event_id: imageItem.event_id,
-                is_wide: imageItem.is_wide,
+                imageType: imageItem.type,
             });
         },
 
@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
             state.imageList[imageIndex].image_path = updatedItem.image_path;
             state.imageList[imageIndex].title = updatedItem.title;
             state.imageList[imageIndex].description = updatedItem.description;
-            state.imageList[imageIndex].is_wide = updatedItem.is_wide;
+            state.imageList[imageIndex].imageType = updatedItem.type;
             state.imageList[imageIndex].is_poster = updatedItem.is_poster;
         },
 
@@ -112,7 +112,7 @@ export const store = new Vuex.Store({
                     image: updatedItem.image,
                     description: updatedItem.description,
                     is_poster: updatedItem.is_poster,
-                    isWide: updatedItem.isWide,
+                    imageType: updatedItem.imageType,
                 })
                     .then(response => {
 

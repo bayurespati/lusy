@@ -65,7 +65,7 @@ class EventController extends Controller
 
         $event->images = $event->images()->whereIsPoster(false)->paginate(8);
 
-        $sortedEvent = $event->images->sortByDesc('is_wide');
+        $sortedEvent = $event->images->sortByDesc('type');
 
         $startDate = Carbon::parse($event->start_date);
         $endDate = Carbon::parse($event->end_date);
@@ -89,7 +89,7 @@ class EventController extends Controller
         $imagesSorted[0] = $images;
         $imagesSorted[1] = [];
 
-        foreach ($images->sortByDesc('is_wide') as $photo) {
+        foreach ($images->sortByDesc('type') as $photo) {
             $photo->description = $photo->description == NULL
             ? ""
             : $photo->description;

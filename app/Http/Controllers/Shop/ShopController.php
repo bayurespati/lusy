@@ -53,7 +53,7 @@ class ShopController extends Controller
         : $shopItem->poster()->get()[0]->image_path;
 
         $shopItem->images = $shopItem->images()->whereIsPoster(false)->paginate(4);
-        $sortedItem = $shopItem->images->sortByDesc('is_wide');
+        $sortedItem = $shopItem->images->sortByDesc('type');
 
         $shopItem->price = number_format($shopItem->price, 2, ",", ".");
 
@@ -67,7 +67,7 @@ class ShopController extends Controller
         $imagesSorted[0] = $images;
         $imagesSorted[1] = [];
 
-        foreach ($images->sortByDesc('is_wide') as $photo) {
+        foreach ($images->sortByDesc('type') as $photo) {
             array_push($imagesSorted[1], $photo);
         }
 

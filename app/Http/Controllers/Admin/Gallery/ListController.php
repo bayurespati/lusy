@@ -29,9 +29,7 @@ class ListController extends Controller
         }
 
         foreach ($gallery as $photo) {
-            $photo->is_wide = $photo->is_wide 
-            ? true
-            : false;
+            $photo->imageType = $photo->type;
         }
 
         return [$gallery,$categoreis];
@@ -58,7 +56,7 @@ class ListController extends Controller
         $gallery->creator = $request->creator;
         $gallery->is_showcase = 0;
         $gallery->image_path = url('img/gallery/'.$imageName);
-        $gallery->is_wide = $request->isWide;
+        $gallery->type = $request->imageType;
 
         $gallery->save();
 
@@ -87,7 +85,7 @@ class ListController extends Controller
         $gallery->date = $request->date;
         $gallery->creator = $request->creator;
         $gallery->sub_category_id = $request->sub_category_id;
-        $gallery->is_wide = $request->isWide;
+        $gallery->type = $request->imageType;
 
         $gallery->update();
 

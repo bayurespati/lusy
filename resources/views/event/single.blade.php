@@ -170,10 +170,14 @@
                 <div id="gallery-section" class="portfolio-section" style="padding-top: 40px">
                   <div id="gallery-container" class="portfolio-list zoom-in">
                     @foreach($sortedEvent as $photo)
-                    @if($photo->is_wide)
-                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
-                    @else
+                    @if($photo->type == 1)
+                    <div class="portfolio-box col-md-2 col-sm-2 no-padding vintage">
+                    @endif
+                    @if($photo->type == 2)
                     <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
+                    @endif
+                    @if($photo->type == 3)
+                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
                     @endif
                       <a href="{{ $photo->image_path }}">
                         <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
@@ -351,13 +355,17 @@
         let galleryContent = '';
 
         array[1].forEach(function(photo){
-            if(photo.is_wide){
+            if(photo.type == 1){
                 galleryContent = galleryContent + 
-                '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">';
+                '<div class="portfolio-box col-md-2 col-sm-2 no-padding vintage">';
             }
-            else {
+            else if(photo.type == 2){
                 galleryContent = galleryContent + 
                 '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">';
+            }
+            else if([photo.type == 3]){
+                galleryContent = galleryContent + 
+                '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">';
             }
 
             galleryContent = galleryContent + 

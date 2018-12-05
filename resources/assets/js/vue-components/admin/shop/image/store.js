@@ -50,7 +50,7 @@ export const store = new Vuex.Store({
                 is_poster: imageItem.is_poster,
                 title: imageItem.title,
                 shop_item_id: imageItem.shop_item_id,
-                is_wide: imageItem.is_wide,
+                imageType: imageItem.type,
             });
         },
 
@@ -61,7 +61,7 @@ export const store = new Vuex.Store({
             state.imageList[imageIndex].shop_item_id = updatedItem.shop_item_id;
             state.imageList[imageIndex].image_path = updatedItem.image_path;
             state.imageList[imageIndex].title = updatedItem.title;
-            state.imageList[imageIndex].is_wide = updatedItem.is_wide;
+            state.imageList[imageIndex].imageType = updatedItem.type;
             state.imageList[imageIndex].is_poster = updatedItem.is_poster;
         },
 
@@ -109,7 +109,7 @@ export const store = new Vuex.Store({
                     title: updatedItem.title,
                     image: updatedItem.image,
                     is_poster: updatedItem.is_poster,
-                    isWide: updatedItem.isWide,
+                    imageType: updatedItem.imageType,
                 })
                     .then(response => {
                         commit('edit_item', response.data);

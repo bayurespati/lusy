@@ -31,7 +31,7 @@ class HomeController extends Controller
 	    $imageSlider = imageSlider::all();
 	    $introduction = AboutContent::where('is_class', '=', false)->get();
 	    $shopItems = ShopItem::whereIsShowcase(true)->get();
-	    $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->get();
+	    $showcasedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->get();
 	    $eventBanner = ImageConfig::find(1)->image_path === null 
 	    ? '/img/upcoming-event-bg.jpg'
 	    : ImageConfig::find(1)->image_path;
@@ -49,7 +49,7 @@ class HomeController extends Controller
 	    if(
 	        count($showcasedImage) > 0 && 
 	        count($showcasedImage) >= 4 && count($showcasedImage) < 8){
-	        $showedImage = Gallery::whereIsShowcase(true)->orderBy('is_wide', 'DESC')->paginate(4); 
+	        $showedImage = Gallery::whereIsShowcase(true)->orderBy('type', 'DESC')->paginate(4); 
 	    }
 	    else {
 	        $showedImage = $showcasedImage;
