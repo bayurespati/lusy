@@ -174,9 +174,9 @@
             formIsFilled(){
                 return this.image != '' 
                     && this.title != '' 
-                    && this.title.length > 3
+                    && this.title.length >= 3
                     && this.title.length <= 30
-                    && this.description < 100
+                    && this.description.length < 100
             },
 
             colForPicture(){

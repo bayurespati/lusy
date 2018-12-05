@@ -44,7 +44,7 @@ export const store = new Vuex.Store({
                 date: imageData.detail.date,
                 location: imageData.detail.location,
                 creator: imageData.detail.creator,
-                imageType: imageData.detail.type,
+                imageType: imageData.detail.imageType
             });
         },
 
@@ -57,7 +57,7 @@ export const store = new Vuex.Store({
             state.gallery[imageIndex].location = updatedGallery.detail.location;
             state.gallery[imageIndex].creator = updatedGallery.detail.creator;
             state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
-            state.gallery[imageIndex].imageType = updatedGallery.detail.type;
+            state.gallery[imageIndex].imageType = updatedGallery.detail.imageType;
             state.gallery[imageIndex].image_path = updatedGallery.image_path;
         },
 

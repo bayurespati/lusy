@@ -352,7 +352,7 @@
 									  appear enterActiveClass="fade-in" 
 									  leaveActiveClass="fade-out" mode="out-in">
 						
-						<div v-for="(list, index) in subscription" 
+						<div v-for="(list, index) in subscriptions"
 							 class="mr-2 mb-2"
 							 :key="'subscription-year-' + index" 
 							 style="border: 1px #908f96 solid; padding: 2px 6px; color: #6d6c73">
@@ -545,6 +545,10 @@
 						return true;
 					}
 				}
+			},
+
+			subscriptions(){
+				return this.subscription.sort();
 			}
 		},
 
