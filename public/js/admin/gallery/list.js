@@ -15654,6 +15654,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15662,6 +15671,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      searchBy: '',
       isAddImage: false
     };
   },
@@ -15674,7 +15684,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     gallery: 'getGallery'
-  }))
+  }), {
+    showGallery: function showGallery() {
+      var re = new RegExp(this.searchBy, 'i');
+
+      var tempGallery = _.sortBy(this.gallery, ['date']);
+
+      var galleryBySearch = tempGallery.filter(function (gallery) {
+        return re.test(gallery.title) || re.test(gallery.date) || re.test(gallery.location) || re.test(gallery.creator);
+      });
+
+      return galleryBySearch;
+    }
+  }),
+
+  methods: {
+    search: function search(event) {
+      this.searchBy = event.target.value;
+    }
+  }
 });
 
 /***/ }),
@@ -18676,19 +18704,59 @@ var render = function() {
         [
           !_vm.isAddImage
             ? [
-                _c("div", { staticClass: "row col pt-5" }, [
+                _c("div", { staticClass: "row pt-5" }, [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          _vm.isAddImage = !_vm.isAddImage
-                        }
-                      }
-                    },
-                    [_vm._v("Add Image")]
-                  )
+                    "div",
+                    { staticClass: "col-6" },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.isAddImage = !_vm.isAddImage
+                            }
+                          }
+                        },
+                        [_vm._v("Add Image")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          _vm.searchBy.length >= 1
+                            ? _c("span", { staticStyle: { color: "#999" } }, [
+                                _vm._v(
+                                  "\n                Image find by \n                "
+                                ),
+                                _c(
+                                  "strong",
+                                  { staticStyle: { color: "#3f3e3e" } },
+                                  [_vm._v('"' + _vm._s(_vm.searchBy) + '"')]
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("input", {
+                      staticClass: "form-control mr-3",
+                      attrs: { type: "text", placeholder: "Find" },
+                      on: { input: _vm.search }
+                    })
+                  ])
                 ])
               ]
             : [
@@ -18712,7 +18780,7 @@ var render = function() {
             _c(
               "transition-group",
               { attrs: { name: "slide" } },
-              _vm._l(_vm.gallery, function(galleryImage) {
+              _vm._l(_vm.showGallery, function(galleryImage) {
                 return _c("gallery-image", {
                   key: galleryImage.id,
                   attrs: { galleryImage: galleryImage }
