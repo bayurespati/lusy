@@ -2124,6 +2124,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2132,6 +2141,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      searchBy: '',
       isAddEvent: false
     };
   },
@@ -2144,7 +2154,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     events: 'getEvents'
-  }))
+  }), {
+    showEvent: function showEvent() {
+      var re = new RegExp(this.searchBy, 'i');
+
+      var tempEvent = _.sortBy(this.events, ['end_date']);
+
+      var eventBySearch = tempEvent.filter(function (event) {
+        return re.test(event.title) || re.test(event.address) || re.test(event.location) || re.test(event.content) || re.test(event.end_date) || re.test(event.organiser) || re.test(event.start_date);
+      });
+
+      return eventBySearch;
+    }
+  }),
+
+  methods: {
+    search: function search(event) {
+      this.searchBy = event.target.value;
+    }
+  }
 });
 
 /***/ }),
@@ -5374,77 +5402,61 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col-md-3 col-xs-12 d-flex align-items-center" },
-                [
-                  _c("span", [
-                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Title")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "detail" }, [
-                      _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.event.title))
-                      ])
+              _c("div", { staticClass: "col-md-3 col-xs-12 d-flex" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Title")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.event.title))
                     ])
                   ])
-                ]
-              ),
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-2 col-xs-12 d-flex align-items-center" },
-                [
-                  _c("span", [
-                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Start Date")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "detail" }, [
-                      _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.event.start_date))
-                      ])
+              _c("div", { staticClass: "col-md-3 col-xs-12 d-flex " }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Location")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.event.location))
                     ])
                   ])
-                ]
-              ),
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-2 col-xs-12 d-flex align-items-center" },
-                [
-                  _c("span", [
-                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("End Date")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "detail" }, [
-                      _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.event.end_date))
-                      ])
+              _c("div", { staticClass: "col-md-2 col-xs-12 d-flex" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("Start Date")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.event.start_date))
                     ])
                   ])
-                ]
-              ),
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-md-3 col-xs-12 d-flex align-items-center" },
-                [
-                  _c("span", [
-                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Location")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "detail" }, [
-                      _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.event.location))
-                      ])
+              _c("div", { staticClass: "col-md-2 col-xs-12 d-flex" }, [
+                _c("span", [
+                  _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                    _c("strong", [_vm._v("End Date")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _vm._v(_vm._s(_vm.event.end_date))
                     ])
                   ])
-                ]
-              ),
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -5563,19 +5575,57 @@ var render = function() {
           !_vm.isAddEvent
             ? [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        on: {
-                          click: function($event) {
-                            _vm.isAddEvent = !_vm.isAddEvent
+                  _c(
+                    "div",
+                    { staticClass: "col-6" },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.isAddEvent = !_vm.isAddEvent
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Add Event")]
-                    )
+                        },
+                        [_vm._v("Add Event")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          _vm.searchBy.length >= 1
+                            ? _c("span", { staticStyle: { color: "#999" } }, [
+                                _vm._v(
+                                  "\n                Event find by \n                "
+                                ),
+                                _c(
+                                  "strong",
+                                  { staticStyle: { color: "#3f3e3e" } },
+                                  [_vm._v('"' + _vm._s(_vm.searchBy) + '"')]
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("input", {
+                      staticClass: "form-control mr-3",
+                      attrs: { type: "text", placeholder: "Find" },
+                      on: { input: _vm.search }
+                    })
                   ])
                 ])
               ]
@@ -5600,7 +5650,7 @@ var render = function() {
             _c(
               "transition-group",
               { attrs: { name: "slide" } },
-              _vm._l(_vm.events, function(event) {
+              _vm._l(_vm.showEvent, function(event) {
                 return _c("event", { key: event.id, attrs: { event: event } })
               })
             )

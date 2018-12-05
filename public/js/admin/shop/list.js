@@ -3250,6 +3250,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3258,6 +3267,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      searchBy: '',
       isAddShop: false
     };
   },
@@ -3270,7 +3280,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     list: 'getItems'
-  }))
+  }), {
+    showShop: function showShop() {
+      var re = new RegExp(this.searchBy, 'i');
+
+      var tempShop = _.sortBy(this.list, ['end_date']);
+
+      var shopBySearch = tempShop.filter(function (shop) {
+        return re.test(shop.title) || re.test(shop.sub_title) || re.test(shop.location) || re.test(shop.price);
+      });
+
+      return shopBySearch;
+    }
+  }),
+
+  methods: {
+    search: function search(event) {
+      this.searchBy = event.target.value;
+    }
+  }
 });
 
 /***/ }),
@@ -6884,6 +6912,24 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
+                { staticClass: "col-md-3 col-xs-12 d-flex align-items-center" },
+                [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
+                      _c("strong", [_vm._v("Price")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "detail" }, [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(_vm.shop.price))
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
                 {
                   staticClass:
                     "col-md-2 col-xs-12 d-flex align-items-center justify-content-center"
@@ -6897,27 +6943,6 @@ var render = function() {
                     _c("div", { staticClass: "detail" }, [
                       _c("p", { staticClass: "mb-0" }, [
                         _vm._v(_vm._s(_vm.shop.stock))
-                      ])
-                    ])
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-md-3 col-xs-12 d-flex align-items-center justify-content-center"
-                },
-                [
-                  _c("div", { staticClass: "col-12 text-center" }, [
-                    _c("p", { staticClass: "small text-uppercase mb-0" }, [
-                      _c("strong", [_vm._v("Price")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "detail" }, [
-                      _c("p", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(_vm.shop.price))
                       ])
                     ])
                   ])
@@ -7201,19 +7226,57 @@ var render = function() {
           !_vm.isAddShop
             ? [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        on: {
-                          click: function($event) {
-                            _vm.isAddShop = !_vm.isAddShop
+                  _c(
+                    "div",
+                    { staticClass: "col-6" },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.isAddShop = !_vm.isAddShop
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Add Item")]
-                    )
+                        },
+                        [_vm._v("Add Item")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            enterActiveClass: "fade-in",
+                            leaveActiveClass: "fade-out",
+                            mode: "out-in"
+                          }
+                        },
+                        [
+                          _vm.searchBy.length >= 1
+                            ? _c("span", { staticStyle: { color: "#999" } }, [
+                                _vm._v(
+                                  "\n                Shop find by \n                "
+                                ),
+                                _c(
+                                  "strong",
+                                  { staticStyle: { color: "#3f3e3e" } },
+                                  [_vm._v('"' + _vm._s(_vm.searchBy) + '"')]
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("input", {
+                      staticClass: "form-control mr-3",
+                      attrs: { type: "text", placeholder: "Find" },
+                      on: { input: _vm.search }
+                    })
                   ])
                 ])
               ]
@@ -7238,7 +7301,7 @@ var render = function() {
             _c(
               "transition-group",
               { attrs: { name: "slide" } },
-              _vm._l(_vm.list, function(shop) {
+              _vm._l(_vm.showShop, function(shop) {
                 return _c("shop-item", { key: shop.id, attrs: { shop: shop } })
               })
             )
