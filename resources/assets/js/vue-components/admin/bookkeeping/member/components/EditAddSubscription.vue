@@ -26,13 +26,13 @@
 					</div>
 				</div>
 
-				<div class="col-md-12 row mr-0 ml-0 mt-4 mb-2" v-if="subscription.length > 0">
+				<div class="col-md-12 row mr-0 ml-0 mt-4 mb-2" v-if="member.subscription.length > 0">
 
 					<transition-group class="col-12 row m-0" 
 									  appear enterActiveClass="fade-in" 
 									  leaveActiveClass="fade-out" mode="out-in">
 						
-						<div v-for="(list, index) in member.subscription"
+						<div v-for="(list, index) in showSubscription"
 							 class="mr-2 mb-2"
 							 :key="'subscription-year-' + index"
 							 style="border: 1px #908f96 solid; padding: 2px 6px; color: #6d6c73">
@@ -41,20 +41,6 @@
 									      class="badge badge-danger btn"> X </span>
                         </div>
 					</transition-group>
-
-					<!-- <transition-group class="col-12 row m-0" appear 
-									 enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-						<div :key="'subscription-year-' + index" 
-						     class="col-md-2 col-sm-6" 
-						     v-for="(list, index) in member.subscription">
-							<p class="m-0 d-flex align-items-center justify-content-center">{{ list.year }}
-								<span @click="delete_subscription(list)" 
-								      class="badge badge-danger ml-1" 
-								      style="cursor: pointer"> X
-								</span> 
-							</p>
-						</div>
-					</transition-group> -->
 				</div>
 
 				<div class="col-md-12 d-flex justify-content-center mt-2">
@@ -96,7 +82,6 @@
 			return{
 				year:'',
 				isRequesting: false,
-				subscription: this.member.subscription,
 				yearToBeDeleted: {},
 				showModal: false,
 			}
@@ -110,13 +95,18 @@
 		},
 
 		computed:{
+
+			showSubscription(){
+				let tempSubscription = this.member.subscription;
+				let subscriptions = _.sortBy(tempSubscription,'year');
+				return subscriptions;
+			},
+
             alreadyHasYear(){
 
                 if(this.year.length != 4){
                     return false;
                 }
-
-                console.log(this.member.subscription[0], this.year);
 
                 for(let index = 0; index < this.member.subscription.length; index++){
                     if(this.member.subscription[index].year == this.year){
@@ -135,8 +125,6 @@
 
 			add_subscription(){
 				const self = this;
-
-				console.log(self.alreadyHasYear);
 
 				if(!self.isRequesting && !self.alreadyHasYear && this.year.length == 4){	
 

@@ -52,7 +52,7 @@
 <script>
     import Member from './Member.vue';
     export default{
-        props:{teacher:{}, status:'' , type:'', yearSubs:''},
+        props:{teacher:{}, status:'' , type:'', yearSubs:'', searchBy:''},
 
         data(){
             return{
@@ -66,15 +66,31 @@
         },
 
         computed:{
-            totalStudent(){
-                return  this.teacher.student.length;
-            },
-
             showMember(){
 
               const tempType = this.type === 'subscription' ? 'email' : this.type;
 
-              return _.sortBy(_.filter(this.teacher.student,['is_active', this.status ]), [tempType]);
+              let tempMember = _.sortBy(_.filter(this.teacher.student,['is_active', this.status ]), [tempType]);
+
+              let re = new RegExp(this.searchBy, 'i');
+
+              let memberBySearch =  tempMember.filter(member => {
+                  return re.test(member.name)
+                      || re.test(member.address)
+                      || re.test(member.email)
+                      || re.test(member.fax)
+                      || re.test(member.mobile)
+                      || re.test(member.telephone)
+                      || re.test(member.place_of_birth)
+                      || re.test(member.date_of_birth);
+              });
+
+              return memberBySearch;
+
+            },
+
+            totalStudent(){
+                return  this.showMember.length;
             },
         },
 

@@ -7,14 +7,23 @@
 
     <h3>Member List</h3>
     <p class="mb-3">
-      Here is where you can see list of <strong>members</strong>.
+      Here is where you can see list of <strong>members</strong>
+      <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
+        <span v-if="searchBy.length >= 1" style="color:#8f8d8d"> find by 
+          <strong style="color: #4e4c4c"> "{{ searchBy }}" </strong> 
+        </span>
+      </transition>
     </p>
 
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddMember">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6">
             <button @click="isAddMember = !isAddMember" class="btn btn-primary">Add Member</button>
+          </div>
+          
+          <div class="col-6">
+            <input type="text" placeholder="Find" class="form-control mr-3" @input="search">
           </div>
         </div>
       </template>
@@ -81,7 +90,7 @@
       <div class="col-md-12">
         <transition-group name="slide">
           <teacher v-for="teacher in teachers"
-          :teacher="teacher" :status="active" :type="type" :yearSubs="yearSubs"
+          :teacher="teacher" :status="active" :type="type" :yearSubs="yearSubs" :searchBy="searchBy"
           :key="teacher.id" @showDeactivateModal="showDeactivateModal">
           </teacher>
         </transition-group>
@@ -101,6 +110,7 @@
 
     data(){
       return{
+        searchBy: '',
         isAddMember : false,
         active: true,
         type: 'email',
@@ -125,13 +135,29 @@
         }),
 
         showYeas(){
-          return _.unionBy(this.subscriptions,'year')
+          let tempYeas = _.uniqBy(this.subscriptions,'year');
+          return _.sortBy(tempYeas,'year');
         },
 
         showMember(){
           const tempType = this.type === 'subscription' ? 'email' : this.type;
 
-          return _.sortBy(_.filter(this.members,['is_active', this.active ]), [tempType]);
+          let tempMember =  _.sortBy(_.filter(this.members,['is_active', this.active ]), [tempType]);
+
+          let re = new RegExp(this.searchBy, 'i');
+
+          let memberBySearch =  tempMember.filter(member => {
+              return re.test(member.name)
+                  || re.test(member.address)
+                  || re.test(member.email)
+                  || re.test(member.fax)
+                  || re.test(member.mobile)
+                  || re.test(member.telephone)
+                  || re.test(member.place_of_birth)
+                  || re.test(member.date_of_birth);
+          });
+
+          return memberBySearch;
         },
 
         isSubscription(){
@@ -152,6 +178,10 @@
       showDeactivateModal(newMember){
         this.showModal = true;
         this.member = newMember;
+      },
+
+      search(event) {
+        this.searchBy = event.target.value;
       }
     }
   };

@@ -12739,6 +12739,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12749,6 +12758,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      searchBy: '',
       isAddMember: false,
       active: true,
       type: 'email',
@@ -12772,12 +12782,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     subscriptions: 'getSubscription'
   }), {
     showYeas: function showYeas() {
-      return _.unionBy(this.subscriptions, 'year');
+      var tempYeas = _.uniqBy(this.subscriptions, 'year');
+      return _.sortBy(tempYeas, 'year');
     },
     showMember: function showMember() {
       var tempType = this.type === 'subscription' ? 'email' : this.type;
 
-      return _.sortBy(_.filter(this.members, ['is_active', this.active]), [tempType]);
+      var tempMember = _.sortBy(_.filter(this.members, ['is_active', this.active]), [tempType]);
+
+      var re = new RegExp(this.searchBy, 'i');
+
+      var memberBySearch = tempMember.filter(function (member) {
+        return re.test(member.name) || re.test(member.address) || re.test(member.email) || re.test(member.fax) || re.test(member.mobile) || re.test(member.telephone) || re.test(member.place_of_birth) || re.test(member.date_of_birth);
+      });
+
+      return memberBySearch;
     },
     isSubscription: function isSubscription() {
       return this.type == 'subscription';
@@ -12795,6 +12814,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     showDeactivateModal: function showDeactivateModal(newMember) {
       this.showModal = true;
       this.member = newMember;
+    },
+    search: function search(event) {
+      this.searchBy = event.target.value;
     }
   }
 });
@@ -13047,7 +13069,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { teacher: {}, status: '', type: '', yearSubs: '' },
+    props: { teacher: {}, status: '', type: '', yearSubs: '', searchBy: '' },
 
     data: function data() {
         return {
@@ -13062,14 +13084,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        totalStudent: function totalStudent() {
-            return this.teacher.student.length;
-        },
         showMember: function showMember() {
 
             var tempType = this.type === 'subscription' ? 'email' : this.type;
 
-            return _.sortBy(_.filter(this.teacher.student, ['is_active', this.status]), [tempType]);
+            var tempMember = _.sortBy(_.filter(this.teacher.student, ['is_active', this.status]), [tempType]);
+
+            var re = new RegExp(this.searchBy, 'i');
+
+            var memberBySearch = tempMember.filter(function (member) {
+                return re.test(member.name) || re.test(member.address) || re.test(member.email) || re.test(member.fax) || re.test(member.mobile) || re.test(member.telephone) || re.test(member.place_of_birth) || re.test(member.date_of_birth);
+            });
+
+            return memberBySearch;
+        },
+        totalStudent: function totalStudent() {
+            return this.showMember.length;
         }
     },
 
@@ -13302,25 +13332,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     methods: {
-        editStatus: function editStatus() {
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                var isBool = this.member.is_active == 0 ? true : false;
-
-                this.input.is_active = isBool;
-
-                self.isRequesting = true;
-
-                var status = isBool ? { status: 'active', color: 'success' } : { status: 'not active', color: 'danger' };
-
-                this.$store.dispatch('update_member', self.input).then(function () {
-                    flash('Member ' + self.input.name + ' is ' + status.status, status.color);
-                    self.isRequesting = false;
-                });
-            }
-        },
         showDeactivateModal: function showDeactivateModal() {
             this.$emit('showDeactivateModal', this.member);
         }
@@ -16384,20 +16395,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -16416,7 +16413,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			year: '',
 			isRequesting: false,
-			subscription: this.member.subscription,
 			yearToBeDeleted: {},
 			showModal: false
 		};
@@ -16431,13 +16427,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	computed: {
+		showSubscription: function showSubscription() {
+			var tempSubscription = this.member.subscription;
+			var subscriptions = _.sortBy(tempSubscription, 'year');
+			return subscriptions;
+		},
 		alreadyHasYear: function alreadyHasYear() {
 
 			if (this.year.length != 4) {
 				return false;
 			}
-
-			console.log(this.member.subscription[0], this.year);
 
 			for (var index = 0; index < this.member.subscription.length; index++) {
 				if (this.member.subscription[index].year == this.year) {
@@ -16455,8 +16454,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		add_subscription: function add_subscription() {
 			var self = this;
-
-			console.log(self.alreadyHasYear);
 
 			if (!self.isRequesting && !self.alreadyHasYear && this.year.length == 4) {
 
@@ -16985,7 +16982,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm.subscription.length > 0
+          _vm.member.subscription.length > 0
             ? _c(
                 "div",
                 { staticClass: "col-md-12 row mr-0 ml-0 mt-4 mb-2" },
@@ -17001,7 +16998,7 @@ var render = function() {
                         mode: "out-in"
                       }
                     },
-                    _vm._l(_vm.member.subscription, function(list, index) {
+                    _vm._l(_vm.showSubscription, function(list, index) {
                       return _c(
                         "div",
                         {
@@ -19868,7 +19865,6 @@ var render = function() {
                                     staticStyle: {
                                       border: "1px #908f96 solid",
                                       padding: "2px 6px",
-                                      "border-radius": "10%",
                                       color: "#6d6c73"
                                     }
                                   },
@@ -23111,7 +23107,36 @@ var render = function() {
       _vm._v(" "),
       _c("h3", [_vm._v("Member List")]),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "p",
+        { staticClass: "mb-3" },
+        [
+          _vm._v("\n    Here is where you can see list of "),
+          _c("strong", [_vm._v("members")]),
+          _vm._v(" "),
+          _c(
+            "transition",
+            {
+              attrs: {
+                enterActiveClass: "fade-in",
+                leaveActiveClass: "fade-out",
+                mode: "out-in"
+              }
+            },
+            [
+              _vm.searchBy.length >= 1
+                ? _c("span", { staticStyle: { color: "#8f8d8d" } }, [
+                    _vm._v(" find by \n        "),
+                    _c("strong", { staticStyle: { color: "#4e4c4c" } }, [
+                      _vm._v(' "' + _vm._s(_vm.searchBy) + '" ')
+                    ])
+                  ])
+                : _vm._e()
+            ]
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "transition",
@@ -23126,7 +23151,7 @@ var render = function() {
           !_vm.isAddMember
             ? [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "col-6" }, [
                     _c(
                       "button",
                       {
@@ -23139,6 +23164,14 @@ var render = function() {
                       },
                       [_vm._v("Add Member")]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("input", {
+                      staticClass: "form-control mr-3",
+                      attrs: { type: "text", placeholder: "Find" },
+                      on: { input: _vm.search }
+                    })
                   ])
                 ])
               ]
@@ -23389,7 +23422,8 @@ var render = function() {
                     teacher: teacher,
                     status: _vm.active,
                     type: _vm.type,
-                    yearSubs: _vm.yearSubs
+                    yearSubs: _vm.yearSubs,
+                    searchBy: _vm.searchBy
                   },
                   on: { showDeactivateModal: _vm.showDeactivateModal }
                 })
@@ -23403,18 +23437,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-3" }, [
-      _vm._v("\n    Here is where you can see list of "),
-      _c("strong", [_vm._v("members")]),
-      _vm._v(".\n  ")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

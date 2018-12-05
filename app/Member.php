@@ -55,7 +55,7 @@ class Member extends Model
     }
 
     public function subscription(){
-        return $this->hasMany('App\Subscription', 'member_id');
+        return $this->hasMany('App\Subscription', 'member_id')->orderBy('year');
     }
 
     /**
