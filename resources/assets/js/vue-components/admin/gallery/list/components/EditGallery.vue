@@ -20,13 +20,10 @@
                             <div class="col-md-12">
                                 <div class="form-group text-center mb-3">
                                     <label>
-                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='1' v-model="imageType"> Tall
+                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='1' v-model="imageType"> Potrait
                                     </label>
                                     <label>
-                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='2' v-model="imageType" class="ml-2"> Square
-                                    </label>
-                                    <label>
-                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='3' v-model="imageType" class="ml-2"> Wide
+                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='3' v-model="imageType" class="ml-2"> Landscape
                                     </label>
                                 </div>
                             </div>
@@ -350,33 +347,21 @@
 
                 if(this.imageType == 1){
                     this.croppie = new Croppie(file,{
-                        viewport: {width: 160, height: 250, type: 'square'},
-                        boundary: {width: 210, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 240, height: 250, type: 'square'},
-                        boundary: {width: 290, height: 300 },
+                        viewport: {width: 200, height: 300, type: 'square'},
+                        boundary: {width: 250, height: 350 },
                         enableOrientation: false
                     });
                 }
                 else if(this.imageType == 3) {
                     this.croppie = new Croppie(file,{
-                        viewport: {width: 480, height: 250, type: 'square'},
-                        boundary: {width: 530, height: 300 },
+                        viewport: {width: 300, height: 200, type: 'square'},
+                        boundary: {width: 350, height: 250 },
                         enableOrientation: false
                     });
                 }
 
                 if(this.image === null || this.image === ''){
                    if(this.imageType == 1){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 2){
                         this.croppie.bind({
                             url: '/img/portfolio-2.jpg'
                         });
@@ -403,15 +388,7 @@
                 if(this.imageType == 1){
                     this.croppie.result({
                         type: 'canvas',
-                        size: {witdh: 320, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 480, height: 500, type: 'square'},
+                        size: {witdh: 400, height: 600, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
@@ -419,7 +396,7 @@
                 else if(this.imageType == 3){
                     this.croppie.result({
                         type: 'canvas',
-                        size: {witdh: 960, height: 500, type: 'square'},
+                        size: {witdh: 600, height: 400, type: 'square'},
                     }).then(response => {
                         self.save_image = response;
                     });
