@@ -5,7 +5,6 @@
 @endpush
 
 @push('additional_css')
-<link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
 @endpush
 
@@ -63,6 +62,5 @@
 <script>
     const $shopItem = {!! json_encode($shopItem) !!};
 </script>
-	<script src="{{ asset('js/croppie.js') }}"></script>
-	<script src="{{ asset('js/admin/shop/image.js') }}"></script>
+<script src="{{ asset('js/admin/shop/image.js') }}"></script>
 @endpush

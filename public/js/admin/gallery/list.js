@@ -1994,45 +1994,18 @@ if (false) {
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(13)
+  __webpack_require__(12)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(15)
+var __vue_script__ = __webpack_require__(14)
 /* template */
-var __vue_template__ = __webpack_require__(16)
+var __vue_template__ = __webpack_require__(15)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -2071,13 +2044,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(13);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2097,7 +2070,7 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2111,7 +2084,7 @@ exports.push([module.i, "\n.notification-wrapper[data-v-41dc6b34] {\n    positio
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2250,7 +2223,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -2339,6 +2312,33 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-41dc6b34", module.exports)
   }
 }
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 17 */
@@ -2688,7 +2688,7 @@ var fakeWithParams = function fakeWithParams(paramsOrClosure, maybeValidator) {
 
 var withParams = root.vuelidate ? root.vuelidate.withParams : fakeWithParams;
 exports.withParams = withParams;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 /* 22 */
@@ -13443,7 +13443,7 @@ module.exports = __webpack_require__(311);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__ = __webpack_require__(312);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__global_Flash_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue__);
@@ -13993,6 +13993,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14150,7 +14156,7 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-md-4" },
+            { staticClass: "col-md-4 text-center" },
             [
               _c(
                 "transition",
@@ -14163,7 +14169,7 @@ var render = function() {
                 },
                 [
                   _vm.url != ""
-                    ? _c("div", [
+                    ? _c("div", { staticClass: "panel" }, [
                         _c("img", { attrs: { src: _vm.url, alt: "" } })
                       ])
                     : _vm._e()
@@ -14172,13 +14178,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "panel panel-transparent text-center mt-2" },
+                { staticClass: "panel mt-2" },
                 [
                   _c("input", {
-                    staticClass: "inputFile",
+                    staticClass: "inputfile",
                     attrs: { type: "file", accept: "image/*", id: "file-2" },
                     on: { change: _vm.setUpFileUploader }
                   }),
+                  _vm._v(" "),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "transition",
@@ -14208,7 +14216,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8" }, [
             _c("div", { staticClass: "row" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "div",
@@ -14287,7 +14295,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row mt-2" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "div",
@@ -14331,7 +14339,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row mt-2" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c(
                 "div",
@@ -14402,7 +14410,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row mt-2" }, [
-              _vm._m(4),
+              _vm._m(5),
               _vm._v(" "),
               _c(
                 "div",
@@ -14473,7 +14481,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row mt-2" }, [
-              _vm._m(5),
+              _vm._m(6),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
                 _c(
@@ -14529,7 +14537,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row mt-2" }, [
-              _vm._m(6),
+              _vm._m(7),
               _vm._v(" "),
               _c(
                 "div",
@@ -14666,10 +14674,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12 text-center" }, [
       _c("h3", { staticClass: "text-center mb-5" }, [
-        _vm._v("Add Image "),
+        _vm._v("\n                    Add Image "),
         _c("strong", [_vm._v("Gallery")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
+        attrs: { for: "file-2" }
+      },
+      [_c("span", [_vm._v("Browse Image")])]
+    )
   },
   function() {
     var _vm = this
@@ -15300,6 +15321,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15473,41 +15504,76 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { staticClass: "col-md-4" }, [
-                _c("div", [_c("img", { attrs: { src: _vm.url, alt: "" } })]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "panel text-center mt-2" },
-                  [
-                    _c("input", {
-                      attrs: { type: "file", accept: "image/*" },
-                      on: { change: _vm.setUpFileUploader }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
+              _c(
+                "div",
+                { staticClass: "col-md-4 text-center" },
+                [
+                  _c(
+                    "transition",
+                    {
+                      attrs: {
+                        appear: "",
+                        enterActiveClass: "fade-in-down",
+                        leaveActiveClass: "fade-out-up"
+                      }
+                    },
+                    [
+                      _vm.url != ""
+                        ? _c("div", { staticClass: "panel" }, [
+                            _c("img", { attrs: { src: _vm.url, alt: "" } })
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "panel mt-2" },
+                    [
+                      _c("input", {
+                        staticClass: "inputfile",
                         attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
-                        }
-                      },
-                      [
-                        !_vm.$v.image.required && _vm.$v.image.$dirty
-                          ? _c("p", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Image is required\n                            "
-                              )
-                            ])
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+                          type: "file",
+                          accept: "image/*",
+                          id: "file-edit-" + _vm.galleryImage.id
+                        },
+                        on: { change: _vm.setUpFileUploader }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
+                          attrs: { for: "file-edit-" + _vm.galleryImage.id }
+                        },
+                        [_c("span", [_vm._v("Browse Image")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            appear: "",
+                            enterActiveClass: "fade-in-down",
+                            leaveActiveClass: "fade-out-up"
+                          }
+                        },
+                        [
+                          !_vm.$v.image.required && _vm.$v.image.$dirty
+                            ? _c("p", { staticClass: "text-danger" }, [
+                                _vm._v(
+                                  "\n                                Image is required\n                            "
+                                )
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-8" }, [
                 _c("div", { staticClass: "col-sm-12 row form-group" }, [

@@ -7,14 +7,24 @@
                 <h3 class="text-center">Edit <strong>{{ galleryImage.title }}</strong></h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                    <div class="col-md-4">
-                        <div>
-                            <img :src="url" alt="">
-                        </div>
+                    <div class="col-md-4 text-center">
+                        <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                            <div class="panel" v-if="url != '' "> 
+                                 <img :src="url" alt="">
+                            </div>
+                        </transition>
 
-                        <div class="panel text-center mt-2">
-                            <input type="file" accept="image/*" @change="setUpFileUploader">
-                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                        <div class="panel mt-2">
+                            <input type="file"
+                            accept="image/*"
+                            :id="'file-edit-' + galleryImage.id"
+                            class="inputfile"
+                            @change="setUpFileUploader">
+
+                            <label :for="'file-edit-' + galleryImage.id" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
+                                <span>Browse Image</span>
+                            </label>
+                            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                 <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
                                     Image is required
                                 </p>

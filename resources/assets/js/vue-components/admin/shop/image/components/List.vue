@@ -2,7 +2,6 @@
   <div class="container">
     <h3 class="text-uppercase"><strong>{{ item.title }}</strong> IMAGE LIST MASTER</h3>
     <p class="mb-0">This is where you can manage images that belongs to <strong>{{ item.title }}</strong> item.</p>
-    <p class="mb-5">Dimension: (480 x 500) or (960 x 500)</p>
     
     <ul class="breadcrumb">
       <li><a href="/admin/shop/list">{{ item.title }}</a></li>

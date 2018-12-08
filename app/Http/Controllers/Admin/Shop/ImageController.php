@@ -7,6 +7,7 @@ use App\ShopItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ImageController extends Controller
 {
@@ -36,10 +37,32 @@ class ImageController extends Controller
             file::makedirectory($path);
         }
 
-        $imageName = time().'image.jpg';
-        $image = $this->setImage($request->image);
-        file_put_contents($path.$imageName,$image);
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($request->image);
 
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 1000 || $height > 1000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 1000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+
+        $image       = $request->image;
+        $imageName = time().'image.jpg';
+
+        $image_resize = Image::make($image);              
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/shop/' .$imageName));
 
     	$shopImage =  new ShopImage;
 
@@ -59,14 +82,36 @@ class ImageController extends Controller
         //if admin change image
         if($request->image !== $shopImage->image_path){
 
-            // remove the old image
+            // Remove the old image
             $path = public_path('img/shop/');
             $this->removeImageOnServer($path,$shopImage->image_path);
 
-            // put new image
+             // SET WIDTH AND HEIGHT
+            list($width, $height) = getimagesize($request->image);
+
+            $widthFix = 0;
+            $heightFix = 0;
+
+            if($width > 1000 || $height > 1000){
+                $MAXSIZE = $width > $height ? $width : $height;
+
+                $result = $MAXSIZE - 1000;
+                $percentage = ceil($result / $MAXSIZE * 100);
+
+                $widthFix = $width - ($width * $percentage / 100);
+                $heightFix = $height - ($height * $percentage / 100);
+
+            }else{
+                $widthFix = $width;
+                $heightFix = $height;
+            }
+
+            $image       = $request->image;
             $imageName = time().'image.jpg';
-            $image = $this->setImage($request->image);
-            file_put_contents($path.$imageName,$image);
+
+            $image_resize = Image::make($image);              
+            $image_resize->resize($widthFix, $heightFix);
+            $image_resize->save(public_path('img/shop/' .$imageName));
 
             $shopImage->image_path = url('img/shop/'.$imageName);
         }

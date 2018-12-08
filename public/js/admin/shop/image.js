@@ -4125,7 +4125,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -5837,7 +5836,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.croppie-container {\n    height: unset;\n}\n.croppie-container .cr-slider-wrap {\n    margin: 15px auto 5px auto;\n}\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n", ""]);
+exports.push([module.i, "\n.vdatetime-input {\n    width: 100%;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    font-size: 1rem;\n    color: #495057;\n    border-radius: .25rem;\n    border: 1px solid #ced4da;\n}\n", ""]);
 
 // exports
 
@@ -5879,7 +5878,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.card[data-v-a39ec394] {\n    display: inline-block;\n    width: 100%;\n    padding: 36px 20px 26px 20px;\n}\ninput[type='file'][data-v-a39ec394]::-webkit-file-upload-button\n{\n    color: #fff;\n    background-color: #34495e;\n    border: none;\n    padding: 5px;\n    border-radius: 5px;\n}\n.frame[data-v-a39ec394]{\n    border: 1px gainsboro solid;\n    padding: 10px;\n    margin-left: auto;\n}\n.inputfile[data-v-a39ec394] {\n    width: 0.1px;\n    height: 0.1px;\n    opacity: 0;\n    overflow: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.inputfile + label[data-v-a39ec394] {\n    padding: 0.81rem 0.7692rem;\n    display: inline-block;\n    cursor: pointer;\n}\n.inputfile + label i[data-v-a39ec394] {\n    margin-right: 10px;\n}\n\n", ""]);
+exports.push([module.i, "\n.card[data-v-a39ec394] {\n    display: inline-block;\n    width: 100%;\n    padding: 36px 20px 26px 20px;\n}\nimg[data-v-a39ec394]{\n    max-width: 180px;\n}\ninput[type='file'][data-v-a39ec394]::-webkit-file-upload-button\n{\n    color: #fff;\n    background-color: #34495e;\n    border: none;\n    padding: 5px;\n    border-radius: 5px;\n}\n.frame[data-v-a39ec394]{\n    border: 1px gainsboro solid;\n    padding: 10px;\n    margin-left: auto;\n}\n.inputfile[data-v-a39ec394] {\n    width: 0.1px;\n    height: 0.1px;\n    opacity: 0;\n    overflow: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.inputfile + label[data-v-a39ec394] {\n    padding: 0.81rem 0.7692rem;\n    display: inline-block;\n    cursor: pointer;\n}\n.inputfile + label i[data-v-a39ec394] {\n    margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -5894,8 +5893,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_croppie__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -5980,17 +5977,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -6004,22 +5990,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     data: function data() {
         return {
-            imageType: 2,
+            imageType: 1,
             isRequesting: false,
-            croppie: null,
-            save_image: '',
             image: '',
             title: '',
-            description: '',
-            is_poster: ''
+            is_poster: '',
+            url: ''
 
         };
     },
-
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
-
 
     validations: {
         title: {
@@ -6037,24 +6016,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }), {
         formIsFilled: function formIsFilled() {
             return this.image != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 30;
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
         }
     }),
 
@@ -6066,95 +6027,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return;
             }
 
+            this.url = URL.createObjectURL(files[0]);
+
             this.createImage(files[0]);
         },
         createImage: function createImage(file) {
-            var _this = this;
-
             var reader = new FileReader();
             var self = this;
 
             reader.onload = function (event) {
                 self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
             };
 
             reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie');
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.image === null || this.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
         },
         uploadImage: function uploadImage() {
 
@@ -6165,7 +6050,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 this.isRequesting = true;
 
                 var imageData = {
-                    image: this.save_image,
+                    image: this.image,
                     title: this.title,
                     shopId: this.shopId,
                     imageType: this.imageType
@@ -6198,14 +6083,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$v.title.$touch();
             this.$v.image.$touch();
         }
-    },
-
-    watch: {
-        imageType: function imageType() {
-            this.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
-        }
     }
 });
 
@@ -6229,124 +6106,67 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { class: _vm.colForPicture }, [
-            _c("div", { attrs: { id: "croppie" } }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "panel panel-transparent text-center" },
-              [
-                _c("input", {
-                  staticClass: "inputfile",
-                  attrs: { type: "file", accept: "image/*", id: "file-2" },
-                  on: { change: _vm.setUpFileUploader }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group text-center mb-3" }, [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.imageType,
-                            expression: "imageType"
-                          }
-                        ],
-                        attrs: { type: "radio", name: "orientation" },
-                        domProps: {
-                          value: 1,
-                          checked: _vm._q(_vm.imageType, 1)
-                        },
-                        on: {
-                          change: function($event) {
-                            _vm.imageType = 1
-                          }
-                        }
-                      }),
-                      _vm._v(" Tall\n                                ")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.imageType,
-                            expression: "imageType"
-                          }
-                        ],
-                        staticClass: "ml-2",
-                        attrs: { type: "radio", name: "orientation" },
-                        domProps: {
-                          value: 2,
-                          checked: _vm._q(_vm.imageType, 2)
-                        },
-                        on: {
-                          change: function($event) {
-                            _vm.imageType = 2
-                          }
-                        }
-                      }),
-                      _vm._v(" Square\n                                ")
-                    ]),
-                    _vm._v(" "),
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.imageType,
-                            expression: "imageType"
-                          }
-                        ],
-                        staticClass: "ml-2",
-                        attrs: { type: "radio", name: "orientation" },
-                        domProps: {
-                          value: 3,
-                          checked: _vm._q(_vm.imageType, 3)
-                        },
-                        on: {
-                          change: function($event) {
-                            _vm.imageType = 3
-                          }
-                        }
-                      }),
-                      _vm._v(" Wide\n                                ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "transition",
-                  {
-                    attrs: {
-                      appear: "",
-                      enterActiveClass: "fade-in-down",
-                      leaveActiveClass: "fade-out-up"
-                    }
-                  },
-                  [
-                    !_vm.$v.image.required && _vm.$v.image.$dirty
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                Image is required\n                            "
-                          )
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "col-md-4 text-center" },
+            [
+              _c(
+                "transition",
+                {
+                  attrs: {
+                    appear: "",
+                    enterActiveClass: "fade-in-down",
+                    leaveActiveClass: "fade-out-up"
+                  }
+                },
+                [
+                  _vm.url != ""
+                    ? _c("div", { staticClass: "panel" }, [
+                        _c("img", { attrs: { src: _vm.url, alt: "" } })
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "panel mt-2" },
+                [
+                  _c("input", {
+                    staticClass: "inputfile",
+                    attrs: { type: "file", accept: "image/*", id: "file-2" },
+                    on: { change: _vm.setUpFileUploader }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    {
+                      attrs: {
+                        appear: "",
+                        enterActiveClass: "fade-in-down",
+                        leaveActiveClass: "fade-out-up"
+                      }
+                    },
+                    [
+                      !_vm.$v.image.required && _vm.$v.image.$dirty
+                        ? _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                                Image is required\n                            "
+                            )
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { class: _vm.colForData }, [
+          _c("div", { staticClass: "col-md-8" }, [
             _c("div", { staticClass: "row" }, [
               _vm._m(1),
               _vm._v(" "),
@@ -7091,7 +6911,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.bg-grey[data-v-ded436b6] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-ded436b6] {\n    font-size: 0.9rem;\n}\ninput[type='file'][data-v-ded436b6]::-webkit-file-upload-button\n{\n    color: #fff;\n    background-color: #34495e;\n    border: none;\n    padding: 5px;\n    border-radius: 5px;\n}\n.inputfile[data-v-ded436b6] {\n    width: 0.1px;\n    height: 0.1px;\n    opacity: 0;\n    overflow: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.inputfile + label[data-v-ded436b6] {\n    padding: 0.81rem 0.7692rem;\n    display: inline-block;\n    cursor: pointer;\n}\n.inputfile + label i[data-v-ded436b6] {\n    margin-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.bg-grey[data-v-ded436b6] {\n    background: #fafafa;\n}\n.panel-font-small[data-v-ded436b6] {\n    font-size: 0.9rem;\n}\nimg[data-v-ded436b6]{\n    max-width: 180px;\n}\ninput[type='file'][data-v-ded436b6]::-webkit-file-upload-button\n{\n    color: #fff;\n    background-color: #34495e;\n    border: none;\n    padding: 5px;\n    border-radius: 5px;\n}\n.inputfile[data-v-ded436b6] {\n    width: 0.1px;\n    height: 0.1px;\n    opacity: 0;\n    overflow: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.inputfile + label[data-v-ded436b6] {\n    padding: 0.81rem 0.7692rem;\n    display: inline-block;\n    cursor: pointer;\n}\n.inputfile + label i[data-v-ded436b6] {\n    margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -7108,16 +6928,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_croppie__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7222,16 +7032,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             imageType: this.imageItem.imageType,
             isRequesting: false,
-            save_image: '',
             input: {
                 title: this.imageItem.title,
                 image: this.imageItem.image_path,
-                description: this.imageItem.description
+                url: this.imageItem.image_path
             }
         };
-    },
-    mounted: function mounted() {
-        this.setUpCroppie();
     },
 
 
@@ -7254,24 +7060,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         formIsFilled: function formIsFilled() {
             return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 30 && this.input.image != '';
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
         }
     },
 
@@ -7283,6 +7071,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
 
+            this.input.url = URL.createObjectURL(files[0]);
+
             this.createImage(files[0]);
         },
         createImage: function createImage(file) {
@@ -7291,85 +7081,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             reader.onload = function (event) {
                 self.input.image = event.target.result;
-                self.croppie.destroy();
-                self.setUpCroppie();
             };
 
             reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie-' + this.imageItem.id);
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.input.image === null || this.input.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.input.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
         },
         editImage: function editImage() {
 
@@ -7382,7 +7096,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var updatedImage = {
                     id: this.imageItem.id,
                     title: this.input.title,
-                    image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
+                    image: this.input.image,
                     is_poster: this.imageItem.is_poster,
                     imageType: this.imageType
                 };
@@ -7407,14 +7121,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         dirtyAllInputs: function dirtyAllInputs() {
             this.$v.input.title.$touch();
             this.$v.input.image.$touch();
-        }
-    },
-
-    watch: {
-        imageType: function imageType() {
-            this.input.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
         }
     }
 });
@@ -7453,149 +7159,81 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row pl-0 pr-0 m-0 pt-4 pb-4" }, [
-              _c("div", { class: _vm.colForPicture }, [
-                _c("div", { attrs: { id: "croppie-" + _vm.imageItem.id } }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "panel panel-transparent text-center" },
-                  [
-                    _c("input", {
-                      staticClass: "inputfile",
+              _c(
+                "div",
+                { staticClass: "col-md-4 text-center" },
+                [
+                  _c(
+                    "transition",
+                    {
                       attrs: {
-                        type: "file",
-                        accept: "image/*",
-                        id: "file-edit-" + _vm.imageItem.id
-                      },
-                      on: { change: _vm.setUpFileUploader }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group text-center mb-3" },
-                        [
-                          _c("label", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.imageType,
-                                  expression: "imageType"
-                                }
-                              ],
-                              attrs: {
-                                type: "radio",
-                                name: "orientation-" + _vm.imageItem.id
-                              },
-                              domProps: {
-                                value: 1,
-                                checked: _vm._q(_vm.imageType, 1)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.imageType = 1
-                                }
-                              }
-                            }),
-                            _vm._v(" Tall\n                                ")
-                          ]),
-                          _vm._v(" "),
-                          _c("label", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.imageType,
-                                  expression: "imageType"
-                                }
-                              ],
-                              staticClass: "ml-2",
-                              attrs: {
-                                type: "radio",
-                                name: "orientation-" + _vm.imageItem.id
-                              },
-                              domProps: {
-                                value: 2,
-                                checked: _vm._q(_vm.imageType, 2)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.imageType = 2
-                                }
-                              }
-                            }),
-                            _vm._v(" Square\n                                ")
-                          ]),
-                          _vm._v(" "),
-                          _c("label", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.imageType,
-                                  expression: "imageType"
-                                }
-                              ],
-                              staticClass: "ml-2",
-                              attrs: {
-                                type: "radio",
-                                name: "'orientation-' + imageItem.id"
-                              },
-                              domProps: {
-                                value: 3,
-                                checked: _vm._q(_vm.imageType, 3)
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.imageType = 3
-                                }
-                              }
-                            }),
-                            _vm._v(" Wide\n                                ")
+                        appear: "",
+                        enterActiveClass: "fade-in-down",
+                        leaveActiveClass: "fade-out-up"
+                      }
+                    },
+                    [
+                      _vm.input.url != ""
+                        ? _c("div", { staticClass: "panel" }, [
+                            _c("img", {
+                              attrs: { src: _vm.input.url, alt: "" }
+                            })
                           ])
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "panel mt-2" },
+                    [
+                      _c("input", {
+                        staticClass: "inputfile",
+                        attrs: {
+                          type: "file",
+                          accept: "image/*",
+                          id: "file-edit-" + _vm.imageItem.id
+                        },
+                        on: { change: _vm.setUpFileUploader }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
+                          attrs: { for: "file-edit-" + _vm.imageItem.id }
+                        },
+                        [_c("span", [_vm._v("Browse Image")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        {
+                          attrs: {
+                            appear: "",
+                            enterActiveClass: "fade-in-down",
+                            leaveActiveClass: "fade-out-up"
+                          }
+                        },
+                        [
+                          !_vm.$v.input.image.required &&
+                          _vm.$v.input.image.$dirty
+                            ? _c("p", { staticClass: "text-danger" }, [
+                                _vm._v(
+                                  "\n                                Image is required\n                            "
+                                )
+                              ])
+                            : _vm._e()
                         ]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "btn btn-primary pt-1 pb-1 pr-2 pl-2",
-                        attrs: { for: "file-edit-" + _vm.imageItem.id }
-                      },
-                      [_c("span", [_vm._v("Browse Image")])]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          appear: "",
-                          enterActiveClass: "fade-in-down",
-                          leaveActiveClass: "fade-out-up"
-                        }
-                      },
-                      [
-                        !_vm.$v.input.image.required &&
-                        _vm.$v.input.image.$dirty
-                          ? _c("p", { staticClass: "text-danger" }, [
-                              _vm._v(
-                                "\n                                Image is required\n                            "
-                              )
-                            ])
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { class: _vm.colForData }, [
+              _c("div", { staticClass: "col-md-8" }, [
                 _c("div", { staticClass: "col-sm-12 row form-group" }, [
                   _c(
                     "div",
@@ -7945,10 +7583,6 @@ var render = function() {
         _vm._v("This is where you can manage images that belongs to "),
         _c("strong", [_vm._v(_vm._s(_vm.item.title))]),
         _vm._v(" item.")
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "mb-5" }, [
-        _vm._v("Dimension: (480 x 500) or (960 x 500)")
       ]),
       _vm._v(" "),
       _c("ul", { staticClass: "breadcrumb" }, [

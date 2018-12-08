@@ -3,24 +3,29 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-center mb-5">Add Image <strong>Gallery</strong></h3>
+                    <h3 class="text-center mb-5">
+                        Add Image <strong>Gallery</strong>
+                    </h3>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                            <div v-if="url != '' "> 
+                            <div class="panel" v-if="url != '' "> 
                                  <img :src="url" alt="">
                             </div>
                         </transition>
 
-                        <div class="panel panel-transparent text-center mt-2">
+                        <div class="panel mt-2">
                             <input type="file"
                             accept="image/*"
-                            class="inputFile"
                             id="file-2"
+                            class="inputfile"
                             @change="setUpFileUploader">
 
+                            <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
+                                <span>Browse Image</span>
+                            </label>
                             <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                 <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
                                     Image is required
@@ -28,6 +33,7 @@
                             </transition>
                         </div>
                     </div>
+
 
                     <div class="col-md-8">
                         <div class="row">
