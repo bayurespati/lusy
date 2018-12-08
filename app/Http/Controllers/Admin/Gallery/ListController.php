@@ -7,6 +7,7 @@ use App\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ListController extends Controller
 {
@@ -36,16 +37,38 @@ class ListController extends Controller
     }
 
     public function store(Request $request){
-
         $path = public_path('img/gallery/');
 
         if(!is_dir($path)){
             file::makedirectory($path);
         }
 
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($request->image);
+
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 1000 || $height > 1000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 1000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+
+        $image       = $request->image;
         $imageName = time().'image.jpg';
-        $image = $this->setImage($request->image);
-        file_put_contents($path.$imageName,$image);
+
+        $image_resize = Image::make($image);              
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/gallery/' .$imageName));
 
         $gallery = new Gallery;
 
@@ -72,10 +95,31 @@ class ListController extends Controller
             $path = public_path('img/gallery/');
             $this->removeImageOnServer($path,$gallery->image_path);
 
-            // put new image
+            list($width, $height) = getimagesize($request->image);
+
+            $widthFix = 0;
+            $heightFix = 0;
+
+            if($width > 1000 || $height > 1000){
+                $MAXSIZE = $width > $height ? $width : $height;
+
+                $result = $MAXSIZE - 1000;
+                $percentage = ceil($result / $MAXSIZE * 100);
+
+                $widthFix = $width - ($width * $percentage / 100);
+                $heightFix = $height - ($height * $percentage / 100);
+
+            }else{
+                $widthFix = $width;
+                $heightFix = $height;
+            }
+
+            $image       = $request->image;
             $imageName = time().'image.jpg';
-            $image = $this->setImage($request->image);
-            file_put_contents($path.$imageName,$image);
+
+            $image_resize = Image::make($image);              
+            $image_resize->resize($widthFix, $heightFix);
+            $image_resize->save(public_path('img/gallery/' .$imageName));
 
             $gallery->image_path = url('img/gallery/'.$imageName);
         }

@@ -7,30 +7,20 @@
                 </div>
 
                 <div class="row">
-                    <div :class="colForPicture">
-                        <div id="croppie"></div>
+                    <div class="col-md-4">
+                        <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                            <div v-if="url != '' "> 
+                                 <img :src="url" alt="">
+                            </div>
+                        </transition>
 
-                        <div class="panel panel-transparent text-center">
+                        <div class="panel panel-transparent text-center mt-2">
                             <input type="file"
                             accept="image/*"
+                            class="inputFile"
                             id="file-2"
-                            class="inputfile"
                             @change="setUpFileUploader">
 
-                            <div class="col-md-12">
-                                <div class="form-group text-center mb-3">
-                                    <label>
-                                        <input type="radio" name="orientation" :value='1' v-model="imageType"> Potrait
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="orientation" :value='3' v-model="imageType" class="ml-2"> Landscape
-                                    </label>
-                                </div>
-                            </div>
-
-                            <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
-                                <span>Browse Image</span>
-                            </label>
                             <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
                                 <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
                                     Image is required
@@ -39,7 +29,7 @@
                         </div>
                     </div>
 
-                    <div :class="colForData">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center">
                                 <label class="m-0 pl-1" for="name">Name</label>
@@ -199,7 +189,6 @@
     Vue.use(Datetime)
 
     import {mapGetters} from 'vuex';
-    import {Croppie} from 'croppie';
 
     export default{
         props:{
@@ -208,23 +197,17 @@
 
         data: function () {
             return{
+                url:'',
                 imageType: 1,
                 isRequesting : false,
                 subcategories: '',
-                croppie: null,
-                image_save:'',
                 image: '',
                 sub_category_id:'',
                 title:'',
                 date:'',
                 location:'',
                 creator:'',
-                save_image:'',
             }
-        },
-
-        mounted(){
-            this.setUpCroppie();
         },
 
         components:{
@@ -269,41 +252,11 @@
                     && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 50) )
                     && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
              },
-
-             colForPicture(){
-                if(this.imageType == 1){
-                    return 'col-md-4';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-4';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12 mb-4';
-                }
-             },
-
-             colForData(){
-                if(this.imageType == 1){
-                    return 'col-md-8';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-8';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12';
-                }
-             }
         },
 
         watch:{
             subcategories(){
                 this.sub_category_id = "";
-            },
-
-            imageType(){
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
             }
         },
 
@@ -315,6 +268,8 @@
                     return
                 }
 
+                this.url = URL.createObjectURL(files[0]);
+
                 this.createImage(files[0]);
             },
 
@@ -324,77 +279,9 @@
 
                 reader.onload = (event) => {
                     self.image = event.target.result;
-                    this.croppie.destroy();
-                    this.setUpCroppie();
                 };
 
                 reader.readAsDataURL(file);
-            },
-
-            setUpCroppie(){
-                const self = this;
-                let file = document.getElementById('croppie');
-
-                console.log(file);2
-
-                if(this.imageType == 1){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 200, height: 300, type: 'square'},
-                        boundary: {width: 250, height: 350 },
-                        enableOrientation: false,
-                        enableResize: true,
-                    });
-                }
-                else if(this.imageType == 3) {
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 300, height: 200, type: 'square'},
-                        boundary: {width: 350, height: 250 },
-                        enableOrientation: false,
-                        enableResize: true,
-                    });
-                }
-
-                if(this.image === null || this.image === ''){
-                    if(this.imageType == 1){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 3){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                }else {
-                    this.croppie.bind({
-                        url: this.image
-                    });
-                }
-
-                this.croppie.options.update = function(){
-                    self.setImage();
-                }
-            },
-
-            setImage(){
-                const self = this;
-
-                if(this.imageType == 1){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 400, height: 600, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 3){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 600, height: 400, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
             },
 
             uploadImage(){
@@ -406,7 +293,7 @@
                     this.isRequesting = true;
 
                     const galleryData = {
-                        image : this.save_image,
+                        image : this.image,
                         sub_category_id : this.sub_category_id,
                         title : this.title,
                         date : this.date.substring(0,10),
@@ -452,14 +339,6 @@
 </script>
 
 <style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-
-    .croppie-container .cr-slider-wrap {
-        margin: 15px auto 5px auto;
-    }
-
     .vdatetime-input {
         width: 100%;
         padding: .375rem .75rem;
@@ -488,6 +367,10 @@
         padding: 36px 20px 26px 20px;
     }
 
+    img{
+        max-width: 180px;
+    }
+
     input[type='file']::-webkit-file-upload-button
     {
         color: #fff;
@@ -496,7 +379,8 @@
         padding: 5px;
         border-radius: 5px;
     }
-    .frame{
+
+    .frame{ 
         border: 1px gainsboro solid;
         padding: 10px;
         margin-left: auto;
@@ -510,13 +394,14 @@
         position: absolute;
         z-index: -1; 
     }
+
     .inputfile + label {
         padding: 0.81rem 0.7692rem;
         display: inline-block;
         cursor: pointer; 
     }
+    
     .inputfile + label i {
         margin-right: 10px; 
     }
-
 </style>

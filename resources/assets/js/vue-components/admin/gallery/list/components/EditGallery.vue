@@ -7,40 +7,22 @@
                 <h3 class="text-center">Edit <strong>{{ galleryImage.title }}</strong></h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                    <div :class="colForPicture">
-                        <div :id="'croppie-' + galleryImage.id"></div>
+                    <div class="col-md-4">
+                        <div>
+                            <img :src="url" alt="">
+                        </div>
 
-                        <div class="panel panel-transparent text-center">
-                            <input type="file"
-                            accept="image/*"
-                            :id="'file-edit-' + galleryImage.id"
-                            class="inputfile"
-                            @change="setUpFileUploader">
-
-                            <div class="col-md-12">
-                                <div class="form-group text-center mb-3">
-                                    <label>
-                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='1' v-model="imageType"> Potrait
-                                    </label>
-                                    <label>
-                                        <input type="radio" :name="'orientation-' + galleryImage.id" :value='3' v-model="imageType" class="ml-2"> Landscape
-                                    </label>
-                                </div>
-                            </div>
-
-                            <label :for="'file-edit-' + galleryImage.id" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
-                                <span>Browse Image</span>
-                            </label>
+                        <div class="panel text-center mt-2">
+                            <input type="file" accept="image/*" @change="setUpFileUploader">
                             <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                <p key="image-required" class="text-danger" 
-                                v-if="!$v.image.required && $v.image.$dirty">
+                                <p class="text-danger" v-if="!$v.image.required && $v.image.$dirty">
                                     Image is required
                                 </p>
                             </transition>
                         </div>
                     </div>
 
-                    <div :class="colForData">
+                    <div class="col-md-8">
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"class="form-control-label panel-font-small m-0 font-weight-bold">
@@ -201,7 +183,6 @@
 <script>
     import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
-    import {Croppie} from 'croppie';
 
     export default{
         props: {
@@ -222,14 +203,9 @@
                 location: this.galleryImage.location === null ? '' : this.galleryImage.location,
                 creator: this.galleryImage.creator === null ? '' : this.galleryImage.creator,
                 sub_category_id: this.galleryImage.sub_category_id,
-                croppie: null,
                 image: this.galleryImage.image_path,
-                save_image: ''
+                url: this.galleryImage.image_path
             }
-        },
-
-        mounted(){
-            this.setUpCroppie();
         },
 
         validations: {
@@ -264,7 +240,6 @@
 
             galleryIsEdited(){
                 return this.galleryImage.title !== this.title 
-                    || this.galleryImage.imageType !== this.imageType
                     || this.galleryImage.date !== this.date.substring(0,10)
                     || this.galleryImage.location !== this.location
                     || this.galleryImage.creator !== this.creator
@@ -290,30 +265,6 @@
                     }
                 }
             },
-
-            colForPicture(){
-                if(this.imageType == 1){
-                    return 'col-md-4';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-4';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12 mb-4';
-                }
-            },
-
-            colForData(){
-                if(this.imageType == 1){
-                    return 'col-md-8';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-8';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12';
-                }
-            }
         },
 
         methods: {
@@ -325,6 +276,8 @@
                     return
                 }
 
+                this.url = URL.createObjectURL(files[0]);
+
                 this.createImage(files[0]);
             },
 
@@ -334,73 +287,9 @@
 
                 reader.onload = (event) => {
                     self.image = event.target.result;
-                    this.croppie.destroy();
-                    this.setUpCroppie();
                 };
 
                 reader.readAsDataURL(file);
-            },
-
-            setUpCroppie(){
-                const self = this;
-                let file = document.getElementById('croppie-' + this.galleryImage.id);
-
-                if(this.imageType == 1){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 200, height: 300, type: 'square'},
-                        boundary: {width: 250, height: 350 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 3) {
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 300, height: 200, type: 'square'},
-                        boundary: {width: 350, height: 250 },
-                        enableOrientation: false
-                    });
-                }
-
-                if(this.image === null || this.image === ''){
-                   if(this.imageType == 1){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 3){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                }else {
-                    this.croppie.bind({
-                        url: this.image
-                    });
-                }
-
-                this.croppie.options.update = function(){
-                    self.setImage();
-                }
-            },
-
-            setImage(){
-                const self = this;
-
-                if(this.imageType == 1){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 400, height: 600, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 3){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 600, height: 400, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
             },
 
             editGallery(){
@@ -418,7 +307,7 @@
                         location: this.location,
                         creator: this.creator,
                         sub_category_id: this.sub_category_id,
-                        image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
+                        image: this.image,
                         imageType: this.imageType
                     };
 
@@ -451,26 +340,10 @@
                 this.$v.image.$touch();
             },
         },
-
-        watch: {
-            imageType(){
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
-        }
     };
 </script>
 
 <style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-
-    .croppie-container .cr-slider-wrap {
-        margin: 15px auto 5px auto;
-    }
-
     .vdatetime-input {
         width: 100%;
         padding: .375rem .75rem;
@@ -501,6 +374,10 @@
         font-size: 0.9rem;
     }
 
+    img{
+        max-width: 180px;
+    }
+
     input[type='file']::-webkit-file-upload-button
     {
         color: #fff;
@@ -508,6 +385,12 @@
         border: none;
         padding: 5px;
         border-radius: 5px;
+    }
+
+    .frame{ 
+        border: 1px gainsboro solid;
+        padding: 10px;
+        margin-left: auto;
     }
 
     .inputfile {
@@ -518,11 +401,13 @@
         position: absolute;
         z-index: -1; 
     }
+
     .inputfile + label {
         padding: 0.81rem 0.7692rem;
         display: inline-block;
         cursor: pointer; 
     }
+
     .inputfile + label i {
         margin-right: 10px; 
     }

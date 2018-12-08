@@ -2,7 +2,6 @@
   <div class="container">
     <h3>Gallery's Images Master</h3>
     <p class="mb-0">Here you can manages <strong>images</strong> that are shown in <strong>Gallery</strong> page, images uploaded here will also shows up in <strong>Gallery Showcase</strong> page as options.</p>
-    <p>Dimension: (400 x 600) or (600 x 400)</p>
 
     <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
       <template v-if="!isAddImage">
