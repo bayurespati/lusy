@@ -7,6 +7,8 @@ use App\ImageSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class HomeController extends Controller
 {
@@ -37,6 +39,34 @@ class HomeController extends Controller
         return ImageSlider::all();
     }
 
+    public function addImageSlider(Request $request){
+
+        $path = public_path('img/home/');
+
+        if(!is_dir($path)){
+            file::makedirectory($path);
+        }
+
+        list($width, $height) = getimagesize($request->image);
+        $imageShowName = time().'image_show.jpg';
+        $image_resize = Image::make($request->image);
+        $image_resize->resize($width, $height);
+        $image_resize->save(public_path('img/home/' .$imageShowName));
+
+        $thumbnailName = time().'thumbail.jpg';
+        $image_resize = Image::make($request->image);
+        $image_resize->resize(100, 100);
+        $image_resize->save(public_path('img/home/' .$thumbnailName));
+        
+        $imageSlider = new ImageSlider();
+        $imageSlider->image_show = url('img/home/'.$imageShowName);
+        $imageSlider->thumbnail = url('img/home/'.$thumbnailName);
+        $imageSlider->save();
+
+        return $imageSlider;
+    }
+
+
     public function deleteImageSlider(ImageSlider $imageSlider){
 
         $this->removeImageOnServer($imageSlider->image_show);
@@ -54,33 +84,6 @@ class HomeController extends Controller
         if(file_exists($path.$imageName)) {
             unlink($path.$imageName);
         }
-    }
-
-
-    public function addImageSlider(Request $request){
-
-        $path = public_path('img/home/');
-
-        if(!is_dir($path)){
-            file::makedirectory($path);
-        }
-
-        $imageShowName = time().'image_show.jpg';
-        $imageShow = $this->setImage($request->image_show);
-        file_put_contents($path.$imageShowName,$imageShow);
-
-
-        $thumbnailName = time().'thumbail.jpg';
-        $thumbail = $this->setImage($request->thumbnail);
-        file_put_contents($path.$thumbnailName,$thumbail);
-
-        $imageSlider = new ImageSlider();
-
-        $imageSlider->image_show = url('img/home/'.$imageShowName);
-        $imageSlider->thumbnail = url('img/home/'.$thumbnailName);
-        $imageSlider->save();
-
-        return $imageSlider->id;
     }
 
     public function setImage($image){

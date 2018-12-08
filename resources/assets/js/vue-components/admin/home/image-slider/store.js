@@ -29,12 +29,11 @@ export const store = new Vuex.Store({
         },
 
         add_image_slider(state, imageSlider){
+
             state.imageSliders.push({
                 id: imageSlider.id,
-                image_ori: imageSlider.detail.image_ori,
-                image_show: imageSlider.detail.image_show,
-                image_points: imageSlider.detail.image_points,
-                thumbnail: imageSlider.detail.thumbnail
+                image: imageSlider.image_show,
+                thumbnail: imageSlider.thumbnail
             });
         },
 
@@ -62,22 +61,13 @@ export const store = new Vuex.Store({
             return new Promise((resolve, reject) => {
 
                 axios.post('add/image-slider', {
-                    image_show: imageFile.image_show,
-                    image_ori: imageFile.image_ori,
-                    thumbnail: imageFile.thumbnail,
-                    image_points: imageFile.image_points,
-
+                    image: imageFile.image,
                 })
                 .then(response => {
 
-                    const sliderImage = {
-                        id: response.data,
-                        detail: imageFile
-                    };
+                    commit('add_image_slider',response.data);
 
-                    commit('add_image_slider', sliderImage);
-
-                    resolve(sliderImage);
+                    resolve(response.data);
                 })
                 .catch(errors => {
                     reject(errors.response.data);
