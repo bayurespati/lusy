@@ -5,7 +5,6 @@
 @endpush
 
 @push('additional_css')
-<link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
 <link href="{{ asset('css/animation.css') }}" rel="stylesheet">
 @endpush
 
@@ -60,9 +59,8 @@
 @endsection
 
 @push('additional_js')
-<script>
-    const $event = {!! json_encode($event) !!};
-</script>
-	<script src="{{ asset('js/croppie.js') }}"></script>
+    <script>
+        const $event = {!! json_encode($event) !!};
+    </script>
 	<script src="{{ asset('js/admin/event/image.js') }}"></script>
 @endpush

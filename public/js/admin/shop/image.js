@@ -7579,7 +7579,7 @@ var render = function() {
         _vm._v(" IMAGE LIST MASTER")
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "mb-0" }, [
+      _c("p", { staticClass: "mb-5" }, [
         _vm._v("This is where you can manage images that belongs to "),
         _c("strong", [_vm._v(_vm._s(_vm.item.title))]),
         _vm._v(" item.")

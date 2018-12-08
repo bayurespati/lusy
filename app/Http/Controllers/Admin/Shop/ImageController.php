@@ -37,32 +37,7 @@ class ImageController extends Controller
             file::makedirectory($path);
         }
 
-        // SET WIDTH AND HEIGHT
-        list($width, $height) = getimagesize($request->image);
-
-        $widthFix = 0;
-        $heightFix = 0;
-
-        if($width > 1000 || $height > 1000){
-            $MAXSIZE = $width > $height ? $width : $height;
-
-            $result = $MAXSIZE - 1000;
-            $percentage = ceil($result / $MAXSIZE * 100);
-
-            $widthFix = $width - ($width * $percentage / 100);
-            $heightFix = $height - ($height * $percentage / 100);
-
-        }else{
-            $widthFix = $width;
-            $heightFix = $height;
-        }
-
-        $image       = $request->image;
-        $imageName = time().'image.jpg';
-
-        $image_resize = Image::make($image);              
-        $image_resize->resize($widthFix, $heightFix);
-        $image_resize->save(public_path('img/shop/' .$imageName));
+        $imageName = $this->setImage($request->image);
 
     	$shopImage =  new ShopImage;
 
@@ -86,33 +61,7 @@ class ImageController extends Controller
             $path = public_path('img/shop/');
             $this->removeImageOnServer($path,$shopImage->image_path);
 
-             // SET WIDTH AND HEIGHT
-            list($width, $height) = getimagesize($request->image);
-
-            $widthFix = 0;
-            $heightFix = 0;
-
-            if($width > 1000 || $height > 1000){
-                $MAXSIZE = $width > $height ? $width : $height;
-
-                $result = $MAXSIZE - 1000;
-                $percentage = ceil($result / $MAXSIZE * 100);
-
-                $widthFix = $width - ($width * $percentage / 100);
-                $heightFix = $height - ($height * $percentage / 100);
-
-            }else{
-                $widthFix = $width;
-                $heightFix = $height;
-            }
-
-            $image       = $request->image;
-            $imageName = time().'image.jpg';
-
-            $image_resize = Image::make($image);              
-            $image_resize->resize($widthFix, $heightFix);
-            $image_resize->save(public_path('img/shop/' .$imageName));
-
+            $imageName = $this->setImage($request->image);
             $shopImage->image_path = url('img/shop/'.$imageName);
         }
 
@@ -134,10 +83,35 @@ class ImageController extends Controller
     }
 
     public function setImage($image){
-        list(,$image) = explode(';', $image);
-        list(,$image) = explode(',',$image);
 
-        return base64_decode($image);
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($request->image);
+
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 1000 || $height > 1000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 1000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+
+        $image = $image;
+        $imageName = time().'image.jpg';
+
+        $image_resize = Image::make($image);              
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/shop/' .$imageName));
+
+        return $imageName;
     }
 
     private function removeImageOnServer($path, $url) {
