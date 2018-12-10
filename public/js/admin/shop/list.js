@@ -303,38 +303,47 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.potentialTotal) +
-                                "\n                    \t\t"
-                            )
+                        ? _c("div", { staticClass: "notification-dot-left" }, [
+                            _c("span", [
+                              _vm._v(
+                                "\n                    \t\t\t" +
+                                  _vm._s(_vm.potentialTotal) +
+                                  "\n                    \t\t"
+                              )
+                            ])
                           ])
-                        ])
-                      : _vm.messageTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/message"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.messageTotal) +
-                                "\n                    \t\t"
+                        : _vm.messageTotal > 0 &&
+                          submenu.link === "/admin/bookkeeping/message"
+                          ? _c(
+                              "div",
+                              { staticClass: "notification-dot-left" },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                    \t\t\t" +
+                                      _vm._s(_vm.messageTotal) +
+                                      "\n                    \t\t"
+                                  )
+                                ])
+                              ]
                             )
-                          ])
-                        ])
-                      : _vm.memberTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/applicant-member"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.memberTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm._e()
+                          : _vm.memberTotal > 0 &&
+                            submenu.link ===
+                              "/admin/bookkeeping/applicant-member"
+                            ? _c(
+                                "div",
+                                { staticClass: "notification-dot-left" },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    \t\t\t" +
+                                        _vm._s(_vm.memberTotal) +
+                                        "\n                    \t\t"
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
                   ]
                 )
               ])
@@ -454,126 +463,153 @@ if(false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(431);
 
 
+
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-  //=========================================================================================
-  //  S T A T E
-  //=========================================================================================
-  state: {
-    items: {},
-    categories: {},
-    subcategories: {}
-  },
-  //=========================================================================================
-  //  G E T T E R S
-  //=========================================================================================
-  getters: {
-    getItems: function getItems(state) {
-      return state.items;
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        items: {},
+        categories: {},
+        subcategories: {}
     },
-    getCategories: function getCategories(state) {
-      return state.categories;
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getItems: function getItems(state) {
+            return state.items;
+        },
+
+        getCategories: function getCategories(state) {
+            return state.categories;
+        },
+
+        getSubcategories: function getSubcategories(state) {
+
+            return state.subcategories;
+        }
     },
-    getSubcategories: function getSubcategories(state) {
-      return state.subcategories;
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_items: function set_items(state, items) {
+            state.items = items[0];
+            state.categories = items[1];
+            state.subcategories = items[2];
+        },
+
+        add_new_shop: function add_new_shop(state, shopItem) {
+            state.items.push({
+                id: shopItem.id,
+                title: shopItem.detail.title,
+                sub_title: shopItem.detail.sub_title,
+                stock: shopItem.detail.stock,
+                description: shopItem.detail.description,
+                price: shopItem.detail.price,
+                store_link: shopItem.detail.store_link,
+                is_displayed: shopItem.detail.is_displayed,
+                category_id: shopItem.detail.category_id,
+                sub_category_id: shopItem.detail.sub_category_id
+            });
+        },
+        edit_item: function edit_item(state, updatedItem) {
+
+            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShop(updatedItem.id);
+
+            state.items[itemIndex].title = updatedItem.title;
+            state.items[itemIndex].sub_title = updatedItem.sub_title;
+            state.items[itemIndex].stock = updatedItem.stock;
+            state.items[itemIndex].description = updatedItem.description;
+            state.items[itemIndex].price = updatedItem.price;
+            state.items[itemIndex].store_link = updatedItem.store_link;
+            state.items[itemIndex].is_displayed = updatedItem.is_displayed;
+            state.items[itemIndex].category_id = updatedItem.category_id;
+            state.items[itemIndex].sub_category_id = updatedItem.sub_category_id;
+        },
+        delete_item_shop: function delete_item_shop(state, ids) {
+            var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShop(ids.imageId);
+
+            state.items.splice(itemIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_items: function load_items(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/shop/data/list').then(function (response) {
+                commit('set_items', response.data);
+            });
+        },
+
+        store_new_shop: function store_new_shop(_ref2, shopItem) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/list', shopItem).then(function (response) {
+
+                    var shop = {
+                        id: response.data,
+                        detail: shopItem
+                    };
+
+                    commit('add_new_shop', shop);
+
+                    resolve(shopItem);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_shop: function update_shop(_ref3, updatedItem) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/list/' + updatedItem.id, {
+                    id: updatedItem.id,
+                    title: updatedItem.title,
+                    sub_title: updatedItem.sub_title,
+                    stock: updatedItem.stock,
+                    description: updatedItem.description,
+                    price: updatedItem.price,
+                    store_link: updatedItem.store_link,
+                    is_displayed: updatedItem.is_displayed,
+                    category_id: updatedItem.category_id,
+                    sub_category_id: updatedItem.sub_category_id
+                }).then(function (response) {
+                    commit('edit_item', response.data);
+
+                    resolve(updatedItem);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_item: function destroy_item(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/list/' + ids.itemId).then(function (response) {
+                    commit('delete_item_shop', ids);
+                    resolve();
+                });
+            });
+        }
     }
-  },
-  //=========================================================================================
-  //  M U T A T I O N S
-  //=========================================================================================
-  mutations: {
-    set_items: function set_items(state, items) {
-      state.items = items[0];
-      state.categories = items[1];
-      state.subcategories = items[2];
-    },
-    add_new_shop: function add_new_shop(state, shopItem) {
-      state.items.push({
-        id: shopItem.id,
-        title: shopItem.detail.title,
-        sub_title: shopItem.detail.sub_title,
-        stock: shopItem.detail.stock,
-        description: shopItem.detail.description,
-        price: shopItem.detail.price,
-        store_link: shopItem.detail.store_link,
-        is_displayed: shopItem.detail.is_displayed,
-        category_id: shopItem.detail.category_id,
-        sub_category_id: shopItem.detail.sub_category_id
-      });
-    },
-    edit_item: function edit_item(state, updatedItem) {
-      var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShop(updatedItem.id);
-      state.items[itemIndex].title = updatedItem.title;
-      state.items[itemIndex].sub_title = updatedItem.sub_title;
-      state.items[itemIndex].stock = updatedItem.stock;
-      state.items[itemIndex].description = updatedItem.description;
-      state.items[itemIndex].price = updatedItem.price;
-      state.items[itemIndex].store_link = updatedItem.store_link;
-      state.items[itemIndex].is_displayed = updatedItem.is_displayed;
-      state.items[itemIndex].category_id = updatedItem.category_id;
-      state.items[itemIndex].sub_category_id = updatedItem.sub_category_id;
-    },
-    delete_item_shop: function delete_item_shop(state, ids) {
-      var itemIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfShop(ids.imageId);
-      state.items.splice(itemIndex, 1);
-    }
-  },
-  //=========================================================================================
-  //  A C T I O N S
-  //=========================================================================================
-  actions: {
-    load_items: function load_items(_ref) {
-      var commit = _ref.commit;
-      axios.get('/admin/shop/data/list').then(function (response) {
-        commit('set_items', response.data);
-      });
-    },
-    store_new_shop: function store_new_shop(_ref2, shopItem) {
-      var commit = _ref2.commit;
-      return new Promise(function (resolve, reject) {
-        axios.post('add/list', shopItem).then(function (response) {
-          var shop = {
-            id: response.data,
-            detail: shopItem
-          };
-          commit('add_new_shop', shop);
-          resolve(shopItem);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    update_shop: function update_shop(_ref3, updatedItem) {
-      var commit = _ref3.commit;
-      return new Promise(function (resolve, reject) {
-        axios.patch('update/list/' + updatedItem.id, {
-          id: updatedItem.id,
-          title: updatedItem.title,
-          sub_title: updatedItem.sub_title,
-          stock: updatedItem.stock,
-          description: updatedItem.description,
-          price: updatedItem.price,
-          store_link: updatedItem.store_link,
-          is_displayed: updatedItem.is_displayed,
-          category_id: updatedItem.category_id,
-          sub_category_id: updatedItem.sub_category_id
-        }).then(function (response) {
-          commit('edit_item', response.data);
-          resolve(updatedItem);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    destroy_item: function destroy_item(_ref4, ids) {
-      var commit = _ref4.commit;
-      return new Promise(function (resolve, reject) {
-        axios.delete('delete/list/' + ids.itemId).then(function (response) {
-          commit('delete_item_shop', ids);
-          resolve();
-        });
-      });
-    }
-  }
 });
 
 /***/ }),
@@ -651,79 +687,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      notifications: []
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    window.events.$on('flash', function (message, type) {
-      _this.flash(message, type, 3500);
-    });
-  },
-  computed: {
-    notificationExists: function notificationExists() {
-      return this.notifications.length > 0;
+    data: function data() {
+        return {
+            notifications: []
+        };
     },
-    time: function time() {
-      return _.now();
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('flash', function (message, type) {
+            _this.flash(message, type, 3500);
+        });
+    },
+
+
+    computed: {
+        notificationExists: function notificationExists() {
+            return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
+        }
+    },
+
+    methods: {
+        flash: function flash(message) {
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+            if (this.notifications.length === 8) {
+                this.hide(0);
+            }
+
+            this.display(message, type);
+
+            this.hide(duration);
+        },
+        display: function display(message, type) {
+            this.notifications.push({
+                body: message,
+                type: type,
+                alertClass: this.getAlertClass(type),
+                alertIcon: this.getAlertIcon(type)
+            });
+        },
+        hide: function hide(duration) {
+            var _this2 = this;
+
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            setTimeout(function () {
+                _this2.notifications.splice(index, 1);
+            }, duration);
+        },
+        getAlertClass: function getAlertClass(type) {
+            return 'alert-' + type;
+        },
+        getAlertIcon: function getAlertIcon(type) {
+            if (type === 'success') {
+                return 's7-check';
+            } else if (type === 'danger') {
+                return 's7-less';
+            } else if (type === 'info') {
+                return 's7-info';
+            } else if (type === 'warning') {
+                return 's7-attention';
+            } else {
+                return '';
+            }
+        },
+        getBottomPosition: function getBottomPosition(index) {
+            var margin = 10;
+            var notificationHeight = 60;
+
+            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
+        }
     }
-  },
-  methods: {
-    flash: function flash(message) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-      if (this.notifications.length === 8) {
-        this.hide(0);
-      }
-
-      this.display(message, type);
-      this.hide(duration);
-    },
-    display: function display(message, type) {
-      this.notifications.push({
-        body: message,
-        type: type,
-        alertClass: this.getAlertClass(type),
-        alertIcon: this.getAlertIcon(type)
-      });
-    },
-    hide: function hide(duration) {
-      var _this2 = this;
-
-      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      setTimeout(function () {
-        _this2.notifications.splice(index, 1);
-      }, duration);
-    },
-    getAlertClass: function getAlertClass(type) {
-      return 'alert-' + type;
-    },
-    getAlertIcon: function getAlertIcon(type) {
-      if (type === 'success') {
-        return 's7-check';
-      } else if (type === 'danger') {
-        return 's7-less';
-      } else if (type === 'info') {
-        return 's7-info';
-      } else if (type === 'warning') {
-        return 's7-attention';
-      } else {
-        return '';
-      }
-    },
-    getBottomPosition: function getBottomPosition(index) {
-      var margin = 10;
-      var notificationHeight = 60;
-      return {
-        bottom: margin * (index + 1) + notificationHeight * index + 'px'
-      };
-    }
-  }
 });
 
 /***/ }),
@@ -3032,17 +3073,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
+
 var admin = new Vue({
-  el: '#shop-item',
-  components: {
-    ShopItem: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-  },
-  mounted: function mounted() {
-    this.$store.dispatch('load_items');
-  },
-  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+    el: '#shop-item',
+
+    components: {
+        ShopItem: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_items');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -3170,9 +3216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Shop_vue__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Shop_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Shop_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -3215,6 +3259,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
+
 
 
 
@@ -3225,11 +3271,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isAddShop: false
     };
   },
+
+
   components: {
     ShopItem: __WEBPACK_IMPORTED_MODULE_1__Shop_vue___default.a,
     AddShop: __WEBPACK_IMPORTED_MODULE_0__AddShop_vue___default.a
   },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     list: 'getItems'
   }), {
     showShop: function showShop() {
@@ -3240,9 +3289,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var shopBySearch = tempShop.filter(function (shop) {
         return re.test(shop.title) || re.test(shop.sub_title) || re.test(shop.location) || re.test(shop.price);
       });
+
       return shopBySearch;
     }
   }),
+
   methods: {
     search: function search(event) {
       this.searchBy = event.target.value;
@@ -3397,9 +3448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -3608,111 +3657,125 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      isRequesting: false,
-      isMoreOne: true,
-      category: '',
-      subcategories: '',
-      input: {
-        title: '',
-        sub_title: '',
-        stock: '',
-        description: '',
-        price: '',
-        store_link: '',
-        sub_category_id: '',
-        category_id: '',
-        is_displayed: 1
-      }
-    };
-  },
-  validations: {
-    input: {
-      title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      sub_title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      store_link: {
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
-      },
-      stock: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      },
-      price: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      }
-    },
-    category: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    }
-  },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-    categories: 'getCategories'
-  }), {
-    isFormFilled: function isFormFilled() {
-      return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
-    },
-    is_subCat: function is_subCat() {
-      if (this.category !== '' && this.subcategories.length >= 1) {
-        return this.input.sub_category_id != '';
-      } else {
-        return this.input.sub_category_id == '';
-      }
-    }
-  }),
-  methods: {
-    addShop: function addShop() {
-      var self = this;
+				data: function data() {
+								return {
+												isRequesting: false,
+												isMoreOne: true,
+												category: '',
+												subcategories: '',
+												input: {
+																title: '',
+																sub_title: '',
+																stock: '',
+																description: '',
+																price: '',
+																store_link: '',
+																sub_category_id: '',
+																category_id: '',
+																is_displayed: 1
+												}
+								};
+				},
 
-      if (this.isFormFilled && this.is_subCat && !self.isRequesting) {
-        self.isRequesting = true;
-        this.$store.dispatch('store_new_shop', this.input).then(function () {
-          flash(self.input.title + ' is successfully added', 'success');
-          self.isRequesting = false;
-          self.closeAddShop();
-        }).catch(function (errors) {
-          self.isRequesting = false;
-          Object.keys(errors).forEach(function (field) {
-            errors[field].forEach(function (message) {
-              flash(message, 'danger', 5000);
-            });
-          });
-        });
-      } else {
-        this.diryAllInputs();
-      }
-    },
-    diryAllInputs: function diryAllInputs() {
-      this.$v.input.title.$touch();
-      this.$v.input.sub_title.$touch();
-      this.$v.input.stock.$touch();
-      this.$v.input.price.$touch();
-      this.$v.category.$touch();
-    },
-    closeAddShop: function closeAddShop() {
-      this.$emit('closeAddShop', false);
-    }
-  },
-  watch: {
-    subcategories: function subcategories() {
-      this.input.sub_category_id = "";
-    },
-    category: function category() {
-      this.subcategories = this.category.subcategories;
-      this.input.category_id = this.category.id;
-      this.isMoreOne = this.subcategories.length > 0 ? true : false;
-    }
-  }
+
+				validations: {
+								input: {
+												title: {
+																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+												},
+												sub_title: {
+																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+												},
+												store_link: {
+																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
+												},
+												stock: {
+																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+												},
+												price: {
+																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+												}
+								},
+								category: {
+												required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+								}
+				},
+
+				computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+								categories: 'getCategories'
+				}), {
+								isFormFilled: function isFormFilled() {
+												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+								},
+								is_subCat: function is_subCat() {
+												if (this.category !== '' && this.subcategories.length >= 1) {
+																return this.input.sub_category_id != '';
+												} else {
+																return this.input.sub_category_id == '';
+												}
+								}
+				}),
+
+				methods: {
+								addShop: function addShop() {
+
+												var self = this;
+
+												if (this.isFormFilled && this.is_subCat && !self.isRequesting) {
+
+																self.isRequesting = true;
+
+																this.$store.dispatch('store_new_shop', this.input).then(function () {
+																				flash(self.input.title + ' is successfully added', 'success');
+
+																				self.isRequesting = false;
+
+																				self.closeAddShop();
+																}).catch(function (errors) {
+
+																				self.isRequesting = false;
+
+																				Object.keys(errors).forEach(function (field) {
+																								errors[field].forEach(function (message) {
+																												flash(message, 'danger', 5000);
+																								});
+																				});
+																});
+												} else {
+																this.diryAllInputs();
+												}
+								},
+								diryAllInputs: function diryAllInputs() {
+												this.$v.input.title.$touch();
+												this.$v.input.sub_title.$touch();
+												this.$v.input.stock.$touch();
+												this.$v.input.price.$touch();
+												this.$v.category.$touch();
+								},
+								closeAddShop: function closeAddShop() {
+												this.$emit('closeAddShop', false);
+								}
+				},
+
+				watch: {
+								subcategories: function subcategories() {
+												this.input.sub_category_id = "";
+								},
+								category: function category() {
+												this.subcategories = this.category.subcategories;
+												this.input.category_id = this.category.id;
+												this.isMoreOne = this.subcategories.length > 0 ? true : false;
+								}
+				}
 });
 
 /***/ }),
@@ -3784,34 +3847,40 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.title.minLength
-                      ? _c(
-                          "span",
-                          { key: "title-minimum", staticClass: "text-danger" },
-                          [
-                            _vm._v(
-                              "\n                            \tTitle has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.title.$params.minLength.min
-                                ) +
-                                " characters\n                            "
+                        ? _c(
+                            "span",
+                            {
+                              key: "title-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \tTitle has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.title.$params.minLength.min
+                                  ) +
+                                  " characters\n                            "
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.title.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "title-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \tTitle has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.title.$params.maxLength.max
+                                    ) +
+                                    " characters\n                        \t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.title.maxLength
-                      ? _c(
-                          "span",
-                          { key: "title-maximum", staticClass: "text-danger" },
-                          [
-                            _vm._v(
-                              "\n                            \tTitle has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.title.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3879,40 +3948,41 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.sub_title.minLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "subname-minimum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \tItem Subname has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.sub_title.$params.minLength.min
-                                ) +
-                                " characters\n                            "
+                        ? _c(
+                            "span",
+                            {
+                              key: "subname-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \tItem Subname has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.sub_title.$params.minLength.min
+                                  ) +
+                                  " characters\n                            "
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.sub_title.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "subname-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \tItem Subname has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.sub_title.$params.maxLength
+                                        .max
+                                    ) +
+                                    " characters\n                        \t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.sub_title.maxLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "subname-maximum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \tItem Subname has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.sub_title.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -5269,34 +5339,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    shop: {}
-  },
-  components: {
-    EditShop: __WEBPACK_IMPORTED_MODULE_0__EditShop_vue___default.a
-  },
-  data: function data() {
-    return {
-      isRequesting: false,
-      isEditingShop: false
-    };
-  },
-  methods: {
-    deleteTheShop: function deleteTheShop() {
-      var self = this;
 
-      if (!self.isRequesting) {
-        self.isRequesting = true;
-        this.$store.dispatch('destroy_item', {
-          itemId: self.shop.id
-        }).then(function () {
-          self.isRequesting = false;
-          flash('Item is successfuly deleted', 'danger');
-        });
-      }
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: { shop: {} },
+
+    components: {
+        EditShop: __WEBPACK_IMPORTED_MODULE_0__EditShop_vue___default.a
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            isEditingShop: false
+        };
+    },
+
+
+    methods: {
+        deleteTheShop: function deleteTheShop() {
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_item', {
+                    itemId: self.shop.id
+                }).then(function () {
+                    self.isRequesting = false;
+
+                    flash('Item is successfuly deleted', 'danger');
+                });
+            }
+        }
     }
-  }
 });
 
 /***/ }),
@@ -5446,9 +5522,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -5685,140 +5759,154 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    shop: {
-      type: [Object],
-      default: function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isRequesting: false,
-      category_id: this.shop.category_id,
-      subcat: '',
-      isMoreOne: this.shop.sub_category_id == null ? false : true,
-      input: {
-        sub_category_id: this.shop.sub_category_id,
-        title: this.shop.title,
-        sub_title: this.shop.sub_title,
-        stock: this.shop.stock,
-        description: this.shop.description,
-        price: this.shop.price,
-        store_link: this.shop.store_link === null ? '' : this.shop.store_link,
-        is_displayed: this.shop.is_displayed
-      }
-    };
-  },
-  mounted: function mounted() {
-    this.setSubcategory();
-  },
-  validations: {
-    input: {
-      title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      sub_title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      store_link: {
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
-      },
-      stock: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      },
-      price: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      }
-    },
-    category_id: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    }
-  },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-    categories: 'getCategories'
-  }), {
-    shopIsEdited: function shopIsEdited() {
-      return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
-    },
-    isFormFilled: function isFormFilled() {
-      return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
-    },
-    is_subCat: function is_subCat() {
-      if (this.subcat.length >= 1) {
-        return this.input.sub_category_id != '';
-      } else {
-        return this.input.sub_category_id == '' || this.input.sub_category_id == null;
-      }
-    }
-  }),
-  methods: {
-    setSubcategory: function setSubcategory() {
-      for (var a = 0; a < this.categories.length; a++) {
-        for (var b = 0; b < this.categories[a].subcategories.length; b++) {
-          if (this.categories[a].subcategories[b].id === this.shop.sub_category_id) {
-            this.subcat = this.categories[a].subcategories;
-          }
+
+    props: {
+        shop: {
+            type: [Object],
+            default: function _default() {
+                return {};
+            }
         }
-      }
     },
-    editShop: function editShop() {
-      var self = this;
 
-      if (this.shopIsEdited && this.is_subCat && this.isFormFilled && !this.isRequesting) {
-        this.isRequesting = true;
-        var updatedShop = {
-          id: this.shop.id,
-          title: this.input.title,
-          sub_title: this.input.sub_title,
-          stock: this.input.stock,
-          description: this.input.description,
-          price: this.input.price,
-          store_link: this.input.store_link,
-          is_displayed: this.input.is_displayed,
-          category_id: this.category_id,
-          sub_category_id: this.input.sub_category_id
+    data: function data() {
+        return {
+            isRequesting: false,
+            category_id: this.shop.category_id,
+            subcat: '',
+            isMoreOne: this.shop.sub_category_id == null ? false : true,
+            input: {
+                sub_category_id: this.shop.sub_category_id,
+                title: this.shop.title,
+                sub_title: this.shop.sub_title,
+                stock: this.shop.stock,
+                description: this.shop.description,
+                price: this.shop.price,
+                store_link: this.shop.store_link === null ? '' : this.shop.store_link,
+                is_displayed: this.shop.is_displayed
+            }
         };
-        this.$store.dispatch('update_shop', updatedShop).then(function (updatedShop) {
-          flash(updatedShop.title + ' is successfully updated', 'success');
-          self.isRequesting = false;
-          self.closeEditForm();
-        }).catch(function (errors) {
-          self.isRequesting = false;
-        });
-      } else {
-        this.diryAllInputs();
-      }
     },
-    diryAllInputs: function diryAllInputs() {
-      this.$v.input.title.$touch();
-      this.$v.input.sub_title.$touch();
-      this.$v.input.stock.$touch();
-      this.$v.input.price.$touch();
-      this.$v.category_id.$touch();
+    mounted: function mounted() {
+        this.setSubcategory();
     },
-    closeEditForm: function closeEditForm() {
-      this.$emit('editionFormIsClosed', false);
-    }
-  },
-  watch: {
-    category_id: function category_id() {
-      this.input.sub_category_id = '';
 
-      var index = _.findIndex(this.categories, ['id', this.category_id]);
 
-      this.subcat = this.categories[index].subcategories;
-      this.isMoreOne = this.subcat.length > 0 ? true : false;
+    validations: {
+        input: {
+            title: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+            },
+            sub_title: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+            },
+            store_link: {
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
+            },
+            stock: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+            },
+            price: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+            }
+        },
+        category_id: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        }
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+        categories: 'getCategories'
+    }), {
+        shopIsEdited: function shopIsEdited() {
+            return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
+        },
+        isFormFilled: function isFormFilled() {
+            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+        },
+        is_subCat: function is_subCat() {
+            if (this.subcat.length >= 1) {
+                return this.input.sub_category_id != '';
+            } else {
+                return this.input.sub_category_id == '' || this.input.sub_category_id == null;
+            }
+        }
+    }),
+
+    methods: {
+        setSubcategory: function setSubcategory() {
+            for (var a = 0; a < this.categories.length; a++) {
+                for (var b = 0; b < this.categories[a].subcategories.length; b++) {
+                    if (this.categories[a].subcategories[b].id === this.shop.sub_category_id) {
+                        this.subcat = this.categories[a].subcategories;
+                    }
+                }
+            }
+        },
+        editShop: function editShop() {
+
+            var self = this;
+
+            if (this.shopIsEdited && this.is_subCat && this.isFormFilled && !this.isRequesting) {
+
+                this.isRequesting = true;
+
+                var updatedShop = {
+                    id: this.shop.id,
+                    title: this.input.title,
+                    sub_title: this.input.sub_title,
+                    stock: this.input.stock,
+                    description: this.input.description,
+                    price: this.input.price,
+                    store_link: this.input.store_link,
+                    is_displayed: this.input.is_displayed,
+                    category_id: this.category_id,
+                    sub_category_id: this.input.sub_category_id
+                };
+
+                this.$store.dispatch('update_shop', updatedShop).then(function (updatedShop) {
+
+                    flash(updatedShop.title + ' is successfully updated', 'success');
+
+                    self.isRequesting = false;
+
+                    self.closeEditForm();
+                }).catch(function (errors) {
+                    self.isRequesting = false;
+                });
+            } else {
+                this.diryAllInputs();
+            }
+        },
+        diryAllInputs: function diryAllInputs() {
+            this.$v.input.title.$touch();
+            this.$v.input.sub_title.$touch();
+            this.$v.input.stock.$touch();
+            this.$v.input.price.$touch();
+            this.$v.category_id.$touch();
+        },
+        closeEditForm: function closeEditForm() {
+            this.$emit('editionFormIsClosed', false);
+        }
+    },
+
+    watch: {
+        category_id: function category_id() {
+            this.input.sub_category_id = '';
+
+            var index = _.findIndex(this.categories, ['id', this.category_id]);
+            this.subcat = this.categories[index].subcategories;
+            this.isMoreOne = this.subcat.length > 0 ? true : false;
+        }
     }
-  }
 });
 
 /***/ }),
@@ -5946,40 +6034,41 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.input.title.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-minimum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Title has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.input.title.$params.minLength.min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.input.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "title-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Title has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.title.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.input.title.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Title has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.title.$params.maxLength.max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -6081,42 +6170,42 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.input.sub_title.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "subname-minimum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Item Subname has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.input.sub_title.$params.minLength
-                                        .min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "subname-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Item Subname has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.sub_title.$params.minLength
+                                          .min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.input.sub_title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "subname-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Item Subname has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.sub_title.$params
+                                            .maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.input.sub_title.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "subname-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Item Subname has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.sub_title.$params.maxLength
-                                        .max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -7255,12 +7344,13 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(123);
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
-  getIndexOfShop: function getIndexOfShop(shopId) {
-    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.items, function (shop) {
-      return shop.id === shopId;
-    });
-  }
+    getIndexOfShop: function getIndexOfShop(shopId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.items, function (shop) {
+            return shop.id === shopId;
+        });
+    }
 });
 
 /***/ }),
@@ -7464,219 +7554,148 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      applicants: '',
-      potentials: '',
-      member: '',
-      message: '',
-      menuName: '',
-      subMenuName: '',
-      menus: [{
-        id: 'home',
-        name: 'Home',
-        subMenu: [{
-          name: 'Social Media',
-          link: '/admin/home/sosmed'
-        }, {
-          name: 'Image Slider',
-          link: '/admin/home/image-slider'
-        }, {
-          name: 'Image Config',
-          link: '/admin/home/image-config'
-        }]
-      }, {
-        id: 'about',
-        name: 'About',
-        subMenu: [{
-          name: 'Profile',
-          link: '/admin/about/profile'
-        }, {
-          name: 'Classes',
-          link: '/admin/about/class'
-        }, {
-          name: 'Timeline',
-          link: '/admin/about/timeline'
-        }, {
-          name: 'Gallery Showcase',
-          link: '/admin/about/showcase'
-        }, {
-          name: 'Shop Showcase',
-          link: '/admin/about/shop-showcase'
-        }]
-      }, {
-        id: 'gallery',
-        name: 'Gallery',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/gallery/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/gallery/subcategory'
-        }, {
-          name: 'Photos',
-          link: '/admin/gallery/list'
-        }]
-      }, {
-        id: 'event',
-        name: 'Events & Activities',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/event/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/event/subcategory'
-        }, {
-          name: 'Events & Activities',
-          link: '/admin/event/list'
-        }]
-      }, {
-        id: 'shop',
-        name: 'Shop',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/shop/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/shop/subcategory'
-        }, {
-          name: 'Items',
-          link: '/admin/shop/list'
-        }]
-      }, {
-        id: 'bookkeeping',
-        name: 'Bookkeeping',
-        subMenu: [{
-          name: 'Member',
-          link: '/admin/bookkeeping/member'
-        }, {
-          name: 'Member Detail',
-          link: '/admin/bookkeeping/member-detail'
-        }, {
-          name: 'Member Applicants',
-          link: '/admin/bookkeeping/applicant-member'
-        }, {
-          name: 'Class Region',
-          link: '/admin/bookkeeping/region'
-        }, {
-          name: 'Event Applicants',
-          link: '/admin/bookkeeping/applicant-event'
-        }, {
-          name: 'Overseas Inquiries',
-          link: '/admin/bookkeeping/overseas'
-        }, {
-          name: 'Potential Overseas Inquiries',
-          link: '/admin/bookkeeping/potential'
-        }, {
-          name: 'Messages',
-          link: '/admin/bookkeeping/message'
-        }]
-      }]
-    };
-  },
-  mounted: function mounted() {
-    this.setName();
-    this.getApplicant();
-    this.getPotential();
-    this.getMessage();
-    this.getMember();
-  },
-  computed: {
-    applicantTotal: function applicantTotal() {
-      var totalApplicants = 0;
+	data: function data() {
+		return {
+			applicants: '',
+			potentials: '',
+			member: '',
+			message: '',
+			menuName: '',
+			subMenuName: '',
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        for (var i = 0; i < this.applicants.length; i++) {
-          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-            if (this.applicants[i].applicants[k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+			menus: [{
+				id: 'home',
+				name: 'Home',
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+			}, {
+				id: 'about',
+				name: 'About',
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+			}, {
+				id: 'gallery',
+				name: 'Gallery',
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
+			}, {
+				id: 'event',
+				name: 'Events & Activities',
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
+			}, {
+				id: 'shop',
+				name: 'Shop',
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
+			}, {
+				id: 'bookkeeping',
+				name: 'Bookkeeping',
+				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+			}]
+		};
+	},
+	mounted: function mounted() {
+		this.setName();
+		this.getApplicant();
+		this.getPotential();
+		this.getMessage();
+		this.getMember();
+	},
 
-        ;
-      } else {
-        var appEvent = this.$store.getters.getApplicantEvent;
 
-        for (var _i = 0; _i < appEvent.length; _i++) {
-          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-            if (appEvent.applicants[_k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+	computed: {
+		applicantTotal: function applicantTotal() {
+			var totalApplicants = 0;
 
-        ;
-      }
+			if (this.$store.getters.getApplicantItems === undefined) {
 
-      return totalApplicants;
-    },
-    potentialTotal: function potentialTotal() {
-      if (this.$store.getters.getPotentialItems === undefined) {
-        return this.potentials.length;
-      } else {
-        return this.$store.getters.getPotentialItems.length;
-      }
-    },
-    messageTotal: function messageTotal() {
-      if (this.$store.getters.getMessageItems === undefined) {
-        return this.message.length;
-      } else {
-        return this.$store.getters.getMessageItems.length;
-      }
-    },
-    memberTotal: function memberTotal() {
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        return this.member.length;
-      } else {
-        return this.$store.getters.getApplicantMemberItems.length;
-      }
-    }
-  },
-  methods: {
-    getApplicant: function getApplicant() {
-      var _this = this;
+				for (var i = 0; i < this.applicants.length; i++) {
+					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+						if (this.applicants[i].applicants[k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			} else {
+				var appEvent = this.$store.getters.getApplicantEvent;
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-          _this.applicants = response.data;
-        });
-      }
-    },
-    getPotential: function getPotential() {
-      var _this2 = this;
+				for (var _i = 0; _i < appEvent.length; _i++) {
+					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+						if (appEvent.applicants[_k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			}
 
-      if (this.$store.getters.getPotentialItems === undefined) {
-        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-          _this2.potentials = response.data;
-        });
-      }
-    },
-    getMessage: function getMessage() {
-      var _this3 = this;
+			return totalApplicants;
+		},
+		potentialTotal: function potentialTotal() {
+			if (this.$store.getters.getPotentialItems === undefined) {
+				return this.potentials.length;
+			} else {
+				return this.$store.getters.getPotentialItems.length;
+			}
+		},
+		messageTotal: function messageTotal() {
+			if (this.$store.getters.getMessageItems === undefined) {
+				return this.message.length;
+			} else {
+				return this.$store.getters.getMessageItems.length;
+			}
+		},
+		memberTotal: function memberTotal() {
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				return this.member.length;
+			} else {
+				return this.$store.getters.getApplicantMemberItems.length;
+			}
+		}
+	},
 
-      if (this.$store.getters.getMessageItems === undefined) {
-        axios.get('/admin/bookkeeping/data/message').then(function (response) {
-          _this3.message = response.data;
-        });
-      }
-    },
-    getMember: function getMember() {
-      var _this4 = this;
+	methods: {
+		getApplicant: function getApplicant() {
+			var _this = this;
 
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-          _this4.member = response.data;
-        });
-      }
-    },
-    setName: function setName() {
-      var link = window.location.pathname.split('/');
-      this.menuName = link[2];
-      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-    }
-  }
+			if (this.$store.getters.getApplicantItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+					_this.applicants = response.data;
+				});
+			}
+		},
+		getPotential: function getPotential() {
+			var _this2 = this;
+
+			if (this.$store.getters.getPotentialItems === undefined) {
+				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+					_this2.potentials = response.data;
+				});
+			}
+		},
+		getMessage: function getMessage() {
+			var _this3 = this;
+
+			if (this.$store.getters.getMessageItems === undefined) {
+				axios.get('/admin/bookkeeping/data/message').then(function (response) {
+					_this3.message = response.data;
+				});
+			}
+		},
+		getMember: function getMember() {
+			var _this4 = this;
+
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+					_this4.member = response.data;
+				});
+			}
+		},
+		setName: function setName() {
+			var link = window.location.pathname.split('/');
+
+			this.menuName = link[2];
+
+			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+		}
+	}
 });
 
 /***/ })

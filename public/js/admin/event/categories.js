@@ -303,38 +303,47 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.potentialTotal) +
-                                "\n                    \t\t"
-                            )
+                        ? _c("div", { staticClass: "notification-dot-left" }, [
+                            _c("span", [
+                              _vm._v(
+                                "\n                    \t\t\t" +
+                                  _vm._s(_vm.potentialTotal) +
+                                  "\n                    \t\t"
+                              )
+                            ])
                           ])
-                        ])
-                      : _vm.messageTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/message"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.messageTotal) +
-                                "\n                    \t\t"
+                        : _vm.messageTotal > 0 &&
+                          submenu.link === "/admin/bookkeeping/message"
+                          ? _c(
+                              "div",
+                              { staticClass: "notification-dot-left" },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                    \t\t\t" +
+                                      _vm._s(_vm.messageTotal) +
+                                      "\n                    \t\t"
+                                  )
+                                ])
+                              ]
                             )
-                          ])
-                        ])
-                      : _vm.memberTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/applicant-member"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.memberTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm._e()
+                          : _vm.memberTotal > 0 &&
+                            submenu.link ===
+                              "/admin/bookkeeping/applicant-member"
+                            ? _c(
+                                "div",
+                                { staticClass: "notification-dot-left" },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    \t\t\t" +
+                                        _vm._s(_vm.memberTotal) +
+                                        "\n                    \t\t"
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
                   ]
                 )
               ])
@@ -427,93 +436,117 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(339);
 
 
+
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-  //=========================================================================================
-  //  S T A T E
-  //=========================================================================================
-  state: {
-    categories: {}
-  },
-  //=========================================================================================
-  //  G E T T E R S
-  //=========================================================================================
-  getters: {
-    getCategories: function getCategories(state) {
-      return state.categories;
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        categories: {}
+    },
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getCategories: function getCategories(state) {
+            return state.categories;
+        }
+    },
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_categories: function set_categories(state, categories) {
+            state.categories = categories;
+        },
+
+        add_new_category: function add_new_category(state, category) {
+            state.categories.push({
+                id: category.id,
+                title: category.detail.title,
+                type: 1
+            });
+        },
+        edit_category: function edit_category(state, updatedCategory) {
+
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedCategory.id);
+
+            state.categories[categoryIndex].title = updatedCategory.title;
+        },
+        delete_category: function delete_category(state, ids) {
+            var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(ids.categoryId);
+
+            state.categories.splice(categoryIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_categories: function load_categories(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/event/data/category').then(function (response) {
+                commit('set_categories', response.data);
+            });
+        },
+
+        store_new_category: function store_new_category(_ref2, newCategory) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/category', newCategory).then(function (response) {
+
+                    var category = {
+                        id: response.data,
+                        detail: newCategory
+                    };
+
+                    commit('add_new_category', category);
+
+                    resolve(category);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_category: function update_category(_ref3, updatedCategory) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/category/' + updatedCategory.id, {
+                    id: updatedCategory.id,
+                    title: updatedCategory.title
+                }).then(function (response) {
+                    commit('edit_category', updatedCategory);
+
+                    resolve(updatedCategory);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_category: function destroy_category(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/category/' + ids.categoryId).then(function (response) {
+                    commit('delete_category', ids);
+                    resolve();
+                });
+            });
+        }
     }
-  },
-  //=========================================================================================
-  //  M U T A T I O N S
-  //=========================================================================================
-  mutations: {
-    set_categories: function set_categories(state, categories) {
-      state.categories = categories;
-    },
-    add_new_category: function add_new_category(state, category) {
-      state.categories.push({
-        id: category.id,
-        title: category.detail.title,
-        type: 1
-      });
-    },
-    edit_category: function edit_category(state, updatedCategory) {
-      var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(updatedCategory.id);
-      state.categories[categoryIndex].title = updatedCategory.title;
-    },
-    delete_category: function delete_category(state, ids) {
-      var categoryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfCategory(ids.categoryId);
-      state.categories.splice(categoryIndex, 1);
-    }
-  },
-  //=========================================================================================
-  //  A C T I O N S
-  //=========================================================================================
-  actions: {
-    load_categories: function load_categories(_ref) {
-      var commit = _ref.commit;
-      axios.get('/admin/event/data/category').then(function (response) {
-        commit('set_categories', response.data);
-      });
-    },
-    store_new_category: function store_new_category(_ref2, newCategory) {
-      var commit = _ref2.commit;
-      return new Promise(function (resolve, reject) {
-        axios.post('add/category', newCategory).then(function (response) {
-          var category = {
-            id: response.data,
-            detail: newCategory
-          };
-          commit('add_new_category', category);
-          resolve(category);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    update_category: function update_category(_ref3, updatedCategory) {
-      var commit = _ref3.commit;
-      return new Promise(function (resolve, reject) {
-        axios.patch('update/category/' + updatedCategory.id, {
-          id: updatedCategory.id,
-          title: updatedCategory.title
-        }).then(function (response) {
-          commit('edit_category', updatedCategory);
-          resolve(updatedCategory);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    destroy_category: function destroy_category(_ref4, ids) {
-      var commit = _ref4.commit;
-      return new Promise(function (resolve, reject) {
-        axios.delete('delete/category/' + ids.categoryId).then(function (response) {
-          commit('delete_category', ids);
-          resolve();
-        });
-      });
-    }
-  }
 });
 
 /***/ }),
@@ -618,79 +651,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      notifications: []
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    window.events.$on('flash', function (message, type) {
-      _this.flash(message, type, 3500);
-    });
-  },
-  computed: {
-    notificationExists: function notificationExists() {
-      return this.notifications.length > 0;
+    data: function data() {
+        return {
+            notifications: []
+        };
     },
-    time: function time() {
-      return _.now();
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('flash', function (message, type) {
+            _this.flash(message, type, 3500);
+        });
+    },
+
+
+    computed: {
+        notificationExists: function notificationExists() {
+            return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
+        }
+    },
+
+    methods: {
+        flash: function flash(message) {
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+            if (this.notifications.length === 8) {
+                this.hide(0);
+            }
+
+            this.display(message, type);
+
+            this.hide(duration);
+        },
+        display: function display(message, type) {
+            this.notifications.push({
+                body: message,
+                type: type,
+                alertClass: this.getAlertClass(type),
+                alertIcon: this.getAlertIcon(type)
+            });
+        },
+        hide: function hide(duration) {
+            var _this2 = this;
+
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            setTimeout(function () {
+                _this2.notifications.splice(index, 1);
+            }, duration);
+        },
+        getAlertClass: function getAlertClass(type) {
+            return 'alert-' + type;
+        },
+        getAlertIcon: function getAlertIcon(type) {
+            if (type === 'success') {
+                return 's7-check';
+            } else if (type === 'danger') {
+                return 's7-less';
+            } else if (type === 'info') {
+                return 's7-info';
+            } else if (type === 'warning') {
+                return 's7-attention';
+            } else {
+                return '';
+            }
+        },
+        getBottomPosition: function getBottomPosition(index) {
+            var margin = 10;
+            var notificationHeight = 60;
+
+            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
+        }
     }
-  },
-  methods: {
-    flash: function flash(message) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-      if (this.notifications.length === 8) {
-        this.hide(0);
-      }
-
-      this.display(message, type);
-      this.hide(duration);
-    },
-    display: function display(message, type) {
-      this.notifications.push({
-        body: message,
-        type: type,
-        alertClass: this.getAlertClass(type),
-        alertIcon: this.getAlertIcon(type)
-      });
-    },
-    hide: function hide(duration) {
-      var _this2 = this;
-
-      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      setTimeout(function () {
-        _this2.notifications.splice(index, 1);
-      }, duration);
-    },
-    getAlertClass: function getAlertClass(type) {
-      return 'alert-' + type;
-    },
-    getAlertIcon: function getAlertIcon(type) {
-      if (type === 'success') {
-        return 's7-check';
-      } else if (type === 'danger') {
-        return 's7-less';
-      } else if (type === 'info') {
-        return 's7-info';
-      } else if (type === 'warning') {
-        return 's7-attention';
-      } else {
-        return '';
-      }
-    },
-    getBottomPosition: function getBottomPosition(index) {
-      var margin = 10;
-      var notificationHeight = 60;
-      return {
-        bottom: margin * (index + 1) + notificationHeight * index + 'px'
-      };
-    }
-  }
 });
 
 /***/ }),
@@ -1862,17 +1900,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
+
 var admin = new Vue({
-  el: '#categories',
-  components: {
-    Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
-    SideBar: __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default.a,
-    Flash: __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default.a
-  },
-  mounted: function mounted() {
-    this.$store.dispatch('load_categories');
-  },
-  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+    el: '#categories',
+
+    components: {
+        Categories: __WEBPACK_IMPORTED_MODULE_0__global_categories_Categories_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_1__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_2__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_categories');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -1883,12 +1926,13 @@ var admin = new Vue({
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(117);
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
-  getIndexOfCategory: function getIndexOfCategory(categoryId) {
-    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
-      return category.id === categoryId;
-    });
-  }
+    getIndexOfCategory: function getIndexOfCategory(categoryId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.categories, function (category) {
+            return category.id === categoryId;
+        });
+    }
 });
 
 /***/ }),
@@ -4081,9 +4125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Category_vue__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Category_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Category_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -4117,6 +4159,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
+
 
 
 
@@ -4126,11 +4170,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isAddCategory: false
     };
   },
+
+
   components: {
     Category: __WEBPACK_IMPORTED_MODULE_1__Category_vue___default.a,
     Add: __WEBPACK_IMPORTED_MODULE_0__AddCategory_vue___default.a
   },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     categories: 'getCategories'
   }))
 });
@@ -4286,51 +4333,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      input: {
-        isRequesting: false,
-        title: ''
-      }
-    };
-  },
-  validations: {
-    input: {
-      title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
-      }
-    }
-  },
-  methods: {
-    addCategory: function addCategory() {
-      var self = this;
 
-      if (this.input.title.length > 3 && this.input.title.length < 20 && !self.input.isRequesting) {
-        self.input.isRequesting = true;
-        this.$store.dispatch('store_new_category', this.input).then(function () {
-          flash('Category is successfully added', 'success');
-          self.input.isRequesting = false;
-          self.input.title = '';
-          self.$v.$reset();
-        }).catch(function (errors) {
-          self.input.isRequesting = false;
-          Object.keys(errors).forEach(function (field) {
-            errors[field].forEach(function (message) {
-              flash(message, 'danger', 5000);
-            });
-          });
-        });
-      } else {
-        this.$v.input.title.$touch();
-      }
-    },
-    closeAddCatergory: function closeAddCatergory() {
-      this.$emit('closeAddCategory', false);
-    }
-  }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			input: {
+				isRequesting: false,
+				title: ''
+			}
+		};
+	},
+
+
+	validations: {
+		input: {
+			title: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+			}
+		}
+	},
+
+	methods: {
+		addCategory: function addCategory() {
+
+			var self = this;
+
+			if (this.input.title.length > 3 && this.input.title.length < 20 && !self.input.isRequesting) {
+
+				self.input.isRequesting = true;
+
+				this.$store.dispatch('store_new_category', this.input).then(function () {
+
+					flash('Category is successfully added', 'success');
+
+					self.input.isRequesting = false;
+
+					self.input.title = '';
+
+					self.$v.$reset();
+				}).catch(function (errors) {
+
+					self.input.isRequesting = false;
+
+					Object.keys(errors).forEach(function (field) {
+						errors[field].forEach(function (message) {
+							flash(message, 'danger', 5000);
+						});
+					});
+				});
+			} else {
+				this.$v.input.title.$touch();
+			}
+		},
+		closeAddCatergory: function closeAddCatergory() {
+			this.$emit('closeAddCategory', false);
+		}
+	}
 });
 
 /***/ }),
@@ -4404,30 +4465,32 @@ var render = function() {
                       ]
                     )
                   : !_vm.$v.input.title.minLength
-                  ? _c(
-                      "span",
-                      { key: "title-minimum", staticClass: "text-danger" },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\tCategory Name has a minimum of " +
-                            _vm._s(_vm.$v.input.title.$params.minLength.min) +
-                            " characters\n\t\t\t\t\t"
+                    ? _c(
+                        "span",
+                        { key: "title-minimum", staticClass: "text-danger" },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\tCategory Name has a minimum of " +
+                              _vm._s(_vm.$v.input.title.$params.minLength.min) +
+                              " characters\n\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    : !_vm.$v.input.title.maxLength
+                      ? _c(
+                          "span",
+                          { key: "key-maximum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\tCategory Name has a maximum of " +
+                                _vm._s(
+                                  _vm.$v.input.title.$params.maxLength.max
+                                ) +
+                                " characters\n\t\t\t\t\t"
+                            )
+                          ]
                         )
-                      ]
-                    )
-                  : !_vm.$v.input.title.maxLength
-                  ? _c(
-                      "span",
-                      { key: "key-maximum", staticClass: "text-danger" },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\tCategory Name has a maximum of " +
-                            _vm._s(_vm.$v.input.title.$params.maxLength.max) +
-                            " characters\n\t\t\t\t\t"
-                        )
-                      ]
-                    )
-                  : _vm._e()
+                      : _vm._e()
               ]
             )
           ],
@@ -4659,34 +4722,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    category: {}
-  },
-  components: {
-    EditCategory: __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue___default.a
-  },
-  data: function data() {
-    return {
-      isRequesting: false,
-      isEditingCategory: false
-    };
-  },
-  methods: {
-    deleteTheCategory: function deleteTheCategory() {
-      var self = this;
 
-      if (!self.isRequesting) {
-        self.isRequesting = true;
-        this.$store.dispatch('destroy_category', {
-          categoryId: this.category.id
-        }).then(function () {
-          self.isRequesting = false;
-          flash('Category deleted', 'danger');
-        });
-      }
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: { category: {} },
+
+    components: {
+        EditCategory: __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue___default.a
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            isEditingCategory: false
+        };
+    },
+
+
+    methods: {
+        deleteTheCategory: function deleteTheCategory() {
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_category', {
+                    categoryId: this.category.id
+                }).then(function () {
+                    self.isRequesting = false;
+
+                    flash('Category deleted', 'danger');
+                });
+            }
+        }
     }
-  }
 });
 
 /***/ }),
@@ -4875,60 +4944,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    category: {
-      type: [Object],
-      default: function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isRequesting: false,
-      input: {
-        title: this.category.title === '' ? '' : this.category.title
-      }
-    };
-  },
-  validations: {
-    input: {
-      title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
-      }
-    }
-  },
-  computed: {
-    categoryIsEdited: function categoryIsEdited() {
-      return this.category.title !== this.input.title;
-    }
-  },
-  methods: {
-    editCategory: function editCategory() {
-      var self = this;
 
-      if (this.categoryIsEdited && !this.isRequesting && this.input.title.length > 3 && this.input.title.length < 20) {
-        this.isRequesting = true;
-        var updatedCategory = {
-          id: this.category.id,
-          title: this.input.title
-        };
-        this.$store.dispatch('update_category', updatedCategory).then(function (updatedCategory) {
-          flash('Category is successfully updated', 'success');
-          self.isRequesting = false;
-          self.closeEditForm();
-        }).catch(function (errors) {
-          self.isRequesting = false;
-        });
-      }
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        category: {
+            type: [Object],
+            default: function _default() {
+                return {};
+            }
+        }
     },
-    closeEditForm: function closeEditForm() {
-      this.$emit('editionFormIsClosed', false);
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            input: {
+                title: this.category.title === '' ? '' : this.category.title
+            }
+        };
+    },
+
+
+    validations: {
+        input: {
+            title: {
+                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(20)
+            }
+        }
+    },
+
+    computed: {
+        categoryIsEdited: function categoryIsEdited() {
+            return this.category.title !== this.input.title;
+        }
+    },
+
+    methods: {
+        editCategory: function editCategory() {
+
+            var self = this;
+
+            if (this.categoryIsEdited && !this.isRequesting && this.input.title.length > 3 && this.input.title.length < 20) {
+
+                this.isRequesting = true;
+
+                var updatedCategory = {
+                    id: this.category.id,
+                    title: this.input.title
+                };
+
+                this.$store.dispatch('update_category', updatedCategory).then(function (updatedCategory) {
+
+                    flash('Category is successfully updated', 'success');
+
+                    self.isRequesting = false;
+
+                    self.closeEditForm();
+                }).catch(function (errors) {
+                    self.isRequesting = false;
+                });
+            }
+        },
+        closeEditForm: function closeEditForm() {
+            this.$emit('editionFormIsClosed', false);
+        }
     }
-  }
 });
 
 /***/ }),
@@ -5066,40 +5149,41 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.input.title.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-minimum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Category Name has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.input.title.$params.minLength.min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Category Name has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.input.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "key-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Category Name has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.title.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.input.title.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "key-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Category Name has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.title.$params.maxLength.max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -5443,219 +5527,148 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      applicants: '',
-      potentials: '',
-      member: '',
-      message: '',
-      menuName: '',
-      subMenuName: '',
-      menus: [{
-        id: 'home',
-        name: 'Home',
-        subMenu: [{
-          name: 'Social Media',
-          link: '/admin/home/sosmed'
-        }, {
-          name: 'Image Slider',
-          link: '/admin/home/image-slider'
-        }, {
-          name: 'Image Config',
-          link: '/admin/home/image-config'
-        }]
-      }, {
-        id: 'about',
-        name: 'About',
-        subMenu: [{
-          name: 'Profile',
-          link: '/admin/about/profile'
-        }, {
-          name: 'Classes',
-          link: '/admin/about/class'
-        }, {
-          name: 'Timeline',
-          link: '/admin/about/timeline'
-        }, {
-          name: 'Gallery Showcase',
-          link: '/admin/about/showcase'
-        }, {
-          name: 'Shop Showcase',
-          link: '/admin/about/shop-showcase'
-        }]
-      }, {
-        id: 'gallery',
-        name: 'Gallery',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/gallery/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/gallery/subcategory'
-        }, {
-          name: 'Photos',
-          link: '/admin/gallery/list'
-        }]
-      }, {
-        id: 'event',
-        name: 'Events & Activities',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/event/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/event/subcategory'
-        }, {
-          name: 'Events & Activities',
-          link: '/admin/event/list'
-        }]
-      }, {
-        id: 'shop',
-        name: 'Shop',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/shop/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/shop/subcategory'
-        }, {
-          name: 'Items',
-          link: '/admin/shop/list'
-        }]
-      }, {
-        id: 'bookkeeping',
-        name: 'Bookkeeping',
-        subMenu: [{
-          name: 'Member',
-          link: '/admin/bookkeeping/member'
-        }, {
-          name: 'Member Detail',
-          link: '/admin/bookkeeping/member-detail'
-        }, {
-          name: 'Member Applicants',
-          link: '/admin/bookkeeping/applicant-member'
-        }, {
-          name: 'Class Region',
-          link: '/admin/bookkeeping/region'
-        }, {
-          name: 'Event Applicants',
-          link: '/admin/bookkeeping/applicant-event'
-        }, {
-          name: 'Overseas Inquiries',
-          link: '/admin/bookkeeping/overseas'
-        }, {
-          name: 'Potential Overseas Inquiries',
-          link: '/admin/bookkeeping/potential'
-        }, {
-          name: 'Messages',
-          link: '/admin/bookkeeping/message'
-        }]
-      }]
-    };
-  },
-  mounted: function mounted() {
-    this.setName();
-    this.getApplicant();
-    this.getPotential();
-    this.getMessage();
-    this.getMember();
-  },
-  computed: {
-    applicantTotal: function applicantTotal() {
-      var totalApplicants = 0;
+	data: function data() {
+		return {
+			applicants: '',
+			potentials: '',
+			member: '',
+			message: '',
+			menuName: '',
+			subMenuName: '',
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        for (var i = 0; i < this.applicants.length; i++) {
-          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-            if (this.applicants[i].applicants[k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+			menus: [{
+				id: 'home',
+				name: 'Home',
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+			}, {
+				id: 'about',
+				name: 'About',
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+			}, {
+				id: 'gallery',
+				name: 'Gallery',
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
+			}, {
+				id: 'event',
+				name: 'Events & Activities',
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
+			}, {
+				id: 'shop',
+				name: 'Shop',
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
+			}, {
+				id: 'bookkeeping',
+				name: 'Bookkeeping',
+				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+			}]
+		};
+	},
+	mounted: function mounted() {
+		this.setName();
+		this.getApplicant();
+		this.getPotential();
+		this.getMessage();
+		this.getMember();
+	},
 
-        ;
-      } else {
-        var appEvent = this.$store.getters.getApplicantEvent;
 
-        for (var _i = 0; _i < appEvent.length; _i++) {
-          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-            if (appEvent.applicants[_k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+	computed: {
+		applicantTotal: function applicantTotal() {
+			var totalApplicants = 0;
 
-        ;
-      }
+			if (this.$store.getters.getApplicantItems === undefined) {
 
-      return totalApplicants;
-    },
-    potentialTotal: function potentialTotal() {
-      if (this.$store.getters.getPotentialItems === undefined) {
-        return this.potentials.length;
-      } else {
-        return this.$store.getters.getPotentialItems.length;
-      }
-    },
-    messageTotal: function messageTotal() {
-      if (this.$store.getters.getMessageItems === undefined) {
-        return this.message.length;
-      } else {
-        return this.$store.getters.getMessageItems.length;
-      }
-    },
-    memberTotal: function memberTotal() {
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        return this.member.length;
-      } else {
-        return this.$store.getters.getApplicantMemberItems.length;
-      }
-    }
-  },
-  methods: {
-    getApplicant: function getApplicant() {
-      var _this = this;
+				for (var i = 0; i < this.applicants.length; i++) {
+					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+						if (this.applicants[i].applicants[k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			} else {
+				var appEvent = this.$store.getters.getApplicantEvent;
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-          _this.applicants = response.data;
-        });
-      }
-    },
-    getPotential: function getPotential() {
-      var _this2 = this;
+				for (var _i = 0; _i < appEvent.length; _i++) {
+					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+						if (appEvent.applicants[_k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			}
 
-      if (this.$store.getters.getPotentialItems === undefined) {
-        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-          _this2.potentials = response.data;
-        });
-      }
-    },
-    getMessage: function getMessage() {
-      var _this3 = this;
+			return totalApplicants;
+		},
+		potentialTotal: function potentialTotal() {
+			if (this.$store.getters.getPotentialItems === undefined) {
+				return this.potentials.length;
+			} else {
+				return this.$store.getters.getPotentialItems.length;
+			}
+		},
+		messageTotal: function messageTotal() {
+			if (this.$store.getters.getMessageItems === undefined) {
+				return this.message.length;
+			} else {
+				return this.$store.getters.getMessageItems.length;
+			}
+		},
+		memberTotal: function memberTotal() {
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				return this.member.length;
+			} else {
+				return this.$store.getters.getApplicantMemberItems.length;
+			}
+		}
+	},
 
-      if (this.$store.getters.getMessageItems === undefined) {
-        axios.get('/admin/bookkeeping/data/message').then(function (response) {
-          _this3.message = response.data;
-        });
-      }
-    },
-    getMember: function getMember() {
-      var _this4 = this;
+	methods: {
+		getApplicant: function getApplicant() {
+			var _this = this;
 
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-          _this4.member = response.data;
-        });
-      }
-    },
-    setName: function setName() {
-      var link = window.location.pathname.split('/');
-      this.menuName = link[2];
-      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-    }
-  }
+			if (this.$store.getters.getApplicantItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+					_this.applicants = response.data;
+				});
+			}
+		},
+		getPotential: function getPotential() {
+			var _this2 = this;
+
+			if (this.$store.getters.getPotentialItems === undefined) {
+				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+					_this2.potentials = response.data;
+				});
+			}
+		},
+		getMessage: function getMessage() {
+			var _this3 = this;
+
+			if (this.$store.getters.getMessageItems === undefined) {
+				axios.get('/admin/bookkeeping/data/message').then(function (response) {
+					_this3.message = response.data;
+				});
+			}
+		},
+		getMember: function getMember() {
+			var _this4 = this;
+
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+					_this4.member = response.data;
+				});
+			}
+		},
+		setName: function setName() {
+			var link = window.location.pathname.split('/');
+
+			this.menuName = link[2];
+
+			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+		}
+	}
 });
 
 /***/ })

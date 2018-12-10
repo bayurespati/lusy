@@ -125,15 +125,7 @@
                       <div id="gallery-container" class="portfolio-list zoom-in">
 
                         @foreach($sortedItem as $photo)
-                        @if($photo->type == 1)
-                        <div class="portfolio-box col-md-2 col-sm-2 no-padding vintage">
-                        @endif
-                        @if($photo->type == 2)
                         <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                        @endif
-                        @if($photo->type == 3)
-                        <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
-                        @endif
                           <a href="{{ $photo->image_path }}">
                             <img src="{{ $photo->image_path }}" alt="{{ $photo->title }}" />
 
@@ -371,20 +363,8 @@
     let galleryContent = '';
 
     array[1].forEach(function(photo){
-      if(photo.type == 1){
-        galleryContent = galleryContent + 
-        '<div class="portfolio-box col-md-2 col-sm-2 no-padding vintage">';
-      }
-      else if(photo.type == 2){
-        galleryContent = galleryContent + 
-        '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">';
-      }
-      else if(photo.type == 3){
-        galleryContent = galleryContent + 
-        '<div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">';
-      }
-
       galleryContent = galleryContent + 
+      '<div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">' +
       '   <a href="' + photo.image_path + '">' +
       '       <img src="' + photo.image_path + '" alt="' + photo.title + '"/>' +
       '       <div class="portfolio-content">' +
@@ -498,10 +478,10 @@
     /* - Portfolio Section */
     var $container = $(".portfolio-section .portfolio-list");
     $container.isotope({
-      layoutMode: 'fitRows',
+      layoutMode: 'packery',
       itemSelector: ".portfolio-box",
       gutter: 0,
-      transitionDuration: "0.5s"
+      transitionDuration: "0.5s",
     });
 
     $("#filters a").on("click",function(){

@@ -244,15 +244,7 @@
                 </div><!-- Container /- -->
                 <div class="portfolio-list">
                     @foreach($showedImage as $image)
-                    @if($image->type == 1)
-                    <div class="portfolio-box col-md-2 col-sm-2 no-padding vintage">
-                    @endif
-                    @if($image->type == 2)
                     <div class="portfolio-box col-md-3 col-sm-3 no-padding vintage">
-                    @endif
-                    @if($image->type == 3)
-                    <div class="portfolio-box col-md-6 col-sm-6 no-padding vintage">
-                    @endif
                         <a href="{{ $image->image_path }}">
 
                             <img src="{{ $image->image_path }}" alt="{{ $image->title }}" />

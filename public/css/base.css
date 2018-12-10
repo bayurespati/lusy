@@ -14875,7 +14875,7 @@ perspective effects (not including the modals and the overlay).
 .item-pic {
     opacity:0.95;
     width: 100%;
-    height: 218px;
+    height: auto;
     transform: scale(1.00);
     transition: transform 0.4s, opacity 0.4s;
 }

@@ -85,7 +85,7 @@ class ImageController extends Controller
     public function setImage($image){
 
         // SET WIDTH AND HEIGHT
-        list($width, $height) = getimagesize($request->image);
+        list($width, $height) = getimagesize($image);
 
         $widthFix = 0;
         $heightFix = 0;

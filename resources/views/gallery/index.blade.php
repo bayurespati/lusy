@@ -631,10 +631,10 @@
         /* - Portfolio Section */
         var $container = $(".portfolio-section .portfolio-list");
         $container.isotope({
-            layoutMode: 'fitRows',
+            layoutMode: 'packery',
             itemSelector: ".portfolio-box",
             gutter: 0,
-            transitionDuration: "0.5s"
+            transitionDuration: "0.5s",
         });
         
         $("#filters a").on("click",function(){

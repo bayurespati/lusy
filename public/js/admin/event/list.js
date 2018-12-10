@@ -303,38 +303,47 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.potentialTotal) +
-                                "\n                    \t\t"
-                            )
+                        ? _c("div", { staticClass: "notification-dot-left" }, [
+                            _c("span", [
+                              _vm._v(
+                                "\n                    \t\t\t" +
+                                  _vm._s(_vm.potentialTotal) +
+                                  "\n                    \t\t"
+                              )
+                            ])
                           ])
-                        ])
-                      : _vm.messageTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/message"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.messageTotal) +
-                                "\n                    \t\t"
+                        : _vm.messageTotal > 0 &&
+                          submenu.link === "/admin/bookkeeping/message"
+                          ? _c(
+                              "div",
+                              { staticClass: "notification-dot-left" },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                    \t\t\t" +
+                                      _vm._s(_vm.messageTotal) +
+                                      "\n                    \t\t"
+                                  )
+                                ])
+                              ]
                             )
-                          ])
-                        ])
-                      : _vm.memberTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/applicant-member"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.memberTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm._e()
+                          : _vm.memberTotal > 0 &&
+                            submenu.link ===
+                              "/admin/bookkeeping/applicant-member"
+                            ? _c(
+                                "div",
+                                { staticClass: "notification-dot-left" },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    \t\t\t" +
+                                        _vm._s(_vm.memberTotal) +
+                                        "\n                    \t\t"
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
                   ]
                 )
               ])
@@ -427,137 +436,163 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(369);
 
 
+
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-  //=========================================================================================
-  //  S T A T E
-  //=========================================================================================
-  state: {
-    events: {},
-    categories: {},
-    subcategories: {}
-  },
-  //=========================================================================================
-  //  G E T T E R S
-  //=========================================================================================
-  getters: {
-    getEvents: function getEvents(state) {
-      return state.events;
+
+    //=========================================================================================
+    //  S T A T E
+    //=========================================================================================
+    state: {
+        events: {},
+        categories: {},
+        subcategories: {}
     },
-    getCategories: function getCategories(state) {
-      return state.categories;
+
+    //=========================================================================================
+    //  G E T T E R S
+    //=========================================================================================
+    getters: {
+        getEvents: function getEvents(state) {
+            return state.events;
+        },
+
+        getCategories: function getCategories(state) {
+            return state.categories;
+        },
+
+        getSubcategories: function getSubcategories(state) {
+            return state.subcategories;
+        }
     },
-    getSubcategories: function getSubcategories(state) {
-      return state.subcategories;
+
+    //=========================================================================================
+    //  M U T A T I O N S
+    //=========================================================================================
+    mutations: {
+        set_events: function set_events(state, events) {
+            state.events = events[0];
+            state.categories = events[1];
+            state.subcategories = events[2];
+        },
+
+        add_new_event: function add_new_event(state, event) {
+            state.events.push({
+                id: event.id,
+                title: event.detail.title,
+                sub_category_id: event.detail.sub_category_id,
+                end_date: event.end_date,
+                start_date: event.start_date,
+                location: event.detail.location,
+                address: event.detail.address,
+                organiser: event.detail.organiser,
+                content: event.detail.content,
+                subcategory: event.detail.subcategory
+            });
+        },
+        edit_event: function edit_event(state, updatedEvent) {
+
+            var eventIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfEvent(updatedEvent.id);
+
+            state.events[eventIndex].title = updatedEvent.title;
+            state.events[eventIndex].start_date = updatedEvent.start_date;
+            state.events[eventIndex].end_date = updatedEvent.end_date;
+            state.events[eventIndex].location = updatedEvent.location;
+            state.events[eventIndex].address = updatedEvent.address;
+            state.events[eventIndex].organiser = updatedEvent.organiser;
+            state.events[eventIndex].content = updatedEvent.content;
+            state.events[eventIndex].sub_category_id = updatedEvent.sub_category_id;
+            state.events[eventIndex].subcategory.category_id = updatedEvent.category_id;
+        },
+        delete_event: function delete_event(state, ids) {
+            var eventIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfEvent(ids.eventId);
+
+            state.events.splice(eventIndex, 1);
+        }
+    },
+
+    //=========================================================================================
+    //  A C T I O N S
+    //=========================================================================================
+    actions: {
+        load_events: function load_events(_ref) {
+            var commit = _ref.commit;
+
+            axios.get('/admin/event/data/list').then(function (response) {
+                commit('set_events', response.data);
+            });
+        },
+
+        store_new_event: function store_new_event(_ref2, newEvent) {
+            var commit = _ref2.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.post('add/list', {
+                    id: newEvent.id,
+                    title: newEvent.title,
+                    start_date: newEvent.start_date.substring(0, 19).replace("T", " "),
+                    end_date: newEvent.end_date.substring(0, 19).replace("T", " "),
+                    location: newEvent.location,
+                    address: newEvent.address,
+                    organiser: newEvent.organiser,
+                    sub_category_id: newEvent.sub_category_id,
+                    content: newEvent.content
+                }).then(function (response) {
+
+                    var event = {
+                        id: response.data,
+                        start_date: newEvent.start_date.substring(0, 19).replace("T", " "),
+                        end_date: newEvent.end_date.substring(0, 19).replace("T", " "),
+                        detail: newEvent
+                    };
+
+                    commit('add_new_event', event);
+
+                    resolve(event);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        update_event: function update_event(_ref3, updatedEvent) {
+            var commit = _ref3.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.patch('update/list/' + updatedEvent.id, {
+                    id: updatedEvent.id,
+                    title: updatedEvent.title,
+                    start_date: updatedEvent.start_date,
+                    end_date: updatedEvent.end_date,
+                    location: updatedEvent.location,
+                    address: updatedEvent.address,
+                    organiser: updatedEvent.organiser,
+                    sub_category_id: updatedEvent.sub_category_id,
+                    content: updatedEvent.content
+                }).then(function (response) {
+                    commit('edit_event', updatedEvent);
+
+                    resolve(updatedEvent);
+                }).catch(function (errors) {
+                    reject(errors.response.data);
+                });
+            });
+        },
+        destroy_event: function destroy_event(_ref4, ids) {
+            var commit = _ref4.commit;
+
+
+            return new Promise(function (resolve, reject) {
+
+                axios.delete('delete/list/' + ids.eventId).then(function (response) {
+                    commit('delete_event', ids);
+                    resolve();
+                });
+            });
+        }
     }
-  },
-  //=========================================================================================
-  //  M U T A T I O N S
-  //=========================================================================================
-  mutations: {
-    set_events: function set_events(state, events) {
-      state.events = events[0];
-      state.categories = events[1];
-      state.subcategories = events[2];
-    },
-    add_new_event: function add_new_event(state, event) {
-      state.events.push({
-        id: event.id,
-        title: event.detail.title,
-        sub_category_id: event.detail.sub_category_id,
-        end_date: event.end_date,
-        start_date: event.start_date,
-        location: event.detail.location,
-        address: event.detail.address,
-        organiser: event.detail.organiser,
-        content: event.detail.content,
-        subcategory: event.detail.subcategory
-      });
-    },
-    edit_event: function edit_event(state, updatedEvent) {
-      var eventIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfEvent(updatedEvent.id);
-      state.events[eventIndex].title = updatedEvent.title;
-      state.events[eventIndex].start_date = updatedEvent.start_date;
-      state.events[eventIndex].end_date = updatedEvent.end_date;
-      state.events[eventIndex].location = updatedEvent.location;
-      state.events[eventIndex].address = updatedEvent.address;
-      state.events[eventIndex].organiser = updatedEvent.organiser;
-      state.events[eventIndex].content = updatedEvent.content;
-      state.events[eventIndex].sub_category_id = updatedEvent.sub_category_id;
-      state.events[eventIndex].subcategory.category_id = updatedEvent.category_id;
-    },
-    delete_event: function delete_event(state, ids) {
-      var eventIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfEvent(ids.eventId);
-      state.events.splice(eventIndex, 1);
-    }
-  },
-  //=========================================================================================
-  //  A C T I O N S
-  //=========================================================================================
-  actions: {
-    load_events: function load_events(_ref) {
-      var commit = _ref.commit;
-      axios.get('/admin/event/data/list').then(function (response) {
-        commit('set_events', response.data);
-      });
-    },
-    store_new_event: function store_new_event(_ref2, newEvent) {
-      var commit = _ref2.commit;
-      return new Promise(function (resolve, reject) {
-        axios.post('add/list', {
-          id: newEvent.id,
-          title: newEvent.title,
-          start_date: newEvent.start_date.substring(0, 19).replace("T", " "),
-          end_date: newEvent.end_date.substring(0, 19).replace("T", " "),
-          location: newEvent.location,
-          address: newEvent.address,
-          organiser: newEvent.organiser,
-          sub_category_id: newEvent.sub_category_id,
-          content: newEvent.content
-        }).then(function (response) {
-          var event = {
-            id: response.data,
-            start_date: newEvent.start_date.substring(0, 19).replace("T", " "),
-            end_date: newEvent.end_date.substring(0, 19).replace("T", " "),
-            detail: newEvent
-          };
-          commit('add_new_event', event);
-          resolve(event);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    update_event: function update_event(_ref3, updatedEvent) {
-      var commit = _ref3.commit;
-      return new Promise(function (resolve, reject) {
-        axios.patch('update/list/' + updatedEvent.id, {
-          id: updatedEvent.id,
-          title: updatedEvent.title,
-          start_date: updatedEvent.start_date,
-          end_date: updatedEvent.end_date,
-          location: updatedEvent.location,
-          address: updatedEvent.address,
-          organiser: updatedEvent.organiser,
-          sub_category_id: updatedEvent.sub_category_id,
-          content: updatedEvent.content
-        }).then(function (response) {
-          commit('edit_event', updatedEvent);
-          resolve(updatedEvent);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    },
-    destroy_event: function destroy_event(_ref4, ids) {
-      var commit = _ref4.commit;
-      return new Promise(function (resolve, reject) {
-        axios.delete('delete/list/' + ids.eventId).then(function (response) {
-          commit('delete_event', ids);
-          resolve();
-        });
-      });
-    }
-  }
 });
 
 /***/ }),
@@ -662,79 +697,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      notifications: []
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    window.events.$on('flash', function (message, type) {
-      _this.flash(message, type, 3500);
-    });
-  },
-  computed: {
-    notificationExists: function notificationExists() {
-      return this.notifications.length > 0;
+    data: function data() {
+        return {
+            notifications: []
+        };
     },
-    time: function time() {
-      return _.now();
+    created: function created() {
+        var _this = this;
+
+        window.events.$on('flash', function (message, type) {
+            _this.flash(message, type, 3500);
+        });
+    },
+
+
+    computed: {
+        notificationExists: function notificationExists() {
+            return this.notifications.length > 0;
+        },
+        time: function time() {
+            return _.now();
+        }
+    },
+
+    methods: {
+        flash: function flash(message) {
+            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+            if (this.notifications.length === 8) {
+                this.hide(0);
+            }
+
+            this.display(message, type);
+
+            this.hide(duration);
+        },
+        display: function display(message, type) {
+            this.notifications.push({
+                body: message,
+                type: type,
+                alertClass: this.getAlertClass(type),
+                alertIcon: this.getAlertIcon(type)
+            });
+        },
+        hide: function hide(duration) {
+            var _this2 = this;
+
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            setTimeout(function () {
+                _this2.notifications.splice(index, 1);
+            }, duration);
+        },
+        getAlertClass: function getAlertClass(type) {
+            return 'alert-' + type;
+        },
+        getAlertIcon: function getAlertIcon(type) {
+            if (type === 'success') {
+                return 's7-check';
+            } else if (type === 'danger') {
+                return 's7-less';
+            } else if (type === 'info') {
+                return 's7-info';
+            } else if (type === 'warning') {
+                return 's7-attention';
+            } else {
+                return '';
+            }
+        },
+        getBottomPosition: function getBottomPosition(index) {
+            var margin = 10;
+            var notificationHeight = 60;
+
+            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
+        }
     }
-  },
-  methods: {
-    flash: function flash(message) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-      if (this.notifications.length === 8) {
-        this.hide(0);
-      }
-
-      this.display(message, type);
-      this.hide(duration);
-    },
-    display: function display(message, type) {
-      this.notifications.push({
-        body: message,
-        type: type,
-        alertClass: this.getAlertClass(type),
-        alertIcon: this.getAlertIcon(type)
-      });
-    },
-    hide: function hide(duration) {
-      var _this2 = this;
-
-      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      setTimeout(function () {
-        _this2.notifications.splice(index, 1);
-      }, duration);
-    },
-    getAlertClass: function getAlertClass(type) {
-      return 'alert-' + type;
-    },
-    getAlertIcon: function getAlertIcon(type) {
-      if (type === 'success') {
-        return 's7-check';
-      } else if (type === 'danger') {
-        return 's7-less';
-      } else if (type === 'info') {
-        return 's7-info';
-      } else if (type === 'warning') {
-        return 's7-attention';
-      } else {
-        return '';
-      }
-    },
-    getBottomPosition: function getBottomPosition(index) {
-      var margin = 10;
-      var notificationHeight = 60;
-      return {
-        bottom: margin * (index + 1) + notificationHeight * index + 'px'
-      };
-    }
-  }
 });
 
 /***/ }),
@@ -1927,17 +1967,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
+
 var admin = new Vue({
-  el: '#events',
-  components: {
-    Events: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-  },
-  mounted: function mounted() {
-    this.$store.dispatch('load_events');
-  },
-  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+    el: '#events',
+
+    components: {
+        Events: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+    },
+
+    mounted: function mounted() {
+        this.$store.dispatch('load_events');
+    },
+
+
+    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -2046,9 +2091,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event_vue__ = __webpack_require__(356);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Event_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Event_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -2090,6 +2133,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
+
 
 
 
@@ -2100,11 +2145,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isAddEvent: false
     };
   },
+
+
   components: {
     Event: __WEBPACK_IMPORTED_MODULE_1__Event_vue___default.a,
     AddEvent: __WEBPACK_IMPORTED_MODULE_0__AddEvent_vue___default.a
   },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     events: 'getEvents'
   }), {
     showEvent: function showEvent() {
@@ -2115,9 +2163,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var eventBySearch = tempEvent.filter(function (event) {
         return re.test(event.title) || re.test(event.address) || re.test(event.location) || re.test(event.content) || re.test(event.end_date) || re.test(event.organiser) || re.test(event.start_date);
       });
+
       return eventBySearch;
     }
   }),
+
   methods: {
     search: function search(event) {
       this.searchBy = event.target.value;
@@ -2313,9 +2363,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -2563,140 +2611,157 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      isRequesting: false,
-      subcategories: '',
-      input: {
-        title: '',
-        organiser: '',
-        start_date: '',
-        end_date: '',
-        location: '',
-        address: '',
-        content: '',
-        sub_category_id: '',
-        subcategories: '',
-        subcategory: ''
-      }
-    };
-  },
-  mounted: function mounted() {
-    this.$v.$reset();
-  },
-  validations: {
-    input: {
-      title: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      organiser: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      start_date: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      },
-      end_date: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      },
-      location: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-      },
-      address: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-      },
-      subcategories: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      },
-      sub_category_id: {
-        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-      }
-    }
-  },
-  components: {
-    Datetime: __WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]
-  },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-    categories: 'getCategories'
-  }), {
-    formAddFilled: function formAddFilled() {
-      return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.organiser != '' && this.input.organiser.length >= 3 && this.input.organiser.length <= 100 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 50 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 100 && this.input.start_date != '' && this.input.end_date != '' && this.input.subcategories != '' && this.input.sub_category_id != '';
-    }
-  }),
-  methods: {
-    addEvent: function addEvent() {
-      var _this = this;
+	data: function data() {
+		return {
+			isRequesting: false,
+			subcategories: '',
+			input: {
+				title: '',
+				organiser: '',
+				start_date: '',
+				end_date: '',
+				location: '',
+				address: '',
+				content: '',
+				sub_category_id: '',
+				subcategories: '',
+				subcategory: ''
+			}
+		};
+	},
+	mounted: function mounted() {
+		this.$v.$reset();
+	},
 
-      var self = this;
 
-      if (self.formAddFilled && !self.isRequesting) {
-        self.isRequesting = true;
-        var eventName = this.input.title;
+	validations: {
+		input: {
+			title: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+			},
+			organiser: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+			},
+			start_date: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+			},
+			end_date: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+			},
+			location: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+			},
+			address: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+			},
+			subcategories: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+			},
+			sub_category_id: {
+				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+			}
+		}
+	},
 
-        var indexSub = _.findIndex(this.subcategories, ['id', this.input.sub_category_id]);
+	components: {
+		Datetime: __WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]
+	},
 
-        this.input.subcategory = this.subcategories[indexSub];
-        this.$store.dispatch('store_new_event', this.input).then(function () {
-          flash(eventName + ' is successfully added', 'success');
-          _this.input.title = '';
-          self.isRequesting = false;
-          self.setData();
-          self.closeAddEvent();
-        }).catch(function (errors) {
-          self.isRequesting = false;
-          Object.keys(errors).forEach(function (field) {
-            errors[field].forEach(function (message) {
-              flash(message, 'danger', 5000);
-            });
-          });
-        });
-      } else {
-        this.dirtyAllInputs();
-      }
-    },
-    setData: function setData() {
-      this.input.title = '';
-      this.input.organiser = '';
-      this.input.start_date = '';
-      this.input.end_date = '';
-      this.input.location = '';
-      this.input.address = '';
-      this.input.organiser = '';
-      this.input.content = '';
-    },
-    dirtyAllInputs: function dirtyAllInputs() {
-      this.$v.input.title.$touch();
-      this.$v.input.organiser.$touch();
-      this.$v.input.start_date.$touch();
-      this.$v.input.end_date.$touch();
-      this.$v.input.location.$touch();
-      this.$v.input.address.$touch();
-      this.$v.input.subcategories.$touch();
-      this.$v.input.sub_category_id.$touch();
-    },
-    closeAddEvent: function closeAddEvent() {
-      this.$emit('closeAddEvent', false);
-    }
-  },
-  watch: {
-    subcategories: function subcategories() {
-      this.input.sub_category_id = "";
-      this.input.subcategories = this.subcategories;
-    }
-  }
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+		categories: 'getCategories'
+	}), {
+		formAddFilled: function formAddFilled() {
+			return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.organiser != '' && this.input.organiser.length >= 3 && this.input.organiser.length <= 100 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 50 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 100 && this.input.start_date != '' && this.input.end_date != '' && this.input.subcategories != '' && this.input.sub_category_id != '';
+		}
+	}),
+
+	methods: {
+		addEvent: function addEvent() {
+			var _this = this;
+
+			var self = this;
+
+			if (self.formAddFilled && !self.isRequesting) {
+
+				self.isRequesting = true;
+
+				var eventName = this.input.title;
+
+				var indexSub = _.findIndex(this.subcategories, ['id', this.input.sub_category_id]);
+
+				this.input.subcategory = this.subcategories[indexSub];
+
+				this.$store.dispatch('store_new_event', this.input).then(function () {
+					flash(eventName + ' is successfully added', 'success');
+					_this.input.title = '';
+
+					self.isRequesting = false;
+
+					self.setData();
+
+					self.closeAddEvent();
+				}).catch(function (errors) {
+
+					self.isRequesting = false;
+
+					Object.keys(errors).forEach(function (field) {
+						errors[field].forEach(function (message) {
+							flash(message, 'danger', 5000);
+						});
+					});
+				});
+			} else {
+				this.dirtyAllInputs();
+			}
+		},
+		setData: function setData() {
+
+			this.input.title = '';
+			this.input.organiser = '';
+			this.input.start_date = '';
+			this.input.end_date = '';
+			this.input.location = '';
+			this.input.address = '';
+			this.input.organiser = '';
+			this.input.content = '';
+		},
+		dirtyAllInputs: function dirtyAllInputs() {
+			this.$v.input.title.$touch();
+			this.$v.input.organiser.$touch();
+			this.$v.input.start_date.$touch();
+			this.$v.input.end_date.$touch();
+			this.$v.input.location.$touch();
+			this.$v.input.address.$touch();
+			this.$v.input.subcategories.$touch();
+			this.$v.input.sub_category_id.$touch();
+		},
+		closeAddEvent: function closeAddEvent() {
+			this.$emit('closeAddEvent', false);
+		}
+	},
+
+	watch: {
+		subcategories: function subcategories() {
+			this.input.sub_category_id = "";
+			this.input.subcategories = this.subcategories;
+		}
+	}
 });
 
 /***/ }),
@@ -2772,34 +2837,40 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.title.minLength
-                      ? _c(
-                          "span",
-                          { key: "title-minimum", staticClass: "text-danger" },
-                          [
-                            _vm._v(
-                              "\n                            \t\tTitle has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.title.$params.minLength.min
-                                ) +
-                                " characters\n                            \t"
+                        ? _c(
+                            "span",
+                            {
+                              key: "title-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \t\tTitle has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.title.$params.minLength.min
+                                  ) +
+                                  " characters\n                            \t"
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.title.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "key-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \t\tTitle has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.title.$params.maxLength.max
+                                    ) +
+                                    " characters\n                        \t\t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.title.maxLength
-                      ? _c(
-                          "span",
-                          { key: "key-maximum", staticClass: "text-danger" },
-                          [
-                            _vm._v(
-                              "\n                            \t\tTitle has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.title.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -2871,40 +2942,41 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.organiser.minLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "organiser-minimum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tOrganiser has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.organiser.$params.minLength.min
-                                ) +
-                                " characters\n                            \t"
+                        ? _c(
+                            "span",
+                            {
+                              key: "organiser-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \t\tOrganiser has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.organiser.$params.minLength.min
+                                  ) +
+                                  " characters\n                            \t"
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.organiser.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "organiser-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \t\tOrganiser has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.organiser.$params.maxLength
+                                        .max
+                                    ) +
+                                    " characters\n                        \t\t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.organiser.maxLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "organiser-maximum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tOrganiser has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.organiser.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3095,40 +3167,41 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.location.minLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "location-minimum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tLocation has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.location.$params.minLength.min
-                                ) +
-                                " characters\n                            \t"
+                        ? _c(
+                            "span",
+                            {
+                              key: "location-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \t\tLocation has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.location.$params.minLength.min
+                                  ) +
+                                  " characters\n                            \t"
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.location.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "location-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \t\tLocation has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.location.$params.maxLength
+                                        .max
+                                    ) +
+                                    " characters\n                        \t\t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.location.maxLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "location-maximum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tLocation has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.location.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3198,40 +3271,40 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.address.minLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "address-minimum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tAddress has a minimum of " +
-                                _vm._s(
-                                  _vm.$v.input.address.$params.minLength.min
-                                ) +
-                                " characters\n                            \t"
+                        ? _c(
+                            "span",
+                            {
+                              key: "address-minimum",
+                              staticClass: "text-danger"
+                            },
+                            [
+                              _vm._v(
+                                "\n                            \t\tAddress has a minimum of " +
+                                  _vm._s(
+                                    _vm.$v.input.address.$params.minLength.min
+                                  ) +
+                                  " characters\n                            \t"
+                              )
+                            ]
+                          )
+                        : !_vm.$v.input.address.maxLength
+                          ? _c(
+                              "span",
+                              {
+                                key: "address-maximum",
+                                staticClass: "text-danger"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            \t\tAddress has a maximum of " +
+                                    _vm._s(
+                                      _vm.$v.input.address.$params.maxLength.max
+                                    ) +
+                                    " characters\n                        \t\t"
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      : !_vm.$v.input.address.maxLength
-                      ? _c(
-                          "span",
-                          {
-                            key: "address-maximum",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tAddress has a maximum of " +
-                                _vm._s(
-                                  _vm.$v.input.address.$params.maxLength.max
-                                ) +
-                                " characters\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
+                          : _vm._e()
                   ]
                 )
               ],
@@ -3694,34 +3767,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    event: {}
-  },
-  components: {
-    EditEvent: __WEBPACK_IMPORTED_MODULE_0__EditEvent_vue___default.a
-  },
-  data: function data() {
-    return {
-      isRequesting: false,
-      isEditingEvent: false
-    };
-  },
-  methods: {
-    deleteTheEvent: function deleteTheEvent() {
-      var self = this;
 
-      if (!self.isRequesting) {
-        self.isRequesting = true;
-        this.$store.dispatch('destroy_event', {
-          eventId: self.event.id
-        }).then(function () {
-          self.isRequesting = false;
-          flash('Event deleted', 'danger');
-        });
-      }
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: { event: {} },
+
+    components: {
+        EditEvent: __WEBPACK_IMPORTED_MODULE_0__EditEvent_vue___default.a
+    },
+
+    data: function data() {
+        return {
+            isRequesting: false,
+            isEditingEvent: false
+        };
+    },
+
+
+    methods: {
+        deleteTheEvent: function deleteTheEvent() {
+            var self = this;
+
+            if (!self.isRequesting) {
+
+                self.isRequesting = true;
+
+                this.$store.dispatch('destroy_event', {
+                    eventId: self.event.id
+                }).then(function () {
+
+                    self.isRequesting = false;
+
+                    flash('Event deleted', 'danger');
+                });
+            }
+        }
     }
-  }
 });
 
 /***/ }),
@@ -3908,9 +3988,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
 //
@@ -4175,128 +4253,142 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    event: {
-      type: [Object],
-      default: function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      subcategories: '',
-      category_id: this.event.subcategory.category_id,
-      isRequesting: false,
-      title: this.event.title,
-      start_date: this.event.start_date.replace(" ", "T") + ".000+07:00",
-      end_date: this.event.end_date.replace(" ", "T") + ".000+07:00",
-      location: this.event.location,
-      address: this.event.address,
-      content: this.event.content,
-      organiser: this.event.organiser,
-      sub_category_id: this.event.sub_category_id
-    };
-  },
-  mounted: function mounted() {
-    this.setSubcategory();
-  },
-  validations: {
-    title: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-    },
-    organiser: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-    },
-    start_date: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    },
-    end_date: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    },
-    location: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-    },
-    address: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-    },
-    category_id: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    },
-    sub_category_id: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    }
-  },
-  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-    categories: 'getCategories'
-  }), {
-    eventIsEdited: function eventIsEdited() {
-      return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.subcategory.category_id !== this.category_id || this.event.sub_category_id !== this.sub_category_id;
-    },
-    formAddFilled: function formAddFilled() {
-      return this.title != '' && this.title.length >= 3 && this.title.length <= 100 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 100 && this.location != '' && this.location.length >= 3 && this.location.length <= 50 && this.address != '' && this.address.length >= 3 && this.address.length <= 100 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.sub_category_id != '';
-    }
-  }),
-  methods: {
-    setSubcategory: function setSubcategory() {
-      for (var a = 0; a < this.categories.length; a++) {
-        for (var b = 0; b < this.categories[a].subcategories.length; b++) {
-          if (this.categories[a].subcategories[b].id == this.event.sub_category_id) {
-            this.subcategories = this.categories[a].subcategories;
-          }
+    props: {
+        event: {
+            type: [Object],
+            default: function _default() {
+                return {};
+            }
         }
-      }
     },
-    editEvent: function editEvent() {
-      var self = this;
 
-      if (this.eventIsEdited && this.formAddFilled && !this.isRequesting) {
-        this.isRequesting = true;
-        var updatedEvent = {
-          id: this.event.id,
-          title: this.title,
-          start_date: this.start_date.substring(0, 19).replace("T", " "),
-          end_date: this.end_date.substring(0, 19).replace("T", " "),
-          location: this.location,
-          address: this.address,
-          content: this.content,
-          organiser: this.organiser,
-          sub_category_id: this.sub_category_id,
-          category_id: this.category_id
+    data: function data() {
+        return {
+            subcategories: '',
+            category_id: this.event.subcategory.category_id,
+            isRequesting: false,
+            title: this.event.title,
+            start_date: this.event.start_date.replace(" ", "T") + ".000+07:00",
+            end_date: this.event.end_date.replace(" ", "T") + ".000+07:00",
+            location: this.event.location,
+            address: this.event.address,
+            content: this.event.content,
+            organiser: this.event.organiser,
+            sub_category_id: this.event.sub_category_id
         };
-        this.$store.dispatch('update_event', updatedEvent).then(function (updatedEvent) {
-          flash(updatedEvent.title + ' event is succesfully updated', 'success');
-          self.isRequesting = false;
-          self.closeEditForm();
-        }).catch(function (errors) {
-          self.isRequesting = false;
-        });
-      }
     },
-    closeEditForm: function closeEditForm() {
-      this.$emit('editionFormIsClosed', false);
-    }
-  },
-  watch: {
-    category_id: function category_id() {
-      this.sub_category_id = '';
+    mounted: function mounted() {
+        this.setSubcategory();
+    },
 
-      var index = _.findIndex(this.categories, ['id', this.category_id]);
 
-      this.subcategories = this.categories[index].subcategories;
+    validations: {
+        title: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+        },
+        organiser: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+        },
+        start_date: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
+        end_date: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
+        location: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+        },
+        address: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+        },
+        category_id: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
+        sub_category_id: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        }
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+        categories: 'getCategories'
+    }), {
+        eventIsEdited: function eventIsEdited() {
+            return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.subcategory.category_id !== this.category_id || this.event.sub_category_id !== this.sub_category_id;
+        },
+        formAddFilled: function formAddFilled() {
+            return this.title != '' && this.title.length >= 3 && this.title.length <= 100 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 100 && this.location != '' && this.location.length >= 3 && this.location.length <= 50 && this.address != '' && this.address.length >= 3 && this.address.length <= 100 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.sub_category_id != '';
+        }
+    }),
+
+    methods: {
+        setSubcategory: function setSubcategory() {
+            for (var a = 0; a < this.categories.length; a++) {
+                for (var b = 0; b < this.categories[a].subcategories.length; b++) {
+                    if (this.categories[a].subcategories[b].id == this.event.sub_category_id) {
+                        this.subcategories = this.categories[a].subcategories;
+                    }
+                }
+            }
+        },
+        editEvent: function editEvent() {
+
+            var self = this;
+
+            if (this.eventIsEdited && this.formAddFilled && !this.isRequesting) {
+
+                this.isRequesting = true;
+
+                var updatedEvent = {
+                    id: this.event.id,
+                    title: this.title,
+                    start_date: this.start_date.substring(0, 19).replace("T", " "),
+                    end_date: this.end_date.substring(0, 19).replace("T", " "),
+                    location: this.location,
+                    address: this.address,
+                    content: this.content,
+                    organiser: this.organiser,
+                    sub_category_id: this.sub_category_id,
+                    category_id: this.category_id
+                };
+
+                this.$store.dispatch('update_event', updatedEvent).then(function (updatedEvent) {
+
+                    flash(updatedEvent.title + ' event is succesfully updated', 'success');
+
+                    self.isRequesting = false;
+
+                    self.closeEditForm();
+                }).catch(function (errors) {
+                    self.isRequesting = false;
+                });
+            }
+        },
+        closeEditForm: function closeEditForm() {
+            this.$emit('editionFormIsClosed', false);
+        }
+    },
+
+    watch: {
+        category_id: function category_id() {
+            this.sub_category_id = '';
+
+            var index = _.findIndex(this.categories, ['id', this.category_id]);
+
+            this.subcategories = this.categories[index].subcategories;
+        }
     }
-  }
 });
 
 /***/ }),
@@ -4422,36 +4514,40 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.title.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-minimum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Title has a minimum of " +
-                                    _vm._s(_vm.$v.title.$params.minLength.min) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "title-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Title has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.title.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "title-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Title has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.title.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.title.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "title-maximum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Title has a maximum of " +
-                                    _vm._s(_vm.$v.title.$params.maxLength.max) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -4546,40 +4642,40 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.organiser.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "organiser-minimum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Organiser has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.organiser.$params.minLength.min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "organiser-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Organiser has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.organiser.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.organiser.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "organiser-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Organiser has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.organiser.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.organiser.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "organiser-maximum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Organiser has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.organiser.$params.maxLength.max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -4816,40 +4912,40 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.location.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "location-minimum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Location has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.minLength.min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "location-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Location has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.location.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.location.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "location-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Location has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.location.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.location.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "location-maximum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Location has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.location.$params.maxLength.max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -4944,40 +5040,40 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.address.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "address-minimum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Address has a minimum of " +
-                                    _vm._s(
-                                      _vm.$v.address.$params.minLength.min
-                                    ) +
-                                    " characters\n                            "
+                            ? _c(
+                                "span",
+                                {
+                                  key: "address-minimum",
+                                  staticClass: "text-danger text-center"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Address has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.address.$params.minLength.min
+                                      ) +
+                                      " characters\n                            "
+                                  )
+                                ]
+                              )
+                            : !_vm.$v.address.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "address-maximum",
+                                    staticClass: "text-danger text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Address has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.address.$params.maxLength.max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : !_vm.$v.address.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "address-maximum",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Address has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.address.$params.maxLength.max
-                                    ) +
-                                    " characters\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
+                              : _vm._e()
                       ]
                     )
                   ],
@@ -5597,12 +5693,13 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(119);
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
-  getIndexOfEvent: function getIndexOfEvent(eventId) {
-    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.events, function (event) {
-      return event.id === eventId;
-    });
-  }
+    getIndexOfEvent: function getIndexOfEvent(eventId) {
+        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.events, function (event) {
+            return event.id === eventId;
+        });
+    }
 });
 
 /***/ }),
@@ -16693,219 +16790,148 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      applicants: '',
-      potentials: '',
-      member: '',
-      message: '',
-      menuName: '',
-      subMenuName: '',
-      menus: [{
-        id: 'home',
-        name: 'Home',
-        subMenu: [{
-          name: 'Social Media',
-          link: '/admin/home/sosmed'
-        }, {
-          name: 'Image Slider',
-          link: '/admin/home/image-slider'
-        }, {
-          name: 'Image Config',
-          link: '/admin/home/image-config'
-        }]
-      }, {
-        id: 'about',
-        name: 'About',
-        subMenu: [{
-          name: 'Profile',
-          link: '/admin/about/profile'
-        }, {
-          name: 'Classes',
-          link: '/admin/about/class'
-        }, {
-          name: 'Timeline',
-          link: '/admin/about/timeline'
-        }, {
-          name: 'Gallery Showcase',
-          link: '/admin/about/showcase'
-        }, {
-          name: 'Shop Showcase',
-          link: '/admin/about/shop-showcase'
-        }]
-      }, {
-        id: 'gallery',
-        name: 'Gallery',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/gallery/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/gallery/subcategory'
-        }, {
-          name: 'Photos',
-          link: '/admin/gallery/list'
-        }]
-      }, {
-        id: 'event',
-        name: 'Events & Activities',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/event/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/event/subcategory'
-        }, {
-          name: 'Events & Activities',
-          link: '/admin/event/list'
-        }]
-      }, {
-        id: 'shop',
-        name: 'Shop',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/shop/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/shop/subcategory'
-        }, {
-          name: 'Items',
-          link: '/admin/shop/list'
-        }]
-      }, {
-        id: 'bookkeeping',
-        name: 'Bookkeeping',
-        subMenu: [{
-          name: 'Member',
-          link: '/admin/bookkeeping/member'
-        }, {
-          name: 'Member Detail',
-          link: '/admin/bookkeeping/member-detail'
-        }, {
-          name: 'Member Applicants',
-          link: '/admin/bookkeeping/applicant-member'
-        }, {
-          name: 'Class Region',
-          link: '/admin/bookkeeping/region'
-        }, {
-          name: 'Event Applicants',
-          link: '/admin/bookkeeping/applicant-event'
-        }, {
-          name: 'Overseas Inquiries',
-          link: '/admin/bookkeeping/overseas'
-        }, {
-          name: 'Potential Overseas Inquiries',
-          link: '/admin/bookkeeping/potential'
-        }, {
-          name: 'Messages',
-          link: '/admin/bookkeeping/message'
-        }]
-      }]
-    };
-  },
-  mounted: function mounted() {
-    this.setName();
-    this.getApplicant();
-    this.getPotential();
-    this.getMessage();
-    this.getMember();
-  },
-  computed: {
-    applicantTotal: function applicantTotal() {
-      var totalApplicants = 0;
+	data: function data() {
+		return {
+			applicants: '',
+			potentials: '',
+			member: '',
+			message: '',
+			menuName: '',
+			subMenuName: '',
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        for (var i = 0; i < this.applicants.length; i++) {
-          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-            if (this.applicants[i].applicants[k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+			menus: [{
+				id: 'home',
+				name: 'Home',
+				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+			}, {
+				id: 'about',
+				name: 'About',
+				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+			}, {
+				id: 'gallery',
+				name: 'Gallery',
+				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
+			}, {
+				id: 'event',
+				name: 'Events & Activities',
+				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
+			}, {
+				id: 'shop',
+				name: 'Shop',
+				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
+			}, {
+				id: 'bookkeeping',
+				name: 'Bookkeeping',
+				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+			}]
+		};
+	},
+	mounted: function mounted() {
+		this.setName();
+		this.getApplicant();
+		this.getPotential();
+		this.getMessage();
+		this.getMember();
+	},
 
-        ;
-      } else {
-        var appEvent = this.$store.getters.getApplicantEvent;
 
-        for (var _i = 0; _i < appEvent.length; _i++) {
-          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-            if (appEvent.applicants[_k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
+	computed: {
+		applicantTotal: function applicantTotal() {
+			var totalApplicants = 0;
 
-        ;
-      }
+			if (this.$store.getters.getApplicantItems === undefined) {
 
-      return totalApplicants;
-    },
-    potentialTotal: function potentialTotal() {
-      if (this.$store.getters.getPotentialItems === undefined) {
-        return this.potentials.length;
-      } else {
-        return this.$store.getters.getPotentialItems.length;
-      }
-    },
-    messageTotal: function messageTotal() {
-      if (this.$store.getters.getMessageItems === undefined) {
-        return this.message.length;
-      } else {
-        return this.$store.getters.getMessageItems.length;
-      }
-    },
-    memberTotal: function memberTotal() {
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        return this.member.length;
-      } else {
-        return this.$store.getters.getApplicantMemberItems.length;
-      }
-    }
-  },
-  methods: {
-    getApplicant: function getApplicant() {
-      var _this = this;
+				for (var i = 0; i < this.applicants.length; i++) {
+					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+						if (this.applicants[i].applicants[k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			} else {
+				var appEvent = this.$store.getters.getApplicantEvent;
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-          _this.applicants = response.data;
-        });
-      }
-    },
-    getPotential: function getPotential() {
-      var _this2 = this;
+				for (var _i = 0; _i < appEvent.length; _i++) {
+					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+						if (appEvent.applicants[_k].is_approve === 0) {
+							totalApplicants++;
+						}
+					}
+				};
+			}
 
-      if (this.$store.getters.getPotentialItems === undefined) {
-        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-          _this2.potentials = response.data;
-        });
-      }
-    },
-    getMessage: function getMessage() {
-      var _this3 = this;
+			return totalApplicants;
+		},
+		potentialTotal: function potentialTotal() {
+			if (this.$store.getters.getPotentialItems === undefined) {
+				return this.potentials.length;
+			} else {
+				return this.$store.getters.getPotentialItems.length;
+			}
+		},
+		messageTotal: function messageTotal() {
+			if (this.$store.getters.getMessageItems === undefined) {
+				return this.message.length;
+			} else {
+				return this.$store.getters.getMessageItems.length;
+			}
+		},
+		memberTotal: function memberTotal() {
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				return this.member.length;
+			} else {
+				return this.$store.getters.getApplicantMemberItems.length;
+			}
+		}
+	},
 
-      if (this.$store.getters.getMessageItems === undefined) {
-        axios.get('/admin/bookkeeping/data/message').then(function (response) {
-          _this3.message = response.data;
-        });
-      }
-    },
-    getMember: function getMember() {
-      var _this4 = this;
+	methods: {
+		getApplicant: function getApplicant() {
+			var _this = this;
 
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-          _this4.member = response.data;
-        });
-      }
-    },
-    setName: function setName() {
-      var link = window.location.pathname.split('/');
-      this.menuName = link[2];
-      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-    }
-  }
+			if (this.$store.getters.getApplicantItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+					_this.applicants = response.data;
+				});
+			}
+		},
+		getPotential: function getPotential() {
+			var _this2 = this;
+
+			if (this.$store.getters.getPotentialItems === undefined) {
+				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+					_this2.potentials = response.data;
+				});
+			}
+		},
+		getMessage: function getMessage() {
+			var _this3 = this;
+
+			if (this.$store.getters.getMessageItems === undefined) {
+				axios.get('/admin/bookkeeping/data/message').then(function (response) {
+					_this3.message = response.data;
+				});
+			}
+		},
+		getMember: function getMember() {
+			var _this4 = this;
+
+			if (this.$store.getters.getApplicantMemberItems === undefined) {
+				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+					_this4.member = response.data;
+				});
+			}
+		},
+		setName: function setName() {
+			var link = window.location.pathname.split('/');
+
+			this.menuName = link[2];
+
+			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+		}
+	}
 });
 
 /***/ })
