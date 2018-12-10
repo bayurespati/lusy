@@ -206,84 +206,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -389,118 +384,94 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(250);
 
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        classes: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getClasses: function getClasses(state) {
-            return state.classes;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_classes: function set_classes(state, classes) {
-            state.classes = classes;
-        },
-
-        add_new_class: function add_new_class(state, classData) {
-
-            state.classes.push({
-                id: classData.id,
-                image_path: classData.image_path,
-                title: classData.title,
-                content: classData.content
-            });
-        },
-        edit_class: function edit_class(state, updatedClass) {
-
-            var classIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfClass(updatedClass.id);
-
-            state.classes[classIndex].image_path = updatedClass.image_path;
-            state.classes[classIndex].title = updatedClass.title;
-            state.classes[classIndex].content = updatedClass.content;
-        },
-        delete_class: function delete_class(state, ids) {
-            var classIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfClass(ids.classId);
-            state.classes.splice(classIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_classes: function load_classes(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/about/data/class').then(function (response) {
-                commit('set_classes', response.data);
-            });
-        },
-
-        store_new_class: function store_new_class(_ref2, addClass) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/class', addClass).then(function (response) {
-
-                    commit('add_new_class', response.data);
-
-                    resolve(response.data);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_class: function update_class(_ref3, updatedClass) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/class/' + updatedClass.id, {
-                    id: updatedClass.id,
-                    image: updatedClass.image,
-                    title: updatedClass.title,
-                    content: updatedClass.content
-                }).then(function (response) {
-
-                    commit('edit_class', response.data);
-
-                    resolve(response.data);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_class: function destroy_class(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/class/' + ids.classId).then(function (response) {
-                    commit('delete_class', ids);
-                    resolve();
-                });
-            });
-        }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    classes: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getClasses: function getClasses(state) {
+      return state.classes;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_classes: function set_classes(state, classes) {
+      state.classes = classes;
+    },
+    add_new_class: function add_new_class(state, classData) {
+      state.classes.push({
+        id: classData.id,
+        image_path: classData.image_path,
+        title: classData.title,
+        content: classData.content
+      });
+    },
+    edit_class: function edit_class(state, updatedClass) {
+      var classIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfClass(updatedClass.id);
+      state.classes[classIndex].image_path = updatedClass.image_path;
+      state.classes[classIndex].title = updatedClass.title;
+      state.classes[classIndex].content = updatedClass.content;
+    },
+    delete_class: function delete_class(state, ids) {
+      var classIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfClass(ids.classId);
+      state.classes.splice(classIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_classes: function load_classes(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/about/data/class').then(function (response) {
+        commit('set_classes', response.data);
+      });
+    },
+    store_new_class: function store_new_class(_ref2, addClass) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/class', addClass).then(function (response) {
+          commit('add_new_class', response.data);
+          resolve(response.data);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    update_class: function update_class(_ref3, updatedClass) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/class/' + updatedClass.id, {
+          id: updatedClass.id,
+          image: updatedClass.image,
+          title: updatedClass.title,
+          content: updatedClass.content
+        }).then(function (response) {
+          commit('edit_class', response.data);
+          resolve(response.data);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_class: function destroy_class(_ref4, ids) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/class/' + ids.classId).then(function (response) {
+          commit('delete_class', ids);
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -670,148 +641,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -890,47 +929,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -1215,22 +1245,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 var admin = new Vue({
-    el: '#classes',
-
-    components: {
-        Classes: __WEBPACK_IMPORTED_MODULE_0__components_Classes_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_classes');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#classes',
+  components: {
+    Classes: __WEBPACK_IMPORTED_MODULE_0__components_Classes_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_classes');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -1339,7 +1364,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Class_vue__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Class_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Class_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -1375,8 +1402,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
@@ -1386,14 +1411,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       isAddClass: false
     };
   },
-
-
   components: {
     SingleClass: __WEBPACK_IMPORTED_MODULE_1__Class_vue___default.a,
     AddClass: __WEBPACK_IMPORTED_MODULE_0__AddClass_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     classes: 'getClasses'
   }))
 });
@@ -1608,8 +1630,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1624,14 +1644,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     this.setUpCroppie();
   },
-
-
   computed: {
     formIsFilled: function formIsFilled() {
       return this.image != '' && this.content != '' && this.title != '';
     }
   },
-
   methods: {
     setUpFileUploader: function setUpFileUploader(event) {
       var files = event.target.files || event.dataTransfer.files;
@@ -1646,26 +1663,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       var reader = new FileReader();
-
       var self = this;
 
       reader.onload = function (event) {
         self.image = event.target.result;
+
         _this.croppie.destroy();
+
         _this.setUpCroppie();
       };
 
       reader.readAsDataURL(file);
     },
     setUpCroppie: function setUpCroppie() {
-
       var self = this;
-
       var file = document.getElementById('croppie');
-
       this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-        viewport: { width: 235, height: 300, type: 'square' },
-        boundary: { width: 285, height: 350 },
+        viewport: {
+          width: 235,
+          height: 300,
+          type: 'square'
+        },
+        boundary: {
+          width: 285,
+          height: 350
+        },
         enableOrientation: false
       });
 
@@ -1684,39 +1706,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
     },
     setImage: function setImage() {
-
       var self = this;
-
       this.croppie.result({
         type: 'canvas',
-        size: { width: 470, height: 600, type: 'square' }
+        size: {
+          width: 470,
+          height: 600,
+          type: 'square'
+        }
       }).then(function (response) {
         self.save_image = response;
       });
     },
     addClass: function addClass() {
-
       var self = this;
 
       if (this.formIsFilled && !self.isRequesting) {
-
         self.isRequesting = true;
-
         var classProfile = {
           title: this.title,
           content: this.content,
           image: this.save_image
         };
-
         this.$store.dispatch('store_new_class', classProfile).then(function (updatedProfile) {
-
           flash('Class added', 'success');
-
           self.closeAddForm();
-
           self.isRequesting = false;
         }).catch(function (errors) {
-
           self.isRequesting = false;
         });
       }
@@ -2079,40 +2095,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { singleClass: {} },
+  props: {
+    singleClass: {}
+  },
+  components: {
+    EditClass: __WEBPACK_IMPORTED_MODULE_0__EditClass_vue___default.a
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      isEditingClass: false
+    };
+  },
+  methods: {
+    deleteTheClass: function deleteTheClass() {
+      var self = this;
 
-    components: {
-        EditClass: __WEBPACK_IMPORTED_MODULE_0__EditClass_vue___default.a
-    },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            isEditingClass: false
-        };
-    },
-
-
-    methods: {
-        deleteTheClass: function deleteTheClass() {
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_class', {
-                    classId: this.singleClass.id
-                }).then(function () {
-                    flash('Class berhasil dihapus', 'danger');
-
-                    self.isRequesting = false;
-                });
-            }
-        }
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_class', {
+          classId: this.singleClass.id
+        }).then(function () {
+          flash('Class berhasil dihapus', 'danger');
+          self.isRequesting = false;
+        });
+      }
     }
+  }
 });
 
 /***/ }),
@@ -2333,12 +2343,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-  props: { singleClass: {} },
-
+  props: {
+    singleClass: {}
+  },
   data: function data() {
     return {
       isRequesting: false,
@@ -2352,14 +2360,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     this.setUpCroppie();
   },
-
-
   computed: {
     isEdited: function isEdited() {
       return this.image != this.singleClass.image_path || this.content != this.singleClass.content || this.title != this.singleClass.title;
     }
   },
-
   methods: {
     setUpFileUploader: function setUpFileUploader(event) {
       var files = event.target.files || event.dataTransfer.files;
@@ -2378,7 +2383,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       reader.onload = function (event) {
         self.image = event.target.result;
+
         _this.croppie.destroy();
+
         _this.setUpCroppie();
       };
 
@@ -2387,10 +2394,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     setUpCroppie: function setUpCroppie() {
       var self = this;
       var file = document.getElementById('croppie');
-
       this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-        viewport: { width: 235, height: 300 },
-        boundary: { width: 285, height: 350 },
+        viewport: {
+          width: 235,
+          height: 300
+        },
+        boundary: {
+          width: 285,
+          height: 350
+        },
         enableOrientation: false
       });
 
@@ -2410,38 +2422,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     setImage: function setImage() {
       var self = this;
-
       this.croppie.result({
         type: 'canvas',
-        size: { width: 470, height: 600, type: 'square' }
+        size: {
+          width: 470,
+          height: 600,
+          type: 'square'
+        }
       }).then(function (response) {
         self.save_image = response;
       });
     },
     editClass: function editClass() {
-
       var self = this;
 
       if (self.isEdited && !self.isRequesting) {
-
         self.isRequesting = true;
-
         var updatedProflie = {
           id: this.singleClass.id,
           title: this.title,
           content: this.content,
           image: this.save_image
         };
-
         this.$store.dispatch('update_class', updatedProflie).then(function (updatedClass) {
-
           flash('Class updated', 'success');
-
           self.isRequesting = false;
-
           self.closeEditForm();
         }).catch(function (errors) {
-
           self.isRequesting = false;
         });
       }
@@ -2908,13 +2915,12 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(110);
 
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfClass: function getIndexOfClass(classId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.classes, function (singleClass) {
-            return singleClass.id === classId;
-        });
-    }
+  getIndexOfClass: function getIndexOfClass(classId) {
+    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.classes, function (singleClass) {
+      return singleClass.id === classId;
+    });
+  }
 });
 
 /***/ }),

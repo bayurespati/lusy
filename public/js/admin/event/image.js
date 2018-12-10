@@ -287,84 +287,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -522,141 +517,117 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(398);
 
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        imageList: {},
-        eventId: {},
-        event: {}
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    imageList: {},
+    eventId: {},
+    event: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getImageList: function getImageList(state) {
+      return state.imageList;
     },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getImageList: function getImageList(state) {
-            return state.imageList;
-        },
-
-        getEventId: function getEventId(state) {
-            return state.eventId;
-        },
-
-        getEvent: function getEvent(state) {
-            return state.event;
-        }
+    getEventId: function getEventId(state) {
+      return state.eventId;
     },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_images: function set_images(state, items) {
-            state.imageList = items.data;
-            state.eventId = items.id;
-        },
-
-        set_event: function set_event(state, event) {
-            state.event = event;
-        },
-
-        add_new_image: function add_new_image(state, imageItem) {
-            state.imageList.push({
-                id: imageItem.id,
-                image_path: imageItem.image_path,
-                is_poster: imageItem.is_poster,
-                title: imageItem.title,
-                description: imageItem.description,
-                event_id: imageItem.event_id,
-                imageType: imageItem.type
-            });
-        },
-        edit_item: function edit_item(state, updatedItem) {
-
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(updatedItem.id);
-
-            state.imageList[imageIndex].event_id = updatedItem.event_id;
-            state.imageList[imageIndex].image_path = updatedItem.image_path;
-            state.imageList[imageIndex].title = updatedItem.title;
-            state.imageList[imageIndex].description = updatedItem.description;
-            state.imageList[imageIndex].imageType = updatedItem.type;
-            state.imageList[imageIndex].is_poster = updatedItem.is_poster;
-        },
-        delete_image: function delete_image(state, ids) {
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(ids.imageId);
-
-            state.imageList.splice(imageIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_images: function load_images(_ref, id) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/event/data/image/' + id).then(function (response) {
-                commit('set_images', { data: response.data, id: id });
-            });
-        },
-
-        store_new_image: function store_new_image(_ref2, imageItem) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('/admin/event/add/image', imageItem).then(function (response) {
-
-                    commit('add_new_image', response.data);
-
-                    resolve(imageItem);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_image: function update_image(_ref3, updatedItem) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('/admin/event/update/image/' + updatedItem.id, {
-                    id: updatedItem.id,
-                    title: updatedItem.title,
-                    image: updatedItem.image,
-                    description: updatedItem.description,
-                    is_poster: updatedItem.is_poster,
-                    imageType: updatedItem.imageType
-                }).then(function (response) {
-
-                    commit('edit_item', response.data);
-
-                    resolve(updatedItem);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_image: function destroy_image(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('/admin/event/delete/image/' + ids.imageId).then(function (response) {
-                    commit('delete_image', ids);
-                    resolve();
-                });
-            });
-        }
+    getEvent: function getEvent(state) {
+      return state.event;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_images: function set_images(state, items) {
+      state.imageList = items.data;
+      state.eventId = items.id;
+    },
+    set_event: function set_event(state, event) {
+      state.event = event;
+    },
+    add_new_image: function add_new_image(state, imageItem) {
+      state.imageList.push({
+        id: imageItem.id,
+        image_path: imageItem.image_path,
+        is_poster: imageItem.is_poster,
+        title: imageItem.title,
+        description: imageItem.description,
+        event_id: imageItem.event_id,
+        imageType: imageItem.type
+      });
+    },
+    edit_item: function edit_item(state, updatedItem) {
+      var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(updatedItem.id);
+      state.imageList[imageIndex].event_id = updatedItem.event_id;
+      state.imageList[imageIndex].image_path = updatedItem.image_path;
+      state.imageList[imageIndex].title = updatedItem.title;
+      state.imageList[imageIndex].description = updatedItem.description;
+      state.imageList[imageIndex].imageType = updatedItem.type;
+      state.imageList[imageIndex].is_poster = updatedItem.is_poster;
+    },
+    delete_image: function delete_image(state, ids) {
+      var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageList(ids.imageId);
+      state.imageList.splice(imageIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_images: function load_images(_ref, id) {
+      var commit = _ref.commit;
+      axios.get('/admin/event/data/image/' + id).then(function (response) {
+        commit('set_images', {
+          data: response.data,
+          id: id
+        });
+      });
+    },
+    store_new_image: function store_new_image(_ref2, imageItem) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('/admin/event/add/image', imageItem).then(function (response) {
+          commit('add_new_image', response.data);
+          resolve(imageItem);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    update_image: function update_image(_ref3, updatedItem) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('/admin/event/update/image/' + updatedItem.id, {
+          id: updatedItem.id,
+          title: updatedItem.title,
+          image: updatedItem.image,
+          description: updatedItem.description,
+          is_poster: updatedItem.is_poster,
+          imageType: updatedItem.imageType
+        }).then(function (response) {
+          commit('edit_item', response.data);
+          resolve(updatedItem);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_image: function destroy_image(_ref4, ids) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        axios.delete('/admin/event/delete/image/' + ids.imageId).then(function (response) {
+          commit('delete_image', ids);
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -774,148 +745,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -994,47 +1033,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -2233,23 +2263,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
-
 var admin = new Vue({
-    el: '#image-list',
-
-    components: {
-        ImageList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_images', $event.id);
-        this.$store.commit('set_event', $event);
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#image-list',
+  components: {
+    ImageList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_images', $event.id);
+    this.$store.commit('set_event', $event);
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -2401,7 +2426,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Image_vue__ = __webpack_require__(385);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Image_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Image_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -2441,8 +2468,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
@@ -2452,14 +2477,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       isAddImage: false
     };
   },
-
-
   components: {
     ImageList: __WEBPACK_IMPORTED_MODULE_1__Image_vue___default.a,
     AddImage: __WEBPACK_IMPORTED_MODULE_0__AddImage_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     imageList: 'getImageList',
     event: 'getEvent'
   }), {
@@ -2644,7 +2666,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_croppie__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -2769,227 +2793,244 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        eventName: {
-            type: String
-        }
-    },
-
-    data: function data() {
-        return {
-            imageType: 2,
-            isRequesting: false,
-            croppie: null,
-            save_image: '',
-            image: '',
-            title: '',
-            description: '',
-            is_poster: ''
-
-        };
-    },
-
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
-
-
-    validations: {
-        image: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        title: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
-        },
-        description: {
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-        }
-    },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-        eventId: 'getEventId'
-    }), {
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.title != '' && this.title.length > 3 && this.title.length <= 30 && this.description < 100;
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
-        }
-    }),
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie');
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.image === null || this.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        uploadImage: function uploadImage() {
-
-            var self = this;
-
-            if (this.formIsFilled && !self.isRequesting) {
-
-                this.isRequesting = true;
-
-                var imageData = {
-                    image: this.save_image,
-                    title: this.title,
-                    description: this.description,
-                    eventId: this.eventId,
-                    imageType: this.imageType
-                };
-
-                this.$store.dispatch('store_new_image', imageData).then(function (response) {
-                    flash('Image added', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeAdd();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-
-                    Object.keys(errors).forEach(function (field) {
-                        errors[field].forEach(function (message) {
-                            flash(message, 'danger', 5000);
-                        });
-                    });
-                });
-            } else {
-                this.dirtyAllInputs();
-            }
-        },
-        dirtyAllInputs: function dirtyAllInputs() {
-            this.$v.image.$touch();
-            this.$v.title.$touch();
-        },
-        closeAdd: function closeAdd() {
-            this.$emit('closeAddImage', false);
-        }
-    },
-
-    watch: {
-        imageType: function imageType() {
-            this.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
-        }
+  props: {
+    eventName: {
+      type: String
     }
+  },
+  data: function data() {
+    return {
+      imageType: 2,
+      isRequesting: false,
+      croppie: null,
+      save_image: '',
+      image: '',
+      title: '',
+      description: '',
+      is_poster: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  validations: {
+    image: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    title: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+    },
+    description: {
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+    }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    eventId: 'getEventId'
+  }), {
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.title != '' && this.title.length > 3 && this.title.length <= 30 && this.description < 100;
+    },
+    colForPicture: function colForPicture() {
+      if (this.imageType == 1) {
+        return 'col-md-4';
+      } else if (this.imageType == 2) {
+        return 'col-md-4';
+      } else if (this.imageType == 3) {
+        return 'col-md-12 mb-4';
+      }
+    },
+    colForData: function colForData() {
+      if (this.imageType == 1) {
+        return 'col-md-8';
+      } else if (this.imageType == 2) {
+        return 'col-md-8';
+      } else if (this.imageType == 3) {
+        return 'col-md-12';
+      }
+    }
+  }),
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie');
+
+      if (this.imageType == 1) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 160,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 210,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 2) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 240,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 290,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 3) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 480,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 530,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      }
+
+      if (this.image === null || this.image === '') {
+        if (this.imageType == 1) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 2) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 3) {
+          this.croppie.bind({
+            url: '/img/portfolio-1.jpg'
+          });
+        }
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      if (this.imageType == 1) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 320,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 2) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 480,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 3) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 960,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    uploadImage: function uploadImage() {
+      var self = this;
+
+      if (this.formIsFilled && !self.isRequesting) {
+        this.isRequesting = true;
+        var imageData = {
+          image: this.save_image,
+          title: this.title,
+          description: this.description,
+          eventId: this.eventId,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('store_new_image', imageData).then(function (response) {
+          flash('Image added', 'success');
+          self.isRequesting = false;
+          self.closeAdd();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      } else {
+        this.dirtyAllInputs();
+      }
+    },
+    dirtyAllInputs: function dirtyAllInputs() {
+      this.$v.image.$touch();
+      this.$v.title.$touch();
+    },
+    closeAdd: function closeAdd() {
+      this.$emit('closeAddImage', false);
+    }
+  },
+  watch: {
+    imageType: function imageType() {
+      this.image = '';
+      this.croppie.destroy();
+      this.setUpCroppie();
+    }
+  }
 });
 
 /***/ }),
@@ -3202,38 +3243,30 @@ var render = function() {
                             ]
                           )
                         : !_vm.$v.title.minLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "name-minimum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    Name has a minimum of " +
-                                    _vm._s(_vm.$v.title.$params.minLength.min) +
-                                    " characters\n                                "
-                                )
-                              ]
-                            )
-                          : !_vm.$v.title.maxLength
-                            ? _c(
-                                "span",
-                                {
-                                  key: "name-maximum",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Name has a maximum of " +
-                                      _vm._s(
-                                        _vm.$v.title.$params.maxLength.max
-                                      ) +
-                                      " characters\n                                "
-                                  )
-                                ]
+                        ? _c(
+                            "span",
+                            { key: "name-minimum", staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                                    Name has a minimum of " +
+                                  _vm._s(_vm.$v.title.$params.minLength.min) +
+                                  " characters\n                                "
                               )
-                            : _vm._e()
+                            ]
+                          )
+                        : !_vm.$v.title.maxLength
+                        ? _c(
+                            "span",
+                            { key: "name-maximum", staticClass: "text-danger" },
+                            [
+                              _vm._v(
+                                "\n                                    Name has a maximum of " +
+                                  _vm._s(_vm.$v.title.$params.maxLength.max) +
+                                  " characters\n                                "
+                              )
+                            ]
+                          )
+                        : _vm._e()
                     ]
                   )
                 ],
@@ -3577,7 +3610,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditImage_vue__ = __webpack_require__(391);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditImage_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -3666,86 +3701,71 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { imageItem: {} },
+  props: {
+    imageItem: {}
+  },
+  components: {
+    EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      isEditingImage: false
+    };
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    imageList: 'getImageList'
+  })),
+  methods: {
+    deleteTheImage: function deleteTheImage() {
+      var self = this;
 
-    components: {
-        EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
+      if (!this.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_image', {
+          imageId: self.imageItem.id
+        }).then(function () {
+          self.isRequesting = false;
+          flash('Image is successfully deleted', 'danger');
+        });
+      }
     },
+    show: function show() {
+      var a = _.findIndex(this.imageList, ['is_poster', 1]);
 
-    data: function data() {
-        return {
-            isRequesting: false,
-            isEditingImage: false
+      var b = _.findIndex(this.imageList, ['is_poster', true]);
+
+      if (a == -1 && b == -1) {
+        this.editImage();
+      }
+    },
+    editImage: function editImage() {
+      var self = this;
+
+      if (!this.isRequesting) {
+        this.isRequesting = true;
+        var isBool = this.imageItem.is_poster == 0 ? true : false;
+        var updatedImage = {
+          id: this.imageItem.id,
+          title: this.imageItem.title,
+          description: this.imageItem.description,
+          image: this.imageItem.image_path,
+          is_poster: isBool,
+          imageType: this.imageItem.imageType
         };
-    },
-
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-        imageList: 'getImageList'
-    })),
-
-    methods: {
-        deleteTheImage: function deleteTheImage() {
-            var self = this;
-
-            if (!this.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_image', {
-                    imageId: self.imageItem.id
-                }).then(function () {
-                    self.isRequesting = false;
-
-                    flash('Image is successfully deleted', 'danger');
-                });
-            }
-        },
-        show: function show() {
-
-            var a = _.findIndex(this.imageList, ['is_poster', 1]);
-            var b = _.findIndex(this.imageList, ['is_poster', true]);
-
-            if (a == -1 && b == -1) {
-                this.editImage();
-            }
-        },
-        editImage: function editImage() {
-
-            var self = this;
-
-            if (!this.isRequesting) {
-
-                this.isRequesting = true;
-
-                var isBool = this.imageItem.is_poster == 0 ? true : false;
-
-                var updatedImage = {
-                    id: this.imageItem.id,
-                    title: this.imageItem.title,
-                    description: this.imageItem.description,
-                    image: this.imageItem.image_path,
-                    is_poster: isBool,
-                    imageType: this.imageItem.imageType
-                };
-
-                this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
-
-                    flash('Image is successfully updated updated', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-                });
-            }
-        }
+        this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
+          flash('Image is successfully updated updated', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      }
     }
+  }
 });
 
 /***/ }),
@@ -3981,225 +4001,244 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        imageItem: {
-            type: [Object],
-            default: function _default() {
-                return {};
-            }
-        }
-    },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            imageType: this.imageItem.imageType,
-            save_image: '',
-            input: {
-                title: this.imageItem.title,
-                image: this.imageItem.image_path,
-                description: this.imageItem.description == null ? '' : this.imageItem.description
-            }
-        };
-    },
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
-
-
-    validations: {
-        input: {
-            title: {
-                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
-            },
-            description: {
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-            },
-            image: {
-                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-            }
-        }
-    },
-
-    computed: {
-        imageIsEdited: function imageIsEdited() {
-            return this.imageItem.title !== this.input.title || this.imageItem.imageType !== this.imageType || this.imageItem.image_path !== this.input.image || this.imageItem.description !== this.input.description;
-        },
-        formIsFilled: function formIsFilled() {
-            return this.input.image != '' && this.input.title != '' && this.input.title.length > 3 && this.input.title.length <= 30 && this.input.description.length <= 100;
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
-        }
-    },
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var setUpFileUploaderself = this;
-
-            reader.onload = function (event) {
-                _this.input.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie-' + this.imageItem.id);
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.input.image === null || this.input.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.input.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        editImage: function editImage() {
-
-            var self = this;
-
-            if (this.imageIsEdited && this.formIsFilled && !this.isRequesting) {
-
-                this.isRequesting = true;
-
-                var updatedImage = {
-                    id: this.imageItem.id,
-                    title: this.input.title,
-                    description: this.input.description,
-
-                    image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
-                    is_poster: this.imageItem.is_poster,
-                    imageType: this.imageType
-                };
-
-                this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
-
-                    flash('Image is successfully updated', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-                });
-            } else {
-                this.dirytAllInputs();
-            }
-        },
-        dirytAllInputs: function dirytAllInputs() {
-            this.$v.input.title.$touch();
-            this.$v.input.description.$touch();
-            this.$v.input.image.$touch();
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        }
-    },
-
-    watch: {
-        imageType: function imageType() {
-            this.input.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
-        }
+  props: {
+    imageItem: {
+      type: [Object],
+      default: function _default() {
+        return {};
+      }
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      imageType: this.imageItem.imageType,
+      save_image: '',
+      input: {
+        title: this.imageItem.title,
+        image: this.imageItem.image_path,
+        description: this.imageItem.description == null ? '' : this.imageItem.description
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  validations: {
+    input: {
+      title: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+      },
+      description: {
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
+      },
+      image: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      }
+    }
+  },
+  computed: {
+    imageIsEdited: function imageIsEdited() {
+      return this.imageItem.title !== this.input.title || this.imageItem.imageType !== this.imageType || this.imageItem.image_path !== this.input.image || this.imageItem.description !== this.input.description;
+    },
+    formIsFilled: function formIsFilled() {
+      return this.input.image != '' && this.input.title != '' && this.input.title.length > 3 && this.input.title.length <= 30 && this.input.description.length <= 100;
+    },
+    colForPicture: function colForPicture() {
+      if (this.imageType == 1) {
+        return 'col-md-4';
+      } else if (this.imageType == 2) {
+        return 'col-md-4';
+      } else if (this.imageType == 3) {
+        return 'col-md-12 mb-4';
+      }
+    },
+    colForData: function colForData() {
+      if (this.imageType == 1) {
+        return 'col-md-8';
+      } else if (this.imageType == 2) {
+        return 'col-md-8';
+      } else if (this.imageType == 3) {
+        return 'col-md-12';
+      }
+    }
+  },
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var setUpFileUploaderself = this;
+
+      reader.onload = function (event) {
+        _this.input.image = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie-' + this.imageItem.id);
+
+      if (this.imageType == 1) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 160,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 210,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 2) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 240,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 290,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 3) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 480,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 530,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      }
+
+      if (this.input.image === null || this.input.image === '') {
+        if (this.imageType == 1) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 2) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 3) {
+          this.croppie.bind({
+            url: '/img/portfolio-1.jpg'
+          });
+        }
+      } else {
+        this.croppie.bind({
+          url: this.input.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      if (this.imageType == 1) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 320,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 2) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 480,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 3) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 960,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    editImage: function editImage() {
+      var self = this;
+
+      if (this.imageIsEdited && this.formIsFilled && !this.isRequesting) {
+        this.isRequesting = true;
+        var updatedImage = {
+          id: this.imageItem.id,
+          title: this.input.title,
+          description: this.input.description,
+          image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
+          is_poster: this.imageItem.is_poster,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
+          flash('Image is successfully updated', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      } else {
+        this.dirytAllInputs();
+      }
+    },
+    dirytAllInputs: function dirytAllInputs() {
+      this.$v.input.title.$touch();
+      this.$v.input.description.$touch();
+      this.$v.input.image.$touch();
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
+    }
+  },
+  watch: {
+    imageType: function imageType() {
+      this.input.image = '';
+      this.croppie.destroy();
+      this.setUpCroppie();
+    }
+  }
 });
 
 /***/ }),
@@ -4488,42 +4527,40 @@ var render = function() {
                                 ]
                               )
                             : !_vm.$v.input.title.minLength
-                              ? _c(
-                                  "span",
-                                  {
-                                    key: "name-minimum",
-                                    staticClass: "text-danger"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                    Name has a minimum of " +
-                                        _vm._s(
-                                          _vm.$v.input.title.$params.minLength
-                                            .min
-                                        ) +
-                                        " characters\n                                "
-                                    )
-                                  ]
-                                )
-                              : !_vm.$v.input.title.maxLength
-                                ? _c(
-                                    "span",
-                                    {
-                                      key: "name-maximum",
-                                      staticClass: "text-danger"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                    Name has a maximum of " +
-                                          _vm._s(
-                                            _vm.$v.input.title.$params.maxLength
-                                              .max
-                                          ) +
-                                          " characters\n                                "
-                                      )
-                                    ]
+                            ? _c(
+                                "span",
+                                {
+                                  key: "name-minimum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Name has a minimum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.minLength.min
+                                      ) +
+                                      " characters\n                                "
                                   )
-                                : _vm._e()
+                                ]
+                              )
+                            : !_vm.$v.input.title.maxLength
+                            ? _c(
+                                "span",
+                                {
+                                  key: "name-maximum",
+                                  staticClass: "text-danger"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Name has a maximum of " +
+                                      _vm._s(
+                                        _vm.$v.input.title.$params.maxLength.max
+                                      ) +
+                                      " characters\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
                         ]
                       )
                     ],
@@ -4980,13 +5017,12 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(120);
 
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfImageList: function getIndexOfImageList(imageId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageList, function (image) {
-            return image.id === imageId;
-        });
-    }
+  getIndexOfImageList: function getIndexOfImageList(imageId) {
+    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageList, function (image) {
+      return image.id === imageId;
+    });
+  }
 });
 
 /***/ }),

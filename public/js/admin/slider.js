@@ -206,84 +206,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -297,102 +292,82 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(188);
 
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        imageSliders: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getImageSlider: function getImageSlider(state) {
-            return state.imageSliders;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_image_slider: function set_image_slider(state, imageSlider) {
-            state.imageSliders = imageSlider;
-        },
-
-        add_image_slider: function add_image_slider(state, imageSlider) {
-            state.imageSliders.push({
-                id: imageSlider.id,
-                image_ori: imageSlider.detail.image_ori,
-                image_show: imageSlider.detail.image_show,
-                image_points: imageSlider.detail.image_points,
-                thumbnail: imageSlider.detail.thumbnail
-            });
-        },
-        delete_image: function delete_image(state, ids) {
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageSlider(ids.imageId);
-
-            state.imageSliders.splice(imageIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_image_slider: function load_image_slider(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/image-slider').then(function (response) {
-                commit('set_image_slider', response.data);
-            });
-        },
-
-        store_image_slider: function store_image_slider(_ref2, imageFile) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/image-slider', {
-                    image_show: imageFile.image_show,
-                    image_ori: imageFile.image_ori,
-                    thumbnail: imageFile.thumbnail,
-                    image_points: imageFile.image_points
-
-                }).then(function (response) {
-
-                    var sliderImage = {
-                        id: response.data,
-                        detail: imageFile
-                    };
-
-                    commit('add_image_slider', sliderImage);
-
-                    resolve(sliderImage);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_image: function destroy_image(_ref3, ids) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/image-slider/' + ids.imageId).then(function (response) {
-                    commit('delete_image', ids);
-                    resolve();
-                });
-            });
-        }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    imageSliders: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getImageSlider: function getImageSlider(state) {
+      return state.imageSliders;
     }
-
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_image_slider: function set_image_slider(state, imageSlider) {
+      state.imageSliders = imageSlider;
+    },
+    add_image_slider: function add_image_slider(state, imageSlider) {
+      state.imageSliders.push({
+        id: imageSlider.id,
+        image_ori: imageSlider.detail.image_ori,
+        image_show: imageSlider.detail.image_show,
+        image_points: imageSlider.detail.image_points,
+        thumbnail: imageSlider.detail.thumbnail
+      });
+    },
+    delete_image: function delete_image(state, ids) {
+      var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfImageSlider(ids.imageId);
+      state.imageSliders.splice(imageIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_image_slider: function load_image_slider(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/data/image-slider').then(function (response) {
+        commit('set_image_slider', response.data);
+      });
+    },
+    store_image_slider: function store_image_slider(_ref2, imageFile) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/image-slider', {
+          image_show: imageFile.image_show,
+          image_ori: imageFile.image_ori,
+          thumbnail: imageFile.thumbnail,
+          image_points: imageFile.image_points
+        }).then(function (response) {
+          var sliderImage = {
+            id: response.data,
+            detail: imageFile
+          };
+          commit('add_image_slider', sliderImage);
+          resolve(sliderImage);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_image: function destroy_image(_ref3, ids) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/image-slider/' + ids.imageId).then(function (response) {
+          commit('delete_image', ids);
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -654,148 +629,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -874,47 +917,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -970,22 +1004,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 var admin = new Vue({
-    el: '#image-slider',
-
-    components: {
-        ImageSlider: __WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_image_slider');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#image-slider',
+  components: {
+    ImageSlider: __WEBPACK_IMPORTED_MODULE_0__components_ImageSlider_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_image_slider');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -1048,7 +1077,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ImageBox_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -1079,30 +1110,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			isAddImage: false
-		};
-	},
-
-
-	components: {
-		ImageBox: __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue___default.a,
-		ImageList: __WEBPACK_IMPORTED_MODULE_0__ImageList_vue___default.a
-	},
-
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
-		imageSliders: 'getImageSlider'
-	}), {
-		totalImage: function totalImage() {
-			return this.imageSliders.length;
-		}
-	})
+  data: function data() {
+    return {
+      isAddImage: false
+    };
+  },
+  components: {
+    ImageBox: __WEBPACK_IMPORTED_MODULE_1__ImageBox_vue___default.a,
+    ImageList: __WEBPACK_IMPORTED_MODULE_0__ImageList_vue___default.a
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+    imageSliders: 'getImageSlider'
+  }), {
+    totalImage: function totalImage() {
+      return this.imageSliders.length;
+    }
+  })
 });
 
 /***/ }),
@@ -1235,39 +1262,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        imageSlider: {},
-        imageNumber: {
-            type: Number
-        }
-    },
-
-    data: function data() {
-        return {
-            isDeleteImage: false,
-            isRequesting: false
-        };
-    },
-
-
-    methods: {
-        deleteThiImage: function deleteThiImage() {
-            var self = this;
-
-            if (!this.isRequesting) {
-                this.$store.dispatch('destroy_image', {
-                    imageId: this.imageSlider.id
-                }).then(function () {
-
-                    flash('Image deleted', 'danger');
-
-                    self.isRequesting = false;
-                });
-            }
-        }
+  props: {
+    imageSlider: {},
+    imageNumber: {
+      type: Number
     }
+  },
+  data: function data() {
+    return {
+      isDeleteImage: false,
+      isRequesting: false
+    };
+  },
+  methods: {
+    deleteThiImage: function deleteThiImage() {
+      var self = this;
+
+      if (!this.isRequesting) {
+        this.$store.dispatch('destroy_image', {
+          imageId: this.imageSlider.id
+        }).then(function () {
+          flash('Image deleted', 'danger');
+          self.isRequesting = false;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -1488,135 +1509,133 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        dataUser: {}
+  props: {
+    dataUser: {}
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      showPreview: false,
+      croppie: null,
+      image_show: '',
+      image_points: '',
+      image_ori: '',
+      thumbnail: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
     },
+    createImage: function createImage(file) {
+      var _this = this;
 
-    data: function data() {
-        return {
-            isRequesting: false,
-            showPreview: false,
-            croppie: null,
-            image_show: '',
-            image_points: '',
-            image_ori: '',
-            thumbnail: ''
-        };
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image_ori = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
     },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie');
+      this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+        viewport: {
+          width: 768,
+          height: 352,
+          type: 'square'
+        },
+        boundary: {
+          width: 818,
+          height: 402
+        },
+        enableOrientation: false
+      });
 
-    mounted: function mounted() {
-        this.setUpCroppie();
+      if (this.image_ori === null || this.image_ori === '') {
+        this.croppie.bind({
+          url: '/img/slider-1.jpg'
+        });
+      } else {
+        this.croppie.bind({
+          url: this.image_ori
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
     },
-
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image_ori = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie');
-
-            this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                viewport: { width: 768, height: 352, type: 'square' },
-                boundary: { width: 818, height: 402 },
-                enableOrientation: false
-            });
-
-            if (this.image_ori === null || this.image_ori === '') {
-                this.croppie.bind({
-                    url: '/img/slider-1.jpg'
-                });
-            } else {
-                this.croppie.bind({
-                    url: this.image_ori
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            this.croppie.result({
-                type: 'canvas',
-                size: { width: 1920, height: 880, type: 'square' }
-            }).then(function (response) {
-                self.image_show = response;
-            });
-
-            this.croppie.result({
-                type: 'canvas',
-                size: { width: 100, height: 100, type: 'square' }
-            }).then(function (response) {
-                self.thumbnail = response;
-            });
-
-            this.image_points = this.croppie.get().points;
-        },
-        uploadImage: function uploadImage() {
-
-            var self = this;
-
-            if (this.image_ori !== '' && !this.isRequesting) {
-
-                this.isRequesting = true;
-
-                var imageFile = {
-                    image_show: this.image_show,
-                    image_ori: this.image_ori,
-                    thumbnail: this.thumbnail,
-                    image_points: JSON.stringify(self.image_points)
-                };
-
-                this.$store.dispatch('store_image_slider', imageFile).then(function (response) {
-
-                    flash('Photo added', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeAdd();
-                }).catch(function (errors) {
-
-                    self.isRequesting = false;
-
-                    Object.keys(errors).forEach(function (field) {
-                        errors[field].forEach(function (message) {
-                            flash(message, 'danger', 5000);
-                        });
-                    });
-                });
-            }
-        },
-        closeAdd: function closeAdd() {
-            this.$emit('closeAddImage', false);
+    setImage: function setImage() {
+      var self = this;
+      this.croppie.result({
+        type: 'canvas',
+        size: {
+          width: 1920,
+          height: 880,
+          type: 'square'
         }
+      }).then(function (response) {
+        self.image_show = response;
+      });
+      this.croppie.result({
+        type: 'canvas',
+        size: {
+          width: 100,
+          height: 100,
+          type: 'square'
+        }
+      }).then(function (response) {
+        self.thumbnail = response;
+      });
+      this.image_points = this.croppie.get().points;
+    },
+    uploadImage: function uploadImage() {
+      var self = this;
+
+      if (this.image_ori !== '' && !this.isRequesting) {
+        this.isRequesting = true;
+        var imageFile = {
+          image_show: this.image_show,
+          image_ori: this.image_ori,
+          thumbnail: this.thumbnail,
+          image_points: JSON.stringify(self.image_points)
+        };
+        this.$store.dispatch('store_image_slider', imageFile).then(function (response) {
+          flash('Photo added', 'success');
+          self.isRequesting = false;
+          self.closeAdd();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      }
+    },
+    closeAdd: function closeAdd() {
+      this.$emit('closeAddImage', false);
     }
+  }
 });
 
 /***/ }),
@@ -1809,13 +1828,12 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(108);
 
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfImageSlider: function getIndexOfImageSlider(imageId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageSliders, function (imageSlider) {
-            return imageSlider.id === imageId;
-        });
-    }
+  getIndexOfImageSlider: function getIndexOfImageSlider(imageId) {
+    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.imageSliders, function (imageSlider) {
+      return imageSlider.id === imageId;
+    });
+  }
 });
 
 /***/ }),

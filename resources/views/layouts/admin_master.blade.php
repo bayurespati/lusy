@@ -18,6 +18,12 @@
     <!-- Our Custom CSS -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
+    <style type="text/css">
+        p {
+            color: #666;
+        }
+    </style>
+
     @stack('additional_css')
 </head>
 

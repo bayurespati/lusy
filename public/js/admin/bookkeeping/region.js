@@ -287,84 +287,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -626,148 +621,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -846,47 +909,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -4025,22 +4079,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
-
 var admin = new Vue({
-    el: '#class-region',
-
-    components: {
-        RegionList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_region');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#class-region',
+  components: {
+    RegionList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_region');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -4149,7 +4198,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue__ = __webpack_require__(652);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Region_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Region_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -4185,8 +4236,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
@@ -4196,14 +4245,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       isAddRegion: false
     };
   },
-
-
   components: {
     RegionItem: __WEBPACK_IMPORTED_MODULE_1__Region_vue___default.a,
     AddRegion: __WEBPACK_IMPORTED_MODULE_0__AddRegion_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     list: 'getRegions'
   }))
 });
@@ -4429,85 +4475,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			isRequesting: false,
-			subcategories: '',
-			input: {
-				name: '',
-				city: '',
-				address: ''
-			}
-		};
-	},
-	mounted: function mounted() {
-		this.$v.$reset();
-	},
+  data: function data() {
+    return {
+      isRequesting: false,
+      subcategories: '',
+      input: {
+        name: '',
+        city: '',
+        address: ''
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.$v.$reset();
+  },
+  validations: {
+    input: {
+      name: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+      }
+    }
+  },
+  computed: {
+    formAddFilled: function formAddFilled() {
+      return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50;
+    }
+  },
+  methods: {
+    addRegion: function addRegion() {
+      var self = this;
 
-
-	validations: {
-		input: {
-			name: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-			}
-		}
-	},
-
-	computed: {
-		formAddFilled: function formAddFilled() {
-			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50;
-		}
-	},
-
-	methods: {
-		addRegion: function addRegion() {
-
-			var self = this;
-
-			if (self.formAddFilled && !self.isRequesting) {
-
-				self.isRequesting = true;
-
-				var regionName = this.input.name;
-
-				this.$store.dispatch('store_new_region', this.input).then(function () {
-					flash(regionName + ' is successfully added', 'success');
-					self.input.name = '';
-
-					self.isRequesting = false;
-
-					self.setData();
-				}).catch(function (errors) {
-
-					self.isRequesting = false;
-
-					Object.keys(errors).forEach(function (field) {
-						errors[field].forEach(function (message) {
-							flash(message, 'danger', 5000);
-						});
-					});
-				});
-			} else {
-				this.dirtyAllInputs();
-			}
-		},
-		setData: function setData() {
-			this.input.name = '';
-			this.input.city = '';
-			this.input.address = '';
-			this.$v.input.name.$reset();
-		},
-		dirtyAllInputs: function dirtyAllInputs() {
-			this.$v.input.name.$touch();
-		},
-		closeAddRegion: function closeAddRegion() {
-			this.$emit('closeAddRegion', false);
-		}
-	}
+      if (self.formAddFilled && !self.isRequesting) {
+        self.isRequesting = true;
+        var regionName = this.input.name;
+        this.$store.dispatch('store_new_region', this.input).then(function () {
+          flash(regionName + ' is successfully added', 'success');
+          self.input.name = '';
+          self.isRequesting = false;
+          self.setData();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      } else {
+        this.dirtyAllInputs();
+      }
+    },
+    setData: function setData() {
+      this.input.name = '';
+      this.input.city = '';
+      this.input.address = '';
+      this.$v.input.name.$reset();
+    },
+    dirtyAllInputs: function dirtyAllInputs() {
+      this.$v.input.name.$touch();
+    },
+    closeAddRegion: function closeAddRegion() {
+      this.$emit('closeAddRegion', false);
+    }
+  }
 });
 
 /***/ }),
@@ -4583,37 +4616,34 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.name.minLength
-                        ? _c(
-                            "span",
-                            { key: "name-minimum", staticClass: "text-danger" },
-                            [
-                              _vm._v(
-                                "\n                            \t\tName has a minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.name.$params.minLength.min
-                                  ) +
-                                  " characters\n                            \t"
-                              )
-                            ]
-                          )
-                        : !_vm.$v.input.name.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "key-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            \t\tName has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.name.$params.maxLength.max
-                                    ) +
-                                    " characters\n                        \t\t"
-                                )
-                              ]
+                      ? _c(
+                          "span",
+                          { key: "name-minimum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tName has a minimum of " +
+                                _vm._s(
+                                  _vm.$v.input.name.$params.minLength.min
+                                ) +
+                                " characters\n                            \t"
                             )
-                          : _vm._e()
+                          ]
+                        )
+                      : !_vm.$v.input.name.maxLength
+                      ? _c(
+                          "span",
+                          { key: "key-maximum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tName has a maximum of " +
+                                _vm._s(
+                                  _vm.$v.input.name.$params.maxLength.max
+                                ) +
+                                " characters\n                        \t\t"
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ]
                 )
               ],
@@ -4884,41 +4914,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { region: {} },
+  props: {
+    region: {}
+  },
+  components: {
+    EditRegion: __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue___default.a
+  },
+  data: function data() {
+    return {
+      isRequsting: false,
+      isEditRegion: false
+    };
+  },
+  methods: {
+    deleteItems: function deleteItems() {
+      var self = this;
 
-    components: {
-        EditRegion: __WEBPACK_IMPORTED_MODULE_0__EditRegion_vue___default.a
-    },
-
-    data: function data() {
-        return {
-            isRequsting: false,
-            isEditRegion: false
-        };
-    },
-
-
-    methods: {
-        deleteItems: function deleteItems() {
-
-            var self = this;
-
-            if (!self.isRequsting) {
-
-                self.isRequsting = true;
-
-                this.$store.dispatch('destroy_region', {
-                    regionId: self.region.id
-                }).then(function () {
-                    flash('Region deleted', 'danger');
-
-                    self.isRequsting = false;
-                });
-            }
-        }
+      if (!self.isRequsting) {
+        self.isRequsting = true;
+        this.$store.dispatch('destroy_region', {
+          regionId: self.region.id
+        }).then(function () {
+          flash('Region deleted', 'danger');
+          self.isRequsting = false;
+        });
+      }
     }
+  }
 });
 
 /***/ }),
@@ -5154,76 +5177,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        region: {
-            type: [Object],
-            default: function _default() {
-                return {};
-            }
-        }
-    },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            name: this.region.name,
-            city: this.region.city == undefined ? '' : this.region.city,
-            address: this.region.address == undefined ? '' : this.region.address
-        };
-    },
-
-
-    validations: {
-        name: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        }
-    },
-
-    computed: {
-        regionIsEdited: function regionIsEdited() {
-            return this.region.name !== this.name || this.region.city !== this.city || this.region.address !== this.address;
-        },
-        formIsFilled: function formIsFilled() {
-            return this.name != '' && this.name.length >= 3 && this.name.length <= 50;
-        }
-    },
-
-    methods: {
-        editRegion: function editRegion() {
-
-            var self = this;
-
-            if (this.regionIsEdited && this.formIsFilled && !this.isRequesting) {
-
-                this.isRequesting = true;
-
-                var updatedRegion = {
-                    id: this.region.id,
-                    name: this.name,
-                    city: this.city,
-                    address: this.address
-                };
-
-                this.$store.dispatch('update_region', updatedRegion).then(function (updatedRegion) {
-
-                    flash(updatedRegion.name + ' is succesfully updated', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-                });
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        }
+  props: {
+    region: {
+      type: [Object],
+      default: function _default() {
+        return {};
+      }
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      name: this.region.name,
+      city: this.region.city == undefined ? '' : this.region.city,
+      address: this.region.address == undefined ? '' : this.region.address
+    };
+  },
+  validations: {
+    name: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+    }
+  },
+  computed: {
+    regionIsEdited: function regionIsEdited() {
+      return this.region.name !== this.name || this.region.city !== this.city || this.region.address !== this.address;
+    },
+    formIsFilled: function formIsFilled() {
+      return this.name != '' && this.name.length >= 3 && this.name.length <= 50;
+    }
+  },
+  methods: {
+    editRegion: function editRegion() {
+      var self = this;
+
+      if (this.regionIsEdited && this.formIsFilled && !this.isRequesting) {
+        this.isRequesting = true;
+        var updatedRegion = {
+          id: this.region.id,
+          name: this.name,
+          city: this.city,
+          address: this.address
+        };
+        this.$store.dispatch('update_region', updatedRegion).then(function (updatedRegion) {
+          flash(updatedRegion.name + ' is succesfully updated', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      }
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
+    }
+  }
 });
 
 /***/ }),
@@ -5349,34 +5359,30 @@ var render = function() {
                               ]
                             )
                           : !_vm.$v.name.minLength
-                            ? _c(
-                                "span",
-                                { staticClass: "text-danger text-center" },
-                                [
-                                  _vm._v(
-                                    "\n                                Name has a minimum of " +
-                                      _vm._s(
-                                        _vm.$v.name.$params.minLength.min
-                                      ) +
-                                      " characters\n                            "
-                                  )
-                                ]
-                              )
-                            : !_vm.$v.name.maxLength
-                              ? _c(
-                                  "span",
-                                  { staticClass: "text-danger text-center" },
-                                  [
-                                    _vm._v(
-                                      "\n                                Name has a maximum of " +
-                                        _vm._s(
-                                          _vm.$v.name.$params.maxLength.max
-                                        ) +
-                                        " characters\n                            "
-                                    )
-                                  ]
+                          ? _c(
+                              "span",
+                              { staticClass: "text-danger text-center" },
+                              [
+                                _vm._v(
+                                  "\n                                Name has a minimum of " +
+                                    _vm._s(_vm.$v.name.$params.minLength.min) +
+                                    " characters\n                            "
                                 )
-                              : _vm._e()
+                              ]
+                            )
+                          : !_vm.$v.name.maxLength
+                          ? _c(
+                              "span",
+                              { staticClass: "text-danger text-center" },
+                              [
+                                _vm._v(
+                                  "\n                                Name has a maximum of " +
+                                    _vm._s(_vm.$v.name.$params.maxLength.max) +
+                                    " characters\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
                       ]
                     )
                   ],
@@ -5794,123 +5800,100 @@ if (false) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        regions: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getRegions: function getRegions(state) {
-            return state.regions;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_regions: function set_regions(state, data) {
-            state.regions = data;
-        },
-
-        add_new_region: function add_new_region(state, region) {
-
-            state.regions.push({
-                id: region.id,
-                name: region.detail.name,
-                city: region.detail.city,
-                address: region.detail.address
-            });
-        },
-        edit_region: function edit_region(state, updatedRegion) {
-            var regionIndex = _.findIndex(state.regions, ['id', updatedRegion.id]);
-
-            state.regions[regionIndex].name = updatedRegion.name;
-            state.regions[regionIndex].city = updatedRegion.city;
-            state.regions[regionIndex].address = updatedRegion.address;
-        },
-        delete_region: function delete_region(state, ids) {
-            var regionIndex = _.findIndex(state.regions, ['id', ids.regionId]);
-
-            state.regions.splice(regionIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_region: function load_region(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/bookkeeping/data/region').then(function (response) {
-                commit('set_regions', response.data);
-            });
-        },
-
-        store_new_region: function store_new_region(_ref2, newRegion) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/region', newRegion).then(function (response) {
-
-                    var region = {
-                        id: response.data,
-                        detail: newRegion
-                    };
-
-                    commit('add_new_region', region);
-
-                    resolve(region);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_region: function update_region(_ref3, updatedRegion) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/region/' + updatedRegion.id, {
-                    id: updatedRegion.id,
-                    name: updatedRegion.name,
-                    city: updatedRegion.city,
-                    address: updatedRegion.address
-                }).then(function (response) {
-                    commit('edit_region', updatedRegion);
-
-                    resolve(updatedRegion);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_region: function destroy_region(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/region/' + ids.regionId).then(function (response) {
-                    commit('delete_region', ids);
-
-                    resolve();
-                });
-            });
-        }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    regions: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getRegions: function getRegions(state) {
+      return state.regions;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_regions: function set_regions(state, data) {
+      state.regions = data;
+    },
+    add_new_region: function add_new_region(state, region) {
+      state.regions.push({
+        id: region.id,
+        name: region.detail.name,
+        city: region.detail.city,
+        address: region.detail.address
+      });
+    },
+    edit_region: function edit_region(state, updatedRegion) {
+      var regionIndex = _.findIndex(state.regions, ['id', updatedRegion.id]);
+
+      state.regions[regionIndex].name = updatedRegion.name;
+      state.regions[regionIndex].city = updatedRegion.city;
+      state.regions[regionIndex].address = updatedRegion.address;
+    },
+    delete_region: function delete_region(state, ids) {
+      var regionIndex = _.findIndex(state.regions, ['id', ids.regionId]);
+
+      state.regions.splice(regionIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_region: function load_region(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/bookkeeping/data/region').then(function (response) {
+        commit('set_regions', response.data);
+      });
+    },
+    store_new_region: function store_new_region(_ref2, newRegion) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/region', newRegion).then(function (response) {
+          var region = {
+            id: response.data,
+            detail: newRegion
+          };
+          commit('add_new_region', region);
+          resolve(region);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    update_region: function update_region(_ref3, updatedRegion) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/region/' + updatedRegion.id, {
+          id: updatedRegion.id,
+          name: updatedRegion.name,
+          city: updatedRegion.city,
+          address: updatedRegion.address
+        }).then(function (response) {
+          commit('edit_region', updatedRegion);
+          resolve(updatedRegion);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_region: function destroy_region(_ref4, ids) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/region/' + ids.regionId).then(function (response) {
+          commit('delete_region', ids);
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),

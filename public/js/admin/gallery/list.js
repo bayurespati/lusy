@@ -1717,84 +1717,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -2051,148 +2046,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -2270,47 +2333,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -15132,148 +15186,120 @@ var regionDayMap = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(336);
 
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        gallery: {},
-        categories: {}
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    gallery: {},
+    categories: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getGallery: function getGallery(state) {
+      return state.gallery;
     },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getGallery: function getGallery(state) {
-            return state.gallery;
-        },
-
-        getCategories: function getCategories(state) {
-            return state.categories;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_gallery: function set_gallery(state, data) {
-            state.gallery = data[0];
-            state.categories = data[1];
-        },
-
-        add_new_image: function add_new_image(state, imageData) {
-
-            state.gallery.push({
-                id: imageData.id,
-                image_path: imageData.image_path,
-                title: imageData.detail.title,
-                sub_category_id: imageData.detail.sub_category_id,
-                date: imageData.detail.date,
-                location: imageData.detail.location,
-                creator: imageData.detail.creator,
-                imageType: imageData.detail.type
-            });
-        },
-        edit_image: function edit_image(state, updatedGallery) {
-
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.detail.id);
-
-            state.gallery[imageIndex].title = updatedGallery.detail.title;
-            state.gallery[imageIndex].date = updatedGallery.detail.date;
-            state.gallery[imageIndex].location = updatedGallery.detail.location;
-            state.gallery[imageIndex].creator = updatedGallery.detail.creator;
-            state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
-            state.gallery[imageIndex].imageType = updatedGallery.detail.type;
-            state.gallery[imageIndex].image_path = updatedGallery.image_path;
-        },
-        delete_gallery: function delete_gallery(state, ids) {
-            var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(ids.galleryId);
-
-            state.gallery.splice(galleryIndex, 1);
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_gallery: function load_gallery(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/gallery/data/list').then(function (response) {
-                commit('set_gallery', response.data);
-            });
-        },
-
-        store_new_image: function store_new_image(_ref2, galleryData) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/list', galleryData).then(function (response) {
-
-                    var imageData = {
-                        id: response.data[0],
-                        image_path: response.data[1],
-                        detail: galleryData
-                    };
-
-                    commit('add_new_image', imageData);
-
-                    resolve(imageData);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_galllery: function update_galllery(_ref3, updatedGallery) {
-            var commit = _ref3.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/list/' + updatedGallery.id, {
-                    id: updatedGallery.id,
-                    title: updatedGallery.title,
-                    date: updatedGallery.date,
-                    location: updatedGallery.location,
-                    creator: updatedGallery.creator,
-                    sub_category_id: updatedGallery.sub_category_id,
-                    image: updatedGallery.image,
-                    imageType: updatedGallery.imageType
-                }).then(function (response) {
-
-                    var updateData = {
-                        image_path: response.data,
-                        detail: updatedGallery
-                    };
-
-                    commit('edit_image', updateData);
-
-                    resolve(updatedGallery);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_gallery: function destroy_gallery(_ref4, ids) {
-            var commit = _ref4.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/list/' + ids.galleryId).then(function (response) {
-                    commit('delete_gallery', ids);
-                    resolve();
-                });
-            });
-        }
+    getCategories: function getCategories(state) {
+      return state.categories;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_gallery: function set_gallery(state, data) {
+      state.gallery = data[0];
+      state.categories = data[1];
+    },
+    add_new_image: function add_new_image(state, imageData) {
+      state.gallery.push({
+        id: imageData.id,
+        image_path: imageData.image_path,
+        title: imageData.detail.title,
+        sub_category_id: imageData.detail.sub_category_id,
+        date: imageData.detail.date,
+        location: imageData.detail.location,
+        creator: imageData.detail.creator,
+        imageType: imageData.detail.type
+      });
+    },
+    edit_image: function edit_image(state, updatedGallery) {
+      var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.detail.id);
+      state.gallery[imageIndex].title = updatedGallery.detail.title;
+      state.gallery[imageIndex].date = updatedGallery.detail.date;
+      state.gallery[imageIndex].location = updatedGallery.detail.location;
+      state.gallery[imageIndex].creator = updatedGallery.detail.creator;
+      state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
+      state.gallery[imageIndex].imageType = updatedGallery.detail.type;
+      state.gallery[imageIndex].image_path = updatedGallery.image_path;
+    },
+    delete_gallery: function delete_gallery(state, ids) {
+      var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(ids.galleryId);
+      state.gallery.splice(galleryIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_gallery: function load_gallery(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/gallery/data/list').then(function (response) {
+        commit('set_gallery', response.data);
+      });
+    },
+    store_new_image: function store_new_image(_ref2, galleryData) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/list', galleryData).then(function (response) {
+          var imageData = {
+            id: response.data[0],
+            image_path: response.data[1],
+            detail: galleryData
+          };
+          commit('add_new_image', imageData);
+          resolve(imageData);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    update_galllery: function update_galllery(_ref3, updatedGallery) {
+      var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/list/' + updatedGallery.id, {
+          id: updatedGallery.id,
+          title: updatedGallery.title,
+          date: updatedGallery.date,
+          location: updatedGallery.location,
+          creator: updatedGallery.creator,
+          sub_category_id: updatedGallery.sub_category_id,
+          image: updatedGallery.image,
+          imageType: updatedGallery.imageType
+        }).then(function (response) {
+          var updateData = {
+            image_path: response.data,
+            detail: updatedGallery
+          };
+          commit('edit_image', updateData);
+          resolve(updatedGallery);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_gallery: function destroy_gallery(_ref4, ids) {
+      var commit = _ref4.commit;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/list/' + ids.galleryId).then(function (response) {
+          commit('delete_gallery', ids);
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -15500,22 +15526,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_5_vuelidate___default.a);
-
 var admin = new Vue({
-    el: '#photos',
-
-    components: {
-        Gallery: __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_gallery');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#photos',
+  components: {
+    Gallery: __WEBPACK_IMPORTED_MODULE_0__components_Gallery_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_gallery');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -15620,7 +15641,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__GalleryImage_vue__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__GalleryImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__GalleryImage_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -15654,8 +15677,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
@@ -15665,14 +15686,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       isAddImage: false
     };
   },
-
-
   components: {
     GalleryImage: __WEBPACK_IMPORTED_MODULE_1__GalleryImage_vue___default.a,
     AddImage: __WEBPACK_IMPORTED_MODULE_0__AddImage_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
     gallery: 'getGallery'
   }))
 });
@@ -15822,7 +15840,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_croppie__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_croppie__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -16022,252 +16042,269 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        dataUser: {}
+  props: {
+    dataUser: {}
+  },
+  data: function data() {
+    return {
+      imageType: 2,
+      isRequesting: false,
+      subcategories: '',
+      croppie: null,
+      image_save: '',
+      image: '',
+      sub_category_id: '',
+      title: '',
+      date: '',
+      location: '',
+      creator: '',
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  components: {
+    Datetime: __WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]
+  },
+  validations: {
+    title: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
-
-    data: function data() {
-        return {
-            imageType: 2,
-            isRequesting: false,
-            subcategories: '',
-            croppie: null,
-            image_save: '',
-            image: '',
-            sub_category_id: '',
-            title: '',
-            date: '',
-            location: '',
-            creator: '',
-            save_image: ''
-        };
+    sub_category_id: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
     },
-
-    mounted: function mounted() {
-        this.setUpCroppie();
+    date: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
     },
-
-
-    components: {
-        Datetime: __WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]
+    location: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
-
-    validations: {
-        title: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        sub_category_id: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        date: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        location: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        creator: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
-        },
-        image: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        }
+    creator: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
     },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
-        categories: 'getCategories'
-    }), {
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
-        }
-    }),
-
-    watch: {
-        subcategories: function subcategories() {
-            this.sub_category_id = "";
-        },
-        imageType: function imageType() {
-            this.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
-        }
-    },
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie');
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.image === null || this.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        uploadImage: function uploadImage() {
-
-            var self = this;
-
-            if (this.formIsFilled && !self.isRequesting) {
-
-                this.isRequesting = true;
-
-                var galleryData = {
-                    image: this.save_image,
-                    sub_category_id: this.sub_category_id,
-                    title: this.title,
-                    date: this.date.substring(0, 10),
-                    location: this.location,
-                    creator: this.creator,
-                    imageType: this.imageType
-                };
-
-                this.$store.dispatch('store_new_image', galleryData).then(function (response) {
-                    flash('Image Added', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeAdd();
-                }).catch(function (errors) {
-                    vselfm.isRequesting = false;
-
-                    Object.keys(errors).forEach(function (field) {
-                        errors[field].forEach(function (message) {
-                            flash(message, 'danger', 5000);
-                        });
-                    });
-                });
-            } else {
-                this.diryAllInputs();
-            }
-        },
-        closeAdd: function closeAdd() {
-            this.$emit('closeAddImage', false);
-        },
-        diryAllInputs: function diryAllInputs() {
-            this.$v.title.$touch();
-            this.$v.date.$touch();
-            this.$v.sub_category_id.$touch();
-            this.$v.image.$touch();
-        }
+    image: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
     }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+    categories: 'getCategories'
+  }), {
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+    },
+    colForPicture: function colForPicture() {
+      if (this.imageType == 1) {
+        return 'col-md-4';
+      } else if (this.imageType == 2) {
+        return 'col-md-4';
+      } else if (this.imageType == 3) {
+        return 'col-md-12 mb-4';
+      }
+    },
+    colForData: function colForData() {
+      if (this.imageType == 1) {
+        return 'col-md-8';
+      } else if (this.imageType == 2) {
+        return 'col-md-8';
+      } else if (this.imageType == 3) {
+        return 'col-md-12';
+      }
+    }
+  }),
+  watch: {
+    subcategories: function subcategories() {
+      this.sub_category_id = "";
+    },
+    imageType: function imageType() {
+      this.image = '';
+      this.croppie.destroy();
+      this.setUpCroppie();
+    }
+  },
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie');
+
+      if (this.imageType == 1) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+          viewport: {
+            width: 160,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 210,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 2) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+          viewport: {
+            width: 240,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 290,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 3) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
+          viewport: {
+            width: 480,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 530,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      }
+
+      if (this.image === null || this.image === '') {
+        if (this.imageType == 1) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 2) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 3) {
+          this.croppie.bind({
+            url: '/img/portfolio-1.jpg'
+          });
+        }
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      if (this.imageType == 1) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 320,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 2) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 480,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 3) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 960,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    uploadImage: function uploadImage() {
+      var self = this;
+
+      if (this.formIsFilled && !self.isRequesting) {
+        this.isRequesting = true;
+        var galleryData = {
+          image: this.save_image,
+          sub_category_id: this.sub_category_id,
+          title: this.title,
+          date: this.date.substring(0, 10),
+          location: this.location,
+          creator: this.creator,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('store_new_image', galleryData).then(function (response) {
+          flash('Image Added', 'success');
+          self.isRequesting = false;
+          self.closeAdd();
+        }).catch(function (errors) {
+          vselfm.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      } else {
+        this.diryAllInputs();
+      }
+    },
+    closeAdd: function closeAdd() {
+      this.$emit('closeAddImage', false);
+    },
+    diryAllInputs: function diryAllInputs() {
+      this.$v.title.$touch();
+      this.$v.date.$touch();
+      this.$v.sub_category_id.$touch();
+      this.$v.image.$touch();
+    }
+  }
 });
 
 /***/ }),
@@ -17146,41 +17183,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { galleryImage: {} },
+  props: {
+    galleryImage: {}
+  },
+  components: {
+    EditGallery: __WEBPACK_IMPORTED_MODULE_0__EditGallery_vue___default.a
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      isEditingGallery: false
+    };
+  },
+  methods: {
+    deleteTheGallery: function deleteTheGallery() {
+      var self = this;
 
-    components: {
-        EditGallery: __WEBPACK_IMPORTED_MODULE_0__EditGallery_vue___default.a
-    },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            isEditingGallery: false
-        };
-    },
-
-
-    methods: {
-        deleteTheGallery: function deleteTheGallery() {
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_gallery', {
-                    galleryId: self.galleryImage.id
-                }).then(function () {
-                    self.isRequesting = false;
-
-                    flash('Gallery deleted', 'danger');
-                });
-            }
-        }
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_gallery', {
+          galleryId: self.galleryImage.id
+        }).then(function () {
+          self.isRequesting = false;
+          flash('Gallery deleted', 'danger');
+        });
+      }
     }
+  }
 });
 
 /***/ }),
@@ -17326,7 +17356,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_croppie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_croppie__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -17531,252 +17563,272 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        galleryImage: {
-            type: [Object],
-            default: function _default() {
-                return {};
-            }
-        }
-    },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            imageType: this.galleryImage.imageType,
-            title: this.galleryImage.title,
-            date: this.galleryImage.date,
-            location: this.galleryImage.location === null ? '' : this.galleryImage.location,
-            creator: this.galleryImage.creator === null ? '' : this.galleryImage.creator,
-            sub_category_id: this.galleryImage.sub_category_id,
-            croppie: null,
-            image: this.galleryImage.image_path,
-            save_image: ''
-        };
-    },
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
-
-
-    validations: {
-        title: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        location: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        sub_category_id: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        date: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        creator: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
-        },
-        image: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        }
-    },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-        categories: 'getCategories'
-    }), {
-        galleryIsEdited: function galleryIsEdited() {
-            return this.galleryImage.title !== this.title || this.galleryImage.imageType !== this.imageType || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
-        },
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
-        },
-        subcategories: function subcategories() {
-            for (var a = 0; a < this.categories.length; a++) {
-                for (var b = 0; b < this.categories[a].subcategories.length; b++) {
-                    if (this.categories[a].subcategories[b].id === this.galleryImage.sub_category_id) {
-                        return this.categories[a].subcategories;
-                    }
-                }
-            }
-        },
-        colForPicture: function colForPicture() {
-            if (this.imageType == 1) {
-                return 'col-md-4';
-            } else if (this.imageType == 2) {
-                return 'col-md-4';
-            } else if (this.imageType == 3) {
-                return 'col-md-12 mb-4';
-            }
-        },
-        colForData: function colForData() {
-            if (this.imageType == 1) {
-                return 'col-md-8';
-            } else if (this.imageType == 2) {
-                return 'col-md-8';
-            } else if (this.imageType == 3) {
-                return 'col-md-12';
-            }
-        }
-    }),
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie-' + this.galleryImage.id);
-
-            if (this.imageType == 1) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 160, height: 250, type: 'square' },
-                    boundary: { width: 210, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 2) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 240, height: 250, type: 'square' },
-                    boundary: { width: 290, height: 300 },
-                    enableOrientation: false
-                });
-            } else if (this.imageType == 3) {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
-                    viewport: { width: 480, height: 250, type: 'square' },
-                    boundary: { width: 530, height: 300 },
-                    enableOrientation: false
-                });
-            }
-
-            if (this.image === null || this.image === '') {
-                if (this.imageType == 1) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 2) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-2.jpg'
-                    });
-                } else if (this.imageType == 3) {
-                    this.croppie.bind({
-                        url: '/img/portfolio-1.jpg'
-                    });
-                }
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageType == 1) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 320, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 2) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 480, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else if (this.imageType == 3) {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { witdh: 960, height: 500, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        editGallery: function editGallery() {
-
-            var self = this;
-
-            if (this.galleryIsEdited && this.formIsFilled && !self.isRequesting) {
-
-                this.isRequesting = true;
-
-                var updatedGallery = {
-                    id: this.galleryImage.id,
-                    title: this.title,
-                    date: this.date.substring(0, 10),
-                    location: this.location,
-                    creator: this.creator,
-                    sub_category_id: this.sub_category_id,
-                    image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
-                    imageType: this.imageType
-                };
-
-                this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
-
-                    flash('Image updated', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-                });
-            } else {
-                this.diryAllInputs();
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        },
-        diryAllInputs: function diryAllInputs() {
-            this.$v.title.$touch();
-            this.$v.date.$touch();
-            this.$v.sub_category_id.$touch();
-            this.$v.image.$touch();
-        }
-    },
-
-    watch: {
-        imageType: function imageType() {
-            this.image = '';
-            this.croppie.destroy();
-            this.setUpCroppie();
-        }
+  props: {
+    galleryImage: {
+      type: [Object],
+      default: function _default() {
+        return {};
+      }
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      imageType: this.galleryImage.imageType,
+      title: this.galleryImage.title,
+      date: this.galleryImage.date,
+      location: this.galleryImage.location === null ? '' : this.galleryImage.location,
+      creator: this.galleryImage.creator === null ? '' : this.galleryImage.creator,
+      sub_category_id: this.galleryImage.sub_category_id,
+      croppie: null,
+      image: this.galleryImage.image_path,
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  validations: {
+    title: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+    },
+    location: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+    },
+    sub_category_id: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    date: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    creator: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+    },
+    image: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    categories: 'getCategories'
+  }), {
+    galleryIsEdited: function galleryIsEdited() {
+      return this.galleryImage.title !== this.title || this.galleryImage.imageType !== this.imageType || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
+    },
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+    },
+    subcategories: function subcategories() {
+      for (var a = 0; a < this.categories.length; a++) {
+        for (var b = 0; b < this.categories[a].subcategories.length; b++) {
+          if (this.categories[a].subcategories[b].id === this.galleryImage.sub_category_id) {
+            return this.categories[a].subcategories;
+          }
+        }
+      }
+    },
+    colForPicture: function colForPicture() {
+      if (this.imageType == 1) {
+        return 'col-md-4';
+      } else if (this.imageType == 2) {
+        return 'col-md-4';
+      } else if (this.imageType == 3) {
+        return 'col-md-12 mb-4';
+      }
+    },
+    colForData: function colForData() {
+      if (this.imageType == 1) {
+        return 'col-md-8';
+      } else if (this.imageType == 2) {
+        return 'col-md-8';
+      } else if (this.imageType == 3) {
+        return 'col-md-12';
+      }
+    }
+  }),
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      }
+
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie-' + this.galleryImage.id);
+
+      if (this.imageType == 1) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 160,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 210,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 2) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 240,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 290,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      } else if (this.imageType == 3) {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_2_croppie__["Croppie"](file, {
+          viewport: {
+            width: 480,
+            height: 250,
+            type: 'square'
+          },
+          boundary: {
+            width: 530,
+            height: 300
+          },
+          enableOrientation: false
+        });
+      }
+
+      if (this.image === null || this.image === '') {
+        if (this.imageType == 1) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 2) {
+          this.croppie.bind({
+            url: '/img/portfolio-2.jpg'
+          });
+        } else if (this.imageType == 3) {
+          this.croppie.bind({
+            url: '/img/portfolio-1.jpg'
+          });
+        }
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      if (this.imageType == 1) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 320,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 2) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 480,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else if (this.imageType == 3) {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            witdh: 960,
+            height: 500,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    editGallery: function editGallery() {
+      var self = this;
+
+      if (this.galleryIsEdited && this.formIsFilled && !self.isRequesting) {
+        this.isRequesting = true;
+        var updatedGallery = {
+          id: this.galleryImage.id,
+          title: this.title,
+          date: this.date.substring(0, 10),
+          location: this.location,
+          creator: this.creator,
+          sub_category_id: this.sub_category_id,
+          image: this.image === this.galleryImage.image_path ? this.image : this.save_image,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
+          flash('Image updated', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      } else {
+        this.diryAllInputs();
+      }
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
+    },
+    diryAllInputs: function diryAllInputs() {
+      this.$v.title.$touch();
+      this.$v.date.$touch();
+      this.$v.sub_category_id.$touch();
+      this.$v.image.$touch();
+    }
+  },
+  watch: {
+    imageType: function imageType() {
+      this.image = '';
+      this.croppie.destroy();
+      this.setUpCroppie();
+    }
+  }
 });
 
 /***/ }),
@@ -18864,13 +18916,12 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(116);
 
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    getIndexOfGallery: function getIndexOfGallery(galleryId) {
-        return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.gallery, function (galleri) {
-            return galleri.id === galleryId;
-        });
-    }
+  getIndexOfGallery: function getIndexOfGallery(galleryId) {
+    return _.findIndex(__WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.gallery, function (galleri) {
+      return galleri.id === galleryId;
+    });
+  }
 });
 
 /***/ })

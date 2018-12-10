@@ -287,84 +287,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -678,148 +673,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -898,47 +961,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -12692,30 +12746,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuelidate___default.a);
-
 var admin = new Vue({
-    el: '#member-list',
-
-    components: {
-        MemberList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_data_members');
-
-        this.$store.dispatch('load_rank');
-
-        this.$store.dispatch('load_class');
-
-        this.$store.dispatch('load_region');
-
-        this.$store.dispatch('load_subscription');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#member-list',
+  components: {
+    MemberList: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_data_members');
+    this.$store.dispatch('load_rank');
+    this.$store.dispatch('load_class');
+    this.$store.dispatch('load_region');
+    this.$store.dispatch('load_subscription');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -12828,7 +12873,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue__ = __webpack_require__(632);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -12922,8 +12969,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
@@ -12940,16 +12985,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       member: {}
     };
   },
-
-
   components: {
     Member: __WEBPACK_IMPORTED_MODULE_2__Member_vue___default.a,
     AddMember: __WEBPACK_IMPORTED_MODULE_1__AddMember_vue___default.a,
     Teacher: __WEBPACK_IMPORTED_MODULE_0__Teacher_vue___default.a,
     DeleteMember: __WEBPACK_IMPORTED_MODULE_3__DeleteMember_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])({
     teachers: 'getTeachers',
     members: 'getStudentNoTeacher',
     subscriptions: 'getSubscription'
@@ -12959,14 +13001,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     showMember: function showMember() {
       var tempType = this.type === 'subscription' ? 'email' : this.type;
-
       return _.sortBy(_.filter(this.members, ['is_active', this.active]), [tempType]);
     },
     isSubscription: function isSubscription() {
       return this.type == 'subscription';
     }
   }),
-
   methods: {
     changeValue: function changeValue(value) {
       this.active = value;
@@ -13228,40 +13268,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { teacher: {}, status: '', type: '', yearSubs: '' },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            isShow: false
-        };
+  props: {
+    teacher: {},
+    status: '',
+    type: '',
+    yearSubs: ''
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      isShow: false
+    };
+  },
+  components: {
+    Member: __WEBPACK_IMPORTED_MODULE_0__Member_vue___default.a
+  },
+  computed: {
+    totalStudent: function totalStudent() {
+      return this.teacher.student.length;
     },
-
-
-    components: {
-        Member: __WEBPACK_IMPORTED_MODULE_0__Member_vue___default.a
-    },
-
-    computed: {
-        totalStudent: function totalStudent() {
-            return this.teacher.student.length;
-        },
-        showMember: function showMember() {
-
-            var tempType = this.type === 'subscription' ? 'email' : this.type;
-
-            return _.sortBy(_.filter(this.teacher.student, ['is_active', this.status]), [tempType]);
-        }
-    },
-
-    methods: {
-        showDeactivateModal: function showDeactivateModal(member) {
-            ;
-            this.$emit('showDeactivateModal', member);
-        }
+    showMember: function showMember() {
+      var tempType = this.type === 'subscription' ? 'email' : this.type;
+      return _.sortBy(_.filter(this.teacher.student, ['is_active', this.status]), [tempType]);
     }
+  },
+  methods: {
+    showDeactivateModal: function showDeactivateModal(member) {
+      ;
+      this.$emit('showDeactivateModal', member);
+    }
+  }
 });
 
 /***/ }),
@@ -13382,132 +13419,162 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { member: {}, teacherId: '', type: '', yearSubs: '' },
+  props: {
+    member: {},
+    teacherId: '',
+    type: '',
+    yearSubs: ''
+  },
+  data: function data() {
+    var _input;
 
-    data: function data() {
-        var _input;
+    return {
+      isOff: false,
+      isRequesting: false,
+      isDetail: false,
+      input: (_input = {
+        name: this.member.name,
+        gender: this.member.gender,
+        place_of_birth: this.member.place_of_birth,
+        date_of_birth: this.member.date_of_birth,
+        join_date: this.member.join_date,
+        email: this.member.email,
+        telephone: this.member.telephone,
+        mobile: this.member.mobile,
+        fax: this.member.fax,
+        teacher_id: this.member.teacher_id
+      }, _defineProperty(_input, "gender", this.member.gender), _defineProperty(_input, "id", this.member.id), _defineProperty(_input, "is_active", this.member.is_active), _defineProperty(_input, "is_teacher", this.member.is_teacher), _input)
+    };
+  },
+  components: {
+    DetailMember: __WEBPACK_IMPORTED_MODULE_0__DetailMember_vue___default.a
+  },
+  computed: {
+    showData: function showData() {
+      var self = this;
+      this.isOff = true;
+      setTimeout(function () {
+        self.isOff = false;
+      }, 200);
 
+      if (this.type === 'email') {
         return {
-            isOff: false,
-            isRequesting: false,
-            isDetail: false,
-            input: (_input = {
-                name: this.member.name,
-                gender: this.member.gender,
-                place_of_birth: this.member.place_of_birth,
-                date_of_birth: this.member.date_of_birth,
-                join_date: this.member.join_date,
-                email: this.member.email,
-                telephone: this.member.telephone,
-                mobile: this.member.mobile,
-                fax: this.member.fax,
-                teacher_id: this.member.teacher_id
-            }, _defineProperty(_input, 'gender', this.member.gender), _defineProperty(_input, 'id', this.member.id), _defineProperty(_input, 'is_active', this.member.is_active), _defineProperty(_input, 'is_teacher', this.member.is_teacher), _input)
+          name: 'Email',
+          value: this.member.email
         };
-    },
-
-
-    components: {
-        DetailMember: __WEBPACK_IMPORTED_MODULE_0__DetailMember_vue___default.a
-    },
-
-    computed: {
-        showData: function showData() {
-            var self = this;
-            this.isOff = true;
-            setTimeout(function () {
-                self.isOff = false;
-            }, 200);
-
-            if (this.type === 'email') {
-
-                return { name: 'Email', value: this.member.email };
-            } else if (this.type === 'fax') {
-
-                if (this.member.fax === null) {
-                    return { name: 'Fax', value: 'No fax number yet' };
-                } else {
-                    return { name: 'Fax', value: this.member.fax };
-                }
-            } else if (this.type === 'mobile') {
-
-                if (this.member.mobile === null) {
-                    return { name: 'Mobile Phone', value: 'No mobile number yet' };
-                } else {
-                    return { name: 'Mobile Phone', value: this.member.mobile };
-                }
-            } else if (this.type === 'telephone') {
-
-                return { name: 'Telephone', value: this.member.telephone };
-            } else if (this.type === 'join_date') {
-
-                if (this.member.join_date === null) {
-                    return { name: 'Join date', value: 'No join date yet' };
-                } else {
-                    return { name: 'Join date', value: this.member.join_date.substring(0, 10) };
-                }
-            } else if (this.type === 'gender') {
-
-                return { name: 'Gender', value: this.member.gender === 1 ? 'Male' : 'Female' };
-            } else if (this.type === 'rank') {
-
-                if (this.member.rank.length === 0) {
-                    return { name: 'Rank', value: 'No ranks yet' };
-                } else {
-                    return { name: 'Rank', value: this.member.rank[this.member.rank.length - 1].title };
-                }
-            } else if (this.type === 'address') {
-
-                return { name: 'Address', value: this.member.address };
-            } else if (this.type === 'date_of_birth') {
-
-                return {
-                    name: 'Date Of Birth',
-                    value: this.member.date_of_birth.substring(0, 10),
-                    name1: 'Place Of Birth',
-                    value1: this.member.place_of_birth
-                };
-            } else if (this.type === 'subscription') {
-
-                if (this.yearSubs === '') {
-                    return { name: 'Subscription', value: 'Choose Years' };
-                } else {
-                    var hasYears = _.find(this.member.subscription, ['year', this.yearSubs]);
-                    return {
-                        name: 'Subscription',
-                        value: hasYears === undefined ? 'Not yet' : 'Paid'
-                    };
-                }
-            }
+      } else if (this.type === 'fax') {
+        if (this.member.fax === null) {
+          return {
+            name: 'Fax',
+            value: 'No fax number yet'
+          };
+        } else {
+          return {
+            name: 'Fax',
+            value: this.member.fax
+          };
         }
-    },
-
-    methods: {
-        editStatus: function editStatus() {
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                var isBool = this.member.is_active == 0 ? true : false;
-
-                this.input.is_active = isBool;
-
-                self.isRequesting = true;
-
-                var status = isBool ? { status: 'active', color: 'success' } : { status: 'not active', color: 'danger' };
-
-                this.$store.dispatch('update_member', self.input).then(function () {
-                    flash('Member ' + self.input.name + ' is ' + status.status, status.color);
-                    self.isRequesting = false;
-                });
-            }
-        },
-        showDeactivateModal: function showDeactivateModal() {
-            this.$emit('showDeactivateModal', this.member);
+      } else if (this.type === 'mobile') {
+        if (this.member.mobile === null) {
+          return {
+            name: 'Mobile Phone',
+            value: 'No mobile number yet'
+          };
+        } else {
+          return {
+            name: 'Mobile Phone',
+            value: this.member.mobile
+          };
         }
+      } else if (this.type === 'telephone') {
+        return {
+          name: 'Telephone',
+          value: this.member.telephone
+        };
+      } else if (this.type === 'join_date') {
+        if (this.member.join_date === null) {
+          return {
+            name: 'Join date',
+            value: 'No join date yet'
+          };
+        } else {
+          return {
+            name: 'Join date',
+            value: this.member.join_date.substring(0, 10)
+          };
+        }
+      } else if (this.type === 'gender') {
+        return {
+          name: 'Gender',
+          value: this.member.gender === 1 ? 'Male' : 'Female'
+        };
+      } else if (this.type === 'rank') {
+        if (this.member.rank.length === 0) {
+          return {
+            name: 'Rank',
+            value: 'No ranks yet'
+          };
+        } else {
+          return {
+            name: 'Rank',
+            value: this.member.rank[this.member.rank.length - 1].title
+          };
+        }
+      } else if (this.type === 'address') {
+        return {
+          name: 'Address',
+          value: this.member.address
+        };
+      } else if (this.type === 'date_of_birth') {
+        return {
+          name: 'Date Of Birth',
+          value: this.member.date_of_birth.substring(0, 10),
+          name1: 'Place Of Birth',
+          value1: this.member.place_of_birth
+        };
+      } else if (this.type === 'subscription') {
+        if (this.yearSubs === '') {
+          return {
+            name: 'Subscription',
+            value: 'Choose Years'
+          };
+        } else {
+          var hasYears = _.find(this.member.subscription, ['year', this.yearSubs]);
+
+          return {
+            name: 'Subscription',
+            value: hasYears === undefined ? 'Not yet' : 'Paid'
+          };
+        }
+      }
     }
+  },
+  methods: {
+    editStatus: function editStatus() {
+      var self = this;
+
+      if (!self.isRequesting) {
+        var isBool = this.member.is_active == 0 ? true : false;
+        this.input.is_active = isBool;
+        self.isRequesting = true;
+        var status = isBool ? {
+          status: 'active',
+          color: 'success'
+        } : {
+          status: 'not active',
+          color: 'danger'
+        };
+        this.$store.dispatch('update_member', self.input).then(function () {
+          flash('Member ' + self.input.name + ' is ' + status.status, status.color);
+          self.isRequesting = false;
+        });
+      }
+    },
+    showDeactivateModal: function showDeactivateModal() {
+      this.$emit('showDeactivateModal', this.member);
+    }
+  }
 });
 
 /***/ }),
@@ -13614,7 +13681,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditMember_vue__ = __webpack_require__(578);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__EditMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__EditMember_vue__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -13904,57 +13973,53 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { member: {}, teacherId: '', type: '' },
+  props: {
+    member: {},
+    teacherId: '',
+    type: ''
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      isEdit: false
+    };
+  },
+  components: {
+    EditMember: __WEBPACK_IMPORTED_MODULE_1__EditMember_vue___default.a
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
+    teachers: 'getTeachers'
+  }), {
+    teacherName: function teacherName() {
+      if (this.teacherId === undefined) {
+        return 'None';
+      }
 
-    data: function data() {
-        return {
-            isRequesting: false,
-            isEdit: false
-        };
-    },
-
-
-    components: {
-        EditMember: __WEBPACK_IMPORTED_MODULE_1__EditMember_vue___default.a
-    },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
-        teachers: 'getTeachers'
-    }), {
-        teacherName: function teacherName() {
-            if (this.teacherId === undefined) {
-                return 'None';
-            }
-            return _.find(this.teachers, ['id', this.teacherId]).name;
-        }
-    }),
-
-    filters: {
-        date: function date(value) {
-            return value.slice(0, 10);
-        },
-
-        type: function type(value) {
-
-            return value === 0 ? 'Student' : 'Teacher';
-        }
-    },
-
-    methods: {
-        shoeEdit: function shoeEdit() {
-            this.isEdit = !this.isEdit;
-        },
-        deleteMember: function deleteMember() {
-            this.$emit('showDeactivateModal', this.member);
-        },
-        closemember: function closemember() {
-            this.$emit('closeDetailMember', false);
-        }
+      return _.find(this.teachers, ['id', this.teacherId]).name;
     }
+  }),
+  filters: {
+    date: function date(value) {
+      return value.slice(0, 10);
+    },
+    type: function type(value) {
+      return value === 0 ? 'Student' : 'Teacher';
+    }
+  },
+  methods: {
+    shoeEdit: function shoeEdit() {
+      this.isEdit = !this.isEdit;
+    },
+    deleteMember: function deleteMember() {
+      this.$emit('showDeactivateModal', this.member);
+    },
+    closemember: function closemember() {
+      this.$emit('closeDetailMember', false);
+    }
+  }
 });
 
 /***/ }),
@@ -14360,7 +14425,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_datetime_dist_vue_datetime_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vue_datetime__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -14641,7 +14708,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
 
 
 
@@ -14651,162 +14717,150 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"]);
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { member: {}, teacherId: '' },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            input: {
-                name: this.member.name,
-                gender: this.member.gender,
-                place_of_birth: this.member.place_of_birth,
-                date_of_birth: this.member.date_of_birth.substring(0, 10),
-                join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0, 10),
-                email: this.member.email,
-                telephone: this.member.telephone,
-                mobile: this.member.mobile,
-                fax: this.member.fax,
-                teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
-                is_active: this.member.is_active,
-                is_teacher: this.member.is_teacher,
-                address: this.member.address,
-                id: this.member.id
-            }
-        };
-    },
-    mounted: function mounted() {
-        this.$v.$reset();
-    },
-
-
-    components: {
-        Datetime: __WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"],
-        EditRank: __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue___default.a,
-        EditClass: __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue___default.a,
-        EditRegion: __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue___default.a,
-        EditSubscription: __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue___default.a
-    },
-
-    validations: {
-        input: {
-            name: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
-            },
-            gender: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-            },
-            place_of_birth: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-            },
-            date_of_birth: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-            },
-            address: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-            },
-            email: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
-                maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
-            },
-            telephone: {
-                required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
-            }
-        }
-    },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])({
-        classList: 'getClass',
-        ranks: 'getRanks',
-        teachers: 'getTeachers'
-    }), {
-        formIsFilled: function formIsFilled() {
-            return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.address !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
-        },
-        isEdited: function isEdited() {
-            return this.input.name !== this.member.name || this.input.gender !== this.member.gender || this.input.place_of_birth !== this.member.place_of_birth || this.input.date_of_birth !== this.member.date_of_birth || this.input.join_date !== this.member.join_date || this.input.email !== this.member.email || this.input.address !== this.member.address || this.input.telephone !== this.member.telephone || this.input.mobile !== this.member.mobile || this.input.fax !== this.member.fax || this.input.teacher_id !== this.member.teacher_id || this.input.is_active !== this.member.is_active;
-        },
-        showTeacher: function showTeacher() {
-            var tempTeacher = [];
-            var self = this;
-
-            this.teachers.map(function (value) {
-                if (value.id != self.member.id) {
-                    tempTeacher.push({
-                        name: value.name,
-                        id: value.id
-                    });
-                }
-            });
-
-            return tempTeacher;
-        }
-    }),
-
-    methods: {
-        editMember: function editMember() {
-
-            var self = this;
-
-            if (self.formIsFilled && !self.isRequesting && this.memberIsedited()) {
-
-                self.isRequesting = true;
-
-                var name = this.input.name;
-
-                if (this.input.teacher_id === 'null') {
-                    this.input.teacher_id = '';
-                }
-
-                this.$store.dispatch('update_member', this.input).then(function () {
-                    flash(name + ' is successfully updated', 'success');
-
-                    self.isRequesting = false;
-                }).catch(function (errors) {
-
-                    self.isRequesting = false;
-
-                    Object.keys(errors).forEach(function (field) {
-                        errors[field].forEach(function (message) {
-                            flash(message, 'danger', 5000);
-                        });
-                    });
-                });
-            } else {
-                this.dirtyAllInputs();
-            }
-        },
-        memberIsedited: function memberIsedited() {
-            return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.address != this.member.address || this.input.is_teacher != this.member.is_teacher || this.input.is_active != this.member.is_active || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10) || this.isJoinDate();
-        },
-        isJoinDate: function isJoinDate() {
-            if (this.input.join_date == '') {
-                return false;
-            } else {
-                if (this.member.join_date === null || this.member.join_date === undefined) {
-                    return true;
-                } else {
-                    return this.input.join_date.substring(0, 10) != this.member.join_date.substring(0, 10);
-                }
-            }
-        },
-        dirtyAllInputs: function dirtyAllInputs() {
-            this.$v.input.name.$touch();
-            this.$v.input.address.$touch();
-            this.$v.input.gender.$touch();
-            this.$v.input.place_of_birth.$touch();
-            this.$v.input.date_of_birth.$touch();
-            this.$v.input.email.$touch();
-            this.$v.input.telephone.$touch();
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('closeEditMember', false);
-        }
+  props: {
+    member: {},
+    teacherId: ''
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      input: {
+        name: this.member.name,
+        gender: this.member.gender,
+        place_of_birth: this.member.place_of_birth,
+        date_of_birth: this.member.date_of_birth.substring(0, 10),
+        join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0, 10),
+        email: this.member.email,
+        telephone: this.member.telephone,
+        mobile: this.member.mobile,
+        fax: this.member.fax,
+        teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
+        is_active: this.member.is_active,
+        is_teacher: this.member.is_teacher,
+        address: this.member.address,
+        id: this.member.id
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.$v.$reset();
+  },
+  components: {
+    Datetime: __WEBPACK_IMPORTED_MODULE_7_vue_datetime__["Datetime"],
+    EditRank: __WEBPACK_IMPORTED_MODULE_3__EditAddRank_vue___default.a,
+    EditClass: __WEBPACK_IMPORTED_MODULE_0__EditAddClass_vue___default.a,
+    EditRegion: __WEBPACK_IMPORTED_MODULE_1__EditAddRegion_vue___default.a,
+    EditSubscription: __WEBPACK_IMPORTED_MODULE_2__EditAddSubscription_vue___default.a
+  },
+  validations: {
+    input: {
+      name: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
+      },
+      gender: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+      },
+      place_of_birth: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+      },
+      date_of_birth: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+      },
+      address: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+      },
+      email: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["maxLength"])(50)
+      },
+      telephone: {
+        required: __WEBPACK_IMPORTED_MODULE_4_vuelidate_lib_validators__["required"]
+      }
     }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])({
+    classList: 'getClass',
+    ranks: 'getRanks',
+    teachers: 'getTeachers'
+  }), {
+    formIsFilled: function formIsFilled() {
+      return this.input.name !== '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender !== '' && this.input.address !== '' && this.input.place_of_birth !== '' && this.input.email !== '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone !== '';
+    },
+    isEdited: function isEdited() {
+      return this.input.name !== this.member.name || this.input.gender !== this.member.gender || this.input.place_of_birth !== this.member.place_of_birth || this.input.date_of_birth !== this.member.date_of_birth || this.input.join_date !== this.member.join_date || this.input.email !== this.member.email || this.input.address !== this.member.address || this.input.telephone !== this.member.telephone || this.input.mobile !== this.member.mobile || this.input.fax !== this.member.fax || this.input.teacher_id !== this.member.teacher_id || this.input.is_active !== this.member.is_active;
+    },
+    showTeacher: function showTeacher() {
+      var tempTeacher = [];
+      var self = this;
+      this.teachers.map(function (value) {
+        if (value.id != self.member.id) {
+          tempTeacher.push({
+            name: value.name,
+            id: value.id
+          });
+        }
+      });
+      return tempTeacher;
+    }
+  }),
+  methods: {
+    editMember: function editMember() {
+      var self = this;
+
+      if (self.formIsFilled && !self.isRequesting && this.memberIsedited()) {
+        self.isRequesting = true;
+        var name = this.input.name;
+
+        if (this.input.teacher_id === 'null') {
+          this.input.teacher_id = '';
+        }
+
+        this.$store.dispatch('update_member', this.input).then(function () {
+          flash(name + ' is successfully updated', 'success');
+          self.isRequesting = false;
+        }).catch(function (errors) {
+          self.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      } else {
+        this.dirtyAllInputs();
+      }
+    },
+    memberIsedited: function memberIsedited() {
+      return this.input.name != this.member.name || this.input.gender != this.member.gender || this.input.place_of_birth != this.member.place_of_birth || this.input.email != this.member.email || this.input.fax != this.member.fax || this.input.address != this.member.address || this.input.is_teacher != this.member.is_teacher || this.input.is_active != this.member.is_active || this.input.teacher_id != this.member.teacher_id || this.input.telephone != this.member.telephone || this.input.mobile != this.member.mobile || this.input.date_of_birth.substring(0, 10) != this.member.date_of_birth.substring(0, 10) || this.isJoinDate();
+    },
+    isJoinDate: function isJoinDate() {
+      if (this.input.join_date == '') {
+        return false;
+      } else {
+        if (this.member.join_date === null || this.member.join_date === undefined) {
+          return true;
+        } else {
+          return this.input.join_date.substring(0, 10) != this.member.join_date.substring(0, 10);
+        }
+      }
+    },
+    dirtyAllInputs: function dirtyAllInputs() {
+      this.$v.input.name.$touch();
+      this.$v.input.address.$touch();
+      this.$v.input.gender.$touch();
+      this.$v.input.place_of_birth.$touch();
+      this.$v.input.date_of_birth.$touch();
+      this.$v.input.email.$touch();
+      this.$v.input.telephone.$touch();
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('closeEditMember', false);
+    }
+  }
 });
 
 /***/ }),
@@ -14867,7 +14921,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue__ = __webpack_require__(586);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -14932,83 +14988,73 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: { member: {}, teacherId: '' },
+  props: {
+    member: {},
+    teacherId: ''
+  },
+  components: {
+    DeleteClass: __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue___default.a
+  },
+  data: function data() {
+    return {
+      isLastClass: false,
+      classItem: '',
+      isRequesting: false,
+      classItemToBeDeleted: {},
+      showModal: false
+    };
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
+    classList: 'getClass'
+  }), {
+    hasChoosen: function hasChoosen() {
+      var isFind = _.find(this.member.class, ['id', this.classItem.id]);
 
-	components: {
-		DeleteClass: __WEBPACK_IMPORTED_MODULE_1__DeleteClassInEdit_vue___default.a
-	},
+      return isFind == undefined ? false : true;
+    }
+  }),
+  methods: {
+    closeEditForm: function closeEditForm() {
+      this.$emit('closeEditForm', false);
+    },
+    add_class: function add_class() {
+      var self = this;
 
-	data: function data() {
-		return {
-			isLastClass: false,
-			classItem: '',
-			isRequesting: false,
-			classItemToBeDeleted: {},
-			showModal: false
-		};
-	},
-
-
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])({
-		classList: 'getClass'
-	}), {
-		hasChoosen: function hasChoosen() {
-			var isFind = _.find(this.member.class, ['id', this.classItem.id]);
-
-			return isFind == undefined ? false : true;
-		}
-	}),
-
-	methods: {
-		closeEditForm: function closeEditForm() {
-			this.$emit('closeEditForm', false);
-		},
-		add_class: function add_class() {
-
-			var self = this;
-
-			if (!self.isRequesting && !self.hasChoosen && this.classItem != '') {
-
-				var tempClass = self.classItem;
-				self.classItem = '';
-
-				this.$store.dispatch('add_class', {
-					title: tempClass.title,
-					class_id: tempClass.id,
-					member_id: self.member.id
-				}).then(function () {
-					flash('Class ' + tempClass.title + ' has been added.', 'success');
-
-					self.isRequesting = false;
-				}).catch(function () {
-
-					self.isRequesting = false;
-				});
-			}
-		},
-		hideModal: function hideModal() {
-			this.showModal = false;
-			this.classItemToBeDeleted = {};
-		},
-		showDeactivateModal: function showDeactivateModal(newClassItem) {
-			if (this.member.class.length > 1) {
-				this.showModal = true;
-				this.classItemToBeDeleted = newClassItem;
-			} else if (this.member.class.length == 1) {
-				this.isLastClass = true;
-
-				var self = this;
-				setTimeout(function () {
-					self.isLastClass = false;
-				}, 2000);
-			}
-		}
-	}
+      if (!self.isRequesting && !self.hasChoosen && this.classItem != '') {
+        var tempClass = self.classItem;
+        self.classItem = '';
+        this.$store.dispatch('add_class', {
+          title: tempClass.title,
+          class_id: tempClass.id,
+          member_id: self.member.id
+        }).then(function () {
+          flash('Class ' + tempClass.title + ' has been added.', 'success');
+          self.isRequesting = false;
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+      this.classItemToBeDeleted = {};
+    },
+    showDeactivateModal: function showDeactivateModal(newClassItem) {
+      if (this.member.class.length > 1) {
+        this.showModal = true;
+        this.classItemToBeDeleted = newClassItem;
+      } else if (this.member.class.length == 1) {
+        this.isLastClass = true;
+        var self = this;
+        setTimeout(function () {
+          self.isLastClass = false;
+        }, 2000);
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -15200,84 +15246,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
 
-    mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.showModal && e.keyCode == 27) {
-                _this.cancel();
-            }
-        });
+    document.addEventListener("keydown", function (e) {
+      if (_this.showModal && e.keyCode == 27) {
+        _this.cancel();
+      }
+    });
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false
     },
-
-    props: {
-
-        showModal: {
-            type: Boolean,
-            default: false
-        },
-
-        classItem: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        },
-
-        memberId: {
-            type: Number,
-            default: 0
-        }
-
+    classItem: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            buttonEnabled: true
-        };
-    },
-
-
-    computed: {
-        hideOrShowModal: function hideOrShowModal() {
-            return this.showModal ? 'modal-show' : '';
-        }
-    },
-
-    methods: {
-        cancel: function cancel() {
-            if (!this.isRequesting) {
-                this.$emit('set-show-modal-to-false');
-            }
-        },
-        deleteClass: function deleteClass() {
-            var _this2 = this;
-
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_class', {
-                    class_id: this.classItem.id,
-                    member_id: this.memberId
-                }).then(function () {
-                    flash('Class ' + _this2.classItem.title + ' has been deleted.', 'danger');
-
-                    self.isRequesting = false;
-                    self.cancel();
-                }).catch(function () {
-                    self.isRequesting = false;
-                });
-            }
-        }
+    memberId: {
+      type: Number,
+      default: 0
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      buttonEnabled: true
+    };
+  },
+  computed: {
+    hideOrShowModal: function hideOrShowModal() {
+      return this.showModal ? 'modal-show' : '';
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      if (!this.isRequesting) {
+        this.$emit('set-show-modal-to-false');
+      }
+    },
+    deleteClass: function deleteClass() {
+      var _this2 = this;
+
+      var self = this;
+
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_class', {
+          class_id: this.classItem.id,
+          member_id: this.memberId
+        }).then(function () {
+          flash('Class ' + _this2.classItem.title + ' has been deleted.', 'danger');
+          self.isRequesting = false;
+          self.cancel();
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -15663,7 +15694,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue__ = __webpack_require__(594);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -15723,74 +15756,64 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	components: {
-		DeleteRegion: __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue___default.a
-	},
+  components: {
+    DeleteRegion: __WEBPACK_IMPORTED_MODULE_0__DeleteClassRegionInEdit_vue___default.a
+  },
+  props: {
+    member: {}
+  },
+  data: function data() {
+    return {
+      region: '',
+      isRequesting: false,
+      classRegion: this.member.region,
+      regionToBeDeleted: {},
+      showModal: false
+    };
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    regions: 'getRegions'
+  }), {
+    hasChoosen: function hasChoosen() {
+      var isFind = _.find(this.member.region, ['id', this.region.id]);
 
-	props: { member: {} },
+      return isFind == undefined ? false : true;
+    }
+  }),
+  methods: {
+    closeEditForm: function closeEditForm() {
+      this.$emit('closeEditForm', false);
+    },
+    add_region: function add_region() {
+      var self = this;
 
-	data: function data() {
-		return {
-			region: '',
-			isRequesting: false,
-			classRegion: this.member.region,
-			regionToBeDeleted: {},
-			showModal: false
-		};
-	},
-
-
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-		regions: 'getRegions'
-	}), {
-		hasChoosen: function hasChoosen() {
-			var isFind = _.find(this.member.region, ['id', this.region.id]);
-
-			return isFind == undefined ? false : true;
-		}
-	}),
-
-	methods: {
-		closeEditForm: function closeEditForm() {
-			this.$emit('closeEditForm', false);
-		},
-		add_region: function add_region() {
-
-			var self = this;
-
-			if (!self.isRequesting && !self.hasChoosen && this.region != '') {
-
-				var tempRegion = self.region;
-				self.region = '';
-
-				this.$store.dispatch('add_region', {
-					name: tempRegion.name,
-					region_id: tempRegion.id,
-					member_id: self.member.id
-				}).then(function () {
-					flash('Class ragion ' + tempRegion.name + ' has been added.', 'success');
-
-					self.isRequesting = false;
-				}).catch(function () {
-
-					self.isRequesting = false;
-				});
-			}
-		},
-		hideModal: function hideModal() {
-			this.showModal = false;
-			this.regionToBeDeleted = {};
-		},
-		delete_region: function delete_region(newRegion) {
-			this.showModal = true;
-			this.regionToBeDeleted = newRegion;
-		}
-	}
+      if (!self.isRequesting && !self.hasChoosen && this.region != '') {
+        var tempRegion = self.region;
+        self.region = '';
+        this.$store.dispatch('add_region', {
+          name: tempRegion.name,
+          region_id: tempRegion.id,
+          member_id: self.member.id
+        }).then(function () {
+          flash('Class ragion ' + tempRegion.name + ' has been added.', 'success');
+          self.isRequesting = false;
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+      this.regionToBeDeleted = {};
+    },
+    delete_region: function delete_region(newRegion) {
+      this.showModal = true;
+      this.regionToBeDeleted = newRegion;
+    }
+  }
 });
 
 /***/ }),
@@ -15982,85 +16005,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
 
-    mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.showModal && e.keyCode == 27) {
-                _this.cancel();
-            }
-        });
+    document.addEventListener("keydown", function (e) {
+      if (_this.showModal && e.keyCode == 27) {
+        _this.cancel();
+      }
+    });
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false
     },
-
-    props: {
-
-        showModal: {
-            type: Boolean,
-            default: false
-        },
-
-        region: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        },
-
-        memberId: {
-            type: Number,
-            default: 0
-        }
-
+    region: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            buttonEnabled: true
-        };
-    },
-
-
-    computed: {
-        hideOrShowModal: function hideOrShowModal() {
-            return this.showModal ? 'modal-show' : '';
-        }
-    },
-
-    methods: {
-        cancel: function cancel() {
-            if (!this.isRequesting) {
-                this.$emit('set-show-modal-to-false');
-            }
-        },
-        deleteClass: function deleteClass() {
-            var _this2 = this;
-
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_region', {
-                    region_id: this.region.id,
-                    member_id: this.memberId
-                }).then(function () {
-                    flash('Class region ' + _this2.region.name + ' has been deleted.', 'danger');
-
-                    self.isRequesting = false;
-                    self.cancel();
-                }).catch(function () {
-
-                    self.isRequesting = false;
-                });
-            }
-        }
+    memberId: {
+      type: Number,
+      default: 0
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      buttonEnabled: true
+    };
+  },
+  computed: {
+    hideOrShowModal: function hideOrShowModal() {
+      return this.showModal ? 'modal-show' : '';
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      if (!this.isRequesting) {
+        this.$emit('set-show-modal-to-false');
+      }
+    },
+    deleteClass: function deleteClass() {
+      var _this2 = this;
+
+      var self = this;
+
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_region', {
+          region_id: this.region.id,
+          member_id: this.memberId
+        }).then(function () {
+          flash('Class region ' + _this2.region.name + ' has been deleted.', 'danger');
+          self.isRequesting = false;
+          self.cancel();
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -16527,71 +16534,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	components: {
-		DeleteYear: __WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue___default.a
-	},
+  components: {
+    DeleteYear: __WEBPACK_IMPORTED_MODULE_0__DeleteSubscriptionInEdit_vue___default.a
+  },
+  props: {
+    member: {},
+    teacherId: ''
+  },
+  data: function data() {
+    return {
+      year: '',
+      isRequesting: false,
+      subscription: this.member.subscription,
+      yearToBeDeleted: {},
+      showModal: false
+    };
+  },
+  validations: {
+    year: {
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["maxLength"])(4),
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["minLength"])(4)
+    }
+  },
+  methods: {
+    closeEditForm: function closeEditForm() {
+      this.$emit('closeEditForm', false);
+    },
+    add_subscription: function add_subscription() {
+      var self = this;
 
-	props: {
-		member: {},
-		teacherId: ''
-	},
-
-	data: function data() {
-		return {
-			year: '',
-			isRequesting: false,
-			subscription: this.member.subscription,
-			yearToBeDeleted: {},
-			showModal: false
-		};
-	},
-
-
-	validations: {
-		year: {
-			maxLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["maxLength"])(4),
-			minLength: Object(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["minLength"])(4)
-		}
-	},
-
-	methods: {
-		closeEditForm: function closeEditForm() {
-			this.$emit('closeEditForm', false);
-		},
-		add_subscription: function add_subscription() {
-			var self = this;
-
-			if (!self.isRequesting) {
-				self.isRequesting = true;
-
-				this.$store.dispatch('add_subscription', {
-					teacher_id: this.teacherId,
-					member_id: self.member.id,
-					year: this.year
-				}).then(function () {
-
-					flash('Subscription added', 'success');
-
-					self.isRequesting = false;
-
-					self.year = '';
-				}).catch(function () {
-					self.isRequesting = false;
-				});
-			}
-		},
-		hideModal: function hideModal() {
-			this.showModal = false;
-			this.yearToBeDeleted = {};
-		},
-		delete_subscription: function delete_subscription(newYear) {
-			this.showModal = true;
-			this.yearToBeDeleted = newYear;
-		}
-	}
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('add_subscription', {
+          teacher_id: this.teacherId,
+          member_id: self.member.id,
+          year: this.year
+        }).then(function () {
+          flash('Subscription added', 'success');
+          self.isRequesting = false;
+          self.year = '';
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+      this.yearToBeDeleted = {};
+    },
+    delete_subscription: function delete_subscription(newYear) {
+      this.showModal = true;
+      this.yearToBeDeleted = newYear;
+    }
+  }
 });
 
 /***/ }),
@@ -16783,87 +16779,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
 
-    mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.showModal && e.keyCode == 27) {
-                _this.cancel();
-            }
-        });
+    document.addEventListener("keydown", function (e) {
+      if (_this.showModal && e.keyCode == 27) {
+        _this.cancel();
+      }
+    });
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false
     },
-
-    props: {
-
-        showModal: {
-            type: Boolean,
-            default: false
-        },
-
-        year: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        },
-
-        memberId: {
-            type: Number,
-            default: 0
-        },
-
-        teacherId: {
-            type: Number,
-            default: 0
-        }
-
+    year: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            buttonEnabled: true
-        };
+    memberId: {
+      type: Number,
+      default: 0
     },
-
-
-    computed: {
-        hideOrShowModal: function hideOrShowModal() {
-            return this.showModal ? 'modal-show' : '';
-        }
-    },
-
-    methods: {
-        cancel: function cancel() {
-            if (!this.isRequesting) {
-                this.$emit('set-show-modal-to-false');
-            }
-        },
-        deleteClass: function deleteClass() {
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                this.isRequesting = true;
-
-                this.$store.dispatch('destroy_subscription', {
-                    subscription_id: this.year.id,
-                    member_id: this.memberId,
-                    teacher_id: this.teacherId
-                }).then(function () {
-                    flash('Subscription deleted', 'danger');
-                    self.isRequesting = false;
-                    self.cancel();
-                }).catch(function () {
-                    self.isRequesting = false;
-                });
-            }
-        }
+    teacherId: {
+      type: Number,
+      default: 0
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      buttonEnabled: true
+    };
+  },
+  computed: {
+    hideOrShowModal: function hideOrShowModal() {
+      return this.showModal ? 'modal-show' : '';
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      if (!this.isRequesting) {
+        this.$emit('set-show-modal-to-false');
+      }
+    },
+    deleteClass: function deleteClass() {
+      var self = this;
+
+      if (!self.isRequesting) {
+        this.isRequesting = true;
+        this.$store.dispatch('destroy_subscription', {
+          subscription_id: this.year.id,
+          member_id: this.memberId,
+          teacher_id: this.teacherId
+        }).then(function () {
+          flash('Subscription deleted', 'danger');
+          self.isRequesting = false;
+          self.cancel();
+        }).catch(function () {
+          self.isRequesting = false;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -17292,7 +17273,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue__ = __webpack_require__(615);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -17336,75 +17319,67 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: { member: {} },
+  props: {
+    member: {}
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      annointed_date: '',
+      showModal: false,
+      rankToBeDeleted: {}
+    };
+  },
+  components: {
+    Item: __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default.a,
+    DeleteRank: __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue___default.a
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
+    ranks: 'getRanks'
+  }), {
+    currentIndex: function currentIndex() {
+      return this.member.rank.length;
+    }
+  }),
+  methods: {
+    closeEditForm: function closeEditForm() {
+      this.$emit('closeEditForm', false);
+    },
+    addRank: function addRank(index) {
+      var _this = this;
 
-	data: function data() {
-		return {
-			isRequesting: false,
-			annointed_date: '',
-			showModal: false,
-			rankToBeDeleted: {}
-		};
-	},
+      var self = this;
 
-
-	components: {
-		Item: __WEBPACK_IMPORTED_MODULE_1__Rank_vue___default.a,
-		DeleteRank: __WEBPACK_IMPORTED_MODULE_2__DeleteRankInEdit_vue___default.a
-	},
-
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])({
-		ranks: 'getRanks'
-	}), {
-		currentIndex: function currentIndex() {
-			return this.member.rank.length;
-		}
-	}),
-
-	methods: {
-		closeEditForm: function closeEditForm() {
-			this.$emit('closeEditForm', false);
-		},
-		addRank: function addRank(index) {
-			var _this = this;
-
-			var self = this;
-			if (!this.isRequesting && this.annointed_date != '') {
-				this.isRequesting = true;
-
-				this.$store.dispatch('add_rank', {
-					member_id: this.member.id,
-					rank_id: this.ranks[index].id,
-					annointed_date: this.annointed_date.substring(0, 10),
-					title: this.ranks[index].title
-				}).then(function () {
-
-					flash('Ranks added', 'success');
-
-					_this.isRequesting = false;
-
-					_this.annointed_date = '';
-				}).catch(function () {
-					_this.isRequesting = false;
-				});
-			}
-		},
-		hideModal: function hideModal() {
-			this.showModal = false;
-			this.rankToBeDeleted = {};
-		},
-		showDeleteModal: function showDeleteModal(newRank) {
-			this.showModal = true;
-			this.rankToBeDeleted = newRank;
-		}
-	}
+      if (!this.isRequesting && this.annointed_date != '') {
+        this.isRequesting = true;
+        this.$store.dispatch('add_rank', {
+          member_id: this.member.id,
+          rank_id: this.ranks[index].id,
+          annointed_date: this.annointed_date.substring(0, 10),
+          title: this.ranks[index].title
+        }).then(function () {
+          flash('Ranks added', 'success');
+          _this.isRequesting = false;
+          _this.annointed_date = '';
+        }).catch(function () {
+          _this.isRequesting = false;
+        });
+      }
+    },
+    hideModal: function hideModal() {
+      this.showModal = false;
+      this.rankToBeDeleted = {};
+    },
+    showDeleteModal: function showDeleteModal(newRank) {
+      this.showModal = true;
+      this.rankToBeDeleted = newRank;
+    }
+  }
 });
 
 /***/ }),
@@ -17482,56 +17457,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: {
-		member: {},
-		rank: {}
-	},
+  props: {
+    member: {},
+    rank: {}
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      annointed_date: this.rank.pivot.annointed_date
+    };
+  },
+  computed: {
+    isEdit: function isEdit() {
+      return this.annointed_date.substring(0, 10) != this.rank.pivot.annointed_date;
+    },
+    isLastIndex: function isLastIndex() {
+      return this.member.rank[this.member.rank.length - 1].id == this.rank.id;
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      this.annointed_date = this.rank.pivot.annointed_date;
+    },
+    editRank: function editRank() {
+      var self = this;
 
-	data: function data() {
-		return {
-			isRequesting: false,
-			annointed_date: this.rank.pivot.annointed_date
-		};
-	},
-
-
-	computed: {
-		isEdit: function isEdit() {
-			return this.annointed_date.substring(0, 10) != this.rank.pivot.annointed_date;
-		},
-		isLastIndex: function isLastIndex() {
-			return this.member.rank[this.member.rank.length - 1].id == this.rank.id;
-		}
-	},
-
-	methods: {
-		cancel: function cancel() {
-			this.annointed_date = this.rank.pivot.annointed_date;
-		},
-		editRank: function editRank() {
-			var self = this;
-
-			if (!self.isRequesting) {
-
-				self.isRequesting = true;
-
-				this.$store.dispatch('edit_rank', {
-					rank_id: self.rank.id,
-					member_id: self.member.id,
-					annointed_date: this.annointed_date.substring(0, 10)
-				}).then(function () {
-					self.isRequesting = false;
-
-					flash('Ranks updated', 'danger');
-				});
-			}
-		},
-		deleteRank: function deleteRank() {
-			this.$emit('showDeleteModal', this.rank);
-		}
-	}
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('edit_rank', {
+          rank_id: self.rank.id,
+          member_id: self.member.id,
+          annointed_date: this.annointed_date.substring(0, 10)
+        }).then(function () {
+          self.isRequesting = false;
+          flash('Ranks updated', 'danger');
+        });
+      }
+    },
+    deleteRank: function deleteRank() {
+      this.$emit('showDeleteModal', this.rank);
+    }
+  }
 });
 
 /***/ }),
@@ -17818,82 +17785,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
 
-    mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.showModal && e.keyCode == 27) {
-                _this.cancel();
-            }
-        });
+    document.addEventListener("keydown", function (e) {
+      if (_this.showModal && e.keyCode == 27) {
+        _this.cancel();
+      }
+    });
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false
     },
-
-    props: {
-
-        showModal: {
-            type: Boolean,
-            default: false
-        },
-
-        rank: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        },
-
-        memberId: {
-            type: Number,
-            default: 0
-        }
-
+    rank: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            buttonEnabled: true
-        };
-    },
-
-
-    computed: {
-        hideOrShowModal: function hideOrShowModal() {
-            return this.showModal ? 'modal-show' : '';
-        }
-    },
-
-    methods: {
-        cancel: function cancel() {
-            if (!this.isRequesting) {
-                this.$emit('set-show-modal-to-false');
-            }
-        },
-        deleteClass: function deleteClass() {
-
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_rank', {
-                    rank_id: self.rank.id,
-                    member_id: self.memberId
-                }).then(function () {
-
-                    self.isRequesting = false;
-
-                    flash('Ranks deleted', 'danger');
-                    self.cancel();
-                });
-            }
-        }
+    memberId: {
+      type: Number,
+      default: 0
     }
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      buttonEnabled: true
+    };
+  },
+  computed: {
+    hideOrShowModal: function hideOrShowModal() {
+      return this.showModal ? 'modal-show' : '';
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      if (!this.isRequesting) {
+        this.$emit('set-show-modal-to-false');
+      }
+    },
+    deleteClass: function deleteClass() {
+      var self = this;
+
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_rank', {
+          rank_id: self.rank.id,
+          member_id: self.memberId
+        }).then(function () {
+          self.isRequesting = false;
+          flash('Ranks deleted', 'danger');
+          self.cancel();
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -18273,42 +18223,42 @@ var render = function() {
                                   ]
                                 )
                               : !_vm.$v.input.name.minLength
-                                ? _c(
-                                    "span",
-                                    {
-                                      key: "Name-minimum",
-                                      staticClass: "text-danger"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                Name has a minimum of " +
-                                          _vm._s(
-                                            _vm.$v.input.name.$params.minLength
-                                              .min
-                                          ) +
-                                          " characters\n                            "
-                                      )
-                                    ]
-                                  )
-                                : !_vm.$v.input.name.maxLength
-                                  ? _c(
-                                      "span",
-                                      {
-                                        key: "key-maximum",
-                                        staticClass: "text-danger"
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                Name has a maximum of " +
-                                            _vm._s(
-                                              _vm.$v.input.name.$params
-                                                .maxLength.max
-                                            ) +
-                                            " characters\n                            "
-                                        )
-                                      ]
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "Name-minimum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Name has a minimum of " +
+                                        _vm._s(
+                                          _vm.$v.input.name.$params.minLength
+                                            .min
+                                        ) +
+                                        " characters\n                            "
                                     )
-                                  : _vm._e()
+                                  ]
+                                )
+                              : !_vm.$v.input.name.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "key-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Name has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.name.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
                           ]
                         )
                       ],
@@ -18628,42 +18578,42 @@ var render = function() {
                                   ]
                                 )
                               : !_vm.$v.input.email.minLength
-                                ? _c(
-                                    "span",
-                                    {
-                                      key: "email-minimum",
-                                      staticClass: "text-danger"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                Email has a minimum of " +
-                                          _vm._s(
-                                            _vm.$v.input.email.$params.minLength
-                                              .min
-                                          ) +
-                                          " characters\n                            "
-                                      )
-                                    ]
-                                  )
-                                : !_vm.$v.input.email.maxLength
-                                  ? _c(
-                                      "span",
-                                      {
-                                        key: "email-maximum",
-                                        staticClass: "text-danger"
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                Email has a maximum of " +
-                                            _vm._s(
-                                              _vm.$v.input.email.$params
-                                                .maxLength.max
-                                            ) +
-                                            " characters\n                            "
-                                        )
-                                      ]
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "email-minimum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Email has a minimum of " +
+                                        _vm._s(
+                                          _vm.$v.input.email.$params.minLength
+                                            .min
+                                        ) +
+                                        " characters\n                            "
                                     )
-                                  : _vm._e()
+                                  ]
+                                )
+                              : !_vm.$v.input.email.maxLength
+                              ? _c(
+                                  "span",
+                                  {
+                                    key: "email-maximum",
+                                    staticClass: "text-danger"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                Email has a maximum of " +
+                                        _vm._s(
+                                          _vm.$v.input.email.$params.maxLength
+                                            .max
+                                        ) +
+                                        " characters\n                            "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
                           ]
                         )
                       ],
@@ -20560,7 +20510,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_datetime_dist_vue_datetime_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20981,245 +20931,217 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		var _input;
+  data: function data() {
+    var _input;
 
-		return {
-			isHasClass: false,
-			isRequesting: false,
-			limit: 0,
-			rankData: [],
-			temp_annointed_date: '',
-			subscription: [],
-			year: '',
-			classRegion: [],
-			region: '',
-			classData: [],
-			classItem: '',
-			input: (_input = {
-				name: '',
-				gender: '',
-				place_of_birth: '',
-				date_of_birth: '',
-				address: '',
-				join_date: '',
-				email: '',
-				telephone: '',
-				mobile: '',
-				fax: '',
-				teacher_id: ''
-			}, _defineProperty(_input, 'gender', '1'), _defineProperty(_input, 'is_teacher', '0'), _defineProperty(_input, 'is_active', '1'), _input)
-		};
-	},
-	mounted: function mounted() {
-		this.$v.$reset();
-	},
+    return {
+      isHasClass: false,
+      isRequesting: false,
+      limit: 0,
+      rankData: [],
+      temp_annointed_date: '',
+      subscription: [],
+      year: '',
+      classRegion: [],
+      region: '',
+      classData: [],
+      classItem: '',
+      input: (_input = {
+        name: '',
+        gender: '',
+        place_of_birth: '',
+        date_of_birth: '',
+        address: '',
+        join_date: '',
+        email: '',
+        telephone: '',
+        mobile: '',
+        fax: '',
+        teacher_id: ''
+      }, _defineProperty(_input, "gender", '1'), _defineProperty(_input, "is_teacher", '0'), _defineProperty(_input, "is_active", '1'), _input)
+    };
+  },
+  mounted: function mounted() {
+    this.$v.$reset();
+  },
+  validations: {
+    input: {
+      name: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+      },
+      gender: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      },
+      place_of_birth: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      },
+      address: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      },
+      date_of_birth: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      },
+      email: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+        minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+        maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
+      },
+      telephone: {
+        required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+      }
+    },
+    tempName: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    year: {
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(4),
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(4)
+    },
+    classData: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    }
+  },
+  components: {
+    Datetime: __WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    classList: 'getClass',
+    ranks: 'getRanks',
+    regions: 'getRegions',
+    members: 'getTeachers'
+  }), {
+    formAddFilled: function formAddFilled() {
+      return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.address != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.classData != '';
+    }
+  }),
+  methods: {
+    addMember: function addMember() {
+      var self = this;
 
+      if (self.formAddFilled && !self.isRequesting) {
+        self.isRequesting = true;
+        var name = this.input.name;
+        var dataMember = {
+          personal: this.input,
+          ranks: this.rankData,
+          subscription: this.subscription,
+          region: this.classRegion,
+          classes: this.classData
+        };
+        this.$store.dispatch('store_new_member', dataMember).then(function () {
+          flash(name + ' is successfully added', 'success');
+          self.isRequesting = false;
+          self.setData();
+          self.closeAddMember();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
+        });
+      } else {
+        this.dirtyAllInputs();
+      }
+    },
+    add_class: function add_class() {
+      if (this.classItem != '') {
+        this.classData.push(this.classItem);
 
-	validations: {
-		input: {
-			name: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-			},
-			gender: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			},
-			place_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			},
-			address: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			},
-			date_of_birth: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			},
-			email: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-			},
-			telephone: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-			}
-		},
-		tempName: {
-			required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-		},
-		year: {
-			maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(4),
-			minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(4)
-		},
-		classData: {
-			required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-		}
-	},
+        var classIndex = _.findIndex(this.classList, ['id', this.classItem.id]);
 
-	components: {
-		Datetime: __WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]
-	},
+        this.classList.splice(classIndex, 1);
+        this.classItem = '';
+      }
+    },
+    delete_class: function delete_class(index) {
+      this.classList.push(this.classData[index]);
+      this.classData.splice(index, 1);
+    },
+    add_region: function add_region() {
+      if (this.region != '') {
+        this.classRegion.push(this.region);
 
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-		classList: 'getClass',
-		ranks: 'getRanks',
-		regions: 'getRegions',
-		members: 'getTeachers'
-	}), {
-		formAddFilled: function formAddFilled() {
-			return this.input.name != '' && this.input.name.length >= 3 && this.input.name.length <= 50 && this.input.gender != '' && this.input.place_of_birth != '' && this.input.address != '' && this.input.email != '' && this.input.email.length >= 3 && this.input.email.length <= 50 && this.input.telephone != '' && this.classData != '';
-		}
-	}),
+        var regionIndex = _.findIndex(this.regions, ['id', this.region.id]);
 
-	methods: {
-		addMember: function addMember() {
+        this.regions.splice(regionIndex, 1);
+        this.region = '';
+      }
+    },
+    delete_region: function delete_region(index) {
+      this.regions.push(this.classRegion[index]);
+      this.classRegion.splice(index, 1);
+    },
+    add_subscription: function add_subscription() {
+      if (this.year != '' && this.year.length == 4) {
+        this.subscription.push(this.year);
+        this.year = '';
+      }
+    },
+    delete_year: function delete_year(index) {
+      this.subscription.splice(index, 1);
+    },
+    add_rank: function add_rank(index) {
+      if (this.temp_annointed_date != '') {
+        this.rankData.push({
+          title: this.ranks[index].title,
+          rankId: this.ranks[index].id,
+          annointed_date: this.temp_annointed_date
+        });
+        this.limit += 1;
+        this.temp_annointed_date = '';
+      }
+    },
+    delete_rank: function delete_rank(index) {
+      this.rankData.splice(index, 1);
+      this.limit -= 1;
+    },
+    setData: function setData() {
+      this.input.name = '';
+      this.input.gender = '';
+      this.input.place_of_birth = '';
+      this.input.date_of_birth = '';
+      this.input.join_date = '';
+      this.input.email = '';
+      this.input.telephone = '';
+      this.input.mobile = '';
+      this.input.fax = '';
+      this.input.teacher_id = '';
+      this.subscription = [];
+      this.rankData = [];
+      this.classData = [];
+      this.classRegion = [];
+    },
+    dirtyAllInputs: function dirtyAllInputs() {
+      if (this.classData.length == 0) {
+        this.isHasClass = true;
+      }
 
-			var self = this;
-
-			if (self.formAddFilled && !self.isRequesting) {
-
-				self.isRequesting = true;
-
-				var name = this.input.name;
-
-				var dataMember = {
-					personal: this.input,
-					ranks: this.rankData,
-					subscription: this.subscription,
-					region: this.classRegion,
-					classes: this.classData
-				};
-
-				this.$store.dispatch('store_new_member', dataMember).then(function () {
-					flash(name + ' is successfully added', 'success');
-
-					self.isRequesting = false;
-
-					self.setData();
-
-					self.closeAddMember();
-				}).catch(function (errors) {
-
-					self.isRequesting = false;
-
-					Object.keys(errors).forEach(function (field) {
-						errors[field].forEach(function (message) {
-							flash(message, 'danger', 5000);
-						});
-					});
-				});
-			} else {
-				this.dirtyAllInputs();
-			}
-		},
-		add_class: function add_class() {
-
-			if (this.classItem != '') {
-
-				this.classData.push(this.classItem);
-
-				var classIndex = _.findIndex(this.classList, ['id', this.classItem.id]);
-
-				this.classList.splice(classIndex, 1);
-
-				this.classItem = '';
-			}
-		},
-		delete_class: function delete_class(index) {
-
-			this.classList.push(this.classData[index]);
-
-			this.classData.splice(index, 1);
-		},
-		add_region: function add_region() {
-			if (this.region != '') {
-				this.classRegion.push(this.region);
-
-				var regionIndex = _.findIndex(this.regions, ['id', this.region.id]);
-
-				this.regions.splice(regionIndex, 1);
-
-				this.region = '';
-			}
-		},
-		delete_region: function delete_region(index) {
-
-			this.regions.push(this.classRegion[index]);
-
-			this.classRegion.splice(index, 1);
-		},
-		add_subscription: function add_subscription() {
-			if (this.year != '' && this.year.length == 4) {
-				this.subscription.push(this.year);
-				this.year = '';
-			}
-		},
-		delete_year: function delete_year(index) {
-			this.subscription.splice(index, 1);
-		},
-		add_rank: function add_rank(index) {
-			if (this.temp_annointed_date != '') {
-				this.rankData.push({
-					title: this.ranks[index].title,
-					rankId: this.ranks[index].id,
-					annointed_date: this.temp_annointed_date
-				});
-				this.limit += 1;
-
-				this.temp_annointed_date = '';
-			}
-		},
-		delete_rank: function delete_rank(index) {
-			this.rankData.splice(index, 1);
-			this.limit -= 1;
-		},
-		setData: function setData() {
-			this.input.name = '';
-			this.input.gender = '';
-			this.input.place_of_birth = '';
-			this.input.date_of_birth = '';
-			this.input.join_date = '';
-			this.input.email = '';
-			this.input.telephone = '';
-			this.input.mobile = '';
-			this.input.fax = '';
-			this.input.teacher_id = '';
-			this.subscription = [];
-			this.rankData = [];
-			this.classData = [];
-			this.classRegion = [];
-		},
-		dirtyAllInputs: function dirtyAllInputs() {
-
-			if (this.classData.length == 0) {
-				this.isHasClass = true;
-			}
-
-			this.$v.input.name.$touch();
-			this.$v.input.gender.$touch();
-			this.$v.input.place_of_birth.$touch();
-			this.$v.input.date_of_birth.$touch();
-			this.$v.input.address.$touch();
-			this.$v.input.email.$touch();
-			this.$v.input.telephone.$touch();
-			this.$v.classData.$touch();
-		},
-		closeAddMember: function closeAddMember() {
-			this.$emit('closeAddMember', false);
-		}
-	},
-
-	watch: {
-		classData: function classData() {
-			if (this.classData.length >= 1) {
-				this.isHasClass = false;
-			}
-		}
-	}
+      this.$v.input.name.$touch();
+      this.$v.input.gender.$touch();
+      this.$v.input.place_of_birth.$touch();
+      this.$v.input.date_of_birth.$touch();
+      this.$v.input.address.$touch();
+      this.$v.input.email.$touch();
+      this.$v.input.telephone.$touch();
+      this.$v.classData.$touch();
+    },
+    closeAddMember: function closeAddMember() {
+      this.$emit('closeAddMember', false);
+    }
+  },
+  watch: {
+    classData: function classData() {
+      if (this.classData.length >= 1) {
+        this.isHasClass = false;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -21295,37 +21217,34 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.name.minLength
-                        ? _c(
-                            "span",
-                            { key: "Name-minimum", staticClass: "text-danger" },
-                            [
-                              _vm._v(
-                                "\n                            \t\tName has a minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.name.$params.minLength.min
-                                  ) +
-                                  " characters\n                            \t"
-                              )
-                            ]
-                          )
-                        : !_vm.$v.input.name.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "key-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            \t\tName has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.name.$params.maxLength.max
-                                    ) +
-                                    " characters\n                        \t\t"
-                                )
-                              ]
+                      ? _c(
+                          "span",
+                          { key: "Name-minimum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tName has a minimum of " +
+                                _vm._s(
+                                  _vm.$v.input.name.$params.minLength.min
+                                ) +
+                                " characters\n                            \t"
                             )
-                          : _vm._e()
+                          ]
+                        )
+                      : !_vm.$v.input.name.maxLength
+                      ? _c(
+                          "span",
+                          { key: "key-maximum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tName has a maximum of " +
+                                _vm._s(
+                                  _vm.$v.input.name.$params.maxLength.max
+                                ) +
+                                " characters\n                        \t\t"
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ]
                 )
               ],
@@ -21594,40 +21513,34 @@ var render = function() {
                           ]
                         )
                       : !_vm.$v.input.email.minLength
-                        ? _c(
-                            "span",
-                            {
-                              key: "email-minimum",
-                              staticClass: "text-danger"
-                            },
-                            [
-                              _vm._v(
-                                "\n                            \t\tEmail has a minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.email.$params.minLength.min
-                                  ) +
-                                  " characters\n                            \t"
-                              )
-                            ]
-                          )
-                        : !_vm.$v.input.email.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "email-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            \t\tEmail has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.email.$params.maxLength.max
-                                    ) +
-                                    " characters\n                        \t\t"
-                                )
-                              ]
+                      ? _c(
+                          "span",
+                          { key: "email-minimum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tEmail has a minimum of " +
+                                _vm._s(
+                                  _vm.$v.input.email.$params.minLength.min
+                                ) +
+                                " characters\n                            \t"
                             )
-                          : _vm._e()
+                          ]
+                        )
+                      : !_vm.$v.input.email.maxLength
+                      ? _c(
+                          "span",
+                          { key: "email-maximum", staticClass: "text-danger" },
+                          [
+                            _vm._v(
+                              "\n                            \t\tEmail has a maximum of " +
+                                _vm._s(
+                                  _vm.$v.input.email.$params.maxLength.max
+                                ) +
+                                " characters\n                        \t\t"
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ]
                 )
               ],
@@ -22874,80 +22787,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    var _this = this;
 
-    mounted: function mounted() {
-        var _this = this;
-
-        document.addEventListener("keydown", function (e) {
-            if (_this.showModal && e.keyCode == 27) {
-                _this.cancel();
-            }
-        });
+    document.addEventListener("keydown", function (e) {
+      if (_this.showModal && e.keyCode == 27) {
+        _this.cancel();
+      }
+    });
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false
     },
-
-    props: {
-
-        showModal: {
-            type: Boolean,
-            default: false
-        },
-
-        member: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        }
-
-    },
-
-    data: function data() {
-        return {
-            confirmation: '',
-            isRequesting: false,
-            buttonEnabled: true
-        };
-    },
-
-
-    computed: {
-        hideOrShowModal: function hideOrShowModal() {
-            return this.showModal ? 'modal-show' : '';
-        },
-        inputConfirmed: function inputConfirmed() {
-            return this.confirmation === 'DELETE';
-        }
-    },
-
-    methods: {
-        cancel: function cancel() {
-            if (!this.isRequesting) {
-                this.confirmation = '';
-                this.$emit('set-show-modal-to-false');
-            }
-        },
-        deleteMember: function deleteMember() {
-            var _this2 = this;
-
-            var self = this;
-
-            if (!self.isRequesting) {
-
-                self.isRequesting = true;
-
-                this.$store.dispatch('destroy_member', self.member.id).then(function () {
-
-                    flash('Member has been deleted', 'danger');
-
-                    self.isRequesting = false;
-                    _this2.cancel();
-                });
-            }
-        }
+    member: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     }
+  },
+  data: function data() {
+    return {
+      confirmation: '',
+      isRequesting: false,
+      buttonEnabled: true
+    };
+  },
+  computed: {
+    hideOrShowModal: function hideOrShowModal() {
+      return this.showModal ? 'modal-show' : '';
+    },
+    inputConfirmed: function inputConfirmed() {
+      return this.confirmation === 'DELETE';
+    }
+  },
+  methods: {
+    cancel: function cancel() {
+      if (!this.isRequesting) {
+        this.confirmation = '';
+        this.$emit('set-show-modal-to-false');
+      }
+    },
+    deleteMember: function deleteMember() {
+      var _this2 = this;
+
+      var self = this;
+
+      if (!self.isRequesting) {
+        self.isRequesting = true;
+        this.$store.dispatch('destroy_member', self.member.id).then(function () {
+          flash('Member has been deleted', 'danger');
+          self.isRequesting = false;
+
+          _this2.cancel();
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -23424,444 +23323,351 @@ if (false) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        teachers: {},
-        studentNoTeacher: {},
-        rank: {},
-        classList: {},
-        regionList: {},
-        subscription: {}
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    teachers: {},
+    studentNoTeacher: {},
+    rank: {},
+    classList: {},
+    regionList: {},
+    subscription: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getTeachers: function getTeachers(state) {
+      return state.teachers;
     },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getTeachers: function getTeachers(state) {
-            return state.teachers;
-        },
-
-        getStudentNoTeacher: function getStudentNoTeacher(state) {
-            return state.studentNoTeacher;
-        },
-
-        getRanks: function getRanks(state) {
-            return state.rank;
-        },
-
-        getClass: function getClass(state) {
-            return state.classList;
-        },
-
-        getRegions: function getRegions(state) {
-            return state.regionList;
-        },
-
-        getSubscription: function getSubscription(state) {
-            return state.subscription;
-        }
-
+    getStudentNoTeacher: function getStudentNoTeacher(state) {
+      return state.studentNoTeacher;
     },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_data_member: function set_data_member(state, data) {
-
-            state.teachers = data[0];
-            state.studentNoTeacher = data[1];
-        },
-
-        set_rank: function set_rank(state, rank) {
-            state.rank = rank;
-        },
-
-        set_class: function set_class(state, classList) {
-            state.classList = classList;
-        },
-
-        set_region: function set_region(state, regionList) {
-            state.regionList = regionList;
-        },
-
-        set_subscription: function set_subscription(state, subscription) {
-            state.subscription = subscription;
-        },
-
-        edit_member: function edit_member(state, member) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', member.id]);
-            var classIndex = _.findIndex(state.classList, ['id', member.class_id]);
-
-            state.teachers[memberIndex].name = member.name;
-            state.teachers[memberIndex].gender = member.gender;
-            state.teachers[memberIndex].is_active = member.is_active;
-            state.teachers[memberIndex].is_teacher = member.is_teacher;
-            state.teachers[memberIndex].place_of_birth = member.place_of_birth;
-            state.teachers[memberIndex].date_of_birth = member.date_of_birth;
-            state.teachers[memberIndex].email = member.email;
-            state.teachers[memberIndex].fax = member.fax;
-            state.teachers[memberIndex].telephone = member.telephone;
-            state.teachers[memberIndex].mobile = member.mobile;
-            state.teachers[memberIndex].teacher_id = member.teacher_id;
-            state.teachers[memberIndex].join_date = member.join_date;
-        },
-        delete_member: function delete_member(state, ids) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', ids.memberId]);
-
-            state.teachers.splice(memberIndex, 1);
-        },
-        add_rank: function add_rank(state, dataRank) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
-
-            state.teachers[memberIndex].ranks.push({
-                annointed_date: dataRank.annointed_date,
-                rankId: dataRank.rank_id,
-                title: dataRank.title
-            });
-        },
-        update_rank: function update_rank(state, dataRank) {
-            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
-            var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
-
-            state.teachers[memberIndex].ranks[rankIndex].annointed_date = dataRank.annointed_date;
-        },
-        delete_rank: function delete_rank(state, dataRank) {
-            var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
-            var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
-
-            state.teachers[memberIndex].ranks.splice(rankIndex, 1);
-        },
-        add_subscription: function add_subscription(state, dataSubscription) {
-
-            if (dataSubscription.teacher_id == undefined) {
-
-                var memberIndex = _.findIndex(state.studentNoTeacher, ['id', dataSubscription.member_id]);
-
-                state.studentNoTeacher[memberIndex].subscription.push({
-                    member_id: dataSubscription.member_id,
-                    year: dataSubscription.year,
-                    id: dataSubscription.id
-                });
-            } else {
-
-                var teacherIndex = _.findIndex(state.teachers, ['id', dataSubscription.teacher_id]);
-                var _memberIndex = _.findIndex(state.teachers[teacherIndex].student, ['id', dataSubscription.member_id]);
-
-                state.teachers[teacherIndex].student[_memberIndex].subscription.push({
-                    member_id: dataSubscription.member_id,
-                    year: dataSubscription.year,
-                    id: dataSubscription.id
-                });
-            }
-        },
-        delete_subscription: function delete_subscription(state, ids) {
-
-            if (ids.teacher_id == undefined) {
-                var memberIndex = _.findIndex(state.studentNoTeacher, ['id', ids.member_id]);
-                var subscriptionIndex = _.findIndex(state.studentNoTeacher[memberIndex].subscription, ['id', ids.subscription_id]);
-
-                state.studentNoTeacher[memberIndex].subscription.splice(subscriptionIndex, 1);
-            } else {
-
-                var teacherIndex = _.findIndex(state.teachers, ['id', ids.teacher_id]);
-                var _memberIndex2 = _.findIndex(state.teachers[teacherIndex].student, ['id', ids.member_id]);
-                var _subscriptionIndex = _.findIndex(state.teachers[teacherIndex].student[_memberIndex2].subscription, ['id', ids.subscription_id]);
-
-                state.teachers[teacherIndex].student[_memberIndex2].subscription.splice(_subscriptionIndex, 1);
-            }
-        },
-        add_region: function add_region(state, dataRegion) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
-
-            state.teachers[memberIndex].region.push({
-                id: dataRegion.region_id,
-                name: dataRegion.name
-            });
-        },
-        delete_region: function delete_region(state, dataRegion) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
-            var regionIndex = _.findIndex(state.teachers[memberIndex].region, ['id', dataRegion.region_id]);
-
-            state.teachers[memberIndex].region.splice(regionIndex, 1);
-        },
-        add_class: function add_class(state, dataClass) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
-
-            state.teachers[memberIndex].class.push({
-                id: dataClass.class_id,
-                title: dataClass.title
-            });
-        },
-        delete_class: function delete_class(state, dataClass) {
-
-            var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
-            var classIndex = _.findIndex(state.teachers[memberIndex].class, ['id', dataClass.class_id]);
-
-            state.teachers[memberIndex].class.splice(classIndex, 1);
-        }
+    getRanks: function getRanks(state) {
+      return state.rank;
     },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_data_members: function load_data_members(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/bookkeeping/data/member').then(function (response) {
-                commit('set_data_member', response.data);
-            });
-        },
-
-        load_rank: function load_rank(_ref2) {
-            var commit = _ref2.commit;
-
-            axios.get('/admin/bookkeeping/data/rank').then(function (response) {
-                commit('set_rank', response.data);
-            });
-        },
-
-        load_class: function load_class(_ref3) {
-            var commit = _ref3.commit;
-
-            axios.get('/admin/bookkeeping/data/class').then(function (response) {
-                commit('set_class', response.data);
-            });
-        },
-
-        load_region: function load_region(_ref4) {
-            var commit = _ref4.commit;
-
-            axios.get('/admin/bookkeeping/data/region').then(function (response) {
-                commit('set_region', response.data);
-            });
-        },
-
-        load_subscription: function load_subscription(_ref5) {
-            var commit = _ref5.commit;
-
-            axios.get('/admin/bookkeeping/data/subscription').then(function (response) {
-                commit('set_subscription', response.data);
-            });
-        },
-
-        store_new_member: function store_new_member(_ref6, dataMember) {
-            var commit = _ref6.commit,
-                dispatch = _ref6.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/member', dataMember).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    dispatch('load_region');
-
-                    dispatch('load_class');
-
-                    resolve(dataMember);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        update_member: function update_member(_ref7, member) {
-            var commit = _ref7.commit,
-                dispatch = _ref7.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/member/' + member.id, member).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve(member);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_member: function destroy_member(_ref8, ids) {
-            var commit = _ref8.commit,
-                dispatch = _ref8.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/member/' + ids).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve();
-                });
-            });
-        },
-        add_rank: function add_rank(_ref9, dataRank) {
-            var commit = _ref9.commit,
-                dispatch = _ref9.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-                axios.post('add/rank', dataRank).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve(dataRank);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        },
-        edit_rank: function edit_rank(_ref10, dataRank) {
-            var commit = _ref10.commit,
-                dispatch = _ref10.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/rank', dataRank).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve();
-                });
-            });
-        },
-        destroy_rank: function destroy_rank(_ref11, dataRank) {
-            var commit = _ref11.commit,
-                dispatch = _ref11.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('delete/rank', dataRank).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve();
-                });
-            });
-        },
-        add_subscription: function add_subscription(_ref12, dataSubscription) {
-            var commit = _ref12.commit,
-                dispatch = _ref12.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/subscription', dataSubscription).then(function (response) {
-
-                    var data = {
-                        id: response.data,
-                        year: dataSubscription.year,
-                        member_id: dataSubscription.member_id,
-                        teacher_id: dataSubscription.teacher_id
-                    };
-
-                    commit('add_subscription', data);
-
-                    resolve(data);
-                }).catch(function (errors) {
-
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_subscription: function destroy_subscription(_ref13, ids) {
-            var commit = _ref13.commit,
-                dispatch = _ref13.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/subscription/' + ids.subscription_id).then(function (response) {
-                    commit('delete_subscription', ids);
-                    resolve();
-                });
-            });
-        },
-        add_region: function add_region(_ref14, dataRegion) {
-            var commit = _ref14.commit,
-                dispatch = _ref14.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/class_region', dataRegion).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve(dataRegion);
-                }).catch(function (errors) {
-
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_region: function destroy_region(_ref15, dataRegion) {
-            var commit = _ref15.commit,
-                dispatch = _ref15.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('delete/class_region', dataRegion).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve();
-                });
-            });
-        },
-        add_class: function add_class(_ref16, dataClass) {
-            var commit = _ref16.commit,
-                dispatch = _ref16.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.post('add/class_member', dataClass).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve(dataClass);
-                }).catch(function (errors) {
-
-                    reject(errors.response.data);
-                });
-            });
-        },
-        destroy_class: function destroy_class(_ref17, dataClass) {
-            var commit = _ref17.commit,
-                dispatch = _ref17.dispatch;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.delete('delete/class_member/' + dataClass.member_id + '/' + dataClass.class_id).then(function (response) {
-
-                    dispatch('load_data_members');
-
-                    resolve();
-                });
-            });
-        }
+    getClass: function getClass(state) {
+      return state.classList;
+    },
+    getRegions: function getRegions(state) {
+      return state.regionList;
+    },
+    getSubscription: function getSubscription(state) {
+      return state.subscription;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_data_member: function set_data_member(state, data) {
+      state.teachers = data[0];
+      state.studentNoTeacher = data[1];
+    },
+    set_rank: function set_rank(state, rank) {
+      state.rank = rank;
+    },
+    set_class: function set_class(state, classList) {
+      state.classList = classList;
+    },
+    set_region: function set_region(state, regionList) {
+      state.regionList = regionList;
+    },
+    set_subscription: function set_subscription(state, subscription) {
+      state.subscription = subscription;
+    },
+    edit_member: function edit_member(state, member) {
+      var memberIndex = _.findIndex(state.teachers, ['id', member.id]);
+
+      var classIndex = _.findIndex(state.classList, ['id', member.class_id]);
+
+      state.teachers[memberIndex].name = member.name;
+      state.teachers[memberIndex].gender = member.gender;
+      state.teachers[memberIndex].is_active = member.is_active;
+      state.teachers[memberIndex].is_teacher = member.is_teacher;
+      state.teachers[memberIndex].place_of_birth = member.place_of_birth;
+      state.teachers[memberIndex].date_of_birth = member.date_of_birth;
+      state.teachers[memberIndex].email = member.email;
+      state.teachers[memberIndex].fax = member.fax;
+      state.teachers[memberIndex].telephone = member.telephone;
+      state.teachers[memberIndex].mobile = member.mobile;
+      state.teachers[memberIndex].teacher_id = member.teacher_id;
+      state.teachers[memberIndex].join_date = member.join_date;
+    },
+    delete_member: function delete_member(state, ids) {
+      var memberIndex = _.findIndex(state.teachers, ['id', ids.memberId]);
+
+      state.teachers.splice(memberIndex, 1);
+    },
+    add_rank: function add_rank(state, dataRank) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
+
+      state.teachers[memberIndex].ranks.push({
+        annointed_date: dataRank.annointed_date,
+        rankId: dataRank.rank_id,
+        title: dataRank.title
+      });
+    },
+    update_rank: function update_rank(state, dataRank) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
+
+      var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+
+      state.teachers[memberIndex].ranks[rankIndex].annointed_date = dataRank.annointed_date;
+    },
+    delete_rank: function delete_rank(state, dataRank) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataRank.member_id]);
+
+      var rankIndex = _.findIndex(state.teachers[memberIndex].ranks, ['rankId', dataRank.rank_id]);
+
+      state.teachers[memberIndex].ranks.splice(rankIndex, 1);
+    },
+    add_subscription: function add_subscription(state, dataSubscription) {
+      if (dataSubscription.teacher_id == undefined) {
+        var memberIndex = _.findIndex(state.studentNoTeacher, ['id', dataSubscription.member_id]);
+
+        state.studentNoTeacher[memberIndex].subscription.push({
+          member_id: dataSubscription.member_id,
+          year: dataSubscription.year,
+          id: dataSubscription.id
+        });
+      } else {
+        var teacherIndex = _.findIndex(state.teachers, ['id', dataSubscription.teacher_id]);
+
+        var _memberIndex = _.findIndex(state.teachers[teacherIndex].student, ['id', dataSubscription.member_id]);
+
+        state.teachers[teacherIndex].student[_memberIndex].subscription.push({
+          member_id: dataSubscription.member_id,
+          year: dataSubscription.year,
+          id: dataSubscription.id
+        });
+      }
+    },
+    delete_subscription: function delete_subscription(state, ids) {
+      if (ids.teacher_id == undefined) {
+        var memberIndex = _.findIndex(state.studentNoTeacher, ['id', ids.member_id]);
+
+        var subscriptionIndex = _.findIndex(state.studentNoTeacher[memberIndex].subscription, ['id', ids.subscription_id]);
+
+        state.studentNoTeacher[memberIndex].subscription.splice(subscriptionIndex, 1);
+      } else {
+        var teacherIndex = _.findIndex(state.teachers, ['id', ids.teacher_id]);
+
+        var _memberIndex2 = _.findIndex(state.teachers[teacherIndex].student, ['id', ids.member_id]);
+
+        var _subscriptionIndex = _.findIndex(state.teachers[teacherIndex].student[_memberIndex2].subscription, ['id', ids.subscription_id]);
+
+        state.teachers[teacherIndex].student[_memberIndex2].subscription.splice(_subscriptionIndex, 1);
+      }
+    },
+    add_region: function add_region(state, dataRegion) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
+
+      state.teachers[memberIndex].region.push({
+        id: dataRegion.region_id,
+        name: dataRegion.name
+      });
+    },
+    delete_region: function delete_region(state, dataRegion) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataRegion.member_id]);
+
+      var regionIndex = _.findIndex(state.teachers[memberIndex].region, ['id', dataRegion.region_id]);
+
+      state.teachers[memberIndex].region.splice(regionIndex, 1);
+    },
+    add_class: function add_class(state, dataClass) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
+
+      state.teachers[memberIndex].class.push({
+        id: dataClass.class_id,
+        title: dataClass.title
+      });
+    },
+    delete_class: function delete_class(state, dataClass) {
+      var memberIndex = _.findIndex(state.teachers, ['id', dataClass.member_id]);
+
+      var classIndex = _.findIndex(state.teachers[memberIndex].class, ['id', dataClass.class_id]);
+
+      state.teachers[memberIndex].class.splice(classIndex, 1);
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_data_members: function load_data_members(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/bookkeeping/data/member').then(function (response) {
+        commit('set_data_member', response.data);
+      });
+    },
+    load_rank: function load_rank(_ref2) {
+      var commit = _ref2.commit;
+      axios.get('/admin/bookkeeping/data/rank').then(function (response) {
+        commit('set_rank', response.data);
+      });
+    },
+    load_class: function load_class(_ref3) {
+      var commit = _ref3.commit;
+      axios.get('/admin/bookkeeping/data/class').then(function (response) {
+        commit('set_class', response.data);
+      });
+    },
+    load_region: function load_region(_ref4) {
+      var commit = _ref4.commit;
+      axios.get('/admin/bookkeeping/data/region').then(function (response) {
+        commit('set_region', response.data);
+      });
+    },
+    load_subscription: function load_subscription(_ref5) {
+      var commit = _ref5.commit;
+      axios.get('/admin/bookkeeping/data/subscription').then(function (response) {
+        commit('set_subscription', response.data);
+      });
+    },
+    store_new_member: function store_new_member(_ref6, dataMember) {
+      var commit = _ref6.commit,
+          dispatch = _ref6.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/member', dataMember).then(function (response) {
+          dispatch('load_data_members');
+          dispatch('load_region');
+          dispatch('load_class');
+          resolve(dataMember);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    update_member: function update_member(_ref7, member) {
+      var commit = _ref7.commit,
+          dispatch = _ref7.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/member/' + member.id, member).then(function (response) {
+          dispatch('load_data_members');
+          resolve(member);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_member: function destroy_member(_ref8, ids) {
+      var commit = _ref8.commit,
+          dispatch = _ref8.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/member/' + ids).then(function (response) {
+          dispatch('load_data_members');
+          resolve();
+        });
+      });
+    },
+    add_rank: function add_rank(_ref9, dataRank) {
+      var commit = _ref9.commit,
+          dispatch = _ref9.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/rank', dataRank).then(function (response) {
+          dispatch('load_data_members');
+          resolve(dataRank);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    edit_rank: function edit_rank(_ref10, dataRank) {
+      var commit = _ref10.commit,
+          dispatch = _ref10.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/rank', dataRank).then(function (response) {
+          dispatch('load_data_members');
+          resolve();
+        });
+      });
+    },
+    destroy_rank: function destroy_rank(_ref11, dataRank) {
+      var commit = _ref11.commit,
+          dispatch = _ref11.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.patch('delete/rank', dataRank).then(function (response) {
+          dispatch('load_data_members');
+          resolve();
+        });
+      });
+    },
+    add_subscription: function add_subscription(_ref12, dataSubscription) {
+      var commit = _ref12.commit,
+          dispatch = _ref12.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/subscription', dataSubscription).then(function (response) {
+          var data = {
+            id: response.data,
+            year: dataSubscription.year,
+            member_id: dataSubscription.member_id,
+            teacher_id: dataSubscription.teacher_id
+          };
+          commit('add_subscription', data);
+          resolve(data);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_subscription: function destroy_subscription(_ref13, ids) {
+      var commit = _ref13.commit,
+          dispatch = _ref13.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/subscription/' + ids.subscription_id).then(function (response) {
+          commit('delete_subscription', ids);
+          resolve();
+        });
+      });
+    },
+    add_region: function add_region(_ref14, dataRegion) {
+      var commit = _ref14.commit,
+          dispatch = _ref14.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/class_region', dataRegion).then(function (response) {
+          dispatch('load_data_members');
+          resolve(dataRegion);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_region: function destroy_region(_ref15, dataRegion) {
+      var commit = _ref15.commit,
+          dispatch = _ref15.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.patch('delete/class_region', dataRegion).then(function (response) {
+          dispatch('load_data_members');
+          resolve();
+        });
+      });
+    },
+    add_class: function add_class(_ref16, dataClass) {
+      var commit = _ref16.commit,
+          dispatch = _ref16.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.post('add/class_member', dataClass).then(function (response) {
+          dispatch('load_data_members');
+          resolve(dataClass);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    },
+    destroy_class: function destroy_class(_ref17, dataClass) {
+      var commit = _ref17.commit,
+          dispatch = _ref17.dispatch;
+      return new Promise(function (resolve, reject) {
+        axios.delete('delete/class_member/' + dataClass.member_id + '/' + dataClass.class_id).then(function (response) {
+          dispatch('load_data_members');
+          resolve();
+        });
+      });
+    }
+  }
 });
 
 /***/ }),

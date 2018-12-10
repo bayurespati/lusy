@@ -206,84 +206,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -545,148 +540,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -765,47 +828,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -861,22 +915,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 var admin = new Vue({
-    el: '#image-config',
-
-    components: {
-        ImageConfig: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_image_config');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#image-config',
+  components: {
+    ImageConfig: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_image_config');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -983,7 +1032,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Image_vue__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Image_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Image_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -1004,17 +1055,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
   components: {
     ImageConfig: __WEBPACK_IMPORTED_MODULE_0__Image_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
     imageConfigs: 'getImageConfig'
   }))
 });
@@ -1178,19 +1225,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { imageConfig: {} },
-
-    components: {
-        EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
-    },
-
-    data: function data() {
-        return {
-            isEditingImage: false
-        };
-    }
+  props: {
+    imageConfig: {}
+  },
+  components: {
+    EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
+  },
+  data: function data() {
+    return {
+      isEditingImage: false
+    };
+  }
 });
 
 /***/ }),
@@ -1607,131 +1653,142 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    imageConfig: {}
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      croppie: null,
+      image: this.imageConfig.image_path,
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
 
-    props: { imageConfig: {} },
+      if (!files.length) {
+        return;
+      }
 
-    data: function data() {
-        return {
-            isRequesting: false,
-            croppie: null,
-            image: this.imageConfig.image_path,
-            save_image: ''
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
+
+      var reader = new FileReader();
+      var self = this;
+
+      reader.onload = function (event) {
+        self.image = event.target.result;
+
+        _this.croppie.destroy();
+
+        _this.setUpCroppie();
+      };
+
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie-config-' + this.imageConfig.id);
+
+      if (this.imageConfig.page_name === 'Home') {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+          viewport: {
+            width: 576,
+            height: 263
+          },
+          boundary: {
+            width: 626,
+            height: 313
+          },
+          enableOrientation: false
+        });
+      } else {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+          viewport: {
+            width: 576,
+            height: 81
+          },
+          boundary: {
+            width: 626,
+            height: 131
+          },
+          enableOrientation: false
+        });
+      }
+
+      var imageBcg = this.imageConfig.page_name === 'Home' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
+
+      if (this.image === null || this.image === '') {
+        this.croppie.bind({
+          url: imageBcg
+        });
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
+
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
+
+      if (this.imageConfig.page_name === 'Home') {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            width: 1920,
+            height: 876,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            width: 1920,
+            height: 270,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    editImage: function editImage() {
+      var self = this;
+
+      if (this.image != this.imageConfig.image_path && !self.isRequesting) {
+        self.isRequesting = true;
+        var updatedImage = {
+          id: this.imageConfig.id,
+          image: this.save_image
         };
+        this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
+          flash('Image Berhasil diperbaharui', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      }
     },
-    mounted: function mounted() {
-        this.setUpCroppie();
-    },
-
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
-
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
-
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie-config-' + this.imageConfig.id);
-
-            if (this.imageConfig.page_name === 'Home') {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                    viewport: { width: 576, height: 263 },
-                    boundary: { width: 626, height: 313 },
-                    enableOrientation: false
-                });
-            } else {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                    viewport: { width: 576, height: 81 },
-                    boundary: { width: 626, height: 131 },
-                    enableOrientation: false
-                });
-            }
-
-            var imageBcg = this.imageConfig.page_name === 'Home' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
-
-            if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: imageBcg
-                });
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
-
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
-
-            if (this.imageConfig.page_name === 'Home') {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { width: 1920, height: 876, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { width: 1920, height: 270, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        editImage: function editImage() {
-
-            var self = this;
-
-            if (this.image != this.imageConfig.image_path && !self.isRequesting) {
-
-                self.isRequesting = true;
-
-                var updatedImage = {
-                    id: this.imageConfig.id,
-                    image: this.save_image
-                };
-
-                this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
-                    flash('Image Berhasil diperbaharui', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-
-                    self.isRequesting = false;
-                });
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        }
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
     }
+  }
 });
 
 /***/ }),
@@ -2013,74 +2070,59 @@ if (false) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        imageConfig: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getImageConfig: function getImageConfig(state) {
-            return state.imageConfig;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_image_config: function set_image_config(state, imageConfig) {
-            state.imageConfig = imageConfig;
-        },
-
-        update_image: function update_image(state, updatedImage) {
-
-            var imageIndex = _.findIndex(state.imageConfig, ['id', updatedImage.id]);
-
-            state.imageConfig[imageIndex].image_path = updatedImage.image_path;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_image_config: function load_image_config(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/image-config').then(function (response) {
-                commit('set_image_config', response.data);
-            });
-        },
-
-        update_image: function update_image(_ref2, updatedImage) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/image-config/' + updatedImage.id, {
-                    id: updatedImage.id,
-                    image: updatedImage.image
-                }).then(function (response) {
-
-                    commit('update_image', response.data);
-
-                    resolve(response.data);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    imageConfig: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getImageConfig: function getImageConfig(state) {
+      return state.imageConfig;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_image_config: function set_image_config(state, imageConfig) {
+      state.imageConfig = imageConfig;
+    },
+    update_image: function update_image(state, updatedImage) {
+      var imageIndex = _.findIndex(state.imageConfig, ['id', updatedImage.id]);
 
+      state.imageConfig[imageIndex].image_path = updatedImage.image_path;
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_image_config: function load_image_config(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/data/image-config').then(function (response) {
+        commit('set_image_config', response.data);
+      });
+    },
+    update_image: function update_image(_ref2, updatedImage) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/image-config/' + updatedImage.id, {
+          id: updatedImage.id,
+          image: updatedImage.image
+        }).then(function (response) {
+          commit('update_image', response.data);
+          resolve(response.data);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
