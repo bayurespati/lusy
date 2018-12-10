@@ -48,10 +48,7 @@ class HomeController extends Controller
         }
 
         list($width, $height) = getimagesize($request->image);
-        $imageShowName = time().'image_show.jpg';
-        $image_resize = Image::make($request->image);
-        $image_resize->resize($width, $height);
-        $image_resize->save(public_path('img/home/' .$imageShowName));
+        $imageShowName = $this->setImage($request->image);
 
         $thumbnailName = time().'thumbail.jpg';
         $image_resize = Image::make($request->image);
@@ -87,9 +84,33 @@ class HomeController extends Controller
     }
 
     public function setImage($image){
-        list(,$image) = explode(';', $image);
-        list(,$image) = explode(',',$image);
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($image);
 
-        return base64_decode($image);
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 2000 || $height > 2000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 2000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+
+        $image = $image;
+        $imageName = time().'image_show.jpg';
+
+        $image_resize = Image::make($image);              
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/home/' .$imageName));
+
+        return $imageName;
     }
 }

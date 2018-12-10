@@ -222,47 +222,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -667,22 +658,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 var admin = new Vue({
-    el: '#image-config',
-
-    components: {
-        ImageConfig: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
-        SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
-        Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
-    },
-
-    mounted: function mounted() {
-        this.$store.dispatch('load_image_config');
-    },
-
-
-    store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
+  el: '#image-config',
+  components: {
+    ImageConfig: __WEBPACK_IMPORTED_MODULE_0__components_List_vue___default.a,
+    SideBar: __WEBPACK_IMPORTED_MODULE_2__global_Sidebar_vue___default.a,
+    Flash: __WEBPACK_IMPORTED_MODULE_1__global_Flash_vue___default.a
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('load_image_config');
+  },
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* store */]
 });
 
 /***/ }),
@@ -789,7 +775,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Image_vue__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Image_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Image_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -810,17 +798,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
   components: {
     ImageConfig: __WEBPACK_IMPORTED_MODULE_0__Image_vue___default.a
   },
-
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
     imageConfigs: 'getImageConfig'
   }))
 });
@@ -985,17 +969,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: { imageConfig: {} },
-
-    components: {
-        EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
-    },
-
-    data: function data() {
-        return {
-            isEditingImage: false
-        };
-    }
+  props: {
+    imageConfig: {}
+  },
+  components: {
+    EditImage: __WEBPACK_IMPORTED_MODULE_0__EditImage_vue___default.a
+  },
+  data: function data() {
+    return {
+      isEditingImage: false
+    };
+  }
 });
 
 /***/ }),
@@ -1411,114 +1395,143 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-ƒ
 
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    imageConfig: {}
+  },
+  data: function data() {
+    return {
+      isRequesting: false,
+      croppie: null,
+      image: this.imageConfig.image_path,
+      save_image: ''
+    };
+  },
+  mounted: function mounted() {
+    this.setUpCroppie();
+  },
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
 
-            if (!files.length) {
-                return;
-            }
+      if (!files.length) {
+        return;
+      }
 
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var _this = this;
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var _this = this;
 
-            var reader = new FileReader();
-            var self = this;
+      var reader = new FileReader();
+      var self = this;
 
-            reader.onload = function (event) {
-                self.image = event.target.result;
-                _this.croppie.destroy();
-                _this.setUpCroppie();
-            };
+      reader.onload = function (event) {
+        self.image = event.target.result;
 
-            reader.readAsDataURL(file);
-        },
-        setUpCroppie: function setUpCroppie() {
-            var self = this;
-            var file = document.getElementById('croppie-config-' + this.imageConfig.id);
+        _this.croppie.destroy();
 
-            if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                    viewport: { width: 576, height: 263 },
-                    boundary: { width: 626, height: 313 },
-                    enableOrientation: false
-                });
-            } else {
-                this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
-                    viewport: { width: 576, height: 81 },
-                    boundary: { width: 626, height: 131 },
-                    enableOrientation: false
-                });
-            }
+        _this.setUpCroppie();
+      };
 
-            var imageBcg = this.imageConfig.page_name === 'Event Showcase Background in Home Page' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
+      reader.readAsDataURL(file);
+    },
+    setUpCroppie: function setUpCroppie() {
+      var self = this;
+      var file = document.getElementById('croppie-config-' + this.imageConfig.id);
 
-            if (this.image === null || this.image === '') {
-                this.croppie.bind({
-                    url: imageBcg
-                });
-            } else {
-                this.croppie.bind({
-                    url: this.image
-                });
-            }
+      if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+          viewport: {
+            width: 576,
+            height: 263
+          },
+          boundary: {
+            width: 626,
+            height: 313
+          },
+          enableOrientation: false
+        });
+      } else {
+        this.croppie = new __WEBPACK_IMPORTED_MODULE_0_croppie__["Croppie"](file, {
+          viewport: {
+            width: 576,
+            height: 81
+          },
+          boundary: {
+            width: 626,
+            height: 131
+          },
+          enableOrientation: false
+        });
+      }
 
-            this.croppie.options.update = function () {
-                self.setImage();
-            };
-        },
-        setImage: function setImage() {
-            var self = this;
+      var imageBcg = this.imageConfig.page_name === 'Event Showcase Background in Home Page' ? '/img/upcoming-event-bg.jpg' : '/img/page-banner-bg.jpg';
 
-            if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { width: 1920, height: 876, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            } else {
-                this.croppie.result({
-                    type: 'canvas',
-                    size: { width: 1920, height: 270, type: 'square' }
-                }).then(function (response) {
-                    self.save_image = response;
-                });
-            }
-        },
-        editImage: function editImage() {
+      if (this.image === null || this.image === '') {
+        this.croppie.bind({
+          url: imageBcg
+        });
+      } else {
+        this.croppie.bind({
+          url: this.image
+        });
+      }
 
-            var self = this;
+      this.croppie.options.update = function () {
+        self.setImage();
+      };
+    },
+    setImage: function setImage() {
+      var self = this;
 
-            if (this.image != this.imageConfig.image_path && !self.isRequesting) {
+      if (this.imageConfig.page_name === 'Event Showcase Background in Home Page') {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            width: 1920,
+            height: 876,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      } else {
+        this.croppie.result({
+          type: 'canvas',
+          size: {
+            width: 1920,
+            height: 270,
+            type: 'square'
+          }
+        }).then(function (response) {
+          self.save_image = response;
+        });
+      }
+    },
+    editImage: function editImage() {
+      var self = this;
 
-                self.isRequesting = true;
-
-                var updatedImage = {
-                    id: this.imageConfig.id,
-                    image: this.save_image
-                };
-
-                this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
-                    flash('Image Berhasil diperbaharui', 'success');
-
-                    self.isRequesting = false;
-
-                    self.closeEditForm();
-                }).catch(function (errors) {
-
-                    self.isRequesting = false;
-                });
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        }
+      if (this.image != this.imageConfig.image_path && !self.isRequesting) {
+        self.isRequesting = true;
+        var updatedImage = {
+          id: this.imageConfig.id,
+          image: this.save_image
+        };
+        this.$store.dispatch('update_image', updatedImage).then(function (updatedImage) {
+          flash('Image Berhasil diperbaharui', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      }
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
     }
+  }
 });
 
 /***/ }),
@@ -1722,242 +1735,6 @@ var render = function() {
       1
     )
   ])
-  //  S T A T E
-  //=========================================================================================
-  state: {
-    imageConfig: {}
-  },
-  //=========================================================================================
-  //  G E T T E R S
-  //=========================================================================================
-  getters: {
-    getImageConfig: function getImageConfig(state) {
-      return state.imageConfig;
-    }
-  },
-  //=========================================================================================
-  //  M U T A T I O N S
-  //=========================================================================================
-  mutations: {
-    set_image_config: function set_image_config(state, imageConfig) {
-      state.imageConfig = imageConfig;
-    },
-    update_image: function update_image(state, updatedImage) {
-      var imageIndex = _.findIndex(state.imageConfig, ['id', updatedImage.id]);
-
-      state.imageConfig[imageIndex].image_path = updatedImage.image_path;
-    }
-  },
-  //=========================================================================================
-  //  A C T I O N S
-  //=========================================================================================
-  actions: {
-    load_image_config: function load_image_config(_ref) {
-      var commit = _ref.commit;
-      axios.get('/admin/data/image-config').then(function (response) {
-        commit('set_image_config', response.data);
-      });
-    },
-    update_image: function update_image(_ref2, updatedImage) {
-      var commit = _ref2.commit;
-      return new Promise(function (resolve, reject) {
-        axios.patch('update/image-config/' + updatedImage.id, {
-          id: updatedImage.id,
-          image: updatedImage.image
-        }).then(function (response) {
-          commit('update_image', response.data);
-          resolve(response.data);
-        }).catch(function (errors) {
-          reject(errors.response.data);
-        });
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Store */
-/* unused harmony export install */
-/* unused harmony export mapState */
-/* unused harmony export mapMutations */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
-/* unused harmony export mapActions */
-/* unused harmony export createNamespacedHelpers */
-/**
- * vuex v3.0.1
- * (c) 2017 Evan You
- * @license MIT
- */
-var applyMixin = function (Vue) {
-  var version = Number(Vue.version.split('.')[0]);
-
-  if (version >= 2) {
-    Vue.mixin({ beforeCreate: vuexInit });
-  } else {
-    // override init and inject vuex init procedure
-    // for 1.x backwards compatibility.
-    var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      if ( options === void 0 ) options = {};
-
-      options.init = options.init
-        ? [vuexInit].concat(options.init)
-        : vuexInit;
-      _init.call(this, options);
-    };
-  }
-
-  /**
-   * Vuex init hook, injected into each instances init hooks list.
-   */
-
-  function vuexInit () {
-    var options = this.$options;
-    // store injection
-    if (options.store) {
-      this.$store = typeof options.store === 'function'
-        ? options.store()
-        : options.store;
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store;
-    }
-  }
-};
-
-var devtoolHook =
-  typeof window !== 'undefined' &&
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-
-function devtoolPlugin (store) {
-  if (!devtoolHook) { return }
-
-  store._devtoolHook = devtoolHook;
-
-  devtoolHook.emit('vuex:init', store);
-
-  devtoolHook.on('vuex:travel-to-state', function (targetState) {
-    store.replaceState(targetState);
-  });
-
-  store.subscribe(function (mutation, state) {
-    devtoolHook.emit('vuex:mutation', mutation, state);
-  });
-=======
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -2036,74 +1813,59 @@ if (false) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 
-
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-
-    //=========================================================================================
-    //  S T A T E
-    //=========================================================================================
-    state: {
-        imageConfig: {}
-    },
-
-    //=========================================================================================
-    //  G E T T E R S
-    //=========================================================================================
-    getters: {
-        getImageConfig: function getImageConfig(state) {
-            return state.imageConfig;
-        }
-    },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_image_config: function set_image_config(state, imageConfig) {
-            state.imageConfig = imageConfig;
-        },
-
-        update_image: function update_image(state, updatedImage) {
-
-            var imageIndex = _.findIndex(state.imageConfig, ['id', updatedImage.id]);
-
-            state.imageConfig[imageIndex].image_path = updatedImage.image_path;
-        }
-    },
-
-    //=========================================================================================
-    //  A C T I O N S
-    //=========================================================================================
-    actions: {
-        load_image_config: function load_image_config(_ref) {
-            var commit = _ref.commit;
-
-            axios.get('/admin/data/image-config').then(function (response) {
-                commit('set_image_config', response.data);
-            });
-        },
-
-        update_image: function update_image(_ref2, updatedImage) {
-            var commit = _ref2.commit;
-
-
-            return new Promise(function (resolve, reject) {
-
-                axios.patch('update/image-config/' + updatedImage.id, {
-                    id: updatedImage.id,
-                    image: updatedImage.image
-                }).then(function (response) {
-
-                    commit('update_image', response.data);
-
-                    resolve(response.data);
-                }).catch(function (errors) {
-                    reject(errors.response.data);
-                });
-            });
-        }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    imageConfig: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getImageConfig: function getImageConfig(state) {
+      return state.imageConfig;
     }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_image_config: function set_image_config(state, imageConfig) {
+      state.imageConfig = imageConfig;
+    },
+    update_image: function update_image(state, updatedImage) {
+      var imageIndex = _.findIndex(state.imageConfig, ['id', updatedImage.id]);
 
+      state.imageConfig[imageIndex].image_path = updatedImage.image_path;
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_image_config: function load_image_config(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/data/image-config').then(function (response) {
+        commit('set_image_config', response.data);
+      });
+    },
+    update_image: function update_image(_ref2, updatedImage) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/image-config/' + updatedImage.id, {
+          id: updatedImage.id,
+          image: updatedImage.image
+        }).then(function (response) {
+          commit('update_image', response.data);
+          resolve(response.data);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5412,148 +5174,219 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Detail',
+          link: '/admin/bookkeeping/member-detail'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ })

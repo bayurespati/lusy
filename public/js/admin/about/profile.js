@@ -222,47 +222,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -298,148 +289,66 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      notifications: []
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    window.events.$on('flash', function (message, type) {
-      _this.flash(message, type, 3500);
-    });
-  },
-  computed: {
-    notificationExists: function notificationExists() {
-      return this.notifications.length > 0;
-    },
-    time: function time() {
-      return _.now();
-    }
-  },
-  methods: {
-    flash: function flash(message) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-      if (this.notifications.length === 8) {
-        this.hide(0);
-      }
-
-      this.display(message, type);
-      this.hide(duration);
-    },
-    display: function display(message, type) {
-      this.notifications.push({
-        body: message,
-        type: type,
-        alertClass: this.getAlertClass(type),
-        alertIcon: this.getAlertIcon(type)
-      });
-    },
-    hide: function hide(duration) {
-      var _this2 = this;
-
-      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      setTimeout(function () {
-        _this2.notifications.splice(index, 1);
-      }, duration);
-    },
-    getAlertClass: function getAlertClass(type) {
-      return 'alert-' + type;
-    },
-    getAlertIcon: function getAlertIcon(type) {
-      if (type === 'success') {
-        return 's7-check';
-      } else if (type === 'danger') {
-        return 's7-less';
-      } else if (type === 'info') {
-        return 's7-info';
-      } else if (type === 'warning') {
-        return 's7-attention';
-      } else {
-        return '';
-      }
-    },
-    getBottomPosition: function getBottomPosition(index) {
-      var margin = 10;
-      var notificationHeight = 60;
-      return {
-        bottom: margin * (index + 1) + notificationHeight * index + 'px'
-      };
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(223);
 
 
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-  //==================================================================================    }
+  //=========================================================================================
+  //  S T A T E
+  //=========================================================================================
+  state: {
+    profile: {}
+  },
+  //=========================================================================================
+  //  G E T T E R S
+  //=========================================================================================
+  getters: {
+    getProfile: function getProfile(state) {
+      return state.profile;
+    }
+  },
+  //=========================================================================================
+  //  M U T A T I O N S
+  //=========================================================================================
+  mutations: {
+    set_profile: function set_profile(state, profile) {
+      state.profile = profile;
+    },
+    edit_profile: function edit_profile(state, updatedProfile) {
+      state.profile.title = updatedProfile.title;
+      state.profile.content = updatedProfile.content;
+      state.profile.image_path = updatedProfile.image_path;
+    }
+  },
+  //=========================================================================================
+  //  A C T I O N S
+  //=========================================================================================
+  actions: {
+    load_profile: function load_profile(_ref) {
+      var commit = _ref.commit;
+      axios.get('/admin/about/data/profile').then(function (response) {
+        commit('set_profile', response.data);
+      });
+    },
+    update_profile: function update_profile(_ref2, updatedProfile) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.patch('update/profile/' + updatedProfile.id, {
+          id: updatedProfile.id,
+          title: updatedProfile.title,
+          content: updatedProfile.content,
+          image: updatedProfile.image
+        }).then(function (response) {
+          updatedProfile.image_path = response.data;
+          commit('edit_profile', updatedProfile);
+          resolve(updatedProfile);
+        }).catch(function (errors) {
+          reject(errors.response.data);
+        });
+      });
+    }
   }
 });
 
@@ -597,215 +506,77 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      applicants: '',
-      potentials: '',
-      member: '',
-      message: '',
-      menuName: '',
-      subMenuName: '',
-      menus: [{
-        id: 'home',
-        name: 'Home',
-        subMenu: [{
-          name: 'Social Media',
-          link: '/admin/home/sosmed'
-        }, {
-          name: 'Image Slider',
-          link: '/admin/home/image-slider'
-        }, {
-          name: 'Image Config',
-          link: '/admin/home/image-config'
-        }]
-      }, {
-        id: 'about',
-        name: 'About',
-        subMenu: [{
-          name: 'Profile',
-          link: '/admin/about/profile'
-        }, {
-          name: 'Classes',
-          link: '/admin/about/class'
-        }, {
-          name: 'Timeline',
-          link: '/admin/about/timeline'
-        }, {
-          name: 'Gallery Showcase',
-          link: '/admin/about/showcase'
-        }, {
-          name: 'Shop Showcase',
-          link: '/admin/about/shop-showcase'
-        }]
-      }, {
-        id: 'gallery',
-        name: 'Gallery',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/gallery/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/gallery/subcategory'
-        }, {
-          name: 'Photos',
-          link: '/admin/gallery/list'
-        }]
-      }, {
-        id: 'event',
-        name: 'Events & Activities',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/event/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/event/subcategory'
-        }, {
-          name: 'Events & Activities',
-          link: '/admin/event/list'
-        }]
-      }, {
-        id: 'shop',
-        name: 'Shop',
-        subMenu: [{
-          name: 'Category',
-          link: '/admin/shop/category'
-        }, {
-          name: 'Sub Category',
-          link: '/admin/shop/subcategory'
-        }, {
-          name: 'Items',
-          link: '/admin/shop/list'
-        }]
-      }, {
-        id: 'bookkeeping',
-        name: 'Bookkeeping',
-        subMenu: [{
-          name: 'Member',
-          link: '/admin/bookkeeping/member'
-        }, {
-          name: 'Member Applicants',
-          link: '/admin/bookkeeping/applicant-member'
-        }, {
-          name: 'Class Region',
-          link: '/admin/bookkeeping/region'
-        }, {
-          name: 'Event Applicants',
-          link: '/admin/bookkeeping/applicant-event'
-        }, {
-          name: 'Overseas Inquiries',
-          link: '/admin/bookkeeping/overseas'
-        }, {
-          name: 'Potential Overseas Inquiries',
-          link: '/admin/bookkeeping/potential'
-        }, {
-          name: 'Messages',
-          link: '/admin/bookkeeping/message'
-        }]
-      }]
+      notifications: []
     };
   },
-  mounted: function mounted() {
-    this.setName();
-    this.getApplicant();
-    this.getPotential();
-    this.getMessage();
-    this.getMember();
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
   },
   computed: {
-    applicantTotal: function applicantTotal() {
-      var totalApplicants = 0;
-
-      if (this.$store.getters.getApplicantItems === undefined) {
-        for (var i = 0; i < this.applicants.length; i++) {
-          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-            if (this.applicants[i].applicants[k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
-
-        ;
-      } else {
-        var appEvent = this.$store.getters.getApplicantEvent;
-
-        for (var _i = 0; _i < appEvent.length; _i++) {
-          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-            if (appEvent.applicants[_k].is_approve === 0) {
-              totalApplicants++;
-            }
-          }
-        }
-
-        ;
-      }
-
-      return totalApplicants;
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    potentialTotal: function potentialTotal() {
-      if (this.$store.getters.getPotentialItems === undefined) {
-        return this.potentials.length;
-      } else {
-        return this.$store.getters.getPotentialItems.length;
-      }
-    },
-    messageTotal: function messageTotal() {
-      if (this.$store.getters.getMessageItems === undefined) {
-        return this.message.length;
-      } else {
-        return this.$store.getters.getMessageItems.length;
-      }
-    },
-    memberTotal: function memberTotal() {
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        return this.member.length;
-      } else {
-        return this.$store.getters.getApplicantMemberItems.length;
-      }
+    time: function time() {
+      return _.now();
     }
   },
   methods: {
-    getApplicant: function getApplicant() {
-      var _this = this;
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
 
-      if (this.$store.getters.getApplicantItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-          _this.applicants = response.data;
-        });
+      if (this.notifications.length === 8) {
+        this.hide(0);
       }
+
+      this.display(message, type);
+      this.hide(duration);
     },
-    getPotential: function getPotential() {
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
       var _this2 = this;
 
-      if (this.$store.getters.getPotentialItems === undefined) {
-        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-          _this2.potentials = response.data;
-        });
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
       }
     },
-    getMessage: function getMessage() {
-      var _this3 = this;
-
-      if (this.$store.getters.getMessageItems === undefined) {
-        axios.get('/admin/bookkeeping/data/message').then(function (response) {
-          _this3.message = response.data;
-        });
-      }
-    },
-    getMember: function getMember() {
-      var _this4 = this;
-
-      if (this.$store.getters.getApplicantMemberItems === undefined) {
-        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-          _this4.member = response.data;
-        });
-      }
-    },
-    setName: function setName() {
-      var link = window.location.pathname.split('/');
-      this.menuName = link[2];
-      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
     }
   }
 });
@@ -852,62 +623,41 @@ var render = function() {
                       class: notification.alertClass,
                       style: _vm.getBottomPosition(index)
                     },
-                    staticStyle: { position: "relative" },
-                    attrs: { href: submenu.link }
-                  },
-                  [
-                    _vm._v(
-                      " " + _vm._s(submenu.name) + "\n\n                       "
-                    ),
-                    _vm.applicantTotal > 0 &&
-                    submenu.link === "/admin/bookkeeping/applicant-event"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.applicantTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm.potentialTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/potential"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.potentialTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm.messageTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/message"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.messageTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm.memberTotal > 0 &&
-                        submenu.link === "/admin/bookkeeping/applicant-member"
-                      ? _c("div", { staticClass: "notification-dot-left" }, [
-                          _c("span", [
-                            _vm._v(
-                              "\n                    \t\t\t" +
-                                _vm._s(_vm.memberTotal) +
-                                "\n                    \t\t"
-                            )
-                          ])
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              ])
-            })
+                    [
+                      _c("div", { staticClass: "icon" }, [
+                        _c("span", { class: notification.alertIcon })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "message" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "close",
+                            on: {
+                              click: function($event) {
+                                _vm.hide(0, index)
+                              }
+                            }
+                          },
+                          [
+                            _c("span", {
+                              staticClass: "s7-close",
+                              attrs: { "aria-hidden": "true" }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(notification.body) +
+                            "\n                "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              )
+            ],
+            1
           )
         : _vm._e()
     ]
@@ -2063,356 +1813,6 @@ if (false) {
   // return sosmed.id === sosmedId;
   // });
   // },
-});
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Store */
-/* unused harmony export install */
-/* unused harmony export mapState */
-/* unused harmony export mapMutations */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
-/* unused harmony export mapActions */
-/* unused harmony export createNamespacedHelpers */
-/**
- * vuex v3.0.1
- * (c) 2017 Evan You
- * @license MIT
- */
-var applyMixin = function (Vue) {
-  var version = Number(Vue.version.split('.')[0]);
-
-  if (version >= 2) {
-    Vue.mixin({ beforeCreate: vuexInit });
-  } else {
-    // override init and inject vuex init procedure
-    // for 1.x backwards compatibility.
-    var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      if ( options === void 0 ) options = {};
-
-      options.init = options.init
-        ? [vuexInit].concat(options.init)
-        : vuexInit;
-      _init.call(this, options);
-    };
-  }
-
-  /**
-   * Vuex init hook, injected into each instances init hooks list.
-   */
-
-  function vuexInit () {
-    var options = this.$options;
-    // store injection
-    if (options.store) {
-      this.$store = typeof options.store === 'function'
-        ? options.store()
-        : options.store;
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store;
-    }
-  }
-};
-
-var devtoolHook =
-  typeof window !== 'undefined' &&
-  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-
-function devtoolPlugin (store) {
-  if (!devtoolHook) { return }
-
-  store._devtoolHook = devtoolHook;
-
-  devtoolHook.emit('vuex:init', store);
-
-  devtoolHook.on('vuex:travel-to-state', function (targetState) {
-    store.replaceState(targetState);
-  });
-
-  store.subscribe(function (mutation, state) {
-    devtoolHook.emit('vuex:mutation', mutation, state);
-  });
-}
-
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-/**
- * Deep copy the given object considering circular structure.
- * This function caches all nested objects and its copies.
- * If it detects circular structure, use cached copy to avoid infinite loop.
- *
- * @param {*} obj
- * @param {Array<Object>} cache
- * @return {*}
- */
-
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-var Module = function Module (rawModule, runtime) {
-  this.runtime = runtime;
-  this._children = Object.create(null);
-  this._rawModule = rawModule;
-  var rawState = rawModule.state;
-  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
-};
-
-var prototypeAccessors$1 = { namespaced: { configurable: true } };
-
-prototypeAccessors$1.namespaced.get = function () {
-  return !!this._rawModule.namespaced
-};
-
-Module.prototype.addChild = function addChild (key, module) {
-  this._children[key] = module;
-};
-
-Module.prototype.removeChild = function removeChild (key) {
-  delete this._children[key];
-};
-
-Module.prototype.getChild = function getChild (key) {
-  return this._children[key]
-};
-
-Module.prototype.update = function update (rawModule) {
-  this._rawModule.namespaced = rawModule.namespaced;
-  if (rawModule.actions) {
-    this._rawModule.actions = rawModule.actions;
-  }
-  if (rawModule.mutations) {
-    this._rawModule.mutations = rawModule.mutations;
-  }
-  if (rawModule.getters) {
-    this._rawModule.getters = rawModule.getters;
-  }
-};
-
-Module.prototype.forEachChild = function forEachChild (fn) {
-  forEachValue(this._children, fn);
-};
-
-Module.prototype.forEachGetter = function forEachGetter (fn) {
-  if (this._rawModule.getters) {
-    forEachValue(this._rawModule.getters, fn);
-  }
-};
-
-Module.prototype.forEachAction = function forEachAction (fn) {
-  if (this._rawModule.actions) {
-    forEachValue(this._rawModule.actions, fn);
-  }
-};
-
-Module.prototype.forEachMutation = function forEachMutation (fn) {
-  if (this._rawModule.mutations) {
-    forEachValue(this._rawModule.mutations, fn);
-  }
-};
-
-Object.defineProperties( Module.prototype, prototypeAccessors$1 );
-
-var ModuleCollection = function ModuleCollection (rawRootModule) {
-  // register root module (Vuex.Store options)
-  this.register([], rawRootModule, false);
-};
-
-ModuleCollection.prototype.get = function get (path) {
-  return path.reduce(function (module, key) {
-    return module.getChild(key)
-  }, this.root)
-};
-
-ModuleCollection.prototype.getNamespace = function getNamespace (path) {
-  var module = this.root;
-  return path.reduce(function (namespace, key) {
-    module = module.getChild(key);
-    return namespace + (module.namespaced ? key + '/' : '')
-  }, '')
-};
-
-ModuleCollection.prototype.update = function update$1 (rawRootModule) {
-  update([], this.root, rawRootModule);
-};
-
-ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
-    var this$1 = this;
-    if ( runtime === void 0 ) runtime = true;
-
-  if (true) {
-    assertRawModule(path, rawModule);
-  }
-
-  var newModule = new Module(rawModule, runtime);
-  if (path.length === 0) {
-    this.root = newModule;
-  } else {
-    var parent = this.get(path.slice(0, -1));
-    parent.addChild(path[path.length - 1], newModule);
-  }
-
-  // register nested modules
-  if (rawModule.modules) {
-    forEachValue(rawModule.modules, function (rawChildModule, key) {
-      this$1.register(path.concat(key), rawChildModule, runtime);
-    });
-  }
-};
-
-/***/ }),
-
-/***/ 223:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(109);
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = ({
-
-    // getIndexOfSosmed(sosmedId) {
-    // return _.findIndex(store.state.sosmeds, function (sosmed) {
-    // return sosmed.id === sosmedId;
-    // });
-    // },
 });
 
 /***/ }),
@@ -5721,148 +5121,219 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			applicants: '',
-			potentials: '',
-			member: '',
-			message: '',
-			menuName: '',
-			subMenuName: '',
+  data: function data() {
+    return {
+      applicants: '',
+      potentials: '',
+      member: '',
+      message: '',
+      menuName: '',
+      subMenuName: '',
+      menus: [{
+        id: 'home',
+        name: 'Home',
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
+      }, {
+        id: 'about',
+        name: 'About',
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
+      }, {
+        id: 'gallery',
+        name: 'Gallery',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
+      }, {
+        id: 'event',
+        name: 'Events & Activities',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
+      }, {
+        id: 'shop',
+        name: 'Shop',
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
+      }, {
+        id: 'bookkeeping',
+        name: 'Bookkeeping',
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Detail',
+          link: '/admin/bookkeeping/member-detail'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
+      }]
+    };
+  },
+  mounted: function mounted() {
+    this.setName();
+    this.getApplicant();
+    this.getPotential();
+    this.getMessage();
+    this.getMember();
+  },
+  computed: {
+    applicantTotal: function applicantTotal() {
+      var totalApplicants = 0;
 
-			menus: [{
-				id: 'home',
-				name: 'Home',
-				subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
-			}, {
-				id: 'about',
-				name: 'About',
-				subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
-			}, {
-				id: 'gallery',
-				name: 'Gallery',
-				subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
-			}, {
-				id: 'event',
-				name: 'Events & Activities',
-				subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
-			}, {
-				id: 'shop',
-				name: 'Shop',
-				subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
-			}, {
-				id: 'bookkeeping',
-				name: 'Bookkeeping',
-				subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
-			}]
-		};
-	},
-	mounted: function mounted() {
-		this.setName();
-		this.getApplicant();
-		this.getPotential();
-		this.getMessage();
-		this.getMember();
-	},
+      if (this.$store.getters.getApplicantItems === undefined) {
+        for (var i = 0; i < this.applicants.length; i++) {
+          for (var k = 0; k < this.applicants[i].applicants.length; k++) {
+            if (this.applicants[i].applicants[k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
+        ;
+      } else {
+        var appEvent = this.$store.getters.getApplicantEvent;
 
-	computed: {
-		applicantTotal: function applicantTotal() {
-			var totalApplicants = 0;
+        for (var _i = 0; _i < appEvent.length; _i++) {
+          for (var _k = 0; _k < appEvent.applicants.length; _k++) {
+            if (appEvent.applicants[_k].is_approve === 0) {
+              totalApplicants++;
+            }
+          }
+        }
 
-			if (this.$store.getters.getApplicantItems === undefined) {
+        ;
+      }
 
-				for (var i = 0; i < this.applicants.length; i++) {
-					for (var k = 0; k < this.applicants[i].applicants.length; k++) {
-						if (this.applicants[i].applicants[k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			} else {
-				var appEvent = this.$store.getters.getApplicantEvent;
+      return totalApplicants;
+    },
+    potentialTotal: function potentialTotal() {
+      if (this.$store.getters.getPotentialItems === undefined) {
+        return this.potentials.length;
+      } else {
+        return this.$store.getters.getPotentialItems.length;
+      }
+    },
+    messageTotal: function messageTotal() {
+      if (this.$store.getters.getMessageItems === undefined) {
+        return this.message.length;
+      } else {
+        return this.$store.getters.getMessageItems.length;
+      }
+    },
+    memberTotal: function memberTotal() {
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        return this.member.length;
+      } else {
+        return this.$store.getters.getApplicantMemberItems.length;
+      }
+    }
+  },
+  methods: {
+    getApplicant: function getApplicant() {
+      var _this = this;
 
-				for (var _i = 0; _i < appEvent.length; _i++) {
-					for (var _k = 0; _k < appEvent.applicants.length; _k++) {
-						if (appEvent.applicants[_k].is_approve === 0) {
-							totalApplicants++;
-						}
-					}
-				};
-			}
+      if (this.$store.getters.getApplicantItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
+          _this.applicants = response.data;
+        });
+      }
+    },
+    getPotential: function getPotential() {
+      var _this2 = this;
 
-			return totalApplicants;
-		},
-		potentialTotal: function potentialTotal() {
-			if (this.$store.getters.getPotentialItems === undefined) {
-				return this.potentials.length;
-			} else {
-				return this.$store.getters.getPotentialItems.length;
-			}
-		},
-		messageTotal: function messageTotal() {
-			if (this.$store.getters.getMessageItems === undefined) {
-				return this.message.length;
-			} else {
-				return this.$store.getters.getMessageItems.length;
-			}
-		},
-		memberTotal: function memberTotal() {
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				return this.member.length;
-			} else {
-				return this.$store.getters.getApplicantMemberItems.length;
-			}
-		}
-	},
+      if (this.$store.getters.getPotentialItems === undefined) {
+        axios.get('/admin/bookkeeping/data/potential').then(function (response) {
+          _this2.potentials = response.data;
+        });
+      }
+    },
+    getMessage: function getMessage() {
+      var _this3 = this;
 
-	methods: {
-		getApplicant: function getApplicant() {
-			var _this = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-event').then(function (response) {
-					_this.applicants = response.data;
-				});
-			}
-		},
-		getPotential: function getPotential() {
-			var _this2 = this;
-
-			if (this.$store.getters.getPotentialItems === undefined) {
-				axios.get('/admin/bookkeeping/data/potential').then(function (response) {
-					_this2.potentials = response.data;
-				});
-			}
-		},
-		getMessage: function getMessage() {
-			var _this3 = this;
-
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
-
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ })

@@ -1703,7 +1703,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1713,31 +1712,105 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       message: '',
       menuName: '',
       subMenuName: '',
-
       menus: [{
         id: 'home',
         name: 'Home',
-        subMenu: [{ name: 'Social Media', link: '/admin/home/sosmed' }, { name: 'Image Slider', link: '/admin/home/image-slider' }, { name: 'Image Config', link: '/admin/home/image-config' }]
+        subMenu: [{
+          name: 'Social Media',
+          link: '/admin/home/sosmed'
+        }, {
+          name: 'Image Slider',
+          link: '/admin/home/image-slider'
+        }, {
+          name: 'Image Config',
+          link: '/admin/home/image-config'
+        }]
       }, {
         id: 'about',
         name: 'About',
-        subMenu: [{ name: 'Profile', link: '/admin/about/profile' }, { name: 'Classes', link: '/admin/about/class' }, { name: 'Timeline', link: '/admin/about/timeline' }, { name: 'Gallery Showcase', link: '/admin/about/showcase' }, { name: 'Shop Showcase', link: '/admin/about/shop-showcase' }]
+        subMenu: [{
+          name: 'Profile',
+          link: '/admin/about/profile'
+        }, {
+          name: 'Classes',
+          link: '/admin/about/class'
+        }, {
+          name: 'Timeline',
+          link: '/admin/about/timeline'
+        }, {
+          name: 'Gallery Showcase',
+          link: '/admin/about/showcase'
+        }, {
+          name: 'Shop Showcase',
+          link: '/admin/about/shop-showcase'
+        }]
       }, {
         id: 'gallery',
         name: 'Gallery',
-        subMenu: [{ name: 'Category', link: '/admin/gallery/category' }, { name: 'Sub Category', link: '/admin/gallery/subcategory' }, { name: 'Photos', link: '/admin/gallery/list' }]
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/gallery/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/gallery/subcategory'
+        }, {
+          name: 'Photos',
+          link: '/admin/gallery/list'
+        }]
       }, {
         id: 'event',
         name: 'Events & Activities',
-        subMenu: [{ name: 'Category', link: '/admin/event/category' }, { name: 'Sub Category', link: '/admin/event/subcategory' }, { name: 'Events & Activities', link: '/admin/event/list' }]
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/event/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/event/subcategory'
+        }, {
+          name: 'Events & Activities',
+          link: '/admin/event/list'
+        }]
       }, {
         id: 'shop',
         name: 'Shop',
-        subMenu: [{ name: 'Category', link: '/admin/shop/category' }, { name: 'Sub Category', link: '/admin/shop/subcategory' }, { name: 'Items', link: '/admin/shop/list' }]
+        subMenu: [{
+          name: 'Category',
+          link: '/admin/shop/category'
+        }, {
+          name: 'Sub Category',
+          link: '/admin/shop/subcategory'
+        }, {
+          name: 'Items',
+          link: '/admin/shop/list'
+        }]
       }, {
         id: 'bookkeeping',
         name: 'Bookkeeping',
-        subMenu: [{ name: 'Member', link: '/admin/bookkeeping/member' }, { name: 'Member Detail', link: '/admin/bookkeeping/member-detail' }, { name: 'Member Applicants', link: '/admin/bookkeeping/applicant-member' }, { name: 'Class Region', link: '/admin/bookkeeping/region' }, { name: 'Event Applicants', link: '/admin/bookkeeping/applicant-event' }, { name: 'Overseas Inquiries', link: '/admin/bookkeeping/overseas' }, { name: 'Potential Overseas Inquiries', link: '/admin/bookkeeping/potential' }, { name: 'Messages', link: '/admin/bookkeeping/message' }]
+        subMenu: [{
+          name: 'Member',
+          link: '/admin/bookkeeping/member'
+        }, {
+          name: 'Member Detail',
+          link: '/admin/bookkeeping/member-detail'
+        }, {
+          name: 'Member Applicants',
+          link: '/admin/bookkeeping/applicant-member'
+        }, {
+          name: 'Class Region',
+          link: '/admin/bookkeeping/region'
+        }, {
+          name: 'Event Applicants',
+          link: '/admin/bookkeeping/applicant-event'
+        }, {
+          name: 'Overseas Inquiries',
+          link: '/admin/bookkeeping/overseas'
+        }, {
+          name: 'Potential Overseas Inquiries',
+          link: '/admin/bookkeeping/potential'
+        }, {
+          name: 'Messages',
+          link: '/admin/bookkeeping/message'
+        }]
       }]
     };
   },
@@ -1748,24 +1821,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.getMessage();
     this.getMember();
   },
-
-      if (this.notifications.length === 8) {
-        this.hide(0);
-      }
-
   computed: {
     applicantTotal: function applicantTotal() {
       var totalApplicants = 0;
 
       if (this.$store.getters.getApplicantItems === undefined) {
-
         for (var i = 0; i < this.applicants.length; i++) {
           for (var k = 0; k < this.applicants[i].applicants.length; k++) {
             if (this.applicants[i].applicants[k].is_approve === 0) {
               totalApplicants++;
             }
           }
-        };
+        }
+
+        ;
       } else {
         var appEvent = this.$store.getters.getApplicantEvent;
 
@@ -1775,7 +1844,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               totalApplicants++;
             }
           }
-        };
+        }
+
+        ;
       }
 
       return totalApplicants;
@@ -1802,7 +1873,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }
   },
-
   methods: {
     getApplicant: function getApplicant() {
       var _this = this;
@@ -1825,29 +1895,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getMessage: function getMessage() {
       var _this3 = this;
 
-			if (this.$store.getters.getMessageItems === undefined) {
-				axios.get('/admin/bookkeeping/data/message').then(function (response) {
-					_this3.message = response.data;
-				});
-			}
-		},
-		getMember: function getMember() {
-			var _this4 = this;
+      if (this.$store.getters.getMessageItems === undefined) {
+        axios.get('/admin/bookkeeping/data/message').then(function (response) {
+          _this3.message = response.data;
+        });
+      }
+    },
+    getMember: function getMember() {
+      var _this4 = this;
 
-			if (this.$store.getters.getApplicantMemberItems === undefined) {
-				axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
-					_this4.member = response.data;
-				});
-			}
-		},
-		setName: function setName() {
-			var link = window.location.pathname.split('/');
-
-			this.menuName = link[2];
-
-			this.subMenuName = '/admin/' + link[2] + '/' + link[3];
-		}
-	}
+      if (this.$store.getters.getApplicantMemberItems === undefined) {
+        axios.get('/admin/bookkeeping/data/applicant-member').then(function (response) {
+          _this4.member = response.data;
+        });
+      }
+    },
+    setName: function setName() {
+      var link = window.location.pathname.split('/');
+      this.menuName = link[2];
+      this.subMenuName = '/admin/' + link[2] + '/' + link[3];
+    }
+  }
 });
 
 /***/ }),
@@ -1925,47 +1993,38 @@ var render = function() {
                         ])
                       : _vm.potentialTotal > 0 &&
                         submenu.link === "/admin/bookkeeping/potential"
-                        ? _c("div", { staticClass: "notification-dot-left" }, [
-                            _c("span", [
-                              _vm._v(
-                                "\n                    \t\t\t" +
-                                  _vm._s(_vm.potentialTotal) +
-                                  "\n                    \t\t"
-                              )
-                            ])
-                          ])
-                        : _vm.messageTotal > 0 &&
-                          submenu.link === "/admin/bookkeeping/message"
-                          ? _c(
-                              "div",
-                              { staticClass: "notification-dot-left" },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                    \t\t\t" +
-                                      _vm._s(_vm.messageTotal) +
-                                      "\n                    \t\t"
-                                  )
-                                ])
-                              ]
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.potentialTotal) +
+                                "\n                    \t\t"
                             )
-                          : _vm.memberTotal > 0 &&
-                            submenu.link ===
-                              "/admin/bookkeeping/applicant-member"
-                            ? _c(
-                                "div",
-                                { staticClass: "notification-dot-left" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    \t\t\t" +
-                                        _vm._s(_vm.memberTotal) +
-                                        "\n                    \t\t"
-                                    )
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
+                          ])
+                        ])
+                      : _vm.messageTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/message"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.messageTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm.memberTotal > 0 &&
+                        submenu.link === "/admin/bookkeeping/applicant-member"
+                      ? _c("div", { staticClass: "notification-dot-left" }, [
+                          _c("span", [
+                            _vm._v(
+                              "\n                    \t\t\t" +
+                                _vm._s(_vm.memberTotal) +
+                                "\n                    \t\t"
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ])
@@ -2145,84 +2204,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            notifications: []
-        };
+  data: function data() {
+    return {
+      notifications: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('flash', function (message, type) {
+      _this.flash(message, type, 3500);
+    });
+  },
+  computed: {
+    notificationExists: function notificationExists() {
+      return this.notifications.length > 0;
     },
-    created: function created() {
-        var _this = this;
-
-        window.events.$on('flash', function (message, type) {
-            _this.flash(message, type, 3500);
-        });
-    },
-
-
-    computed: {
-        notificationExists: function notificationExists() {
-            return this.notifications.length > 0;
-        },
-        time: function time() {
-            return _.now();
-        }
-    },
-
-    methods: {
-        flash: function flash(message) {
-            var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-            var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
-
-            if (this.notifications.length === 8) {
-                this.hide(0);
-            }
-
-            this.display(message, type);
-
-            this.hide(duration);
-        },
-        display: function display(message, type) {
-            this.notifications.push({
-                body: message,
-                type: type,
-                alertClass: this.getAlertClass(type),
-                alertIcon: this.getAlertIcon(type)
-            });
-        },
-        hide: function hide(duration) {
-            var _this2 = this;
-
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            setTimeout(function () {
-                _this2.notifications.splice(index, 1);
-            }, duration);
-        },
-        getAlertClass: function getAlertClass(type) {
-            return 'alert-' + type;
-        },
-        getAlertIcon: function getAlertIcon(type) {
-            if (type === 'success') {
-                return 's7-check';
-            } else if (type === 'danger') {
-                return 's7-less';
-            } else if (type === 'info') {
-                return 's7-info';
-            } else if (type === 'warning') {
-                return 's7-attention';
-            } else {
-                return '';
-            }
-        },
-        getBottomPosition: function getBottomPosition(index) {
-            var margin = 10;
-            var notificationHeight = 60;
-
-            return { bottom: margin * (index + 1) + notificationHeight * index + 'px' };
-        }
+    time: function time() {
+      return _.now();
     }
+  },
+  methods: {
+    flash: function flash(message) {
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+      var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3500;
+
+      if (this.notifications.length === 8) {
+        this.hide(0);
+      }
+
+      this.display(message, type);
+      this.hide(duration);
+    },
+    display: function display(message, type) {
+      this.notifications.push({
+        body: message,
+        type: type,
+        alertClass: this.getAlertClass(type),
+        alertIcon: this.getAlertIcon(type)
+      });
+    },
+    hide: function hide(duration) {
+      var _this2 = this;
+
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      setTimeout(function () {
+        _this2.notifications.splice(index, 1);
+      }, duration);
+    },
+    getAlertClass: function getAlertClass(type) {
+      return 'alert-' + type;
+    },
+    getAlertIcon: function getAlertIcon(type) {
+      if (type === 'success') {
+        return 's7-check';
+      } else if (type === 'danger') {
+        return 's7-less';
+      } else if (type === 'info') {
+        return 's7-info';
+      } else if (type === 'warning') {
+        return 's7-attention';
+      } else {
+        return '';
+      }
+    },
+    getBottomPosition: function getBottomPosition(index) {
+      var margin = 10;
+      var notificationHeight = 60;
+      return {
+        bottom: margin * (index + 1) + notificationHeight * index + 'px'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -13121,46 +13175,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
       state.gallery = data[0];
       state.categories = data[1];
     },
-
-    //=========================================================================================
-    //  M U T A T I O N S
-    //=========================================================================================
-    mutations: {
-        set_gallery: function set_gallery(state, data) {
-            state.gallery = data[0];
-            state.categories = data[1];
-        },
-
-        add_new_image: function add_new_image(state, imageData) {
-
-            state.gallery.push({
-                id: imageData.id,
-                image_path: imageData.image_path,
-                title: imageData.detail.title,
-                sub_category_id: imageData.detail.sub_category_id,
-                date: imageData.detail.date,
-                location: imageData.detail.location,
-                creator: imageData.detail.creator,
-                imageType: imageData.detail.imageType
-            });
-        },
-        edit_image: function edit_image(state, updatedGallery) {
-
-            var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.detail.id);
-
-            state.gallery[imageIndex].title = updatedGallery.detail.title;
-            state.gallery[imageIndex].date = updatedGallery.detail.date;
-            state.gallery[imageIndex].location = updatedGallery.detail.location;
-            state.gallery[imageIndex].creator = updatedGallery.detail.creator;
-            state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
-            state.gallery[imageIndex].imageType = updatedGallery.detail.imageType;
-            state.gallery[imageIndex].image_path = updatedGallery.image_path;
-        },
-        delete_gallery: function delete_gallery(state, ids) {
-            var galleryIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(ids.galleryId);
-
-            state.gallery.splice(galleryIndex, 1);
-        }
+    add_new_image: function add_new_image(state, imageData) {
+      state.gallery.push({
+        id: imageData.id,
+        image_path: imageData.image_path,
+        title: imageData.detail.title,
+        sub_category_id: imageData.detail.sub_category_id,
+        date: imageData.detail.date,
+        location: imageData.detail.location,
+        creator: imageData.detail.creator,
+        imageType: imageData.detail.imageType
+      });
     },
     edit_image: function edit_image(state, updatedGallery) {
       var imageIndex = __WEBPACK_IMPORTED_MODULE_1__helpers__["a" /* default */].getIndexOfGallery(updatedGallery.detail.id);
@@ -13169,7 +13194,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
       state.gallery[imageIndex].location = updatedGallery.detail.location;
       state.gallery[imageIndex].creator = updatedGallery.detail.creator;
       state.gallery[imageIndex].sub_category_id = updatedGallery.detail.sub_category_id;
-      state.gallery[imageIndex].imageType = updatedGallery.detail.type;
+      state.gallery[imageIndex].imageType = updatedGallery.detail.imageType;
       state.gallery[imageIndex].image_path = updatedGallery.image_path;
     },
     delete_gallery: function delete_gallery(state, ids) {
@@ -13647,11 +13672,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var galleryBySearch = tempGallery.filter(function (gallery) {
         return re.test(gallery.title) || re.test(gallery.date) || re.test(gallery.location) || re.test(gallery.creator);
       });
-
       return galleryBySearch;
     }
   }),
-
   methods: {
     search: function search(event) {
       this.searchBy = event.target.value;
@@ -13802,7 +13825,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_datetime__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_datetime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -13999,30 +14024,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
 
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dataUser: {}
   },
   data: function data() {
     return {
-      imageType: 2,
+      url: '',
+      imageType: 1,
       isRequesting: false,
       subcategories: '',
-      croppie: null,
-      image_save: '',
       image: '',
       sub_category_id: '',
       title: '',
       date: '',
       location: '',
-      creator: '',
-      save_image: ''
+      creator: ''
     };
-  },
-  mounted: function mounted() {
-    this.setUpCroppie();
   },
   components: {
     Datetime: __WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]
@@ -14033,192 +14051,97 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
       minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
       maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
-
-    data: function data() {
-        return {
-            url: '',
-            imageType: 1,
-            isRequesting: false,
-            subcategories: '',
-            image: '',
-            sub_category_id: '',
-            title: '',
-            date: '',
-            location: '',
-            creator: ''
-        };
+    sub_category_id: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
     },
-
-    components: {
-        Datetime: __WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]
+    date: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    location: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
     creator: {
       minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
       maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
     },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
-        categories: 'getCategories'
-    }), {
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
-        }
-    }),
-
-    watch: {
-        subcategories: function subcategories() {
-            this.sub_category_id = "";
-        }
-    },
-    colForPicture: function colForPicture() {
-      if (this.imageType == 1) {
-        return 'col-md-4';
-      } else if (this.imageType == 2) {
-        return 'col-md-4';
-      } else if (this.imageType == 3) {
-        return 'col-md-12 mb-4';
-      }
-    },
-    colForData: function colForData() {
-      if (this.imageType == 1) {
-        return 'col-md-8';
-      } else if (this.imageType == 2) {
-        return 'col-md-8';
-      } else if (this.imageType == 3) {
-        return 'col-md-12';
-      }
+    image: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])({
+    categories: 'getCategories'
+  }), {
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
     }
   }),
   watch: {
     subcategories: function subcategories() {
       this.sub_category_id = "";
-    },
-    imageType: function imageType() {
-      this.image = '';
-      this.croppie.destroy();
-      this.setUpCroppie();
     }
   },
   methods: {
     setUpFileUploader: function setUpFileUploader(event) {
       var files = event.target.files || event.dataTransfer.files;
 
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
 
-            if (!files.length) {
-                return;
-            }
-
-            this.url = URL.createObjectURL(files[0]);
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        },
-        uploadImage: function uploadImage() {
-
-            var self = this;
-
+      this.url = URL.createObjectURL(files[0]);
       this.createImage(files[0]);
     },
     createImage: function createImage(file) {
-      var _this = this;
-
       var reader = new FileReader();
       var self = this;
 
-                var galleryData = {
-                    image: this.image,
-                    sub_category_id: this.sub_category_id,
-                    title: this.title,
-                    date: this.date.substring(0, 10),
-                    location: this.location,
-                    creator: this.creator,
-                    imageType: this.imageType
-                };
-
-        _this.croppie.destroy();
-
-        _this.setUpCroppie();
+      reader.onload = function (event) {
+        self.image = event.target.result;
       };
 
       reader.readAsDataURL(file);
     },
-    setUpCroppie: function setUpCroppie() {
+    uploadImage: function uploadImage() {
       var self = this;
-      var file = document.getElementById('croppie');
 
-      if (this.imageType == 1) {
-        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-          viewport: {
-            width: 160,
-            height: 250,
-            type: 'square'
-          },
-          boundary: {
-            width: 210,
-            height: 300
-          },
-          enableOrientation: false
+      if (this.formIsFilled && !self.isRequesting) {
+        this.isRequesting = true;
+        var galleryData = {
+          image: this.image,
+          sub_category_id: this.sub_category_id,
+          title: this.title,
+          date: this.date.substring(0, 10),
+          location: this.location,
+          creator: this.creator,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('store_new_image', galleryData).then(function (response) {
+          flash('Image Added', 'success');
+          self.isRequesting = false;
+          self.closeAdd();
+        }).catch(function (errors) {
+          vselfm.isRequesting = false;
+          Object.keys(errors).forEach(function (field) {
+            errors[field].forEach(function (message) {
+              flash(message, 'danger', 5000);
+            });
+          });
         });
-      } else if (this.imageType == 2) {
-        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-          viewport: {
-            width: 240,
-            height: 250,
-            type: 'square'
-          },
-          boundary: {
-            width: 290,
-            height: 300
-          },
-          enableOrientation: false
-        });
-      } else if (this.imageType == 3) {
-        this.croppie = new __WEBPACK_IMPORTED_MODULE_3_croppie__["Croppie"](file, {
-          viewport: {
-            width: 480,
-            height: 250,
-            type: 'square'
-          },
-          boundary: {
-            width: 530,
-            height: 300
-          },
-          enableOrientation: false
-        });
+      } else {
+        this.diryAllInputs();
       }
-
-                    Object.keys(errors).forEach(function (field) {
-                        errors[field].forEach(function (message) {
-                            flash(message, 'danger', 5000);
-                        });
-                    });
-                });
-            } else {
-                this.diryAllInputs();
-            }
-        },
-        closeAdd: function closeAdd() {
-            this.$emit('closeAddImage', false);
-        },
-        diryAllInputs: function diryAllInputs() {
-            this.$v.title.$touch();
-            this.$v.date.$touch();
-            this.$v.sub_category_id.$touch();
-            this.$v.image.$touch();
-        }
+    },
+    closeAdd: function closeAdd() {
+      this.$emit('closeAddImage', false);
+    },
+    diryAllInputs: function diryAllInputs() {
+      this.$v.title.$touch();
+      this.$v.date.$touch();
+      this.$v.sub_category_id.$touch();
+      this.$v.image.$touch();
     }
+  }
 });
 
 /***/ }),
@@ -15211,7 +15134,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(4);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -15425,13 +15350,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       location: this.galleryImage.location === null ? '' : this.galleryImage.location,
       creator: this.galleryImage.creator === null ? '' : this.galleryImage.creator,
       sub_category_id: this.galleryImage.sub_category_id,
-      croppie: null,
       image: this.galleryImage.image_path,
-      save_image: ''
+      url: this.galleryImage.image_path
     };
-  },
-  mounted: function mounted() {
-    this.setUpCroppie();
   },
   validations: {
     title: {
@@ -15439,145 +15360,98 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
       maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
-
-    data: function data() {
-        return {
-            isRequesting: false,
-            imageType: this.galleryImage.imageType,
-            title: this.galleryImage.title,
-            date: this.galleryImage.date,
-            location: this.galleryImage.location === null ? '' : this.galleryImage.location,
-            creator: this.galleryImage.creator === null ? '' : this.galleryImage.creator,
-            sub_category_id: this.galleryImage.sub_category_id,
-            image: this.galleryImage.image_path,
-            url: this.galleryImage.image_path
-        };
+    location: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
     },
-
-
-    validations: {
-        title: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        location: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
-        },
-        sub_category_id: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        date: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
-        creator: {
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
-        },
-        image: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        }
+    sub_category_id: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
     },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
-        categories: 'getCategories'
-    }), {
-        galleryIsEdited: function galleryIsEdited() {
-            return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
-        },
-        formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
-        },
-        subcategories: function subcategories() {
-            for (var a = 0; a < this.categories.length; a++) {
-                for (var b = 0; b < this.categories[a].subcategories.length; b++) {
-                    if (this.categories[a].subcategories[b].id === this.galleryImage.sub_category_id) {
-                        return this.categories[a].subcategories;
-                    }
-                }
-            }
+    date: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    creator: {
+      minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
+      maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
+    },
+    image: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    }
+  },
+  computed: _objectSpread({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])({
+    categories: 'getCategories'
+  }), {
+    galleryIsEdited: function galleryIsEdited() {
+      return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
+    },
+    formIsFilled: function formIsFilled() {
+      return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+    },
+    subcategories: function subcategories() {
+      for (var a = 0; a < this.categories.length; a++) {
+        for (var b = 0; b < this.categories[a].subcategories.length; b++) {
+          if (this.categories[a].subcategories[b].id === this.galleryImage.sub_category_id) {
+            return this.categories[a].subcategories;
+          }
         }
-    }),
-
-    methods: {
-        setUpFileUploader: function setUpFileUploader(event) {
-            var files = event.target.files || event.dataTransfer.files;
-
-            if (!files.length) {
-                return;
-            }
-
-            this.url = URL.createObjectURL(files[0]);
-
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var reader = new FileReader();
-            var self = this;
-
-            reader.onload = function (event) {
-                self.image = event.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        },
-        editGallery: function editGallery() {
-
-            var self = this;
+      }
+    }
+  }),
+  methods: {
+    setUpFileUploader: function setUpFileUploader(event) {
+      var files = event.target.files || event.dataTransfer.files;
 
       if (!files.length) {
         return;
       }
 
+      this.url = URL.createObjectURL(files[0]);
       this.createImage(files[0]);
     },
     createImage: function createImage(file) {
-      var _this = this;
-
-                var updatedGallery = {
-                    id: this.galleryImage.id,
-                    title: this.title,
-                    date: this.date.substring(0, 10),
-                    location: this.location,
-                    creator: this.creator,
-                    sub_category_id: this.sub_category_id,
-                    image: this.image,
-                    imageType: this.imageType
-                };
+      var reader = new FileReader();
+      var self = this;
 
       reader.onload = function (event) {
         self.image = event.target.result;
-
-        _this.croppie.destroy();
-
-        _this.setUpCroppie();
       };
 
-                    self.closeEditForm();
-                }).catch(function (errors) {
-                    self.isRequesting = false;
-                });
-            } else {
-                this.diryAllInputs();
-            }
-        },
-        closeEditForm: function closeEditForm() {
-            this.$emit('editionFormIsClosed', false);
-        },
-        diryAllInputs: function diryAllInputs() {
-            this.$v.title.$touch();
-            this.$v.date.$touch();
-            this.$v.sub_category_id.$touch();
-            this.$v.image.$touch();
-        }
-    }
-  },
-  watch: {
-    imageType: function imageType() {
-      this.image = '';
-      this.croppie.destroy();
-      this.setUpCroppie();
+      reader.readAsDataURL(file);
+    },
+    editGallery: function editGallery() {
+      var self = this;
+
+      if (this.galleryIsEdited && this.formIsFilled && !self.isRequesting) {
+        this.isRequesting = true;
+        var updatedGallery = {
+          id: this.galleryImage.id,
+          title: this.title,
+          date: this.date.substring(0, 10),
+          location: this.location,
+          creator: this.creator,
+          sub_category_id: this.sub_category_id,
+          image: this.image,
+          imageType: this.imageType
+        };
+        this.$store.dispatch('update_galllery', updatedGallery).then(function (updatedGallery) {
+          flash('Image updated', 'success');
+          self.isRequesting = false;
+          self.closeEditForm();
+        }).catch(function (errors) {
+          self.isRequesting = false;
+        });
+      } else {
+        this.diryAllInputs();
+      }
+    },
+    closeEditForm: function closeEditForm() {
+      this.$emit('editionFormIsClosed', false);
+    },
+    diryAllInputs: function diryAllInputs() {
+      this.$v.title.$touch();
+      this.$v.date.$touch();
+      this.$v.sub_category_id.$touch();
+      this.$v.image.$touch();
     }
   }
 });

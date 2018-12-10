@@ -535,8 +535,8 @@ a:360},{a:0,force3D:"auto",ease:punchgs.Linear.easeNone,onUpdate:function(){var 
 						style:"uranus"
 					}
 				},
-				gridwidth:1900,
-				gridheight:980 ,
+				gridwidth:2000,
+				gridheight:1333,
 			
 			}); 
 			$("#home-slider2").revolution({
@@ -549,8 +549,8 @@ a:360},{a:0,force3D:"auto",ease:punchgs.Linear.easeNone,onUpdate:function(){var 
 						style:"uranus"
 					}
 				},
-				gridwidth:1900,
-				gridheight:980 ,
+				gridwidth:2000,
+				gridheight:1333,
 			
 			});
 		}

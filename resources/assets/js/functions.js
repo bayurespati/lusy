@@ -189,8 +189,8 @@
 						style:"uranus"
 					}
 				},
-				gridwidth:1900,
-				gridheight:980 ,
+				gridwidth:2000,
+				gridheight:1333,
 			
 			}); 
 			$("#home-slider2").revolution({
@@ -203,8 +203,8 @@
 						style:"uranus"
 					}
 				},
-				gridwidth:1900,
-				gridheight:980 ,
+				gridwidth:2000,
+				gridheight:1333,
 			
 			});
 		}
