@@ -50,7 +50,7 @@ export const store = new Vuex.Store({
     //  M U T A T I O N S
     //=========================================================================================
     mutations: {
-        set_data_member: (state, data) =>{
+        set_data_teacher_student: (state, data) =>{
 
             state.teachers = data[0];
             state.studentNoTeacher = data[1];
@@ -153,7 +153,7 @@ export const store = new Vuex.Store({
 
         delete_subscription(state, ids){
 
-            if(ids.teacher_id == undefined){
+            if(ids.teacher_id == 0){
                 const memberIndex = _.findIndex(state.studentNoTeacher, ['id', ids.member_id]);
                 const subscriptionIndex = _.findIndex(state.studentNoTeacher[memberIndex].subscription, ['id', ids.subscription_id]);
 
@@ -212,10 +212,10 @@ export const store = new Vuex.Store({
     //  A C T I O N S
     //=========================================================================================
     actions: {
-        load_data_members: ({commit}) => {
-            axios.get('/admin/bookkeeping/data/member')
+        load_data_teacher_student: ({commit}) => {
+            axios.get('/admin/bookkeeping/data/teacher_student')
                 .then(response =>{
-                    commit('set_data_member',response.data);
+                    commit('set_data_teacher_student',response.data);
                 });
         },
 
@@ -254,7 +254,7 @@ export const store = new Vuex.Store({
                 axios.post('add/member', dataMember)
                     .then(response => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         dispatch('load_region');
 
@@ -275,7 +275,7 @@ export const store = new Vuex.Store({
                 axios.patch('update/member/'+ member.id, member)
                     .then(response => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve(member);
                     })
@@ -292,7 +292,7 @@ export const store = new Vuex.Store({
                 axios.delete('delete/member/'+ids)
                     .then((response) => {
                         
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve();
                     });
@@ -305,7 +305,7 @@ export const store = new Vuex.Store({
                 axios.post('add/rank',dataRank)
                     .then(response => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve(dataRank);
                     })
@@ -322,7 +322,7 @@ export const store = new Vuex.Store({
                 axios.patch('update/rank', dataRank)
                     .then((response) => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve();
                     });
@@ -336,7 +336,7 @@ export const store = new Vuex.Store({
                 axios.patch('delete/rank', dataRank)
                     .then((response) => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve();
                     });
@@ -387,7 +387,7 @@ export const store = new Vuex.Store({
                 axios.post('add/class_region', dataRegion)
                     .then(response => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve(dataRegion);
                     })
@@ -405,7 +405,7 @@ export const store = new Vuex.Store({
                 axios.patch('delete/class_region', dataRegion)
                     .then((response) => {
                             
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve();
                     });
@@ -419,7 +419,7 @@ export const store = new Vuex.Store({
                 axios.post('add/class_member', dataClass)
                     .then(response => {
 
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve(dataClass);
                     })
@@ -437,7 +437,7 @@ export const store = new Vuex.Store({
                 axios.delete('delete/class_member/'+dataClass.member_id+'/'+dataClass.class_id)
                     .then((response) => {
                         
-                        dispatch('load_data_members');
+                        dispatch('load_data_teacher_student');
 
                         resolve();
                     });

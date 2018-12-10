@@ -22,6 +22,20 @@
 
 
                     <!--=========================================================================================
+                        P R I C E
+                        =========================================================================================-->
+                    <div class="col-md-3 col-xs-12 d-flex align-items-center">
+                        <div class="col-12">
+                            <p class="small text-uppercase mb-0"><strong>Price</strong></p>
+                            
+                            <div class="detail">
+                                <p class="mb-0">{{ shop.price }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--=========================================================================================
                          S T O C K
                         =========================================================================================-->
                     <div class="col-md-2 col-xs-12 d-flex align-items-center justify-content-center">
@@ -30,20 +44,6 @@
                             
                             <div class="detail">
                                 <p class="mb-0">{{ shop.stock }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        P R I C E
-                        =========================================================================================-->
-                    <div class="col-md-3 col-xs-12 d-flex align-items-center justify-content-center">
-                        <div class="col-12 text-center">
-                            <p class="small text-uppercase mb-0"><strong>Price</strong></p>
-                            
-                            <div class="detail">
-                                <p class="mb-0">{{ shop.price }}</p>
                             </div>
                         </div>
                     </div>

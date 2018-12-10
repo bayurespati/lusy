@@ -176,34 +176,9 @@
         },
 
         methods:{
-
-            editStatus(){
-                const self = this;
-
-                if(!self.isRequesting){
-
-                    const isBool = this.member.is_active == 0  ? true : false;
-
-                    this.input.is_active = isBool;
-
-                    self.isRequesting = true;
-
-                    const status = isBool 
-                                   ? {status: 'active', color: 'success'} 
-                                   : {status: 'not active', color: 'danger'}
-
-                    this.$store.dispatch('update_member',self.input)
-                    .then(() =>{
-                        flash('Member '+self.input.name+' is '+status.status, status.color);
-                        self.isRequesting = false;
-                    })
-                }
-            },
-
             showDeactivateModal(){
                 this.$emit('showDeactivateModal', this.member);
             },
-            
         }
     };
 </script>

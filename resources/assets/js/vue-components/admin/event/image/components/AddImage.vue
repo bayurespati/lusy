@@ -9,30 +9,19 @@
                 </div>
 
                 <div class="row">
-                    <div :class="colForPicture">
-                        <div id="croppie"></div>
+                    <div class="col-md-4 text-center">
+                        <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                            <div class="panel" v-if="url != ''">
+                                <img :src="url" alt="">
+                            </div>
+                        </transition>
 
-                        <div class="panel panel-transparent text-center">
-                            <input type="file"
-                            accept="image/*"
+                        <div class="panel mt-2">
+                            <input type="file" accept="image/*"
                             id="file-2"
                             class="inputfile"
                             @input="$v.image.$touch()"
                             @change="setUpFileUploader">
-
-                            <div class="col-md-12">
-                                <div class="form-group text-center mb-3">
-                                    <label>
-                                        <input type="radio" name="orientation" :value='1' v-model="imageType"> Tall
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="orientation" :value='2' v-model="imageType" class="ml-2"> Square
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="orientation" :value='3' v-model="imageType" class="ml-2"> Wide
-                                    </label>
-                                </div>
-                            </div>
 
                             <label for="file-2" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
@@ -41,17 +30,16 @@
                             <!--======================================================================================
                                 V A L I D A T I O N     E R R O R   M E S S A G E S
                                 ======================================================================================-->
-                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                    <span key="image-required" class="text-danger" 
-                                    v-if="!$v.image.required && $v.image.$dirty"
-                                    style="display: block; width: 100%;">
-                                        Image is required
-                                    </span>
-                                </transition>
+                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                                <span class="text-danger" v-if="!$v.image.required && $v.image.$dirty"
+                                style="display: block; width: 100%;">
+                                    Image is required
+                                </span>
+                            </transition>
                         </div>
                     </div>
 
-                    <div :class="colForData">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center">
                                 <label class="m-0 pl-1" for="name">Name</label>
@@ -124,7 +112,6 @@
 <script>
     import {required, minLength, maxLength} from 'vuelidate/lib/validators';
     import {mapGetters} from 'vuex';
-    import {Croppie} from 'croppie';
 
     export default{
 
@@ -136,20 +123,15 @@
         
         data: function () {
             return{
-                imageType: 2,
+                imageType: 1,
                 isRequesting : false,
-                croppie: null,
-                save_image:'',
                 image: '',
                 title:'',
+                url:'',
                 description:'',
                 is_poster:'',
                 
             }
-        },
-
-        mounted(){
-            this.setUpCroppie();
         },
 
         validations: {
@@ -174,34 +156,10 @@
             formIsFilled(){
                 return this.image != '' 
                     && this.title != '' 
-                    && this.title.length > 3
+                    && this.title.length >= 3
                     && this.title.length <= 30
-                    && this.description < 100
+                    && this.description.length < 100
             },
-
-            colForPicture(){
-                if(this.imageType == 1){
-                    return 'col-md-4';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-4';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12 mb-4';
-                }
-             },
-
-            colForData(){
-                if(this.imageType == 1){
-                    return 'col-md-8';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-8';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12';
-                }
-            }
         },
 
         methods:{
@@ -212,6 +170,8 @@
                     return
                 }
 
+                this.url = URL.createObjectURL(files[0]);
+
                 this.createImage(files[0]);
             },
 
@@ -221,94 +181,9 @@
 
                 reader.onload = (event) => {
                     self.image = event.target.result;
-                    this.croppie.destroy();
-                    this.setUpCroppie();
                 };
 
                 reader.readAsDataURL(file);
-            },
-
-            setUpCroppie(){
-                const self = this;
-                let file = document.getElementById('croppie');
-
-                if(this.imageType == 1){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 160, height: 250, type: 'square'},
-                        boundary: {width: 210, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 240, height: 250, type: 'square'},
-                        boundary: {width: 290, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 3) {
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 480, height: 250, type: 'square'},
-                        boundary: {width: 530, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-
-
-                if(this.image === null || this.image === ''){
-                    if(this.imageType == 1){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 2){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 3){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                }else {
-                    this.croppie.bind({
-                        url: this.image
-                    });
-                }
-
-                this.croppie.options.update = function(){
-                    self.setImage();
-                }
-            },
-
-            setImage(){
-                const self = this;
-
-                if(this.imageType == 1){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 320, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 480, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 3){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 960, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
             },
 
             uploadImage(){
@@ -320,7 +195,7 @@
                     this.isRequesting = true;
 
                     const imageData = {
-                        image : this.save_image,
+                        image : this.image,
                         title : this.title,
                         description : this.description,
                         eventId: this.eventId,
@@ -359,26 +234,10 @@
                this.$emit('closeAddImage',false);
             }
         },
-
-        watch:{
-            imageType(){
-                this.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
-        }
     };
 </script>
 
 <style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-
-    .croppie-container .cr-slider-wrap {
-        margin: 15px auto 5px auto;
-    }
-
     .vdatetime-input {
         width: 100%;
         padding: .375rem .75rem;
@@ -395,6 +254,10 @@
         display: inline-block;
         width: 100%;
         padding: 36px 20px 26px 20px;
+    }
+
+    img{
+        max-width: 180px;
     }
 
     input[type='file']::-webkit-file-upload-button

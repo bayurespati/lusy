@@ -6,8 +6,17 @@
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
       <template v-if="!isAddEvent">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6">
             <button @click="isAddEvent = !isAddEvent" class="btn btn-primary">Add Event</button>
+            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+                <span style="color: #999" v-if="searchBy.length >= 1">
+                  Event find by 
+                  <strong style="color: #3f3e3e">"{{ searchBy }}"</strong> 
+                </span>
+            </transition>
+          </div>
+          <div class="col-6">
+            <input type="text" placeholder="Find" class="form-control mr-3" @input="search">
           </div>
         </div>
       </template>
@@ -19,7 +28,7 @@
     <div class="row">
       <div class="col-md-12">
         <transition-group name="slide">
-            <event v-for="event in events"
+            <event v-for="event in showEvent"
             :event="event"
             :key="event.id">
             </event>
@@ -37,6 +46,7 @@
   export default {
     data(){
       return{
+        searchBy: '',
         isAddEvent: false
       }
     },
@@ -49,7 +59,31 @@
     computed:{
         ...mapGetters({
             events: 'getEvents',
-        })
+        }),
+
+        showEvent(){
+          let re = new RegExp(this.searchBy, 'i');
+        
+          let tempEvent =  _.sortBy(this.events, ['end_date']);
+
+          let eventBySearch =  tempEvent.filter(event => {
+              return re.test(event.title)
+                  || re.test(event.address)
+                  || re.test(event.location)
+                  || re.test(event.content)
+                  || re.test(event.end_date)
+                  || re.test(event.organiser)
+                  || re.test(event.start_date);       
+          }); 
+
+          return eventBySearch;
+        }
+    },
+
+    methods:{
+      search(event) {
+        this.searchBy = event.target.value;
+      }
     }
   };
 </script>

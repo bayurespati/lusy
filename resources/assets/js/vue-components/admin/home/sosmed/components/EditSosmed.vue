@@ -8,22 +8,20 @@
             <div class="panel-body">
                 <h3 class="text-center font-weight-bold">Edit {{ sosmed.title }}</h3>
 
-                <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-
+                <!-- <div class="row pl-0 pr-0 m-0 pt-4 pb-4"> -->
+                <form action="" class="pb-4">
 
                     <!--=========================================================================================
                         N A M A
                         =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
-                            <label for="nama"
-                                   class="form-control-label font-weight-bold panel-font-small m-0">
+                    <div class="form-group row col-sm-12 col-lg-8 offset-lg-2">
+                        <div class="col-sm-2 d-flex align-items-center">
+                            <label for="link" class="form-control-label font-weight-bold panel-font-small m-0">
                                 Link
                             </label>
                         </div>
-                        <div class="col-sm-9 col-xs-12">
-                            <input id="link"
-                                   type="text"
+                        <div class="col-sm-10">
+                            <input id="link" type="text"
                                    class="form-control form-control-sm"
                                    @keyup.enter="editSosmed"
                                    v-model="input.link">
@@ -34,14 +32,14 @@
                     <!--=========================================================================================
                         K O D E
                         =========================================================================================-->
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-sm-3 d-flex align-items-center justify-content-end">
+                    <div class="form-group row col-sm-12 col-lg-8 offset-lg-2">
+                        <div class="col-sm-2 d-flex align-items-center">
                             <label for="kode"
                                    class="form-control-label font-weight-bold panel-font-small m-0">
                                 Status
                             </label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <input type="radio" :name=sosmed.id  value=1 v-model="input.is_active"> Active
                             <input type="radio" :name=sosmed.id  value=0 v-model="input.is_active" class="ml-2"> Not Active
                         </div>
@@ -51,19 +49,22 @@
                     <!--=========================================================================================
                         A C T I O N   B U T T O N
                         =========================================================================================-->
-                    <div class="col-sm-4 offset-3 d-flex justify-content-start mt-3 pl-2">
-                        <button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
-                            Batal
-                        </button>
+                        <div class="form-group row col-sm-12 col-lg-8 offset-lg-2">
+                            <div class="col offset-lg-2">
+                                <button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
+                                    Batal
+                                </button>
 
-                        <button @click="editSosmed"
-                                :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
-                                class="btn btn-success btn-sm ml-2">
-                            Simpan
-                        </button>
-                    </div>
+                                <button @click="editSosmed"
+                                        :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
+                                        class="btn btn-success btn-sm ml-2">
+                                    Simpan
+                                </button>
+                            </div>
+                        </div>
 
-                </div>
+                </form>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -145,5 +146,11 @@
 
     .panel-font-small {
         font-size: 0.9rem;
+    }
+
+    @media (min-width: 576px) { 
+        .test-class{
+
+        }
     }
 </style>

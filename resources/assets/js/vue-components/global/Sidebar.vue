@@ -128,6 +128,7 @@
 						name: 'Bookkeeping',
 						subMenu:[
 							{ name:'Member', link: '/admin/bookkeeping/member' },
+							{ name:'Member Detail', link: '/admin/bookkeeping/member-detail' },
 							{ name:'Member Applicants', link: '/admin/bookkeeping/applicant-member' },
 							{ name:'Class Region', link: '/admin/bookkeeping/region' },
 							{ name:'Event Applicants', link: '/admin/bookkeeping/applicant-event' },

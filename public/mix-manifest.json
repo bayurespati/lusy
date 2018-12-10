@@ -27,6 +27,7 @@
     "/js/admin/about/shop_showcase.js": "/js/admin/about/shop_showcase.js",
     "/js/admin/about/gallery_showcase.js": "/js/admin/about/gallery_showcase.js",
     "/js/admin/bookkeeping/applicant_event.js": "/js/admin/bookkeeping/applicant_event.js",
+    "/js/admin/bookkeeping/member_detail.js": "/js/admin/bookkeeping/member_detail.js",
     "/css/admin.css": "/css/admin.css",
     "/css/animation.css": "/css/animation.css",
     "/css/croppie.css": "/css/croppie.css",

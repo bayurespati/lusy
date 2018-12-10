@@ -14,7 +14,7 @@ class ImageConfigTableSeeder extends Seeder
         DB::table('image_config')->insert([
             [
                 'page_name' => 'Event Showcase Background in Home Page',
-                'image_path' => '/img/page-banner-bg.jpg',
+                'image_path' => '/img/upcoming-event-bg.jpg',
             ],
             [
                 'page_name' => 'About Page Banner',

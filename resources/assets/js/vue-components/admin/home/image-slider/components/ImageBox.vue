@@ -5,13 +5,17 @@
         <!--=========================================================================================
             S H O W   C R O P P I E
             =========================================================================================-->
-        <div id="croppie"></div>
+            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                <div class="panel mt-5" v-if="url != ''" style="text-align: center;">
+                    <img :src="url" alt="">
+                </div>
+            </transition>
 
 
         <!--=========================================================================================
             I N P U T   I M A G E
             =========================================================================================-->
-        <div class="panel panel-transparent p-1 pb-4" style="text-align: center;">
+        <div class="panel panel-transparent p-1 pb-4 mt-3" style="text-align: center;">
             <input type="file"
                    accept="image/*"
                    id="file-2"
@@ -55,17 +59,9 @@
         data: function () {
             return{
                 isRequesting : false,
-                showPreview: false,
-                croppie: null,
-                image_show: '',
-                image_points: '',
-                image_ori: '',
-                thumbnail: '',
+                image: '',
+                url: ''
             }
-        },
-
-        mounted(){
-            this.setUpCroppie();
         },
 
         methods:{
@@ -76,6 +72,8 @@
                     return
                 }
 
+                this.url = URL.createObjectURL(files[0]);
+
                 this.createImage(files[0]);
             },
 
@@ -84,73 +82,22 @@
                 const self  = this;
 
                 reader.onload = (event) => {
-                    self.image_ori = event.target.result;
-                    this.croppie.destroy();
-                    this.setUpCroppie();
+                    self.image = event.target.result;
                 };
 
                 reader.readAsDataURL(file);
-            },
-
-            setUpCroppie(){
-                const self = this;
-                let file = document.getElementById('croppie');
-
-                this.croppie = new Croppie(file,{
-                    viewport: {width: 768, height: 352, type: 'square'},
-                    boundary: {width: 818, height: 402 },
-                    enableOrientation: false
-                });
-
-                if(this.image_ori === null || this.image_ori === ''){
-                    this.croppie.bind({
-                        url: '/img/slider-1.jpg',
-                    });
-                }else {
-                    this.croppie.bind({
-                        url: this.image_ori,
-                    });
-                }
-
-                this.croppie.options.update = function() {
-                    self.setImage();
-                };
-            },
-
-            setImage(){
-                const self  = this;
-
-                this.croppie.result({
-                    type: 'canvas',
-                    size: {width: 1920, height: 880, type: 'square'},
-                }).then(response => {
-                    self.image_show = response;
-                });
-
-                this.croppie.result({
-                    type: 'canvas',
-                    size: {width: 100, height: 100, type: 'square'},
-                }).then(response => {
-                    self.thumbnail = response;
-                });
-
-
-                this.image_points = this.croppie.get().points;
             },
 
             uploadImage(){
 
                 const self = this;
                 
-                if(this.image_ori !== '' && !this.isRequesting){
+                if(this.image !== '' && !this.isRequesting){
 
                     this.isRequesting = true;
                     
                     const imageFile = {
-                        image_show : this.image_show,
-                        image_ori : this.image_ori,
-                        thumbnail : this.thumbnail,
-                        image_points : JSON.stringify(self.image_points)
+                        image : this.image                        
                     };
 
                     this.$store.dispatch('store_image_slider', imageFile)
@@ -185,6 +132,10 @@
 <style scoped>
     #croppie.croppie-container {
         padding-top: 26px !important;
+    }
+
+    img{
+        max-width: 300px;
     }
 
     input[type='file']::-webkit-file-upload-button

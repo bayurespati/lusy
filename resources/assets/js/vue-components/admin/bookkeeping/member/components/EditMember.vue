@@ -238,17 +238,17 @@
                         <div class="col-sm-6 col-xs-12 text-center">
 
                             <input type="radio" :name="'is_teacher' + member.id"
-                                   value=0 v-model="input.is_teacher"> Student
+                                   :value="false" v-model="input.is_teacher"> Student
                             <input type="radio" :name="'is_teacher' + member.id" 
-                                   value=1 v-model="input.is_teacher" class="ml-2"> Teacher
+                                   :value="true" v-model="input.is_teacher" class="ml-2"> Teacher
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
 
                             <input type="radio" :name="'is_active' + member.id"
-                                   value=1 v-model="input.is_active"> Active
+                                   :value="true" v-model="input.is_active"> Active
                             <input type="radio" :name="'is_active' + member.id" 
-                                   value=0 v-model="input.is_active" class="ml-2"> Not Active
+                                   :value="false" v-model="input.is_active" class="ml-2"> Not Active
                         </div>
                     </div>
 
@@ -266,13 +266,24 @@
             </div>
         </div>
 
-        <edit-class :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-class> 
+        <edit-class :member="member" :teacherId="teacherId" 
+                    @closeEditForm="closeEditForm()"> 
+        </edit-class> 
 
-        <edit-rank :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-rank>
+        <template v-if="hasIkebana">
+            <edit-rank :member="member" :teacherId="teacherId" 
+                       @closeEditForm="closeEditForm()"> 
+            </edit-rank>
 
-        <edit-subscription :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-subscription>
+            <edit-subscription :member="member" :teacherId="teacherId" 
+                               @closeEditForm="closeEditForm()"> 
+            </edit-subscription>
+        </template>
 
-        <edit-region :member="member" :teacherId="teacherId" @closeEditForm="closeEditForm()"> </edit-region>
+        <edit-region :member="member" :teacherId="teacherId" 
+                     @closeEditForm="closeEditForm()"> 
+        </edit-region>
+
     </div>
     </transition>
 </template>
@@ -293,7 +304,7 @@
 
 		data(){
 			return{
-				isRequesting: false,			
+				isRequesting: false,
 				input:{
 					name: this.member.name,
 					gender: this.member.gender,
@@ -302,7 +313,7 @@
 					join_date: this.member.join_date == undefined ? '' : this.member.join_date.substring(0,10),
 					email: this.member.email,
 					telephone: this.member.telephone,
-					mobile: this.member.mobile,
+					mobile: this.member.mobile == null ? null : this.member.mobile,
 					fax: this.member.fax,
 					teacher_id: this.member.teacher_id == null ? null : this.member.teacher_id,
                     is_active: this.member.is_active,
@@ -405,7 +416,11 @@
                 })
 
                 return tempTeacher;
-            }
+            },
+
+            hasIkebana(){
+                return _.some(this.member.class, ['title', 'Ikebana Ikenobo']);
+            },
         },
 
 		methods:{

@@ -1,7 +1,7 @@
 @extends('layouts.admin_master')
 
 @push('title')
-	<title>Admin-Event-List-image</title>
+	<title>Admin-Bookkeeping-Member-detail</title>
 @endpush
 
 @push('additional_css')
@@ -9,7 +9,7 @@
 @endpush
 
 @section('content')
-<div class="wrapper" id="image-list">
+<div class="wrapper" id="show-member-detail">
 
 	<!-- SIDE BAR  -->
 	<side-bar></side-bar>
@@ -52,15 +52,11 @@
             </div>
         </nav>
 		
-		<image-list> </image-list>
-		<flash> </flash>
+		<member-detail> </member-detail>
     </div>
 </div>
 @endsection
 
 @push('additional_js')
-    <script>
-        const $event = {!! json_encode($event) !!};
-    </script>
-	<script src="{{ asset('js/admin/event/image.js') }}"></script>
+	<script src="{{ asset('js/admin/bookkeeping/member_detail.js') }}"></script>
 @endpush

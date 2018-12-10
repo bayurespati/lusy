@@ -223,7 +223,7 @@
                             </div>
                         
                             <div class="col-sm-10 d-flex pt-2 pl-1 row m-0" v-if="member.subscription.length > 0">
-                                <div v-for="subscription in member.subscription" class="mr-2 mb-2"
+                                <div v-for="subscription in subscriptions" class="mr-2 mb-2"
                                      style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
                                     {{ subscription.year }}
                                 </div>
@@ -245,7 +245,7 @@
                         
                             <div class="col-sm-10 d-flex pt-2 pl-1 row m-0" v-if="member.region.length > 0">
                                 <div v-for="region in member.region" class="mr-2 mb-2"
-                                style="border: 1px #908f96 solid; padding: 2px 6px; border-radius: 10%; color: #6d6c73">
+                                style="border: 1px #908f96 solid; padding: 2px 6px; color: #6d6c73">
                                     {{ region.city }}, {{ region.address }}
                                 </div>
                             </div>
@@ -313,6 +313,12 @@
                     return 'None'
                 }
                 return _.find(this.teachers,['id', this.teacherId]).name;
+            },
+
+            subscriptions(){
+
+                return _.sortBy(this.member.subscription,'year');
+
             }
         },
 
@@ -335,6 +341,7 @@
 
             deleteMember() {
                 this.$emit('showDeactivateModal', this.member);
+
             },
 
             closemember() {

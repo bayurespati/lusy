@@ -7,29 +7,19 @@
                 <h3 class="text-center">Edit <strong>{{ imageItem.title }}</strong> Image</h3>
 
                 <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-                    <div :class="colForPicture">
-                        <div :id="'croppie-' + imageItem.id"></div>
+                    <div class="col-md-4 text-center">
+                        <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+                            <div class="panel" v-if="input.url != '' "> 
+                                 <img :src="input.url" alt="">
+                            </div>
+                        </transition>
 
-                        <div class="panel panel-transparent text-center">
+                        <div class="panel mt-2">
                             <input type="file"
                             accept="image/*"
                             :id="'file-edit-' + imageItem.id"
                             class="inputfile"
                             @change="setUpFileUploader">
-
-                            <div class="col-md-12">
-                                <div class="form-group text-center mb-3">
-                                    <label>
-                                        <input type="radio" :name="'orientation-' + imageItem.id" :value='1' v-model="imageType"> Tall
-                                    </label>
-                                    <label>
-                                        <input type="radio" :name="'orientation-' + imageItem.id" :value='2' v-model="imageType" class="ml-2"> Square
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="'orientation-' + imageItem.id" :value='3' v-model="imageType" class="ml-2"> Wide
-                                    </label>
-                                </div>
-                            </div>
 
                             <label :for="'file-edit-' + imageItem.id" class="btn btn-primary pt-1 pb-1 pr-2 pl-2">
                                 <span>Browse Image</span>
@@ -42,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div :class="colForData">
+                    <div class="col-md-8">
                         <div class="col-sm-12 row form-group">
                             <div class="col-sm-3 col-xs-12 d-flex align-items-center justify-content-end">
                                 <label for="title"class="form-control-label panel-font-small m-0 font-weight-bold">
@@ -112,17 +102,12 @@
             return {
                 imageType: this.imageItem.imageType,
                 isRequesting: false,
-                save_image: '',
                 input:{
                     title : this.imageItem.title,
                     image : this.imageItem.image_path,
-                    description : this.imageItem.description,
+                    url :this.imageItem.image_path,
                 }
             }   
-        },
-
-        mounted(){
-            this.setUpCroppie();
         },
 
         validations: {
@@ -152,30 +137,6 @@
                     && this.input.title.length <= 30
                     && this.input.image != ''
             },
-
-            colForPicture(){
-                if(this.imageType == 1){
-                    return 'col-md-4';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-4';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12 mb-4';
-                }
-            },
-
-            colForData(){
-                if(this.imageType == 1){
-                    return 'col-md-8';
-                }
-                else if(this.imageType == 2){
-                    return 'col-md-8';
-                } 
-                else if(this.imageType == 3){
-                    return 'col-md-12';
-                }
-            }
         },
 
         methods: {
@@ -186,6 +147,8 @@
                     return
                 }
 
+                this.input.url = URL.createObjectURL(files[0]);
+
                 this.createImage(files[0]);
             },
 
@@ -195,95 +158,10 @@
 
                 reader.onload = (event) => {
                     self.input.image = event.target.result;
-                    self.croppie.destroy();
-                    self.setUpCroppie();
                 };
 
                 reader.readAsDataURL(file);
             },
-
-            setUpCroppie(){
-                const self = this;
-                let file = document.getElementById('croppie-' + this.imageItem.id);
-
-                if(this.imageType == 1){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 160, height: 250, type: 'square'},
-                        boundary: {width: 210, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 240, height: 250, type: 'square'},
-                        boundary: {width: 290, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-                else if(this.imageType == 3) {
-                    this.croppie = new Croppie(file,{
-                        viewport: {width: 480, height: 250, type: 'square'},
-                        boundary: {width: 530, height: 300 },
-                        enableOrientation: false
-                    });
-                }
-
-                if(this.input.image === null || this.input.image === ''){
-                    if(this.imageType == 1){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 2){
-                        this.croppie.bind({
-                            url: '/img/portfolio-2.jpg'
-                        });
-                    }
-                    else if(this.imageType == 3){
-                        this.croppie.bind({
-                            url: '/img/portfolio-1.jpg'
-                        });
-                    }
-                }else {
-                    this.croppie.bind({
-                        url: this.input.image
-                    });
-                }
-
-                this.croppie.options.update = function(){
-                    self.setImage();
-                }
-            },
-
-            setImage(){
-                const self = this;
-
-                if(this.imageType == 1){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 320, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 2){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 480, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-                else if(this.imageType == 3){
-                    this.croppie.result({
-                        type: 'canvas',
-                        size: {witdh: 960, height: 500, type: 'square'},
-                    }).then(response => {
-                        self.save_image = response;
-                    });
-                }
-            },
-
 
             editImage(){
 
@@ -296,7 +174,7 @@
                     const updatedImage = {
                         id: this.imageItem.id,
                         title: this.input.title,
-                        image: this.input.image === this.imageItem.image_path ? this.input.image : this.save_image,
+                        image: this.input.image,
                         is_poster: this.imageItem.is_poster,
                         imageType: this.imageType
                     };
@@ -328,14 +206,6 @@
                 this.$v.input.image.$touch();
             },
         },
-
-        watch:{
-            imageType(){
-                this.input.image = '';
-                this.croppie.destroy();
-                this.setUpCroppie();
-            }
-        }
     };
 </script>
 
@@ -353,6 +223,10 @@
 
     .panel-font-small {
         font-size: 0.9rem;
+    }
+
+    img{
+        max-width: 180px;
     }
 
     input[type='file']::-webkit-file-upload-button

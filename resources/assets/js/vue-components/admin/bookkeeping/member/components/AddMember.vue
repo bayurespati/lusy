@@ -283,8 +283,9 @@
 					</button>
 				</div>
 			</div>
-
-			<div class="card text-center">
+			
+			<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+			<div class="card text-center" v-if="hasIkebana">
 				<div class="col-md-12"><h4 class="title mb-5">Add <strong>Ranks</strong></h4></div>
 
 				<transition-group class="col-12 p-0" name="slide">
@@ -315,8 +316,10 @@
 					</div>
 				</transition-group>
 			</div>
-
-			<div class="card text-center">
+			</transition>
+				
+			<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+			<div class="card text-center" v-if="hasIkebana">
 				<div class="col-md-12"><h4 class="title mb-5">Add <strong>Subscription Records</strong></h4></div>
 
 				<div class="col-md-12 d-flex">
@@ -324,34 +327,39 @@
 						<input type="number" 
 						@input="$v.year.$touch()"
 						class="form-control" 
-						:class="{'form-control-danger': $v.year.$error}"
+						:class="{'form-control-danger': $v.year.$error || alreadyHasYears}"
 						placeholder="Input Years" v-model="year">
 
 						<!--======================================================================================
 							V A L I D A T I O N     E R R O R   M E S S A G E S
 							======================================================================================-->
-						<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-							<span key="year-minimum" class="text-danger" v-if="!$v.year.minLength">
+						<transition-group enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
+							<span key="min-years" class="text-danger" v-if="!$v.year.minLength">
 								Year must has of {{ $v.year.$params.minLength.min }} characters
 							</span>
-							<span key="year-maximum" class="text-danger" v-if="!$v.year.maxLength">
+							<span key="max-years" class="text-danger" v-else-if="!$v.year.maxLength">
 								Year must has of {{ $v.year.$params.maxLength.max }} characters
 							</span>
-						</transition>
+							<span key="duplicate-year" class="text-danger" v-else-if="alreadyHasYears">
+								Can't input same year
+							</span>
+						</transition-group>
 					</div>
 				</div>
 
 				<div class="col-md-12 row mr-0 ml-0 mt-4 mb-2" v-if="subscription.length > 0">
-					<transition-group class="col-12 row m-0" appear enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-						<div :key="'subscription-year-' + index" class="col-md-2 col-sm-6" v-for="(list, index) in subscription">
-							<p class="m-0 d-flex align-items-center justify-content-center">
-								{{ list }} 
-								<span @click="delete_year(index)" 
-								class="badge badge-danger ml-1" style="cursor: pointer">
-									X
-								</span> 
-							</p>
-						</div>
+					<transition-group class="col-12 row m-0" 
+									  appear enterActiveClass="fade-in" 
+									  leaveActiveClass="fade-out" mode="out-in">
+						
+						<div v-for="(list, index) in subscriptions"
+							 class="mr-2 mb-2"
+							 :key="'subscription-year-' + index" 
+							 style="border: 1px #908f96 solid; padding: 2px 6px; color: #6d6c73">
+                                   {{ list }}
+                                    <span @click="delete_year(index)" 
+									      class="badge badge-danger btn"> X </span>
+                        </div>
 					</transition-group>
 				</div>
 
@@ -359,6 +367,7 @@
 					<button class="btn btn-success btn-sm" @click="add_subscription()">Add Subscription Year</button>
 				</div>
 			</div>
+			</transition> 
 
 			<div class="card text-center">
 				<div class="col-md-12">
@@ -519,6 +528,27 @@
 					&& this.input.email.length <= 50
 					&& this.input.telephone != ''
 					&& this.classData != '';
+			},
+
+			hasIkebana(){
+				return _.some(this.classData, ['title', 'Ikebana Ikenobo']);
+			},
+
+			alreadyHasYears(){
+
+				if(this.year.length != 4){
+					return false;
+				}
+
+				for(let index = 0; index < this.subscription.length; index++){
+					if(this.subscription[index] == this.year){
+						return true;
+					}
+				}
+			},
+
+			subscriptions(){
+				return this.subscription.sort();
 			}
 		},
 
@@ -610,7 +640,7 @@
 			},
 
 			add_subscription(){
-				if(this.year != '' && this.year.length == 4){
+				if(this.year != '' && this.year.length == 4 && !this.alreadyHasYears){
 					this.subscription.push(this.year);
 					this.year = '';
 				}
@@ -680,6 +710,14 @@
 			classData(){
 				if(this.classData.length >= 1){
 					this.isHasClass = false
+				}
+			},
+
+			hasIkebana(){
+				if(!this.hasIkebana){
+					this.subscription = [],
+					this.rankData = [],
+					this.limit = 0
 				}
 			}
 		}

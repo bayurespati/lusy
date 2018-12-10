@@ -10,7 +10,7 @@
                     <!--=========================================================================================
                         S H O W    T I T L E
                         =========================================================================================-->
-                    <div class="col-md-3 col-xs-12 d-flex align-items-center">
+                    <div class="col-md-3 col-xs-12 d-flex">
                         <span>
                             <p class="small text-uppercase mb-0"><strong>Title</strong></p>
                         
@@ -19,12 +19,26 @@
                             </div>
                         </span>
                     </div>
+                    
+                    
+                    <!--=========================================================================================
+                        L O C A T I O N
+                        =========================================================================================-->
+                    <div class="col-md-3 col-xs-12 d-flex ">
+                        <span>
+                            <p class="small text-uppercase mb-0"><strong>Location</strong></p>
+                        
+                            <div class="detail">
+                                <p class="mb-0">{{ event.location }}</p>
+                            </div>
+                        </span>
+                    </div>
 
 
                     <!--=========================================================================================
                          S T A R T   D A T E
                         =========================================================================================-->
-                    <div class="col-md-2 col-xs-12 d-flex align-items-center">
+                    <div class="col-md-2 col-xs-12 d-flex">
                         <span>
                             <p class="small text-uppercase mb-0"><strong>Start Date</strong></p>
                         
@@ -38,25 +52,11 @@
                     <!--=========================================================================================
                         E N D  D A T E
                         =========================================================================================-->
-                    <div class="col-md-2 col-xs-12 d-flex align-items-center">
+                    <div class="col-md-2 col-xs-12 d-flex">
                         <span>
                             <p class="small text-uppercase mb-0"><strong>End Date</strong></p>
                             <div class="detail">
                                 <p class="mb-0">{{ event.end_date }}</p>
-                            </div>
-                        </span>
-                    </div>
-
-
-                    <!--=========================================================================================
-                        L O C A T I O N
-                        =========================================================================================-->
-                    <div class="col-md-3 col-xs-12 d-flex align-items-center">
-                        <span>
-                            <p class="small text-uppercase mb-0"><strong>Location</strong></p>
-                        
-                            <div class="detail">
-                                <p class="mb-0">{{ event.location }}</p>
                             </div>
                         </span>
                     </div>
