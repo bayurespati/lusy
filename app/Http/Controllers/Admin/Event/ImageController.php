@@ -106,14 +106,20 @@ class ImageController extends Controller
             $heightFix = $height;
         }
 
-        $image = $image;
-        $imageName = time().'image.jpg';
-
+        
+        $imageName = time().'image.'.$this->getExtension($image);
         $image_resize = Image::make($image);              
         $image_resize->resize($widthFix, $heightFix);
         $image_resize->save(public_path('img/event/' .$imageName));
 
         return $imageName;
+    }
+
+    private function getExtension($image){
+        list($extension,$image) = explode(';', $image);
+        list(,$extension) = explode('/',$extension);
+
+        return $extension;
     }
 
     private function removeImageOnServer($path, $url) {

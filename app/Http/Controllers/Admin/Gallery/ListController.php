@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Input;
 
 class ListController extends Controller
 {
@@ -114,15 +115,20 @@ class ListController extends Controller
             $widthFix = $width;
             $heightFix = $height;
         }
-
-        $image = $image;
-        $imageName = time().'image.jpg';
-
-        $image_resize = Image::make($image);              
+        
+        $imageName = time().'image.'.$this->getExtension($image);
+        $image_resize = Image::make($image);
         $image_resize->resize($widthFix, $heightFix);
         $image_resize->save(public_path('img/gallery/' .$imageName));
 
         return $imageName;
+    }
+
+    private function getExtension($image){
+        list($extension,$image) = explode(';', $image);
+        list(,$extension) = explode('/',$extension);
+
+        return $extension;
     }
 
     private function removeImageOnServer($path, $url) {
