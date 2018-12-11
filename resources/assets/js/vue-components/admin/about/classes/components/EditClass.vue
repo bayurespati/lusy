@@ -7,10 +7,14 @@
         <h3 class="text-center font-weight-bold">Edit {{ singleClass.title }}</h3>
 
         <div class="row pl-0 pr-0 m-0 pt-4 pb-4">
-          <div class="col-md-4">
-            <div id="croppie"></div>
+          <div class="col-md-4 text-center">
+            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+              <div class="panel" v-if="url != '' "> 
+                   <img :src="url" alt="">
+              </div>
+            </transition>
 
-            <div class="panel panel-transparent text-center">
+            <div class="panel mt-2">
               <input type="file"
               accept="image/*"
               id="file-2"
@@ -78,16 +82,11 @@
     data(){
       return{
         isRequesting: false,
-        croppie: null,
+        url: this.singleClass.image_path,
         content: this.singleClass.content,
         image: this.singleClass.image_path,
         title: this.singleClass.title,
-        save_image: '',
       }
-    },
-
-    mounted(){
-      this.setUpCroppie();
     },
 
     computed:{
@@ -106,6 +105,8 @@
             return
         }
 
+        this.url = URL.createObjectURL(files[0]);
+
         this.createImage(files[0]);
       },
 
@@ -115,47 +116,9 @@
 
         reader.onload = (event) => {
             self.image = event.target.result;
-            this.croppie.destroy();
-            this.setUpCroppie();
         };
 
         reader.readAsDataURL(file);
-      },
-
-      setUpCroppie(){
-        const self = this;
-        let file = document.getElementById('croppie');
-
-        this.croppie = new Croppie(file,{
-            viewport: {width: 235, height: 300 },
-            boundary: {width: 285, height: 350 },
-            enableOrientation: false,
-        });
-
-        if(this.image === null || this.image === ''){
-            this.croppie.bind({
-                url: '/img/welcome-2.png'
-            });
-        }else {
-            this.croppie.bind({
-                url: this.image
-            });
-        }
-
-        this.croppie.options.update = function() {
-            self.setImage();
-        };
-      },
-
-      setImage(){
-        const self  = this;
-
-        this.croppie.result({
-            type: 'canvas',
-            size: {width: 470, height: 600, type: 'square'},
-        }).then(response => {
-            self.save_image = response;
-        });
       },
 
       editClass(){
@@ -170,7 +133,7 @@
               id: this.singleClass.id,
               title: this.title,
               content: this.content,
-              image: this.save_image
+              image: this.image
           };
 
           this.$store.dispatch('update_class', updatedProflie)                        
@@ -198,15 +161,13 @@
 	};
 </script>
 
-<style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-</style>
-
 <style scoped>
     .bg-grey {
         background: #fafafa;
+    }
+
+    img{
+      max-width: 180px;
     }
 
     input[type='file']::-webkit-file-upload-button

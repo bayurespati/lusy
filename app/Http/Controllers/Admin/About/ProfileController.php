@@ -6,6 +6,7 @@ use App\AboutContent;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
 {
@@ -27,38 +28,70 @@ class ProfileController extends Controller
             file::makedirectory($path);
         }
 
-        //Set Image Before put on server
-        $imageName = 'profile.jpg';
-        $image = $this->setImage($request->image);
+        //if admin change image
+        if($request->image !== $profile->image_path){
 
-        //Remove current image on server
-        $this->removeImageOnServer($path,$profile->image_path);
+            //Remove current image on server
+            $this->removeImageOnServer($path,$profile->image_path);
+
+            //Set Image Before put on server
+            $imageName = $this->setImage($request->image);
+
+            $profile->image_path = url('img/profile/'.$imageName);
+        }
+
 
         //Change detail data on database
-        $profile->image_path = url('img/profile/'.$imageName);
         $profile->content = $request->content;
         $profile->title = $request->title;
         $profile->update();
-
-        //Put image content on sever
-        file_put_contents($path.$imageName,$image);
+        
 
         //return url to front end
         return $profile->image_path;
     }
 
-    private function setImage($image){
-        list(,$image) = explode(';', $image);
-        list(,$image) = explode(',',$image);
+    public function setImage($image){
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($image);
 
-        return base64_decode($image);
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 1000 || $height > 1000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 1000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+        
+        $imageName = time().'profile.'.$this->getExtension($image);
+        $image_resize = Image::make($image);
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/profile/' .$imageName));
+
+        return $imageName;
+    }
+
+     private function getExtension($image){
+        list($extension,$image) = explode(';', $image);
+        list(,$extension) = explode('/',$extension);
+
+        return $extension;
     }
 
     private function removeImageOnServer($path, $url) {
         $imageName = explode('/', $url);
         $imageName = $imageName[count($imageName)-1];
 
-        if(file_exists($path.$imageName) && $imageName == 'profile.jpg') {
+        if(file_exists($path.$imageName) && strpos($imageName, 'profile')) {
             unlink($path . $imageName);
         }
     }

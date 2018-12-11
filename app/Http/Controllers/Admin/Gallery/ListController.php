@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Facades\Input;
 
 class ListController extends Controller
 {

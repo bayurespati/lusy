@@ -6,6 +6,7 @@ use App\AboutContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ClassesController extends Controller
 {
@@ -28,8 +29,7 @@ class ClassesController extends Controller
         }
 
         //Set Image Before put on server
-        $imageName = time().'class.jpg';
-        $image = $this->setImage($request->image);
+        $imageName = $this->setImage($request->image);
 
         $class = new AboutContent;
         $class->title = $request->title;
@@ -37,10 +37,6 @@ class ClassesController extends Controller
         $class->is_class = 1;
         $class->image_path =  url('img/class/'.$imageName);
         $class->save();
-
-
-        //Put image content on sever
-        file_put_contents($path.$imageName,$image);
 
         return $class;
     }
@@ -53,25 +49,55 @@ class ClassesController extends Controller
             file::makedirectory($path);
         }
 
-        //Set Image Before put on server
-        $imageName = time().'class.jpg';
-        $image = $this->setImage($request->image);
+        //if admin change image
+        if($request->image !== $class->image_path){
 
-        //Remove current image on server
-        $this->removeImageOnServer($path,$class->image_path);
+            //Remove current image on server
+            $this->removeImageOnServer($path,$class->image_path);
 
-        //Change detail data on database
-        $class->image_path = url('img/class/'.$imageName);
+            //Set Image Before put on server
+            $imageName = $this->setImage($request->image);
+
+            $class->image_path = url('img/class/'.$imageName);
+        }
+
+        //Change detail data on database        
         $class->content = $request->content;
         $class->title = $request->title;
         $class->update();
 
-        //Put image content on sever
-        file_put_contents($path.$imageName,$image);
-
         //return url to front end
         return $class;
 
+    }
+
+    public function setImage($image){
+        // SET WIDTH AND HEIGHT
+        list($width, $height) = getimagesize($image);
+
+        $widthFix = 0;
+        $heightFix = 0;
+
+        if($width > 1000 || $height > 1000){
+            $MAXSIZE = $width > $height ? $width : $height;
+
+            $result = $MAXSIZE - 1000;
+            $percentage = ceil($result / $MAXSIZE * 100);
+
+            $widthFix = $width - ($width * $percentage / 100);
+            $heightFix = $height - ($height * $percentage / 100);
+
+        }else{
+            $widthFix = $width;
+            $heightFix = $height;
+        }
+        
+        $imageName = time().'class.'.$this->getExtension($image);
+        $image_resize = Image::make($image);
+        $image_resize->resize($widthFix, $heightFix);
+        $image_resize->save(public_path('img/class/' .$imageName));
+
+        return $imageName;
     }
 
     public function destroy(AboutContent $class){
@@ -82,18 +108,18 @@ class ClassesController extends Controller
         $class->delete();
     }
 
-     private function setImage($image){
-        list(,$image) = explode(';', $image);
-        list(,$image) = explode(',',$image);
+    private function getExtension($image){
+        list($extension,$image) = explode(';', $image);
+        list(,$extension) = explode('/',$extension);
 
-        return base64_decode($image);
+        return $extension;
     }
 
     private function removeImageOnServer($path, $url) {
         $imageName = explode('/', $url);
         $imageName = $imageName[count($imageName)-1];
 
-        if(file_exists($path.$imageName) && strpos($imageName, 'class.jpg')) {
+        if(file_exists($path.$imageName) && strpos($imageName, 'class')) {
             unlink($path . $imageName);
         }
     }
