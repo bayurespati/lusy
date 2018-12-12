@@ -175,9 +175,10 @@
                                     <div class="post-date">
                                         <span>{{ $event->dayDate }}</span>
                                         <span>{{ $event->month }}</span>
+                                        <span>{{ $event->year }}</span>
                                     </div>
                                     <h3 class="mb-0">
-                                        <a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a>
+                                        <a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }} </a>
                                     </h3>
                                     <h4 class="organiser">
                                         <a class="p-0" href="/event/single/{{ $event->id }}">
@@ -610,6 +611,7 @@
                 '       <div class="post-date">' +
                 '           <span>' + event.dayDate + '</span>' + 
                 '           <span>' + event.month + '</span>' + 
+                '           <span>' + event.year + '</span>' + 
                 '       </div>' +
                 '       <h3>' +
                 '           <a href="/event/single/' +event.id+ '" title="' +event.title+ '">' + 

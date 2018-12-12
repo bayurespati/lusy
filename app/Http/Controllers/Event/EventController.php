@@ -18,7 +18,7 @@ class EventController extends Controller
 
     	$sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(2)->get();
-        $upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->paginate(6);
+        $upcomingEvents = Event::whereDate('end_date', '>=', Carbon::today()->toDateString())->orderBy('end_date', 'DESC')->paginate(6);
         $eventBanner = ImageConfig::find(4)->image_path === null 
         ? '/img/page-banner-bg.jpg'
         : ImageConfig::find(4)->image_path;
@@ -43,6 +43,7 @@ class EventController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
         }
 
 		return view('event.index', compact('sosmed', 'categories', 'upcomingEvents', 'isEventsExist', 'eventBanner'));
@@ -76,6 +77,7 @@ class EventController extends Controller
         $event->startHour = $startDate->format('h:i A');
         $event->endHour = $endDate->format('h:i A');
         $event->endDay = $endDate->format('l');
+        $event->year = $endDate->format('Y');
 
         $event->isUpcoming = $endDate >= Carbon::today()->toDateString();
 
@@ -117,7 +119,7 @@ class EventController extends Controller
                 ->where('end_date', '<', Carbon::today()->toDateString())
             ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '<', Carbon::today()->toDateString());
-        })->paginate(6);
+        })->orderBy('end_date', 'DESC')->paginate(6);
 
         $events->appends($request->only('keyword'));
 
@@ -138,6 +140,7 @@ class EventController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
         }
 
         return $events;
@@ -161,7 +164,7 @@ class EventController extends Controller
                 ->where('end_date', '>=', Carbon::today()->toDateString())
             ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->where('end_date', '>=', Carbon::today()->toDateString());
-        })->paginate(6);
+        })->orderBy('end_date', 'DESC')->paginate(6);
 
         $events->appends($request->only('keyword'));
 
@@ -182,6 +185,7 @@ class EventController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
         }
 
         return $events;
@@ -213,7 +217,7 @@ class EventController extends Controller
             ->orWhereRaw('DATE_FORMAT(start_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '<', Carbon::today()->toDateString());
-        })->paginate(6);
+        })->orderBy('end_date', 'DESC')->paginate(6);
 
         $events->appends($request->only('keyword'));
 
@@ -234,6 +238,7 @@ class EventController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
         }
 
         return $events;
@@ -265,7 +270,7 @@ class EventController extends Controller
             ->orWhereRaw('DATE_FORMAT(end_date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id)
                 ->where('end_date', '>=', Carbon::today()->toDateString());
-        })->paginate(6);
+        })->orderBy('end_date', 'DESC')->paginate(6);
 
         $events->appends($request->only('keyword'));
 
@@ -286,6 +291,7 @@ class EventController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
         }
 
         return $events;

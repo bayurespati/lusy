@@ -86,8 +86,8 @@
 
             if(this.imageConfig.page_name === 'Event Showcase Background in Home Page'){
                 this.croppie = new Croppie(file,{
-                    viewport: {width: 576, height: 263 },
-                    boundary: {width: 626, height: 313 },
+                    viewport: {width: 1000, height: 666.5 },
+                    boundary: {width: 1050, height: 716.5 },
                     enableOrientation: false,
                 });
             }else{
@@ -124,7 +124,7 @@
             if(this.imageConfig.page_name === 'Event Showcase Background in Home Page'){
                 this.croppie.result({
                     type: 'canvas',
-                    size: {width: 1920, height: 876, type: 'square'},
+                    size: {width: 2000, height: 1333, type: 'square'},
                 }).then(response => {
                     self.save_image = response;
                 });

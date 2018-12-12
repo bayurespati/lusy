@@ -141,7 +141,11 @@
                                     <img src="{{ $event->poster }}" alt="{{ $event->title }}" />
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 event-content">
-                                    <div class="post-date"><span>{{ $event->dayDate }}</span><span>{{ $event->month }}</span></div>
+                                    <div class="post-date">
+                                        <span>{{ $event->dayDate }}</span>
+                                        <span>{{ $event->month }}</span>
+                                        <span>{{ $event->year }}</span>
+                                    </div>
                                     <h1 class="mt-0 mb-0">{{ $event->title }}</h1>
                                     <h4 class="mb-4">
                                         <span style="color: #e2b13c">by</span> {{ $event->organiser }}
