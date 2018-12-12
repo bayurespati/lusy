@@ -194,6 +194,7 @@
                                 <div class="post-date">
                                     <span>{{ $event->dayDate }}</span>
                                     <span>{{ $event->month }}</span>
+                                    <span>{{ $event->year }}</span>
                                 </div>
                                 <h3><a href="/event/single/{{ $event->id }}" title="{{ $event->title }}">{{ $event->title }}</a></h3>
                                 <h4><a href="/event/single/{{ $event->id }}" title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}</a> <a href="/event/single/{{ $event->id }}"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
