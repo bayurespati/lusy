@@ -69,6 +69,7 @@ class HomeController extends Controller
             $event->startHour = $startDate->format('h:i A');
             $event->endHour = $endDate->format('h:i A');
             $event->endDay = $endDate->format('l');
+            $event->year = $endDate->format('Y');
 	    }
 
 	    $events = Event::with('subcategory', 'subcategory.category')->get();
