@@ -20,4 +20,12 @@ class EventImage extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    /**
+    * Accessor
+    */
+    public function getIsPosterAttribute($value)
+    {
+        return (bool) $value;
+    }
 }

@@ -4222,7 +4222,7 @@ var render = function() {
                             [
                               _vm.isRequesting
                                 ? [_vm._v("Saving..")]
-                                : [_vm._v("Active")]
+                                : [_vm._v("Not Active")]
                             ],
                             2
                           )
