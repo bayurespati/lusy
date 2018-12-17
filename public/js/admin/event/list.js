@@ -3947,11 +3947,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
         },
-        organiser: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-            maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-        },
         start_date: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         },
@@ -3982,7 +3977,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             return this.event.title !== this.title || this.event.start_date !== this.start_date.substring(0, 19).replace("T", " ") || this.event.end_date !== this.end_date.substring(0, 19).replace("T", " ") || this.event.location !== this.location || this.event.address !== this.address || this.event.content !== this.content || this.event.organiser !== this.organiser || this.event.category_id !== this.category_id;
         },
         formAddFilled: function formAddFilled() {
-            return this.title != '' && this.title.length >= 3 && this.title.length <= 100 && this.organiser != '' && this.organiser.length >= 3 && this.organiser.length <= 100 && this.location != '' && this.location.length >= 3 && this.location.length <= 50 && this.address != '' && this.address.length >= 3 && this.address.length <= 100 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.category_id != '';
+            return this.title != '' && this.title.length >= 3 && this.title.length <= 100 && this.location != '' && this.location.length >= 3 && this.location.length <= 50 && this.address != '' && this.address.length >= 3 && this.address.length <= 100 && this.start_date != '' && this.end_date != '' && this.category_id != '' && this.category_id != '';
         }
     }),
 

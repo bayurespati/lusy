@@ -256,11 +256,6 @@
                 minLength: minLength(3),
                 maxLength: maxLength(100)
             },
-            organiser:{
-                required,
-                minLength: minLength(3),
-                maxLength: maxLength(100)
-            },
             start_date: {
                 required,
             },
@@ -305,9 +300,6 @@
                 return this.title != ''
                     && this.title.length >= 3
                     && this.title.length <= 100
-                    && this.organiser != ''
-                    && this.organiser.length >= 3 
-                    && this.organiser.length <= 100
                     && this.location != ''
                     && this.location.length >= 3
                     && this.location.length <= 50
