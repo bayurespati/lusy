@@ -68,18 +68,7 @@
                                 <label class="m-0 pl-1" for="date">Date</label>
                             </div>
                             <div class="col-md-9">
-                                <datetime type="date" v-model="date" value-zone="local"
-                                          :class="{'form-control-danger': $v.date.$error}"
-                                          class="full-width"></datetime>
-
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->                                
-                                <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
-                                    <span class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
-                                        Date is required
-                                    </span>
-                                </transition>
+                                <datetime type="date" v-model="date" value-zone="local" class="full-width"></datetime>
 
                             </div>
                         </div>
@@ -229,9 +218,6 @@
             sub_category_id:{
                 required
             },
-            date:{
-                required
-            },
             location:{
                 minLength: minLength(3),
                 maxLength: maxLength(50)
@@ -252,8 +238,7 @@
 
             formIsFilled(){
                 return this.image != '' 
-                    && this.sub_category_id != '' 
-                    && this.date != ''
+                    && this.sub_category_id != ''
                     && this.title != '' && this.title.length >= 3 && this.title.length <= 50
                     && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 50) )
                     && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
@@ -336,7 +321,6 @@
 
             diryAllInputs(){
                 this.$v.title.$touch();
-                this.$v.date.$touch();
                 this.$v.sub_category_id.$touch();
                 this.$v.image.$touch();
             },

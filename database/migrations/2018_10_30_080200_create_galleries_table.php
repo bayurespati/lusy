@@ -17,7 +17,7 @@ class CreateGalleriesTable extends Migration
             $table->increments('id');
             $table->integer('sub_category_id')->unsigned();
             $table->string('title');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->string('location')->nullable();
             $table->string('creator')->nullable();
             $table->string('image_path');

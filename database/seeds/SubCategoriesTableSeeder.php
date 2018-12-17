@@ -39,36 +39,6 @@ class SubCategoriesTableSeeder extends Seeder
 
 
             [
-                'title' => 'Ikebana Ikenobo',
-                'category_id' => '3',
-            ],
-            [
-                'title' => 'Handicraft Goods',
-                'category_id' => '3',
-            ],
-
-
-            [
-                'title' => 'Ikebana Ikenobo',
-                'category_id' => '4',
-            ],
-            [
-                'title' => 'Handicraft Goods',
-                'category_id' => '4',
-            ],
-
-
-            [
-                'title' => 'Ikebana Ikenobo',
-                'category_id' => '5',
-            ],
-            [
-                'title' => 'Handicraft Goods',
-                'category_id' => '5',
-            ],
-
-
-            [
                 'title' => 'Ikenobo Jiyuka',
                 'category_id' => '6',
             ],

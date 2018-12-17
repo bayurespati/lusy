@@ -13982,17 +13982,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -14033,9 +14022,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         sub_category_id: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         },
-        date: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
         location: {
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(50)
@@ -14053,7 +14039,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         categories: 'getCategories'
     }), {
         formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+            return this.image != '' && this.sub_category_id != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
         }
     }),
 
@@ -14127,7 +14113,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_datetime__["Datetime"]);
         },
         diryAllInputs: function diryAllInputs() {
             this.$v.title.$touch();
-            this.$v.date.$touch();
             this.$v.sub_category_id.$touch();
             this.$v.image.$touch();
         }
@@ -14297,7 +14282,6 @@ var render = function() {
                 [
                   _c("datetime", {
                     staticClass: "full-width",
-                    class: { "form-control-danger": _vm.$v.date.$error },
                     attrs: { type: "date", "value-zone": "local" },
                     model: {
                       value: _vm.date,
@@ -14306,27 +14290,7 @@ var render = function() {
                       },
                       expression: "date"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "transition",
-                    {
-                      attrs: {
-                        appear: "",
-                        enterActiveClass: "fade-in-down",
-                        leaveActiveClass: "fade-out-up"
-                      }
-                    },
-                    [
-                      !_vm.$v.date.required && _vm.$v.date.$dirty
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(
-                              "\n                                    Date is required\n                                "
-                            )
-                          ])
-                        : _vm._e()
-                    ]
-                  )
+                  })
                 ],
                 1
               )
@@ -15317,14 +15281,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -15367,9 +15323,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         sub_category_id: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
         },
-        date: {
-            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-        },
         creator: {
             minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
             maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(30)
@@ -15386,7 +15339,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.galleryImage.title !== this.title || this.galleryImage.date !== this.date.substring(0, 10) || this.galleryImage.location !== this.location || this.galleryImage.creator !== this.creator || this.galleryImage.sub_category_id !== this.sub_category_id || this.galleryImage.image_path !== this.image;
         },
         formIsFilled: function formIsFilled() {
-            return this.image != '' && this.sub_category_id != '' && this.date != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
+            return this.image != '' && this.sub_category_id != '' && this.title != '' && this.title.length >= 3 && this.title.length <= 50 && (this.location == '' || this.location.length >= 3 && this.location.length <= 50) && (this.creator == '' || this.creator.length >= 3 && this.creator.length <= 30);
         },
         subcategories: function subcategories() {
             for (var a = 0; a < this.categories.length; a++) {
@@ -15459,7 +15412,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         diryAllInputs: function diryAllInputs() {
             this.$v.title.$touch();
-            this.$v.date.$touch();
             this.$v.sub_category_id.$touch();
             this.$v.image.$touch();
         }
@@ -15743,7 +15695,6 @@ var render = function() {
                     { staticClass: "col-sm-9 col-xs-12" },
                     [
                       _c("datetime", {
-                        class: { "form-control-danger": _vm.$v.date.$error },
                         attrs: { "value-zone": "local" },
                         model: {
                           value: _vm.date,
@@ -15752,34 +15703,7 @@ var render = function() {
                           },
                           expression: "date"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "transition",
-                        {
-                          attrs: {
-                            enterActiveClass: "fade-in",
-                            leaveActiveClass: "fade-out",
-                            mode: "out-in"
-                          }
-                        },
-                        [
-                          !_vm.$v.date.required && _vm.$v.date.$dirty
-                            ? _c(
-                                "span",
-                                {
-                                  key: "date-required",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Date is required\n                                "
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      )
+                      })
                     ],
                     1
                   )
