@@ -40,28 +40,8 @@
 						<div class="form-group text-center mb-3">
 							<input type="text" 
 							v-model="input.sub_title"
-							:class="{'form-control-danger': $v.input.sub_title.$error}"
-							@input="$v.input.sub_title.$touch()"
 							class="form-control"
 							placeholder="Item Subname">
-
-						<!--======================================================================================
-                            V A L I D A T I O N     E R R O R   M E S S A G E S
-                            ======================================================================================-->
-                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            <span key="subname-required" class="text-danger" 
-                            v-if="!$v.input.sub_title.required && $v.input.sub_title.$dirty">
-                            	Item Subname is required
-                        	</span>
-                            <span key="subname-minimum" class="text-danger" 
-                            v-else-if="!$v.input.sub_title.minLength">
-                            	Item Subname has a minimum of {{ $v.input.sub_title.$params.minLength.min }} characters
-                            </span>
-                            <span key="subname-maximum" class="text-danger" 
-                            v-else-if="!$v.input.sub_title.maxLength">
-                            	Item Subname has a maximum of {{ $v.input.sub_title.$params.maxLength.max }} characters
-                        	</span>
-                    	</transition>
 						</div>
 					</div>
 				</div>
@@ -91,20 +71,9 @@
 						<div class="form-group text-center mb-3">
 							<input type="number" 
 							v-model="input.stock"
-							:class="{'form-control-danger': $v.input.stock.$error}"
 							@input="$v.input.stock.$touch()"
 					       	class="form-control"
 					       	placeholder="Stock">
-
-					     <!--======================================================================================
-                            V A L I D A T I O N     E R R O R   M E S S A G E S
-                            ======================================================================================-->
-                    	<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            <span key="stock-required" class="text-danger" 
-                            v-if="!$v.input.stock.required && $v.input.stock.$dirty">
-                            	Stock is required
-                        	</span>
-                    	</transition>
 						</div>
 					</div>
 				</div>
@@ -237,16 +206,8 @@
                     minLength: minLength(3),
                     maxLength: maxLength(100)
                 },
-                sub_title:{
-                	required,
-                    minLength: minLength(3),
-                    maxLength: maxLength(100)
-                },
                 store_link: {
                 	minLength: minLength(5),
-                },
-                stock: {
-                    required,
                 },
                 price:{
                 	required,
@@ -266,10 +227,6 @@
 				return this.input.title != ''
 					&& this.input.title.length >= 3
 					&& this.input.title.length <= 100
-					&& this.input.sub_title != ''
-					&& this.input.sub_title.length >= 3
-					&& this.input.sub_title.length <= 100
-					&& this.input.stock != ''
 					&& this.input.price != ''
 					&& this.input.is_displayed != ''
 					&& (this.input.store_link == '' || (this.input.store_link.length >= 5 ))
@@ -318,8 +275,6 @@
 
 			diryAllInputs(){
                 this.$v.input.title.$touch();
-                this.$v.input.sub_title.$touch();
-                this.$v.input.stock.$touch();
                 this.$v.input.price.$touch();
                 this.$v.category.$touch();
             },

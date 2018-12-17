@@ -49,7 +49,7 @@
                                 :disabled="isRequesting"
                                 v-else>
                                     <template v-if="isRequesting">Saving..</template>
-                                    <template v-else>Active</template>
+                                    <template v-else>Not Active</template>
                                 </button>
                             </div>
                         </div>

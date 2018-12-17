@@ -18,8 +18,8 @@ class CreateShopItemsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('sub_category_id')->unsigned()->nullable();
             $table->string('title');
-            $table->string('sub_title');
-            $table->integer('stock');
+            $table->string('sub_title')->nullable();
+            $table->integer('stock')->nullable();
             $table->text('description')->nullable();
             $table->double('price');
             $table->string('store_link')->nullable();

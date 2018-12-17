@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <h3>Profile Master</h3>
-    <p class="mb-0">Here you can manages <strong>profile info</strong> shown in <strong>Home</strong> and <strong>About</strong> pages.</p>
-    <p class="mb-5">Dimension: 323 x 520</p>
+    <p class="mb-5">Here you can manages <strong>profile info</strong> shown in <strong>Home</strong> and <strong>About</strong> pages.</p>
 
     <transition enterActiveClass="fade-in"leaveActiveClass="fade-out"mode="out-in">
         <template v-if="!isEditProfile">

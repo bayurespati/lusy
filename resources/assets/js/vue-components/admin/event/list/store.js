@@ -9,7 +9,6 @@ export const store = new Vuex.Store({
     state: {
         events:{},
         categories: {},
-        subcategories:{}
     },
 
 
@@ -23,10 +22,6 @@ export const store = new Vuex.Store({
 
         getCategories: state => {
             return state.categories;
-        },
-
-        getSubcategories: state =>{
-            return state.subcategories;
         }
     },
 
@@ -37,21 +32,19 @@ export const store = new Vuex.Store({
         set_events: (state, events) =>{
             state.events = events[0];
             state.categories = events[1];
-            state.subcategories = events[2];
         },
 
         add_new_event(state, event){
             state.events.push({
                 id: event.id,
                 title: event.detail.title,
-                sub_category_id: event.detail.sub_category_id,
+                category_id: event.detail.category_id,
                 end_date: event.end_date,
                 start_date: event.start_date,
                 location: event.detail.location,
                 address: event.detail.address,
                 organiser: event.detail.organiser,
                 content: event.detail.content,
-                subcategory: event.detail.subcategory,
             });
         },
 
@@ -66,8 +59,7 @@ export const store = new Vuex.Store({
             state.events[eventIndex].address = updatedEvent.address;
             state.events[eventIndex].organiser = updatedEvent.organiser;
             state.events[eventIndex].content = updatedEvent.content;
-            state.events[eventIndex].sub_category_id = updatedEvent.sub_category_id;
-            state.events[eventIndex].subcategory.category_id = updatedEvent.category_id;
+            state.events[eventIndex].category_id = updatedEvent.category_id;
         },
 
         delete_event(state, ids){
@@ -96,20 +88,20 @@ export const store = new Vuex.Store({
                 axios.post('add/list', {
                     id: newEvent.id,
                     title: newEvent.title,
-                    start_date: newEvent.start_date.substring(0,19).replace("T", " "),
-                    end_date: newEvent.end_date.substring(0,19).replace("T", " "),
+                    start_date: newEvent.start_date.substring(0,10),
+                    end_date: newEvent.end_date.substring(0,10),
                     location: newEvent.location,
                     address: newEvent.address,
                     organiser: newEvent.organiser,
-                    sub_category_id: newEvent.sub_category_id,
+                    category_id: newEvent.category_id,
                     content: newEvent.content,
                 })
                     .then(response => {
 
                         const event = {
                             id: response.data,
-                            start_date : newEvent.start_date.substring(0,19).replace("T", " "),
-                            end_date : newEvent.end_date.substring(0,19).replace("T", " "),
+                            start_date : newEvent.start_date.substring(0,10),
+                            end_date : newEvent.end_date.substring(0,10),
                             detail: newEvent
                         };
 
@@ -135,7 +127,7 @@ export const store = new Vuex.Store({
                     location: updatedEvent.location,
                     address: updatedEvent.address,
                     organiser: updatedEvent.organiser,
-                    sub_category_id: updatedEvent.sub_category_id,
+                    category_id: updatedEvent.category_id,
                     content: updatedEvent.content,
                 })
                     .then(response => {

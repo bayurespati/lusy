@@ -74,15 +74,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-9 col-xs-12">
-                                <datetime v-model="date" :class="{'form-control-danger': $v.date.$error}" value-zone="local"></datetime>
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->                                
-                                <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                    <span key="date-required" class="text-danger" v-if="!$v.date.required && $v.date.$dirty">
-                                        Date is required
-                                    </span>
-                                </transition>
+                                <datetime v-model="date" value-zone="local"></datetime>
                             </div>
                         </div>
 
@@ -231,9 +223,6 @@
             sub_category_id:{
                 required
             },
-            date:{
-                required
-            },
             creator:{
                 minLength: minLength(3),
                 maxLength: maxLength(30)
@@ -259,8 +248,7 @@
 
             formIsFilled(){
                 return this.image != '' 
-                    && this.sub_category_id != '' 
-                    && this.date != ''
+                    && this.sub_category_id != ''
                     && this.title != '' && this.title.length >= 3 && this.title.length <= 50
                     && ( this.location == '' || (this.location.length >= 3 && this.location.length <= 50) )
                     && ( this.creator == '' || (this.creator.length >= 3 && this.creator.length <= 30) )
@@ -345,7 +333,6 @@
 
             diryAllInputs(){
                 this.$v.title.$touch();
-                this.$v.date.$touch();
                 this.$v.sub_category_id.$touch();
                 this.$v.image.$touch();
             },

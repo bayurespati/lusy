@@ -44,26 +44,8 @@
                             <input id="creator" type="text"
                             class="form-control form-control-sm"
                             @keyup.enter="editEvent"
-                            @input="$v.organiser.$touch()"
                             :placeholder="event.organiser"
-                            :class="{'form-control-danger': $v.organiser.$error}" 
                             v-model="organiser">
-
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                <span key="organiser-required" class="text-danger text-center" 
-                                v-if="!$v.organiser.required && $v.organiser.$dirty">
-                                    Organiser is required
-                                </span>
-                                <span key="organiser-minimum" class="text-danger text-center" v-else-if="!$v.organiser.minLength">
-                                    Organiser has a minimum of {{ $v.organiser.$params.minLength.min }} characters
-                                </span>
-                                <span key="organiser-maximum" class="text-danger text-center" v-else-if="!$v.organiser.maxLength">
-                                    Organiser has a maximum of {{ $v.organiser.$params.maxLength.max }} characters
-                                </span>
-                            </transition> 
                         </div>
                     </div>
 
@@ -73,7 +55,7 @@
                                 Start Date
                             </label>
 
-                            <datetime type="datetime" 
+                            <datetime type="date" 
                             value-zone="local" v-model="start_date" 
                             @input="$v.start_date.$touch()"
                             :class="{'form-control-danger': $v.start_date.$error}"
@@ -88,7 +70,7 @@
                                 v-if="!$v.start_date.required && $v.start_date.$dirty">
                                     Start Date is required
                                 </span>
-                            </transition>   
+                            </transition>
                         </div>
 
                         <div class="col-sm-6 col-xs-12 text-center">
@@ -96,7 +78,7 @@
                                 End Date
                             </label>
                             
-                            <datetime type="datetime" 
+                            <datetime type="date" 
                             v-model="end_date" value-zone="local" 
                             @input="$v.start_date.$touch()"
                             :class="{'form-control-danger': $v.end_date.$error}"
@@ -204,30 +186,6 @@
                                 </span>
                             </transition>
                         </div>
-
-                        <div class="col-sm-6 col-xs-12 text-center">
-                            <label for="subcategory" class="form-control-label panel-font-small m-0">
-                                Subcategory
-                            </label>
-                            
-                            <select class="form-control" id="subcategory" v-model="sub_category_id" 
-                            @input="$v.sub_category_id.$touch()" 
-                            :class="{'form-control-danger': $v.sub_category_id.$error}">
-                                <option value="">Choose Subcategory</option>
-                                <option v-for="subcategory in subcategories" 
-                                        :value=subcategory.id> {{ subcategory.title }}
-                                </option>
-                            </select>
-                            
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                <span key="subcategory" class="text-danger text-center" v-if="!$v.sub_category_id.required">
-                                    Subcategory is required
-                                </span>
-                            </transition>
-                        </div>
                     </div>
 
                     <div class="col-sm-12 d-flex form-group">
@@ -276,22 +234,20 @@
 
         data(){
             return {
-                subcategories:'',
-                category_id: this.event.subcategory.category_id,
+                category_id: this.event.category_id,
                 isRequesting: false,
                 title: this.event.title,
-                start_date: this.event.start_date.replace(" ", "T")+".000+07:00",
-                end_date: this.event.end_date.replace(" ", "T")+".000+07:00",
+                start_date: this.event.start_date,
+                end_date: this.event.end_date,
                 location: this.event.location,
                 address: this.event.address,
                 content: this.event.content,
                 organiser: this.event.organiser,
-                sub_category_id: this.event.sub_category_id
             }
         },
 
         mounted(){
-            this.setSubcategory();
+            // this.setSubcategory();
         },
 
         validations: {
@@ -324,7 +280,7 @@
             category_id: {
                 required
             },
-            sub_category_id:{
+            category_id:{
                 required
             }
         },
@@ -342,8 +298,7 @@
                     || this.event.address !== this.address
                     || this.event.content !== this.content
                     || this.event.organiser !== this.organiser
-                    || this.event.subcategory.category_id !== this.category_id
-                    || this.event.sub_category_id !== this.sub_category_id;
+                    || this.event.category_id !== this.category_id;
             },
 
             formAddFilled(){
@@ -362,21 +317,21 @@
                     && this.start_date != ''
                     && this.end_date != ''
                     && this.category_id != ''
-                    && this.sub_category_id != '';
+                    && this.category_id != '';
             }
         },
 
         methods: {
 
-            setSubcategory(){
-                for(let a = 0; a < this.categories.length; a++){
-                    for(let b = 0; b < this.categories[a].subcategories.length; b++){
-                        if(this.categories[a].subcategories[b].id == this.event.sub_category_id ){
-                            this.subcategories =  this.categories[a].subcategories;
-                        }
-                    }
-                }
-            },
+            // setSubcategory(){
+            //     for(let a = 0; a < this.categories.length; a++){
+            //         for(let b = 0; b < this.categories[a].subcategories.length; b++){
+            //             if(this.categories[a].subcategories[b].id == this.event.sub_category_id ){
+            //                 this.subcategories =  this.categories[a].subcategories;
+            //             }
+            //         }
+            //     }
+            // },
 
             editEvent(){
 
@@ -389,13 +344,12 @@
                     const updatedEvent = {
                         id: this.event.id,
                         title: this.title,
-                        start_date: this.start_date.substring(0,19).replace("T", " "),
-                        end_date: this.end_date.substring(0,19).replace("T", " "),
+                        start_date: this.start_date.substring(0,10),
+                        end_date: this.end_date.substring(0,10),
                         location: this.location,
                         address: this.address,
                         content: this.content,
                         organiser: this.organiser,
-                        sub_category_id: this.sub_category_id,
                         category_id: this.category_id,
                     };
 
@@ -417,16 +371,6 @@
 
             closeEditForm() {
                 this.$emit('editionFormIsClosed', false);
-            }
-        },
-
-        watch:{
-            category_id(){
-                this.sub_category_id = '';
-
-                let index = _.findIndex(this.categories, ['id', this.category_id]);
-
-                this.subcategories = this.categories[index].subcategories;
             }
         }
     };

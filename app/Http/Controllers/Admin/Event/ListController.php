@@ -18,24 +18,16 @@ class ListController extends Controller
     public function loadEvent()
     {
         $categories = Category::where('type','2')->with('subcategories')->get();
-        $event = Event::with('subcategory')->get();
+        $event = Event::all();
 
-        $subCategories = [];
-
-        foreach($categories as $keys => $category){
-            foreach($category->subcategories as $key => $subcategory){
-                array_push($subCategories, $subcategory);
-            }
-        }
-
-    	return [$event,$categories,$subCategories];
+    	return [$event,$categories];
     }
 
     public function store(Request $request){
-
+        
         $event = new Event;
 
-        $event->sub_category_id = $request->sub_category_id;
+        $event->category_id = $request->category_id;
         $event->title = $request->title;
         $event->start_date = $request->start_date;
         $event->end_date = $request->end_date;
@@ -57,7 +49,7 @@ class ListController extends Controller
         $event->location = $request->location;
         $event->address = $request->address;
         $event->content = $request->content;
-        $event->sub_category_id = $request->sub_category_id;
+        $event->category_id = $request->category_id;
         $event->organiser = $request->organiser;
 
         $event->update();

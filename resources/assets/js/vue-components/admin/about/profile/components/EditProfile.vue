@@ -7,10 +7,15 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
-            <div id="croppie"></div>
+          <div class="col-md-4 text-center">
+            <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+              <div class="panel" v-if="url != '' "> 
+                   <img :src="url" alt="">
+              </div>
+            </transition>
 
-            <div class="panel panel-transparent text-center">
+
+            <div class="panel mt-2">
               <input type="file"
               accept="image/*"
               id="file-2"
@@ -71,18 +76,13 @@
     data(){
       return{
         isRequsting: false,
-        croppie: null,
+        url: this.profile.image_path,
         content: this.profile.content,
         image: this.profile.image_path,
-        title: this.profile.title,
-        save_image: '',
+        title: this.profile.title
       }
     },
-
-    mounted(){
-      this.setUpCroppie();
-    },
-
+    
     computed:{
       isEdited(){
         return this.image != this.profile.image_path
@@ -99,6 +99,8 @@
               return
           }
 
+          this.url = URL.createObjectURL(files[0]);
+
           this.createImage(files[0]);
       },
 
@@ -108,47 +110,9 @@
 
           reader.onload = (event) => {
               self.image = event.target.result;
-              this.croppie.destroy();
-              this.setUpCroppie();
           };
 
           reader.readAsDataURL(file);
-      },
-
-      setUpCroppie(){
-          const self = this;
-          let file = document.getElementById('croppie');
-
-          this.croppie = new Croppie(file,{
-              viewport: {width: 161.5, height: 260, type: 'square'},
-              boundary: {width: 211.5, height: 310 },
-              enableOrientation: false,
-          });
-
-          if(this.image === null || this.image === ''){
-              this.croppie.bind({
-                  url: '/img/welcome-2.png'
-              });
-          }else {
-              this.croppie.bind({
-                  url: this.image
-              });
-          }
-
-          this.croppie.options.update = function() {
-              self.setImage();
-          };
-      },
-
-      setImage(){
-          const self  = this;
-
-          this.croppie.result({
-              type: 'canvas',
-              size: {width: 323, height: 520, type: 'square'},
-          }).then(response => {
-              self.save_image = response;
-          });
       },
 
       editProfile(){
@@ -163,7 +127,7 @@
                   id: this.profile.id,
                   title: this.title,
                   content: this.content,
-                  image: this.save_image
+                  image: this.image
               };
 
               this.$store.dispatch('update_profile', updatedProflie)                        
@@ -184,11 +148,9 @@
       },
 
       setInput(){
-        this.croppie = null;
         this.content = '';
         this.image = '';
         this.title = '';
-        this.save_image = '';
       },
 
       closeEditForm() {
@@ -198,21 +160,15 @@
 	};
 </script>
 
-<style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-
-    .croppie-container .cr-slider-wrap {
-        margin: 15px auto 5px auto;
-    }
-</style>
-
 <style scoped>
     .card {
         display: inline-block;
         width: 100%;
         padding: 36px 20px 26px 20px;
+    }
+
+    img{
+      max-width: 180px;
     }
 
     input[type='file']::-webkit-file-upload-button

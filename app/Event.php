@@ -26,9 +26,9 @@ class Event extends Model
         return $this->hasMany(EventImage::class, 'event_id')->whereIsPoster(true);
     }
 
-    public function subcategory()
+    public function category()
     {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function applicants() {

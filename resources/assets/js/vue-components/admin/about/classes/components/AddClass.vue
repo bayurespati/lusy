@@ -5,10 +5,16 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
-        <div id="croppie"></div>
+      <div class="col-md-4 text-center">
+        <div id="croppie">
+          <transition appear enterActiveClass="fade-in-down" leaveActiveClass="fade-out-up">
+            <div class="panel" v-if="url != '' "> 
+                 <img :src="url" alt="">
+            </div>
+          </transition>
+        </div>
 
-        <div class="panel panel-transparent text-center" >
+        <div class="panel mt-2">
           <input type="file"
           accept="image/*"
           id="file-2"
@@ -60,25 +66,18 @@
 </template>
 
 <script>
-  import {Croppie} from 'croppie';
 	import {mapGetters} from 'vuex';
 
 	export default {
     data(){
       return{
         isRequesting: '',
-        croppie: null,
+        url: '',
         content: '',
         image: '',
         title: '',
-        save_image: ''
       }
     },
-
-    mounted(){
-      this.setUpCroppie();
-    },
-
 
     computed:{
       formIsFilled(){
@@ -96,6 +95,8 @@
           return
         }
 
+        this.url = URL.createObjectURL(files[0]);
+
         this.createImage(files[0]);
       },
 
@@ -107,53 +108,9 @@
 
         reader.onload = (event) => {
           self.image = event.target.result;
-          this.croppie.destroy();
-          this.setUpCroppie();
         };
 
         reader.readAsDataURL(file);
-
-      },
-
-      setUpCroppie(){
-
-        const self = this;
-
-        let file = document.getElementById('croppie');
-
-        this.croppie = new Croppie(file,{
-            viewport: {width: 235, height: 300, type: 'square'},
-            boundary: {width: 285, height: 350 },
-            enableOrientation: false,
-        });
-
-        if(this.image === null || this.image === ''){
-          this.croppie.bind({
-            url: '/img/welcome-1.jpg'
-          });
-        }else {
-          this.croppie.bind({
-            url: this.image
-          });
-        }
-
-        this.croppie.options.update = function() {
-          self.setImage();
-        };
-
-      },
-
-      setImage(){
-
-        const self  = this;
-
-        this.croppie.result({
-          type: 'canvas',
-          size: {width: 470, height: 600, type: 'square'},
-        }).then(response => {
-          self.save_image = response;
-        });
-
       },
 
       addClass(){
@@ -167,7 +124,7 @@
           const classProfile = {
             title: this.title,
             content: this.content,
-            image: this.save_image
+            image: this.image
           };
 
           this.$store.dispatch('store_new_class', classProfile)                        
@@ -195,21 +152,15 @@
 	};
 </script>
 
-<style type="text/css">
-    .croppie-container {
-        height: unset;
-    }
-
-    .croppie-container .cr-slider-wrap {
-        margin: 15px auto 5px auto;
-    }
-</style>
-
 <style scoped>
     .card {
         display: inline-block;
         width: 100%;
         padding: 36px 20px 26px 20px;
+    }
+
+    img{
+      max-width: 180px;
     }
 
     input[type='file']::-webkit-file-upload-button

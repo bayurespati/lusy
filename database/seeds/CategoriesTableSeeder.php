@@ -21,15 +21,11 @@ class CategoriesTableSeeder extends Seeder
                 'type' => '1',
             ],
             [
-                'title' => 'Classes',
+                'title' => 'Ikebana Ikenobo',
                 'type' => '2',
             ],
             [
-                'title' => 'Workshop',
-                'type' => '2',
-            ],
-            [
-                'title' => 'Exhibition',
+                'title' => 'Handicraft Goods',
                 'type' => '2',
             ],
             [
