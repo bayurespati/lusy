@@ -25,11 +25,6 @@ class SubCategory extends Model
     /**
      * Relationships
      */
-    public function events()
-    {
-        return $this->hasMany(Event::class, 'sub_category_id');
-    }
-
     public function shops()
     {
         return $this->hasMany(ShopItem::class, 'sub_category_id');

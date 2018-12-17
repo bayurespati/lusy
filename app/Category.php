@@ -22,6 +22,9 @@ class Category extends Model
         'created_at', 'updated_at',
     ];
 
+    /**
+     * Relationships
+     */
     public function subcategories()
     {
         return $this->hasMany(SubCategory::class, 'category_id');
@@ -30,4 +33,10 @@ class Category extends Model
     public function shopItems(){
         return $this->hasMany(ShopItem::class, 'category_id');
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'category_id');
+    }
+
 }
