@@ -44,26 +44,8 @@
                             <input id="creator" type="text"
                             class="form-control form-control-sm"
                             @keyup.enter="editEvent"
-                            @input="$v.organiser.$touch()"
                             :placeholder="event.organiser"
-                            :class="{'form-control-danger': $v.organiser.$error}" 
                             v-model="organiser">
-
-                            <!--======================================================================================
-                                V A L I D A T I O N     E R R O R   M E S S A G E S
-                                ======================================================================================-->
-                            <transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                                <span key="organiser-required" class="text-danger text-center" 
-                                v-if="!$v.organiser.required && $v.organiser.$dirty">
-                                    Organiser is required
-                                </span>
-                                <span key="organiser-minimum" class="text-danger text-center" v-else-if="!$v.organiser.minLength">
-                                    Organiser has a minimum of {{ $v.organiser.$params.minLength.min }} characters
-                                </span>
-                                <span key="organiser-maximum" class="text-danger text-center" v-else-if="!$v.organiser.maxLength">
-                                    Organiser has a maximum of {{ $v.organiser.$params.maxLength.max }} characters
-                                </span>
-                            </transition> 
                         </div>
                     </div>
 

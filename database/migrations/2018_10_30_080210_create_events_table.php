@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('location');
             $table->string('address');
             $table->text('content')->nullable();
-            $table->string('organiser');
+            $table->string('organiser')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

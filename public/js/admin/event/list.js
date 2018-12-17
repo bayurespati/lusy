@@ -2512,26 +2512,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2567,11 +2547,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
 				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 			},
-			organiser: {
-				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-				minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-				maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-			},
 			start_date: {
 				required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 			},
@@ -2602,7 +2577,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		categories: 'getCategories'
 	}), {
 		formAddFilled: function formAddFilled() {
-			return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.organiser != '' && this.input.organiser.length >= 3 && this.input.organiser.length <= 100 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 50 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 100 && this.input.start_date != '' && this.input.end_date != '' && this.input.category_id != '';
+			return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.location != '' && this.input.location.length >= 3 && this.input.location.length <= 50 && this.input.address != '' && this.input.address.length >= 3 && this.input.address.length <= 100 && this.input.start_date != '' && this.input.end_date != '' && this.input.category_id != '';
 		},
 		start_date: function start_date() {
 			return this.input.start_date;
@@ -2658,7 +2633,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_datetime__["Datetime"]);
 		dirtyAllInputs: function dirtyAllInputs() {
 			this.$v.input.title.$touch();
 			this.$v.input.category_id.$touch();
-			this.$v.input.organiser.$touch();
 			this.$v.input.start_date.$touch();
 			this.$v.input.location.$touch();
 			this.$v.input.address.$touch();
@@ -2790,109 +2764,33 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-group text-center mb-3" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.input.organiser,
-                      expression: "input.organiser"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "form-control-danger": _vm.$v.input.organiser.$error
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "organiser",
-                    placeholder: "Organiser"
-                  },
-                  domProps: { value: _vm.input.organiser },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.input, "organiser", $event.target.value)
-                      },
-                      function($event) {
-                        _vm.$v.input.organiser.$touch()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "transition",
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
                   {
-                    attrs: {
-                      enterActiveClass: "fade-in",
-                      leaveActiveClass: "fade-out",
-                      mode: "out-in"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.organiser,
+                    expression: "input.organiser"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "organiser",
+                  placeholder: "Organiser"
+                },
+                domProps: { value: _vm.input.organiser },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  },
-                  [
-                    !_vm.$v.input.organiser.required &&
-                    _vm.$v.input.organiser.$dirty
-                      ? _c(
-                          "span",
-                          {
-                            key: "organiser-required",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \t\tOrganiser is required\n                        \t\t"
-                            )
-                          ]
-                        )
-                      : !_vm.$v.input.organiser.minLength
-                        ? _c(
-                            "span",
-                            {
-                              key: "organiser-minimum",
-                              staticClass: "text-danger"
-                            },
-                            [
-                              _vm._v(
-                                "\n                            \t\tOrganiser has a minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.organiser.$params.minLength.min
-                                  ) +
-                                  " characters\n                            \t"
-                              )
-                            ]
-                          )
-                        : !_vm.$v.input.organiser.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "organiser-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            \t\tOrganiser has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.organiser.$params.maxLength
-                                        .max
-                                    ) +
-                                    " characters\n                        \t\t"
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                  ]
-                )
-              ],
-              1
-            )
+                    _vm.$set(_vm.input, "organiser", $event.target.value)
+                  }
+                }
+              })
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -4012,24 +3910,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4356,133 +4236,61 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
+                _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "creator" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Organiser\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "creator" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Organiser\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.organiser,
-                          expression: "organiser"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: { "form-control-danger": _vm.$v.organiser.$error },
-                      attrs: {
-                        id: "creator",
-                        type: "text",
-                        placeholder: _vm.event.organiser
-                      },
-                      domProps: { value: _vm.organiser },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editEvent($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.organiser = $event.target.value
-                          },
-                          function($event) {
-                            _vm.$v.organiser.$touch()
-                          }
-                        ]
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.organiser,
+                        expression: "organiser"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: {
+                      id: "creator",
+                      type: "text",
+                      placeholder: _vm.event.organiser
+                    },
+                    domProps: { value: _vm.organiser },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
                         }
+                        return _vm.editEvent($event)
                       },
-                      [
-                        !_vm.$v.organiser.required && _vm.$v.organiser.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "organiser-required",
-                                staticClass: "text-danger text-center"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Organiser is required\n                            "
-                                )
-                              ]
-                            )
-                          : !_vm.$v.organiser.minLength
-                            ? _c(
-                                "span",
-                                {
-                                  key: "organiser-minimum",
-                                  staticClass: "text-danger text-center"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Organiser has a minimum of " +
-                                      _vm._s(
-                                        _vm.$v.organiser.$params.minLength.min
-                                      ) +
-                                      " characters\n                            "
-                                  )
-                                ]
-                              )
-                            : !_vm.$v.organiser.maxLength
-                              ? _c(
-                                  "span",
-                                  {
-                                    key: "organiser-maximum",
-                                    staticClass: "text-danger text-center"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Organiser has a maximum of " +
-                                        _vm._s(
-                                          _vm.$v.organiser.$params.maxLength.max
-                                        ) +
-                                        " characters\n                            "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.organiser = $event.target.value
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [

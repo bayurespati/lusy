@@ -3626,37 +3626,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3690,16 +3659,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
 																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
 												},
-												sub_title: {
-																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(3),
-																maxLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["maxLength"])(100)
-												},
 												store_link: {
 																minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
-												},
-												stock: {
-																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
 												},
 												price: {
 																required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
@@ -3714,7 +3675,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 								categories: 'getCategories'
 				}), {
 								isFormFilled: function isFormFilled() {
-												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+												return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
 								},
 								is_subCat: function is_subCat() {
 												if (this.category !== '' && this.subcategories.length >= 1) {
@@ -3756,8 +3717,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 								},
 								diryAllInputs: function diryAllInputs() {
 												this.$v.input.title.$touch();
-												this.$v.input.sub_title.$touch();
-												this.$v.input.stock.$touch();
 												this.$v.input.price.$touch();
 												this.$v.category.$touch();
 								},
@@ -3889,105 +3848,29 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-group text-center mb-3" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.input.sub_title,
-                      expression: "input.sub_title"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "form-control-danger": _vm.$v.input.sub_title.$error
-                  },
-                  attrs: { type: "text", placeholder: "Item Subname" },
-                  domProps: { value: _vm.input.sub_title },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.input, "sub_title", $event.target.value)
-                      },
-                      function($event) {
-                        _vm.$v.input.sub_title.$touch()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "transition",
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
                   {
-                    attrs: {
-                      enterActiveClass: "fade-in",
-                      leaveActiveClass: "fade-out",
-                      mode: "out-in"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.sub_title,
+                    expression: "input.sub_title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Item Subname" },
+                domProps: { value: _vm.input.sub_title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  },
-                  [
-                    !_vm.$v.input.sub_title.required &&
-                    _vm.$v.input.sub_title.$dirty
-                      ? _c(
-                          "span",
-                          {
-                            key: "subname-required",
-                            staticClass: "text-danger"
-                          },
-                          [
-                            _vm._v(
-                              "\n                            \tItem Subname is required\n                        \t"
-                            )
-                          ]
-                        )
-                      : !_vm.$v.input.sub_title.minLength
-                        ? _c(
-                            "span",
-                            {
-                              key: "subname-minimum",
-                              staticClass: "text-danger"
-                            },
-                            [
-                              _vm._v(
-                                "\n                            \tItem Subname has a minimum of " +
-                                  _vm._s(
-                                    _vm.$v.input.sub_title.$params.minLength.min
-                                  ) +
-                                  " characters\n                            "
-                              )
-                            ]
-                          )
-                        : !_vm.$v.input.sub_title.maxLength
-                          ? _c(
-                              "span",
-                              {
-                                key: "subname-maximum",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                            \tItem Subname has a maximum of " +
-                                    _vm._s(
-                                      _vm.$v.input.sub_title.$params.maxLength
-                                        .max
-                                    ) +
-                                    " characters\n                        \t"
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                  ]
-                )
-              ],
-              1
-            )
+                    _vm.$set(_vm.input, "sub_title", $event.target.value)
+                  }
+                }
+              })
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -4054,64 +3937,34 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
-            _c(
-              "div",
-              { staticClass: "form-group text-center mb-3" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.input.stock,
-                      expression: "input.stock"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: { "form-control-danger": _vm.$v.input.stock.$error },
-                  attrs: { type: "number", placeholder: "Stock" },
-                  domProps: { value: _vm.input.stock },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.input, "stock", $event.target.value)
-                      },
-                      function($event) {
-                        _vm.$v.input.stock.$touch()
-                      }
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "transition",
+            _c("div", { staticClass: "form-group text-center mb-3" }, [
+              _c("input", {
+                directives: [
                   {
-                    attrs: {
-                      enterActiveClass: "fade-in",
-                      leaveActiveClass: "fade-out",
-                      mode: "out-in"
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.input.stock,
+                    expression: "input.stock"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", placeholder: "Stock" },
+                domProps: { value: _vm.input.stock },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.input, "stock", $event.target.value)
+                    },
+                    function($event) {
+                      _vm.$v.input.stock.$touch()
                     }
-                  },
-                  [
-                    !_vm.$v.input.stock.required && _vm.$v.input.stock.$dirty
-                      ? _c(
-                          "span",
-                          { key: "stock-required", staticClass: "text-danger" },
-                          [
-                            _vm._v(
-                              "\n                            \tStock is required\n                        \t"
-                            )
-                          ]
-                        )
-                      : _vm._e()
                   ]
-                )
-              ],
-              1
-            )
+                }
+              })
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -5729,36 +5582,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5830,7 +5653,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.shop.title !== this.input.title || this.shop.sub_title !== this.input.sub_title || this.shop.stock !== this.input.stock || this.shop.description !== this.input.description || this.shop.store_link !== this.input.store_link || this.shop.price !== this.input.price || this.shop.category_id !== this.category_id || this.shop.sub_category_id !== this.input.sub_category_id || this.shop.is_displayed !== this.input.is_displayed;
         },
         isFormFilled: function isFormFilled() {
-            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.sub_title != '' && this.input.sub_title.length >= 3 && this.input.sub_title.length <= 100 && this.input.stock != '' && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
+            return this.input.title != '' && this.input.title.length >= 3 && this.input.title.length <= 100 && this.input.price != '' && this.input.is_displayed != '' && (this.input.store_link == '' || this.input.store_link.length >= 5);
         },
         is_subCat: function is_subCat() {
             if (this.subcat.length >= 1) {
@@ -5888,8 +5711,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         diryAllInputs: function diryAllInputs() {
             this.$v.input.title.$touch();
-            this.$v.input.sub_title.$touch();
-            this.$v.input.stock.$touch();
             this.$v.input.price.$touch();
             this.$v.category_id.$touch();
         },
@@ -6075,142 +5896,61 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
+                _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "sub_title" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Subname\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "sub_title" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Subname\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.sub_title,
-                          expression: "input.sub_title"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.sub_title.$error
-                      },
-                      attrs: {
-                        id: "sub_title",
-                        type: "text",
-                        placeholder: _vm.shop.sub_title
-                      },
-                      domProps: { value: _vm.input.sub_title },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.input,
-                              "sub_title",
-                              $event.target.value
-                            )
-                          },
-                          function($event) {
-                            _vm.$v.input.sub_title.$touch()
-                          }
-                        ]
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.input.sub_title,
+                        expression: "input.sub_title"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: {
+                      id: "sub_title",
+                      type: "text",
+                      placeholder: _vm.shop.sub_title
+                    },
+                    domProps: { value: _vm.input.sub_title },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
                         }
+                        return _vm.editShop($event)
                       },
-                      [
-                        !_vm.$v.input.sub_title.required &&
-                        _vm.$v.input.sub_title.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "subname-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Item Subname is required\n                            "
-                                )
-                              ]
-                            )
-                          : !_vm.$v.input.sub_title.minLength
-                            ? _c(
-                                "span",
-                                {
-                                  key: "subname-minimum",
-                                  staticClass: "text-danger"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Item Subname has a minimum of " +
-                                      _vm._s(
-                                        _vm.$v.input.sub_title.$params.minLength
-                                          .min
-                                      ) +
-                                      " characters\n                            "
-                                  )
-                                ]
-                              )
-                            : !_vm.$v.input.sub_title.maxLength
-                              ? _c(
-                                  "span",
-                                  {
-                                    key: "subname-maximum",
-                                    staticClass: "text-danger"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                Item Subname has a maximum of " +
-                                        _vm._s(
-                                          _vm.$v.input.sub_title.$params
-                                            .maxLength.max
-                                        ) +
-                                        " characters\n                            "
-                                    )
-                                  ]
-                                )
-                              : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.input, "sub_title", $event.target.value)
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-12 d-flex form-group" }, [
@@ -6311,102 +6051,61 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-sm-6 col-xs-12 text-center" },
-                  [
-                    _c(
-                      "label",
+                _c("div", { staticClass: "col-sm-6 col-xs-12 text-center" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-control-label panel-font-small m-0",
+                      attrs: { for: "stock" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Stock\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
                       {
-                        staticClass: "form-control-label panel-font-small m-0",
-                        attrs: { for: "stock" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Stock\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.input.stock,
-                          expression: "input.stock"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      class: {
-                        "form-control-danger": _vm.$v.input.stock.$error
-                      },
-                      attrs: {
-                        id: "stock",
-                        type: "number",
-                        placeholder: _vm.shop.stock
-                      },
-                      domProps: { value: _vm.input.stock },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.editShop($event)
-                        },
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.input, "stock", $event.target.value)
-                          },
-                          function($event) {
-                            _vm.$v.input.stock.$touch()
-                          }
-                        ]
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.input.stock,
+                        expression: "input.stock"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: {
-                          enterActiveClass: "fade-in",
-                          leaveActiveClass: "fade-out",
-                          mode: "out-in"
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: {
+                      id: "stock",
+                      type: "number",
+                      placeholder: _vm.shop.stock
+                    },
+                    domProps: { value: _vm.input.stock },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
                         }
+                        return _vm.editShop($event)
                       },
-                      [
-                        !_vm.$v.input.stock.required &&
-                        _vm.$v.input.stock.$dirty
-                          ? _c(
-                              "span",
-                              {
-                                key: "stock-required",
-                                staticClass: "text-danger"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Stock is required\n                            "
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  ],
-                  1
-                )
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.input, "stock", $event.target.value)
+                      }
+                    }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c(

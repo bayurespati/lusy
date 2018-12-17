@@ -40,28 +40,8 @@
 						<div class="form-group text-center mb-3">
 							<input type="text" 
 							v-model="input.organiser"
-							@input="$v.input.organiser.$touch()"
 							class="form-control" id="organiser"
-							:class="{'form-control-danger': $v.input.organiser.$error}"
 							placeholder="Organiser">
-
-							<!--======================================================================================
-                            	V A L I D A T I O N     E R R O R   M E S S A G E S
-                            	======================================================================================-->
-                    		<transition enterActiveClass="fade-in" leaveActiveClass="fade-out" mode="out-in">
-                            	<span key="organiser-required" class="text-danger" 
-                            	v-if="!$v.input.organiser.required && $v.input.organiser.$dirty">
-                            		Organiser is required
-                        		</span>
-                            	<span key="organiser-minimum" class="text-danger" 
-                            	v-else-if="!$v.input.organiser.minLength">
-                            		Organiser has a minimum of {{ $v.input.organiser.$params.minLength.min }} characters
-                            	</span>
-                            	<span  key="organiser-maximum" class="text-danger" 
-                            	v-else-if="!$v.input.organiser.maxLength">
-                            		Organiser has a maximum of {{ $v.input.organiser.$params.maxLength.max }} characters
-                        		</span>
-                    		</transition>
 						</div>
 					</div>
 				</div>
@@ -245,11 +225,6 @@
                     minLength: minLength(3),
                     maxLength: maxLength(100)
                 },
-                organiser:{
-                	required,
-                    minLength: minLength(3),
-                    maxLength: maxLength(100)
-                },
                 start_date: {
                     required,
                 },
@@ -285,9 +260,6 @@
 				return this.input.title != ''
 					&& this.input.title.length >= 3
 					&& this.input.title.length <= 100
-					&& this.input.organiser != ''
-					&& this.input.organiser.length >= 3 
-					&& this.input.organiser.length <= 100
 					&& this.input.location != ''
 					&& this.input.location.length >= 3
 					&& this.input.location.length <= 50
@@ -358,7 +330,6 @@
 			dirtyAllInputs(){
                 this.$v.input.title.$touch();
                 this.$v.input.category_id.$touch();
-                this.$v.input.organiser.$touch();
                 this.$v.input.start_date.$touch();
                 this.$v.input.location.$touch();
                 this.$v.input.address.$touch();
