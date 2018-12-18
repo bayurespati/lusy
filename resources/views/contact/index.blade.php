@@ -24,13 +24,14 @@
         <main>
 
         	<!-- Page Banner -->
-			<div class="container-fluid no-padding page-banner" 
-			style="background-image: url({{ $contactBanner }})">
+			<!-- <div class="container-fluid no-padding page-banner"> -->
 				<!-- Container -->
-				<div class="container">
-					<h3>contact</h3>
-				</div><!-- Container /- -->
-			</div><!-- Page Banner /- -->
+				<!-- <div class="container"> -->
+					<!-- <h3>contact</h3> -->
+				<!-- </div> -->
+				<!-- Container /- -->
+			<!-- </div> -->
+			<!-- Page Banner /- -->
 			
 			<!-- Contact Section -->
 			<div class="container-fluid no-padding contact-section">

@@ -144,37 +144,9 @@
             </div>
             <!-- About Us Section /- -->
             
-            <!-- Portfolio Section -->
-            <div class="container-fluid no-padding">
-                <div class="row achievement-view">
-                    @foreach($achievements as $achievement)
-                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
-                        <div class="achievement-border">
-                            <div class="achievement-content">
-                                <div class="icon">
-                                    <span>
-                                        <i class="{{ $achievement['logo'] }}"></i>
-                                    </span>
-                                </div>
-
-                                <div class="value">
-                                    <span>{{ $achievement['value'] }}</span>
-                                </div>
-
-                                <div class="title">
-                                    <span>{{ $achievement['title'] }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <!-- Portfolio Section /- -->
-            
             <!-- Upcoming Events Section -->
             @if(count($showcasedEvents) > 0)
-            <div class="container-fluid no-padding upcoming-event" style="background-image: url({{ $eventBanner }})">
+            <div class="container-fluid no-padding upcoming-event">
                 <div class="section-padding"></div>
                 <!-- Container -->
                 <div class="container">

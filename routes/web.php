@@ -95,9 +95,9 @@ Route::group([
 
     Route::get('/upcoming/all','EventController@getAllUpcoming');
 
-    Route::get('/past/subcategory/{subcategory}','EventController@getPastSubcategory');
+    Route::get('/past/category/{category}','EventController@getPastCategory');
     
-    Route::get('/upcoming/subcategory/{subcategory}','EventController@getUpcomingSubcategory');
+    Route::get('/upcoming/category/{category}','EventController@getUpcomingCategory');
 
     Route::get('single/images/{event}','EventController@getSingleImage');
 
@@ -340,17 +340,6 @@ Route::group([
         Route::patch('/update/category/{category}', 'CategoryController@update');
         Route::delete('/delete/category/{category}', 'CategoryController@destroy');
 
-        /*
-        |--------------------------------------------------------------------------
-        | A D M I N   E V E N T   S U B C A T E G O R Y   R O U T E S
-        |--------------------------------------------------------------------------
-        |
-        */
-        Route::get('/subcategory', 'SubcategoryController@index')->name('admin.event.subcategory');
-        Route::get('/data/subcategory', 'SubcategoryController@loadSubcategory');
-        Route::post('/add/subcategory', 'SubcategoryController@store');
-        Route::patch('/update/subcategory/{subcategory}', 'SubcategoryController@update');
-        Route::delete('/delete/subcategory/{subcategory}', 'SubcategoryController@destroy');
 
         /*
         |--------------------------------------------------------------------------

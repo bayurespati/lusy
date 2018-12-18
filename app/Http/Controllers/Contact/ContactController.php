@@ -13,11 +13,7 @@ class ContactController extends Controller
     public function index(){
     	$sosmed = Sosmed::all();
 
-        $contactBanner = ImageConfig::find(6)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : ImageConfig::find(6)->image_path;
-
-		return view('contact.index', compact('sosmed', 'contactBanner'));
+		return view('contact.index', compact('sosmed'));
     }
 
     public function message(Request $request){

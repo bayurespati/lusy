@@ -16,10 +16,6 @@ class GalleryController extends Controller
     public function index(){
     	$sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(1)->get();
-        $galleryBanner = ImageConfig::find(3)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : ImageConfig::find(3)->image_path;
-
         $gallery = Gallery::paginate(8);
 
         foreach ($gallery as $photo) {
@@ -28,7 +24,7 @@ class GalleryController extends Controller
 
         $sortedGallery = $gallery->sortByDesc('type');
 
-		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'galleryBanner', 'sortedGallery'));
+		return view('gallery.index', compact('sosmed', 'categories', 'gallery', 'sortedGallery'));
     }
 
     public function getAll(Request $request){

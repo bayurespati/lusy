@@ -119,14 +119,14 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="page-banner" 
-            style="background-image: url({{ $eventBanner }});">
+            <!-- <div class="page-banner"  -->
+            <!-- style="background-image: url({{ $eventBanner }});"> -->
                 <!-- Container -->
-                <div class="container">
-                    <h3 class="text-uppercase">{{ $event->kategori }}</h3>
-                </div>
+                <!-- <div class="container"> -->
+                    <!-- <h3 class="text-uppercase">{{ $event->kategori }}</h3> -->
+                <!-- </div> -->
                 <!-- Container /- -->
-            </div>
+            <!-- </div> -->
             <!-- Page Banner /- -->
             
             <div id="event-container" class="container-fluid no-padding events-single mt-5">
@@ -150,7 +150,7 @@
                                     <h4 class="mb-4">
                                         <span style="color: #e2b13c">by</span> {{ $event->organiser }}
                                     </h4>
-                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
+                                    <h4><a title="{{ $event->location }}"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }} - {{ $event->endDay }}</a></h4>
                                     <p class="m-0" style="text-align: justify;">
                                         {!! nl2br(e($event->content)) !!}
                                     </p>

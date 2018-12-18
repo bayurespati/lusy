@@ -802,6 +802,10 @@
   color: #e2b13c;
 }
 
+p {
+  color: #444;
+}
+
 .achievement-view {
         padding: 30px 70px;
         background-color: #e2b13c;

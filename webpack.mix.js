@@ -236,9 +236,6 @@ mix.js([
     'resources/assets/js/vue-components/admin/event/category/main.js',
 ], 'public/js/admin/event/categories.js');
 mix.js([
-    'resources/assets/js/vue-components/admin/event/subcategory/main.js',
-], 'public/js/admin/event/subcategories.js');
-mix.js([
     'resources/assets/js/vue-components/admin/event/list/main.js',
 ], 'public/js/admin/event/list.js');
 mix.js([

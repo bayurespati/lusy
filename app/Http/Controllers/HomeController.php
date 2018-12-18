@@ -72,47 +72,7 @@ class HomeController extends Controller
             $event->year = $endDate->format('Y');
 	    }
 
-	    $events = Event::with('subcategory', 'subcategory.category')->get();
-	    $exhibitionsCount = 0;
-	    $classesCount = 0;
-	    $workshopsCount = 0;
-
-	    foreach ($events as $event) {
-	    	if($event->subcategory->category->title === 'Exhibition') {
-	    		$exhibitionsCount++;
-	    	}
-	    	else if($event->subcategory->category->title === 'Classes') {
-	    		$classesCount++;
-	    	}
-	    	else if($event->subcategory->category->title === 'Workshop') {
-	    		$workshopsCount++;
-	    	}
-	    }
-
-	    $achievements = array(
-	    	array(
-	    		'title' => 'Artworks',
-	    		'logo' => 'fa fa-diamond',
-	    		'value' => count(Gallery::all())
-	    	),
-	    	array(
-	    		'title' => 'Events',
-	    		'logo' => 'fa fa-calendar',
-	    		'value' => $workshopsCount + $exhibitionsCount,
-	    	),
-	    	array(
-	    		'title' => 'Classes',
-	    		'logo' => 'fa fa-university',
-	    		'value' => $classesCount
-	    	),
-	    	array(
-	    		'title' => 'Students',
-	    		'logo' => 'fa fa-users',
-	    		'value' => count(Member::whereIsActive(true)->get())
-	    	)
-	    );
-
-	    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'shopItems', 'showedImage', 'showcasedEvents', 'eventBanner', 'achievements'));
+	    return view('index')->with(compact('sosmed', 'imageSlider', 'introduction', 'shopItems', 'showedImage', 'showcasedEvents', 'eventBanner'));
     }
 
 

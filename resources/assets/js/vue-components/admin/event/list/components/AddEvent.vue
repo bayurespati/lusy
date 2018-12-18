@@ -141,7 +141,7 @@
 				</div>
 
 				<div class="col-md-12 d-flex">
-					<div class="col-md-6">
+					<div class="col-sm-12">
 						<div class="form-group">
 							<select class="form-control" id="category" 
 							@input="$v.input.category_id.$touch()"

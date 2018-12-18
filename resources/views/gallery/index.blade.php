@@ -53,14 +53,13 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="container-fluid no-padding page-banner" 
-            style="background-image: url({{ $galleryBanner }});">
+            <!-- <div class="container-fluid no-padding page-banner"> -->
                 <!-- Container -->
-                <div class="container">
-                    <h3>Gallery</h3>
-                </div>
+                <!-- <div class="container"> -->
+                    <!-- <h3>Gallery</h3> -->
+                <!-- </div> -->
                 <!-- Container /- -->
-            </div>
+            <!-- </div> -->
             <!-- Page Banner /- -->
         
             <!-- Portfolio Section -->

@@ -18,23 +18,23 @@
 
                 <div class="ftr-widget widget_about mt-4 mb-6">
                     <ul>
-                        @if ($sosmed[2]->is_active === 1)
+                        @if ($sosmed[2]->is_active == 1)
                         <li><a href="{{ $sosmed[2]->link }}" title="Instagram"><i class="fa fa-instagram"></i></a></li>
                         @endif
                             
-                        @if ($sosmed[4]->is_active === 1)
+                        @if ($sosmed[4]->is_active == 1)
                         <li><a href="{{ $sosmed[4]->link }}" title="Flickr"><i class="fa fa-flickr"></i></a></li>
                         @endif
 
-                        @if ($sosmed[3]->is_active === 1)
+                        @if ($sosmed[3]->is_active == 1)
                         <li><a href="{{ $sosmed[3]->link }}" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
                         @endif
 
-                        @if ($sosmed[1]->is_active === 1)
+                        @if ($sosmed[1]->is_active == 1)
                         <li><a href="{{ $sosmed[1]->link }}" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                         @endif
 
-                        @if ($sosmed[0]->is_active === 1)
+                        @if ($sosmed[0]->is_active == 1)
                         <li><a href="{{ $sosmed[0]->link }}" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                         @endif
                     </ul>

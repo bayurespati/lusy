@@ -86,14 +86,13 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="container-fluid no-padding page-banner" 
-            style="background-image: url({{ $aboutBanner  }})">
+            <!-- <div class="container-fluid no-padding page-banner"> -->
                 <!-- Container -->
-                <div class="container">
-                    <h3>about</h3>
-                </div>
+                <!-- <div class="container"> -->
+                    <!-- <h3>about</h3> -->
+                <!-- </div> -->
                 <!-- Container /- -->
-            </div>
+            <!-- </div> -->
             <!-- Page Banner /- -->
 
             <!-- About Us Section -->
@@ -192,36 +191,7 @@
                 </div>
             </div>
             @endif
-            <!-- End of Timeline Section -->
-            
-            <!-- Portfolio Section -->
-            <div class="container-fluid no-padding">
-                <div class="row achievement-view">
-                    @foreach($achievements as $achievement)
-                    <div class="col-md-3 col-sm-6 col-xs-12 achievement-wrapper text-center">
-                        <div class="achievement-border">
-                            <div class="achievement-content">
-                                <div class="icon">
-                                    <span>
-                                        <i class="{{ $achievement['logo'] }}"></i>
-                                    </span>
-                                </div>
-
-                                <div class="value">
-                                    <span>{{ $achievement['value'] }}</span>
-                                </div>
-
-                                <div class="title">
-                                    <span>{{ $achievement['title'] }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <!-- Portfolio Section /- -->
-            
+            <!-- End of Timeline Section -->            
 
             <!-- Gallery Showcase Section -->
             @if(count($showedImage) > 0)

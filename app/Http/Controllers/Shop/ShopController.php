@@ -24,10 +24,6 @@ class ShopController extends Controller
         ? true 
         : false;
 
-        $shopBanner = ImageConfig::find(5)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : ImageConfig::find(5)->image_path;
-
         foreach ($items as $item) {
             $item->poster = $item->poster()->get()->isEmpty()
             ? '/img/shop-item.gif'
@@ -36,17 +32,13 @@ class ShopController extends Controller
             $item->price = number_format($item->price, 2, ",", ".");
         }
 
-		return view('shop.index', compact('sosmed', 'categories', 'items', 'shopBanner', 'isItemsExist'));
+		return view('shop.index', compact('sosmed', 'categories', 'items', 'isItemsExist'));
     }
 
 
     public function getItems(ShopItem $shopItem){
 
     	$sosmed = Sosmed::all();
-
-        $shopBanner = ImageConfig::find(5)->image_path === null 
-        ? '/img/page-banner-bg.jpg'
-        : ImageConfig::find(5)->image_path;
 
         $shopItem->poster = $shopItem->poster()->get()->isEmpty()
         ? '/img/welcome-1.jpg'
@@ -57,7 +49,7 @@ class ShopController extends Controller
 
         $shopItem->price = number_format($shopItem->price, 2, ",", ".");
 
-		return view('shop.item', compact('sosmed', 'shopItem', 'shopBanner', 'sortedItem'));
+		return view('shop.item', compact('sosmed', 'shopItem', 'sortedItem'));
     }
 
 

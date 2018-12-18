@@ -96,15 +96,15 @@
         <main>
 
           <!-- Page Banner -->
-          <div class="container-fluid no-padding page-banner" 
-          style="background-image: url({{ $shopBanner }});">
+          <!-- <div class="container-fluid no-padding page-banner"  -->
+          <!-- style="background-image: url({{ $shopBanner }});"> -->
 
             <!-- Container -->
-            <div class="container">
-              <h3>Shop</h3>
-            </div>
+            <!-- <div class="container"> -->
+              <!-- <h3>Shop</h3> -->
+            <!-- </div> -->
             <!-- Container /- -->
-          </div>
+          <!-- </div> -->
           <!-- Page Banner /- -->
 
           <!-- Item Section -->

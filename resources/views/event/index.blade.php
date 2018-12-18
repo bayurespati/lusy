@@ -95,14 +95,13 @@
         <main>
 
             <!-- Page Banner -->
-            <div class="page-banner" 
-            style="background-image: url({{ $eventBanner }});">
+            <!-- <div class="page-banner"> -->
                 <!-- Container -->
-                <div class="container">
-                    <h3>Events & Activities</h3>
-                </div>
+                <!-- <div class="container"> -->
+                    <!-- <h3>Events & Activities</h3> -->
+                <!-- </div> -->
                 <!-- Container /- -->
-            </div>
+            <!-- </div> -->
             <!-- Page Banner /- -->
             
             <div class="section-padding"></div>
@@ -112,14 +111,15 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
                     <ul>
                         <li class="text-uppercase">
-                            <a id="past-events"  
+                            <a class="active" 
+                            id="past-events"  
                             style="cursor: pointer;"
                             onclick="changeStatus('past')">
                                 PAST EVENTS
                             </a>
                         </li>
                         <li class="text-uppercase">
-                            <a class="active" 
+                            <a
                             id="upcoming-events"  
                             style="cursor: pointer;"
                             onclick="changeStatus('upcoming')">
@@ -141,13 +141,25 @@
                         @for ($i = 0; $i < count($categories); $i++)
                         <li class="text-uppercase">
                             <a id="category-{{ $i }}" 
-                            onclick="getSubcategories({{ $categories[$i]->id }}, {{ $i }})"
+                            onclick="setCategories({{ $categories[$i]->id }}, {{ $i }})"
                             class="text-uppercase"
                             style="cursor: pointer;">
                                 {{ $categories[$i]->title }}
                             </a>
                         </li>
                         @endfor
+                    </ul>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories">
+                    <ul style="border: none">
+                        <li class="text-uppercase" id="select-container">
+                            <select class="form-control fade-in" id="choose-year" >
+                                <option value="">--- All Years ---</option>
+                                @for($i = 0; $i <= ($currentYear - $lowestYear); $i++)
+                                <option value="{{ $currentYear - $i }}">{{ $currentYear - $i }}</option>
+                                @endfor
+                            </select>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -168,7 +180,6 @@
                                 <div class="col-md-5 col-sm-12 col-xs-12 event-image">
                                     <a href="/event/single/{{ $event->id }}">
                                         <img src="{{ $event->poster }}" alt="Events" />
-                                        <div class="tag">{{ $event->kategori }}</div>
                                     </a>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 event-content">
@@ -182,10 +193,12 @@
                                     </h3>
                                     <h4 class="organiser">
                                         <a class="p-0" href="/event/single/{{ $event->id }}">
+                                            @if(count($event->organiser) > 0)
                                             <span class="organiser-by">by</span> {{ $event->organiser }}
+                                            @endif
                                         </a>
                                     </h4>
-                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a href="{{ $event->id }}" class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}: {{ $event->startHour }} - {{ $event->endDay }}: {{ $event->endHour }}</a></h4>
+                                    <h4><a href="/event/single/{{ $event->id }}" title="London"><i class="fa fa-map-marker"></i>{{ $event->location }}, {{ $event->address }}</a> <br> <a href="{{ $event->id }}" class="mt-2"><i class="fa fa-clock-o"></i>{{ $event->day }}</a></h4>
                                     <p>
                                         {!! nl2br(e($event->content)) !!}
                                     </p>
@@ -261,22 +274,71 @@
 
 @push('additional_js')
 <script type="text/javascript">
-    const categoriesAndSubcategories = {!! json_encode($categories) !!};
+    const categories = {!! json_encode($categories) !!};
+    const lowestYear = {!! json_encode($lowestYear) !!};
+    const highestYear = {!! json_encode($highestYear) !!};
+    const currentYear = {!! json_encode($currentYear) !!};
+
     let showedEvents = {!! json_encode($upcomingEvents) !!};
     let categoryCount = {!! $categories !!}.length;
-    let subcategoryCount = 0;
-    let submenuExist = false;
-    let subCategoryChosen = false;
     let loadedEventType = 'all';
-    let eventStatus = 'upcoming';
-    let subcategoryIdTemp = 0;
+    let categoryId = -1;
+    let categoryListOrder = -1;
+    let categoryIdTemp = -1;
+    let eventStatus = 'past';
     let searchKey = '';
-    let subcategoryId = -1;
-    let subcategoryListOrder = -1;
+
+    function initiateSelectYear(){
+        var selectYear = document.getElementById('choose-year');
+
+        selectYear.addEventListener('input', function(e) {
+            searchKey = this.value;
+
+            searchFunction();
+        });
+    }
+
+    function cleanSelectBox(){
+        var selectBox = document.getElementById('choose-year');
+        selectBox.setAttribute('class', 'form-control fade-out');
+
+        selectBox.parentNode.removeChild(selectBox);
+
+        createSelectBox();
+    }
+
+    function createSelectBox(){
+        searchKey = '';
+        var selectContainer = document.getElementById("select-container");
+
+        var chooseYear = document.createElement('select');
+        chooseYear.setAttribute('id', 'choose-year');
+        chooseYear.setAttribute('class', 'form-control fade-in');
+
+        selectBoxTemplate = '<option value="">--- All Years ---</option>';
+
+        if(eventStatus == 'past'){
+            for(let i = 0; i <= (currentYear - lowestYear); i++){
+                selectBoxTemplate = selectBoxTemplate + 
+                '<option value="' + (currentYear - i) + '">' + (currentYear - i) + '</option>';
+            }
+        }
+        else {
+            for(let i = highestYear; i >=  currentYear; i--){
+                selectBoxTemplate = selectBoxTemplate + 
+                '<option value="' + (i) + '">' + (i) + '</option>';
+            }
+        }
+
+        chooseYear.innerHTML = selectBoxTemplate;
+
+        selectContainer.appendChild(chooseYear);
+
+        initiateSelectYear();
+    }
+
 
     function searchFunction(){
-        searchKey = document.getElementById("search-key").value.trim();
-
         if(loadedEventType === 'all'){
             getAll();
         }
@@ -287,6 +349,7 @@
 
     function changeStatus(newStatus){
         removeActiveClass(eventStatus + '-events');
+        searchKey = '';
 
         var option = document.getElementById(newStatus + '-events');
         option.setAttribute('class', 'active');
@@ -294,26 +357,21 @@
         eventStatus = newStatus;
 
         toAll();
+        cleanSelectBox();
     }
 
     function toAll(){
-        searchKey = '';
+        // searchKey = '';
 
         getAll();
     }
 
     function getAll(){
         loadedEventType = 'all';
-        subcategoryId = -1;
-        subcategoryListOrder = -1;
 
         removeCategoriesActiveClass();
 
         removeActiveClass('all-option');
-        
-        if(submenuExist) {
-            removeSubcategory();
-        }
 
         cleanEvents();
         cleanPagination();
@@ -341,7 +399,6 @@
                     prepareSearchMessage(data);
 
                     hideLoader();
-                    subcategoryIdTemp = 0;
                 }, 1000);
             }
         });
@@ -367,10 +424,10 @@
         }
         else {
             if(searchKey.length > 0) {
-                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?keyword=' + searchKey + '&page=' + pageNumber;
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + categoryIdTemp + '?keyword=' + searchKey + '&page=' + pageNumber;
             }
             else {
-                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + subcategoryIdTemp + '?page=' + pageNumber;
+                targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType + '/' + categoryIdTemp + '?page=' + pageNumber;
             }
         }
 
@@ -392,28 +449,17 @@
         });
     }
 
-    function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
-        subcategoryId = newSubcategoryId;
-        subcategoryListOrder = newSubcategoryListOrder;
-        searchKey = '';
+    function setCategories(newCategoryId, newCategoryListOrder){
+        categoryId = newCategoryId;
+        categoryListOrder = newCategoryListOrder;
 
-        getEvents();
-    }
-
-    function getSubcategories(categoryId, categoryListOrder){
-        searchKey = '';
+        // searchKey = '';
         removeCategoriesActiveClass();
 
         var option = document.getElementById('category-' + categoryListOrder);
         option.setAttribute('class', 'active');
 
-        if(submenuExist) {
-            removeSubcategory();
-        }
-
-        const categoryIndex = findWithinArrayWithAttributeOf(categoriesAndSubcategories, 'id', categoryId);
-
-        prepareSubcategory(categoriesAndSubcategories[categoryIndex].subcategories);
+        getEvents();
     }
 
     function findWithinArrayWithAttributeOf(array, attribute, value) {
@@ -439,53 +485,11 @@
         };
     };
 
-    function removeSubcategory() {
-        // Removes an element from the document
-        var subcategoriesMenu = document.getElementById('subcategories-menu');
-        subcategoriesMenu.setAttribute('class', 'col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories fade-out');
-
-        subcategoriesMenu.parentNode.removeChild(subcategoriesMenu);
-        submenuExist = false;
-        subcategoryCount = 0;
-    }
-
-    function prepareSubcategory(data){
-        // Adds an element to the document
-        var menuContainer = document.getElementById('menu-container');
-
-        var listWrapper = document.createElement('div');
-        listWrapper.setAttribute('id', 'subcategories-menu');
-        listWrapper.setAttribute('class', 'col-md-12 col-sm-12 col-xs-12 no-padding portfolio-categories fade-in');
-        menuContainer.appendChild(listWrapper);
-
-        var unorderedList = document.createElement('ul');
-
-        let lists = "";
-
-        $.each(data, function (i, prop) {
-            lists = lists + 
-            '<li class="text-uppercase">' + 
-            '   <a id="subcategory-' + i + '" onclick="setSubcategoryIdAndListOrder(' + prop.id + ', ' + i + ' )" style="cursor: pointer;">' + prop.title + '</a>' + 
-            '</li>';
-
-            subcategoryCount++;
-        });
-
-        unorderedList.innerHTML = lists;
-        listWrapper.appendChild(unorderedList);
-        submenuExist = true;
-    }
-
     function getEvents() {
-        loadedEventType = 'subcategory';
+        loadedEventType = 'category';
 
-        if(subCategoryChosen){
-            removeSubcategoriesActiveClass();
-        }
-
-        var option = document.getElementById('subcategory-' + subcategoryListOrder);
+        var option = document.getElementById('category-' + categoryListOrder);
         option.setAttribute('class', 'active');
-        subCategoryChosen = true;
 
         cleanEvents();
         cleanPagination();
@@ -494,10 +498,10 @@
         let targetUrl = '';
 
         if(searchKey.length > 0){
-            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?keyword=' + searchKey + '&page=1';
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(categoryId) + '?keyword=' + searchKey + '&page=1';
         }
         else {
-            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(subcategoryId) + '?page=1';
+            targetUrl = 'https://' + window.location.hostname + '/event/' + eventStatus + '/' + loadedEventType +  '/' + parseInt(categoryId) + '?page=1';
         };
 
         showLoader();
@@ -512,20 +516,13 @@
                     preparePagination(data);
                     prepareSearchMessage(data);
 
-                    subcategoryIdTemp = subcategoryId;
+                    categoryIdTemp = categoryId;
 
                     hideLoader();
                 }, 1000);
             }
         });
     }
-
-    function removeSubcategoriesActiveClass(){
-        for (var i = 0; i < subcategoryCount; i++) {
-            removeActiveClass('subcategory-' + i);
-        };
-        subCategoryChosen = false;
-    };
 
     function showLoader(){
         var loader = document.getElementById('site-loader');
@@ -604,7 +601,6 @@
                 '   <div class="col-md-5 col-sm-12 col-xs-12 event-image">' +
                 '       <a href="/event/single/' + event.id + '">' +
                 '           <img src="' + event.poster + '" alt="' + event.title + '" />' +
-                '           <div class="tag">' + event.kategori + '</div>' +
                 '       </a>' + 
                 '   </div>' + 
                 '   <div class="col-md-6 col-sm-12 col-xs-12 event-content">' +
@@ -618,6 +614,16 @@
                 '           ' + event.title +
                 '           </a>' +
                 '       </h3>' +
+                '       <h4 class="organiser">' +
+                '           <a class="p-0" href="/event/single/' + event.id + '">';
+
+                if(event.organiser !== null){
+                eventContent = eventContent + 
+                '               <span class="organiser-by">by</span>' + event.organiser;}
+
+                eventContent = eventContent + 
+                '           </a>' +
+                '       </h4>' +
                 '       <h4>' +
                 '           <a href="/event/single/' + event.id + '" title="London">' +
                 '               <i class="fa fa-map-marker"></i>' + event.location + ', ' + event.address +
@@ -625,13 +631,13 @@
                 '           <br>' +
                 '           <a class="mt-2" href="' + event.id + '">' +
                 '               <i class="fa fa-clock-o"></i>' + 
-                '               ' + event.day + ': ' + event.startHour + ' - ' + event.endDay + ': ' + event.endHour +
+                '               ' + event.day +
                 '           </a>' +
                 '       </h4>' +
                 '       <p>' + nl2br(event.content) + '</p>' +
                 '       <a href="/event/single/' + event.id + '" title="Read More">Read More</a>' +
                 '   </div>' + 
-                '</div>'
+                '</div>';
             }, eventContent);
         }
         else {
@@ -732,5 +738,7 @@
             eventPagination.appendChild(paginationList);
         }, 120);
     }
+
+    initiateSelectYear();
 </script>
 @endpush

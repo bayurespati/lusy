@@ -164,7 +164,7 @@
                     </div>
 
                     <div class="col-sm-12 d-flex form-group">
-                        <div class="col-sm-6 col-xs-12 text-center">
+                        <div class="col-sm-12 col-xs-12 text-center">
                             <label for="category" class="form-control-label panel-font-small m-0">
                                 Category
                             </label>

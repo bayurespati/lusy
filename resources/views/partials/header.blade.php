@@ -16,7 +16,6 @@
                     <!-- Menu Icon -->
                     @if(
                         request()->is('gallery') || 
-                        request()->is('event') ||
                         request()->is('shop')
                     )
                     <div class="menu-icon">

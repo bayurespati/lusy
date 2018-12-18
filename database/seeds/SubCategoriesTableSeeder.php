@@ -36,32 +36,6 @@ class SubCategoriesTableSeeder extends Seeder
                 'title' => 'Sock Toys',
                 'category_id' => '2',
             ],
-
-
-            [
-                'title' => 'Ikenobo Jiyuka',
-                'category_id' => '6',
-            ],
-            [
-                'title' => 'Ikenobo Rikka',
-                'category_id' => '6',
-            ],
-            [
-                'title' => 'Ikenobo Shoka',
-                'category_id' => '6',
-            ],
-            [
-                'title' => 'Bows',
-                'category_id' => '7',
-            ],
-            [
-                'title' => 'Ribbon Flower',
-                'category_id' => '7',
-            ],
-            [
-                'title' => 'Sock Toys',
-                'category_id' => '7',
-            ],
         ]);
     }
 }

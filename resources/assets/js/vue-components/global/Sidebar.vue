@@ -110,7 +110,6 @@
 						name: 'Events & Activities',
 						subMenu:[
 							{ name:'Category', link: '/admin/event/category' },
-							{ name:'Sub Category', link: '/admin/event/subcategory' },
 							{ name:'Events & Activities', link: '/admin/event/list' }
 						]
 					},
