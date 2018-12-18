@@ -16,10 +16,12 @@ class GalleryController extends Controller
     public function index(){
     	$sosmed = Sosmed::all();
         $categories = Category::with('subcategories')->whereType(1)->get();
-        $gallery = Gallery::paginate(8);
+        $gallery = Gallery::orderBy('id', 'DESC')->paginate(8);
 
         foreach ($gallery as $photo) {
-            $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
+            $photo->date = $photo->date !== null 
+            ? Carbon::parse($photo->date)->format('d-m-Y')
+            : '';
         }
 
         $sortedGallery = $gallery->sortByDesc('type');
@@ -33,7 +35,7 @@ class GalleryController extends Controller
             ->orWhereRaw('LOWER(creator) LIKE "%' . strtolower($request->keyword) . '%"')
             ->orWhereRaw('LOWER(location) LIKE "%' . strtolower($request->keyword) . '%"')
             ->orWhereRaw('DATE_FORMAT(date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"');
-        })->paginate(8);
+        })->orderBy('id', 'DESC')->paginate(8);
 
         $gallery->appends($request->only('keyword'));
 
@@ -41,7 +43,9 @@ class GalleryController extends Controller
         $gallerySorted[1] = [];
 
         foreach ($gallery->sortByDesc('type') as $photo) {
-            $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
+            $photo->date = $photo->date !== null 
+            ? Carbon::parse($photo->date)->format('d-m-Y')
+            : '';
             $photo->location = $photo->location == NULL 
             ? ""
             : $photo->location;
@@ -70,7 +74,7 @@ class GalleryController extends Controller
                 ->whereSubCategoryId($subcategory->id)
             ->orWhereRaw('DATE_FORMAT(date, "%d-%m-%Y") LIKE "%' . strtolower($request->keyword) . '%"')
                 ->whereSubCategoryId($subcategory->id);
-        })->paginate(8);
+        })->orderBy('id', 'DESC')->paginate(8);
 
         $gallery->appends($request->only('keyword'));
 
@@ -78,7 +82,9 @@ class GalleryController extends Controller
         $gallerySorted[1] = [];
 
         foreach ($gallery->sortByDesc('type') as $photo) {
-            $photo->date = Carbon::parse($photo->date)->format('d-m-Y');
+            $photo->date = $photo->date !== null 
+            ? Carbon::parse($photo->date)->format('d-m-Y')
+            : '';
             $photo->location = $photo->location == NULL 
             ? ""
             : $photo->location;

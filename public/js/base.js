@@ -438,7 +438,8 @@ a:360},{a:0,force3D:"auto",ease:punchgs.Linear.easeNone,onUpdate:function(){var 
 	$( document ).on("scroll",function()
 	{
 		var scroll	=	$(window).scrollTop();
-		var height	=	$(window).height();
+		// var height	=	$(window).height();
+		var height = $('#header').height();
 
 		/*** set sticky menu ***/
 		if( scroll >= height )
@@ -474,7 +475,7 @@ a:360},{a:0,force3D:"auto",ease:punchgs.Linear.easeNone,onUpdate:function(){var 
 		var height	=	$(window).height();
 		
 		/* ** set sticky menu ** */
-		if( scroll >= height -500 )
+		if( scroll >= height - 500 )
 		{
 			$(".header-section").addClass("navbar-fixed-top").delay( 2000 ).fadeIn();
 		}

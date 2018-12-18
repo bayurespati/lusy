@@ -58,8 +58,6 @@ class HomeController extends Controller
 	    $showcasedEvents = Event::orderBy('end_date', 'DESC')->paginate(2);
 
 	    foreach ($showcasedEvents as $event) {
-	        $event->kategori = SubCategory::find($event->sub_category_id)->category()->get()[0]->title;
-
 	        $startDate = Carbon::parse($event->start_date);
 	        $endDate = Carbon::parse($event->end_date);
 

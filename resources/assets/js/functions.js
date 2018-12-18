@@ -92,7 +92,8 @@
 	$( document ).on("scroll",function()
 	{
 		var scroll	=	$(window).scrollTop();
-		var height	=	$(window).height();
+		// var height	=	$(window).height();
+		var height = $('#header').height();
 
 		/*** set sticky menu ***/
 		if( scroll >= height )

@@ -384,6 +384,7 @@
         listWrapper.appendChild(unorderedList);
         submenuExist = true;
 
+        setSubcategoryIdAndListOrder(data[0].id, 0);
     }
 
     function setSubcategoryIdAndListOrder(newSubcategoryId, newSubcategoryListOrder){
