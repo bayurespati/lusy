@@ -407,6 +407,7 @@
 
 @push('additional_js')
 <script type="text/javascript">
+    localStorage.clear();
     let itemId = 0;
 
     function setActionValue(newItemId, title) {

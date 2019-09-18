@@ -52,13 +52,13 @@
                         <div class="form-group row col-sm-12 col-lg-8 offset-lg-2">
                             <div class="col offset-lg-2">
                                 <button type="button" class="btn btn-secondary btn-sm" @click="closeEditForm">
-                                    Batal
+                                    Cancel
                                 </button>
 
                                 <button @click="editSosmed"
                                         :class="{ disabled: !sosmedIsEdited, 'ld-ext-right': isRequesting }"
                                         class="btn btn-success btn-sm ml-2">
-                                    Simpan
+                                    Save
                                 </button>
                             </div>
                         </div>

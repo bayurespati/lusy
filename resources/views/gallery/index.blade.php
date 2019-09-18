@@ -170,6 +170,7 @@
 
 @push('additional_js')
 <script type="text/javascript">
+    localStorage.clear();
     const categoriesAndSubcategories = {!! json_encode($categories) !!};
     let showedImages = {!! json_encode($gallery) !!};
     let categoryCount = {!! $categories !!}.length;

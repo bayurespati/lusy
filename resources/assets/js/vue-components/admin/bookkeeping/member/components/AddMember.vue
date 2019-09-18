@@ -294,7 +294,7 @@
 							<p class="m-0"> {{rank.title}}  </p>
 						</div>
 						<div class="col-md-8 col-sm-5">
-							<datetime type="date" v-model="rankData[index].annointed_date"></datetime>
+							<datetime type="date" value-zone="local" v-model="rankData[index].annointed_date"></datetime>
 						</div>
 						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center" v-if="index == (limit - 1)">
 							<button class="btn btn-danger btn-sm" @click="delete_rank(index)">Delete</button>
@@ -308,7 +308,8 @@
 							<p class="m-0"> {{rank.title}} </p>
 						</div>
 						<div class="col-md-8 col-sm-5">
-							<datetime type="date" v-model="temp_annointed_date" placeholder="Starting Date"></datetime>
+							<!-- <input type="text" v-model="temp_annointed_date" @keyup.enter="add_rank(index)" class="form-control"> -->
+							<datetime type="date" value-zone="local" v-model="temp_annointed_date" placeholder="Starting Date"></datetime>
 						</div>
 						<div class="col-md-1 col-sm-2 d-flex justify-content-center align-items-center">
 							<button class="btn btn-success btn-sm" @click="add_rank(index)">Add</button>
@@ -326,6 +327,7 @@
 					<div class="col-md-12">
 						<input type="number" 
 						@input="$v.year.$touch()"
+						@keyup.enter="add_subscription()"
 						class="form-control" 
 						:class="{'form-control-danger': $v.year.$error || alreadyHasYears}"
 						placeholder="Input Years" v-model="year">

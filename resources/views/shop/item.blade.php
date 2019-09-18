@@ -95,18 +95,6 @@
 
         <main>
 
-          <!-- Page Banner -->
-          <!-- <div class="container-fluid no-padding page-banner"  -->
-          <!-- style="background-image: url({{ $shopBanner }});"> -->
-
-            <!-- Container -->
-            <!-- <div class="container"> -->
-              <!-- <h3>Shop</h3> -->
-            <!-- </div> -->
-            <!-- Container /- -->
-          <!-- </div> -->
-          <!-- Page Banner /- -->
-
           <!-- Item Section -->
           <div class="container-fluid no-padding welcome-section2">
             <!-- Container -->
@@ -272,6 +260,11 @@
                   <div class="form-group form-control-sm">
                     <input type="email" class="form-control" 
                     name="email" id="email" placeholder="Email*" required>
+                  </div>
+
+                  <div class="form-group form-control-sm">
+                    <input type="text" class="form-control" 
+                    name="phone" id="phone" placeholder="Phone*" required>
                   </div>
                   
                   <div class="form-group form-control-sm">

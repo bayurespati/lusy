@@ -118,17 +118,6 @@
 
         <main>
 
-            <!-- Page Banner -->
-            <!-- <div class="page-banner"  -->
-            <!-- style="background-image: url({{ $eventBanner }});"> -->
-                <!-- Container -->
-                <!-- <div class="container"> -->
-                    <!-- <h3 class="text-uppercase">{{ $event->kategori }}</h3> -->
-                <!-- </div> -->
-                <!-- Container /- -->
-            <!-- </div> -->
-            <!-- Page Banner /- -->
-            
             <div id="event-container" class="container-fluid no-padding events-single mt-5">
                 <!-- Container -->
                 <div class="container">
@@ -249,6 +238,16 @@
 
                     <form action="/event/registration/{{$event->id}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        
+                        <div class="form-group form-control-sm text-center">
+                            <div class="radio">
+                                <label> <input type="radio" name="gender" value="1" checked>Male </label>
+                            </div>
+                            <div class="radio ml-4">
+                                <label> <input type="radio" value="0" name="gender">Female </label>
+                            </div>
+                        </div>
+
                         <div class="form-group form-control-sm">
                             <input type="text" class="form-control" 
                             name="name" id="name" placeholder="Full Name*" required>
@@ -263,6 +262,15 @@
                             <input type="text" class="form-control" 
                             name="phone" id="phone" placeholder="Phone Number*" required>
                         </div>
+
+                        <div class="form-group form-control-sm">
+                            <input type="text" class="form-control" 
+                            name="address" id="address" placeholder="Address*" required>
+                        </div>
+
+                        <textarea name="message" 
+                                  id="textarea_message" placeholder="Your message" rows="4" 
+                                  class="form-control mb-2"></textarea>
 
                         <div class="form-group">
                             <button type="submit" class="general-btn transitioned-btn mb-3" style="width: 100%">

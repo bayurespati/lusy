@@ -7,6 +7,7 @@ use App\Region;
 use App\Subscription;
 use App\Rank;
 use App\Member;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -83,6 +84,19 @@ class MemberController extends Controller
     }
 
     public function addMember(Request $request){
+
+        $rules = [
+            'email'  => 'required|unique:members',
+        ];
+        $data = [
+            'email' => $request->personal['email']
+        ];
+
+        $validator = Validator::make($data, $rules);
+            
+        if ($validator->fails()) {
+            return response()->json([['Email has been used']], 403);
+        }
 
         DB::transaction(function () use ($request) {
 

@@ -22,16 +22,6 @@
         <!-- Header Section /- -->
 
         <main>
-
-        	<!-- Page Banner -->
-			<!-- <div class="container-fluid no-padding page-banner"> -->
-				<!-- Container -->
-				<!-- <div class="container"> -->
-					<!-- <h3>contact</h3> -->
-				<!-- </div> -->
-				<!-- Container /- -->
-			<!-- </div> -->
-			<!-- Page Banner /- -->
 			
 			<!-- Contact Section -->
 			<div class="container-fluid no-padding contact-section">
@@ -41,25 +31,25 @@
 						<h3>Leave A Message</h3>
 						<p>Feel free to contact us and find out more about what we do.</p>
 						<p>We would love to hear from you.</p>
-						<form action="contact/contact_message" method="post" enctype="multipart/form-data">
+						 <form action="contact/contact_message" method="post" enctype="multipart/form-data">
 							{!! csrf_field() !!}
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
-									<input type="text" name="contact_fname" 
+									<input type="text" name="contact_name" 
 										   id="contact_fname" required="" 
-										   placeholder="First Name *" class="form-control">
-
-									<input type="text" name="contact_lname" 
-										   id="contact_lname" required="" 
-										   placeholder="Last Name *" class="form-control">
+										   placeholder="Name *" class="form-control">
 
 									<input type="text" name="contact_phone" 
-										   id="contact-phone" required="" 
+										   id="contact_phone" required="" 
 										   placeholder="Phone Number *" class="form-control">
 
 									<input type="email" name="contact_email" 
-										   id="contact-email" required="" 
+										   id="contact-email" required=""
 										   placeholder="Email Address *" class="form-control">
+
+									<input type="text" name="contact_subject"
+										   id="contact-subject" required="" 
+										   placeholder="Subject *" class="form-control">   
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<textarea name="contact_message" id="textarea_message" required="" 
@@ -87,4 +77,8 @@
         
     </div>
 </body>
+@push('additional_js')
+<script type="text/javascript">
+    localStorage.clear();
+</script>
 @endsection

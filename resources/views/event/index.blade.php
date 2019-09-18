@@ -288,11 +288,15 @@
     let eventStatus = 'past';
     let searchKey = '';
 
+    window.onload = searchFunction();
+
     function initiateSelectYear(){
         var selectYear = document.getElementById('choose-year');
 
         selectYear.addEventListener('input', function(e) {
             searchKey = this.value;
+
+            localStorage.setItem('searchKey',this.value);
 
             searchFunction();
         });
@@ -339,12 +343,31 @@
 
 
     function searchFunction(){
+
+        loadedEventType = localStorage.getItem('loadedEventType') === null ? 'all' : localStorage.getItem('loadedEventType');
+        categoryId = localStorage.getItem('categoryId') === null ? -1 : localStorage.getItem('categoryId');
+        categoryListOrder = localStorage.getItem('categoryListOrder') === null ? -1 : localStorage.getItem('categoryListOrder');
+        searchKey = localStorage.getItem('searchKey') === null ? '' : localStorage.getItem('searchKey');
+        eventStatus = localStorage.getItem('eventStatus') === null ? 'past' : localStorage.getItem('eventStatus');
+
+        setMenuActive();
+
         if(loadedEventType === 'all'){
             getAll();
         }
         else {
+            removeCategoriesActiveClass();
             getEvents();
         }
+    }
+
+    function setMenuActive(){
+        let statusTemp = eventStatus === 'upcoming' ? 'past' : 'upcoming';
+
+        removeActiveClass(statusTemp + '-events');
+
+        var statusEvent = document.getElementById(eventStatus + '-events');
+        statusEvent.setAttribute('class', 'active');
     }
 
     function changeStatus(newStatus){
@@ -355,6 +378,7 @@
         option.setAttribute('class', 'active');
 
         eventStatus = newStatus;
+        localStorage.setItem('eventStatus',newStatus);
 
         toAll();
         cleanSelectBox();
@@ -368,6 +392,7 @@
 
     function getAll(){
         loadedEventType = 'all';
+        localStorage.setItem('loadedEventType','all');
 
         removeCategoriesActiveClass();
 
@@ -376,7 +401,6 @@
         cleanEvents();
         cleanPagination();
         cleanSearchMessage();
-
         let targetUrl = '';
 
         if(searchKey.length > 0) {
@@ -453,6 +477,9 @@
         categoryId = newCategoryId;
         categoryListOrder = newCategoryListOrder;
 
+        localStorage.setItem('categoryId',newCategoryId);
+        localStorage.setItem('categoryListOrder',newCategoryListOrder);
+
         // searchKey = '';
         removeCategoriesActiveClass();
 
@@ -487,6 +514,7 @@
 
     function getEvents() {
         loadedEventType = 'category';
+        localStorage.setItem('loadedEventType','category');
 
         var option = document.getElementById('category-' + categoryListOrder);
         option.setAttribute('class', 'active');

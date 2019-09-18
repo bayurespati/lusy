@@ -450,7 +450,7 @@ Route::group([
 
         /*
         |--------------------------------------------------------------------------
-        | A D M I N   B O O K E P I N G   O V E R S E A S   I N Q U I R Y
+        | A D M I N   B O O K E P I N G   M E M B E R
         |--------------------------------------------------------------------------
         |
         */
@@ -498,10 +498,10 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.applicant_member');
-        Route::get('/data/applicant-member', 'MemberController@loadApplicantMember');
-        Route::patch('/update/applicant-member/{member}', 'MemberController@update');
-        Route::delete('/delete/applicant-member/{member}/{class}', 'MemberController@destroy');
+        // Route::get('/applicant-member', 'MemberController@applicant')->name('admin.bookkeeping.applicant_member');
+        // Route::get('/data/applicant-member', 'MemberController@loadApplicantMember');
+        // Route::patch('/update/applicant-member/{member}', 'MemberController@update');
+        // Route::delete('/delete/applicant-member/{member}/{class}', 'MemberController@destroy');
 
 
         /*
@@ -510,8 +510,8 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/overseas', 'OverseasController@index')->name('admin.bookkeeping.overseas');
-        Route::get('/data/overseas', 'OverseasController@loadOverseas');
+        // Route::get('/overseas', 'OverseasController@index')->name('admin.bookkeeping.overseas');
+        // Route::get('/data/overseas', 'OverseasController@loadOverseas');
 
 
         /*
@@ -520,10 +520,10 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/potential', 'OverseasController@potential')->name('admin.bookkeeping.potential');
-        Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
-        Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
-        Route::delete('/delete/potensial/{shopInquiry}', 'OverseasController@destroy');
+        // Route::get('/potential', 'OverseasController@potential')->name('admin.bookkeeping.potential');
+        // Route::get('/data/potential', 'OverseasController@loadPotentialOverseas');
+        // Route::patch('/update/potensial/{shopInquiry}', 'OverseasController@update');
+        // Route::delete('/delete/potensial/{shopInquiry}', 'OverseasController@destroy');
 
 
         /*
@@ -532,9 +532,9 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/message', 'MessageController@index')->name('admin.bookkeeping.potential');
-        Route::get('/data/message', 'MessageController@loadMessage');
-        Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
+        // Route::get('/message', 'MessageController@index')->name('admin.bookkeeping.potential');
+        // Route::get('/data/message', 'MessageController@loadMessage');
+        // Route::patch('/replay/message/{contactMessage}', 'MessageController@sendMail');
 
 
         /*
@@ -543,14 +543,14 @@ Route::group([
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('/applicant-event', 'ApplicantEventController@index')->name('admin.bookeeping.applicant');
-        Route::get('/data/applicant-event', 'ApplicantEventController@loadApplicantEvent');
+        // Route::get('/applicant-event', 'ApplicantEventController@index')->name('admin.bookeeping.applicant');
+        // Route::get('/data/applicant-event', 'ApplicantEventController@loadApplicantEvent');
 
 
-        Route::get('/applicant-event/list/{param}', 'ApplicantEventController@list');
-        Route::get('/data/applicant-event/list/{event}', 'ApplicantEventController@loadApplicantList');
-        Route::patch('/update/applicant-event/list/{applicantList}', 'ApplicantEventController@update');
-        Route::delete('/delete/applicant-event/list/{applicantList}', 'ApplicantEventController@destroy');
+        // Route::get('/applicant-event/list/{param}', 'ApplicantEventController@list');
+        // Route::get('/data/applicant-event/list/{event}', 'ApplicantEventController@loadApplicantList');
+        // Route::patch('/update/applicant-event/list/{applicantList}', 'ApplicantEventController@update');
+        // Route::delete('/delete/applicant-event/list/{applicantList}', 'ApplicantEventController@destroy');
 
     });
 });
